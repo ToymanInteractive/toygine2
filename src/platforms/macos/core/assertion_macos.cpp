@@ -52,13 +52,13 @@ StackWalkCallback _stackWalkCallback = nullptr;
 bool _initialized = false;
 
 /// Previous SIGUSR1 handler, restored on deInitialize().
-sig_t _previousUSR1Handler = nullptr;
+sig_t _previousUSR1Handler = SIG_ERR;
 /// Previous SIGBUS handler, restored on deInitialize().
-sig_t _previousBUShandler  = nullptr;
+sig_t _previousBUShandler  = SIG_ERR;
 /// Previous SIGFPE handler, restored on deInitialize().
-sig_t _previousFPEhandler  = nullptr;
+sig_t _previousFPEhandler  = SIG_ERR;
 /// Previous SIGSEGV handler, restored on deInitialize().
-sig_t _previousEGVhandler  = nullptr;
+sig_t _previousEGVhandler  = SIG_ERR;
 
 /*!
   \struct SignalInfo
@@ -155,8 +155,9 @@ void fillStacktrace(char * dest, size_t destSize, size_t skipFrames = 1) noexcep
     const char * moduleName = (lastSlash != nullptr) ? lastSlash + 1 : fullName;
 
     const char * symbolName = info.dli_sname != nullptr ? info.dli_sname : "?";
-    const auto   shift
-      = static_cast<ptrdiff_t>(static_cast<const char *>(addrList[index]) - static_cast<const char *>(info.dli_saddr));
+    const auto   shift      = info.dli_saddr != nullptr
+                                ? static_cast<const char *>(addrList[index]) - static_cast<const char *>(info.dli_saddr)
+                                : 0;
 
     int          status;
     char *       demangled = abi::__cxa_demangle(symbolName, nullptr, nullptr, &status);
@@ -235,19 +236,19 @@ void deInitialize() noexcept {
   _stackWalkCallback = nullptr;
   _assertCallback    = nullptr;
 
-  if (_previousEGVhandler != nullptr)
+  if (_previousEGVhandler != SIG_ERR)
     signal(SIGSEGV, _previousEGVhandler);
-  if (_previousUSR1Handler != nullptr)
+  if (_previousUSR1Handler != SIG_ERR)
     signal(SIGUSR1, _previousUSR1Handler);
-  if (_previousBUShandler != nullptr)
+  if (_previousBUShandler != SIG_ERR)
     signal(SIGBUS, _previousBUShandler);
-  if (_previousFPEhandler != nullptr)
+  if (_previousFPEhandler != SIG_ERR)
     signal(SIGFPE, _previousFPEhandler);
 
-  _previousEGVhandler  = nullptr;
-  _previousUSR1Handler = nullptr;
-  _previousBUShandler  = nullptr;
-  _previousFPEhandler  = nullptr;
+  _previousEGVhandler  = SIG_ERR;
+  _previousUSR1Handler = SIG_ERR;
+  _previousBUShandler  = SIG_ERR;
+  _previousFPEhandler  = SIG_ERR;
 
   _initialized = false;
 }
