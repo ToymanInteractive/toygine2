@@ -55,7 +55,7 @@ namespace toy::assertion {
 
   \note Must not throw. Prefer setCallbacks() to register after initialize().
 */
-using AssertionCallback = bool (*)(const char * assertionString) noexcept;
+using AssertionCallback = bool (*)(const char * assertionString);
 
 /*!
   \brief Called for each stack frame when generating a trace; receives one formatted frame string.

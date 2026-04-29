@@ -28,7 +28,7 @@
 
 #include "core.hpp"
 
-[[noreturn]] static bool assertionCallback(const char * message) noexcept {
+[[noreturn]] static bool assertionCallback(const char * message) {
   throw std::runtime_error(message);
 }
 
