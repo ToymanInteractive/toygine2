@@ -48,6 +48,9 @@ AssertionCallback _assertCallback = nullptr;
 /// Active stack-walk callback; invoked with the formatted stack trace on crash.
 StackWalkCallback _stackWalkCallback = nullptr;
 
+/// Set after the first initialize(); prevents overwriting saved handlers on repeated calls.
+bool _initialized = false;
+
 /// Previous SIGUSR1 handler, restored on deInitialize().
 sig_t _previousUSR1Handler = nullptr;
 /// Previous SIGBUS handler, restored on deInitialize().
@@ -194,12 +197,17 @@ void fillStacktrace(char * dest, size_t destSize, size_t skipFrames = 1) noexcep
 
   _stackWalkCallback(buffer);
 
-  exit(signalId == SIGUSR1 ? EXIT_SUCCESS : EXIT_FAILURE);
+  exit(EXIT_FAILURE);
 }
 
 } // namespace
 
 void initialize() noexcept {
+  if (_initialized)
+    return;
+
+  _initialized = true;
+
   _assertCallback    = nullptr;
   _stackWalkCallback = nullptr;
 
@@ -221,6 +229,9 @@ void initialize() noexcept {
 }
 
 void deInitialize() noexcept {
+  if (!_initialized)
+    return;
+
   _stackWalkCallback = nullptr;
   _assertCallback    = nullptr;
 
@@ -232,6 +243,13 @@ void deInitialize() noexcept {
     signal(SIGBUS, _previousBUShandler);
   if (_previousFPEhandler != nullptr)
     signal(SIGFPE, _previousFPEhandler);
+
+  _previousEGVhandler  = nullptr;
+  _previousUSR1Handler = nullptr;
+  _previousBUShandler  = nullptr;
+  _previousFPEhandler  = nullptr;
+
+  _initialized = false;
 }
 
 void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback) noexcept {

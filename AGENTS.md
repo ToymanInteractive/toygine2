@@ -264,7 +264,7 @@ If something can be checked at compile time, it should be.
 
 - Types (classes, structs, enums, concepts): **`PascalCase`**
 - Functions and variables: **`camelCase`**
-- Constants (`constexpr` / `const`): **`camelCase`** with **`c_`** (named-namespace, anonymous-namespace, or non-`private` members, e.g. `c_maxLabelLength`) or **`_`** (only `private` members, e.g. `_tileSize`; never at namespace scope). Inside a function, local `const` / `constexpr` may omit the prefix.
+- Constants (`constexpr` / `const`): **`camelCase`** with **`c_`** (namespace, file `static`, or non-`private` members, e.g. `c_maxLabelLength`) or **`_`** (only `private` members, e.g. `_tileSize`; never at namespace/file scope). Inside a function, local `const` / `constexpr` may omit the prefix.
 - Template parameters: **`PascalCase`**; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
 - Type aliases: **`snake_case`** with **`_type`** suffix (e.g. `value_type`, `size_type`, `const_reference`)
 - Namespaces: **`snake_case`**
@@ -276,13 +276,10 @@ Names must describe **intent**, not implementation details.
 - When a class provides an STL-like interface (iterators, `push_back`, `find_first_of`, etc.), follow the standard library naming conventions for those methods.
 - Non-STL-compatible methods use `camelCase` as usual.
 
-### Private Members and Anonymous Namespace Members
+### Private Members
 
 - All private data members and private member functions **must** start with a leading underscore (`_`).
-- All non-constant variables declared directly in an anonymous namespace **must** start with a leading underscore (`_`).
-- Constants (`constexpr` / `const`) in anonymous namespaces use the `c_` prefix, identical to named-namespace scope.
-- Type declarations (`struct`, `class`, `enum`) in anonymous namespaces follow `PascalCase` regardless of scope.
-- Protected and public members of named namespaces must **not** use a leading underscore.
+- This rule applies only to private members; protected and public members must **not** use a leading underscore.
 - The leading underscore is part of the naming convention and must be preserved consistently.
 
 ### Const Reference Style

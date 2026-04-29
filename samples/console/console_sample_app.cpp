@@ -29,6 +29,17 @@
 
 using namespace toy;
 
+int simpleFuction() {
+  //  assert_message(5 == 4, "This is a sample assert message");
+  //  assert(5 == 4);
+
+  int32_t * data = nullptr;
+
+  data[0] = 0;
+
+  return 52 / 4 - 16;
+}
+
 class ConsoleSampleApp : public toy::application::ConsoleApplication {
 private:
   bool runInternal() noexcept final;
@@ -36,6 +47,8 @@ private:
 
 bool ConsoleSampleApp::runInternal() noexcept {
   std::cout << "Hello world from Console sample app" << std::endl;
+
+  simpleFuction();
 
   return true;
 }
