@@ -27,6 +27,8 @@
 
 #include "toygine2.hpp"
 
+using namespace toy;
+
 class ConsoleSampleApp : public toy::application::ConsoleApplication {
 private:
   bool runInternal() noexcept final;

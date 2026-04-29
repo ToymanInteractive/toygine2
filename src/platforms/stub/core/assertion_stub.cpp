@@ -28,55 +28,62 @@
 
 namespace toy::assertion {
 
-static AssertionCallback s_assertionCallback = nullptr;
+namespace {
 
-void initialize() {
-  s_assertionCallback = nullptr;
+/// Size in bytes of the stack trace and assertion string buffers.
+constexpr size_t c_stringBufferSize = 4096;
+
+/// Active assertion callback; invoked when an assertion fires in debug builds.
+AssertionCallback _assertionCallback = nullptr;
+
+} // namespace
+
+void initialize() noexcept {
+  _assertionCallback = nullptr;
 }
 
-void deInitialize() {
-  s_assertionCallback = nullptr;
+void deInitialize() noexcept {
+  _assertionCallback = nullptr;
 }
 
-void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWalkCallback stackWalkCallback) {
-  s_assertionCallback = assertionCallback;
+void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWalkCallback stackWalkCallback) noexcept {
+  _assertionCallback = assertionCallback;
 }
 
 #ifdef _DEBUG
 
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               size_t lineNumber) {
-  char assertionString[4096];
+               size_t lineNumber) noexcept {
+  static bool reEnter = false;
+  if (reEnter)
+    return;
+
+  reEnter = true;
+
+  char assertionString[c_stringBufferSize];
   int  written;
 
   if (message == nullptr)
-    written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
+    written = snprintf(assertionString, c_stringBufferSize, "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
                        lineNumber, code);
   else
-    written = snprintf(assertionString, sizeof(assertionString), "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
+    written = snprintf(assertionString, c_stringBufferSize, "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
                        lineNumber, message, code);
 
-  // Check for truncation
-  if (written >= static_cast<int>(sizeof(assertionString))) {
-    constexpr const char * const truncationMessage = "...[TRUNCATED]";
-    constexpr auto               truncationLength  = char_traits<char>::length(truncationMessage) + 1;
+  if (written >= static_cast<int>(c_stringBufferSize)) {
+    constexpr const char * truncationMessage = "...[TRUNCATED]";
+    constexpr auto         truncationLength  = char_traits<char>::length(truncationMessage) + 1;
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    strcpy_s(&assertionString[sizeof(assertionString) - truncationLength], truncationLength, truncationMessage);
+    strcpy_s(&assertionString[c_stringBufferSize - truncationLength], truncationLength, truncationMessage);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    std::strncpy(&assertionString[sizeof(assertionString) - truncationLength], truncationMessage, truncationLength);
+    std::strncpy(&assertionString[c_stringBufferSize - truncationLength], truncationMessage, truncationLength);
 #endif
   }
 
-  static bool assertReEnter = false;
-  if (assertReEnter)
-    return;
+  if (_assertionCallback != nullptr)
+    _assertionCallback(assertionString);
 
-  assertReEnter = true;
-
-  if (s_assertionCallback != nullptr)
-    (*s_assertionCallback)(assertionString);
-
-  assertReEnter = false;
+  reEnter = false;
 }
 
 #endif // _DEBUG

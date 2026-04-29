@@ -32,7 +32,7 @@
   throw std::runtime_error(message);
 }
 
-static void stackWalkCallback([[maybe_unused]] const char * info) {}
+static void stackWalkCallback([[maybe_unused]] const char * info) noexcept {}
 
 #if defined(__GBA__)
 
