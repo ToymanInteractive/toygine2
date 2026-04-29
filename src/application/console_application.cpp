@@ -29,7 +29,7 @@
 
 namespace toy::application {
 
-static bool consoleAssert(const char * message) {
+static bool consoleAssert(const char * message) noexcept {
   std::cout << "--------------------------------------------\n";
   std::cout << " Assert Failed!\n";
   std::cout << "--------------------------------------------\n";
