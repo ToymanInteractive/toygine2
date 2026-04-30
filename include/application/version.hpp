@@ -108,9 +108,7 @@ struct Version {
 
     \return \c true if all components are equal, \c false otherwise.
   */
-  [[nodiscard]] friend constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept {
-    return lhs.major == rhs.major && lhs.minor == rhs.minor && lhs.patch == rhs.patch && lhs.revision == rhs.revision;
-  }
+  [[nodiscard]] friend constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept = default;
 
   /*!
     \brief Three-way comparison of two \ref toy::application::Version values (lexicographic order).
