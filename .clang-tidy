@@ -1,0 +1,159 @@
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/tools/extra/docs/clang-tidy/index.html
+#                https://clang.llvm.org/extra/clang-tidy/checks/list.html
+
+Checks: >
+  -bugprone-easily-swappable-parameters,
+
+#  -bugprone-exception-escape,
+#  clang-analyzer-*,
+#  cppcoreguidelines-*,
+#  -cppcoreguidelines-avoid-c-arrays,
+#  -cppcoreguidelines-avoid-magic-numbers,
+#  -cppcoreguidelines-owning-memory,
+#  -cppcoreguidelines-pro-bounds-array-to-pointer-decay,
+#  -cppcoreguidelines-pro-bounds-constant-array-index,
+#  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+#  -cppcoreguidelines-pro-type-reinterpret-cast,
+#  -cppcoreguidelines-pro-type-union-access,
+#  misc-*,
+#  -misc-no-recursion,
+#  -misc-non-private-member-variables-in-classes,
+#  modernize-*,
+#  -modernize-use-trailing-return-type,
+#  performance-*,
+#  readability-*,
+#  -readability-function-cognitive-complexity,
+#  -readability-identifier-length,
+#  -readability-magic-numbers,
+
+# WarningsAsErrors: '*'
+
+# HeaderFilterRegex: '.*'
+
+# CheckOptions:
+# -------------------------------------------------------------------------
+# Naming conventions (AGENTS.md)
+# -------------------------------------------------------------------------
+
+# Namespaces: snake_case
+#  - key: readability-identifier-naming.NamespaceCase
+#    value: lower_case
+
+# Types (class, struct, enum, concept): PascalCase
+#  - key: readability-identifier-naming.ClassCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.StructCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.EnumCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.EnumConstantCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.ConceptCase
+#    value: CamelCase
+
+# Type aliases: snake_case with _type suffix
+#  - key: readability-identifier-naming.TypeAliasCase
+#    value: lower_case
+#  - key: readability-identifier-naming.TypeAliasSuffix
+#    value: _type
+#  - key: readability-identifier-naming.TypedefCase
+#    value: lower_case
+#  - key: readability-identifier-naming.TypedefSuffix
+#    value: _type
+
+# Template parameters: PascalCase
+#  - key: readability-identifier-naming.TemplateParameterCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.TypeTemplateParameterCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.ValueTemplateParameterCase
+#    value: CamelCase
+#  - key: readability-identifier-naming.TemplateTemplateParameterCase
+#    value: CamelCase
+
+# Functions and methods: camelCase
+#  - key: readability-identifier-naming.FunctionCase
+#    value: camelBack
+#  - key: readability-identifier-naming.MethodCase
+#    value: camelBack
+
+# Private methods: _camelCase
+#  - key: readability-identifier-naming.PrivateMethodCase
+#    value: camelBack
+#  - key: readability-identifier-naming.PrivateMethodPrefix
+#    value: _
+
+# Variables and parameters: camelCase
+#  - key: readability-identifier-naming.VariableCase
+#    value: camelBack
+#  - key: readability-identifier-naming.LocalVariableCase
+#    value: camelBack
+#  - key: readability-identifier-naming.LocalPointerCase
+#    value: camelBack
+#  - key: readability-identifier-naming.ParameterCase
+#    value: camelBack
+#  - key: readability-identifier-naming.PointerParameterCase
+#    value: camelBack
+#  - key: readability-identifier-naming.ConstantParameterCase
+#    value: camelBack
+#  - key: readability-identifier-naming.ConstantPointerParameterCase
+#    value: camelBack
+
+# Public and protected members: camelCase
+#  - key: readability-identifier-naming.PublicMemberCase
+#    value: camelBack
+#  - key: readability-identifier-naming.ProtectedMemberCase
+#    value: camelBack
+
+# Private members: _camelCase
+#  - key: readability-identifier-naming.PrivateMemberCase
+#    value: camelBack
+#  - key: readability-identifier-naming.PrivateMemberPrefix
+#    value: _
+
+# Non-private constants (namespace / file-static / class non-private): c_camelCase
+#  - key: readability-identifier-naming.GlobalConstantCase
+#    value: camelBack
+#  - key: readability-identifier-naming.GlobalConstantPrefix
+#    value: c_
+#  - key: readability-identifier-naming.StaticConstantCase
+#    value: camelBack
+#  - key: readability-identifier-naming.StaticConstantPrefix
+#    value: c_
+#  - key: readability-identifier-naming.ClassConstantCase
+#    value: camelBack
+#  - key: readability-identifier-naming.ClassConstantPrefix
+#    value: c_
+#  - key: readability-identifier-naming.ConstexprVariableCase
+#    value: camelBack
+#  - key: readability-identifier-naming.ConstexprVariablePrefix
+#    value: c_
+
+# Local constants: camelCase, no prefix
+#  - key: readability-identifier-naming.LocalConstantCase
+#    value: camelBack
+#  - key: readability-identifier-naming.LocalConstantPointerCase
+#    value: camelBack
+
+# Macros: UPPER_CASE
+#  - key: readability-identifier-naming.MacroDefinitionCase
+#    value: UPPER_CASE
+
+# -------------------------------------------------------------------------
+# Other settings
+# -------------------------------------------------------------------------
+
+#  - key: readability-braces-around-statements.ShortStatementLines
+#    value: '1'
+#  - key: readability-implicit-bool-conversion.AllowPointerConditions
+#    value: 'true'
+#  - key: readability-implicit-bool-conversion.AllowIntegerConditions
+#    value: 'false'
+#  - key: modernize-use-nullptr.NullMacros
+#    value: 'NULL'
+#  - key: performance-move-const-arg.CheckTriviallyCopyableMove
+#    value: 'false'
+#  - key: cppcoreguidelines-special-member-functions.AllowSoleDefaultDtor
+#    value: 'true'
+#  - key: cppcoreguidelines-special-member-functions.AllowMissingMoveFunctions
+#    value: 'true'
