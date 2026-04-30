@@ -1,8 +1,9 @@
 var searchData=
 [
   ['section_0',['Section',['../db/d6f/classtoy_1_1geometry_1_1_section.html',1,'toy::geometry']]],
-  ['socketstatistics_1',['SocketStatistics',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html',1,'toy::network']]],
-  ['staticcallback_2',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
-  ['steadyclock_3',['SteadyClock',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html',1,'toy::chrono']]],
-  ['stringfixedstorage_4',['StringFixedStorage',['../d0/d21/classtoy_1_1_string_fixed_storage.html',1,'toy']]]
+  ['signalinfo_1',['SignalInfo',['../d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info.html',1,'toy::assertion::anonymous_namespace{assertion_macos.cpp}']]],
+  ['socketstatistics_2',['SocketStatistics',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html',1,'toy::network']]],
+  ['staticcallback_3',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
+  ['steadyclock_4',['SteadyClock',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html',1,'toy::chrono']]],
+  ['stringfixedstorage_5',['StringFixedStorage',['../d0/d21/classtoy_1_1_string_fixed_storage.html',1,'toy']]]
 ];

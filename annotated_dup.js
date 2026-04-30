@@ -32,6 +32,11 @@ var annotated_dup =
         [ "Endpoint", "d3/d53/classtoy_1_1network_1_1_endpoint.html", "d3/d53/classtoy_1_1network_1_1_endpoint" ],
         [ "SocketStatistics", "df/d86/structtoy_1_1network_1_1_socket_statistics.html", "df/d86/structtoy_1_1network_1_1_socket_statistics" ]
       ] ],
+      [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
+        [ "anonymous_namespace{assertion_macos.cpp}", "d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html", [
+          [ "SignalInfo", "d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info.html", "d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info" ]
+        ] ]
+      ] ],
       [ "log", "da/d15/namespacetoy_1_1log.html", [
         [ "Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", "d8/dfc/structtoy_1_1log_1_1_metadata" ],
         [ "Record", "d9/d14/structtoy_1_1log_1_1_record.html", "d9/d14/structtoy_1_1log_1_1_record" ],

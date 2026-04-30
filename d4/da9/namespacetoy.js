@@ -18,16 +18,7 @@ var namespacetoy =
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
-    [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
-      [ "AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
-      [ "StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
-      [ "assertCompileTimeError", "d2/da2/namespacetoy_1_1assertion.html#ab81e4cad6984d23abbdd51bb7af03593", null ],
-      [ "assertion", "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db", null ],
-      [ "deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
-      [ "initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
-      [ "setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
-      [ "s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
-    ] ],
+    [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", "d2/da2/namespacetoy_1_1assertion" ],
     [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
       [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [

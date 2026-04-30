@@ -1,8 +1,9 @@
 var assertion__stub_8cpp =
 [
-    [ "toy::assertion::assertion", "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db", null ],
-    [ "toy::assertion::deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
-    [ "toy::assertion::initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
-    [ "toy::assertion::setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ],
-    [ "toy::assertion::s_assertionCallback", "d2/da2/namespacetoy_1_1assertion.html#abf0c95a6d0312b84decc08fc040187c9", null ]
+    [ "toy::assertion::assertion", "d2/da2/namespacetoy_1_1assertion.html#a9cc622976838c1d066ab73ac62f64641", null ],
+    [ "toy::assertion::deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f", null ],
+    [ "toy::assertion::initialize", "d2/da2/namespacetoy_1_1assertion.html#a27103d6d4ef3d3f5fbc2f772f5c7facf", null ],
+    [ "toy::assertion::setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#a006d2eb7ab73050e345b3709d9c02716", null ],
+    [ "toy::assertion::anonymous_namespace{assertion_stub.cpp}::_assertionCallback", "dd/d83/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__stub_8cpp_03.html#aed5e22979f57cab445e33e754749a1f3", null ],
+    [ "toy::assertion::anonymous_namespace{assertion_stub.cpp}::c_stringBufferSize", "dd/d83/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__stub_8cpp_03.html#a1bf9e2f068eff6f409428c9d6a5555a5", null ]
 ];

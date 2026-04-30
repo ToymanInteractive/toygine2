@@ -1,10 +1,10 @@
 var assertion_8hpp =
 [
     [ "toy::assertion::AssertionCallback", "d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e", null ],
-    [ "toy::assertion::StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#af491e4e307d14db3efeafb9a77ae76ef", null ],
+    [ "toy::assertion::StackWalkCallback", "d2/da2/namespacetoy_1_1assertion.html#ab0cbc12475088c0e320ae8b5936ae0a4", null ],
     [ "toy::assertion::assertCompileTimeError", "d2/da2/namespacetoy_1_1assertion.html#ab81e4cad6984d23abbdd51bb7af03593", null ],
-    [ "toy::assertion::assertion", "d2/da2/namespacetoy_1_1assertion.html#a71e8fbdc3d1a6ccee148e120d0c890db", null ],
-    [ "toy::assertion::deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a82b42cf518871245c19337431cfe63e5", null ],
-    [ "toy::assertion::initialize", "d2/da2/namespacetoy_1_1assertion.html#a1586eee3b9f8e4fc0b659ff2d402e28a", null ],
-    [ "toy::assertion::setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#ab92066b98ab69bcf7db8e1089ea4f755", null ]
+    [ "toy::assertion::assertion", "d2/da2/namespacetoy_1_1assertion.html#a9cc622976838c1d066ab73ac62f64641", null ],
+    [ "toy::assertion::deInitialize", "d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f", null ],
+    [ "toy::assertion::initialize", "d2/da2/namespacetoy_1_1assertion.html#a27103d6d4ef3d3f5fbc2f772f5c7facf", null ],
+    [ "toy::assertion::setCallbacks", "d2/da2/namespacetoy_1_1assertion.html#a006d2eb7ab73050e345b3709d9c02716", null ]
 ];
