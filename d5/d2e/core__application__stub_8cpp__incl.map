@@ -1,19 +1,17 @@
 <map id="src/platforms/stub/application/core_application_stub.cpp" name="src/platforms/stub/application/core_application_stub.cpp">
-<area shape="rect" id="Node000001" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="8429,5,8638,60"/>
-<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="8472,108,8595,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="8536,60,8536,94,8531,94,8531,60"/>
+<area shape="rect" id="Node000001" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="8403,5,8613,60"/>
+<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="8447,108,8569,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="8511,60,8511,94,8505,94,8505,60"/>
 <area shape="rect" id="Node000003" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3450,189,3529,214"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="8472,126,3542,202,3542,197,8472,120"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="8446,126,3543,202,3542,197,8446,120"/>
 <area shape="rect" id="Node000063" href="$d5/ddf/console__application_8hpp.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="8322,181,8470,221"/>
-<area shape="poly" id="edge69_Node000002_Node000063" title=" " alt="" coords="8514,136,8443,177,8440,172,8512,131"/>
+<area shape="poly" id="edge69_Node000002_Node000063" title=" " alt="" coords="8493,136,8436,176,8433,171,8490,131"/>
 <area shape="rect" id="Node000064" href="$db/dd6/core__application_8hpp.html" title="Abstract base class for platform application lifecycle." alt="" coords="8364,284,8521,309"/>
-<area shape="poly" id="edge72_Node000002_Node000064" title=" " alt="" coords="8530,135,8458,273,8453,270,8525,132"/>
+<area shape="poly" id="edge72_Node000002_Node000064" title=" " alt="" coords="8508,134,8499,174,8484,222,8459,273,8454,271,8479,220,8494,173,8503,133"/>
 <area shape="rect" id="Node000065" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="8451,379,8549,405"/>
-<area shape="poly" id="edge73_Node000002_Node000065" title=" " alt="" coords="8538,133,8545,214,8544,269,8536,325,8517,369,8512,366,8531,323,8539,269,8540,214,8533,134"/>
+<area shape="poly" id="edge73_Node000002_Node000065" title=" " alt="" coords="8515,133,8525,166,8536,213,8541,269,8536,325,8517,369,8512,366,8531,323,8536,269,8531,214,8520,167,8510,134"/>
 <area shape="rect" id="Node000066" href="$dd/dec/core__application_8inl.html" title="Inline implementations for toy::application::CoreApplication accessors." alt="" coords="8595,189,8821,214"/>
-<area shape="poly" id="edge74_Node000002_Node000066" title=" " alt="" coords="8560,131,8671,181,8669,185,8558,136"/>
-<area shape="rect" id="Node000067" href="$d2/dbe/version_8inl.html" title="Inline implementations for toy::application::Version comparison operators." alt="" coords="8845,189,9011,214"/>
-<area shape="poly" id="edge75_Node000002_Node000067" title=" " alt="" coords="8591,131,8858,183,8857,189,8590,136"/>
+<area shape="poly" id="edge74_Node000002_Node000066" title=" " alt="" coords="8538,131,8667,181,8665,186,8536,136"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="5,284,91,309"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="3450,206,2796,212,1703,225,646,245,281,258,165,265,103,272,80,280,78,275,102,267,164,259,280,252,646,240,1703,219,2796,206,3450,200"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="115,284,171,309"/>

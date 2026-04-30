@@ -18,11 +18,9 @@ var NAVTREEINDEX0 =
 "d0/d27/format__context_8inl.html":[6,0,0,2,20],
 "d0/d27/format__context_8inl_source.html":[6,0,0,2,20],
 "d0/d3e/namespacetoy_1_1application.html":[3,0,1,0],
-"d0/d3e/namespacetoy_1_1application.html#a0c8cd07bec1d567db6d25667a624564c":[3,0,1,0,6],
 "d0/d3e/namespacetoy_1_1application.html#a60873b8f6654ffff1d413aa6eab942f5":[3,0,1,0,3],
 "d0/d3e/namespacetoy_1_1application.html#a93d91b5ee416b2fccaf26dd20f7088c0":[3,0,1,0,4],
-"d0/d3e/namespacetoy_1_1application.html#a9fb5718f0e7e2524906a23c67046d31a":[3,0,1,0,5],
-"d0/d3e/namespacetoy_1_1application.html#aa282e6de23479c33310525c29bdb01e9":[3,0,1,0,7],
+"d0/d3e/namespacetoy_1_1application.html#aa282e6de23479c33310525c29bdb01e9":[3,0,1,0,5],
 "d0/d5a/concepttoy_1_1_o_string_stream_backend.html":[2,2,2,0],
 "d0/d67/format_8inl.html":[6,0,0,2,18],
 "d0/d67/format_8inl_source.html":[6,0,0,2,18],
@@ -165,8 +163,6 @@ var NAVTREEINDEX0 =
 "d2/da2/namespacetoy_1_1assertion.html#a9cc622976838c1d066ab73ac62f64641":[3,0,1,7,5],
 "d2/da2/namespacetoy_1_1assertion.html#ab0cbc12475088c0e320ae8b5936ae0a4":[3,0,1,7,3],
 "d2/da2/namespacetoy_1_1assertion.html#ab81e4cad6984d23abbdd51bb7af03593":[3,0,1,7,4],
-"d2/dbe/version_8inl.html":[6,0,0,0,4],
-"d2/dbe/version_8inl_source.html":[6,0,0,0,4],
 "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html":[3,0,1,5,2],
 "d2/dc3/structtoy_1_1math_1_1is__fixed__point.html":[5,0,1,4,1],
 "d2/dd2/string__fixed__storage_8hpp.html":[6,0,0,2,33],
@@ -249,5 +245,9 @@ var NAVTREEINDEX0 =
 "d3/d7a/classtoy_1_1_fixed_string.html#a50f3a0981ef8977421e7ca9b26716799":[2,2,1,1,105],
 "d3/d7a/classtoy_1_1_fixed_string.html#a58766d349db9bcadf7ec2d9139dc7594":[2,2,1,1,51],
 "d3/d7a/classtoy_1_1_fixed_string.html#a595b8daf5e844d66d63b1807b115c4d3":[2,2,1,1,101],
-"d3/d7a/classtoy_1_1_fixed_string.html#a59abe3a985749d133aa72a8ab3c92575":[2,2,1,1,87]
+"d3/d7a/classtoy_1_1_fixed_string.html#a59abe3a985749d133aa72a8ab3c92575":[2,2,1,1,87],
+"d3/d7a/classtoy_1_1_fixed_string.html#a5db4f8a91e20c67cd6cfdaa0f295d810":[2,2,1,1,3],
+"d3/d7a/classtoy_1_1_fixed_string.html#a616ed816856ff2ca07bb80da0199fc95":[2,2,1,1,107],
+"d3/d7a/classtoy_1_1_fixed_string.html#a636f60554c4415bdcd77034106a2ae0f":[2,2,1,1,91],
+"d3/d7a/classtoy_1_1_fixed_string.html#a63a582a6a6199f521d12735079bab7c2":[2,2,1,1,92]
 };

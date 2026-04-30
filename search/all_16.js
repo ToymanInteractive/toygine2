@@ -15,12 +15,11 @@ var searchData=
   ['version_12',['Version',['../d7/d33/structtoy_1_1application_1_1_version.html',1,'toy::application']]],
   ['version_13',['version',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a6d785a4ffeb5ebfccdae7a1207e0fc27',1,'toy::application::CoreApplication']]],
   ['version_2ehpp_14',['version.hpp',['../d7/dad/version_8hpp.html',1,'']]],
-  ['version_2einl_15',['version.inl',['../d2/dbe/version_8inl.html',1,'']]],
-  ['vformat_16',['vformat',['../de/d08/group___format.html#gac84e6047764bd1d720bbda3d0c6291b8',1,'toy']]],
-  ['vformatto_17',['vformatTo',['../de/d08/group___format.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a',1,'toy']]],
-  ['view_18',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a97643897fa4110ab84c86f57788fd8de',1,'toy::OStringStream']]],
-  ['voice_19',['Voice',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
-  ['volume_5ftype_2ehpp_20',['volume_type.hpp',['../db/d37/volume__type_8hpp.html',1,'']]],
-  ['volumetype_21',['VolumeType',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c',1,'toy::audio']]],
-  ['vs_20runtime_20testing_22',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]]
+  ['vformat_15',['vformat',['../de/d08/group___format.html#gac84e6047764bd1d720bbda3d0c6291b8',1,'toy']]],
+  ['vformatto_16',['vformatTo',['../de/d08/group___format.html#ga024f540d2d32f3ac5fe1bb21b3f57a1a',1,'toy']]],
+  ['view_17',['view',['../d7/d15/classtoy_1_1_o_string_stream.html#a97643897fa4110ab84c86f57788fd8de',1,'toy::OStringStream']]],
+  ['voice_18',['Voice',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb',1,'toy::audio']]],
+  ['volume_5ftype_2ehpp_19',['volume_type.hpp',['../db/d37/volume__type_8hpp.html',1,'']]],
+  ['volumetype_20',['VolumeType',['../dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c',1,'toy::audio']]],
+  ['vs_20runtime_20testing_21',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]]
 ];

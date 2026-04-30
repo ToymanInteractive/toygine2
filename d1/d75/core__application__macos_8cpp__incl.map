@@ -1,25 +1,23 @@
 <map id="src/platforms/macos/application/core_application_macos.cpp" name="src/platforms/macos/application/core_application_macos.cpp">
-<area shape="rect" id="Node000001" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="8261,5,8470,60"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="8203,108,8266,133"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="8327,62,8265,103,8262,98,8324,58"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="8291,108,8349,133"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="8354,61,8335,97,8330,95,8349,59"/>
-<area shape="rect" id="Node000004" title=" " alt="" coords="8373,108,8448,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="8382,59,8401,95,8396,97,8377,61"/>
-<area shape="rect" id="Node000005" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="8472,108,8595,133"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="8418,58,8500,99,8497,104,8415,62"/>
+<area shape="rect" id="Node000001" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="8235,5,8445,60"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8178,108,8241,133"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="8302,62,8240,103,8237,98,8299,58"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8265,108,8324,133"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="8329,61,8309,97,8305,95,8324,59"/>
+<area shape="rect" id="Node000004" title=" " alt="" coords="8348,108,8423,133"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="8356,59,8375,95,8371,97,8351,61"/>
+<area shape="rect" id="Node000005" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="8447,108,8569,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="8393,58,8474,99,8472,104,8390,62"/>
 <area shape="rect" id="Node000006" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3450,189,3529,214"/>
-<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="8472,135,8460,136,8122,151,7545,164,5997,184,4450,197,3543,202,3543,197,4450,192,5997,179,7545,159,8121,146,8460,131,8472,129"/>
+<area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="8447,135,8435,136,8098,151,7524,164,5984,184,4445,197,3542,202,3542,197,4445,192,5984,179,7524,159,8098,146,8434,131,8446,129"/>
 <area shape="rect" id="Node000066" href="$d5/ddf/console__application_8hpp.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="8322,181,8470,221"/>
-<area shape="poly" id="edge72_Node000005_Node000066" title=" " alt="" coords="8514,136,8443,177,8440,172,8512,131"/>
+<area shape="poly" id="edge72_Node000005_Node000066" title=" " alt="" coords="8493,136,8436,176,8433,171,8490,131"/>
 <area shape="rect" id="Node000067" href="$db/dd6/core__application_8hpp.html" title="Abstract base class for platform application lifecycle." alt="" coords="8364,284,8521,309"/>
-<area shape="poly" id="edge75_Node000005_Node000067" title=" " alt="" coords="8530,135,8458,273,8453,270,8525,132"/>
+<area shape="poly" id="edge75_Node000005_Node000067" title=" " alt="" coords="8508,134,8499,174,8484,222,8459,273,8454,271,8479,220,8494,173,8503,133"/>
 <area shape="rect" id="Node000068" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="8451,379,8549,405"/>
-<area shape="poly" id="edge76_Node000005_Node000068" title=" " alt="" coords="8538,133,8545,214,8544,269,8536,325,8517,369,8512,366,8531,323,8539,269,8540,214,8533,134"/>
+<area shape="poly" id="edge76_Node000005_Node000068" title=" " alt="" coords="8515,133,8525,166,8536,213,8541,269,8536,325,8517,369,8512,366,8531,323,8536,269,8531,214,8520,167,8510,134"/>
 <area shape="rect" id="Node000069" href="$dd/dec/core__application_8inl.html" title="Inline implementations for toy::application::CoreApplication accessors." alt="" coords="8595,189,8821,214"/>
-<area shape="poly" id="edge77_Node000005_Node000069" title=" " alt="" coords="8560,131,8671,181,8669,185,8558,136"/>
-<area shape="rect" id="Node000070" href="$d2/dbe/version_8inl.html" title="Inline implementations for toy::application::Version comparison operators." alt="" coords="8845,189,9011,214"/>
-<area shape="poly" id="edge78_Node000005_Node000070" title=" " alt="" coords="8591,131,8858,183,8857,189,8590,136"/>
+<area shape="poly" id="edge77_Node000005_Node000069" title=" " alt="" coords="8538,131,8667,181,8665,186,8536,136"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="5,284,91,309"/>
 <area shape="poly" id="edge6_Node000006_Node000007" title=" " alt="" coords="3450,206,2796,212,1703,225,646,245,281,258,165,265,103,272,80,280,78,275,102,267,164,259,280,252,646,240,1703,219,2796,206,3450,200"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="115,284,171,309"/>

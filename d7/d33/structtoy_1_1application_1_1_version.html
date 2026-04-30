@@ -133,6 +133,13 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a5f1617c9aabe76595909d409fdb3a087"><td class="mdescLeft">&#160;</td><td class="mdescRight">Patch version; backward-compatible fixes.  <br /></td></tr>
 <tr class="memitem:a1c4247fbb7eac4c15835dcc164f9bf31" id="r_a1c4247fbb7eac4c15835dcc164f9bf31"><td class="memItemLeft"><a class="el" href="../../d5/d03/classtoy_1_1_c_string_view.html">CStringView</a>&#160;</td><td class="memItemRight"><a class="el" href="#a1c4247fbb7eac4c15835dcc164f9bf31">revision</a> {}</td></tr>
 <tr class="memdesc:a1c4247fbb7eac4c15835dcc164f9bf31"><td class="mdescLeft">&#160;</td><td class="mdescRight">Git revision string (e.g. commit hash). Must point to storage that outlives this <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:ad5d233287801a58d7bb636032bea6e53" id="r_ad5d233287801a58d7bb636032bea6e53"><td class="memItemLeft">constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#ad5d233287801a58d7bb636032bea6e53">operator==</a> (const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;lhs, const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;rhs) noexcept=default</td></tr>
+<tr class="memdesc:ad5d233287801a58d7bb636032bea6e53"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values.  <br /></td></tr>
+<tr class="memitem:a631560a1e16dc284179fed0b4825dabc" id="r_a631560a1e16dc284179fed0b4825dabc"><td class="memItemLeft">constexpr strong_ordering&#160;</td><td class="memItemRight"><a class="el" href="#a631560a1e16dc284179fed0b4825dabc">operator&lt;=&gt;</a> (const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;lhs, const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;rhs) noexcept</td></tr>
+<tr class="memdesc:a631560a1e16dc284179fed0b4825dabc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Three-way comparison of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values (lexicographic order).  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Application version information structure. </p>
@@ -181,7 +188,87 @@ Compatibility</h1>
 <dl class="section note"><dt>Note</dt><dd>For runtime parsing from strings, use separate utility functions.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>The string referenced by <code>revision</code> must outlive the <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> value. Storing a <code><a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure.">Version</a></code> that points to a temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string literal or storage with static lifetime.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a href="https://semver.org/">https://semver.org/</a> </dd></dl>
-</div><a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
+</div><a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a631560a1e16dc284179fed0b4825dabc" name="a631560a1e16dc284179fed0b4825dabc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a631560a1e16dc284179fed0b4825dabc">&#9670;&#160;</a></span>operator&lt;=&gt;</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">strong_ordering operator&lt;=&gt; </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Three-way comparison of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values (lexicographic order). </p>
+<p>Compares major, then minor, then patch, then revision.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Left-hand side version. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand side version.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>strong_ordering::less</code>, <code>strong_ordering::equal</code>, or <code>strong_ordering::greater</code>. </dd></dl>
+
+</div>
+</div>
+<a id="ad5d233287801a58d7bb636032bea6e53" name="ad5d233287801a58d7bb636032bea6e53"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad5d233287801a58d7bb636032bea6e53">&#9670;&#160;</a></span>operator==</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality of two <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html" title="toy::application::Version">toy::application::Version</a> values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Left-hand side version. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand side version.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd><code>true</code> if all components are equal, <code>false</code> otherwise. </dd></dl>
+
+</div>
+</div>
+<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
 <a id="a960eb5b40df2d8de0d99075d270ce537" name="a960eb5b40df2d8de0d99075d270ce537"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a960eb5b40df2d8de0d99075d270ce537">&#9670;&#160;</a></span>major</h2>
 

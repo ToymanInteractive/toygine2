@@ -1,23 +1,21 @@
 <map id="src/application/console_application.cpp" name="src/application/console_application.cpp">
-<area shape="rect" id="Node000001" title="Implementations for toy::application::ConsoleApplication." alt="" coords="8323,5,8493,45"/>
-<area shape="rect" id="Node000002" title=" " alt="" coords="8283,93,8344,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="8387,48,8340,86,8337,82,8383,43"/>
-<area shape="rect" id="Node000003" title=" " alt="" coords="8368,93,8448,119"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="8411,46,8411,79,8405,79,8405,46"/>
-<area shape="rect" id="Node000004" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="8472,93,8595,119"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="8440,43,8505,84,8502,88,8437,48"/>
+<area shape="rect" id="Node000001" title="Implementations for toy::application::ConsoleApplication." alt="" coords="8297,5,8468,45"/>
+<area shape="rect" id="Node000002" title=" " alt="" coords="8257,93,8319,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="8361,48,8315,86,8311,82,8358,43"/>
+<area shape="rect" id="Node000003" title=" " alt="" coords="8343,93,8423,119"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="8385,46,8385,79,8380,79,8380,46"/>
+<area shape="rect" id="Node000004" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="8447,93,8569,119"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="8414,43,8480,84,8477,88,8412,48"/>
 <area shape="rect" id="Node000005" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3450,174,3529,199"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="8472,120,8460,121,8122,136,7545,150,5997,170,4450,182,3543,188,3543,182,4450,177,5997,164,7545,144,8121,131,8460,116,8472,115"/>
+<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="8447,120,8435,121,8098,136,7524,149,5984,170,4445,182,3542,188,3542,182,4445,177,5984,164,7524,144,8098,131,8434,116,8446,115"/>
 <area shape="rect" id="Node000065" href="$d5/ddf/console__application_8hpp.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="8322,167,8470,207"/>
-<area shape="poly" id="edge71_Node000004_Node000065" title=" " alt="" coords="8514,121,8443,162,8440,157,8512,117"/>
+<area shape="poly" id="edge71_Node000004_Node000065" title=" " alt="" coords="8493,121,8436,161,8433,157,8490,117"/>
 <area shape="rect" id="Node000066" href="$db/dd6/core__application_8hpp.html" title="Abstract base class for platform application lifecycle." alt="" coords="8364,269,8521,295"/>
-<area shape="poly" id="edge74_Node000004_Node000066" title=" " alt="" coords="8530,120,8458,258,8453,256,8525,117"/>
+<area shape="poly" id="edge74_Node000004_Node000066" title=" " alt="" coords="8508,120,8499,159,8484,208,8459,259,8454,256,8479,206,8494,158,8503,119"/>
 <area shape="rect" id="Node000067" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="8451,365,8549,390"/>
-<area shape="poly" id="edge75_Node000004_Node000067" title=" " alt="" coords="8538,119,8545,199,8544,254,8536,310,8517,354,8512,352,8531,309,8539,254,8540,199,8533,119"/>
+<area shape="poly" id="edge75_Node000004_Node000067" title=" " alt="" coords="8515,118,8525,151,8536,199,8541,254,8536,310,8517,354,8512,352,8531,309,8536,254,8531,200,8520,152,8510,120"/>
 <area shape="rect" id="Node000068" href="$dd/dec/core__application_8inl.html" title="Inline implementations for toy::application::CoreApplication accessors." alt="" coords="8595,174,8821,199"/>
-<area shape="poly" id="edge76_Node000004_Node000068" title=" " alt="" coords="8560,116,8671,166,8669,171,8558,121"/>
-<area shape="rect" id="Node000069" href="$d2/dbe/version_8inl.html" title="Inline implementations for toy::application::Version comparison operators." alt="" coords="8845,174,9011,199"/>
-<area shape="poly" id="edge77_Node000004_Node000069" title=" " alt="" coords="8591,116,8858,169,8857,174,8590,121"/>
+<area shape="poly" id="edge76_Node000004_Node000068" title=" " alt="" coords="8538,116,8667,166,8665,171,8536,121"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="5,269,91,295"/>
 <area shape="poly" id="edge5_Node000005_Node000006" title=" " alt="" coords="3450,191,2796,197,1703,210,646,230,281,243,165,250,103,257,80,266,78,261,102,252,164,245,280,238,646,225,1703,205,2796,192,3450,186"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="115,269,171,295"/>
