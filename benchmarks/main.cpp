@@ -22,16 +22,33 @@
   \brief  Entry point for nanobench benchmarks (core, geometry, math).
 */
 
+#include <iostream>
+
 #include <nanobench.h>
 
 ankerl::nanobench::Bench runCoreBenchmarks() noexcept;
 ankerl::nanobench::Bench runGeometryBenchmarks() noexcept;
 ankerl::nanobench::Bench runMathBenchmarks() noexcept;
 
+constexpr auto bencherTemplate = R"TMPL(
+{
+{{#result}}  "{{{name}}}": {
+    "latency": {
+      "value": {{median(elapsed)}}
+    }
+  }{{^-last}},
+{{/-last}}
+{{/result}}
+}
+)TMPL";
+
 int main() noexcept {
-  runCoreBenchmarks();
+  const auto coreBench = runCoreBenchmarks();
   runGeometryBenchmarks();
   runMathBenchmarks();
+
+  //  ankerl::nanobench::render(bencherTemplate, bench, std::ofstream("results.json"));
+  ankerl::nanobench::render(bencherTemplate, coreBench, std::cout);
 
   return 0;
 }
