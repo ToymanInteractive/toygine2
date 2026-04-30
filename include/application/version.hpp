@@ -99,29 +99,40 @@ struct Version {
 
   /// Git revision string (e.g. commit hash). Must point to storage that outlives this \c Version value.
   CStringView revision{};
+
+  /*!
+    \brief Equality of two \ref toy::application::Version values.
+
+    \param lhs Left-hand side version.
+    \param rhs Right-hand side version.
+
+    \return \c true if all components are equal, \c false otherwise.
+  */
+  [[nodiscard]] friend constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept = default;
+
+  /*!
+    \brief Three-way comparison of two \ref toy::application::Version values (lexicographic order).
+
+    Compares major, then minor, then patch, then revision.
+
+    \param lhs Left-hand side version.
+    \param rhs Right-hand side version.
+
+    \return \c strong_ordering::less, \c strong_ordering::equal, or \c strong_ordering::greater.
+  */
+  [[nodiscard]] friend constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
+    if (const auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal)
+      return cmp;
+
+    if (const auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal)
+      return cmp;
+
+    if (const auto cmp = lhs.patch <=> rhs.patch; cmp != strong_ordering::equal)
+      return cmp;
+
+    return lhs.revision <=> rhs.revision;
+  }
 };
-
-/*!
-  \brief Equality of two \ref toy::application::Version values.
-
-  \param lhs Left-hand side version.
-  \param rhs Right-hand side version.
-
-  \return \c true if all components are equal, \c false otherwise.
-*/
-[[nodiscard]] constexpr bool operator==(const Version & lhs, const Version & rhs) noexcept;
-
-/*!
-  \brief Three-way comparison of two \ref toy::application::Version values (lexicographic order).
-
-  Compares major, then minor, then patch, then revision.
-
-  \param lhs Left-hand side version.
-  \param rhs Right-hand side version.
-
-  \return \c strong_ordering::less, \c strong_ordering::equal, or \c strong_ordering::greater.
-*/
-[[nodiscard]] constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
 
 } // namespace toy::application
 
