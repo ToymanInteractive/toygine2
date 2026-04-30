@@ -70,7 +70,8 @@ BitFieldColonSpacing: Both
 BracedInitializerIndentWidth: 2
 BreakAdjacentStringLiterals: true
 BreakAfterAttributes: Never
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakafterjavafieldannotations
+BreakAfterJavaFieldAnnotations: false
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakafteropenbracketbracedlist
 BreakAfterReturnType: None
 BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
