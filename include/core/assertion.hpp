@@ -64,7 +64,7 @@ using AssertionCallback = bool (*)(const char * assertionString);
 
   \note Must not throw.
 */
-using StackWalkCallback = void (*)(const char * stackFrameString);
+using StackWalkCallback = void (*)(const char * stackFrameString) noexcept;
 
 /*!
   \brief Prepares the assertion system; call before using assertion macros or setCallbacks().
@@ -75,7 +75,7 @@ using StackWalkCallback = void (*)(const char * stackFrameString);
 
   \sa deInitialize(), setCallbacks()
 */
-void initialize();
+void initialize() noexcept;
 
 /*!
   \brief Shuts down the assertion system and clears callbacks.
@@ -86,7 +86,7 @@ void initialize();
 
   \sa initialize()
 */
-void deInitialize();
+void deInitialize() noexcept;
 
 /*!
   \brief Registers the assertion and stack-walk callbacks.
@@ -100,7 +100,7 @@ void deInitialize();
 
   \sa initialize(), \ref toy::assertion::AssertionCallback, \ref toy::assertion::StackWalkCallback
 */
-void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback);
+void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback) noexcept;
 
 #ifdef _DEBUG
 
@@ -121,7 +121,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \sa setCallbacks()
 */
 void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               size_t lineNumber);
+               size_t lineNumber) noexcept;
 
 #else  // _DEBUG
 
