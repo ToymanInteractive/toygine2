@@ -132,8 +132,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
   _string.append("0x");
 
   const auto bufferDataLen = char_traits<char>::length(buffer);
-  const int  leadingZeros  = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen);
-  if (leadingZeros > 0)
+  if (const int leadingZeros = static_cast<int>(sizeof(value)) * 2 - static_cast<int>(bufferDataLen); leadingZeros > 0)
     _string.append(static_cast<size_t>(leadingZeros), '0');
 
   _string.append(buffer);
