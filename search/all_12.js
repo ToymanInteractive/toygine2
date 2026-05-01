@@ -1,14 +1,14 @@
 var searchData=
 [
   ['r5g6b5_0',['R5G6B5',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa824e86ad7ef467815efe26bec67e07fa',1,'toy::render']]],
-  ['rad2deg_1',['rad2deg',['../d5/d12/group___math_functions.html#ga763a7f5881c51b1853dbb74cf59e1208',1,'toy::math']]],
+  ['rad2deg_1',['rad2deg',['../d5/d12/group___math_functions.html#gab57afc022d972b44630c226581aa4cae',1,'toy::math']]],
   ['rad_5fper_5fdeg_5fv_2',['rad_per_deg_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#a35b52d17a247dc7aec6c494854fa77fd',1,'toy::math::constants']]],
   ['radius_3',['radius',['../df/d25/classtoy_1_1geometry_1_1_circle.html#a5be25ce523ff8f1bd225ceb1b8cd3625',1,'toy::geometry::Circle']]],
   ['radiuses_4',['radiuses',['../d9/dd1/classtoy_1_1geometry_1_1_ellipse.html#a797c69d9f316e5a20e5f371b6d581736',1,'toy::geometry::Ellipse']]],
   ['radix_5',['radix',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4e315a22a0727c409b1e0582d45950c3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['range_20based_20for_20loops_6',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
   ['rawconstructortag_7',['RawConstructorTag',['../dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html',1,'toy::math::fixed']]],
-  ['rawvalue_8',['rawValue',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e',1,'toy::math::fixed']]],
+  ['rawvalue_8',['rawValue',['../dd/d5c/classtoy_1_1math_1_1fixed.html#aacb3577e7f2347e3ef5335e5d4a765b8',1,'toy::math::fixed']]],
   ['rbegin_9',['rbegin',['../d7/dec/classtoy_1_1_fixed_vector.html#a834b370c8f747d2e941e51b2f183d162',1,'toy::FixedVector::rbegin() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b',1,'toy::FixedVector::rbegin() const noexcept']]],
   ['read_10',['Read',['../da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa7a1a5f3e79fdc91edf2f5ead9d66abb4',1,'toy::filesystem']]],
   ['readme_2emd_11',['README.md',['../d9/dd6/_r_e_a_d_m_e_8md.html',1,'']]],

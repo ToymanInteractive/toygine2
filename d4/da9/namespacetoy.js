@@ -1,7 +1,5 @@
 var namespacetoy =
 [
-    [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
-    [ "chrono", "db/d3c/namespacetoy_1_1chrono.html", "db/d3c/namespacetoy_1_1chrono" ],
     [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03" ],
     [ "anonymous_namespace{format_pattern.inl}", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html", [
       [ "PlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4", [
@@ -15,11 +13,38 @@ var namespacetoy =
       [ "reconcilePlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#aa43d54757a290c5ec80b3a5770c95df3", null ],
       [ "validateFormatImpl", "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9", null ]
     ] ],
+    [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
+    [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", "d2/da2/namespacetoy_1_1assertion" ],
+    [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
+      [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c", [
+        [ "Music", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217", null ],
+        [ "Sound", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe", null ],
+        [ "Voice", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb", null ]
+      ] ]
+    ] ],
+    [ "chrono", "db/d3c/namespacetoy_1_1chrono.html", "db/d3c/namespacetoy_1_1chrono" ],
+    [ "filesystem", "da/d98/namespacetoy_1_1filesystem.html", [
+      [ "OpenFileMode", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188f", [
+        [ "Read", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa7a1a5f3e79fdc91edf2f5ead9d66abb4", null ],
+        [ "WriteEmpty", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa73fd8e5dbdd94b8cbc784c0dc4adc2c1", null ],
+        [ "WriteAppend", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa98ea53108a053293ee1d388d6b88564c", null ],
+        [ "ReadWrite", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa70a2a84088d405a2e3f1e3accaa16723", null ],
+        [ "ReadWriteEmpty", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa72fe3751eef2635f596acece048d5dd9", null ],
+        [ "ReadWriteAppend", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa05c7383bb9bd4e8458aa92a458db5286", null ]
+      ] ]
+    ] ],
+    [ "game", "d8/d25/namespacetoy_1_1game.html", [
+      [ "AchievementState", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda", [
+        [ "Hidden", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e", null ],
+        [ "Locked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd", null ],
+        [ "Unlocked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94", null ]
+      ] ]
+    ] ],
     [ "geometry", "da/d08/namespacetoy_1_1geometry.html", "da/d08/namespacetoy_1_1geometry" ],
+    [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
     [ "math", "d2/d83/namespacetoy_1_1math.html", "d2/d83/namespacetoy_1_1math" ],
     [ "network", "d6/d2c/namespacetoy_1_1network.html", "d6/d2c/namespacetoy_1_1network" ],
-    [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", "d2/da2/namespacetoy_1_1assertion" ],
-    [ "log", "da/d15/namespacetoy_1_1log.html", "da/d15/namespacetoy_1_1log" ],
+    [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
     [ "render", "df/d8d/namespacetoy_1_1render.html", [
       [ "ClearFlags", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1", [
         [ "None", "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1a6adf97f83acf6453d4a6a4b1070f3754", null ],
@@ -51,43 +76,18 @@ var namespacetoy =
       [ "pixelFormatName", "df/d8d/namespacetoy_1_1render.html#ae01c124c6fb7eab3d4dd8d7d321406b9", null ],
       [ "c_formatNames", "df/d8d/namespacetoy_1_1render.html#a7abf647f54ad0e5961a64502e51c995b", null ]
     ] ],
-    [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
-      [ "VolumeType", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261c", [
-        [ "Music", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca47dcbd834e669233d7eb8a51456ed217", null ],
-        [ "Sound", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261ca9d07e0e08af7f96cf45be0112b9ccfbe", null ],
-        [ "Voice", "dd/d77/namespacetoy_1_1audio.html#afca9143e3b169f77784310a3b384261cad7a3fdf1351b72249a47454751549deb", null ]
-      ] ]
-    ] ],
-    [ "filesystem", "da/d98/namespacetoy_1_1filesystem.html", [
-      [ "OpenFileMode", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188f", [
-        [ "Read", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa7a1a5f3e79fdc91edf2f5ead9d66abb4", null ],
-        [ "WriteEmpty", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa73fd8e5dbdd94b8cbc784c0dc4adc2c1", null ],
-        [ "WriteAppend", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa98ea53108a053293ee1d388d6b88564c", null ],
-        [ "ReadWrite", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa70a2a84088d405a2e3f1e3accaa16723", null ],
-        [ "ReadWriteEmpty", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa72fe3751eef2635f596acece048d5dd9", null ],
-        [ "ReadWriteAppend", "da/d98/namespacetoy_1_1filesystem.html#acdb0fddd61b902c502183b9c4bde188fa05c7383bb9bd4e8458aa92a458db5286", null ]
-      ] ]
-    ] ],
-    [ "game", "d8/d25/namespacetoy_1_1game.html", [
-      [ "AchievementState", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda", [
-        [ "Hidden", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e", null ],
-        [ "Locked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd", null ],
-        [ "Unlocked", "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94", null ]
-      ] ]
-    ] ],
-    [ "platform", "d4/ddd/namespacetoy_1_1platform.html", "d4/ddd/namespacetoy_1_1platform" ],
-    [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
-    [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
+    [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
-    [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
+    [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
+    [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
+    [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
+    [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
     [ "FixedVector", "d7/dec/classtoy_1_1_fixed_vector.html", "d7/dec/classtoy_1_1_fixed_vector" ],
     [ "FormatContext", "d8/dde/classtoy_1_1_format_context.html", "d8/dde/classtoy_1_1_format_context" ],
     [ "FormatString", "dc/d62/classtoy_1_1_format_string.html", "dc/d62/classtoy_1_1_format_string" ],
     [ "OStringStream", "d7/d15/classtoy_1_1_o_string_stream.html", "d7/d15/classtoy_1_1_o_string_stream" ],
     [ "StringFixedStorage", "d0/d21/classtoy_1_1_string_fixed_storage.html", "d0/d21/classtoy_1_1_string_fixed_storage" ],
-    [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
-    [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "OStringStreamBackend", "d0/d5a/concepttoy_1_1_o_string_stream_backend.html", null ],
     [ "StringLike", "df/d77/concepttoy_1_1_string_like.html", null ],
     [ "CpuArchitecture", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341", [
@@ -137,8 +137,8 @@ var namespacetoy =
     [ "highestBit", "d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d", null ],
     [ "initialize", "d4/da9/namespacetoy.html#ab71c3e41b2f6b99b6c07edcb27511d31", null ],
     [ "itoa", "d4/da9/namespacetoy.html#ad9154c389294cb443faa03c20893f91c", null ],
-    [ "operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
-    [ "operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
+    [ "operator&", "d4/da9/namespacetoy.html#a6f45ce18ee7fc1162789c2086a3aafff", null ],
+    [ "operator&=", "d4/da9/namespacetoy.html#aa30b84788c05dd9c8ba09753ecc40090", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a2fef40d514c1a38e96d004926fe183d6", null ],
     [ "operator+", "d4/da9/namespacetoy.html#a326a560f0c3c0d12d9c7a8642d001e6d", null ],
@@ -166,11 +166,11 @@ var namespacetoy =
     [ "operator==", "d4/da9/namespacetoy.html#acf758a094d8de5ef108ef3e984c37cf1", null ],
     [ "operator==", "d4/da9/namespacetoy.html#ad6d2b3dad381a4caa6e84a33f62a26d4", null ],
     [ "operator==", "d4/da9/namespacetoy.html#a300e65bc1fbafecbcf63f47317198ec4", null ],
-    [ "operator^", "d4/da9/namespacetoy.html#a15035c6e2ccc42ef559d75d6736f3e93", null ],
-    [ "operator^=", "d4/da9/namespacetoy.html#a7ba64242ee51c646fa371436ad5f27d7", null ],
-    [ "operator|", "d4/da9/namespacetoy.html#a3724753f210f39ad2e52f143afc828d1", null ],
-    [ "operator|=", "d4/da9/namespacetoy.html#aeeed3f4f4b4225cdb2e0077e6f8187ea", null ],
-    [ "operator~", "d4/da9/namespacetoy.html#a9e3f4e8e0e45319c488dd4c1a8006b10", null ],
+    [ "operator^", "d4/da9/namespacetoy.html#a1937d981ffb777a8b1ab708e4ba521f9", null ],
+    [ "operator^=", "d4/da9/namespacetoy.html#a7c59a4de69a3e206cfe0b047b91b6462", null ],
+    [ "operator|", "d4/da9/namespacetoy.html#acdbaab963bcbe4ad478fcb0d834ab5f1", null ],
+    [ "operator|=", "d4/da9/namespacetoy.html#a1074945574887dbc114c812a66c8b872", null ],
+    [ "operator~", "d4/da9/namespacetoy.html#ad526182a3a89c2a1549451622eb0dff6", null ],
     [ "reverseString", "d9/d39/group___string_text.html#ga2ad56b53b8cdbb022ce8ce3b2aa32503", null ],
     [ "utf8Len", "d9/d39/group___string_text.html#ga5ab02021f4ca34e0d5b6a1b0172ebe95", null ],
     [ "utf8toWChar", "d9/d39/group___string_text.html#ga2bc2dc2817640958352b4e80ec99b2be", null ],

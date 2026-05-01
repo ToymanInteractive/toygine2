@@ -7,10 +7,10 @@ var concepts =
         [ "SectionEndpoint", "d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html", null ]
       ] ],
       [ "math", "d2/d83/namespacetoy_1_1math.html", [
-        [ "FractionalConstantType", "d8/d2a/concepttoy_1_1math_1_1_fractional_constant_type.html", null ],
-        [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
         [ "fixed_point", "dd/de0/concepttoy_1_1math_1_1fixed__point.html", null ],
+        [ "FractionalConstantType", "d8/d2a/concepttoy_1_1math_1_1_fractional_constant_type.html", null ],
         [ "PointScalar", "d1/dca/concepttoy_1_1math_1_1_point_scalar.html", null ],
+        [ "ValidFixedPointTypes", "d7/d22/concepttoy_1_1math_1_1_valid_fixed_point_types.html", null ],
         [ "Vector2Component", "d8/d34/concepttoy_1_1math_1_1_vector2_component.html", null ]
       ] ],
       [ "OStringStreamBackend", "d0/d5a/concepttoy_1_1_o_string_stream_backend.html", null ],

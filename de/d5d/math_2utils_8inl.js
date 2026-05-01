@@ -1,7 +1,7 @@
 var math_2utils_8inl =
 [
-    [ "toy::math::abs", "d5/d12/group___math_functions.html#ga00391a62294376916bf5df2d9b9ae00c", null ],
-    [ "toy::math::deg2rad", "d5/d12/group___math_functions.html#gaa069db95661e6893b90c9538fe32fb2b", null ],
-    [ "toy::math::isEqual", "d5/d12/group___math_functions.html#gaec0e5508b638d5599c59593e4afc7ee4", null ],
-    [ "toy::math::rad2deg", "d5/d12/group___math_functions.html#ga763a7f5881c51b1853dbb74cf59e1208", null ]
+    [ "toy::math::abs", "d5/d12/group___math_functions.html#ga0ebd68b0640b9a6da2f4d7e79c824307", null ],
+    [ "toy::math::deg2rad", "d5/d12/group___math_functions.html#ga0657be370e1e444bef7bc969c35a22d4", null ],
+    [ "toy::math::isEqual", "d5/d12/group___math_functions.html#ga6372002893d46a6d2904f84ad2c6075a", null ],
+    [ "toy::math::rad2deg", "d5/d12/group___math_functions.html#gab57afc022d972b44630c226581aa4cae", null ]
 ];

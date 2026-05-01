@@ -26,7 +26,7 @@ var searchData=
   ['_5ffind_5flast_5fof_5fraw_23',['_find_last_of_raw',['../d5/d03/classtoy_1_1_c_string_view.html#aef6a70c1960447f9a3fb623f36913349',1,'toy::CStringView::_find_last_of_raw()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a213682f68bd2b2500e5ed15acc068951',1,'toy::FixedString::_find_last_of_raw()']]],
   ['_5ffind_5fraw_24',['_find_raw',['../d5/d03/classtoy_1_1_c_string_view.html#abfa29c6595aec5ea675e7f21eabddee6',1,'toy::CStringView::_find_raw()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a2ba113ddb17ef24b8e5b7db13adcd422',1,'toy::FixedString::_find_raw()']]],
   ['_5ffloatpostprocess_25',['_floatPostProcess',['../d4/da9/namespacetoy.html#a1398396b240f9a663cdedc2a077edfb3',1,'toy']]],
-  ['_5ffractionmult_26',['_fractionMult',['../dd/d5c/classtoy_1_1math_1_1fixed.html#ad56ecdbd3f0602b0bf6f21a93af39546',1,'toy::math::fixed']]],
+  ['_5ffractionmult_26',['_fractionMult',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a62d70df20177b59f081f33e329fa304d',1,'toy::math::fixed']]],
   ['_5ffrequency_27',['_frequency',['../d9/d63/classtoy_1_1chrono_1_1_clock_source.html#a59ea53242e8cac48bda704f4c16e49db',1,'toy::chrono::ClockSource']]],
   ['_5fftoa32engine_28',['_ftoa32Engine',['../d4/da9/namespacetoy.html#a5c08dafb841b59caed6996f17b8baebc',1,'toy']]],
   ['_5fftoa64engine_29',['_ftoa64Engine',['../d4/da9/namespacetoy.html#a23cb859f41bbfdd0562927582baec660',1,'toy']]],

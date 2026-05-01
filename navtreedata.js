@@ -156,13 +156,13 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "d3/d7a/classtoy_1_1_fixed_string.html#a683bd2292c28792077b554321eb71f09",
-"d4/da9/namespacetoy.html#ad9154c389294cb443faa03c20893f91c",
+"d4/da9/namespacetoy.html#ad526182a3a89c2a1549451622eb0dff6",
 "d7/d1d/classtoy_1_1application_1_1_core_application.html#a18932aad29e494e3b5214780fafaf364",
 "d8/dc9/classtoy_1_1_callbacks_pool.html#a2e2431c7651f8c17f41618f7889af770",
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a387e4afcaf2c9a38c5b1f7efcf25cebc",
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a3809576fa7bedc99833bbae87797600d",
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fae64207a55998a9e09cbe2f190926d1ee"
 ];
 
-var SYNCONMSG = 'click to disable panel synchronization';
-var SYNCOFFMSG = 'click to enable panel synchronization';
-var LISTOFALLMEMBERS = 'List of all members';
+const SYNCONMSG = 'click to disable panel synchronization';
+const SYNCOFFMSG = 'click to enable panel synchronization';
+const LISTOFALLMEMBERS = 'List of all members';

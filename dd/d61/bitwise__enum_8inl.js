@@ -1,10 +1,10 @@
 var bitwise__enum_8inl =
 [
-    [ "toy::operator&", "d4/da9/namespacetoy.html#a2969305409fc34874d0e0f512a028aa8", null ],
-    [ "toy::operator&=", "d4/da9/namespacetoy.html#ae92e06198838e677bdbadbdb6d089b8c", null ],
-    [ "toy::operator^", "d4/da9/namespacetoy.html#a15035c6e2ccc42ef559d75d6736f3e93", null ],
-    [ "toy::operator^=", "d4/da9/namespacetoy.html#a7ba64242ee51c646fa371436ad5f27d7", null ],
-    [ "toy::operator|", "d4/da9/namespacetoy.html#a3724753f210f39ad2e52f143afc828d1", null ],
-    [ "toy::operator|=", "d4/da9/namespacetoy.html#aeeed3f4f4b4225cdb2e0077e6f8187ea", null ],
-    [ "toy::operator~", "d4/da9/namespacetoy.html#a9e3f4e8e0e45319c488dd4c1a8006b10", null ]
+    [ "toy::operator&", "d4/da9/namespacetoy.html#a6f45ce18ee7fc1162789c2086a3aafff", null ],
+    [ "toy::operator&=", "d4/da9/namespacetoy.html#aa30b84788c05dd9c8ba09753ecc40090", null ],
+    [ "toy::operator^", "d4/da9/namespacetoy.html#a1937d981ffb777a8b1ab708e4ba521f9", null ],
+    [ "toy::operator^=", "d4/da9/namespacetoy.html#a7c59a4de69a3e206cfe0b047b91b6462", null ],
+    [ "toy::operator|", "d4/da9/namespacetoy.html#acdbaab963bcbe4ad478fcb0d834ab5f1", null ],
+    [ "toy::operator|=", "d4/da9/namespacetoy.html#a1074945574887dbc114c812a66c8b872", null ],
+    [ "toy::operator~", "d4/da9/namespacetoy.html#ad526182a3a89c2a1549451622eb0dff6", null ]
 ];

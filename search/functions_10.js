@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['rad2deg_0',['rad2deg',['../d5/d12/group___math_functions.html#ga763a7f5881c51b1853dbb74cf59e1208',1,'toy::math']]],
-  ['rawvalue_1',['rawValue',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a9cf5bfce4fcaeea6f46e81b4ce481f6e',1,'toy::math::fixed']]],
+  ['rad2deg_0',['rad2deg',['../d5/d12/group___math_functions.html#gab57afc022d972b44630c226581aa4cae',1,'toy::math']]],
+  ['rawvalue_1',['rawValue',['../dd/d5c/classtoy_1_1math_1_1fixed.html#aacb3577e7f2347e3ef5335e5d4a765b8',1,'toy::math::fixed']]],
   ['rbegin_2',['rbegin',['../d7/dec/classtoy_1_1_fixed_vector.html#a834b370c8f747d2e941e51b2f183d162',1,'toy::FixedVector::rbegin() noexcept'],['../d7/dec/classtoy_1_1_fixed_vector.html#af18fa1c4ace6ecae4d26a70a560f306b',1,'toy::FixedVector::rbegin() const noexcept']]],
   ['reconcileplaceholdermode_3',['reconcilePlaceholderMode',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#aa43d54757a290c5ec80b3a5770c95df3',1,'toy::anonymous_namespace{format_pattern.inl}']]],
   ['remove_4',['remove',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a5282447d94b743b9e8025737e514685e',1,'toy::CallbacksPool']]],

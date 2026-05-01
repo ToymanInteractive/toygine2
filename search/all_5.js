@@ -12,7 +12,7 @@ var searchData=
   ['debug_9',['Debug',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba',1,'toy::log']]],
   ['default_20and_20delete_10',['&lt;span class=&quot;tt&quot;&gt;= default&lt;/span&gt; and &lt;span class=&quot;tt&quot;&gt;= delete&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete',1,'']]],
   ['default_20member_20initialization_11',['Default Member Initialization',['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'']]],
-  ['deg2rad_12',['deg2rad',['../d5/d12/group___math_functions.html#gaa069db95661e6893b90c9538fe32fb2b',1,'toy::math']]],
+  ['deg2rad_12',['deg2rad',['../d5/d12/group___math_functions.html#ga0657be370e1e444bef7bc969c35a22d4',1,'toy::math']]],
   ['deg_5fper_5frad_5fv_13',['deg_per_rad_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#a44402595bdc2ebc7dfc6690f37aed9e3',1,'toy::math::constants']]],
   ['deinitialize_14',['deInitialize',['../d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c',1,'toy::deInitialize()'],['../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f',1,'toy::assertion::deInitialize()']]],
   ['delete_15',['&lt;span class=&quot;tt&quot;&gt;= default&lt;/span&gt; and &lt;span class=&quot;tt&quot;&gt;= delete&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete',1,'']]],
