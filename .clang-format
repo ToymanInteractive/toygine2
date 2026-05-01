@@ -71,7 +71,8 @@ BracedInitializerIndentWidth: 2
 BreakAdjacentStringLiterals: true
 BreakAfterAttributes: Never
 BreakAfterJavaFieldAnnotations: false
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakafteropenbracketbracedlist
+BreakAfterOpenBracketBracedList: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakafteropenbracketfunction
 BreakAfterReturnType: None
 BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
