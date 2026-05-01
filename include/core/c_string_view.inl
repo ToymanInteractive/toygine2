@@ -327,9 +327,7 @@ constexpr size_t CStringView::_rfind_raw(size_t position, const char * data, siz
 }
 
 constexpr size_t CStringView::_find_first_of_raw(size_t position, const char * data, size_t dataSize) const noexcept {
-  const auto stringViewSize = size();
-
-  if (position >= stringViewSize || dataSize == 0)
+  if (const auto stringViewSize = size(); position >= stringViewSize || dataSize == 0)
     return npos;
 
   const char * occurrence;
