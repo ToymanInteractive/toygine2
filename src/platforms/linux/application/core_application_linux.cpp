@@ -38,8 +38,8 @@ uint32_t CoreApplication::pid() const noexcept {
 }
 
 void CoreApplication::sleep(size_t milliseconds) const noexcept {
-  timespec ts = {.tv_sec  = static_cast<time_t>(milliseconds / 1000),
-                 .tv_nsec = static_cast<long>((milliseconds % 1000) * 1000000)};
+  timespec ts = {
+    .tv_sec = static_cast<time_t>(milliseconds / 1000), .tv_nsec = static_cast<long>((milliseconds % 1000) * 1000000)};
 
   while (nanosleep(&ts, &ts) == -1 && errno == EINTR) {
     // Resume sleeping for the remaining duration after signal interruption.
