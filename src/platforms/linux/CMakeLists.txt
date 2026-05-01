@@ -18,16 +18,21 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-set(PLATFORM_SRC_CORE_LIST  src/platforms/linux/application/core_application_linux.cpp src/platforms/stub/core/assertion_stub.cpp)
-set(PLATFORM_HDR_CORE_LIST  )
-set(PLATFORM_LIB_CORE_LIST  )
+set(PLATFORM_SRC_APPLICATION_LIST src/platforms/linux/application/core_application_linux.cpp)
+set(PLATFORM_HDR_APPLICATION_LIST )
+set(PLATFORM_LIB_APPLICATION_LIST )
+
+set(PLATFORM_SRC_CORE_LIST src/platforms/stub/core/assertion_stub.cpp)
+set(PLATFORM_HDR_CORE_LIST )
+set(PLATFORM_LIB_CORE_LIST )
 
 set(PLATFORM_HDR_LIST       src/platforms/linux/platform_config.hpp)
 
+source_group("Platform\\Application" FILES ${PLATFORM_SRC_APPLICATION_LIST} ${PLATFORM_HDR_APPLICATION_LIST})
 source_group("Platform\\Core" FILES ${PLATFORM_SRC_CORE_LIST} ${PLATFORM_HDR_CORE_LIST})
 
 source_group("Platform" FILES ${PLATFORM_HDR_LIST})
 
-list(APPEND SRC_LIST ${PLATFORM_SRC_CORE_LIST})
-list(APPEND HDR_LIST ${PLATFORM_HDR_CORE_LIST} ${PLATFORM_HDR_LIST})
-list(APPEND LIB_LIST ${PLATFORM_LIB_CORE_LIST})
+list(APPEND SRC_LIST ${PLATFORM_SRC_APPLICATION_LIST} ${PLATFORM_SRC_CORE_LIST})
+list(APPEND HDR_LIST ${PLATFORM_HDR_APPLICATION_LIST} ${PLATFORM_HDR_CORE_LIST} ${PLATFORM_HDR_LIST})
+list(APPEND LIB_LIST ${PLATFORM_LIB_APPLICATION_LIST} ${PLATFORM_LIB_CORE_LIST})
