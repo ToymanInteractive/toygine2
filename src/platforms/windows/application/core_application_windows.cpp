@@ -19,7 +19,7 @@
 //
 /*!
   \file   core_application_windows.cpp
-  \brief  Windows implementations of \ref toy::application::CoreApplication via POSIX APIs.
+  \brief  Windows implementations of \ref toy::application::CoreApplication via Win32 APIs.
 */
 
 #define WIN32_LEAN_AND_MEAN
