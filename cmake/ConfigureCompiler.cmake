@@ -22,8 +22,8 @@ cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
 # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-set(MSVC_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
-set(MSVC_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
+set(MSVC_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
+set(MSVC_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
 
 set(MSVC_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
 set(MSVC_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /fsanitize=fuzzer /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
