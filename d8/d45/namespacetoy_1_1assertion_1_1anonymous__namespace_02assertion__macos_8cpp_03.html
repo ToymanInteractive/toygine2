@@ -169,8 +169,8 @@ Variables</h2></td></tr>
 <tr class="memdesc:a68f19e4389f3ebcf832d97f970261c48"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous SIGBUS handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>.  <br /></td></tr>
 <tr class="memitem:a0e324373ae8d4e629b1b404d4113f416" id="r_a0e324373ae8d4e629b1b404d4113f416"><td class="memItemLeft">sig_t&#160;</td><td class="memItemRight"><a class="el" href="#a0e324373ae8d4e629b1b404d4113f416">_previousFPEhandler</a> = SIG_ERR</td></tr>
 <tr class="memdesc:a0e324373ae8d4e629b1b404d4113f416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous SIGFPE handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>.  <br /></td></tr>
-<tr class="memitem:aacd1eb05c039e7a55bdb258e5b0905fb" id="r_aacd1eb05c039e7a55bdb258e5b0905fb"><td class="memItemLeft">sig_t&#160;</td><td class="memItemRight"><a class="el" href="#aacd1eb05c039e7a55bdb258e5b0905fb">_previousEGVhandler</a> = SIG_ERR</td></tr>
-<tr class="memdesc:aacd1eb05c039e7a55bdb258e5b0905fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous SIGSEGV handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>.  <br /></td></tr>
+<tr class="memitem:acc1afd571d82541e2e78f1aa58694c24" id="r_acc1afd571d82541e2e78f1aa58694c24"><td class="memItemLeft">sig_t&#160;</td><td class="memItemRight"><a class="el" href="#acc1afd571d82541e2e78f1aa58694c24">_previousSEGVhandler</a> = SIG_ERR</td></tr>
+<tr class="memdesc:acc1afd571d82541e2e78f1aa58694c24"><td class="mdescLeft">&#160;</td><td class="mdescRight">Previous SIGSEGV handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>.  <br /></td></tr>
 <tr class="memitem:aca044c466c587b850701d5dcf7b27722" id="r_aca044c466c587b850701d5dcf7b27722"><td class="memItemLeft">constexpr array&lt; <a class="el" href="../../d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info.html">SignalInfo</a>, 31 &gt;&#160;</td><td class="memItemRight"><a class="el" href="#aca044c466c587b850701d5dcf7b27722">c_signals</a></td></tr>
 <tr class="memdesc:aca044c466c587b850701d5dcf7b27722"><td class="mdescLeft">&#160;</td><td class="mdescRight">Lookup table mapping POSIX signal identifiers to short descriptions.  <br /></td></tr>
 </table>
@@ -337,22 +337,6 @@ Variables</h2></td></tr>
 
 </div>
 </div>
-<a id="aacd1eb05c039e7a55bdb258e5b0905fb" name="aacd1eb05c039e7a55bdb258e5b0905fb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aacd1eb05c039e7a55bdb258e5b0905fb">&#9670;&#160;</a></span>_previousEGVhandler</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">sig_t toy::assertion::anonymous_namespace{assertion_macos.cpp}::_previousEGVhandler = SIG_ERR</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Previous SIGSEGV handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>. </p>
-
-</div>
-</div>
 <a id="a0e324373ae8d4e629b1b404d4113f416" name="a0e324373ae8d4e629b1b404d4113f416"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0e324373ae8d4e629b1b404d4113f416">&#9670;&#160;</a></span>_previousFPEhandler</h2>
 
@@ -366,6 +350,22 @@ Variables</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Previous SIGFPE handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>. </p>
+
+</div>
+</div>
+<a id="acc1afd571d82541e2e78f1aa58694c24" name="acc1afd571d82541e2e78f1aa58694c24"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc1afd571d82541e2e78f1aa58694c24">&#9670;&#160;</a></span>_previousSEGVhandler</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sig_t toy::assertion::anonymous_namespace{assertion_macos.cpp}::_previousSEGVhandler = SIG_ERR</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Previous SIGSEGV handler, restored on <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f" title="Shuts down the assertion system and clears callbacks.">deInitialize()</a>. </p>
 
 </div>
 </div>

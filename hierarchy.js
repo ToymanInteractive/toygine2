@@ -16,6 +16,7 @@ var hierarchy =
     [ "toy::array&lt; T &gt;::const_reverse_iterator", "db/d7c/classtoy_1_1array_1_1const__reverse__iterator.html", null ],
     [ "toy::array&lt; T &gt;::iterator", "d7/d02/classtoy_1_1array_1_1iterator.html", null ],
     [ "toy::array&lt; T &gt;::reverse_iterator", "da/d56/classtoy_1_1array_1_1reverse__iterator.html", null ],
+    [ "toy::assertion::anonymous_namespace{assertion_linux.cpp}::SignalInfo", "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html", null ],
     [ "toy::assertion::anonymous_namespace{assertion_macos.cpp}::SignalInfo", "d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info.html", null ],
     [ "toy::CallbacksPool&lt; T, AllocatedSize &gt;", "d8/dc9/classtoy_1_1_callbacks_pool.html", null ],
     [ "toy::CallbacksPool&lt; T, AllocatedSize &gt;::StaticCallback", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html", null ],

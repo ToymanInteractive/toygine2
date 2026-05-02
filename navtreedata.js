@@ -155,12 +155,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#a63a582a6a6199f521d12735079bab7c2",
-"d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479",
-"d7/d1d/classtoy_1_1application_1_1_core_application.html#a18932aad29e494e3b5214780fafaf364",
-"d8/dc9/classtoy_1_1_callbacks_pool.html#a2e2431c7651f8c17f41618f7889af770",
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a2c5c780e87a1b57c03fb1fe043ee8bba",
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fad8e0efa43d87bdbf29e62e036107a0d7"
+"d3/d7a/classtoy_1_1_fixed_string.html#a40f234d8be756c3babc9a5945e241dcd",
+"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa91f63b3de0c255c06d76b4a195ed5b15",
+"d7/d15/classtoy_1_1_o_string_stream.html#acdf32cca71d2b6bf84e63e73d1f9d837",
+"d8/d52/classtoy_1_1array.html",
+"dc/d74/nds_2platform__config_8hpp_source.html",
+"df/d86/structtoy_1_1network_1_1_socket_statistics.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

@@ -13,6 +13,9 @@ var annotated_dup =
         [ "Version", "d7/d33/structtoy_1_1application_1_1_version.html", "d7/d33/structtoy_1_1application_1_1_version" ]
       ] ],
       [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", [
+        [ "anonymous_namespace{assertion_linux.cpp}", "d2/d3a/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03.html", [
+          [ "SignalInfo", "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html", "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info" ]
+        ] ],
         [ "anonymous_namespace{assertion_macos.cpp}", "d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html", [
           [ "SignalInfo", "d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info.html", "d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info" ]
         ] ]
