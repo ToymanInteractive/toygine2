@@ -52,13 +52,13 @@ StackWalkCallback _stackWalkCallback = nullptr;
 bool _initialized = false;
 
 /// Previous SIGUSR1 handler, restored on deInitialize().
-sig_t _previousUSR1Handler = SIG_ERR;
+sighandler_t _previousUSR1Handler = SIG_ERR;
 /// Previous SIGBUS handler, restored on deInitialize().
-sig_t _previousBUShandler  = SIG_ERR;
+sighandler_t _previousBUShandler  = SIG_ERR;
 /// Previous SIGFPE handler, restored on deInitialize().
-sig_t _previousFPEhandler  = SIG_ERR;
+sighandler_t _previousFPEhandler  = SIG_ERR;
 /// Previous SIGSEGV handler, restored on deInitialize().
-sig_t _previousEGVhandler  = SIG_ERR;
+sighandler_t _previousSEGVhandler = SIG_ERR;
 
 /*!
   \struct SignalInfo
@@ -104,7 +104,7 @@ constexpr array<SignalInfo, 31> c_signals = {
    {SIGWINCH, "Window size change"},
    {SIGPOLL, "Pollable event occurred"},
    {SIGPWR, "Power failure imminent"},
-   {SIGSYS, "Bad system call"}}
+   {SIGSYS, "Bad system call"}},
 };
 
 /*!
@@ -212,7 +212,7 @@ void initialize() noexcept {
   _assertCallback    = nullptr;
   _stackWalkCallback = nullptr;
 
-  sig_t prevHandler = signal(SIGUSR1, handler);
+  auto prevHandler = signal(SIGUSR1, handler);
   if (prevHandler != SIG_ERR)
     _previousUSR1Handler = prevHandler;
 
@@ -226,7 +226,7 @@ void initialize() noexcept {
 
   prevHandler = signal(SIGSEGV, handler);
   if (prevHandler != SIG_ERR)
-    _previousEGVhandler = prevHandler;
+    _previousSEGVhandler = prevHandler;
 }
 
 void deInitialize() noexcept {
@@ -236,19 +236,19 @@ void deInitialize() noexcept {
   _stackWalkCallback = nullptr;
   _assertCallback    = nullptr;
 
-  if (_previousEGVhandler != SIG_ERR)
-    signal(SIGSEGV, _previousEGVhandler);
-  if (_previousUSR1Handler != SIG_ERR)
-    signal(SIGUSR1, _previousUSR1Handler);
-  if (_previousBUShandler != SIG_ERR)
-    signal(SIGBUS, _previousBUShandler);
+  if (_previousSEGVhandler != SIG_ERR)
+    signal(SIGSEGV, _previousSEGVhandler);
   if (_previousFPEhandler != SIG_ERR)
     signal(SIGFPE, _previousFPEhandler);
+  if (_previousBUShandler != SIG_ERR)
+    signal(SIGBUS, _previousBUShandler);
+  if (_previousUSR1Handler != SIG_ERR)
+    signal(SIGUSR1, _previousUSR1Handler);
 
-  _previousEGVhandler  = SIG_ERR;
-  _previousUSR1Handler = SIG_ERR;
-  _previousBUShandler  = SIG_ERR;
+  _previousSEGVhandler = SIG_ERR;
   _previousFPEhandler  = SIG_ERR;
+  _previousBUShandler  = SIG_ERR;
+  _previousUSR1Handler = SIG_ERR;
 
   _initialized = false;
 }

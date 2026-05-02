@@ -77,7 +77,8 @@ BreakAfterOpenBracketIf: false
 BreakAfterOpenBracketLoop: false
 BreakAfterOpenBracketSwitch: false
 BreakAfterReturnType: Automatic
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakarrays
+BreakArrays: false
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforebinaryoperators
 BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
 BreakBeforeBinaryOperators: All
