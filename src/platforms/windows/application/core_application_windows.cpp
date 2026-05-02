@@ -29,7 +29,7 @@
 namespace toy::application {
 
 uint32_t CoreApplication::pid() const noexcept {
-  static_assert(sizeof(uint32_t) == sizeof(pid_t), "uint32_t must be large enough to hold DWORD");
+  static_assert(sizeof(uint32_t) == sizeof(DWORD), "uint32_t must be large enough to hold DWORD");
 
   return bit_cast<uint32_t>(GetCurrentProcessId());
 }
