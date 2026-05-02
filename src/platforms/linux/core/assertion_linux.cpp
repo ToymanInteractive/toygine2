@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   assertion_macos.cpp
-  \brief  macOS implementation of the \ref toy::assertion crash handler and stack trace capture.
+  \file   assertion_linux.cpp
+  \brief  Linux implementation of the \ref toy::assertion crash handler and stack trace capture.
 
   Registers signal handlers for SIGBUS, SIGFPE, SIGSEGV, and SIGUSR1. On signal delivery, captures a demangled stack
   trace via backtrace(3) and dladdr(3) and forwards it to the registered \ref toy::assertion::StackWalkCallback.
@@ -52,13 +52,13 @@ StackWalkCallback _stackWalkCallback = nullptr;
 bool _initialized = false;
 
 /// Previous SIGUSR1 handler, restored on deInitialize().
-sig_t _previousUSR1Handler = SIG_ERR;
+sighandler_t _previousUSR1Handler = SIG_ERR;
 /// Previous SIGBUS handler, restored on deInitialize().
-sig_t _previousBUShandler  = SIG_ERR;
+sighandler_t _previousBUShandler  = SIG_ERR;
 /// Previous SIGFPE handler, restored on deInitialize().
-sig_t _previousFPEhandler  = SIG_ERR;
+sighandler_t _previousFPEhandler  = SIG_ERR;
 /// Previous SIGSEGV handler, restored on deInitialize().
-sig_t _previousSEGVhandler = SIG_ERR;
+sighandler_t _previousSEGVhandler = SIG_ERR;
 
 /*!
   \struct SignalInfo
@@ -74,37 +74,37 @@ struct SignalInfo {
 
 /// Lookup table mapping POSIX signal identifiers to short descriptions.
 constexpr array<SignalInfo, 31> c_signals = {
-  {{SIGHUP, "hangup"},
-   {SIGINT, "interrupt"},
-   {SIGQUIT, "quit"},
-   {SIGILL, "illegal instruction"},
-   {SIGTRAP, "trace trap"},
-   {SIGABRT, "abort"},
-   {SIGEMT, "EMT instruction"},
-   {SIGFPE, "floating point exception"},
-   {SIGKILL, "kill"},
-   {SIGBUS, "bus error"},
-   {SIGSEGV, "segmentation violation"},
-   {SIGSYS, "bad argument to system call"},
-   {SIGPIPE, "write on a pipe with no one to read it"},
-   {SIGALRM, "alarm clock"},
-   {SIGTERM, "software termination signal from kill"},
-   {SIGURG, "urgent condition on IO channel"},
-   {SIGSTOP, "sendable stop signal not from tty"},
-   {SIGTSTP, "stop signal from tty"},
-   {SIGCONT, "continue a stopped process"},
-   {SIGCHLD, "to parent on child stop or exit"},
-   {SIGTTIN, "to readers pgrp upon background tty read"},
-   {SIGTTOU, "like TTIN for output if"},
-   {SIGIO, "input/output possible signal"},
-   {SIGXCPU, "exceeded CPU time limit"},
-   {SIGXFSZ, "exceeded file size limit"},
-   {SIGVTALRM, "virtual time alarm"},
-   {SIGPROF, "profiling timer alarm"},
-   {SIGWINCH, "window size changes"},
-   {SIGINFO, "information request"},
-   {SIGUSR1, "user defined signal 1"},
-   {SIGUSR2, "user defined signal 2"}}
+  {{SIGHUP, "Hangup"},
+   {SIGINT, "Interactive attention signal"},
+   {SIGQUIT, "Quit"},
+   {SIGILL, "Illegal instruction"},
+   {SIGTRAP, "Trace/breakpoint trap"},
+   {SIGABRT, "Abnormal termination"},
+   {SIGBUS, "Bus error"},
+   {SIGFPE, "Erroneous arithmetic operation"},
+   {SIGKILL, "Killed"},
+   {SIGUSR1, "User-defined signal 1"},
+   {SIGSEGV, "Invalid access to storage"},
+   {SIGUSR2, "User-defined signal 2"},
+   {SIGPIPE, "Broken pipe"},
+   {SIGALRM, "Alarm clock"},
+   {SIGTERM, "Termination request"},
+   {SIGSTKFLT, "Stack fault"},
+   {SIGCHLD, "Child terminated or stopped"},
+   {SIGCONT, "Continue"},
+   {SIGSTOP, "Stop, unblockable"},
+   {SIGTSTP, "Keyboard stop"},
+   {SIGTTIN, "Background read from control terminal"},
+   {SIGTTOU, "Background write to control terminal"},
+   {SIGURG, "Urgent data is available at a socket"},
+   {SIGXCPU, "CPU time limit exceeded"},
+   {SIGXFSZ, "File size limit exceeded"},
+   {SIGVTALRM, "Virtual timer expired"},
+   {SIGPROF, "Profiling timer expired"},
+   {SIGWINCH, "Window size change"},
+   {SIGPOLL, "Pollable event occurred"},
+   {SIGPWR, "Power failure imminent"},
+   {SIGSYS, "Bad system call"}},
 };
 
 /*!
