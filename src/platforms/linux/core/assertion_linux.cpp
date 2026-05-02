@@ -173,8 +173,8 @@ void fillStacktrace(char * dest, size_t destSize, size_t skipFrames = 1) noexcep
 /*!
   \brief  Signal handler invoked on SIGBUS, SIGFPE, SIGSEGV, and SIGUSR1.
 
-  Formats the signal description and a demangled stack trace into a fixed-size buffer, then forwards the result to \c
-  _stackWalkCallback. Terminates the process after the callback returns.
+  Formats the signal description and a demangled stack trace into a fixed-size buffer, then forwards the result to
+  \c _stackWalkCallback. Terminates the process after the callback returns.
 
   \param  signalId  POSIX signal identifier delivered to the process.
 */
