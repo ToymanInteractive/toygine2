@@ -163,7 +163,11 @@ void fillStacktrace(char * dest, size_t destSize, size_t skipFrames = 1) noexcep
     char *       demangled = abi::__cxa_demangle(symbolName, nullptr, nullptr, &status);
     const char * name      = (status == 0) ? demangled : symbolName;
 
-    if (const int n = snprintf(dest + offset, destSize - offset, "%s!%s + %td bytes\n", moduleName, name, shift); n > 0)
+    const auto remaining = destSize - offset;
+    if (remaining <= 1)
+      break;
+
+    if (const int n = snprintf(dest + offset, remaining, "%s!%s + %td bytes\n", moduleName, name, shift); n > 0)
       offset += static_cast<size_t>(n);
 
     free(demangled);
