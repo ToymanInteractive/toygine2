@@ -22,6 +22,9 @@
   \brief  Windows implementations of \ref toy::application::CoreApplication via POSIX APIs.
 */
 
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
+
 #include <windows.h>
 
 #include "application.hpp"
