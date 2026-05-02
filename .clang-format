@@ -78,10 +78,10 @@ BreakAfterOpenBracketLoop: false
 BreakAfterOpenBracketSwitch: false
 BreakAfterReturnType: Automatic
 BreakArrays: false
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforebinaryoperators
+BreakBeforeBinaryOperators: All
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforebraces
 BreakTemplateDeclarations: Yes
 BreakBeforeBraces: Attach
-BreakBeforeBinaryOperators: All
 BreakBeforeConceptDeclarations: Always
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma

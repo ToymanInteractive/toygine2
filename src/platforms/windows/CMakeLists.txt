@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
 
-set(PLATFORM_SRC_APPLICATION_LIST src/platforms/macos/application/core_application_macos.cpp)
+set(PLATFORM_SRC_APPLICATION_LIST src/platforms/windows/application/core_application_windows.cpp)
 set(PLATFORM_HDR_APPLICATION_LIST )
 set(PLATFORM_LIB_APPLICATION_LIST )
 
