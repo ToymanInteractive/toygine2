@@ -205,7 +205,7 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
   while (digit == 0) {
     t     &= 0x0fffffff;
     t     *= 10;
-    digit  = static_cast<uint8_t>(t >> 28;
+    digit  = static_cast<uint8_t>(t >> 28);
     --exp10;
   }
 
