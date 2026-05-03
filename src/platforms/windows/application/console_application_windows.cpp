@@ -56,7 +56,6 @@ void freeStringArray(char ** array) noexcept {
     const size_t bufferSize = wcslen(wide[index]) * toy::WCHAR_IN_UTF8_MAX_SIZE + 1;
     array[index]            = static_cast<char *>(malloc(bufferSize));
     if (array[index] == nullptr) {
-      array[index] = nullptr;
       freeStringArray(array);
       return nullptr;
     }
@@ -92,8 +91,8 @@ void freeStringArray(char ** array) noexcept {
 */
 [[nodiscard]] bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv, wchar_t ** envpw,
                                          char *** envp) noexcept {
-  if (argv != nullptr && argvw != nullptr) {
-    if (argc <= 0) {
+  if (argv != nullptr) {
+    if (argvw == nullptr || argc <= 0) {
       *argv = nullptr;
     } else {
       *argv = convertWideStringArray(argvw, static_cast<size_t>(argc));
@@ -102,17 +101,21 @@ void freeStringArray(char ** array) noexcept {
     }
   }
 
-  if (envp != nullptr && envpw != nullptr) {
-    std::size_t envc = 0;
-    while (envpw[envc] != nullptr)
-      ++envc;
-
-    if (envc == 0) {
+  if (envp != nullptr) {
+    if (envpw == nullptr) {
       *envp = nullptr;
     } else {
-      *envp = convertWideStringArray(envpw, envc);
-      if (*envp == nullptr)
-        return false;
+      std::size_t envc = 0;
+      while (envpw[envc] != nullptr)
+        ++envc;
+
+      if (envc == 0) {
+        *envp = nullptr;
+      } else {
+        *envp = convertWideStringArray(envpw, envc);
+        if (*envp == nullptr)
+          return false;
+      }
     }
   }
 
