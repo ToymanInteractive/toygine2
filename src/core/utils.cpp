@@ -201,7 +201,7 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
   uint32_t t = static_cast<uint32_t>((static_cast<uint64_t>(fraction << 8) * _exponentTable[exponent / 8U]) >> 32) + 1;
   t >>= (7 - (exponent & 7));
 
-  uint8_t digit = t >> 28;
+  auto digit = static_cast<uint8_t>(t >> 28);
   while (digit == 0) {
     t     &= 0x0fffffff;
     t     *= 10;
