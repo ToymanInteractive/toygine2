@@ -91,31 +91,26 @@ void freeStringArray(char ** array) noexcept {
 */
 [[nodiscard]] bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv, wchar_t ** envpw,
                                          char *** envp) noexcept {
-  if (argv != nullptr) {
-    if (argvw == nullptr || argc <= 0) {
-      *argv = nullptr;
-    } else {
-      *argv = convertWideStringArray(argvw, static_cast<size_t>(argc));
-      if (*argv == nullptr)
-        return false;
-    }
+  if (argv != nullptr)
+    *argv = nullptr;
+  if (envp != nullptr)
+    *envp = nullptr;
+
+  if (argv != nullptr && argvw != nullptr && argc > 0) {
+    *argv = convertWideStringArray(argvw, static_cast<size_t>(argc));
+    if (*argv == nullptr)
+      return false;
   }
 
-  if (envp != nullptr) {
-    if (envpw == nullptr) {
-      *envp = nullptr;
-    } else {
-      std::size_t envc = 0;
-      while (envpw[envc] != nullptr)
-        ++envc;
+  if (envp != nullptr && envpw != nullptr) {
+    std::size_t envc{0};
+    while (envpw[envc] != nullptr)
+      ++envc;
 
-      if (envc == 0) {
-        *envp = nullptr;
-      } else {
-        *envp = convertWideStringArray(envpw, envc);
-        if (*envp == nullptr)
-          return false;
-      }
+    if (envc > 0) {
+      *envp = convertWideStringArray(envpw, envc);
+      if (*envp == nullptr)
+        return false;
     }
   }
 
