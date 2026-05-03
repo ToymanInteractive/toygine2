@@ -108,7 +108,7 @@ constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base) noex
   size_t symbols = 0;
 
   do {
-    dest[symbols++] = ansiDigits[value % base];
+    dest[symbols++] = ansiDigits[static_cast<size_t>(value % base)];
   } while ((value /= static_cast<T>(base)) > 0 && symbols < destSize);
 
   dest[symbols] = '\0';

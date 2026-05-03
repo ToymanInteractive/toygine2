@@ -201,17 +201,17 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
   uint32_t t = static_cast<uint32_t>((static_cast<uint64_t>(fraction << 8) * _exponentTable[exponent / 8U]) >> 32) + 1;
   t >>= (7 - (exponent & 7));
 
-  uint8_t digit = t >> 28;
+  auto digit = static_cast<uint8_t>(t >> 28);
   while (digit == 0) {
     t     &= 0x0fffffff;
     t     *= 10;
-    digit  = t >> 28;
+    digit  = static_cast<uint8_t>(t >> 28);
     --exp10;
   }
 
   for (size_t iter = precision + 1; iter > 0; --iter) {
-    digit       = t >> 28;
-    *pointer++  = digit + '0';
+    digit       = static_cast<uint8_t>(t >> 28);
+    *pointer++  = static_cast<char>(digit + '0');
     t          &= 0x0fffffff;
     t          *= 10;
   }
@@ -378,7 +378,7 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     res.quot = upow10;
     do {
       res                 = _divModU10(res.quot);
-      *--bufferEndPointer = res.rem + '0';
+      *--bufferEndPointer = static_cast<char>(res.rem + '0');
     } while (res.quot != 0);
 
     while (bufferEndPointer < srcBuffer + bufferSize)
