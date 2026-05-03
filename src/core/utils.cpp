@@ -378,7 +378,7 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     res.quot = upow10;
     do {
       res                 = _divModU10(res.quot);
-      *--bufferEndPointer = res.rem + '0';
+      *--bufferEndPointer = static_cast<char>(res.rem + '0');
     } while (res.quot != 0);
 
     while (bufferEndPointer < srcBuffer + bufferSize)
