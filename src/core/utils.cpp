@@ -210,7 +210,7 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
   }
 
   for (size_t iter = precision + 1; iter > 0; --iter) {
-    digit       = t >> 28;
+    digit       = static_cast<uint8_t>(t >> 28);
     *pointer++  = digit + '0';
     t          &= 0x0fffffff;
     t          *= 10;
