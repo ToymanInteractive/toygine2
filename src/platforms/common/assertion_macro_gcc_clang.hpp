@@ -38,6 +38,7 @@
 
 /*!
   \def assert(expression)
+
   \brief Debug assertion macro for runtime \a expression checking.
 
   This macro provides runtime assertion checking in debug builds. It evaluates the given \a expression and triggers an
@@ -68,6 +69,7 @@
 
 /*!
   \def assert_message(expression, message)
+
   \brief Debug assertion macro with custom \a message for runtime \a expression checking.
 
   This macro provides runtime assertion checking in debug builds with a custom error \a message. It evaluates the given
@@ -104,6 +106,7 @@
 
 /*!
   \def assert(expression)
+
   \brief Release build assertion macro (no-op).
 
   In release builds, this macro expands to nothing and has no effect. The \a expression is not evaluated.
@@ -120,6 +123,7 @@
 
 /*!
   \def assert_message(expression, message)
+
   \brief Release build assertion macro with \a message (no-op).
 
   In release builds, this macro expands to nothing and has no effect. Neither the \a expression nor the \a message are

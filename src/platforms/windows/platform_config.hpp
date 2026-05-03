@@ -34,33 +34,6 @@
 
 #if defined(_WIN32)
 
-namespace toy {
-
-inline constexpr auto currentPlatform = Platform::Windows;
-
-#if defined(_M_X64) || defined(__x86_64__)
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
-#elif defined(_M_ARM64) || defined(__aarch64__)
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
-#elif defined(_M_IX86) || defined(__i386__)
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
-#else
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
-#endif
-
-namespace chrono {
-
-/// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
-inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
-
-} // namespace chrono
-
-} // namespace toy
-
-#endif // defined(_WIN32)
-
-//----------------------------------------------------------------------------------------------------------------------
-
 #undef assert
 
 #ifdef _DEBUG
@@ -75,6 +48,7 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 
 /*!
   \def assert(expression)
+
   \brief Debug assertion macro for runtime \a expression checking.
 
   This macro provides runtime assertion checking in debug builds. It evaluates the given \a expression and triggers an
@@ -105,6 +79,7 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 
 /*!
   \def assert_message(expression, message)
+
   \brief Debug assertion macro with custom \a message for runtime \a expression checking.
 
   This macro provides runtime assertion checking in debug builds with a custom error \a message. It evaluates the given
@@ -141,6 +116,7 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 
 /*!
   \def assert(expression)
+
   \brief Release build assertion macro (no-op).
 
   In release builds, this macro expands to nothing and has no effect. The \a expression is not evaluated.
@@ -157,6 +133,7 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 
 /*!
   \def assert_message(expression, message)
+
   \brief Release build assertion macro with \a message (no-op).
 
   In release builds, this macro expands to nothing and has no effect. Neither the \a expression nor the \a message are
@@ -176,5 +153,32 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 #endif // _DEBUG
 
 //----------------------------------------------------------------------------------------------------------------------
+
+namespace toy {
+
+inline constexpr auto currentPlatform = Platform::Windows;
+
+#if defined(_M_X64) || defined(__x86_64__)
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x64;
+#elif defined(_M_ARM64) || defined(__aarch64__)
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
+#elif defined(_M_IX86) || defined(__i386__)
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::x86;
+#else
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
+#endif
+
+namespace chrono {
+
+/// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
+inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
+
+} // namespace chrono
+
+} // namespace toy
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // defined(_WIN32)
 
 #endif // SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_

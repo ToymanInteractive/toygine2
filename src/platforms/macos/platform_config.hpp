@@ -31,9 +31,12 @@
 #define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 
 #include "../../../include/core/platform.hpp"
-#include "../common/assertion_macro_gcc_clang.hpp"
 
 #if defined(__APPLE__) && defined(TARGET_OS_OSX)
+
+#include "../common/assertion_macro_gcc_clang.hpp"
+
+//----------------------------------------------------------------------------------------------------------------------
 
 namespace toy {
 
@@ -59,6 +62,8 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 } // namespace chrono
 
 } // namespace toy
+
+//----------------------------------------------------------------------------------------------------------------------
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
