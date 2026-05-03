@@ -1,22 +1,24 @@
 <map id="include/application/core_application.hpp" name="include/application/core_application.hpp">
-<area shape="rect" id="Node000001" title="Abstract base class for platform application lifecycle." alt="" coords="581,5,743,45"/>
-<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="575,181,749,207"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="642,58,626,94,622,113,626,133,638,158,654,179,649,183,634,161,621,134,617,113,621,93,637,56"/>
-<area shape="rect" id="Node000010" href="$d5/ddf/console__application_8hpp.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="636,93,819,133"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="687,55,715,91,711,95,683,58"/>
+<area shape="rect" id="Node000001" title="Abstract base class for platform application lifecycle." alt="" coords="697,5,859,45"/>
+<area shape="rect" id="Node000002" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="691,181,865,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="758,58,742,94,738,113,742,133,754,158,770,179,765,183,750,161,737,134,733,113,737,93,753,56"/>
+<area shape="rect" id="Node000011" href="$d5/ddf/console__application_8hpp.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="752,93,935,133"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="803,55,831,91,827,95,799,58"/>
 <area shape="rect" id="Node000003" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,269,164,295"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="562,206,382,225,279,239,177,257,121,272,120,267,176,252,278,234,381,220,561,200"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="678,202,448,220,312,236,177,257,120,272,119,267,176,252,311,230,447,215,677,197"/>
 <area shape="rect" id="Node000004" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="189,262,359,302"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="588,212,372,257,343,265,341,259,371,252,587,207"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="678,209,533,229,372,257,341,264,340,259,371,252,532,224,677,204"/>
 <area shape="rect" id="Node000005" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="383,262,533,302"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="623,214,504,264,502,259,621,210"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="718,213,545,257,520,264,519,259,544,252,717,207"/>
 <area shape="rect" id="Node000006" href="$d0/d8a/core__application__linux_8cpp.html" title="Linux implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="557,255,767,309"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="665,220,665,255,659,255,659,220"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="753,217,699,257,696,253,750,213"/>
 <area shape="rect" id="Node000007" href="$d8/d89/core__application__macos_8cpp.html" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="791,255,1000,309"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="707,209,825,252,823,257,706,214"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="806,213,861,252,858,257,803,217"/>
 <area shape="rect" id="Node000008" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="1024,255,1233,309"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="750,206,1013,252,1024,254,1023,260,1012,257,749,211"/>
-<area shape="rect" id="Node000009" href="$dc/d2d/core__application__windows_8cpp.html" title="Windows implementations of toy::application::CoreApplication via Win32 APIs." alt="" coords="1257,255,1467,309"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="763,199,985,219,1116,233,1246,252,1258,254,1257,259,1246,257,1115,239,985,224,762,205"/>
-<area shape="poly" id="edge10_Node000010_Node000002" title=" " alt="" coords="705,146,674,183,670,179,701,142"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="839,207,1024,253,1023,258,837,213"/>
+<area shape="rect" id="Node000009" href="$df/dd0/console__application__windows_8cpp.html" title="Windows console entry&#45;point argument conversion from UTF&#45;16 to UTF&#45;8." alt="" coords="1258,255,1450,309"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="879,202,1051,222,1246,252,1258,254,1257,260,1246,257,1050,227,878,207"/>
+<area shape="rect" id="Node000010" href="$dc/d2d/core__application__windows_8cpp.html" title="Windows implementations of toy::application::CoreApplication via Win32 APIs." alt="" coords="1475,255,1684,309"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="878,197,1143,215,1303,231,1462,252,1475,254,1474,259,1462,257,1302,236,1143,221,878,203"/>
+<area shape="poly" id="edge11_Node000011_Node000002" title=" " alt="" coords="821,146,790,183,786,179,817,142"/>
 </map>
