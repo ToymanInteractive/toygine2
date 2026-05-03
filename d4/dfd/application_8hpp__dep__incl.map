@@ -1,15 +1,17 @@
 <map id="include/application.hpp" name="include/application.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the application module." alt="" coords="473,5,646,31"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the application module." alt="" coords="575,5,749,31"/>
 <area shape="rect" id="Node000002" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,93,164,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="459,34,325,54,177,81,122,96,120,91,176,76,324,49,459,29"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="562,30,382,49,279,63,177,81,121,96,120,91,176,76,278,58,381,44,561,24"/>
 <area shape="rect" id="Node000003" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="189,86,359,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="509,37,338,88,336,83,507,32"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="588,36,372,81,343,89,341,83,371,76,587,31"/>
 <area shape="rect" id="Node000004" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="383,86,533,126"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="537,42,482,88,479,84,533,38"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="623,38,504,88,502,83,621,34"/>
 <area shape="rect" id="Node000005" href="$d0/d8a/core__application__linux_8cpp.html" title="Linux implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="557,79,767,133"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="585,37,632,77,629,81,582,41"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="665,44,665,79,659,79,659,44"/>
 <area shape="rect" id="Node000006" href="$d8/d89/core__application__macos_8cpp.html" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="791,79,1000,133"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="618,31,793,76,792,81,617,37"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="707,33,825,76,823,81,706,38"/>
 <area shape="rect" id="Node000007" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="1024,79,1233,133"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="660,27,826,47,1013,76,1024,78,1023,83,1012,81,825,53,660,33"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="750,30,1013,76,1024,78,1023,84,1012,81,749,35"/>
+<area shape="rect" id="Node000008" href="$dc/d2d/core__application__windows_8cpp.html" title="Windows implementations of toy::application::CoreApplication via Win32 APIs." alt="" coords="1257,79,1467,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="763,23,985,43,1116,57,1246,76,1258,78,1257,83,1246,81,1115,63,985,48,762,29"/>
 </map>

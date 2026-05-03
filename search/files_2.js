@@ -23,5 +23,6 @@ var searchData=
   ['core_5fapplication_2einl_20',['core_application.inl',['../dd/dec/core__application_8inl.html',1,'']]],
   ['core_5fapplication_5flinux_2ecpp_21',['core_application_linux.cpp',['../d0/d8a/core__application__linux_8cpp.html',1,'']]],
   ['core_5fapplication_5fmacos_2ecpp_22',['core_application_macos.cpp',['../d8/d89/core__application__macos_8cpp.html',1,'']]],
-  ['core_5fapplication_5fstub_2ecpp_23',['core_application_stub.cpp',['../db/da8/core__application__stub_8cpp.html',1,'']]]
+  ['core_5fapplication_5fstub_2ecpp_23',['core_application_stub.cpp',['../db/da8/core__application__stub_8cpp.html',1,'']]],
+  ['core_5fapplication_5fwindows_2ecpp_24',['core_application_windows.cpp',['../dc/d2d/core__application__windows_8cpp.html',1,'']]]
 ];

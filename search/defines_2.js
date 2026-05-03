@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['enable_5fbitwise_5foperators_0',['ENABLE_BITWISE_OPERATORS',['../df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf',1,'bitwise_enum.hpp']]]
+  ['implement_5fconsole_5fapp_0',['IMPLEMENT_CONSOLE_APP',['../d4/d01/application_8hpp.html#a1b2bd9ba8ddc8a14eb069ad482bce9e3',1,'application.hpp']]]
 ];

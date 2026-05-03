@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['log_5fmessage_5fcapacity_0',['LOG_MESSAGE_CAPACITY',['../d1/d3a/log__record_8hpp.html#a79a1795bad8b0cc794cde609930fd1d7',1,'log_record.hpp']]]
+  ['nominmax_0',['NOMINMAX',['../dc/d2d/core__application__windows_8cpp.html#a9f918755b601cf4bffca775992e6fb90',1,'core_application_windows.cpp']]]
 ];
