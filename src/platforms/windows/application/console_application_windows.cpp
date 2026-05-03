@@ -78,14 +78,16 @@ void freeStringArray(char ** array) noexcept {
 
   \param argc  Number of command-line arguments.
   \param argvw Wide-character argument array of \a argc entries, or \c nullptr.
-  \param argv  Receives a newly allocated null-terminated UTF-8 argument array, or \c nullptr if \a argvw is \c nullptr.
+  \param argv  Receives a newly allocated null-terminated UTF-8 argument array, or \c nullptr if \a argvw is \c nullptr
+               or \a argc is not positive.
   \param envpw Null-terminated wide-character environment array, or \c nullptr.
   \param envp  Receives a newly allocated null-terminated UTF-8 environment array, or \c nullptr if \a envpw is
                \c nullptr.
 
   \return \c true on success; \c false if any heap allocation fails.
 
-  \post On success, \a *argv and \a *envp point to null-terminated arrays of heap-allocated UTF-8 strings.
+  \post On success, \a *argv and \a *envp each point to a null-terminated array of heap-allocated UTF-8 strings, or \c
+        nullptr when the corresponding source array was \c nullptr or empty.
 
   \warning On failure, any partially allocated output must still be released via clearEntryPointArgs() to avoid leaks.
 */
