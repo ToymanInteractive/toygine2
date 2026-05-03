@@ -18,32 +18,29 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   core_application_linux.cpp
-  \brief  Linux implementations of \ref toy::application::CoreApplication via POSIX APIs.
+  \file   core_application_windows.cpp
+  \brief  Windows implementations of \ref toy::application::CoreApplication via Win32 APIs.
 */
 
-#include <cerrno>
-#include <ctime>
+#define WIN32_LEAN_AND_MEAN
+#define NOMINMAX
 
-#include <unistd.h>
+#include <windows.h>
 
 #include "application.hpp"
 
 namespace toy::application {
 
 uint32_t CoreApplication::pid() const noexcept {
-  static_assert(sizeof(uint32_t) == sizeof(pid_t), "uint32_t and pid_t must be the same size for bit_cast");
+  static_assert(sizeof(uint32_t) == sizeof(DWORD), "uint32_t and DWORD must be the same size for bit_cast");
 
-  return bit_cast<uint32_t>(getpid());
+  return bit_cast<uint32_t>(GetCurrentProcessId());
 }
 
 void CoreApplication::sleep(size_t milliseconds) const noexcept {
-  timespec ts = {.tv_sec  = static_cast<time_t>(milliseconds / 1000),
-                 .tv_nsec = static_cast<long>((milliseconds % 1000) * 1000000)};
+  assert_message(milliseconds < INFINITE, "milliseconds must be less than INFINITE");
 
-  while (nanosleep(&ts, &ts) == -1 && errno == EINTR) {
-    // Resume sleeping for the remaining duration after signal interruption.
-  }
+  Sleep(static_cast<DWORD>(milliseconds));
 }
 
 } // namespace toy::application

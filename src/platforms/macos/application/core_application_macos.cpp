@@ -32,7 +32,7 @@
 namespace toy::application {
 
 uint32_t CoreApplication::pid() const noexcept {
-  static_assert(sizeof(std::uint32_t) == sizeof(pid_t), "uint32_t must be large enough to hold pid_t");
+  static_assert(sizeof(uint32_t) == sizeof(pid_t), "uint32_t and pid_t must be the same size for bit_cast");
 
   return bit_cast<uint32_t>(getpid());
 }
