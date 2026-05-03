@@ -38,9 +38,7 @@ uint32_t CoreApplication::pid() const noexcept {
 }
 
 void CoreApplication::sleep(size_t milliseconds) const noexcept {
-  if constexpr (sizeof(size_t) > sizeof(DWORD)) {
-    assert_message(milliseconds <= UINT32_MAX, "milliseconds must be less than or equal to UINT32_MAX");
-  }
+  assert_message(milliseconds < INFINITE, "milliseconds must be less than INFINITE");
 
   Sleep(static_cast<DWORD>(milliseconds));
 }
