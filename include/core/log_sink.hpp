@@ -81,6 +81,7 @@ public:
   /// Virtual destructor; defined out-of-line to anchor the vtable in a single translation unit.
   virtual ~ISink() noexcept;
 
+  /// Copy and move are deleted; polymorphic types must not be copied or moved to prevent object slicing.
   TOYGINE_NO_COPY_MOVE(ISink);
 
   /*!

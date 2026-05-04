@@ -34,6 +34,7 @@ public:
   ConsoleSampleApp() noexcept           = default;
   ~ConsoleSampleApp() noexcept override = default;
 
+  /// Copy and move are deleted; inherits the singleton invariant from \ref toy::application::ConsoleApplication.
   TOYGINE_NO_COPY_MOVE(ConsoleSampleApp);
 
 private:

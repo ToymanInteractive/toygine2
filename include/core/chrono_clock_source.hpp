@@ -122,6 +122,7 @@ public:
   */
   ~ClockSource();
 
+  /// Copy and move are deleted; at most one active source may be registered at a time.
   TOYGINE_NO_COPY_MOVE(ClockSource);
 
   /*!

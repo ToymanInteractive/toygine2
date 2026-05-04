@@ -88,6 +88,7 @@ public:
   /// Destroys the console application and shuts down the engine core module.
   ~ConsoleApplication() noexcept override;
 
+  /// Copy and move are deleted; inherits the singleton invariant from \ref toy::application::CoreApplication.
   TOYGINE_NO_COPY_MOVE(ConsoleApplication);
 };
 

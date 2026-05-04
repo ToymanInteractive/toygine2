@@ -94,6 +94,7 @@ public:
   /// Shuts down the engine core module and clears the singleton instance.
   virtual ~CoreApplication() noexcept;
 
+  /// Copy and move are deleted; only one instance may exist at a time (singleton invariant).
   TOYGINE_NO_COPY_MOVE(CoreApplication);
 
   /*!
