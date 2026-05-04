@@ -34,10 +34,7 @@ public:
     : CoreApplication(nullptr, nullptr)
     , internalRunResult(runResult) {}
 
-  TestApp(const TestApp &)             = delete;
-  TestApp(TestApp &&)                  = delete;
-  TestApp & operator=(const TestApp &) = delete;
-  TestApp & operator=(TestApp &&)      = delete;
+  TOYGINE_NO_COPY_MOVE(TestApp);
 
   bool runInternal() noexcept override;
 

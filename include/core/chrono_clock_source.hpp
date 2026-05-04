@@ -120,14 +120,7 @@ public:
   */
   ~ClockSource();
 
-  /// Copy construction is deleted to preserve the singleton invariant.
-  ClockSource(const ClockSource &)             = delete;
-  /// Copy assignment is deleted to preserve the singleton invariant.
-  ClockSource & operator=(const ClockSource &) = delete;
-  /// Move construction is deleted; instances are pinned to their declaration scope.
-  ClockSource(ClockSource &&)                  = delete;
-  /// Move assignment is deleted; instances are pinned to their declaration scope.
-  ClockSource & operator=(ClockSource &&)      = delete;
+  TOYGINE_NO_COPY_MOVE(ClockSource);
 
   /*!
     \brief Tick frequency of the hardware counter in Hz.

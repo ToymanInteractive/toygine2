@@ -30,6 +30,11 @@
 using namespace toy;
 
 class ConsoleSampleApp : public application::ConsoleApplication {
+public:
+  ~ConsoleSampleApp() noexcept override = default;
+
+  TOYGINE_NO_COPY_MOVE(ConsoleSampleApp);
+
 private:
   bool runInternal() noexcept final;
 };

@@ -81,17 +81,7 @@ public:
   /// Virtual destructor; defined out-of-line to anchor the vtable in a single translation unit.
   virtual ~ISink() noexcept;
 
-  /// Copy construction is deleted to prevent slicing of derived sinks.
-  ISink(const ISink &) = delete;
-
-  /// Move construction is deleted; sinks are referenced by stable pointer in the backend.
-  ISink(ISink &&) = delete;
-
-  /// Copy assignment is deleted to prevent slicing of derived sinks.
-  ISink & operator=(const ISink &) = delete;
-
-  /// Move assignment is deleted; sinks are referenced by stable pointer in the backend.
-  ISink & operator=(ISink &&) = delete;
+  TOYGINE_NO_COPY_MOVE(ISink);
 
   /*!
     \brief Writes \a length bytes from \a message to the output destination.
