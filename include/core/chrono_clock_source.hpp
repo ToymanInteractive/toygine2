@@ -31,6 +31,8 @@
 #ifndef INCLUDE_CORE_CHRONO_CLOCK_SOURCE_HPP_
 #define INCLUDE_CORE_CHRONO_CLOCK_SOURCE_HPP_
 
+#include "class_macros.hpp"
+
 namespace toy::chrono {
 
 /*!
