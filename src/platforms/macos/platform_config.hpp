@@ -78,6 +78,8 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
     return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
   }
 
+//----------------------------------------------------------------------------------------------------------------------
+
 #endif // defined(__APPLE__) && defined(TARGET_OS_OSX)
 
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
