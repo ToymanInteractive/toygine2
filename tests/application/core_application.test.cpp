@@ -34,6 +34,8 @@ public:
     : CoreApplication(nullptr, nullptr)
     , internalRunResult(runResult) {}
 
+  ~TestApp() noexcept override = default;
+
   /// Copy and move are deleted; inherits the singleton invariant from \ref toy::application::CoreApplication.
   TOYGINE_NO_COPY_MOVE(TestApp);
 
