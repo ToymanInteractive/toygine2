@@ -34,6 +34,8 @@
 
 #if defined(_WIN32)
 
+//----------------------------------------------------------------------------------------------------------------------
+
 #undef assert
 
 #ifdef _DEBUG
@@ -176,6 +178,33 @@ inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 } // namespace chrono
 
 } // namespace toy
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  [[nodiscard]] bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv, wchar_t ** envpw,                \
+                                           char *** envp) noexcept;                                                    \
+  void               clearEntryPointArgs(char ** argv, char ** env) noexcept;                                          \
+                                                                                                                       \
+  int __cdecl wmain(int argc, wchar_t * argw[]) {                                                                      \
+    char ** argv = nullptr;                                                                                            \
+    if (!convertEntryPointArgs(argc, argw, &argv, nullptr, nullptr))                                                   \
+      return EXIT_FAILURE;                                                                                             \
+                                                                                                                       \
+    appClassName app;                                                                                                  \
+                                                                                                                       \
+    app.setVersion({.major    = APP_VERSION_MAJOR,                                                                     \
+                    .minor    = APP_VERSION_MINOR,                                                                     \
+                    .patch    = APP_VERSION_PATCH,                                                                     \
+                    .revision = APP_VERSION_REVISION});                                                                \
+                                                                                                                       \
+    const int returnValue = app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                         \
+                                                                                                                       \
+    clearEntryPointArgs(argv, nullptr);                                                                                \
+                                                                                                                       \
+    return returnValue;                                                                                                \
+  }
 
 //----------------------------------------------------------------------------------------------------------------------
 

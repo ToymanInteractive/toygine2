@@ -74,7 +74,7 @@
             },
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -90,7 +90,7 @@
             },
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },

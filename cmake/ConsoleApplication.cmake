@@ -60,6 +60,10 @@ else ()
   target_compile_definitions(${BINARY_NAME} PRIVATE APP_VERSION_REVISION="")
 endif ()
 
+if (MSVC)
+  target_link_options(${BINARY_NAME} PRIVATE /SUBSYSTEM:CONSOLE)
+endif()
+
 target_link_libraries(${BINARY_NAME} PRIVATE ${LIB_LIST})
 
 endfunction(console_application)

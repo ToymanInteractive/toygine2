@@ -33,10 +33,8 @@ public:
   TestConsoleApp() noexcept = default;
   ~TestConsoleApp() noexcept override;
 
-  TestConsoleApp(const TestConsoleApp &)             = delete;
-  TestConsoleApp(TestConsoleApp &&)                  = delete;
-  TestConsoleApp & operator=(const TestConsoleApp &) = delete;
-  TestConsoleApp & operator=(TestConsoleApp &&)      = delete;
+  /// Copy and move are deleted; inherits the singleton invariant from \ref toy::application::ConsoleApplication.
+  TOYGINE_NO_COPY_MOVE(TestConsoleApp);
 
   bool runInternal() noexcept override;
 };

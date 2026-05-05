@@ -145,8 +145,11 @@ void fillStacktrace(char * dest, size_t destSize, size_t skipFrames = 1) noexcep
 
   size_t offset = 0;
 
-  for (size_t index = skipFrames; index < frameCount && offset < destSize; ++index) {
-    Dl_info info = {};
+  for (size_t index = skipFrames; index < frameCount; ++index) {
+    if (offset >= destSize)
+      break;
+
+    Dl_info info{};
     if (!dladdr(addrList[index], &info))
       continue;
 

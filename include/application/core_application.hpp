@@ -94,14 +94,8 @@ public:
   /// Shuts down the engine core module and clears the singleton instance.
   virtual ~CoreApplication() noexcept;
 
-  /// Copy construction is deleted to preserve the singleton invariant.
-  CoreApplication(const CoreApplication &)             = delete;
-  /// Copy assignment is deleted to preserve the singleton invariant.
-  CoreApplication & operator=(const CoreApplication &) = delete;
-  /// Move construction is deleted; instances are pinned to their declaration scope.
-  CoreApplication(CoreApplication &&)                  = delete;
-  /// Move assignment is deleted; instances are pinned to their declaration scope.
-  CoreApplication & operator=(CoreApplication &&)      = delete;
+  /// Copy and move are deleted; only one instance may exist at a time (singleton invariant).
+  TOYGINE_NO_COPY_MOVE(CoreApplication);
 
   /*!
     \brief Returns the application version.
