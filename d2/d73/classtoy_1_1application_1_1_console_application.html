@@ -158,25 +158,13 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a624922b24d1f92b3ada7d5b49913b748"><td class="mdescLeft">&#160;</td><td class="mdescRight">Registers the console assertion and stack-walk callbacks via <a class="el" href="../../d4/da9/namespacetoy.html#ab71c3e41b2f6b99b6c07edcb27511d31" title="Initializes the engine core module.">toy::initialize()</a>.  <br /></td></tr>
 <tr class="memitem:a298d1de278422ef6cc0e798cabe15ded" id="r_a298d1de278422ef6cc0e798cabe15ded"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a298d1de278422ef6cc0e798cabe15ded">~ConsoleApplication</a> () noexcept override</td></tr>
 <tr class="memdesc:a298d1de278422ef6cc0e798cabe15ded"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destroys the console application and shuts down the engine core module.  <br /></td></tr>
-<tr class="memitem:a429dd09b75f8397345575e2dd4fef3ab" id="r_a429dd09b75f8397345575e2dd4fef3ab"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a429dd09b75f8397345575e2dd4fef3ab">ConsoleApplication</a> (const ConsoleApplication &amp;)=delete</td></tr>
-<tr class="memdesc:a429dd09b75f8397345575e2dd4fef3ab"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construction is deleted to preserve the singleton invariant.  <br /></td></tr>
-<tr class="memitem:acca06cf553f8f7a9fe101f483dd589c3" id="r_acca06cf553f8f7a9fe101f483dd589c3"><td class="memItemLeft"><a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#acca06cf553f8f7a9fe101f483dd589c3">operator=</a> (const <a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp;)=delete</td></tr>
-<tr class="memdesc:acca06cf553f8f7a9fe101f483dd589c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment is deleted to preserve the singleton invariant.  <br /></td></tr>
-<tr class="memitem:a238b4c4b7462e65805275d1eace98cd2" id="r_a238b4c4b7462e65805275d1eace98cd2"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a238b4c4b7462e65805275d1eace98cd2">ConsoleApplication</a> (ConsoleApplication &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:a238b4c4b7462e65805275d1eace98cd2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construction is deleted; instances are pinned to their declaration scope.  <br /></td></tr>
-<tr class="memitem:a97c75b25b46eb9b3e7a88fe1b2b1753c" id="r_a97c75b25b46eb9b3e7a88fe1b2b1753c"><td class="memItemLeft"><a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a97c75b25b46eb9b3e7a88fe1b2b1753c">operator=</a> (<a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:a97c75b25b46eb9b3e7a88fe1b2b1753c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment is deleted; instances are pinned to their declaration scope.  <br /></td></tr>
+<tr class="memitem:a59c482bc7ab758d7823cadc34cb8faea" id="r_a59c482bc7ab758d7823cadc34cb8faea"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a59c482bc7ab758d7823cadc34cb8faea">TOYGINE_NO_COPY_MOVE</a> (<a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a>)</td></tr>
+<tr class="memdesc:a59c482bc7ab758d7823cadc34cb8faea"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy and move are deleted; inherits the singleton invariant from <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>.  <br /></td></tr>
 <tr class="inherit_header pub_methods_classtoy_1_1application_1_1_core_application"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_methods_classtoy_1_1application_1_1_core_application')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Public Member Functions inherited from <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">toy::application::CoreApplication</a></td></tr>
 <tr class="memitem:a72dfe54778dbc0a9ef3ff1c96b772d65 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a72dfe54778dbc0a9ef3ff1c96b772d65"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a72dfe54778dbc0a9ef3ff1c96b772d65">~CoreApplication</a> () noexcept</td></tr>
 <tr class="memdesc:a72dfe54778dbc0a9ef3ff1c96b772d65 inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Shuts down the engine core module and clears the singleton instance.  <br /></td></tr>
-<tr class="memitem:a1a5ecff5c3966fd009d4e3a223ce19e6 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a1a5ecff5c3966fd009d4e3a223ce19e6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a1a5ecff5c3966fd009d4e3a223ce19e6">CoreApplication</a> (const CoreApplication &amp;)=delete</td></tr>
-<tr class="memdesc:a1a5ecff5c3966fd009d4e3a223ce19e6 inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construction is deleted to preserve the singleton invariant.  <br /></td></tr>
-<tr class="memitem:a796da0b6864fd37d1917872b2d57aa10 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a796da0b6864fd37d1917872b2d57aa10"><td class="memItemLeft"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a1a5ecff5c3966fd009d4e3a223ce19e6">CoreApplication</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a796da0b6864fd37d1917872b2d57aa10">operator=</a> (const <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a1a5ecff5c3966fd009d4e3a223ce19e6">CoreApplication</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a796da0b6864fd37d1917872b2d57aa10 inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment is deleted to preserve the singleton invariant.  <br /></td></tr>
-<tr class="memitem:a38e937a440114a2a13ae02224cb2a977 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a38e937a440114a2a13ae02224cb2a977"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a38e937a440114a2a13ae02224cb2a977">CoreApplication</a> (CoreApplication &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:a38e937a440114a2a13ae02224cb2a977 inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construction is deleted; instances are pinned to their declaration scope.  <br /></td></tr>
-<tr class="memitem:ad4cf1918c64856d2c0a67a166cd424cd inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_ad4cf1918c64856d2c0a67a166cd424cd"><td class="memItemLeft"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a1a5ecff5c3966fd009d4e3a223ce19e6">CoreApplication</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#ad4cf1918c64856d2c0a67a166cd424cd">operator=</a> (<a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a1a5ecff5c3966fd009d4e3a223ce19e6">CoreApplication</a> &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:ad4cf1918c64856d2c0a67a166cd424cd inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment is deleted; instances are pinned to their declaration scope.  <br /></td></tr>
+<tr class="memitem:a48e0cfb0a99831d0899f0cb940117674 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a48e0cfb0a99831d0899f0cb940117674"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a48e0cfb0a99831d0899f0cb940117674">TOYGINE_NO_COPY_MOVE</a> (<a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#ac1afe37972857779cf0b8faeda8ffe21">CoreApplication</a>)</td></tr>
+<tr class="memdesc:a48e0cfb0a99831d0899f0cb940117674 inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy and move are deleted; only one instance may exist at a time (singleton invariant).  <br /></td></tr>
 <tr class="memitem:a6d785a4ffeb5ebfccdae7a1207e0fc27 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a6d785a4ffeb5ebfccdae7a1207e0fc27"><td class="memItemLeft">const <a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a6d785a4ffeb5ebfccdae7a1207e0fc27">version</a> () const noexcept</td></tr>
 <tr class="memdesc:a6d785a4ffeb5ebfccdae7a1207e0fc27 inherit pub_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the application version.  <br /></td></tr>
 <tr class="memitem:a18932aad29e494e3b5214780fafaf364 inherit pub_methods_classtoy_1_1application_1_1_core_application" id="r_a18932aad29e494e3b5214780fafaf364"><td class="memItemLeft">void&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a18932aad29e494e3b5214780fafaf364">setVersion</a> (<a class="el" href="../../d7/d33/structtoy_1_1application_1_1_version.html">Version</a> version) noexcept</td></tr>
@@ -199,7 +187,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 id="header-inherited" class="groupheader"><a id="inherited" name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pub_static_methods_classtoy_1_1application_1_1_core_application"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pub_static_methods_classtoy_1_1application_1_1_core_application')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Static Public Member Functions inherited from <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">toy::application::CoreApplication</a></td></tr>
-<tr class="memitem:a79dfffb080d5837cbf2cad566db8b97c inherit pub_static_methods_classtoy_1_1application_1_1_core_application" id="r_a79dfffb080d5837cbf2cad566db8b97c"><td class="memItemLeft">static <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a1a5ecff5c3966fd009d4e3a223ce19e6">CoreApplication</a> *&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a79dfffb080d5837cbf2cad566db8b97c">instance</a> () noexcept</td></tr>
+<tr class="memitem:a79dfffb080d5837cbf2cad566db8b97c inherit pub_static_methods_classtoy_1_1application_1_1_core_application" id="r_a79dfffb080d5837cbf2cad566db8b97c"><td class="memItemLeft">static <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#ac1afe37972857779cf0b8faeda8ffe21">CoreApplication</a> *&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#a79dfffb080d5837cbf2cad566db8b97c">instance</a> () noexcept</td></tr>
 <tr class="memdesc:a79dfffb080d5837cbf2cad566db8b97c inherit pub_static_methods_classtoy_1_1application_1_1_core_application"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the active <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="Abstract base for platform application lifecycle management.">CoreApplication</a> instance.  <br /></td></tr>
 <tr class="inherit_header pro_methods_classtoy_1_1application_1_1_core_application"><td colspan="2" onclick="javascript:dynsection.toggleInherit('pro_methods_classtoy_1_1application_1_1_core_application')"><span class="dynarrow"><span class="arrowhead closed"></span></span>Protected Member Functions inherited from <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">toy::application::CoreApplication</a></td></tr>
 <tr class="memitem:ac1afe37972857779cf0b8faeda8ffe21 inherit pro_methods_classtoy_1_1application_1_1_core_application" id="r_ac1afe37972857779cf0b8faeda8ffe21"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html#ac1afe37972857779cf0b8faeda8ffe21">CoreApplication</a> (<a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#a27a675a54a720bf1a098fd13be80553e">assertion::AssertionCallback</a> assertionCallback, <a class="el" href="../../d2/da2/namespacetoy_1_1assertion.html#ab0cbc12475088c0e320ae8b5936ae0a4">assertion::StackWalkCallback</a> stackWalkCallback) noexcept</td></tr>
@@ -249,7 +237,7 @@ Safety Guarantees</h1>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a624922b24d1f92b3ada7d5b49913b748" name="a624922b24d1f92b3ada7d5b49913b748"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a624922b24d1f92b3ada7d5b49913b748">&#9670;&#160;</a></span>ConsoleApplication() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a624922b24d1f92b3ada7d5b49913b748">&#9670;&#160;</a></span>ConsoleApplication()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -302,112 +290,23 @@ Safety Guarantees</h1>
 
 </div>
 </div>
-<a id="a429dd09b75f8397345575e2dd4fef3ab" name="a429dd09b75f8397345575e2dd4fef3ab"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a429dd09b75f8397345575e2dd4fef3ab">&#9670;&#160;</a></span>ConsoleApplication() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::application::ConsoleApplication::ConsoleApplication </td>
-          <td>(</td>
-          <td class="paramtype">const ConsoleApplication &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy construction is deleted to preserve the singleton invariant. </p>
-
-</div>
-</div>
-<a id="a238b4c4b7462e65805275d1eace98cd2" name="a238b4c4b7462e65805275d1eace98cd2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a238b4c4b7462e65805275d1eace98cd2">&#9670;&#160;</a></span>ConsoleApplication() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::application::ConsoleApplication::ConsoleApplication </td>
-          <td>(</td>
-          <td class="paramtype">ConsoleApplication &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move construction is deleted; instances are pinned to their declaration scope. </p>
-
-</div>
-</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a97c75b25b46eb9b3e7a88fe1b2b1753c" name="a97c75b25b46eb9b3e7a88fe1b2b1753c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97c75b25b46eb9b3e7a88fe1b2b1753c">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a59c482bc7ab758d7823cadc34cb8faea" name="a59c482bc7ab758d7823cadc34cb8faea"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a59c482bc7ab758d7823cadc34cb8faea">&#9670;&#160;</a></span>TOYGINE_NO_COPY_MOVE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp; toy::application::ConsoleApplication::operator= </td>
+          <td class="memname">toy::application::ConsoleApplication::TOYGINE_NO_COPY_MOVE </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Move assignment is deleted; instances are pinned to their declaration scope. </p>
-
-</div>
-</div>
-<a id="acca06cf553f8f7a9fe101f483dd589c3" name="acca06cf553f8f7a9fe101f483dd589c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acca06cf553f8f7a9fe101f483dd589c3">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp; toy::application::ConsoleApplication::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a624922b24d1f92b3ada7d5b49913b748">ConsoleApplication</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy assignment is deleted to preserve the singleton invariant. </p>
+<p>Copy and move are deleted; inherits the singleton invariant from <a class="el" href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html" title="toy::application::CoreApplication">toy::application::CoreApplication</a>. </p>
 
 </div>
 </div>

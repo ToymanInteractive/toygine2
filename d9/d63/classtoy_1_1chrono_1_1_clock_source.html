@@ -146,14 +146,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a3652b8ed4c9604d1e8758e6b0b56bcba"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initialises the hardware counter and registers this instance as the active source.  <br /></td></tr>
 <tr class="memitem:a44fcf11a1746334c23c3b5acebd90fbe" id="r_a44fcf11a1746334c23c3b5acebd90fbe"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a44fcf11a1746334c23c3b5acebd90fbe">~ClockSource</a> ()</td></tr>
 <tr class="memdesc:a44fcf11a1746334c23c3b5acebd90fbe"><td class="mdescLeft">&#160;</td><td class="mdescRight">Releases the hardware counter and deregisters this instance.  <br /></td></tr>
-<tr class="memitem:a8e6d9d69c60562f5f91dd5fe697589a6" id="r_a8e6d9d69c60562f5f91dd5fe697589a6"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a8e6d9d69c60562f5f91dd5fe697589a6">ClockSource</a> (const ClockSource &amp;)=delete</td></tr>
-<tr class="memdesc:a8e6d9d69c60562f5f91dd5fe697589a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construction is deleted to preserve the singleton invariant.  <br /></td></tr>
-<tr class="memitem:a7fb72321326dea7194a2e9a85b2d36ec" id="r_a7fb72321326dea7194a2e9a85b2d36ec"><td class="memItemLeft"><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a7fb72321326dea7194a2e9a85b2d36ec">operator=</a> (const <a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a7fb72321326dea7194a2e9a85b2d36ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment is deleted to preserve the singleton invariant.  <br /></td></tr>
-<tr class="memitem:ad6b9b10cdbdad1885ab19d2dffda133f" id="r_ad6b9b10cdbdad1885ab19d2dffda133f"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ad6b9b10cdbdad1885ab19d2dffda133f">ClockSource</a> (ClockSource &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:ad6b9b10cdbdad1885ab19d2dffda133f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construction is deleted; instances are pinned to their declaration scope.  <br /></td></tr>
-<tr class="memitem:aef491b1c10df8db719ac4793208ae433" id="r_aef491b1c10df8db719ac4793208ae433"><td class="memItemLeft"><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#aef491b1c10df8db719ac4793208ae433">operator=</a> (<a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:aef491b1c10df8db719ac4793208ae433"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment is deleted; instances are pinned to their declaration scope.  <br /></td></tr>
+<tr class="memitem:ab20ee94951c5f8747d16520a2edbd9fc" id="r_ab20ee94951c5f8747d16520a2edbd9fc"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab20ee94951c5f8747d16520a2edbd9fc">TOYGINE_NO_COPY_MOVE</a> (<a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a>)</td></tr>
+<tr class="memdesc:ab20ee94951c5f8747d16520a2edbd9fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy and move are deleted; at most one active source may be registered at a time.  <br /></td></tr>
 <tr class="memitem:abb47cb3b7be3f45314b2392f4516a8f2" id="r_abb47cb3b7be3f45314b2392f4516a8f2"><td class="memItemLeft">int64_t&#160;</td><td class="memItemRight"><a class="el" href="#abb47cb3b7be3f45314b2392f4516a8f2">frequency</a> () const noexcept</td></tr>
 <tr class="memdesc:abb47cb3b7be3f45314b2392f4516a8f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tick frequency of the hardware counter in Hz.  <br /></td></tr>
 <tr class="memitem:ae670e017fc42f0cc1f4ba2df351dee8a" id="r_ae670e017fc42f0cc1f4ba2df351dee8a"><td class="memItemLeft">int64_t&#160;</td><td class="memItemRight"><a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a">nowTicks</a> () const noexcept</td></tr>
@@ -185,7 +179,7 @@ Usage Example</h1>
 <div class="line">  toy::chrono::Stopwatch sw;</div>
 <div class="line">  <span class="comment">// ...</span></div>
 <div class="line">} <span class="comment">// clock destroyed, hardware released</span></div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_clock_source_html"><div class="ttname"><a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></div><div class="ttdoc">RAII owner of the platform hardware time source.</div><div class="ttdef"><b>Definition</b> chrono_clock_source.hpp:93</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_clock_source_html"><div class="ttname"><a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></div><div class="ttdoc">RAII owner of the platform hardware time source.</div><div class="ttdef"><b>Definition</b> chrono_clock_source.hpp:95</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
@@ -209,7 +203,7 @@ Safety Guarantees</h1>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, toy::chrono::CountdownTimer </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3652b8ed4c9604d1e8758e6b0b56bcba" name="a3652b8ed4c9604d1e8758e6b0b56bcba"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3652b8ed4c9604d1e8758e6b0b56bcba">&#9670;&#160;</a></span>ClockSource() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3652b8ed4c9604d1e8758e6b0b56bcba">&#9670;&#160;</a></span>ClockSource()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -250,60 +244,6 @@ Safety Guarantees</h1>
 <dl class="section pre"><dt>Precondition</dt><dd>All <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instances that depend on this source have already been destroyed.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>No active source is registered; subsequent calls to <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> from any surviving dependent are undefined behaviour.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba" title="Initialises the hardware counter and registers this instance as the active source.">ClockSource()</a> </dd></dl>
-
-</div>
-</div>
-<a id="a8e6d9d69c60562f5f91dd5fe697589a6" name="a8e6d9d69c60562f5f91dd5fe697589a6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6d9d69c60562f5f91dd5fe697589a6">&#9670;&#160;</a></span>ClockSource() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::chrono::ClockSource::ClockSource </td>
-          <td>(</td>
-          <td class="paramtype">const ClockSource &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy construction is deleted to preserve the singleton invariant. </p>
-
-</div>
-</div>
-<a id="ad6b9b10cdbdad1885ab19d2dffda133f" name="ad6b9b10cdbdad1885ab19d2dffda133f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6b9b10cdbdad1885ab19d2dffda133f">&#9670;&#160;</a></span>ClockSource() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::chrono::ClockSource::ClockSource </td>
-          <td>(</td>
-          <td class="paramtype">ClockSource &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move construction is deleted; instances are pinned to their declaration scope. </p>
 
 </div>
 </div>
@@ -369,57 +309,22 @@ Safety Guarantees</h1>
 
 </div>
 </div>
-<a id="aef491b1c10df8db719ac4793208ae433" name="aef491b1c10df8db719ac4793208ae433"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aef491b1c10df8db719ac4793208ae433">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="ab20ee94951c5f8747d16520a2edbd9fc" name="ab20ee94951c5f8747d16520a2edbd9fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab20ee94951c5f8747d16520a2edbd9fc">&#9670;&#160;</a></span>TOYGINE_NO_COPY_MOVE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp; toy::chrono::ClockSource::operator= </td>
+          <td class="memname">toy::chrono::ClockSource::TOYGINE_NO_COPY_MOVE </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Move assignment is deleted; instances are pinned to their declaration scope. </p>
-
-</div>
-</div>
-<a id="a7fb72321326dea7194a2e9a85b2d36ec" name="a7fb72321326dea7194a2e9a85b2d36ec"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7fb72321326dea7194a2e9a85b2d36ec">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp; toy::chrono::ClockSource::operator= </td>
-          <td>(</td>
-          <td class="paramtype">const <a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba">ClockSource</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy assignment is deleted to preserve the singleton invariant. </p>
+<p>Copy and move are deleted; at most one active source may be registered at a time. </p>
 
 </div>
 </div>

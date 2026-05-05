@@ -51,8 +51,9 @@ var searchData=
   ['toy_5fconfig_5fdebug_5fmemory_48',['TOY_CONFIG_DEBUG_MEMORY',['../da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653',1,'core.hpp']]],
   ['toygine2_49',['ToyGine2',['../index.html',1,'']]],
   ['toygine2_2ehpp_50',['toygine2.hpp',['../d8/d8c/toygine2_8hpp.html',1,'']]],
-  ['trace_51',['Trace',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1',1,'toy::log']]],
-  ['traps_52',['traps',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4cf571b8d53ef6d6d221857eff804cf3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['tryagain_53',['TryAgain',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aebd61744195aaefd6ea1e66a92e25589',1,'toy::platform::ui']]],
-  ['typedef_54',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]
+  ['toygine_5fno_5fcopy_5fmove_51',['TOYGINE_NO_COPY_MOVE',['../d2/d73/classtoy_1_1application_1_1_console_application.html#a59c482bc7ab758d7823cadc34cb8faea',1,'toy::application::ConsoleApplication::TOYGINE_NO_COPY_MOVE()'],['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a48e0cfb0a99831d0899f0cb940117674',1,'toy::application::CoreApplication::TOYGINE_NO_COPY_MOVE()'],['../d9/d63/classtoy_1_1chrono_1_1_clock_source.html#ab20ee94951c5f8747d16520a2edbd9fc',1,'toy::chrono::ClockSource::TOYGINE_NO_COPY_MOVE()'],['../d4/dc4/classtoy_1_1log_1_1_i_sink.html#a6a83268206a23a908185d0991d6077b1',1,'toy::log::ISink::TOYGINE_NO_COPY_MOVE()'],['../d3/d0f/class__macros_8hpp.html#aafdecd7e9090a8eeb74f186237a550f3',1,'TOYGINE_NO_COPY_MOVE:&#160;class_macros.hpp']]],
+  ['trace_52',['Trace',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1',1,'toy::log']]],
+  ['traps_53',['traps',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4cf571b8d53ef6d6d221857eff804cf3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['tryagain_54',['TryAgain',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aebd61744195aaefd6ea1e66a92e25589',1,'toy::platform::ui']]],
+  ['typedef_55',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]
 ];

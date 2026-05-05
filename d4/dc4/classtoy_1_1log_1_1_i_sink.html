@@ -146,14 +146,8 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aaea92c40a462a53503de0316604c6354"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <br /></td></tr>
 <tr class="memitem:a15ad2555fb5aa3a237198a30bd183895" id="r_a15ad2555fb5aa3a237198a30bd183895"><td class="memItemLeft">virtual&#160;</td><td class="memItemRight"><a class="el" href="#a15ad2555fb5aa3a237198a30bd183895">~ISink</a> () noexcept</td></tr>
 <tr class="memdesc:a15ad2555fb5aa3a237198a30bd183895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor; defined out-of-line to anchor the vtable in a single translation unit.  <br /></td></tr>
-<tr class="memitem:ac35add77bc38fd688c1fe61465907a71" id="r_ac35add77bc38fd688c1fe61465907a71"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ac35add77bc38fd688c1fe61465907a71">ISink</a> (const ISink &amp;)=delete</td></tr>
-<tr class="memdesc:ac35add77bc38fd688c1fe61465907a71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy construction is deleted to prevent slicing of derived sinks.  <br /></td></tr>
-<tr class="memitem:ab47674a4ae1c164c548374a13b49e68e" id="r_ab47674a4ae1c164c548374a13b49e68e"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#ab47674a4ae1c164c548374a13b49e68e">ISink</a> (ISink &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:ab47674a4ae1c164c548374a13b49e68e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move construction is deleted; sinks are referenced by stable pointer in the backend.  <br /></td></tr>
-<tr class="memitem:a2013e81da5cf4c072ae37ff9bd6f1cc6" id="r_a2013e81da5cf4c072ae37ff9bd6f1cc6"><td class="memItemLeft"><a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a2013e81da5cf4c072ae37ff9bd6f1cc6">operator=</a> (const <a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp;)=delete</td></tr>
-<tr class="memdesc:a2013e81da5cf4c072ae37ff9bd6f1cc6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment is deleted to prevent slicing of derived sinks.  <br /></td></tr>
-<tr class="memitem:a6b97da5030285478a0168b980a0247dc" id="r_a6b97da5030285478a0168b980a0247dc"><td class="memItemLeft"><a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a6b97da5030285478a0168b980a0247dc">operator=</a> (<a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp;&amp;)=delete</td></tr>
-<tr class="memdesc:a6b97da5030285478a0168b980a0247dc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment is deleted; sinks are referenced by stable pointer in the backend.  <br /></td></tr>
+<tr class="memitem:a6a83268206a23a908185d0991d6077b1" id="r_a6a83268206a23a908185d0991d6077b1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6a83268206a23a908185d0991d6077b1">TOYGINE_NO_COPY_MOVE</a> (<a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a>)</td></tr>
+<tr class="memdesc:a6a83268206a23a908185d0991d6077b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy and move are deleted; polymorphic types must not be copied or moved to prevent object slicing.  <br /></td></tr>
 <tr class="memitem:a630f61169456b36f1ceccf826a42fe72" id="r_a630f61169456b36f1ceccf826a42fe72"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a630f61169456b36f1ceccf826a42fe72">write</a> (const char *message, size_t length) noexcept=0</td></tr>
 <tr class="memdesc:a630f61169456b36f1ceccf826a42fe72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes <em class="arg">length</em> bytes from <em class="arg">message</em> to the output destination.  <br /></td></tr>
 </table>
@@ -196,7 +190,7 @@ Safety Guarantees</h1>
 <dl class="section see"><dt>See also</dt><dd>toy::ConsoleSink, toy::MgbaSink, toy::LogBackend </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaea92c40a462a53503de0316604c6354" name="aaea92c40a462a53503de0316604c6354"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaea92c40a462a53503de0316604c6354">&#9670;&#160;</a></span>ISink() <span class="overload">[1/3]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaea92c40a462a53503de0316604c6354">&#9670;&#160;</a></span>ISink()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -249,112 +243,23 @@ Safety Guarantees</h1>
 
 </div>
 </div>
-<a id="ac35add77bc38fd688c1fe61465907a71" name="ac35add77bc38fd688c1fe61465907a71"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac35add77bc38fd688c1fe61465907a71">&#9670;&#160;</a></span>ISink() <span class="overload">[2/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::log::ISink::ISink </td>
-          <td>(</td>
-          <td class="paramtype">const ISink &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Copy construction is deleted to prevent slicing of derived sinks. </p>
-
-</div>
-</div>
-<a id="ab47674a4ae1c164c548374a13b49e68e" name="ab47674a4ae1c164c548374a13b49e68e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab47674a4ae1c164c548374a13b49e68e">&#9670;&#160;</a></span>ISink() <span class="overload">[3/3]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">toy::log::ISink::ISink </td>
-          <td>(</td>
-          <td class="paramtype">ISink &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move construction is deleted; sinks are referenced by stable pointer in the backend. </p>
-
-</div>
-</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a2013e81da5cf4c072ae37ff9bd6f1cc6" name="a2013e81da5cf4c072ae37ff9bd6f1cc6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2013e81da5cf4c072ae37ff9bd6f1cc6">&#9670;&#160;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a6a83268206a23a908185d0991d6077b1" name="a6a83268206a23a908185d0991d6077b1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6a83268206a23a908185d0991d6077b1">&#9670;&#160;</a></span>TOYGINE_NO_COPY_MOVE()</h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp; toy::log::ISink::operator= </td>
+          <td class="memname">toy::log::ISink::TOYGINE_NO_COPY_MOVE </td>
           <td>(</td>
-          <td class="paramtype">const <a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"><a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a></td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Copy assignment is deleted to prevent slicing of derived sinks. </p>
-
-</div>
-</div>
-<a id="a6b97da5030285478a0168b980a0247dc" name="a6b97da5030285478a0168b980a0247dc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b97da5030285478a0168b980a0247dc">&#9670;&#160;</a></span>operator=() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname"><a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp; toy::log::ISink::operator= </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a> &amp;&amp;</td>          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel delete">delete</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Move assignment is deleted; sinks are referenced by stable pointer in the backend. </p>
+<p>Copy and move are deleted; polymorphic types must not be copied or moved to prevent object slicing. </p>
 
 </div>
 </div>
