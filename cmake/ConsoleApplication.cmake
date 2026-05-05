@@ -61,7 +61,7 @@ else ()
 endif ()
 
 if (MSVC)
-  target_link_options(${BINARY_NAME} PRIVATE /SUBSYSTEM:CONSOLE /ENTRY:wmainCRTStartup)
+  target_link_options(${BINARY_NAME} PRIVATE /SUBSYSTEM:CONSOLE)
 endif()
 
 target_link_libraries(${BINARY_NAME} PRIVATE ${LIB_LIST})
