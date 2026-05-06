@@ -435,7 +435,8 @@ TEST_CASE("math/fixed/operator_plus_assign") {
         return x.rawValue();
       }()
         == -3 * 256,
-      "operator+= negative must be constexpr");
+      "operator+= negative must be constexpr"
+    );
   }
 }
 
@@ -564,7 +565,8 @@ TEST_CASE("math/fixed/operator_minus_assign") {
         return x.rawValue();
       }()
         == -7 * 256,
-      "operator-= negative must be constexpr");
+      "operator-= negative must be constexpr"
+    );
   }
 }
 
@@ -596,7 +598,8 @@ TEST_CASE("math/fixed/operator_mul_assign") {
         return x.rawValue();
       }()
         == -6 * 256,
-      "operator*=(fixed) negative");
+      "operator*=(fixed) negative"
+    );
   }
 
   // Multiply by fixed with different rounding policy in place.
@@ -658,7 +661,8 @@ TEST_CASE("math/fixed/operator_mul_assign") {
         return x.rawValue();
       }()
         == -6 * 256,
-      "operator*=(T) negative must be constexpr");
+      "operator*=(T) negative must be constexpr"
+    );
   }
 }
 
@@ -690,7 +694,8 @@ TEST_CASE("math/fixed/operator_div_assign") {
         return x.rawValue();
       }()
         == -4 * 256,
-      "operator/=(fixed) negative");
+      "operator/=(fixed) negative"
+    );
   }
 
   // Divide by fixed with different rounding policy in place.
@@ -752,7 +757,8 @@ TEST_CASE("math/fixed/operator_div_assign") {
         return x.rawValue();
       }()
         == -4 * 256,
-      "operator/=(T) negative must be constexpr");
+      "operator/=(T) negative must be constexpr"
+    );
   }
 }
 

@@ -124,7 +124,8 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type>
 
 template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
-  const FixedVector<type, allocatedSize> & other) noexcept {
+  const FixedVector<type, allocatedSize> & other
+) noexcept {
   if (this == &other)
     return *this;
 
@@ -141,7 +142,8 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 template <typename type, size_t allocatedSize>
 template <size_t allocatedSize2>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
-  const FixedVector<type, allocatedSize2> & other) noexcept {
+  const FixedVector<type, allocatedSize2> & other
+) noexcept {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
 
   clear();
@@ -156,7 +158,8 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 
 template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
-  FixedVector<type, allocatedSize> && other) noexcept {
+  FixedVector<type, allocatedSize> && other
+) noexcept {
   if (this == &other)
     return *this;
 
@@ -175,7 +178,8 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 template <typename type, size_t allocatedSize>
 template <size_t allocatedSize2>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
-  FixedVector<type, allocatedSize2> && other) noexcept {
+  FixedVector<type, allocatedSize2> && other
+) noexcept {
   assert_message(other.size() <= allocatedSize, "Source vector size must not exceed capacity.");
 
   clear();
@@ -192,7 +196,8 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 
 template <typename type, size_t allocatedSize>
 inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::operator=(
-  std::initializer_list<type> ilist) {
+  std::initializer_list<type> ilist
+) {
   assert_message(ilist.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
 
   clear();
@@ -245,7 +250,8 @@ inline void FixedVector<type, allocatedSize>::assign(std::initializer_list<type>
 
 template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::reference FixedVector<type, allocatedSize>::at(
-  size_type pos) noexcept {
+  size_type pos
+) noexcept {
   assert_message(pos < _size, "Position must be within bounds");
 
   return data()[pos];
@@ -253,7 +259,8 @@ template <typename type, size_t allocatedSize>
 
 template <typename type, size_t allocatedSize>
 [[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::const_reference FixedVector<type, allocatedSize>::at(
-  size_type pos) const noexcept {
+  size_type pos
+) const noexcept {
   assert_message(pos < _size, "Position must be within bounds");
 
   return data()[pos];
@@ -397,8 +404,8 @@ template <typename type, size_t allocatedSize>
 }
 
 template <typename type, size_t allocatedSize>
-[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<type, allocatedSize>::size()
-  const noexcept {
+[[nodiscard]] constexpr typename FixedVector<type, allocatedSize>::size_type FixedVector<
+  type, allocatedSize>::size() const noexcept {
   return _size;
 }
 

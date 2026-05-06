@@ -69,7 +69,8 @@ TEST_CASE("core/hashes/crc_functions") {
   // Long string input.
   SUBCASE("long_string") {
     constexpr CStringView longStr(
-      "This is a very long string that contains multiple words and should test the CRC algorithm with a substantial amount of data to process.");
+      "This is a very long string that contains multiple words and should test the CRC algorithm with a substantial amount of data to process."
+    );
 
     REQUIRE(crc8(longStr.c_str(), longStr.size()) == 0x64);
     REQUIRE(crc16(longStr.c_str(), longStr.size()) == 0x1D16);

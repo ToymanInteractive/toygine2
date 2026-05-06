@@ -430,7 +430,8 @@ concept fixed_point = is_fixed_point_v<T>;
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding>
   requires signed_integral<Base>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
-  const fixed<Base, Intermediate, Fraction, Rounding> & value) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & value
+) noexcept;
 
 /*!
   \brief Returns \a a + \a b as a new \ref toy::math::fixed (same type as left operand).
@@ -445,8 +446,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
-  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
-  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const fixed<Base, Intermediate, Fraction, OtherRounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a + \a b as a new \ref toy::math::fixed (fixed plus integral whole units).
@@ -459,7 +460,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b
+) noexcept;
 
 /*!
   \brief Returns \a a + \a b as a new \ref toy::math::fixed (integral whole units plus fixed).
@@ -472,7 +474,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator+(
-  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a - \a b as a new \ref toy::math::fixed (same type as left operand).
@@ -484,8 +487,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
-  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
-  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const fixed<Base, Intermediate, Fraction, OtherRounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a - \a b as a new \ref toy::math::fixed (fixed minus integral whole units).
@@ -498,7 +501,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b
+) noexcept;
 
 /*!
   \brief Returns \a a - \a b as a new \ref toy::math::fixed (integral whole units minus fixed).
@@ -511,7 +515,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator-(
-  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a * \a b as a new \ref toy::math::fixed (same type as left \ref toy::math::fixed operand).
@@ -523,8 +528,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
-  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
-  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const fixed<Base, Intermediate, Fraction, OtherRounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a * \a b as a new \ref toy::math::fixed (fixed times integral whole units).
@@ -537,7 +542,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b
+) noexcept;
 
 /*!
   \brief Returns \a a * \a b as a new \ref toy::math::fixed (integral whole units times fixed).
@@ -550,7 +556,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator*(
-  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a / \a b as a new \ref toy::math::fixed.
@@ -564,8 +571,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
-  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
-  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const fixed<Base, Intermediate, Fraction, OtherRounding> & b
+) noexcept;
 
 /*!
   \brief Returns \a a / \a b as a new \ref toy::math::fixed (fixed divided by integral whole units).
@@ -580,7 +587,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
-  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const T & b
+) noexcept;
 
 /*!
   \brief Returns \a a / \a b as a new \ref toy::math::fixed (integral whole units divided by fixed).
@@ -595,7 +603,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, typename T>
   requires integral<T>
 [[nodiscard]] constexpr fixed<Base, Intermediate, Fraction, Rounding> operator/(
-  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b) noexcept;
+  const T & a, const fixed<Base, Intermediate, Fraction, Rounding> & b
+) noexcept;
 
 /*!
   \brief Compares two \ref toy::math::fixed values for equality.
@@ -678,8 +687,8 @@ template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding
 */
 template <typename Base, typename Intermediate, unsigned Fraction, bool Rounding, bool OtherRounding>
 [[nodiscard]] constexpr strong_ordering operator<=>(
-  const fixed<Base, Intermediate, Fraction, Rounding> &      a,
-  const fixed<Base, Intermediate, Fraction, OtherRounding> & b) noexcept;
+  const fixed<Base, Intermediate, Fraction, Rounding> & a, const fixed<Base, Intermediate, Fraction, OtherRounding> & b
+) noexcept;
 
 /*!
   \brief Three-way comparison of a \ref toy::math::fixed value with an integral.

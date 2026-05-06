@@ -110,10 +110,10 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
   SUBCASE("utf8 std::string") {
     wchar_t testBuffer[utf8TestData.size()];
 
-    REQUIRE(
-      wcscmp(unicodeTestData.data(), utf8toWChar(testBuffer, size(testBuffer),
-                                                 std::string(reinterpret_cast<const char *>(utf8TestData.data()))))
-      == 0);
+    REQUIRE(wcscmp(unicodeTestData.data(),
+                   utf8toWChar(testBuffer, size(testBuffer),
+                               std::string(reinterpret_cast<const char *>(utf8TestData.data()))))
+            == 0);
     REQUIRE(wcscmp(testBuffer, unicodeTestData.data()) == 0);
   }
 

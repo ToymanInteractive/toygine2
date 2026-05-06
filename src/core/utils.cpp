@@ -321,7 +321,7 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     --strBegin;
   }
 
-  const auto digits       = char_traits<char>::length(strBegin);
+  const auto digits = char_traits<char>::length(strBegin);
   size_t     intDigits{0};
   size_t     leadingZeros{0};
   if (static_cast<size_t>(std::abs(exp10)) >= precision) {

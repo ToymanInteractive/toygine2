@@ -179,8 +179,8 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
                         const Args &... args) noexcept {
   OStringStream<BackendType> stream;
 
-  const auto pattern   = fmt.get();
-  const auto length    = pattern.size();
+  const auto pattern = fmt.get();
+  const auto length  = pattern.size();
   size_t     position{0};
   size_t     autoIndex{0};
 
@@ -256,8 +256,8 @@ void vformatTo(BackendType & output, CStringView pattern, const Args &... args) 
 
   output = BackendType{};
 
-  const char * const data      = pattern.c_str();
-  const auto         length    = pattern.size();
+  const char * const data   = pattern.c_str();
+  const auto         length = pattern.size();
   size_t             position{0};
   size_t             autoIndex{0};
   size_t             litStart{0};

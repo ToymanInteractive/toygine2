@@ -205,10 +205,10 @@ enum class PlaceholderMode {
                                                                         size_t              argCount) noexcept {
   using enum FormatPatternValidationError;
 
-  auto       mode      = PlaceholderMode::none;
+  auto       mode = PlaceholderMode::none;
   size_t     autoCount{0};
   size_t     position{0};
-  const auto length    = string.size();
+  const auto length = string.size();
 
   while (position < length) {
     const char c = string.at(position);
