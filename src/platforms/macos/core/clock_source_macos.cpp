@@ -47,8 +47,12 @@ ClockSource::~ClockSource() {
 }
 
 int64_t ClockSource::nowTicks() const noexcept {
-  struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
+  struct timespec ts{};
+
+  const int rc = clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
+  assert_message(rc == 0, "ClockSource::nowTicks: clock_gettime(CLOCK_MONOTONIC_RAW) failed");
+  if (rc != 0)
+    return 0;
 
   return ts.tv_sec * c_steadyClockPeriodDenominator + ts.tv_nsec;
 }
