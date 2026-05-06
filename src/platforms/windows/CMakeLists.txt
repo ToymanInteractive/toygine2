@@ -22,7 +22,7 @@ set(PLATFORM_SRC_APPLICATION_LIST src/platforms/windows/application/console_appl
 set(PLATFORM_HDR_APPLICATION_LIST )
 set(PLATFORM_LIB_APPLICATION_LIST )
 
-set(PLATFORM_SRC_CORE_LIST src/platforms/stub/core/assertion_stub.cpp)
+set(PLATFORM_SRC_CORE_LIST src/platforms/windows/core/assertion_windows.cpp)
 set(PLATFORM_HDR_CORE_LIST )
 set(PLATFORM_LIB_CORE_LIST )
 
