@@ -32,6 +32,12 @@ ToyGine2 is a modern C++ high‑level engine.
 | Linux   | GCC                     | 14.2 and above                   |
 | GBA     | devkitARM               | release 66 (GCC 15.2.0)          |
 
+### Minimum OS versions
+
+| OS    | Version                 | Reason                               |
+| ----- | ----------------------- | ------------------------------------ |
+| macOS | 10.12 (Sierra) or later | `clock_gettime(CLOCK_MONOTONIC_RAW)` |
+
 ### Tools
 
 - CMake 3.31 or newer

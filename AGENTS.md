@@ -47,7 +47,7 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 
 This repository contains a C++ game engine targeting:
 
-- Desktop platforms
+- Desktop platforms (macOS 10.12+, Windows, Linux)
 - Mobile platforms
 - Embedded and constrained systems
 - Retro consoles (fixed memory, no OS assumptions)
@@ -239,6 +239,12 @@ If something can be checked at compile time, it should be.
 
 - Use default member initializers (in-class) when appropriate.
 - Prefer constructor initialization lists for non-default values.
+
+### Brace Initialization
+
+- Prefer brace initialization `{}` over `=` for variable declarations: local variables, namespace-scope variables, and in-class member initializers.
+- Exception: `constexpr` / `const` constants with literal values use `= value` — this is the established idiom (`constexpr int x = 42`), and narrowing is not a concern since the value is known at compile time.
+- Exception: use `=` when brace initialization would invoke the wrong constructor (e.g. `std::vector<int> v(10)` vs `std::vector<int> v = {1, 2}`).
 
 ---
 

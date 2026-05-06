@@ -22,7 +22,9 @@ set(PLATFORM_SRC_APPLICATION_LIST src/platforms/macos/application/core_applicati
 set(PLATFORM_HDR_APPLICATION_LIST )
 set(PLATFORM_LIB_APPLICATION_LIST )
 
-set(PLATFORM_SRC_CORE_LIST src/platforms/macos/core/assertion_macos.cpp)
+set(PLATFORM_SRC_CORE_LIST
+    src/platforms/macos/core/assertion_macos.cpp
+    src/platforms/macos/core/clock_source_macos.cpp)
 set(PLATFORM_HDR_CORE_LIST )
 set(PLATFORM_LIB_CORE_LIST )
 
