@@ -26,6 +26,7 @@
 
 namespace toy {
 
+namespace {
 /*!
   \brief UTF-8 character size lookup table for efficient UTF-8 parsing.
 
@@ -35,7 +36,7 @@ namespace toy {
 
   \note Values: 0x01 = 1-byte ASCII character, 0x02-0x04 = multi-byte UTF-8 sequence, 0x00 = invalid/incomplete.
 */
-static constexpr array<uint8_t, 256> _utf8CharSizeTable{
+constexpr array<uint8_t, 256> c_utf8CharSizeTable{
   {
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
@@ -71,7 +72,7 @@ static constexpr array<uint8_t, 256> _utf8CharSizeTable{
   \note This table enables O(1) lookup instead of expensive runtime power-of-10 calculations, significantly improving
         the performance of floating-point number formatting.
 */
-constexpr array<uint32_t, 32> _exponentTable{
+constexpr array<uint32_t, 32> c_exponentTable{
   {
    0xF0BDC21A, 0x3DA137D5, 0x9DC5ADA8, 0x2863C1F5, 0x6765C793, 0x1A784379, 0x43C33C19, 0xAD78EBC5,
    0x2C68AF0B, 0x71AFD498, 0x1D1A94A2, 0x4A817C80, 0xBEBC2000, 0x30D40000, 0x7D000000, 0x20000000,
@@ -198,7 +199,7 @@ constexpr int32_t _ftoa32Engine(char * buffer, float value, size_t precision) no
   *pointer++ = '0';
 
   int32_t  exp10 = (((exponent >> 3) * 77 + 63) >> 5) - 38;
-  uint32_t t = static_cast<uint32_t>((static_cast<uint64_t>(fraction << 8) * _exponentTable[exponent / 8U]) >> 32) + 1;
+  uint32_t t = static_cast<uint32_t>((static_cast<uint64_t>(fraction << 8) * c_exponentTable[exponent / 8U]) >> 32) + 1;
   t >>= (7 - (exponent & 7));
 
   auto digit = static_cast<uint8_t>(t >> 28);
@@ -411,6 +412,8 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   return 3;
 }
 
+} // namespace
+
 wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t count) noexcept {
   if (dest == nullptr || destSize == 0)
     return nullptr;
@@ -427,7 +430,7 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
   size_t srcIterator = 0;
   while (srcIterator < count && destPointer < unicodeEndPos) {
     const auto lead   = static_cast<byte>(src[srcIterator++]);
-    const auto seqLen = _utf8CharSizeTable[std::to_integer<size_t>(lead)];
+    const auto seqLen = c_utf8CharSizeTable[std::to_integer<size_t>(lead)];
     if (seqLen == 0 || seqLen > 3 || srcIterator + (seqLen - 1) > count) {
       break;
     } else if (seqLen == 1) {
@@ -501,7 +504,7 @@ size_t utf8Len(const char * string) noexcept {
 
   size_t size = 0;
   while (*string != '\0') {
-    const auto symbolLength = _utf8CharSizeTable[static_cast<uint8_t>(*string)];
+    const auto symbolLength = c_utf8CharSizeTable[static_cast<uint8_t>(*string)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
     if (symbolLength == 0)
       return 0;

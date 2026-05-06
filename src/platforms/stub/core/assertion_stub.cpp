@@ -34,7 +34,7 @@ namespace {
 constexpr size_t c_stringBufferSize = 4096;
 
 /// Active assertion callback; invoked when an assertion fires in debug builds.
-AssertionCallback _assertionCallback = nullptr;
+AssertionCallback _assertionCallback{nullptr};
 
 } // namespace
 

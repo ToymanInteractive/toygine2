@@ -18,38 +18,43 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
-  \brief  Compile-time platform and CPU bindings for Nintendo 3DS.
-
-  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
-  3DS toolchains.
-
-  \note Included by 3DS platform translation units; not a public module header.
+  \file   clock_source_macos.cpp
+  \brief  macOS implementation of \ref toy::chrono::ClockSource using CLOCK_MONOTONIC_RAW.
 */
 
-#ifndef SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
+#include <time.h>
 
-#include "../../../include/core/platform.hpp"
-#include "../common/assertion_macro_gcc_clang.hpp"
+#include "core.hpp"
 
-#if defined(__DEVKITPRO__)
+namespace toy::chrono {
 
-namespace toy {
+namespace {
 
-inline constexpr auto currentPlatform = Platform::N3DS;
+/// Process-wide active source; null when none is registered.
+ClockSource * activeSource{nullptr};
 
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm32;
+} // namespace
 
-namespace chrono {
+ClockSource::ClockSource()
+  : _frequency{c_steadyClockPeriodDenominator} {
+  assert_message(activeSource == nullptr, "ClockSource: at most one active instance is allowed per process");
 
-/// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
-inline constexpr int64_t c_steadyClockPeriodDenominator = 1'000'000'000;
+  activeSource = this;
+}
 
-} // namespace chrono
+ClockSource::~ClockSource() {
+  activeSource = nullptr;
+}
 
-} // namespace toy
+int64_t ClockSource::nowTicks() const noexcept {
+  struct timespec ts{};
 
-#endif // defined(__DEVKITPRO__)
+  const int rc = clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
+  assert_message(rc == 0, "ClockSource::nowTicks: clock_gettime(CLOCK_MONOTONIC_RAW) failed");
+  if (rc != 0)
+    return 0;
 
-#endif // SRC_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
+  return ts.tv_sec * c_steadyClockPeriodDenominator + ts.tv_nsec;
+}
+
+} // namespace toy::chrono

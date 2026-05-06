@@ -57,7 +57,7 @@ inline constexpr auto currentCpuArchitecture = CpuArchitecture::Unknown;
 namespace chrono {
 
 /// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
-inline constexpr uint64_t c_steadyClockPeriodDenominator = 1'000'000'000;
+inline constexpr int64_t c_steadyClockPeriodDenominator = 1'000'000'000;
 
 } // namespace chrono
 

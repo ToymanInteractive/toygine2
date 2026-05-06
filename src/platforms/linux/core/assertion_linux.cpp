@@ -43,22 +43,22 @@ constexpr size_t c_maxStackFrames = 63;
 constexpr size_t c_stringBufferSize = 4096;
 
 /// Active assertion callback; invoked when an assertion fires in debug builds.
-AssertionCallback _assertCallback = nullptr;
+AssertionCallback _assertCallback{nullptr};
 
 /// Active stack-walk callback; invoked with the formatted stack trace on crash.
-StackWalkCallback _stackWalkCallback = nullptr;
+StackWalkCallback _stackWalkCallback{nullptr};
 
 /// Set after the first initialize(); prevents overwriting saved handlers on repeated calls.
-bool _initialized = false;
+bool _initialized{false};
 
 /// Previous SIGUSR1 handler, restored on deInitialize().
-sighandler_t _previousUSR1Handler = SIG_ERR;
+sighandler_t _previousUSR1Handler{SIG_ERR};
 /// Previous SIGBUS handler, restored on deInitialize().
-sighandler_t _previousBUShandler  = SIG_ERR;
+sighandler_t _previousBUShandler{SIG_ERR};
 /// Previous SIGFPE handler, restored on deInitialize().
-sighandler_t _previousFPEhandler  = SIG_ERR;
+sighandler_t _previousFPEhandler{SIG_ERR};
 /// Previous SIGSEGV handler, restored on deInitialize().
-sighandler_t _previousSEGVhandler = SIG_ERR;
+sighandler_t _previousSEGVhandler{SIG_ERR};
 
 /*!
   \struct SignalInfo

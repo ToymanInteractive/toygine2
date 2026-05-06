@@ -80,7 +80,8 @@ BreakAfterReturnType: Automatic
 BreakArrays: false
 BreakBeforeBinaryOperators: All
 BreakBeforeBraces: Attach
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeclosebracketbracedlist
+BreakBeforeCloseBracketBracedList: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeclosebracketfunction
 BreakTemplateDeclarations: Yes
 BreakBeforeConceptDeclarations: Always
 BreakBeforeTernaryOperators: true

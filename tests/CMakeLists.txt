@@ -17,6 +17,39 @@
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
 #-------------------------------------------------------------------------------------------
+
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch-default")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
+
+endif ()
+
+#-------------------------------------------------------------------------------------------
+# CTest support
+#-------------------------------------------------------------------------------------------
+
 set(CTEST_SUPPORT OFF)
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING OFF)
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS OFF)
