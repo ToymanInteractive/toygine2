@@ -134,7 +134,7 @@ template <typename PatternType>
   if (start == end)
     return autoIndex++;
 
-  size_t argIndex = 0;
+  size_t argIndex{0};
   for (size_t i = start; i < end; ++i)
     argIndex = argIndex * 10U + static_cast<size_t>(pattern.at(i) - '0');
 
@@ -181,8 +181,8 @@ constexpr void formatTo(BackendType & output, type_identity_t<FormatString<Args.
 
   const auto pattern   = fmt.get();
   const auto length    = pattern.size();
-  size_t     position  = 0;
-  size_t     autoIndex = 0;
+  size_t     position{0};
+  size_t     autoIndex{0};
 
   while (position < length) {
     const char c = pattern.at(position);
@@ -258,9 +258,9 @@ void vformatTo(BackendType & output, CStringView pattern, const Args &... args) 
 
   const char * const data      = pattern.c_str();
   const auto         length    = pattern.size();
-  size_t             position  = 0;
-  size_t             autoIndex = 0;
-  size_t             litStart  = 0;
+  size_t             position{0};
+  size_t             autoIndex{0};
+  size_t             litStart{0};
 
   while (position < length) {
     if (const char c = data[position]; c == '{') {

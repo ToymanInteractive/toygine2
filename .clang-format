@@ -81,7 +81,11 @@ BreakArrays: false
 BreakBeforeBinaryOperators: All
 BreakBeforeBraces: Attach
 BreakBeforeCloseBracketBracedList: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeclosebracketfunction
+BreakBeforeCloseBracketFunction: true
+BreakBeforeCloseBracketIf: true
+BreakBeforeCloseBracketLoop: true
+BreakBeforeCloseBracketSwitch: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeconceptdeclarations
 BreakTemplateDeclarations: Yes
 BreakBeforeConceptDeclarations: Always
 BreakBeforeTernaryOperators: true

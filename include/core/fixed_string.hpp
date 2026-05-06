@@ -41,7 +41,7 @@ struct FixedStringStorage {
   char buffer[allocatedSize] = {'\0'};
 
   /// Current number of characters in the storage (excluding null terminator)
-  size_t size = 0;
+  size_t size{0};
 };
 
 /*!

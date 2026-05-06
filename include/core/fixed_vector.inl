@@ -117,7 +117,7 @@ inline FixedVector<type, allocatedSize>::FixedVector(std::initializer_list<type>
   , _size(init.size()) {
   assert_message(init.size() <= allocatedSize, "Initializer list size must not exceed capacity.");
 
-  size_type index = 0;
+  size_type index{0};
   for (const auto & element : init)
     std::construct_at(data() + index++, element);
 }
@@ -199,7 +199,7 @@ inline FixedVector<type, allocatedSize> & FixedVector<type, allocatedSize>::oper
 
   _size = ilist.size();
 
-  size_type index = 0;
+  size_type index{0};
   for (const auto & element : ilist)
     std::construct_at(data() + index++, element);
 
@@ -238,7 +238,7 @@ inline void FixedVector<type, allocatedSize>::assign(std::initializer_list<type>
 
   _size = ilist.size();
 
-  size_type index = 0;
+  size_type index{0};
   for (const auto & element : ilist)
     std::construct_at(data() + index++, element);
 }

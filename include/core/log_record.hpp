@@ -76,10 +76,10 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
 */
 struct Record {
   /// Pointer to the static call-site metadata (format pattern, file, line, level).
-  const Metadata * meta = nullptr;
+  const Metadata * meta{nullptr};
 
   /// Platform timestamp captured at push time.
-  uint32_t timestamp = 0;
+  uint32_t timestamp{0};
 
   /// Formatted message ready for sink output.
   FixedString<c_messageCapacity> message;
