@@ -11,9 +11,9 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" target="_top" xlink:title="Stateless monotonic clock that satisfies the TrivialClock concept.">
+<g id="a_Node000000"><a xlink:href="d9/d63/classtoy_1_1chrono_1_1_clock_source.html" target="_top" xlink:title="RAII owner of the platform hardware time source.">
 <polygon fill="white" stroke="#666666" points="137,-19 0,-19 0,0 137,0 137,-19"/>
-<text text-anchor="middle" x="68.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">toy::chrono::SteadyClock</text>
+<text text-anchor="middle" x="68.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">toy::chrono::ClockSource</text>
 </a>
 </g>
 </g>

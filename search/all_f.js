@@ -38,7 +38,8 @@ var searchData=
   ['organization_35',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
   ['orientation_36',['Orientation',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02',1,'toy::platform::ui']]],
   ['orientation_2ehpp_37',['orientation.hpp',['../d0/d24/orientation_8hpp.html',1,'']]],
-  ['ostringstream_38',['OStringStream',['../d7/d15/classtoy_1_1_o_string_stream.html',1,'toy::OStringStream&lt; BackendType &gt;'],['../d7/d15/classtoy_1_1_o_string_stream.html#adcc4bda14585fc0bbac5e0dbbf603d38',1,'toy::OStringStream::OStringStream() noexcept=default'],['../d7/d15/classtoy_1_1_o_string_stream.html#a5fed364efc96b9c691575b4842638f42',1,'toy::OStringStream::OStringStream(const SourceStringType &amp;string) noexcept']]],
-  ['ostringstreambackend_39',['OStringStreamBackend',['../d0/d5a/concepttoy_1_1_o_string_stream_backend.html',1,'toy']]],
-  ['over_20typedef_40',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]
+  ['os_20versions_38',['Minimum OS versions',['../index.html#minimum-os-versions',1,'']]],
+  ['ostringstream_39',['OStringStream',['../d7/d15/classtoy_1_1_o_string_stream.html',1,'toy::OStringStream&lt; BackendType &gt;'],['../d7/d15/classtoy_1_1_o_string_stream.html#adcc4bda14585fc0bbac5e0dbbf603d38',1,'toy::OStringStream::OStringStream() noexcept=default'],['../d7/d15/classtoy_1_1_o_string_stream.html#a5fed364efc96b9c691575b4842638f42',1,'toy::OStringStream::OStringStream(const SourceStringType &amp;string) noexcept']]],
+  ['ostringstreambackend_40',['OStringStreamBackend',['../d0/d5a/concepttoy_1_1_o_string_stream_backend.html',1,'toy']]],
+  ['over_20typedef_41',['&lt;span class=&quot;tt&quot;&gt;using&lt;/span&gt; over &lt;span class=&quot;tt&quot;&gt;typedef&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#using-over-typedef',1,'']]]
 ];

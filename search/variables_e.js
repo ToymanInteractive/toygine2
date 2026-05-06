@@ -1,10 +1,10 @@
 var searchData=
 [
-  ['s_5finstance_0',['s_instance',['../d0/d3e/namespacetoy_1_1application.html#aa282e6de23479c33310525c29bdb01e9',1,'toy::application']]],
-  ['size_1',['size',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#a6449cdbdbfea41d537cdfd7bb2ffc504',1,'toy::FixedStringStorage']]],
-  ['sqrt2_5fv_2',['sqrt2_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#a7e1c56ee16f6775476a908030aedb4a2',1,'toy::math::constants']]],
-  ['sqrt2_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_3',['sqrt2_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#aee313ad9acd690af3fb6a897335ef383',1,'std::numbers']]],
-  ['sqrt3_5fv_4',['sqrt3_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#aa4c99dfc6e76f4ca84633f52d18f5c5a',1,'toy::math::constants']]],
-  ['sqrt3_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_5',['sqrt3_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a280b0bb872614ac5b4c171ab3038caf1',1,'std::numbers']]],
-  ['start_6',['start',['../db/d6f/classtoy_1_1geometry_1_1_section.html#a2fe9f7aba81fafc2d1708e61cccf409b',1,'toy::geometry::Section']]]
+  ['rad_5fper_5fdeg_5fv_0',['rad_per_deg_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#a35b52d17a247dc7aec6c494854fa77fd',1,'toy::math::constants']]],
+  ['radius_1',['radius',['../df/d25/classtoy_1_1geometry_1_1_circle.html#a5be25ce523ff8f1bd225ceb1b8cd3625',1,'toy::geometry::Circle']]],
+  ['radiuses_2',['radiuses',['../d9/dd1/classtoy_1_1geometry_1_1_ellipse.html#a797c69d9f316e5a20e5f371b6d581736',1,'toy::geometry::Ellipse']]],
+  ['radix_3',['radix',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a4e315a22a0727c409b1e0582d45950c3',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
+  ['rem_4',['rem',['../d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html#a0c649917a82f936c78158aa0995a9e9d',1,'toy::anonymous_namespace{utils.cpp}::DivMod10']]],
+  ['revision_5',['revision',['../d7/d33/structtoy_1_1application_1_1_version.html#a1c4247fbb7eac4c15835dcc164f9bf31',1,'toy::application::Version']]],
+  ['round_5fstyle_6',['round_style',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ae61bb355a9776342cfed55427ee331d9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];

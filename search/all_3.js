@@ -9,9 +9,10 @@ var searchData=
   ['bitwise_5fenum_2ehpp_6',['bitwise_enum.hpp',['../df/d61/bitwise__enum_8hpp.html',1,'']]],
   ['bitwise_5fenum_2einl_7',['bitwise_enum.inl',['../dd/d61/bitwise__enum_8inl.html',1,'']]],
   ['block_20style_8',['Doxygen Block Style',['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'']]],
-  ['braces_9',['Braces',['../df/d81/md__a_g_e_n_t_s.html#braces',1,'']]],
-  ['broadcast_10',['Broadcast',['../d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842',1,'toy::network']]],
-  ['buffer_11',['buffer',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#addbaaa07f3ec92ff02f36411920f040f',1,'toy::FixedStringStorage']]],
-  ['bytesreceived_12',['bytesReceived',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5',1,'toy::network::SocketStatistics']]],
-  ['bytessent_13',['bytesSent',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999',1,'toy::network::SocketStatistics']]]
+  ['brace_20initialization_9',['Brace Initialization',['../df/d81/md__a_g_e_n_t_s.html#brace-initialization',1,'']]],
+  ['braces_10',['Braces',['../df/d81/md__a_g_e_n_t_s.html#braces',1,'']]],
+  ['broadcast_11',['Broadcast',['../d6/d2c/namespacetoy_1_1network.html#af5b032f86c2c00ee1f7c873271b57abfabe55b6387170df0ca68f41225268e842',1,'toy::network']]],
+  ['buffer_12',['buffer',['../d5/d3b/structtoy_1_1_fixed_string_storage.html#addbaaa07f3ec92ff02f36411920f040f',1,'toy::FixedStringStorage']]],
+  ['bytesreceived_13',['bytesReceived',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html#a3c3c99231dc867832329d1e75aab25a5',1,'toy::network::SocketStatistics']]],
+  ['bytessent_14',['bytesSent',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html#a2c4c0e28d01df55670efc539774de999',1,'toy::network::SocketStatistics']]]
 ];

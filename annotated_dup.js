@@ -7,6 +7,9 @@ var annotated_dup =
       [ "anonymous_namespace{format.inl}", "d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html", [
         [ "FormatArgument", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument" ]
       ] ],
+      [ "anonymous_namespace{utils.cpp}", "d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html", [
+        [ "DivMod10", "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html", "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10" ]
+      ] ],
       [ "application", "d0/d3e/namespacetoy_1_1application.html", [
         [ "ConsoleApplication", "d2/d73/classtoy_1_1application_1_1_console_application.html", "d2/d73/classtoy_1_1application_1_1_console_application" ],
         [ "CoreApplication", "d7/d1d/classtoy_1_1application_1_1_core_application.html", "d7/d1d/classtoy_1_1application_1_1_core_application" ],
@@ -48,7 +51,6 @@ var annotated_dup =
       [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
       [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
       [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
-      [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
       [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
       [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
       [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],

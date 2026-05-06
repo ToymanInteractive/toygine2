@@ -177,7 +177,7 @@ C++ game engine style guide</h1>
 Project Context</h1>
 <p>This repository contains a C++ game engine targeting:</p>
 <ul>
-<li>Desktop platforms</li>
+<li>Desktop platforms (macOS 10.12+, Windows, Linux)</li>
 <li>Mobile platforms</li>
 <li>Embedded and constrained systems</li>
 <li>Retro consoles (fixed memory, no OS assumptions)</li>
@@ -385,6 +385,13 @@ Default Member Initialization</h2>
 <ul>
 <li>Use default member initializers (in-class) when appropriate.</li>
 <li>Prefer constructor initialization lists for non-default values.</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="brace-initialization"></a>
+Brace Initialization</h2>
+<ul>
+<li>Prefer brace initialization <span class="tt">{}</span> over <span class="tt">=</span> for variable declarations: local variables, namespace-scope variables, and in-class member initializers.</li>
+<li>Exception: <span class="tt">constexpr</span> / <span class="tt">const</span> constants with literal values use <span class="tt">= value</span> — this is the established idiom (<span class="tt">constexpr int x = 42</span>), and narrowing is not a concern since the value is known at compile time.</li>
+<li>Exception: use <span class="tt">=</span> when brace initialization would invoke the wrong constructor (e.g. <span class="tt">std::vector&lt;int&gt; v(10)</span> vs <span class="tt">std::vector&lt;int&gt; v = {1, 2}</span>).</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="error-handling"></a>

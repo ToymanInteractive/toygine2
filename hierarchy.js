@@ -7,6 +7,7 @@ var hierarchy =
     [ "numeric_limits", "db/dc2/classnumeric__limits.html", null ],
     [ "std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;", "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html", null ],
     [ "toy::anonymous_namespace{format.inl}::FormatArgument", "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html", null ],
+    [ "toy::anonymous_namespace{utils.cpp}::DivMod10", "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html", null ],
     [ "toy::application::CoreApplication", "d7/d1d/classtoy_1_1application_1_1_core_application.html", [
       [ "toy::application::ConsoleApplication", "d2/d73/classtoy_1_1application_1_1_console_application.html", null ]
     ] ],
@@ -23,7 +24,6 @@ var hierarchy =
     [ "toy::chrono::ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", null ],
     [ "toy::chrono::SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", null ],
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", null ],
-    [ "toy::DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", null ],
     [ "toy::EnableBitwiseOperators&lt; T &gt;", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", null ],
     [ "toy::FixedString&lt; allocatedSize &gt;", "d3/d7a/classtoy_1_1_fixed_string.html", null ],
     [ "toy::FixedStringStorage&lt; allocatedSize &gt;", "d5/d3b/structtoy_1_1_fixed_string_storage.html", null ],

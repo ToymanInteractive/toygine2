@@ -14,7 +14,7 @@ var searchData=
   ['infinity_11',['infinity',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a778c9240fca850ed4b63c1d04c438026',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['info_12',['Info',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875',1,'toy::log']]],
   ['information_13',['Information',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faaa82be0f551b8708bc08eb33cd9ded0cf',1,'toy::platform::ui']]],
-  ['initialization_14',['Default Member Initialization',['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'']]],
+  ['initialization_14',['Initialization',['../df/d81/md__a_g_e_n_t_s.html#brace-initialization',1,'Brace Initialization'],['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'Default Member Initialization']]],
   ['initialize_15',['initialize',['../d4/da9/namespacetoy.html#ab71c3e41b2f6b99b6c07edcb27511d31',1,'toy::initialize()'],['../d2/da2/namespacetoy_1_1assertion.html#a27103d6d4ef3d3f5fbc2f772f5c7facf',1,'toy::assertion::initialize()']]],
   ['inl_16',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
   ['inl_20files_17',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],

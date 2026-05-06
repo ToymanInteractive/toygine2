@@ -24,7 +24,7 @@ var searchData=
   ['digits_21',['digits',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af72edb17450ef46df574d2dbe7a69b49',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['digits10_22',['digits10',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a8b50310bde22496df21b0b9788ed23ac',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
   ['dispatchformatarg_23',['dispatchFormatArg',['../d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a95f15086e82bf0c62e07dbf71dc2b4e9',1,'toy::anonymous_namespace{format.inl}']]],
-  ['divmod10_24',['DivMod10',['../da/d8f/structtoy_1_1_div_mod10.html',1,'toy']]],
+  ['divmod10_24',['DivMod10',['../d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html',1,'toy::anonymous_namespace{utils.cpp}']]],
   ['documentation_25',['Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'Comments and Documentation'],['../df/d81/md__a_g_e_n_t_s.html#concept-documentation',1,'Concept Documentation']]],
   ['documentation_26',['File documentation (&lt;span class=&quot;tt&quot;&gt;\\file&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#file-documentation-file',1,'']]],
   ['documentation_20order_27',['Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'Class / Struct Documentation Order'],['../df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order',1,'Method / Function Documentation Order']]],

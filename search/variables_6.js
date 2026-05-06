@@ -1,8 +1,6 @@
 var searchData=
 [
-  ['has_5fdenorm_0',['has_denorm',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a342fd7ad807189a4fb34b673778d64c6',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5fdenorm_5floss_1',['has_denorm_loss',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ac890e8e82de6afbad143f30cfa689c92',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5finfinity_2',['has_infinity',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a32c09571e763734c9099762fa29a57e9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5fquiet_5fnan_3',['has_quiet_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a2215e103803628f20a023df55cbb6e71',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5fsignaling_5fnan_4',['has_signaling_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af4b93bf26ebc5c9f8d317e444965deb5',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
+  ['file_0',['file',['../d8/dfc/structtoy_1_1log_1_1_metadata.html#a9f32d710e2001cd33bea97aab2a11b51',1,'toy::log::Metadata']]],
+  ['format_1',['format',['../d8/dfc/structtoy_1_1log_1_1_metadata.html#afda1c7c6973bf92eb8a0de618e7aea07',1,'toy::log::Metadata']]],
+  ['formatfn_2',['formatFn',['../d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html#a88539095ea0762df4cb92c5df2667076',1,'toy::anonymous_namespace{format.inl}::FormatArgument']]]
 ];

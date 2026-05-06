@@ -1,3 +1,5 @@
 <map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="Node000000" href="$d7/d33/structtoy_1_1application_1_1_version.html" title="Application version information structure." alt="" coords="5,5,184,31"/>
+<area shape="rect" id="Node000000" href="$d7/d1d/classtoy_1_1application_1_1_core_application.html" title="Abstract base for platform application lifecycle management." alt="" coords="5,13,239,38"/>
+<area shape="rect" id="Node000001" href="$d2/d73/classtoy_1_1application_1_1_console_application.html" title="Abstract base for console&#45;mode application lifecycle." alt="" coords="287,5,469,45"/>
+<area shape="poly" id="edge4_Node000000_Node000001" title=" " alt="" coords="252,23,286,23,286,28,252,28"/>
 </map>

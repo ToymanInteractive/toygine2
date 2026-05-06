@@ -27,6 +27,7 @@ var NAVTREE =
   [ "ToyGine2", "index.html", [
     [ "Supported Systems", "index.html#supported-systems", [
       [ "Supported C++ compilers", "index.html#supported-c-compilers", null ],
+      [ "Minimum OS versions", "index.html#minimum-os-versions", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
     [ "AGENTS Guidelines for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
@@ -64,7 +65,8 @@ var NAVTREE =
         [ "Rule of Zero and Rule of Five", "df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five", null ],
         [ "<span class=\"tt\">auto</span>", "df/d81/md__a_g_e_n_t_s.html#auto", null ],
         [ "Range-Based For Loops", "df/d81/md__a_g_e_n_t_s.html#range-based-for-loops", null ],
-        [ "Default Member Initialization", "df/d81/md__a_g_e_n_t_s.html#default-member-initialization", null ]
+        [ "Default Member Initialization", "df/d81/md__a_g_e_n_t_s.html#default-member-initialization", null ],
+        [ "Brace Initialization", "df/d81/md__a_g_e_n_t_s.html#brace-initialization", null ]
       ] ],
       [ "Error Handling", "df/d81/md__a_g_e_n_t_s.html#error-handling", [
         [ "Assertions", "df/d81/md__a_g_e_n_t_s.html#assertions", null ]
@@ -156,12 +158,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#a44fdfe5e1658ec2f72943c72ced11f36",
-"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d",
+"d3/d7a/classtoy_1_1_fixed_string.html#a3bf81849c9573fc0747221cc5b40e856",
+"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b",
 "d7/d1d/classtoy_1_1application_1_1_core_application.html#a0534d34a9d5209a9705f634fcd109739",
 "d8/dc9/classtoy_1_1_callbacks_pool.html#a2e2431c7651f8c17f41618f7889af770",
-"dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f",
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa824e86ad7ef467815efe26bec67e07fa"
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a0a8665a73979bcb3805ac6d7eee4e04b",
+"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa6938551dfe2951837f896da35ad7983d"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

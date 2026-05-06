@@ -13,6 +13,7 @@ var namespacetoy =
       [ "reconcilePlaceholderMode", "d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#aa43d54757a290c5ec80b3a5770c95df3", null ],
       [ "validateFormatImpl", "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9", null ]
     ] ],
+    [ "anonymous_namespace{utils.cpp}", "d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html", "d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03" ],
     [ "application", "d0/d3e/namespacetoy_1_1application.html", "d0/d3e/namespacetoy_1_1application" ],
     [ "assertion", "d2/da2/namespacetoy_1_1assertion.html", "d2/da2/namespacetoy_1_1assertion" ],
     [ "audio", "dd/d77/namespacetoy_1_1audio.html", [
@@ -79,7 +80,6 @@ var namespacetoy =
     [ "array", "d8/d52/classtoy_1_1array.html", "d8/d52/classtoy_1_1array" ],
     [ "CallbacksPool", "d8/dc9/classtoy_1_1_callbacks_pool.html", "d8/dc9/classtoy_1_1_callbacks_pool" ],
     [ "CStringView", "d5/d03/classtoy_1_1_c_string_view.html", "d5/d03/classtoy_1_1_c_string_view" ],
-    [ "DivMod10", "da/d8f/structtoy_1_1_div_mod10.html", "da/d8f/structtoy_1_1_div_mod10" ],
     [ "EnableBitwiseOperators", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", "dc/d6d/classtoy_1_1_enable_bitwise_operators" ],
     [ "FixedString", "d3/d7a/classtoy_1_1_fixed_string.html", "d3/d7a/classtoy_1_1_fixed_string" ],
     [ "FixedStringStorage", "d5/d3b/structtoy_1_1_fixed_string_storage.html", "d5/d3b/structtoy_1_1_fixed_string_storage" ],
@@ -116,11 +116,6 @@ var namespacetoy =
       [ "N3DS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa91f63b3de0c255c06d76b4a195ed5b15", null ],
       [ "Switch", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b", null ]
     ] ],
-    [ "_divModU10", "d4/da9/namespacetoy.html#ad50baf11842c6432ebd7af9129b3e479", null ],
-    [ "_floatPostProcess", "d4/da9/namespacetoy.html#a1398396b240f9a663cdedc2a077edfb3", null ],
-    [ "_ftoa32Engine", "d4/da9/namespacetoy.html#a5c08dafb841b59caed6996f17b8baebc", null ],
-    [ "_ftoa64Engine", "d4/da9/namespacetoy.html#a23cb859f41bbfdd0562927582baec660", null ],
-    [ "_symbolSizeInUTF8Bytes", "d4/da9/namespacetoy.html#a75847afdde24a641b256fa6753ececf8", null ],
     [ "crc16", "d4/da9/namespacetoy.html#aa63c971425cb6819414030806927a68a", null ],
     [ "crc32", "d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e", null ],
     [ "crc8", "d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583", null ],
@@ -185,7 +180,5 @@ var namespacetoy =
     [ "_crc32Table", "d4/da9/namespacetoy.html#a2700f13c2a45a3d51f7f770b487fdea1", null ],
     [ "_crc8Table", "d4/da9/namespacetoy.html#a8c48bd85be2362df34afbf1e4cb72f9d", null ],
     [ "_decimalDigitsPerGroup", "d4/da9/namespacetoy.html#a5a201490c0074b46a75d3053aef1850a", null ],
-    [ "_exponentTable", "d4/da9/namespacetoy.html#a347e818bfb701d85aaa994862433373d", null ],
-    [ "_utf8CharSizeTable", "d4/da9/namespacetoy.html#abaf6e43802564c3840542ee978aeb917", null ],
     [ "WCHAR_IN_UTF8_MAX_SIZE", "d9/d39/group___string_text.html#ga2a4051deac87f3522fdd2a2c55d1a79c", null ]
 ];
