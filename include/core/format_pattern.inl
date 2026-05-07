@@ -86,8 +86,8 @@ enum class PlaceholderMode {
                                                                           size_t & position, size_t argCount) noexcept {
   using enum FormatPatternValidationError;
 
-  size_t index    = 0;
-  bool   anyDigit = false;
+  size_t index{0};
+  bool   anyDigit{false};
   while (position < length) {
     const char d = string.at(position);
     if (d < '0' || d > '9')
@@ -205,10 +205,10 @@ enum class PlaceholderMode {
                                                                         size_t              argCount) noexcept {
   using enum FormatPatternValidationError;
 
-  auto       mode      = PlaceholderMode::none;
-  size_t     autoCount = 0;
-  size_t     position  = 0;
-  const auto length    = string.size();
+  auto       mode{PlaceholderMode::none};
+  size_t     autoCount{0};
+  size_t     position{0};
+  const auto length = string.size();
 
   while (position < length) {
     const char c = string.at(position);

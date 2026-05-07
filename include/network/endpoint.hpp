@@ -128,7 +128,7 @@ protected:
 
 private:
   /// Port in host byte order.
-  uint16_t _port = 0;
+  uint16_t _port{0};
 };
 
 } // namespace toy::network

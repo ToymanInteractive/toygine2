@@ -819,7 +819,7 @@ private:
   byte _data[allocatedSize * sizeof(type)];
 
   /// Current number of elements in the vector.
-  size_type _size = 0;
+  size_type _size{0};
 };
 
 } // namespace toy

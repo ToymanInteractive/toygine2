@@ -18,31 +18,21 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   socket_statistics.hpp
-  \brief  Socket traffic statistics: bytes sent and received.
-
-  Defines \ref toy::network::SocketStatistics with byte counters for sent and received data. Used to track traffic per
-  socket or aggregate across connections.
-
-  \note Included by network.hpp only; do not include this file directly.
+  \file   clock_source_stub.cpp
+  \brief  Stub implementation of \ref toy::chrono::ClockSource.
 */
 
-#ifndef INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_
-#define INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_
+#include "core.hpp"
 
-namespace toy::network {
+namespace toy::chrono {
 
-/*!
-  \struct SocketStatistics
-  \brief Byte counters for socket traffic (sent and received).
-*/
-struct SocketStatistics {
-  /// Total bytes sent on the socket.
-  size_t bytesSent{0};
-  /// Total bytes received on the socket.
-  size_t bytesReceived{0};
-};
+ClockSource::ClockSource()
+  : _frequency{c_steadyClockPeriodDenominator} {}
 
-} // namespace toy::network
+ClockSource::~ClockSource() = default;
 
-#endif // INCLUDE_NETWORK_SOCKET_STATISTICS_HPP_
+int64_t ClockSource::nowTicks() const noexcept {
+  return 0;
+}
+
+} // namespace toy::chrono

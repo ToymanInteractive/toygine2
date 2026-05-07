@@ -112,7 +112,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator=(cha
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::assign(
-  const FixedString<allocatedSize> & string) noexcept {
+  const FixedString<allocatedSize> & string
+) noexcept {
   if (this == std::addressof(string))
     return *this;
 
@@ -270,7 +271,8 @@ constexpr void FixedString<allocatedSize>::clear() noexcept {
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::insert(
-  size_t index, const FixedString<allocatedSize> & string) noexcept {
+  size_t index, const FixedString<allocatedSize> & string
+) noexcept {
   _insert_raw(index, string.data(), string.size());
 
   return *this;
@@ -438,7 +440,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(
-  const FixedString<allocatedSize> & string) noexcept {
+  const FixedString<allocatedSize> & string
+) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
 
   _append_raw(string._storage.buffer, string._storage.size);
@@ -460,7 +463,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::append(const 
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(
-  const FixedString<allocatedSize> & string) noexcept {
+  const FixedString<allocatedSize> & string
+) noexcept {
   assert_message(this != &string, "Cannot append string into itself");
 
   _append_raw(string._storage.buffer, string._storage.size);
@@ -510,7 +514,8 @@ constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::operator+=(ch
 
 template <size_t allocatedSize>
 constexpr FixedString<allocatedSize> & FixedString<allocatedSize>::replace(
-  size_t pos, size_t count, const FixedString<allocatedSize> & string) noexcept {
+  size_t pos, size_t count, const FixedString<allocatedSize> & string
+) noexcept {
   _replace_raw(pos, count, string._storage.buffer, string._storage.size);
 
   return *this;

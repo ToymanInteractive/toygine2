@@ -321,9 +321,9 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     --strBegin;
   }
 
-  const auto digits       = char_traits<char>::length(strBegin);
-  size_t     intDigits    = 0;
-  size_t     leadingZeros = 0;
+  const auto digits = char_traits<char>::length(strBegin);
+  size_t     intDigits{0};
+  size_t     leadingZeros{0};
   if (static_cast<size_t>(std::abs(exp10)) >= precision) {
     intDigits = 1;
   } else if (exp10 >= 0) {
@@ -427,7 +427,7 @@ wchar_t * utf8toWChar(wchar_t * dest, size_t destSize, const char * src, size_t 
 
   const wchar_t * const unicodeEndPos = dest + (destSize - 1);
 
-  size_t srcIterator = 0;
+  size_t srcIterator{0};
   while (srcIterator < count && destPointer < unicodeEndPos) {
     const auto lead   = static_cast<byte>(src[srcIterator++]);
     const auto seqLen = c_utf8CharSizeTable[std::to_integer<size_t>(lead)];
@@ -502,7 +502,7 @@ size_t utf8Len(const char * string) noexcept {
   if (string == nullptr)
     return 0;
 
-  size_t size = 0;
+  size_t size{0};
   while (*string != '\0') {
     const auto symbolLength = c_utf8CharSizeTable[static_cast<uint8_t>(*string)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
@@ -591,7 +591,7 @@ void formatNumberString(char * buffer, size_t bufferSize, const char * separator
     --bufferSize;
   }
 
-  size_t digitsCount = 0;
+  size_t digitsCount{0};
   while (buffer[digitsCount] >= '0' && buffer[digitsCount] <= '9')
     ++digitsCount;
 

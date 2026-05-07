@@ -154,7 +154,7 @@ private:
   /// Internal structure to store a callback function pointer.
   struct StaticCallback {
     /// Pointer to the callback function.
-    void (*method)(T arg) = nullptr;
+    void (*method)(T arg){nullptr};
   };
 
   /// Fixed-size array storing registered callbacks.
