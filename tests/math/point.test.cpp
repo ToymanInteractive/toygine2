@@ -43,6 +43,7 @@ TEST_CASE("math/point/object_structure") {
 
   static_assert(std::is_trivial_v<Point>, "Point must be trivial");
   static_assert(std::is_trivially_copyable_v<Point>, "Point must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Point>, "Point must be trivially destructible");
   static_assert(std::is_standard_layout_v<Point>, "Point must have standard layout");
 }
 

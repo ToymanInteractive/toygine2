@@ -57,15 +57,16 @@ static void resetCounters() {
 }
 
 // Check object structure.
-TEST_CASE("core/callbacks_pool/object_structure") {
+TEST_CASE("callbacks_pool/object_structure") {
   static_assert(!std::is_trivial_v<CallbacksPool<int>>,
                 "CallbacksPool must not be trivial (has non-trivial default init)");
   static_assert(std::is_trivially_copyable_v<CallbacksPool<int>>, "CallbacksPool must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<CallbacksPool<int>>, "CallbacksPool must be destructible");
   static_assert(std::is_standard_layout_v<CallbacksPool<int>>, "CallbacksPool must have standard layout");
 }
 
 // Default and template-parameterized constructors.
-TEST_CASE("core/callbacks_pool/constructors") {
+TEST_CASE("callbacks_pool/constructors") {
   // Default constructor yields zero subscribers.
   SUBCASE("default_constructor") {
     constexpr CallbacksPool<int, 4> pool;
@@ -89,7 +90,7 @@ TEST_CASE("core/callbacks_pool/constructors") {
 }
 
 // add() subscribes callbacks; duplicate add is idempotent.
-TEST_CASE("core/callbacks_pool/add_method") {
+TEST_CASE("callbacks_pool/add_method") {
   // Add single callback.
   SUBCASE("add_single_callback") {
     CallbacksPool<int, 4> pool;
@@ -141,7 +142,7 @@ TEST_CASE("core/callbacks_pool/add_method") {
 }
 
 // remove() unsubscribes callbacks; remove from empty or non-existent returns false.
-TEST_CASE("core/callbacks_pool/remove_method") {
+TEST_CASE("callbacks_pool/remove_method") {
   // Remove existing callback.
   SUBCASE("remove_existing_callback") {
     CallbacksPool<int, 4> pool;
@@ -211,7 +212,7 @@ TEST_CASE("core/callbacks_pool/remove_method") {
 }
 
 // reset() clears all subscribers; pool is reusable after reset.
-TEST_CASE("core/callbacks_pool/reset_method") {
+TEST_CASE("callbacks_pool/reset_method") {
   // Reset empty pool.
   SUBCASE("reset_empty_pool") {
     CallbacksPool<int, 4> pool;
@@ -270,7 +271,7 @@ TEST_CASE("core/callbacks_pool/reset_method") {
 }
 
 // subscribersAmount() returns current subscriber count.
-TEST_CASE("core/callbacks_pool/subscribers_amount_method") {
+TEST_CASE("callbacks_pool/subscribers_amount_method") {
   // Empty pool has zero count.
   SUBCASE("empty_pool") {
     CallbacksPool<int, 4> pool;
@@ -340,7 +341,7 @@ TEST_CASE("core/callbacks_pool/subscribers_amount_method") {
 }
 
 // call() invokes all subscribed callbacks with the given argument.
-TEST_CASE("core/callbacks_pool/call_method") {
+TEST_CASE("callbacks_pool/call_method") {
   // Call with no callbacks; counters unchanged.
   SUBCASE("call_with_no_callbacks") {
     CallbacksPool<int, 4> pool;
@@ -467,7 +468,7 @@ TEST_CASE("core/callbacks_pool/call_method") {
 }
 
 // Add, remove, reset, call in sequence; duplicate and re-add behavior.
-TEST_CASE("core/callbacks_pool/integration") {
+TEST_CASE("callbacks_pool/integration") {
   // Full lifecycle: add, call, remove, reset, add again.
   SUBCASE("full_lifecycle") {
     CallbacksPool<int, 4> pool;

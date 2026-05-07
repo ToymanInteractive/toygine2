@@ -42,7 +42,7 @@ ENABLE_BITWISE_OPERATORS(toy::TestFlags)
 namespace toy {
 
 // Trait EnableBitwiseOperators: enabled for specialized enum, disabled otherwise.
-TEST_CASE("core/bitwise_enum/trait") {
+TEST_CASE("bitwise_enum/trait") {
   // Specialized enum has enable == true.
   SUBCASE("enabled_for_specialized_enum") {
     REQUIRE(EnableBitwiseOperators<TestFlags>::enable == true);
@@ -63,7 +63,7 @@ TEST_CASE("core/bitwise_enum/trait") {
 }
 
 // Bitwise OR.
-TEST_CASE("core/bitwise_enum/operator_or") {
+TEST_CASE("bitwise_enum/operator_or") {
   // TestFlags::A | TestFlags::B combines bits.
   SUBCASE("or_combines_bits") {
     constexpr auto combined = TestFlags::A | TestFlags::B;
@@ -84,7 +84,7 @@ TEST_CASE("core/bitwise_enum/operator_or") {
 }
 
 // Bitwise AND.
-TEST_CASE("core/bitwise_enum/operator_and") {
+TEST_CASE("bitwise_enum/operator_and") {
   // (TestFlags::A | TestFlags::B) & TestFlags::A yields TestFlags::A.
   SUBCASE("and_intersection") {
     constexpr auto combined = TestFlags::A | TestFlags::B;
@@ -104,7 +104,7 @@ TEST_CASE("core/bitwise_enum/operator_and") {
 }
 
 // Bitwise XOR.
-TEST_CASE("core/bitwise_enum/operator_xor") {
+TEST_CASE("bitwise_enum/operator_xor") {
   // TestFlags::A ^ TestFlags::B yields bits in exactly one operand.
   SUBCASE("xor_symmetric_difference") {
     REQUIRE((TestFlags::A ^ TestFlags::B) == (TestFlags::A | TestFlags::B));
@@ -122,7 +122,7 @@ TEST_CASE("core/bitwise_enum/operator_xor") {
 }
 
 // Bitwise NOT.
-TEST_CASE("core/bitwise_enum/operator_not") {
+TEST_CASE("bitwise_enum/operator_not") {
   // ~TestFlags::None has all bits set for underlying type.
   REQUIRE(std::to_underlying(~TestFlags::None) == 0xFF);
 
@@ -130,7 +130,7 @@ TEST_CASE("core/bitwise_enum/operator_not") {
 }
 
 // Compound assignment operators.
-TEST_CASE("core/bitwise_enum/compound_assignment") {
+TEST_CASE("bitwise_enum/compound_assignment") {
   // operator|= assigns lhs | rhs to lhs and returns reference.
   SUBCASE("or_assign") {
     TestFlags   f   = TestFlags::A;

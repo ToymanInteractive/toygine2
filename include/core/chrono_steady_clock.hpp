@@ -138,10 +138,6 @@ public:
   [[nodiscard]] static rep frequency() noexcept;
 };
 
-static_assert(SteadyClock::is_steady, "SteadyClock::is_steady must be true");
-static_assert(std::is_same_v<decltype(SteadyClock::now()), SteadyClock::time_point>,
-              "SteadyClock::now() must return time_point");
-
 } // namespace toy::chrono
 
 #endif // INCLUDE_CORE_CHRONO_STEADY_CLOCK_HPP_

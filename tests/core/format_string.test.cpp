@@ -29,14 +29,15 @@
 namespace toy {
 
 // Check object structure.
-TEST_CASE("core/format_string/object_structure") {
+TEST_CASE("format_string/object_structure") {
   static_assert(!std::is_trivial_v<FormatString<>>, "FormatString must not be trivial (has non-trivial default init)");
   static_assert(std::is_trivially_copyable_v<FormatString<>>, "FormatString must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<FormatString<>>, "FormatString must be trivially destructible");
   static_assert(std::is_standard_layout_v<FormatString<>>, "FormatString must have standard layout");
 }
 
 // FormatString constructor stores the format pattern.
-TEST_CASE("core/format_string/constructor") {
+TEST_CASE("format_string/constructor") {
   // String without placeholders stored as given.
   SUBCASE("string_without_placeholders") {
     constexpr FormatString<> format("Hello World");
@@ -93,7 +94,7 @@ TEST_CASE("core/format_string/constructor") {
 }
 
 // get() returns the stored string; two calls return equal values.
-TEST_CASE("core/format_string/get_method") {
+TEST_CASE("format_string/get_method") {
   // get() returns the stored string.
   SUBCASE("returns_stored_string") {
     constexpr FormatString<> format("Test");
@@ -121,7 +122,7 @@ TEST_CASE("core/format_string/get_method") {
 }
 
 // Positional {N} placeholders: pattern stored unchanged.
-TEST_CASE("core/format_string/positional_single") {
+TEST_CASE("format_string/positional_single") {
   constexpr FormatString<int> format("{0}");
 
   REQUIRE(format.get() == "{0}");
@@ -129,7 +130,7 @@ TEST_CASE("core/format_string/positional_single") {
   static_assert(format.get() == "{0}", "positional placeholder must be preserved");
 }
 
-TEST_CASE("core/format_string/positional_multiple") {
+TEST_CASE("format_string/positional_multiple") {
   constexpr FormatString<int, float> format("{0}, {1}");
 
   REQUIRE(format.get() == "{0}, {1}");
@@ -137,7 +138,7 @@ TEST_CASE("core/format_string/positional_multiple") {
   static_assert(format.get() == "{0}, {1}", "multiple positional placeholders preserved");
 }
 
-TEST_CASE("core/format_string/positional_reorder") {
+TEST_CASE("format_string/positional_reorder") {
   constexpr FormatString<int, float> format("{1} then {0}");
 
   REQUIRE(format.get() == "{1} then {0}");
@@ -145,7 +146,7 @@ TEST_CASE("core/format_string/positional_reorder") {
   static_assert(format.get() == "{1} then {0}", "reordered indices preserved");
 }
 
-TEST_CASE("core/format_string/positional_repeat") {
+TEST_CASE("format_string/positional_repeat") {
   constexpr FormatString<int> format("{0}{0}");
 
   REQUIRE(format.get() == "{0}{0}");
@@ -153,7 +154,7 @@ TEST_CASE("core/format_string/positional_repeat") {
   static_assert(format.get() == "{0}{0}", "repeated index preserved");
 }
 
-TEST_CASE("core/format_string/positional_with_escapes") {
+TEST_CASE("format_string/positional_with_escapes") {
   constexpr FormatString<int> format("{{{0}}}");
 
   REQUIRE(format.get() == "{{{0}}}");
@@ -161,7 +162,7 @@ TEST_CASE("core/format_string/positional_with_escapes") {
   static_assert(format.get() == "{{{0}}}", "escaped braces with positional index preserved");
 }
 
-TEST_CASE("core/format_string/positional_sparse") {
+TEST_CASE("format_string/positional_sparse") {
   constexpr FormatString<int, float, double> format("{2}");
 
   REQUIRE(format.get() == "{2}");

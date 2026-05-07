@@ -46,16 +46,17 @@ void trackingCallback(void * context, const char * data, size_t count) noexcept 
 }
 
 // Object layout.
-TEST_CASE("core/format_context/object_structure") {
+TEST_CASE("format_context/object_structure") {
   static_assert(sizeof(FormatContext) == 2 * sizeof(void *), "FormatContext must be two-pointer sized");
 
   static_assert(!std::is_trivial_v<FormatContext>, "FormatContext must not be trivial");
   static_assert(std::is_trivially_copyable_v<FormatContext>, "FormatContext must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<FormatContext>, "FormatContext must be trivially destructible");
   static_assert(std::is_standard_layout_v<FormatContext>, "FormatContext must have standard layout");
 }
 
 // write() delegates to the stored callback.
-TEST_CASE("core/format_context/write") {
+TEST_CASE("format_context/write") {
   FixedString<128> buf;
   FormatContext    ctx{&buf, fixedStringCallback};
 
@@ -97,7 +98,7 @@ TEST_CASE("core/format_context/write") {
 }
 
 // put() appends a single character through the callback.
-TEST_CASE("core/format_context/put") {
+TEST_CASE("format_context/put") {
   FixedString<128> buf;
   FormatContext    ctx{&buf, fixedStringCallback};
 
@@ -121,7 +122,7 @@ TEST_CASE("core/format_context/put") {
 }
 
 // Interleaved write() and put() calls accumulate in order.
-TEST_CASE("core/format_context/mixed_operations") {
+TEST_CASE("format_context/mixed_operations") {
   FixedString<128> buf;
   FormatContext    ctx{&buf, fixedStringCallback};
 
@@ -135,7 +136,7 @@ TEST_CASE("core/format_context/mixed_operations") {
 }
 
 // The same FormatContext interface works with unrelated backing storage.
-TEST_CASE("core/format_context/type_erasure") {
+TEST_CASE("format_context/type_erasure") {
   struct RawBuffer {
     char   data[64] = {};
     size_t length   = 0;

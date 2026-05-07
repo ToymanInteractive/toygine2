@@ -26,13 +26,14 @@
 
 #include "core.hpp"
 
-namespace toy {
+namespace toy::log {
 
 // Object layout.
-TEST_CASE("core/log/metadata/object_structure") {
-  static_assert(std::is_trivial_v<log::Metadata>, "Log Metadata must be trivial");
-  static_assert(std::is_trivially_copyable_v<log::Metadata>, "Log Metadata must be trivially copyable");
-  static_assert(std::is_standard_layout_v<log::Metadata>, "Log Metadata must have standard layout");
+TEST_CASE("log/metadata/object_structure") {
+  static_assert(std::is_trivial_v<Metadata>, "Log Metadata must be trivial");
+  static_assert(std::is_trivially_copyable_v<Metadata>, "Log Metadata must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Metadata>, "Log Metadata must be trivially destructible");
+  static_assert(std::is_standard_layout_v<Metadata>, "Log Metadata must have standard layout");
 }
 
-} // namespace toy
+} // namespace toy::log

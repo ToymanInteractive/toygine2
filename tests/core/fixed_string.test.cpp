@@ -30,7 +30,7 @@
 namespace toy {
 
 // Default, C string, copy, character, StringLike constructors.
-TEST_CASE("core/fixed_string/constructors") {
+TEST_CASE("fixed_string/constructors") {
   SUBCASE("default_constructor") {
     constexpr FixedString<32> emptyStr;
 
@@ -146,7 +146,7 @@ TEST_CASE("core/fixed_string/constructors") {
 }
 
 // Assignment from C string, FixedString, StringLike, character.
-TEST_CASE("core/fixed_string/operators_assign") {
+TEST_CASE("fixed_string/operators_assign") {
   SUBCASE("c_string_assignment") {
     FixedString<12> str1;
     FixedString<24> str2;
@@ -333,7 +333,7 @@ TEST_CASE("core/fixed_string/operators_assign") {
 }
 
 // assign() from C string, FixedString, StringLike, character.
-TEST_CASE("core/fixed_string/assign") {
+TEST_CASE("fixed_string/assign") {
   SUBCASE("c_string_assignment") {
     FixedString<16> str1;
     FixedString<32> str2;
@@ -583,7 +583,7 @@ TEST_CASE("core/fixed_string/assign") {
 }
 
 // at() bounds-checked access.
-TEST_CASE("core/fixed_string/at") {
+TEST_CASE("fixed_string/at") {
   SUBCASE("basic_at_functionality") {
     FixedString<8> str("Hello");
 
@@ -729,7 +729,7 @@ TEST_CASE("core/fixed_string/at") {
 }
 
 // operator[] access.
-TEST_CASE("core/fixed_string/operator_bracket") {
+TEST_CASE("fixed_string/operator_bracket") {
   SUBCASE("non_const_operator_bracket_basic_access") {
     FixedString<16> str("Hello");
     constexpr FixedString<16> constStr("World");
@@ -931,7 +931,7 @@ TEST_CASE("core/fixed_string/operator_bracket") {
 }
 
 // front() and back() access.
-TEST_CASE("core/fixed_string/front_and_back") {
+TEST_CASE("fixed_string/front_and_back") {
   SUBCASE("front_method") {
     FixedString<16> testString("Hello World");
     constexpr FixedString<16> constString("Hello World");
@@ -1188,7 +1188,7 @@ TEST_CASE("core/fixed_string/front_and_back") {
 }
 
 // data() pointer access.
-TEST_CASE("core/fixed_string/data") {
+TEST_CASE("fixed_string/data") {
   SUBCASE("basic_data_access") {
     constexpr FixedString<16> testString("Hello World");
     constexpr FixedString<8> emptyString("");
@@ -1248,7 +1248,7 @@ TEST_CASE("core/fixed_string/data") {
 }
 
 // c_str() null-terminated pointer.
-TEST_CASE("core/fixed_string/c_str") {
+TEST_CASE("fixed_string/c_str") {
   SUBCASE("basic_c_str_access") {
     constexpr FixedString<16> testString("Hello World");
     constexpr FixedString<8> emptyString("");
@@ -1311,7 +1311,7 @@ TEST_CASE("core/fixed_string/c_str") {
 }
 
 // empty() query.
-TEST_CASE("core/fixed_string/empty") {
+TEST_CASE("fixed_string/empty") {
   SUBCASE("basic_empty_check") {
     constexpr FixedString<16> nonEmptyString("Hello World");
     constexpr FixedString<8> emptyString("");
@@ -1433,7 +1433,7 @@ TEST_CASE("core/fixed_string/empty") {
 }
 
 // size() in bytes.
-TEST_CASE("core/fixed_string/size") {
+TEST_CASE("fixed_string/size") {
   SUBCASE("basic_size_check") {
     constexpr FixedString<16> testString("Hello World");
     constexpr FixedString<8> emptyString("");
@@ -1582,7 +1582,7 @@ TEST_CASE("core/fixed_string/size") {
 }
 
 // utf8_size() code point count.
-TEST_CASE("core/fixed_string/utf8_size") {
+TEST_CASE("fixed_string/utf8_size") {
   SUBCASE("ascii_strings") {
     constexpr FixedString<32> asciiString("Hello World");
     constexpr FixedString<16> emptyString("");
@@ -1667,7 +1667,7 @@ TEST_CASE("core/fixed_string/utf8_size") {
 }
 
 // length() alias for size().
-TEST_CASE("core/fixed_string/length") {
+TEST_CASE("fixed_string/length") {
   SUBCASE("basic_length_check") {
     constexpr FixedString<32> testString("Hello World");
     constexpr FixedString<16> emptyString("");
@@ -1827,7 +1827,7 @@ TEST_CASE("core/fixed_string/length") {
 }
 
 // max_size() maximum capacity.
-TEST_CASE("core/fixed_string/max_size") {
+TEST_CASE("fixed_string/max_size") {
   SUBCASE("basic_max_size_check") {
     constexpr FixedString<8> smallString("Hi");
     constexpr FixedString<16> mediumString("Hello World");
@@ -1969,7 +1969,7 @@ TEST_CASE("core/fixed_string/max_size") {
 }
 
 // capacity() storage limit.
-TEST_CASE("core/fixed_string/capacity") {
+TEST_CASE("fixed_string/capacity") {
   SUBCASE("basic_capacity_check") {
     constexpr FixedString<8> smallString("Hi");
     constexpr FixedString<16> mediumString("Hello World");
@@ -2132,7 +2132,7 @@ TEST_CASE("core/fixed_string/capacity") {
 }
 
 // clear(); size becomes 0.
-TEST_CASE("core/fixed_string/clear") {
+TEST_CASE("fixed_string/clear") {
   SUBCASE("basic_clear_functionality") {
     FixedString<32> testString("Hello World");
 
@@ -2337,7 +2337,7 @@ TEST_CASE("core/fixed_string/clear") {
 }
 
 // insert() at position.
-TEST_CASE("core/fixed_string/insert") {
+TEST_CASE("fixed_string/insert") {
   SUBCASE("insert_fixed_string_at_beginning") {
     FixedString<32> testString("World");
 
@@ -2577,7 +2577,7 @@ TEST_CASE("core/fixed_string/insert") {
 }
 
 // erase() at position.
-TEST_CASE("core/fixed_string/erase") {
+TEST_CASE("fixed_string/erase") {
   SUBCASE("erase_from_beginning") {
     FixedString<32> testString("Hello World");
 
@@ -2763,7 +2763,7 @@ TEST_CASE("core/fixed_string/erase") {
 }
 
 // push_back() single character.
-TEST_CASE("core/fixed_string/push_back") {
+TEST_CASE("fixed_string/push_back") {
   SUBCASE("push_back_single_character") {
     FixedString<16> testString("Hello");
 
@@ -2917,7 +2917,7 @@ TEST_CASE("core/fixed_string/push_back") {
 }
 
 // pop_back() remove last character.
-TEST_CASE("core/fixed_string/pop_back") {
+TEST_CASE("fixed_string/pop_back") {
   SUBCASE("pop_back_single_character") {
     FixedString<16> testString("Hello");
 
@@ -3127,7 +3127,7 @@ TEST_CASE("core/fixed_string/pop_back") {
 }
 
 // utf8_pop_back() remove last code point.
-TEST_CASE("core/fixed_string/utf8_pop_back") {
+TEST_CASE("fixed_string/utf8_pop_back") {
   SUBCASE("pop_back_single_ascii_character") {
     FixedString<16> testString("Hello");
 
@@ -3381,7 +3381,7 @@ TEST_CASE("core/fixed_string/utf8_pop_back") {
 }
 
 // append() string or characters.
-TEST_CASE("core/fixed_string/append") {
+TEST_CASE("fixed_string/append") {
   SUBCASE("append_fixed_string") {
     FixedString<32> testString("Hello");
 
@@ -3657,7 +3657,7 @@ TEST_CASE("core/fixed_string/append") {
 }
 
 // operator+= with FixedString, C string, character.
-TEST_CASE("core/fixed_string/operators_plus_assign") {
+TEST_CASE("fixed_string/operators_plus_assign") {
   SUBCASE("operator_plus_assign_with_fixed_string") {
     FixedString<32> testString("Hello");
 
@@ -3903,7 +3903,7 @@ TEST_CASE("core/fixed_string/operators_plus_assign") {
 }
 
 // replace() at position.
-TEST_CASE("core/fixed_string/replace") {
+TEST_CASE("fixed_string/replace") {
   SUBCASE("replace_with_fixed_string") {
     FixedString<32> testString("Hello World");
 
@@ -4211,7 +4211,7 @@ TEST_CASE("core/fixed_string/replace") {
 }
 
 // copy() to buffer.
-TEST_CASE("core/fixed_string/copy") {
+TEST_CASE("fixed_string/copy") {
   SUBCASE("copy_entire_string") {
     constexpr FixedString<16> testString("Hello World");
     char buffer[16] = {0};
@@ -4376,7 +4376,7 @@ TEST_CASE("core/fixed_string/copy") {
 }
 
 // swap() member.
-TEST_CASE("core/fixed_string/swap") {
+TEST_CASE("fixed_string/swap") {
   SUBCASE("swap_two_different_strings") {
     FixedString<16> string1("Hello");
     FixedString<16> string2("World");
@@ -4605,7 +4605,7 @@ TEST_CASE("core/fixed_string/swap") {
 }
 
 // find() substring and character.
-TEST_CASE("core/fixed_string/find") {
+TEST_CASE("fixed_string/find") {
   SUBCASE("find_fixed_string_substring") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -4918,7 +4918,7 @@ TEST_CASE("core/fixed_string/find") {
 }
 
 // rfind() from end.
-TEST_CASE("core/fixed_string/rfind") {
+TEST_CASE("fixed_string/rfind") {
   SUBCASE("Rfind FixedString substring") {
     constexpr FixedString<32> testString("Hello World Hello");
 
@@ -5189,7 +5189,7 @@ TEST_CASE("core/fixed_string/rfind") {
 }
 
 // find_first_of() character set.
-TEST_CASE("core/fixed_string/find_first_of") {
+TEST_CASE("fixed_string/find_first_of") {
   SUBCASE("Find first of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -5446,7 +5446,7 @@ TEST_CASE("core/fixed_string/find_first_of") {
 }
 
 // find_first_not_of() character set.
-TEST_CASE("core/fixed_string/find_first_not_of") {
+TEST_CASE("fixed_string/find_first_not_of") {
   SUBCASE("Find first not of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -5725,7 +5725,7 @@ TEST_CASE("core/fixed_string/find_first_not_of") {
 }
 
 // find_last_of() character set.
-TEST_CASE("core/fixed_string/find_last_of") {
+TEST_CASE("fixed_string/find_last_of") {
   SUBCASE("Find last of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -5966,7 +5966,7 @@ TEST_CASE("core/fixed_string/find_last_of") {
 }
 
 // find_last_not_of() character set.
-TEST_CASE("core/fixed_string/find_last_not_of") {
+TEST_CASE("fixed_string/find_last_not_of") {
   SUBCASE("Find last not of FixedString characters") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -6217,7 +6217,7 @@ TEST_CASE("core/fixed_string/find_last_not_of") {
 }
 
 // compare() three-way.
-TEST_CASE("core/fixed_string/compare") {
+TEST_CASE("fixed_string/compare") {
   SUBCASE("Compare FixedString with FixedString") {
     constexpr FixedString<32> testString1("Hello");
     constexpr FixedString<32> testString2("Hello");
@@ -6496,7 +6496,7 @@ TEST_CASE("core/fixed_string/compare") {
 }
 
 // starts_with() prefix check.
-TEST_CASE("core/fixed_string/starts_with") {
+TEST_CASE("fixed_string/starts_with") {
   SUBCASE("Starts with FixedString") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -6794,7 +6794,7 @@ TEST_CASE("core/fixed_string/starts_with") {
 }
 
 // ends_with() suffix check.
-TEST_CASE("core/fixed_string/ends_with") {
+TEST_CASE("fixed_string/ends_with") {
   SUBCASE("FixedString ends_with") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -7174,7 +7174,7 @@ TEST_CASE("core/fixed_string/ends_with") {
 }
 
 // contains() substring check.
-TEST_CASE("core/fixed_string/contains") {
+TEST_CASE("fixed_string/contains") {
   SUBCASE("C string contains") {
     constexpr FixedString<32> str("Hello World");
 
@@ -7457,7 +7457,7 @@ TEST_CASE("core/fixed_string/contains") {
 }
 
 // substr() view or copy.
-TEST_CASE("core/fixed_string/substr") {
+TEST_CASE("fixed_string/substr") {
   SUBCASE("Substr basic functionality") {
     constexpr FixedString<32> testString("Hello World");
 
@@ -8074,7 +8074,7 @@ TEST_CASE("core/fixed_string/substr") {
 }
 
 // operator+ concatenation.
-TEST_CASE("core/fixed_string/operators_plus") {
+TEST_CASE("fixed_string/operators_plus") {
   SUBCASE("Basic concatenation tests") {
     constexpr auto testString1 = FixedString<14>("12") + "test text 1";
     constexpr auto testString2 = FixedString<14>("23") + FixedString<14>("test text 2");
@@ -8427,7 +8427,7 @@ TEST_CASE("core/fixed_string/operators_plus") {
 }
 
 // operator== and operator!=.
-TEST_CASE("core/fixed_string/operator_equal") {
+TEST_CASE("fixed_string/operator_equal") {
   SUBCASE("FixedString == FixedString") {
     constexpr FixedString<16> str1("Hello");
     constexpr FixedString<32> str2("Hello");
@@ -8595,7 +8595,7 @@ TEST_CASE("core/fixed_string/operator_equal") {
 }
 
 // operator<=> three-way comparison.
-TEST_CASE("core/fixed_string/operator_three_way") {
+TEST_CASE("fixed_string/operator_three_way") {
   SUBCASE("FixedString <=> FixedString") {
     constexpr FixedString<16> str1("Hello");
     constexpr FixedString<32> str2("Hello");
@@ -9002,7 +9002,7 @@ TEST_CASE("core/fixed_string/operator_three_way") {
 }
 
 // std::swap() overload.
-TEST_CASE("core/fixed_string/std_swap") {
+TEST_CASE("fixed_string/std_swap") {
   SUBCASE("Basic swap functionality") {
     FixedString<32> str1("Hello");
     FixedString<32> str2("World");

@@ -43,6 +43,9 @@ TEST_CASE("geometry/circle/object_structure") {
   static_assert(!std::is_trivial_v<Circle<fixed_type>>, "Circle<fixed_type> must not be trivial");
   static_assert(std::is_trivially_copyable_v<Circle<float>>, "Circle<float> must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<Circle<fixed_type>>, "Circle<fixed_type> must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Circle<float>>, "Circle<float> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<Circle<fixed_type>>,
+                "Circle<fixed_type> must be trivially destructible");
   static_assert(std::is_standard_layout_v<Circle<float>>, "Circle<float> must have standard layout");
   static_assert(std::is_standard_layout_v<Circle<fixed_type>>, "Circle<fixed_type> must have standard layout");
 }

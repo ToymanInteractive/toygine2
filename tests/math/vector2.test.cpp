@@ -53,6 +53,9 @@ TEST_CASE("math/vector2/object_structure") {
   static_assert(!std::is_trivial_v<Vector2<fixed_type>>, "Vector2<fixed_type> must not be trivial");
   static_assert(std::is_trivially_copyable_v<Vector2<float>>, "Vector2<float> must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<Vector2<fixed_type>>, "Vector2<fixed_type> must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Vector2<float>>, "Vector2<float> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<Vector2<fixed_type>>,
+                "Vector2<fixed_type> must be trivially destructible");
   static_assert(std::is_standard_layout_v<Vector2<float>>, "Vector2<float> must have standard layout");
   static_assert(std::is_standard_layout_v<Vector2<fixed_type>>, "Vector2<fixed_type> must have standard layout");
 }

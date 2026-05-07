@@ -18,22 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   log_record.test.cpp
-  \brief  Unit tests for \ref toy::log::Record.
+  \file   chrono_stopwatch.inl
+  \brief  Inline implementations for \ref toy::chrono::Stopwatch.
+
+  \note Included by core.hpp only; do not include this file directly.
 */
 
-#include <doctest/doctest.h>
+namespace toy::chrono {
 
-#include "core.hpp"
+inline Stopwatch::Stopwatch() noexcept
+  : _startTicks{SteadyClock::nowTicks()} {}
 
-namespace toy::log {
-
-// Object layout.
-TEST_CASE("log/record/object_structure") {
-  static_assert(!std::is_trivial_v<Record>, "Log Record must not be trivial");
-  static_assert(std::is_trivially_copyable_v<Record>, "Log Record must be trivially copyable");
-  static_assert(std::is_trivially_destructible_v<Record>, "Log Record must be trivially destructible");
-  static_assert(std::is_standard_layout_v<Record>, "Log Record must have standard layout");
+inline Stopwatch::duration Stopwatch::elapsed() const noexcept {
+  return duration{SteadyClock::nowTicks() - _startTicks};
 }
 
-} // namespace toy::log
+inline Stopwatch::rep Stopwatch::elapsedTicks() const noexcept {
+  return SteadyClock::nowTicks() - _startTicks;
+}
+
+inline void Stopwatch::reset() noexcept {
+  _startTicks = SteadyClock::nowTicks();
+}
+
+} // namespace toy::chrono

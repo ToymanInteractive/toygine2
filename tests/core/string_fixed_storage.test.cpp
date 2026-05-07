@@ -29,15 +29,17 @@
 namespace toy {
 
 // Check object structure.
-TEST_CASE("core/string_fixed_storage/object_structure") {
+TEST_CASE("string_fixed_storage/object_structure") {
   static_assert(!std::is_trivial_v<StringFixedStorage<8>>,
                 "StringFixedStorage must not be trivial (has non-trivial default init)");
   static_assert(std::is_trivially_copyable_v<StringFixedStorage<8>>, "StringFixedStorage must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<StringFixedStorage<8>>,
+                "StringFixedStorage must be trivially destructible");
   static_assert(std::is_standard_layout_v<StringFixedStorage<8>>, "StringFixedStorage must have standard layout");
 }
 
 // capacity() is allocatedSize minus one (room for null terminator).
-TEST_CASE("core/string_fixed_storage/capacity") {
+TEST_CASE("string_fixed_storage/capacity") {
   REQUIRE(StringFixedStorage<1>::capacity() == 0);
   REQUIRE(StringFixedStorage<32>::capacity() == 31);
   REQUIRE(StringFixedStorage<256>::capacity() == 255);
@@ -48,7 +50,7 @@ TEST_CASE("core/string_fixed_storage/capacity") {
 }
 
 // Default construction yields zero size and null-terminated empty buffer.
-TEST_CASE("core/string_fixed_storage/default_state") {
+TEST_CASE("string_fixed_storage/default_state") {
   constexpr StringFixedStorage<8> s;
 
   REQUIRE(StringFixedStorage<8>::capacity() == 7);
@@ -61,7 +63,7 @@ TEST_CASE("core/string_fixed_storage/default_state") {
 }
 
 // setSize updates length and places null terminator at data()[size].
-TEST_CASE("core/string_fixed_storage/set_size") {
+TEST_CASE("string_fixed_storage/set_size") {
   StringFixedStorage<8> s;
 
   s.data()[0] = 'a';
@@ -75,7 +77,7 @@ TEST_CASE("core/string_fixed_storage/set_size") {
 }
 
 // setSize(0) yields empty C string.
-TEST_CASE("core/string_fixed_storage/set_size_empty") {
+TEST_CASE("string_fixed_storage/set_size_empty") {
   StringFixedStorage<8> s;
 
   s.data()[0] = 'x';
@@ -89,7 +91,7 @@ TEST_CASE("core/string_fixed_storage/set_size_empty") {
 }
 
 // data() is stable and supports filling up to capacity characters.
-TEST_CASE("core/string_fixed_storage/fill_to_capacity") {
+TEST_CASE("string_fixed_storage/fill_to_capacity") {
   constexpr size_t                         capacity = 4;
   StringFixedStorage<capacity + 1>         s;
   const StringFixedStorage<capacity + 1> & cs = s;

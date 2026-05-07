@@ -19,7 +19,7 @@
 //
 /*!
   \file   clock_source_macos.cpp
-  \brief  macOS implementation of \ref toy::chrono::ClockSource using CLOCK_MONOTONIC_RAW.
+  \brief  macOS implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
 */
 
 #include <time.h>
@@ -55,6 +55,24 @@ int64_t ClockSource::nowTicks() const noexcept {
     return 0;
 
   return ts.tv_sec * c_steadyClockPeriodDenominator + ts.tv_nsec;
+}
+
+SteadyClock::rep SteadyClock::nowTicks() noexcept {
+  assert_message(activeSource != nullptr, "SteadyClock::nowTicks: no active ClockSource");
+
+  return activeSource->nowTicks();
+}
+
+SteadyClock::rep SteadyClock::frequency() noexcept {
+  assert_message(activeSource != nullptr, "SteadyClock::frequency: no active ClockSource");
+
+  return activeSource->frequency();
+}
+
+SteadyClock::time_point SteadyClock::now() noexcept {
+  assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
+
+  return time_point{duration{activeSource->nowTicks()}};
 }
 
 } // namespace toy::chrono

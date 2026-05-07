@@ -29,7 +29,7 @@
 namespace toy {
 
 // Empty pattern with zero arguments is valid.
-TEST_CASE("core/format_pattern/none_empty_zero_args") {
+TEST_CASE("format_pattern/none_empty_zero_args") {
   REQUIRE(validateFormatPattern(CStringView(""), 0) == FormatPatternValidationError::none);
 
   static_assert(validateFormatPattern(CStringView(""), 0) == FormatPatternValidationError::none,
@@ -37,7 +37,7 @@ TEST_CASE("core/format_pattern/none_empty_zero_args") {
 }
 
 // Literal text without placeholders is valid when no arguments are expected.
-TEST_CASE("core/format_pattern/none_literals_only") {
+TEST_CASE("format_pattern/none_literals_only") {
   REQUIRE(validateFormatPattern(CStringView("plain"), 0) == FormatPatternValidationError::none);
 
   static_assert(validateFormatPattern(CStringView("plain"), 0) == FormatPatternValidationError::none,
@@ -45,7 +45,7 @@ TEST_CASE("core/format_pattern/none_literals_only") {
 }
 
 // Auto-indexed placeholders: count of {} must equal argCount.
-TEST_CASE("core/format_pattern/none_auto_indexed_matches") {
+TEST_CASE("format_pattern/none_auto_indexed_matches") {
   REQUIRE(validateFormatPattern(CStringView("{}"), 1) == FormatPatternValidationError::none);
   REQUIRE(validateFormatPattern(CStringView("{}{}"), 2) == FormatPatternValidationError::none);
 
@@ -56,7 +56,7 @@ TEST_CASE("core/format_pattern/none_auto_indexed_matches") {
 }
 
 // Positional placeholders: each index must be less than argCount; sparse indices are allowed.
-TEST_CASE("core/format_pattern/none_positional_in_range") {
+TEST_CASE("format_pattern/none_positional_in_range") {
   REQUIRE(validateFormatPattern(CStringView("{0}"), 1) == FormatPatternValidationError::none);
   REQUIRE(validateFormatPattern(CStringView("{1}"), 2) == FormatPatternValidationError::none);
   REQUIRE(validateFormatPattern(CStringView("{2}"), 3) == FormatPatternValidationError::none);
@@ -70,7 +70,7 @@ TEST_CASE("core/format_pattern/none_positional_in_range") {
 }
 
 // Doubled braces are literals and do not introduce placeholders.
-TEST_CASE("core/format_pattern/none_escaped_braces_only") {
+TEST_CASE("format_pattern/none_escaped_braces_only") {
   REQUIRE(validateFormatPattern(CStringView("{{}}"), 0) == FormatPatternValidationError::none);
   REQUIRE(validateFormatPattern(CStringView("a{{b}}c"), 0) == FormatPatternValidationError::none);
 
@@ -81,7 +81,7 @@ TEST_CASE("core/format_pattern/none_escaped_braces_only") {
 }
 
 // Mixed auto {} and positional {N} in one pattern is invalid.
-TEST_CASE("core/format_pattern/mixed_placeholders") {
+TEST_CASE("format_pattern/mixed_placeholders") {
   REQUIRE(validateFormatPattern(CStringView("{} {0}"), 2) == FormatPatternValidationError::mixedPlaceholders);
 
   static_assert(validateFormatPattern(CStringView("{} {0}"), 2) == FormatPatternValidationError::mixedPlaceholders,
@@ -89,7 +89,7 @@ TEST_CASE("core/format_pattern/mixed_placeholders") {
 }
 
 // Non-empty pattern with no placeholders but positive argCount is invalid.
-TEST_CASE("core/format_pattern/arg_count_mismatch_no_placeholder") {
+TEST_CASE("format_pattern/arg_count_mismatch_no_placeholder") {
   REQUIRE(validateFormatPattern(CStringView("x"), 1) == FormatPatternValidationError::argCountMismatch);
 
   static_assert(validateFormatPattern(CStringView("x"), 1) == FormatPatternValidationError::argCountMismatch,
@@ -97,7 +97,7 @@ TEST_CASE("core/format_pattern/arg_count_mismatch_no_placeholder") {
 }
 
 // Auto mode: number of {} must equal argCount.
-TEST_CASE("core/format_pattern/arg_count_mismatch_auto") {
+TEST_CASE("format_pattern/arg_count_mismatch_auto") {
   REQUIRE(validateFormatPattern(CStringView("{}"), 0) == FormatPatternValidationError::argCountMismatch);
   REQUIRE(validateFormatPattern(CStringView("{}"), 2) == FormatPatternValidationError::argCountMismatch);
 
@@ -108,7 +108,7 @@ TEST_CASE("core/format_pattern/arg_count_mismatch_auto") {
 }
 
 // Stray `{` without closing placeholder is invalid.
-TEST_CASE("core/format_pattern/unmatched_brace_open_eof") {
+TEST_CASE("format_pattern/unmatched_brace_open_eof") {
   REQUIRE(validateFormatPattern(CStringView("{"), 0) == FormatPatternValidationError::unmatchedBrace);
 
   static_assert(validateFormatPattern(CStringView("{"), 0) == FormatPatternValidationError::unmatchedBrace,
@@ -116,7 +116,7 @@ TEST_CASE("core/format_pattern/unmatched_brace_open_eof") {
 }
 
 // `{` followed by neither `}` nor a digit is invalid.
-TEST_CASE("core/format_pattern/unmatched_brace_open_non_placeholder") {
+TEST_CASE("format_pattern/unmatched_brace_open_non_placeholder") {
   REQUIRE(validateFormatPattern(CStringView("{a}"), 0) == FormatPatternValidationError::unmatchedBrace);
 
   static_assert(validateFormatPattern(CStringView("{a}"), 0) == FormatPatternValidationError::unmatchedBrace,
@@ -124,7 +124,7 @@ TEST_CASE("core/format_pattern/unmatched_brace_open_non_placeholder") {
 }
 
 // Single `}` that is not part of `}}` is invalid.
-TEST_CASE("core/format_pattern/unmatched_brace_close") {
+TEST_CASE("format_pattern/unmatched_brace_close") {
   REQUIRE(validateFormatPattern(CStringView("}"), 0) == FormatPatternValidationError::unmatchedBrace);
 
   static_assert(validateFormatPattern(CStringView("}"), 0) == FormatPatternValidationError::unmatchedBrace,
@@ -132,7 +132,7 @@ TEST_CASE("core/format_pattern/unmatched_brace_close") {
 }
 
 // Positional index must be closed by `}`; missing closer yields invalid content.
-TEST_CASE("core/format_pattern/invalid_content_unclosed_index") {
+TEST_CASE("format_pattern/invalid_content_unclosed_index") {
   REQUIRE(validateFormatPattern(CStringView("{0"), 1) == FormatPatternValidationError::invalidContent);
 
   static_assert(validateFormatPattern(CStringView("{0"), 1) == FormatPatternValidationError::invalidContent,
@@ -140,7 +140,7 @@ TEST_CASE("core/format_pattern/invalid_content_unclosed_index") {
 }
 
 // Characters after a positional index are invalid.
-TEST_CASE("core/format_pattern/invalid_content_trailing_chars") {
+TEST_CASE("format_pattern/invalid_content_trailing_chars") {
   REQUIRE(validateFormatPattern(CStringView("{0x}"), 1) == FormatPatternValidationError::invalidContent);
 
   static_assert(validateFormatPattern(CStringView("{0x}"), 1) == FormatPatternValidationError::invalidContent,
@@ -148,7 +148,7 @@ TEST_CASE("core/format_pattern/invalid_content_trailing_chars") {
 }
 
 // Positional index must be less than argCount.
-TEST_CASE("core/format_pattern/index_out_of_range") {
+TEST_CASE("format_pattern/index_out_of_range") {
   REQUIRE(validateFormatPattern(CStringView("{0}"), 0) == FormatPatternValidationError::indexOutOfRange);
   REQUIRE(validateFormatPattern(CStringView("{1}"), 1) == FormatPatternValidationError::indexOutOfRange);
 

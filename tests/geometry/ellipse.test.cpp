@@ -43,6 +43,9 @@ TEST_CASE("geometry/ellipse/object_structure") {
   static_assert(!std::is_trivial_v<Ellipse<fixed_type>>, "Ellipse<fixed_type> must not be trivial");
   static_assert(std::is_trivially_copyable_v<Ellipse<float>>, "Ellipse<float> must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<Ellipse<fixed_type>>, "Ellipse<fixed_type> must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Ellipse<float>>, "Ellipse<float> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<Ellipse<fixed_type>>,
+                "Ellipse<fixed_type> must be trivially destructible");
   static_assert(std::is_standard_layout_v<Ellipse<float>>, "Ellipse<float> must have standard layout");
   static_assert(std::is_standard_layout_v<Ellipse<fixed_type>>, "Ellipse<fixed_type> must have standard layout");
 }
