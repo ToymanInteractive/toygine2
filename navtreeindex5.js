@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"dd/d5c/classtoy_1_1math_1_1fixed.html#a0914986c5fb178a76d791871f693fdb7":[5,0,1,7,0,32],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a0a8665a73979bcb3805ac6d7eee4e04b":[3,0,2,11,1,17],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a0a8665a73979bcb3805ac6d7eee4e04b":[5,0,1,7,0,17],
 "dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f":[3,0,2,11,1,34],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "df/d8d/namespacetoy_1_1render.html#a7abf647f54ad0e5961a64502e51c995b":[3,0,2,14,4],
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3f":[3,0,2,14,1],
 "df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa08621a79896977cc5f97853284adc2a9":[3,0,2,14,1,1],
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa2468f278a5fb00d246360a43b4c39f31":[3,0,2,14,1,12],
-"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa5b61c8b1e8dbd2962e7f664dc82ecd20":[3,0,2,14,1,5]
+"df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa2468f278a5fb00d246360a43b4c39f31":[3,0,2,14,1,12]
 };

@@ -21,6 +21,7 @@ var NAVTREEINDEX2 =
 "d4/da9/namespacetoy.html#af032ad4928608bfaf27241733fcd3f41":[3,0,2,70],
 "d4/da9/namespacetoy.html#af1c89e92e67487a8e2f12a1842085bb8":[3,0,2,69],
 "d4/da9/namespacetoy.html#affd1da1d9c8f6ce96223f0321ca1efef":[3,0,2,52],
+"d4/dbf/clock__source__stub_8cpp.html":[6,0,1,3,6,1,1],
 "d4/dc0/constexpr__utils_8hpp.html":[6,0,0,2,12],
 "d4/dc0/constexpr__utils_8hpp_source.html":[6,0,0,2,12],
 "d4/dc4/classtoy_1_1log_1_1_i_sink.html":[3,0,2,10,0],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "d7/d15/classtoy_1_1_o_string_stream.html#aef85961326b9f716f3c08429200b216f":[2,2,2,1,25],
 "d7/d15/classtoy_1_1_o_string_stream.html#af24710805f8f61b2b463c9279fcd8a62":[2,2,2,1,11],
 "d7/d1d/classtoy_1_1application_1_1_core_application.html":[3,0,2,3,1],
-"d7/d1d/classtoy_1_1application_1_1_core_application.html":[5,0,1,2,1],
-"d7/d1d/classtoy_1_1application_1_1_core_application.html#a0534d34a9d5209a9705f634fcd109739":[3,0,2,3,1,7]
+"d7/d1d/classtoy_1_1application_1_1_core_application.html":[5,0,1,2,1]
 };
