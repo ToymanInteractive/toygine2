@@ -33,6 +33,12 @@ void itoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
+namespace chrono {
+
+void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+
+} // namespace chrono
+
 } // namespace toy
 
 ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
@@ -43,6 +49,7 @@ ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   toy::itoaCoreBenchmarks(bench);
   toy::oStringStreamCoreBenchmarks(bench);
   toy::stringFixedStorageCoreBenchmarks(bench);
+  toy::chrono::countdownTimerCoreBenchmarks(bench);
 
   // utoa benchmarks
   {

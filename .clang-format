@@ -86,7 +86,8 @@ BreakBeforeCloseBracketIf: true
 BreakBeforeCloseBracketLoop: true
 BreakBeforeCloseBracketSwitch: true
 BreakBeforeConceptDeclarations: Always
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforeinlineasmcolon
+BreakBeforeInlineASMColon: OnlyMultiline
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbeforetemplatecloser
 BreakTemplateDeclarations: Yes
 BreakBeforeTernaryOperators: true
 BreakConstructorInitializers: BeforeComma
