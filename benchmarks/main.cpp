@@ -20,7 +20,15 @@
 /*!
   \file   main.cpp
   \brief  Entry point for nanobench benchmarks (core, geometry, math).
+
+  Accepts an optional \c --json \c \<path\> argument to write results as JSON.
+  When omitted results are only printed to stdout (default nanobench output).
 */
+
+#include <cstring>
+#include <fstream>
+#include <sstream>
+#include <string>
 
 #include <nanobench.h>
 
@@ -28,10 +36,50 @@ ankerl::nanobench::Bench runCoreBenchmarks() noexcept;
 ankerl::nanobench::Bench runGeometryBenchmarks() noexcept;
 ankerl::nanobench::Bench runMathBenchmarks() noexcept;
 
-int main() noexcept {
-  runCoreBenchmarks();
-  runGeometryBenchmarks();
-  runMathBenchmarks();
+/*!
+  \brief Extracts the JSON array body from a nanobench JSON render.
+
+  nanobench renders \c {"results":[...]}. This helper strips the outer wrapper
+  so results from multiple \c Bench instances can be merged into one array.
+
+  \param bench The bench to render.
+  \return The content between the outermost \c [ and \c ] (may be empty).
+*/
+static std::string extractJsonResults(const ankerl::nanobench::Bench & bench) {
+  std::ostringstream ss;
+  ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, ss);
+  const std::string json = ss.str();
+  const auto start = json.find('[');
+  const auto end = json.rfind(']');
+  if (start == std::string::npos || end == std::string::npos || end <= start) {
+    return {};
+  }
+  return json.substr(start + 1, end - start - 1);
+}
+
+int main(int argc, char * argv[]) {
+  const char * jsonPath = nullptr;
+  for (int i = 1; i + 1 < argc; ++i) {
+    if (std::strcmp(argv[i], "--json") == 0) {
+      jsonPath = argv[i + 1];
+      break;
+    }
+  }
+
+  auto core = runCoreBenchmarks();
+  auto geometry = runGeometryBenchmarks();
+  auto math = runMathBenchmarks();
+
+  if (jsonPath != nullptr) {
+    std::ofstream out(jsonPath);
+    out << "{\"results\":[";
+    out << extractJsonResults(core);
+    out << ',';
+    out << extractJsonResults(geometry);
+    out << ',';
+    out << extractJsonResults(math);
+    out << "]}";
+  }
 
   return 0;
 }

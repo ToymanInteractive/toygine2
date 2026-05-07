@@ -1,0 +1,63 @@
+name: Benchmarks
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  benchmark:
+    name: ${{ matrix.platform }}
+    runs-on: ${{ matrix.os }}
+    permissions:
+      contents: write
+      pull-requests: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: ubuntu-latest
+            preset: linux-ninja-release
+            platform: Linux
+          - os: macos-latest
+            preset: macos-ninja-release
+            platform: macOS
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure
+        run: cmake --preset ${{ matrix.preset }}
+
+      - name: Build benchmarks
+        run: cmake --build --preset ${{ matrix.preset }} --target toygine-benchmarks
+
+      - name: Run benchmarks
+        run: >
+          out/build/${{ matrix.preset }}/benchmarks/toygine-benchmarks
+          --json benchmarks_raw.json
+
+      - name: Convert to benchmark-action format
+        run: >
+          python3 .github/scripts/convert_nanobench.py
+          benchmarks_raw.json
+          benchmarks.json
+
+      - uses: benchmark-action/github-action-benchmark@v1
+        with:
+          name: ${{ matrix.platform }}
+          tool: customSmallerIsBetter
+          output-file-path: benchmarks.json
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          # Store results on push to main; compare on PRs.
+          auto-push: ${{ github.event_name == 'push' }}
+          # Post a PR comment when any benchmark regresses more than 20%.
+          alert-threshold: "120%"
+          comment-on-alert: true
+          fail-on-alert: false
+          # Keep at most 20 data points per benchmark in the history.
+          max-items-in-chart: 20
+          gh-pages-branch: gh-pages
+          benchmark-data-dir-path: benchmarks/${{ matrix.platform }}
