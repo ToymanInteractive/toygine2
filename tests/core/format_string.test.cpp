@@ -31,7 +31,7 @@ namespace toy {
 // Check object structure.
 TEST_CASE("format_string/object_structure") {
   static_assert(!std::is_trivial_v<FormatString<>>, "FormatString must not be trivial (has non-trivial default init)");
-  static_assert(!std::is_trivially_copyable_v<FormatString<>>, "FormatString must not be trivially copyable");
+  static_assert(std::is_trivially_copyable_v<FormatString<>>, "FormatString must be trivially copyable");
   static_assert(std::is_trivially_destructible_v<FormatString<>>, "FormatString must be trivially destructible");
   static_assert(std::is_standard_layout_v<FormatString<>>, "FormatString must have standard layout");
 }
