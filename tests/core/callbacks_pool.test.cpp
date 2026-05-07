@@ -61,7 +61,7 @@ TEST_CASE("callbacks_pool/object_structure") {
   static_assert(!std::is_trivial_v<CallbacksPool<int>>,
                 "CallbacksPool must not be trivial (has non-trivial default init)");
   static_assert(std::is_trivially_copyable_v<CallbacksPool<int>>, "CallbacksPool must be trivially copyable");
-  static_assert(std::is_trivially_destructible_v<CallbacksPool<int>>, "CallbacksPool must be destructible");
+  static_assert(std::is_trivially_destructible_v<CallbacksPool<int>>, "CallbacksPool must be trivially destructible");
   static_assert(std::is_standard_layout_v<CallbacksPool<int>>, "CallbacksPool must have standard layout");
 }
 

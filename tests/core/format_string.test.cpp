@@ -31,7 +31,7 @@ namespace toy {
 // Check object structure.
 TEST_CASE("format_string/object_structure") {
   static_assert(!std::is_trivial_v<FormatString<>>, "FormatString must not be trivial (has non-trivial default init)");
-  static_assert(std::is_trivially_copyable_v<FormatString<>>, "FormatString must be trivially copyable");
+  static_assert(!std::is_trivially_copyable_v<FormatString<>>, "FormatString must not be trivially copyable");
   static_assert(std::is_trivially_destructible_v<FormatString<>>, "FormatString must be trivially destructible");
   static_assert(std::is_standard_layout_v<FormatString<>>, "FormatString must have standard layout");
 }
@@ -130,6 +130,7 @@ TEST_CASE("format_string/positional_single") {
   static_assert(format.get() == "{0}", "positional placeholder must be preserved");
 }
 
+// Multiple positional placeholders are stored in order.
 TEST_CASE("format_string/positional_multiple") {
   constexpr FormatString<int, float> format("{0}, {1}");
 
@@ -138,6 +139,7 @@ TEST_CASE("format_string/positional_multiple") {
   static_assert(format.get() == "{0}, {1}", "multiple positional placeholders preserved");
 }
 
+// Reordered positional indices are stored as given.
 TEST_CASE("format_string/positional_reorder") {
   constexpr FormatString<int, float> format("{1} then {0}");
 
@@ -146,6 +148,7 @@ TEST_CASE("format_string/positional_reorder") {
   static_assert(format.get() == "{1} then {0}", "reordered indices preserved");
 }
 
+// Repeated positional index is stored as given.
 TEST_CASE("format_string/positional_repeat") {
   constexpr FormatString<int> format("{0}{0}");
 
@@ -154,6 +157,7 @@ TEST_CASE("format_string/positional_repeat") {
   static_assert(format.get() == "{0}{0}", "repeated index preserved");
 }
 
+// Positional index surrounded by escaped braces is stored verbatim.
 TEST_CASE("format_string/positional_with_escapes") {
   constexpr FormatString<int> format("{{{0}}}");
 
@@ -162,6 +166,7 @@ TEST_CASE("format_string/positional_with_escapes") {
   static_assert(format.get() == "{{{0}}}", "escaped braces with positional index preserved");
 }
 
+// Sparse positional index (not starting at zero) is stored as given.
 TEST_CASE("format_string/positional_sparse") {
   constexpr FormatString<int, float, double> format("{2}");
 

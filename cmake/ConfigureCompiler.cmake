@@ -99,8 +99,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
     message(FATAL_ERROR "GCC >= 13.3 required")
   endif ()
 
-  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wopenacc-parallelism -foffload=default -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS} -Wopenacc-parallelism -foffload=default -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}")
 
   set(CMAKE_C_FLAGS_DEBUG                   "${GCC_C_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_DEBUG                 "${GCC_CXX_FLAGS_DEBUG}")
