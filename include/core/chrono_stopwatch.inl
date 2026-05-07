@@ -26,9 +26,6 @@
 
 namespace toy::chrono {
 
-inline Stopwatch::Stopwatch() noexcept
-  : _startTicks{SteadyClock::nowTicks()} {}
-
 inline Stopwatch::duration Stopwatch::elapsed() const noexcept {
   return duration{SteadyClock::nowTicks() - _startTicks};
 }

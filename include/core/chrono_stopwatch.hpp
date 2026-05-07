@@ -89,17 +89,6 @@ public:
   using duration = SteadyClock::duration;
 
   /*!
-    \brief Constructs and starts the stopwatch at the current tick count.
-
-    \pre An active \ref toy::chrono::ClockSource exists in the current process.
-
-    \post elapsedTicks() returns a non-negative value for all subsequent calls.
-
-    \sa reset(), elapsed()
-  */
-  Stopwatch() noexcept;
-
-  /*!
     \brief Elapsed time since construction or the last reset().
 
     \return Duration from the captured start tick to the current tick.
@@ -136,7 +125,7 @@ public:
 
 private:
   /// Tick count captured at construction or the last reset().
-  rep _startTicks;
+  rep _startTicks{SteadyClock::nowTicks()};
 };
 
 } // namespace toy::chrono
