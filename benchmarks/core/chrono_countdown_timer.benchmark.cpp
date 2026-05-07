@@ -28,7 +28,7 @@
 namespace toy::chrono {
 
 void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  constexpr auto timeout = std::chrono::milliseconds{500};
+  constexpr auto timeout = std::chrono::seconds{1};
 
   ClockSource clock;
 
