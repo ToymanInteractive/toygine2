@@ -40,11 +40,12 @@ var searchData=
   ['_5frfind_5fraw_37',['_rfind_raw',['../d5/d03/classtoy_1_1_c_string_view.html#ac374898ed5679a18a77639c363126ba4',1,'toy::CStringView::_rfind_raw()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a046f421bc4e826db9e77bef9646811e3',1,'toy::FixedString::_rfind_raw()']]],
   ['_5fsize_38',['_size',['../d7/dec/classtoy_1_1_fixed_vector.html#a566cdb40d2ac367a8db078ee5ee18945',1,'toy::FixedVector::_size'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#a4bbfe824896a73aa8bb30049d0857757',1,'toy::StringFixedStorage::_size']]],
   ['_5fstackwalkcallback_39',['_stackWalkCallback',['../d2/d3a/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03.html#a64d3f5582d66e4b98644d927240a2c43',1,'toy::assertion::anonymous_namespace{assertion_linux.cpp}::_stackWalkCallback'],['../d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html#a58325e78dff463d876c39d2fa0871e9a',1,'toy::assertion::anonymous_namespace{assertion_macos.cpp}::_stackWalkCallback']]],
-  ['_5fstorage_40',['_storage',['../d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048',1,'toy::FixedString']]],
-  ['_5fstring_41',['_string',['../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65',1,'toy::FormatString::_string'],['../d7/d15/classtoy_1_1_o_string_stream.html#adf65510af837de2e72ba80efaf19a896',1,'toy::OStringStream::_string']]],
-  ['_5fsubscriberscount_42',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a1d5084e0f05efc83f2a78e460db9e4c9',1,'toy::CallbacksPool']]],
-  ['_5fsymbolsizeinutf8bytes_43',['_symbolSizeInUTF8Bytes',['../d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html#add640015f8e9da6a0ee393f89a2ebbd9',1,'toy::anonymous_namespace{utils.cpp}']]],
-  ['_5fvalue_44',['_value',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f',1,'toy::math::fixed']]],
-  ['_5fversion_45',['_version',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a16c14348457b85c7dd6902a1133ec2ee',1,'toy::application::CoreApplication']]],
-  ['_5fwritefn_46',['_writeFn',['../d8/dde/classtoy_1_1_format_context.html#ad07aad5a6a43d562677caabb55640261',1,'toy::FormatContext']]]
+  ['_5fstartticks_40',['_startTicks',['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#aae84a9d7dc4d54a1048ddf0baaf03846',1,'toy::chrono::Stopwatch']]],
+  ['_5fstorage_41',['_storage',['../d3/d7a/classtoy_1_1_fixed_string.html#a05a98b03a4e564ea5a5f26dfae56a048',1,'toy::FixedString']]],
+  ['_5fstring_42',['_string',['../dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65',1,'toy::FormatString::_string'],['../d7/d15/classtoy_1_1_o_string_stream.html#adf65510af837de2e72ba80efaf19a896',1,'toy::OStringStream::_string']]],
+  ['_5fsubscriberscount_43',['_subscribersCount',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a1d5084e0f05efc83f2a78e460db9e4c9',1,'toy::CallbacksPool']]],
+  ['_5fsymbolsizeinutf8bytes_44',['_symbolSizeInUTF8Bytes',['../d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html#add640015f8e9da6a0ee393f89a2ebbd9',1,'toy::anonymous_namespace{utils.cpp}']]],
+  ['_5fvalue_45',['_value',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f',1,'toy::math::fixed']]],
+  ['_5fversion_46',['_version',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a16c14348457b85c7dd6902a1133ec2ee',1,'toy::application::CoreApplication']]],
+  ['_5fwritefn_47',['_writeFn',['../d8/dde/classtoy_1_1_format_context.html#ad07aad5a6a43d562677caabb55640261',1,'toy::FormatContext']]]
 ];

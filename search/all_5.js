@@ -36,5 +36,5 @@ var searchData=
   ['dummy_33',['Dummy',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac',1,'toy::network']]],
   ['duplication_34',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
   ['duration_35',['Duration',['../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191',1,'toy::chrono']]],
-  ['duration_36',['duration',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07',1,'toy::chrono::SteadyClock']]]
+  ['duration_36',['duration',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07',1,'toy::chrono::SteadyClock::duration'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f',1,'toy::chrono::Stopwatch::duration']]]
 ];

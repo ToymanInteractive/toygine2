@@ -30,11 +30,11 @@
 <area shape="poly" id="edge32_Node000002_Node000025" title=" " alt="" coords="2640,111,2871,131,3154,164,3166,166,3165,171,3154,169,2871,136,2640,116"/>
 <area shape="rect" id="Node000026" href="$d5/d5a/assertion__macos_8cpp.html" title="macOS implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3374,167,3569,207"/>
 <area shape="poly" id="edge33_Node000002_Node000026" title=" " alt="" coords="2640,108,2956,126,3158,143,3362,164,3374,166,3373,171,3362,169,3158,148,2956,132,2640,113"/>
-<area shape="rect" id="Node000027" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementation of toy::chrono::ClockSource using CLOCK_MONOTONIC_RAW." alt="" coords="3593,167,3811,207"/>
+<area shape="rect" id="Node000027" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock." alt="" coords="3593,167,3811,207"/>
 <area shape="poly" id="edge34_Node000002_Node000027" title=" " alt="" coords="2640,107,3044,123,3310,140,3581,164,3592,165,3592,171,3580,169,3310,145,3043,129,2640,112"/>
 <area shape="rect" id="Node000028" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="3836,167,4016,207"/>
 <area shape="poly" id="edge35_Node000002_Node000028" title=" " alt="" coords="2640,105,2847,107,3139,116,3479,133,3653,147,3823,164,3836,166,3835,171,3823,169,3652,152,3478,139,3139,121,2846,113,2640,110"/>
-<area shape="rect" id="Node000029" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementation of toy::chrono::ClockSource." alt="" coords="4040,167,4244,207"/>
+<area shape="rect" id="Node000029" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock." alt="" coords="4040,167,4244,207"/>
 <area shape="poly" id="edge36_Node000002_Node000029" title=" " alt="" coords="2641,104,2876,106,3219,114,3620,132,3826,146,4029,164,4040,165,4039,171,4028,169,3826,151,3620,137,3219,119,2876,112,2641,110"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="636,193,466,198,272,210,106,229,49,242,31,249,20,257,11,269,8,282,11,295,19,307,40,313,92,319,269,329,816,347,1859,365,1859,370,816,352,269,335,91,324,39,318,16,312,6,297,3,282,6,267,16,253,28,244,48,237,105,224,271,205,466,193,636,187"/>
 <area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="30,262,201,302"/>

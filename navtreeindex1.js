@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d3/d7a/classtoy_1_1_fixed_string.html#a39e3e79f9c5c792d78d301065573eea4":[2,2,1,1,14],
+"d3/d7a/classtoy_1_1_fixed_string.html#a3a09fbe28a20f15841050acbcf820237":[2,2,1,1,77],
 "d3/d7a/classtoy_1_1_fixed_string.html#a3bf81849c9573fc0747221cc5b40e856":[2,2,1,1,75],
 "d3/d7a/classtoy_1_1_fixed_string.html#a3e6bf6517c287249c3afc8feb87dd785":[2,2,1,1,13],
 "d3/d7a/classtoy_1_1_fixed_string.html#a4002a23810be324c6b9ab23eeaaa1bcf":[2,2,1,1,103],
@@ -121,8 +123,8 @@ var NAVTREEINDEX1 =
 "d4/d01/application_8hpp.html":[6,0,0,10],
 "d4/d01/application_8hpp.html#a1b2bd9ba8ddc8a14eb069ad482bce9e3":[6,0,0,10,0],
 "d4/d01/application_8hpp_source.html":[6,0,0,10],
-"d4/d0a/format_8hpp.html":[6,0,0,2,18],
-"d4/d0a/format_8hpp_source.html":[6,0,0,2,18],
+"d4/d0a/format_8hpp.html":[6,0,0,2,20],
+"d4/d0a/format_8hpp_source.html":[6,0,0,2,20],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,0,0],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[3,0,1,1,22],
@@ -199,8 +201,8 @@ var NAVTREEINDEX1 =
 "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9":[2,2,4],
 "d4/d78/math_8hpp.html":[6,0,0,16],
 "d4/d78/math_8hpp_source.html":[6,0,0,16],
-"d4/d97/format__string_8inl.html":[6,0,0,2,25],
-"d4/d97/format__string_8inl_source.html":[6,0,0,2,25],
+"d4/d97/format__string_8inl.html":[6,0,0,2,27],
+"d4/d97/format__string_8inl_source.html":[6,0,0,2,27],
 "d4/da9/namespacetoy.html":[3,0,2],
 "d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583":[3,0,2,33],
 "d4/da9/namespacetoy.html#a0bd773c8ce056b71c2520fdb09b900df":[3,0,2,68],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55a":[3,0,2,30],
 "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1bdf605991920db11cbdf8508204c4eb":[3,0,2,30,3],
 "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa762ba5f7878627c28916f73f55646717":[3,0,2,30,6],
-"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e":[3,0,2,30,2],
-"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa91f63b3de0c255c06d76b4a195ed5b15":[3,0,2,30,7],
-"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430":[3,0,2,30,0]
+"d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa8b06df0295926efcdcc1f9e13c49848e":[3,0,2,30,2]
 };

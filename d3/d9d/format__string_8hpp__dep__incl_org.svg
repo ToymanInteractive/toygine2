@@ -311,7 +311,7 @@
 <!-- Node27 -->
 <g id="Node000027" class="node">
 <title>Node27</title>
-<g id="a_Node000027"><a xlink:href="../../d6/d9a/clock__source__macos_8cpp.html" target="_top" xlink:title="macOS implementation of toy::chrono::ClockSource using CLOCK_MONOTONIC_RAW.">
+<g id="a_Node000027"><a xlink:href="../../d6/d9a/clock__source__macos_8cpp.html" target="_top" xlink:title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock.">
 <polygon fill="white" stroke="#666666" points="2854.39,-162 2690.39,-162 2690.39,-132 2854.39,-132 2854.39,-162"/>
 <text text-anchor="start" x="2698.39" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
 <text text-anchor="middle" x="2772.39" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_macos.cpp</text>
@@ -349,7 +349,7 @@
 <!-- Node29 -->
 <g id="Node000029" class="node">
 <title>Node29</title>
-<g id="a_Node000029"><a xlink:href="../../d4/dbf/clock__source__stub_8cpp.html" target="_top" xlink:title="Stub implementation of toy::chrono::ClockSource.">
+<g id="a_Node000029"><a xlink:href="../../d4/dbf/clock__source__stub_8cpp.html" target="_top" xlink:title="Stub implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock.">
 <polygon fill="white" stroke="#666666" points="3178.89,-162 3025.89,-162 3025.89,-132 3178.89,-132 3178.89,-162"/>
 <text text-anchor="start" x="3033.89" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/stub</text>
 <text text-anchor="middle" x="3102.39" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_stub.cpp</text>

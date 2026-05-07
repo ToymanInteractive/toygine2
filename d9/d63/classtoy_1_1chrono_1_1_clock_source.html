@@ -176,10 +176,11 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> main() {</div>
 <div class="line">  <a class="code hl_class" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a> clock; <span class="comment">// hardware acquired</span></div>
-<div class="line">  toy::chrono::Stopwatch sw;</div>
+<div class="line">  <a class="code hl_class" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html">toy::chrono::Stopwatch</a> sw;</div>
 <div class="line">  <span class="comment">// ...</span></div>
 <div class="line">} <span class="comment">// clock destroyed, hardware released</span></div>
 <div class="ttc" id="aclasstoy_1_1chrono_1_1_clock_source_html"><div class="ttname"><a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></div><div class="ttdoc">RAII owner of the platform hardware time source.</div><div class="ttdef"><b>Definition</b> chrono_clock_source.hpp:95</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_stopwatch_html"><div class="ttname"><a href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html">toy::chrono::Stopwatch</a></div><div class="ttdoc">Elapsed-time counter anchored to the active toy::chrono::SteadyClock.</div><div class="ttdef"><b>Definition</b> chrono_stopwatch.hpp:84</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
@@ -194,13 +195,13 @@ Performance Characteristics</h1>
 Safety Guarantees</h1>
 <ul>
 <li><b>Singleton invariant</b>: debug assertion prevents construction of a second active instance; undefined behaviour in release builds if violated.</li>
-<li><b>Lifetime contract</b>: must outlive every dependent <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instance.</li>
+<li><b>Lifetime contract</b>: must outlive every dependent <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a>, and toy::chrono::CountdownTimer instance.</li>
 <li><b>Exception safety</b>: all operations are <code>noexcept</code>; no exceptions are thrown.</li>
 <li><b>Thread safety</b>: not thread-safe; construct and destroy on the owning thread only. Concurrent reads via <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> and <a class="el" href="#abb47cb3b7be3f45314b2392f4516a8f2" title="Tick frequency of the hardware counter in Hz.">frequency()</a> from worker threads are permitted once construction has completed and a happens-before edge is established.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd>Move and copy operations are deleted; instances are pinned to their declaration scope.</dd></dl>
-<dl class="section warning"><dt>Warning</dt><dd>Must outlive all toy::chrono::Stopwatch and toy::chrono::CountdownTimer instances that depend on it.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, toy::chrono::CountdownTimer </dd></dl>
+<dl class="section warning"><dt>Warning</dt><dd>Must outlive all <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a> and toy::chrono::CountdownTimer instances that depend on it.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a>, toy::chrono::CountdownTimer </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a3652b8ed4c9604d1e8758e6b0b56bcba" name="a3652b8ed4c9604d1e8758e6b0b56bcba"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3652b8ed4c9604d1e8758e6b0b56bcba">&#9670;&#160;</a></span>ClockSource()</h2>
@@ -230,9 +231,6 @@ Safety Guarantees</h1>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">toy::chrono::ClockSource::~ClockSource </td>
@@ -241,15 +239,10 @@ Safety Guarantees</h1>
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel default">default</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
 <p>Releases the hardware counter and deregisters this instance. </p>
-<dl class="section pre"><dt>Precondition</dt><dd>All <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, toy::chrono::Stopwatch, and toy::chrono::CountdownTimer instances that depend on this source have already been destroyed.</dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd>All <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a>, and toy::chrono::CountdownTimer instances that depend on this source have already been destroyed.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>No active source is registered; subsequent calls to <a class="el" href="#ae670e017fc42f0cc1f4ba2df351dee8a" title="Current hardware counter value.">nowTicks()</a> from any surviving dependent are undefined behaviour.</dd></dl>
 <dl class="section see"><dt>See also</dt><dd><a class="el" href="#a3652b8ed4c9604d1e8758e6b0b56bcba" title="Initialises the hardware counter and registers this instance as the active source.">ClockSource()</a> </dd></dl>
 
