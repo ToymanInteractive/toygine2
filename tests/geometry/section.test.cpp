@@ -47,6 +47,10 @@ TEST_CASE("geometry/section/object_structure") {
   static_assert(std::is_trivially_copyable_v<Section<int>>, "Section<int> must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<Section<float>>, "Section<float> must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<Section<fixed_type>>, "Section<fixed_type> must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Section<int>>, "Section<int> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<Section<float>>, "Section<float> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<Section<fixed_type>>,
+                "Section<fixed_type> must be trivially destructible");
   static_assert(std::is_standard_layout_v<Section<int>>, "Section<int> must have standard layout");
   static_assert(std::is_standard_layout_v<Section<float>>, "Section<float> must have standard layout");
   static_assert(std::is_standard_layout_v<Section<fixed_type>>, "Section<fixed_type> must have standard layout");

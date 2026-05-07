@@ -33,6 +33,7 @@ TEST_CASE("app/version/type_traits") {
   static_assert(!std::is_trivial_v<Version>,
                 "Version must not be trivial (member initializers suppress trivial default construction)");
   static_assert(std::is_trivially_copyable_v<Version>, "Version must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Version>, "Version must be trivially destructible");
   static_assert(std::is_standard_layout_v<Version>, "Version must have standard layout");
 }
 

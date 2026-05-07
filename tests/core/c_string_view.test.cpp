@@ -30,7 +30,7 @@
 namespace toy {
 
 // Default, copy, C string constructors; edge cases.
-TEST_CASE("core/c_string_view/constructors") {
+TEST_CASE("c_string_view/constructors") {
   // Object size equals pointer size.
   SUBCASE("object_size") {
     static_assert(sizeof(CStringView) == sizeof(char *), "CStringView must be pointer-sized");
@@ -156,7 +156,7 @@ TEST_CASE("core/c_string_view/constructors") {
 }
 
 // Assignment from C string and CStringView.
-TEST_CASE("core/c_string_view/operators_assign") {
+TEST_CASE("c_string_view/operators_assign") {
   SUBCASE("c_string_assignment") {
     CStringView str1;
     CStringView str2;
@@ -266,7 +266,7 @@ TEST_CASE("core/c_string_view/operators_assign") {
 }
 
 // assign() from C string and CStringView; chaining.
-TEST_CASE("core/c_string_view/assign") {
+TEST_CASE("c_string_view/assign") {
   SUBCASE("c_string_assignment") {
     CStringView str1;
     CStringView str2;
@@ -429,7 +429,7 @@ TEST_CASE("core/c_string_view/assign") {
 }
 
 // at() access; bounds-checked.
-TEST_CASE("core/c_string_view/at") {
+TEST_CASE("c_string_view/at") {
   SUBCASE("at_access") {
     constexpr CStringView str("World");
 
@@ -456,7 +456,7 @@ TEST_CASE("core/c_string_view/at") {
 }
 
 // operator[] access.
-TEST_CASE("core/c_string_view/operator_bracket") {
+TEST_CASE("c_string_view/operator_bracket") {
   SUBCASE("bracket_access") {
     constexpr CStringView str("Hello");
     constexpr CStringView longStr("VeryLongString");
@@ -497,7 +497,7 @@ TEST_CASE("core/c_string_view/operator_bracket") {
 }
 
 // front() and back() access.
-TEST_CASE("core/c_string_view/front_and_back") {
+TEST_CASE("c_string_view/front_and_back") {
   SUBCASE("front_method") {
     constexpr CStringView testString("Hello World");
 
@@ -602,7 +602,7 @@ TEST_CASE("core/c_string_view/front_and_back") {
 }
 
 // data() pointer access.
-TEST_CASE("core/c_string_view/data") {
+TEST_CASE("c_string_view/data") {
   SUBCASE("basic_data_access") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
@@ -656,7 +656,7 @@ TEST_CASE("core/c_string_view/data") {
 }
 
 // c_str() null-terminated pointer.
-TEST_CASE("core/c_string_view/c_str") {
+TEST_CASE("c_string_view/c_str") {
   SUBCASE("basic_c_str_access") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
@@ -719,7 +719,7 @@ TEST_CASE("core/c_string_view/c_str") {
 }
 
 // empty() query.
-TEST_CASE("core/c_string_view/empty") {
+TEST_CASE("c_string_view/empty") {
   SUBCASE("basic_empty_check") {
     constexpr CStringView nonEmptyString("Hello World");
     constexpr CStringView emptyString("");
@@ -880,7 +880,7 @@ TEST_CASE("core/c_string_view/empty") {
 }
 
 // size() in bytes.
-TEST_CASE("core/c_string_view/size") {
+TEST_CASE("c_string_view/size") {
   SUBCASE("basic_size_check") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
@@ -1033,7 +1033,7 @@ TEST_CASE("core/c_string_view/size") {
 }
 
 // utf8_size() code point count.
-TEST_CASE("core/c_string_view/utf8_size") {
+TEST_CASE("c_string_view/utf8_size") {
   SUBCASE("ascii_strings") {
     constexpr CStringView asciiString("Hello World");
     constexpr CStringView emptyString("");
@@ -1118,7 +1118,7 @@ TEST_CASE("core/c_string_view/utf8_size") {
 }
 
 // length() alias for size().
-TEST_CASE("core/c_string_view/length") {
+TEST_CASE("c_string_view/length") {
   SUBCASE("basic_length_check") {
     constexpr CStringView testString("Hello World");
     constexpr CStringView emptyString("");
@@ -1278,7 +1278,7 @@ TEST_CASE("core/c_string_view/length") {
 }
 
 // max_size() maximum view length.
-TEST_CASE("core/c_string_view/max_size") {
+TEST_CASE("c_string_view/max_size") {
   SUBCASE("basic_max_size_check") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
@@ -1322,7 +1322,7 @@ TEST_CASE("core/c_string_view/max_size") {
 }
 
 // capacity() (same as size for view).
-TEST_CASE("core/c_string_view/capacity") {
+TEST_CASE("c_string_view/capacity") {
   SUBCASE("basic_capacity_check") {
     constexpr CStringView smallString("Hi");
     constexpr CStringView mediumString("Hello World");
@@ -1366,7 +1366,7 @@ TEST_CASE("core/c_string_view/capacity") {
 }
 
 // clear(); view becomes empty.
-TEST_CASE("core/c_string_view/clear") {
+TEST_CASE("c_string_view/clear") {
   SUBCASE("basic_clear_functionality") {
     CStringView testString("Hello World");
 
@@ -1546,7 +1546,7 @@ TEST_CASE("core/c_string_view/clear") {
 }
 
 // swap() member.
-TEST_CASE("core/c_string_view/swap") {
+TEST_CASE("c_string_view/swap") {
   SUBCASE("swap_two_different_strings") {
     CStringView string1("Hello");
     CStringView string2("World");
@@ -1758,7 +1758,7 @@ TEST_CASE("core/c_string_view/swap") {
 }
 
 // find() substring and character.
-TEST_CASE("core/c_string_view/find") {
+TEST_CASE("c_string_view/find") {
   SUBCASE("find_c_string_view_substring") {
     constexpr CStringView testString("Hello World");
 
@@ -2063,7 +2063,7 @@ TEST_CASE("core/c_string_view/find") {
 }
 
 // rfind() from end.
-TEST_CASE("core/c_string_view/rfind") {
+TEST_CASE("c_string_view/rfind") {
   SUBCASE("rfind_c_string_view_substring") {
     constexpr CStringView testString("Hello World Hello");
 
@@ -2322,7 +2322,7 @@ TEST_CASE("core/c_string_view/rfind") {
 }
 
 // find_first_of() character set.
-TEST_CASE("core/c_string_view/find_first_of") {
+TEST_CASE("c_string_view/find_first_of") {
   SUBCASE("find_first_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
@@ -2567,7 +2567,7 @@ TEST_CASE("core/c_string_view/find_first_of") {
 }
 
 // find_first_not_of() character set.
-TEST_CASE("core/c_string_view/find_first_not_of") {
+TEST_CASE("c_string_view/find_first_not_of") {
   SUBCASE("find_first_not_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
@@ -2834,7 +2834,7 @@ TEST_CASE("core/c_string_view/find_first_not_of") {
 }
 
 // find_last_of() character set.
-TEST_CASE("core/c_string_view/find_last_of") {
+TEST_CASE("c_string_view/find_last_of") {
   SUBCASE("find_last_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
@@ -3075,7 +3075,7 @@ TEST_CASE("core/c_string_view/find_last_of") {
 }
 
 // find_last_not_of() character set.
-TEST_CASE("core/c_string_view/find_last_not_of") {
+TEST_CASE("c_string_view/find_last_not_of") {
   SUBCASE("find_last_not_of_c_string_view_characters") {
     constexpr CStringView testString("Hello World");
 
@@ -3326,7 +3326,7 @@ TEST_CASE("core/c_string_view/find_last_not_of") {
 }
 
 // compare() three-way.
-TEST_CASE("core/c_string_view/compare") {
+TEST_CASE("c_string_view/compare") {
   SUBCASE("compare_c_string_view_with_c_string_view") {
     constexpr CStringView testString1("Hello");
     constexpr CStringView testString2("Hello");
@@ -3589,7 +3589,7 @@ TEST_CASE("core/c_string_view/compare") {
 }
 
 // starts_with() prefix check.
-TEST_CASE("core/c_string_view/starts_with") {
+TEST_CASE("c_string_view/starts_with") {
   SUBCASE("starts_with_c_string_view") {
     constexpr CStringView testString("Hello World");
 
@@ -3873,7 +3873,7 @@ TEST_CASE("core/c_string_view/starts_with") {
 }
 
 // ends_with() suffix check.
-TEST_CASE("core/c_string_view/ends_with") {
+TEST_CASE("c_string_view/ends_with") {
   SUBCASE("c_string_view_ends_with") {
     constexpr CStringView testString("Hello World");
 
@@ -4239,7 +4239,7 @@ TEST_CASE("core/c_string_view/ends_with") {
 }
 
 // contains() substring check.
-TEST_CASE("core/c_string_view/contains") {
+TEST_CASE("c_string_view/contains") {
   SUBCASE("c_string_contains") {
     constexpr CStringView str("Hello World");
 
@@ -4517,7 +4517,7 @@ TEST_CASE("core/c_string_view/contains") {
 }
 
 // operator== and operator!=.
-TEST_CASE("core/c_string_view/operator_equal") {
+TEST_CASE("c_string_view/operator_equal") {
   SUBCASE("c_string_view_equal_c_string_view") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("Hello");
@@ -4669,7 +4669,7 @@ TEST_CASE("core/c_string_view/operator_equal") {
 }
 
 // operator<=> three-way comparison.
-TEST_CASE("core/c_string_view/operator_three_way") {
+TEST_CASE("c_string_view/operator_three_way") {
   SUBCASE("c_string_view_three_way_c_string_view") {
     constexpr CStringView str1("Hello");
     constexpr CStringView str2("Hello");
@@ -4990,7 +4990,7 @@ TEST_CASE("core/c_string_view/operator_three_way") {
 }
 
 // std::swap() overload.
-TEST_CASE("core/c_string_view/std_swap") {
+TEST_CASE("c_string_view/std_swap") {
   SUBCASE("basic_swap_functionality") {
     CStringView str1("Hello");
     CStringView str2("World");

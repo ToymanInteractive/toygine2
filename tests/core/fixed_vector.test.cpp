@@ -32,7 +32,7 @@
 namespace toy {
 
 // Default, count, copy, move, initializer list, iterator constructors.
-TEST_CASE("core/fixed_vector/constructors") {
+TEST_CASE("fixed_vector/constructors") {
   // Default constructor yields zero size, full capacity.
   SUBCASE("default_constructor") {
     constexpr FixedVector<int, 10> emptyVec;
@@ -252,7 +252,7 @@ TEST_CASE("core/fixed_vector/constructors") {
 }
 
 // Copy, move, initializer list assignment; self-assignment.
-TEST_CASE("core/fixed_vector/assignment_operators") {
+TEST_CASE("fixed_vector/assignment_operators") {
   // Copy assignment; same capacity.
   SUBCASE("copy_assignment_operator_same_capacity") {
     const FixedVector<int, 5> vec1{1, 2, 3};
@@ -403,7 +403,7 @@ TEST_CASE("core/fixed_vector/assignment_operators") {
 }
 
 // assign(count, value), assign(iter, iter), assign(init_list).
-TEST_CASE("core/fixed_vector/assign_methods") {
+TEST_CASE("fixed_vector/assign_methods") {
   // Assign count and value.
   SUBCASE("assign_count_and_value") {
     FixedVector<int, 5> vec{1, 2, 3};
@@ -620,7 +620,7 @@ TEST_CASE("core/fixed_vector/assign_methods") {
 }
 
 // at() access; bounds behavior.
-TEST_CASE("core/fixed_vector/at_methods") {
+TEST_CASE("fixed_vector/at_methods") {
   // Non-const at().
   SUBCASE("non_const_at_method") {
     FixedVector<int, 5> vec{10, 20, 30};
@@ -645,7 +645,7 @@ TEST_CASE("core/fixed_vector/at_methods") {
 }
 
 // operator[] access.
-TEST_CASE("core/fixed_vector/operator_bracket_methods") {
+TEST_CASE("fixed_vector/operator_bracket_methods") {
   // Non-const operator[].
   SUBCASE("non_const_operator_bracket") {
     FixedVector<int, 5> vec{10, 20, 30};
@@ -683,7 +683,7 @@ TEST_CASE("core/fixed_vector/operator_bracket_methods") {
 }
 
 // front() access.
-TEST_CASE("core/fixed_vector/front_methods") {
+TEST_CASE("fixed_vector/front_methods") {
   // Non-const front().
   SUBCASE("non_const_front_method") {
     FixedVector<int, 5> vec{10, 20, 30};
@@ -726,7 +726,7 @@ TEST_CASE("core/fixed_vector/front_methods") {
 }
 
 // back() access.
-TEST_CASE("core/fixed_vector/back_methods") {
+TEST_CASE("fixed_vector/back_methods") {
   // Non-const back().
   SUBCASE("non_const_back_method") {
     FixedVector<int, 5> vec{10, 20, 30};
@@ -785,7 +785,7 @@ TEST_CASE("core/fixed_vector/back_methods") {
 }
 
 // data() pointer access.
-TEST_CASE("core/fixed_vector/data_methods") {
+TEST_CASE("fixed_vector/data_methods") {
   // Non-const data().
   SUBCASE("non_const_data_method") {
     FixedVector<int, 5> vec{10, 20, 30};
@@ -876,7 +876,7 @@ TEST_CASE("core/fixed_vector/data_methods") {
 }
 
 // begin, end, rbegin, rend; iteration.
-TEST_CASE("core/fixed_vector/iterator_methods") {
+TEST_CASE("fixed_vector/iterator_methods") {
   // begin() methods.
   SUBCASE("begin_methods") {
     FixedVector<int, 5> vec{10, 20, 30};
@@ -1134,7 +1134,7 @@ TEST_CASE("core/fixed_vector/iterator_methods") {
 }
 
 // empty(), size(), max_size(), capacity().
-TEST_CASE("core/fixed_vector/size_and_capacity_methods") {
+TEST_CASE("fixed_vector/size_and_capacity_methods") {
   // empty() method.
   SUBCASE("empty_method") {
     FixedVector<int, 5> emptyVec{};
@@ -1299,7 +1299,7 @@ TEST_CASE("core/fixed_vector/size_and_capacity_methods") {
 }
 
 // clear(); size becomes 0, capacity unchanged.
-TEST_CASE("core/fixed_vector/clear_method") {
+TEST_CASE("fixed_vector/clear_method") {
   // Clear already empty vector; no-op.
   SUBCASE("clear_empty_vector") {
     FixedVector<int, 5> emptyVec{};

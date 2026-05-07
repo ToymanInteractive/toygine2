@@ -31,16 +31,18 @@
 namespace toy {
 
 // Check object structure.
-TEST_CASE("core/o_string_stream/object_structure") {
+TEST_CASE("o_string_stream/object_structure") {
   static_assert(!std::is_trivial_v<OStringStream<FixedString<8>>>,
                 "OStringStream must not be trivial (has non-trivial default init)");
   static_assert(std::is_trivially_copyable_v<OStringStream<FixedString<8>>>,
                 "OStringStream must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<OStringStream<FixedString<8>>>,
+                "OStringStream must be trivially destructible");
   static_assert(std::is_standard_layout_v<OStringStream<FixedString<8>>>, "OStringStream must have standard layout");
 }
 
 // Constructors from default, FixedString, std::string, CStringView.
-TEST_CASE("core/o_string_stream/constructors") {
+TEST_CASE("o_string_stream/constructors") {
   // Default constructor yields empty string.
   SUBCASE("default_constructor") {
     constexpr OStringStream<FixedString<32>> emptyStream;
@@ -90,7 +92,7 @@ TEST_CASE("core/o_string_stream/constructors") {
 }
 
 // Copy and move assignment.
-TEST_CASE("core/o_string_stream/assignment_operators") {
+TEST_CASE("o_string_stream/assignment_operators") {
   // Copy assignment copies content.
   SUBCASE("copy_assignment") {
     constexpr OStringStream<FixedString<32>> source(FixedString<16>("Source"));
@@ -114,7 +116,7 @@ TEST_CASE("core/o_string_stream/assignment_operators") {
 }
 
 // swap() exchanges content and precision.
-TEST_CASE("core/o_string_stream/swap") {
+TEST_CASE("o_string_stream/swap") {
   // Swap two streams with content and precision.
   SUBCASE("swap_two_streams_with_content") {
     OStringStream<FixedString<32>> stream1(FixedString<16>("First"));
@@ -174,7 +176,7 @@ TEST_CASE("core/o_string_stream/swap") {
 }
 
 // str() setter from FixedString, CStringView, std::string.
-TEST_CASE("core/o_string_stream/str_setter") {
+TEST_CASE("o_string_stream/str_setter") {
   // str() setter from FixedString.
   SUBCASE("set_from_fixed_string") {
     OStringStream<FixedString<64>> stream(FixedString<16>("Old"));
@@ -234,7 +236,7 @@ TEST_CASE("core/o_string_stream/str_setter") {
 }
 
 // view() returns CStringView of current content.
-TEST_CASE("core/o_string_stream/view") {
+TEST_CASE("o_string_stream/view") {
   // view() with content.
   SUBCASE("view_with_content") {
     constexpr OStringStream<FixedString<32>> stream(FixedString<16>("Hello"));
@@ -275,7 +277,7 @@ TEST_CASE("core/o_string_stream/view") {
 }
 
 // put() appends a single character; returns reference for chaining.
-TEST_CASE("core/o_string_stream/put") {
+TEST_CASE("o_string_stream/put") {
   // put() single character to empty stream.
   SUBCASE("put_single_character_to_empty_stream") {
     OStringStream<FixedString<32>> stream;
@@ -340,7 +342,7 @@ TEST_CASE("core/o_string_stream/put") {
 }
 
 // write() appends count bytes; returns reference for chaining.
-TEST_CASE("core/o_string_stream/write") {
+TEST_CASE("o_string_stream/write") {
   // write() to empty stream.
   SUBCASE("write_to_empty_stream") {
     OStringStream<FixedString<32>> stream;
@@ -417,7 +419,7 @@ TEST_CASE("core/o_string_stream/write") {
 }
 
 // tellp() returns current write position.
-TEST_CASE("core/o_string_stream/tellp") {
+TEST_CASE("o_string_stream/tellp") {
   // tellp() on empty stream is zero.
   SUBCASE("tellp_on_empty_stream") {
     constexpr OStringStream<FixedString<32>> stream;
@@ -488,7 +490,7 @@ TEST_CASE("core/o_string_stream/tellp") {
 }
 
 // precision() get/set; default 6.
-TEST_CASE("core/o_string_stream/precision") {
+TEST_CASE("o_string_stream/precision") {
   // Default precision is 6.
   SUBCASE("default_precision") {
     constexpr OStringStream<FixedString<32>> stream;
@@ -545,7 +547,7 @@ TEST_CASE("core/o_string_stream/precision") {
 }
 
 // operator<< for bool, integers, float, double, pointer, char, StringLike, C string.
-TEST_CASE("core/o_string_stream/operator_insert") {
+TEST_CASE("o_string_stream/operator_insert") {
   // operator<< bool.
   SUBCASE("insert_boolean_value") {
     array<OStringStream<FixedString<8>>, 2> streams;

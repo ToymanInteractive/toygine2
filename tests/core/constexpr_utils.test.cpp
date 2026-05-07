@@ -30,7 +30,7 @@
 namespace toy {
 
 // cstrcmp: compile-time string comparison.
-TEST_CASE("core/constexpr_utils/cstrcmp_function") {
+TEST_CASE("constexpr_utils/cstrcmp_function") {
   // Equal strings compare zero.
   SUBCASE("equal_strings") {
     constexpr const char * str1 = "Hello";
@@ -264,7 +264,7 @@ TEST_CASE("core/constexpr_utils/cstrcmp_function") {
 }
 
 // cstrchr: compile-time character search.
-TEST_CASE("core/constexpr_utils/cstrchr_function") {
+TEST_CASE("constexpr_utils/cstrchr_function") {
   // Basic character search; first occurrence.
   SUBCASE("basic_character_search") {
     constexpr const char * str = "Hello World";
@@ -540,7 +540,7 @@ TEST_CASE("core/constexpr_utils/cstrchr_function") {
 }
 
 // cstrpbrk: compile-time character set search.
-TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
+TEST_CASE("constexpr_utils/cstrpbrk_function") {
   // Basic character set search; null accept/str.
   SUBCASE("basic_character_set_search") {
     constexpr const char * str = "Hello World";
@@ -777,7 +777,7 @@ TEST_CASE("core/constexpr_utils/cstrpbrk_function") {
 }
 
 // cstrstr: compile-time substring search.
-TEST_CASE("core/constexpr_utils/cstrstr_function") {
+TEST_CASE("constexpr_utils/cstrstr_function") {
   // Basic substring search; positions and full match.
   SUBCASE("basic_substring_search") {
     constexpr const char * haystack = "Hello World";

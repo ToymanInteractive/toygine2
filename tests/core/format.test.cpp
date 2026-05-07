@@ -29,7 +29,7 @@
 namespace toy {
 
 // Pattern with no placeholders is copied verbatim.
-TEST_CASE("core/format/no_placeholders") {
+TEST_CASE("format/no_placeholders") {
   constexpr auto result = format<32>("Hello World");
 
   REQUIRE(result == "Hello World");
@@ -38,7 +38,7 @@ TEST_CASE("core/format/no_placeholders") {
 }
 
 // Single auto placeholder substitutes an integer.
-TEST_CASE("core/format/auto_single_int") {
+TEST_CASE("format/auto_single_int") {
   constexpr auto result = format<32>("value: {}", 42);
 
   REQUIRE(result == "value: 42");
@@ -47,7 +47,7 @@ TEST_CASE("core/format/auto_single_int") {
 }
 
 // Multiple auto placeholders are substituted left to right.
-TEST_CASE("core/format/auto_multiple") {
+TEST_CASE("format/auto_multiple") {
   constexpr auto result = format<64>("{} and {}", 1, 2);
 
   REQUIRE(result == "1 and 2");
@@ -56,7 +56,7 @@ TEST_CASE("core/format/auto_multiple") {
 }
 
 // Auto placeholder with bool produces "true" or "false".
-TEST_CASE("core/format/auto_bool") {
+TEST_CASE("format/auto_bool") {
   constexpr auto t = format<16>("{}", true);
   constexpr auto f = format<16>("{}", false);
 
@@ -68,7 +68,7 @@ TEST_CASE("core/format/auto_bool") {
 }
 
 // Auto placeholder with char inserts the character directly.
-TEST_CASE("core/format/auto_char") {
+TEST_CASE("format/auto_char") {
   constexpr auto result = format<8>("{}", 'X');
 
   REQUIRE(result == "X");
@@ -77,14 +77,14 @@ TEST_CASE("core/format/auto_char") {
 }
 
 // Auto placeholder with a C-string argument.
-TEST_CASE("core/format/auto_c_string") {
+TEST_CASE("format/auto_c_string") {
   const auto result = format<32>("say: {}", "hello");
 
   REQUIRE(result == "say: hello");
 }
 
 // Auto placeholder with a CStringView argument.
-TEST_CASE("core/format/auto_string_view") {
+TEST_CASE("format/auto_string_view") {
   constexpr CStringView greeting("hi");
   constexpr auto        result = format<16>("{}", greeting);
 
@@ -94,7 +94,7 @@ TEST_CASE("core/format/auto_string_view") {
 }
 
 // Auto placeholder with negative integer includes the minus sign.
-TEST_CASE("core/format/auto_negative_int") {
+TEST_CASE("format/auto_negative_int") {
   constexpr auto result = format<16>("{}", -7);
 
   REQUIRE(result == "-7");
@@ -103,7 +103,7 @@ TEST_CASE("core/format/auto_negative_int") {
 }
 
 // Auto placeholder with unsigned integer.
-TEST_CASE("core/format/auto_unsigned_int") {
+TEST_CASE("format/auto_unsigned_int") {
   constexpr auto result = format<16>("{}", 255U);
 
   REQUIRE(result == "255");
@@ -112,7 +112,7 @@ TEST_CASE("core/format/auto_unsigned_int") {
 }
 
 // Positional placeholders in declaration order.
-TEST_CASE("core/format/positional_direct") {
+TEST_CASE("format/positional_direct") {
   constexpr auto result = format<32>("{0} {1}", 10, 20);
 
   REQUIRE(result == "10 20");
@@ -121,7 +121,7 @@ TEST_CASE("core/format/positional_direct") {
 }
 
 // Positional placeholders in reverse order.
-TEST_CASE("core/format/positional_reorder") {
+TEST_CASE("format/positional_reorder") {
   constexpr auto result = format<32>("{1} {0}", 10, 20);
 
   REQUIRE(result == "20 10");
@@ -130,7 +130,7 @@ TEST_CASE("core/format/positional_reorder") {
 }
 
 // Same positional index used more than once.
-TEST_CASE("core/format/positional_repeat") {
+TEST_CASE("format/positional_repeat") {
   constexpr auto result = format<16>("{0}{0}", 7);
 
   REQUIRE(result == "77");
@@ -139,7 +139,7 @@ TEST_CASE("core/format/positional_repeat") {
 }
 
 // Sparse positional index: only {2} appears; {0} and {1} are unused.
-TEST_CASE("core/format/positional_sparse") {
+TEST_CASE("format/positional_sparse") {
   constexpr auto result = format<16>("{2}", 1, 2, 3);
 
   REQUIRE(result == "3");
@@ -148,7 +148,7 @@ TEST_CASE("core/format/positional_sparse") {
 }
 
 // Escaped {{ emits a literal left brace.
-TEST_CASE("core/format/escaped_open_brace") {
+TEST_CASE("format/escaped_open_brace") {
   constexpr auto result = format<8>("{{");
 
   REQUIRE(result == "{");
@@ -157,7 +157,7 @@ TEST_CASE("core/format/escaped_open_brace") {
 }
 
 // Escaped }} emits a literal right brace.
-TEST_CASE("core/format/escaped_close_brace") {
+TEST_CASE("format/escaped_close_brace") {
   constexpr auto result = format<8>("}}");
 
   REQUIRE(result == "}");
@@ -166,7 +166,7 @@ TEST_CASE("core/format/escaped_close_brace") {
 }
 
 // Escaped braces surrounding a placeholder.
-TEST_CASE("core/format/escaped_around_placeholder") {
+TEST_CASE("format/escaped_around_placeholder") {
   constexpr auto result = format<16>("{{{}}}", 42);
 
   REQUIRE(result == "{42}");
@@ -175,7 +175,7 @@ TEST_CASE("core/format/escaped_around_placeholder") {
 }
 
 // Empty format string produces an empty result.
-TEST_CASE("core/format/empty_pattern") {
+TEST_CASE("format/empty_pattern") {
   constexpr auto result = format<8>("");
 
   REQUIRE(result.empty());
@@ -184,7 +184,7 @@ TEST_CASE("core/format/empty_pattern") {
 }
 
 // formatTo replaces the content of an existing string.
-TEST_CASE("core/format_to/replaces_output") {
+TEST_CASE("format_to/replaces_output") {
   FixedString<64> output("stale-content");
 
   formatTo(output, "{} + {} = {}", 1, 2, 3);
@@ -193,7 +193,7 @@ TEST_CASE("core/format_to/replaces_output") {
 }
 
 // formatTo with positional placeholders.
-TEST_CASE("core/format_to/positional") {
+TEST_CASE("format_to/positional") {
   FixedString<32> output("");
 
   formatTo(output, "{{{1}/{0}}}", 2024, 12);
@@ -204,35 +204,35 @@ TEST_CASE("core/format_to/positional") {
 // ----- vformat -----
 
 // Single auto placeholder substitutes an integer and returns by value.
-TEST_CASE("core/vformat/single_int") {
+TEST_CASE("vformat/single_int") {
   const auto result = vformat<32>(CStringView("value: {}"), 42);
 
   REQUIRE(result == "value: 42");
 }
 
 // Multiple arguments of different types are substituted left to right.
-TEST_CASE("core/vformat/mixed_types") {
+TEST_CASE("vformat/mixed_types") {
   const auto result = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
 
   REQUIRE(result == "42 world true");
 }
 
 // Positional placeholders select arguments by index.
-TEST_CASE("core/vformat/positional_reorder") {
+TEST_CASE("vformat/positional_reorder") {
   const auto result = vformat<32>(CStringView("{1} before {0}"), 10, 20);
 
   REQUIRE(result == "20 before 10");
 }
 
 // Escaped {{ and }} emit literal braces around a placeholder.
-TEST_CASE("core/vformat/escaped_braces") {
+TEST_CASE("vformat/escaped_braces") {
   const auto result = vformat<32>(CStringView("{{{}}}"), 42);
 
   REQUIRE(result == "{42}");
 }
 
 // std::nullptr_t is formatted as "nullptr".
-TEST_CASE("core/vformat/nullptr") {
+TEST_CASE("vformat/nullptr") {
   const auto result = vformat<16>(CStringView("{}"), nullptr);
 
   REQUIRE(result == "nullptr");
@@ -241,7 +241,7 @@ TEST_CASE("core/vformat/nullptr") {
 // ----- vformatTo -----
 
 // Literal-only pattern is copied verbatim.
-TEST_CASE("core/vformat_to/no_placeholders") {
+TEST_CASE("vformat_to/no_placeholders") {
   FixedString<32> output;
 
   vformatTo(output, CStringView("Hello World"));
@@ -250,7 +250,7 @@ TEST_CASE("core/vformat_to/no_placeholders") {
 }
 
 // Empty pattern produces an empty output.
-TEST_CASE("core/vformat_to/empty_pattern") {
+TEST_CASE("vformat_to/empty_pattern") {
   FixedString<16> output;
 
   vformatTo(output, CStringView(""));
@@ -259,7 +259,7 @@ TEST_CASE("core/vformat_to/empty_pattern") {
 }
 
 // Integer argument is type-erased and formatted via the generic OStringStream path.
-TEST_CASE("core/vformat_to/single_int") {
+TEST_CASE("vformat_to/single_int") {
   FixedString<32> output;
 
   vformatTo(output, CStringView("value: {}"), 42);
@@ -268,7 +268,7 @@ TEST_CASE("core/vformat_to/single_int") {
 }
 
 // Bool true formats as "true" and false as "false".
-TEST_CASE("core/vformat_to/bool") {
+TEST_CASE("vformat_to/bool") {
   FixedString<16> outTrue;
   FixedString<16> outFalse;
 
@@ -280,7 +280,7 @@ TEST_CASE("core/vformat_to/bool") {
 }
 
 // Char argument inserts the character directly.
-TEST_CASE("core/vformat_to/char") {
+TEST_CASE("vformat_to/char") {
   FixedString<8> output;
 
   vformatTo(output, CStringView("{}"), 'X');
@@ -289,7 +289,7 @@ TEST_CASE("core/vformat_to/char") {
 }
 
 // Non-null char pointer takes the char-pointer fast path.
-TEST_CASE("core/vformat_to/c_string") {
+TEST_CASE("vformat_to/c_string") {
   FixedString<32> output;
   const char *    msg = "hello";
 
@@ -299,7 +299,7 @@ TEST_CASE("core/vformat_to/c_string") {
 }
 
 // Null char pointer produces no output for that placeholder.
-TEST_CASE("core/vformat_to/null_c_string") {
+TEST_CASE("vformat_to/null_c_string") {
   FixedString<16> output;
   const char *    msg = nullptr;
 
@@ -309,7 +309,7 @@ TEST_CASE("core/vformat_to/null_c_string") {
 }
 
 // FixedString argument takes the StringLike fast path.
-TEST_CASE("core/vformat_to/fixed_string") {
+TEST_CASE("vformat_to/fixed_string") {
   FixedString<32> output;
   FixedString<16> name("engine");
 
@@ -319,7 +319,7 @@ TEST_CASE("core/vformat_to/fixed_string") {
 }
 
 // CStringView argument takes the StringLike fast path.
-TEST_CASE("core/vformat_to/c_string_view") {
+TEST_CASE("vformat_to/c_string_view") {
   FixedString<32> output;
   CStringView     sv("world");
 
@@ -329,7 +329,7 @@ TEST_CASE("core/vformat_to/c_string_view") {
 }
 
 // Multiple arguments of different types are substituted left to right.
-TEST_CASE("core/vformat_to/mixed_types") {
+TEST_CASE("vformat_to/mixed_types") {
   FixedString<64> output;
 
   vformatTo(output, CStringView("{} {} {}"), 10, "mid", false);
@@ -338,7 +338,7 @@ TEST_CASE("core/vformat_to/mixed_types") {
 }
 
 // Positional placeholders in reverse order swap arguments.
-TEST_CASE("core/vformat_to/positional_reorder") {
+TEST_CASE("vformat_to/positional_reorder") {
   FixedString<32> output;
 
   vformatTo(output, CStringView("{1} {0}"), 10, 20);
@@ -347,7 +347,7 @@ TEST_CASE("core/vformat_to/positional_reorder") {
 }
 
 // Escaped braces surrounding a placeholder emit literal braces around the value.
-TEST_CASE("core/vformat_to/escaped_braces") {
+TEST_CASE("vformat_to/escaped_braces") {
   FixedString<16> output;
 
   vformatTo(output, CStringView("{{{}}}"), 42);
@@ -356,7 +356,7 @@ TEST_CASE("core/vformat_to/escaped_braces") {
 }
 
 // Previous content of output is replaced.
-TEST_CASE("core/vformat_to/replaces_output") {
+TEST_CASE("vformat_to/replaces_output") {
   FixedString<64> output;
   output.append("stale-content");
 
@@ -366,7 +366,7 @@ TEST_CASE("core/vformat_to/replaces_output") {
 }
 
 // Pattern built at runtime formats correctly.
-TEST_CASE("core/vformat_to/runtime_pattern") {
+TEST_CASE("vformat_to/runtime_pattern") {
   FixedString<32> pattern;
   pattern.append("x={}");
 
@@ -378,7 +378,7 @@ TEST_CASE("core/vformat_to/runtime_pattern") {
 }
 
 // Literal text after the last placeholder is preserved.
-TEST_CASE("core/vformat_to/trailing_literal") {
+TEST_CASE("vformat_to/trailing_literal") {
   FixedString<32> output;
 
   vformatTo(output, CStringView("{} items remaining"), 5);

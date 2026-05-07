@@ -18,22 +18,24 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   log_record.test.cpp
-  \brief  Unit tests for \ref toy::log::Record.
+  \file   chrono_stopwatch.test.cpp
+  \brief  Unit tests for \ref toy::chrono::Stopwatch.
 */
 
 #include <doctest/doctest.h>
 
 #include "core.hpp"
 
-namespace toy::log {
+namespace toy::chrono {
 
-// Object layout.
-TEST_CASE("log/record/object_structure") {
-  static_assert(!std::is_trivial_v<Record>, "Log Record must not be trivial");
-  static_assert(std::is_trivially_copyable_v<Record>, "Log Record must be trivially copyable");
-  static_assert(std::is_trivially_destructible_v<Record>, "Log Record must be trivially destructible");
-  static_assert(std::is_standard_layout_v<Record>, "Log Record must have standard layout");
+// Stopwatch has fixed size and contiguous layout.
+TEST_CASE("chrono/stop_watch/object_structure") {
+  static_assert(sizeof(Stopwatch) == 8, "Stopwatch must be 8 bytes");
+
+  static_assert(!std::is_trivial_v<Stopwatch>, "Stopwatch must not be trivial");
+  static_assert(std::is_trivially_copyable_v<Stopwatch>, "Stopwatch must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<Stopwatch>, "Stopwatch must be trivially destructible");
+  static_assert(std::is_standard_layout_v<Stopwatch>, "Stopwatch must have standard layout");
 }
 
-} // namespace toy::log
+} // namespace toy::chrono

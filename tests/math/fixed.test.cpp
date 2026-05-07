@@ -45,6 +45,12 @@ TEST_CASE("math/fixed/object_structure") {
   static_assert(std::is_trivially_copyable_v<fixed<int32_t, int64_t, 16>>, "fixed must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<fixed<int16_t, int32_t, 12>>, "fixed must be trivially copyable");
   static_assert(std::is_trivially_copyable_v<fixed<int64_t, int64_t, 32>>, "fixed must be trivially copyable");
+  static_assert(std::is_trivially_destructible_v<fixed<int32_t, int64_t, 16>>,
+                "fixed<int32_t, int64_t, 16> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<fixed<int16_t, int32_t, 12>>,
+                "fixed<int16_t, int32_t, 12> must be trivially destructible");
+  static_assert(std::is_trivially_destructible_v<fixed<int64_t, int64_t, 32>>,
+                "fixed<int64_t, int64_t, 32> must be trivially destructible");
   static_assert(std::is_standard_layout_v<fixed<int32_t, int64_t, 16>>, "fixed must have standard layout");
   static_assert(std::is_standard_layout_v<fixed<int16_t, int32_t, 12>>, "fixed must have standard layout");
   static_assert(std::is_standard_layout_v<fixed<int64_t, int64_t, 32>>, "fixed must have standard layout");

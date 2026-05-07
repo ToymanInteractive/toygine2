@@ -29,7 +29,7 @@
 namespace toy {
 
 // CRC checksum over byte sequences.
-TEST_CASE("core/hashes/crc_functions") {
+TEST_CASE("hashes/crc_functions") {
   // Empty data yields zero CRC.
   SUBCASE("empty_data") {
     constexpr CStringView empty("");

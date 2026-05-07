@@ -68,7 +68,7 @@ constexpr array<const char *, 16> asciis{
 };
 
 // UTF-8 to wide character conversion.
-TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
+TEST_CASE("utils/utf8_to_wchar_converts_utf8_to_wide_string") {
   // nullptr input yields empty wide string.
   SUBCASE("nullptr input") {
     wchar_t testBuffer[utf8TestData.size()];
@@ -124,7 +124,7 @@ TEST_CASE("core/utils/utf8_to_wchar_converts_utf8_to_wide_string") {
 }
 
 // Wide character to UTF-8 conversion.
-TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
+TEST_CASE("utils/wchar_to_utf8_converts_wide_to_utf8_string") {
   // nullptr input yields empty UTF-8 string.
   SUBCASE("nullptr input") {
     char testBuffer[unicodeTestData.size() * WCHAR_IN_UTF8_MAX_SIZE];
@@ -222,7 +222,7 @@ TEST_CASE("core/utils/wchar_to_utf8_converts_wide_to_utf8_string") {
 }
 
 // UTF-8 string length in code points.
-TEST_CASE("core/utils/utf8_len_returns_unicode_code_point_count") {
+TEST_CASE("utils/utf8_len_returns_unicode_code_point_count") {
   // ASCII string length equals byte length.
   SUBCASE("ASCII string length equals byte length") {
     const char * asciiSample = "Hello World!";
@@ -246,7 +246,7 @@ TEST_CASE("core/utils/utf8_len_returns_unicode_code_point_count") {
 }
 
 // In-place string reversal.
-TEST_CASE("core/utils/reverse_string_reverses_in_place") {
+TEST_CASE("utils/reverse_string_reverses_in_place") {
   // Initial copy matches source before reverse.
   SUBCASE("initial copy matches source") {
     char reverseBuffer[utf8TestData.size()];
@@ -293,7 +293,7 @@ TEST_CASE("core/utils/reverse_string_reverses_in_place") {
 }
 
 // Signed integer to string conversion.
-TEST_CASE("core/utils/itoa_converts_integer_to_string") {
+TEST_CASE("utils/itoa_converts_integer_to_string") {
   // int8_t min, max, zero.
   SUBCASE("int8_t") {
     char buffer[8];
@@ -332,7 +332,7 @@ TEST_CASE("core/utils/itoa_converts_integer_to_string") {
 }
 
 // Unsigned integer to string conversion with radix (2, 8, 10, 16).
-TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
+TEST_CASE("utils/utoa_converts_unsigned_integer_to_string") {
   // uint8_t min/max in radix 2, 8, 10, 16.
   SUBCASE("uint8_t") {
     char buffer[12];
@@ -402,7 +402,7 @@ TEST_CASE("core/utils/utoa_converts_unsigned_integer_to_string") {
 }
 
 // ftoa() writes decimal C string for float and double; default precision, infinity, NaN.
-TEST_CASE("core/utils/ftoa_converts_float_to_string") {
+TEST_CASE("utils/ftoa_converts_float_to_string") {
   // Positive float and double with default precision.
   SUBCASE("float and double positive") {
     char buffer[32];
@@ -447,7 +447,7 @@ TEST_CASE("core/utils/ftoa_converts_float_to_string") {
 }
 
 // highestBit(value) returns 0-based index of the highest set bit; value must be non-zero.
-TEST_CASE("core/utils/highest_bit") {
+TEST_CASE("utils/highest_bit") {
   // Single bit set: index equals bit position.
   SUBCASE("single_bit") {
     REQUIRE(highestBit(1ULL) == 0);
@@ -477,7 +477,7 @@ TEST_CASE("core/utils/highest_bit") {
 }
 
 // Format number string with thousand separator.
-TEST_CASE("core/utils/format_number_string_adds_thousand_separator") {
+TEST_CASE("utils/format_number_string_adds_thousand_separator") {
   constexpr array<const char *, 14> numbers{
     {"", "Hello World", "-256192.12", "32", "4192", "+2561921.2", "1", "12", "123", "12345678", "-1234567890", "+0",
      "-0", "0.0"}

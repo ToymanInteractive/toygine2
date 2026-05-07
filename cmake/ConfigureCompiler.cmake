@@ -35,7 +35,7 @@ set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-               
 set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                    /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wopenacc-parallelism
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wopenmp-simd
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
 
 set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2 -Wbad-function-cast -Wcast-align=strict -Wcast-qual                                           -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5 -Winit-self                     -Wlogical-op                                          -Wmissing-noreturn -Wmissing-prototypes            -Wnormalized=nfc -Wnull-dereference                                                                            -Wshadow=local                                     -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn                                                                                -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas                                   -Wwrite-strings                                 -fstrict-flex-arrays=2")
@@ -99,8 +99,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
     message(FATAL_ERROR "GCC >= 13.3 required")
   endif ()
 
-  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -foffload=default -fopenmp-simd")
-  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS} -foffload=default -fopenmp-simd")
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}")
 
   set(CMAKE_C_FLAGS_DEBUG                   "${GCC_C_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_DEBUG                 "${GCC_CXX_FLAGS_DEBUG}")

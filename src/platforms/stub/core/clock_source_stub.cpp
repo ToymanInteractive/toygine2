@@ -19,20 +19,51 @@
 //
 /*!
   \file   clock_source_stub.cpp
-  \brief  Stub implementation of \ref toy::chrono::ClockSource.
+  \brief  Stub implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
 */
 
 #include "core.hpp"
 
 namespace toy::chrono {
 
-ClockSource::ClockSource()
-  : _frequency{c_steadyClockPeriodDenominator} {}
+namespace {
 
-ClockSource::~ClockSource() = default;
+/// Process-wide active source; null when none is registered.
+ClockSource * activeSource{nullptr};
+
+} // namespace
+
+ClockSource::ClockSource()
+  : _frequency{c_steadyClockPeriodDenominator} {
+  assert_message(activeSource == nullptr, "ClockSource: at most one active instance is allowed per process");
+
+  activeSource = this;
+}
+
+ClockSource::~ClockSource() {
+  activeSource = nullptr;
+}
 
 int64_t ClockSource::nowTicks() const noexcept {
   return 0;
+}
+
+SteadyClock::rep SteadyClock::nowTicks() noexcept {
+  assert_message(activeSource != nullptr, "SteadyClock::nowTicks: no active ClockSource");
+
+  return activeSource->nowTicks();
+}
+
+SteadyClock::rep SteadyClock::frequency() noexcept {
+  assert_message(activeSource != nullptr, "SteadyClock::frequency: no active ClockSource");
+
+  return activeSource->frequency();
+}
+
+SteadyClock::time_point SteadyClock::now() noexcept {
+  assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
+
+  return time_point{duration{activeSource->nowTicks()}};
 }
 
 } // namespace toy::chrono
