@@ -72,3 +72,48 @@ jobs:
         uses: github/codeql-action/analyze@v4.35.3
         with:
           category: "/language:${{matrix.language}}"
+
+  analyze_clang_tidy:
+    name: Analyze with clang-tidy
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v6.0.2
+        with:
+          fetch-depth: 1
+          submodules: recursive
+
+      - name: Setup clang-tidy
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 22
+          sudo apt install -y clang-tidy-22
+          sudo update-alternatives --install /usr/bin/clang-tidy clang-tidy /usr/bin/clang-tidy-22 100
+          sudo update-alternatives --install /usr/bin/run-clang-tidy run-clang-tidy /usr/lib/llvm-22/bin/run-clang-tidy 100
+
+      - name: Generate compile_commands.json
+        run: |
+          cmake -DTOYGINE_BUILD_DOCS=OFF -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_BUILD_BENCHMARKS=ON --preset linux-ninja-debug
+          cmake --build --preset linux-ninja-debug --parallel
+
+      - name: Run clang-tidy
+        run: |
+          mkdir -p clang-tidy-results
+          run-clang-tidy \
+            -clang-tidy-binary clang-tidy-22 \
+            -p out/build/linux-ninja-debug \
+            -header-filter='${{ github.workspace }}/(src|include|tests|benchmarks)/.*' \
+            -j$(nproc) \
+            '${{ github.workspace }}/(src|include|tests|benchmarks)/.*' \
+            2>&1 | tee clang-tidy-results/output.txt
+
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: clang-tidy-results
+          path: clang-tidy-results/
+          if-no-files-found: error
