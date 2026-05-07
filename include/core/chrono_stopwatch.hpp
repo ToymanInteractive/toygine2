@@ -48,7 +48,7 @@ namespace toy::chrono {
   - **Trivially copyable**: safe to copy with \c memcpy; no destructor or heap involvement.
   - **8-byte footprint**: single \c int64_t field; suitable for stack, struct-of-arrays, and embedded targets.
   - **Zero-overhead elapsed**: elapsed() subtracts two tick values with no dynamic allocation or system call overhead
-    beyond the counter read in \ref toy::chrono::SteadyClock::nowTicks().
+    beyond the counter read in toy::chrono::SteadyClock::nowTicks().
   - **Resettable**: reset() moves the anchor to the current tick without constructing a new object.
 
   \section usage Usage Example
@@ -65,7 +65,7 @@ namespace toy::chrono {
 
   \section performance Performance Characteristics
 
-  - **Construction**: O(1); one counter read via \ref toy::chrono::SteadyClock::nowTicks().
+  - **Construction**: O(1); one counter read via toy::chrono::SteadyClock::nowTicks().
   - **elapsed()**: O(1); one counter read and one subtraction.
   - **elapsedTicks()**: O(1); one counter read and one subtraction.
   - **reset()**: O(1); one counter read.
