@@ -130,6 +130,7 @@ set(HDR_CORE_LIST
     include/core/c_string_view.hpp
     include/core/callbacks_pool.hpp
     include/core/chrono_clock_source.hpp
+    include/core/chrono_countdown_timer.hpp
     include/core/chrono_duration.hpp
     include/core/chrono_steady_clock.hpp
     include/core/chrono_stopwatch.hpp
@@ -155,6 +156,7 @@ set(INL_CORE_LIST
     include/core/c_string_view.inl
     include/core/callbacks_pool.inl
     include/core/chrono_clock_source.inl
+    include/core/chrono_countdown_timer.inl
     include/core/chrono_stopwatch.inl
     include/core/constexpr_utils.inl
     include/core/fixed_string.inl
