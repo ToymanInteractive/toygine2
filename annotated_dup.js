@@ -25,6 +25,7 @@ var annotated_dup =
       ] ],
       [ "chrono", "db/d3c/namespacetoy_1_1chrono.html", [
         [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", "d9/d63/classtoy_1_1chrono_1_1_clock_source" ],
+        [ "CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer" ],
         [ "SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", "d6/df8/classtoy_1_1chrono_1_1_steady_clock" ],
         [ "Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", "da/dd4/classtoy_1_1chrono_1_1_stopwatch" ]
       ] ],

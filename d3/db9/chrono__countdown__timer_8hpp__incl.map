@@ -1,0 +1,7 @@
+<map id="include/core/chrono_countdown_timer.hpp" name="include/core/chrono_countdown_timer.hpp">
+<area shape="rect" id="Node000001" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="14,5,183,45"/>
+<area shape="rect" id="Node000002" href="$d3/d6a/chrono__steady__clock_8hpp.html" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="5,93,192,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="101,46,101,79,96,79,96,46"/>
+<area shape="rect" id="Node000003" href="$dd/ddb/chrono__duration_8hpp.html" title="Duration and time&#45;point aliases over std::chrono." alt="" coords="21,167,176,192"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="101,119,101,153,96,153,96,119"/>
+</map>

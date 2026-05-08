@@ -7,6 +7,7 @@ var namespacetoy_1_1chrono =
       [ "activeSource", "dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html#a2e58dca645b49629596f121b001da66e", null ]
     ] ],
     [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", "d9/d63/classtoy_1_1chrono_1_1_clock_source" ],
+    [ "CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer" ],
     [ "SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", "d6/df8/classtoy_1_1chrono_1_1_steady_clock" ],
     [ "Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", "da/dd4/classtoy_1_1chrono_1_1_stopwatch" ],
     [ "Duration", "df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191", null ],

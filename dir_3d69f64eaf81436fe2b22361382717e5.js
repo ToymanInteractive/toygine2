@@ -9,6 +9,8 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "callbacks_pool.inl", "d6/ddb/callbacks__pool_8inl.html", null ],
     [ "chrono_clock_source.hpp", "d7/d97/chrono__clock__source_8hpp.html", null ],
     [ "chrono_clock_source.inl", "dd/de5/chrono__clock__source_8inl.html", null ],
+    [ "chrono_countdown_timer.hpp", "db/d1a/chrono__countdown__timer_8hpp.html", null ],
+    [ "chrono_countdown_timer.inl", "d4/db0/chrono__countdown__timer_8inl.html", null ],
     [ "chrono_duration.hpp", "dd/ddb/chrono__duration_8hpp.html", "dd/ddb/chrono__duration_8hpp" ],
     [ "chrono_steady_clock.hpp", "d3/d6a/chrono__steady__clock_8hpp.html", null ],
     [ "chrono_stopwatch.hpp", "d9/de5/chrono__stopwatch_8hpp.html", null ],

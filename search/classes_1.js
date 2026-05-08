@@ -7,5 +7,6 @@ var searchData=
   ['const_5fiterator_4',['const_iterator',['../da/d9d/classtoy_1_1array_1_1const__iterator.html',1,'toy::array']]],
   ['const_5freverse_5fiterator_5',['const_reverse_iterator',['../db/d7c/classtoy_1_1array_1_1const__reverse__iterator.html',1,'toy::array']]],
   ['coreapplication_6',['CoreApplication',['../d7/d1d/classtoy_1_1application_1_1_core_application.html',1,'toy::application']]],
-  ['cstringview_7',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy']]]
+  ['countdowntimer_7',['CountdownTimer',['../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html',1,'toy::chrono']]],
+  ['cstringview_8',['CStringView',['../d5/d03/classtoy_1_1_c_string_view.html',1,'toy']]]
 ];

@@ -8,6 +8,15 @@ var group___chrono =
       [ "TOYGINE_NO_COPY_MOVE", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html#ab20ee94951c5f8747d16520a2edbd9fc", null ],
       [ "_frequency", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html#a59ea53242e8cac48bda704f4c16e49db", null ]
     ] ],
+    [ "toy::chrono::CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", [
+      [ "duration", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#adc875f17528d818624d652bcccc9d2af", null ],
+      [ "rep", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a782677e9d8aed4276d8c31bdedb70499", null ],
+      [ "CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a3011c199bdbc8b6ac9541bf7303a5d44", null ],
+      [ "expired", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#abcd41a7505b0b0080f3964122acd4a23", null ],
+      [ "remaining", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a14259532630c167c091b1049d8f13210", null ],
+      [ "restart", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#ae9b591441a67129704bd8e47be1a9566", null ],
+      [ "_deadlineTicks", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a5bb8c3cddefcd7dae6d831f01f7d31b0", null ]
+    ] ],
     [ "toy::chrono::SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", [
       [ "duration", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07", null ],
       [ "period", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#af39a56709c8462626b32f09c6d62f785", null ],
