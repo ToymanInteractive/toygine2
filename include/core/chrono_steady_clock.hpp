@@ -30,6 +30,8 @@
 #ifndef INCLUDE_CORE_CHRONO_STEADY_CLOCK_HPP_
 #define INCLUDE_CORE_CHRONO_STEADY_CLOCK_HPP_
 
+#include "chrono_duration.hpp"
+
 namespace toy::chrono {
 
 /*!
