@@ -33,6 +33,7 @@ namespace toy::application {
 
 /*!
   \struct Version
+  
   \brief Application version information structure.
 
   Version represents a semantic version number following the major.minor.patch.revision format. This structure
