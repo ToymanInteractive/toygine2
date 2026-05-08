@@ -21,8 +21,9 @@
   \file   chrono_duration.hpp
   \brief  Duration and time-point aliases over \c std::chrono.
 
-  Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, and brings
-  \c std::chrono::duration_cast into \ref toy::chrono so call sites can use it unqualified.
+  Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, brings
+  \c std::chrono::duration_cast into \ref toy::chrono for unqualified use, and provides \ref toy::chrono::DurationFormat
+  for pattern-based duration formatting.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -102,6 +103,10 @@ using std::chrono::duration_cast;
   stream << fmt; // e.g. "00:00:01.042"
   \endcode
 
+  \warning The string referenced by \c pattern must outlive the \c DurationFormat value. Passing a pointer to a
+           temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string
+           literal or storage with static lifetime.
+
   \sa \ref toy::chrono::Duration, \ref toy::chrono::Stopwatch
 */
 template <typename Rep, typename Period>
@@ -109,8 +114,8 @@ struct DurationFormat {
   /// Duration value to format.
   Duration<Rep, Period> value;
 
-  /// Null-terminated pattern string; see pattern token table above.
-  const char * pattern;
+  /// Pattern string.
+  CStringView pattern;
 };
 
 } // namespace toy::chrono
