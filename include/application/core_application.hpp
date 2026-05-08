@@ -49,6 +49,8 @@ namespace toy::application {
 
   - **Singleton access**: instance() returns the single active application; only one instance is permitted.
   - **Lifecycle management**: Constructor invokes toy::initialize(); destructor invokes toy::deInitialize().
+  - **Clock ownership**: Owns a \ref toy::chrono::ClockSource for the full application lifetime; \ref toy::chrono::SteadyClock,
+    \ref toy::chrono::Stopwatch, and \ref toy::chrono::CountdownTimer are available throughout run().
   - **Argument handling**: Stores argc/argv from run() and exposes typed accessors.
   - **Version tracking**: Holds a \ref toy::application::Version for the running application.
   - **Platform extension**: Subclasses override runInternal() and implement pid()/sleep() per platform.
@@ -74,7 +76,7 @@ namespace toy::application {
 
   \section performance Performance Characteristics
 
-  - **Construction/destruction**: O(1); delegates to toy::initialize()/toy::deInitialize().
+  - **Construction/destruction**: O(1); delegates to toy::initialize()/toy::deInitialize() and initializes the clock source.
   - **Argument access**: O(1) by index.
   - **Memory**: No heap allocation in CoreApplication itself.
 
@@ -196,7 +198,7 @@ protected:
     \param assertionCallback Callback invoked on assertion failure; may be \c nullptr to disable.
     \param stackWalkCallback Callback invoked per stack frame on assertion failure; may be \c nullptr to suppress.
 
-    \post instance() == this and the assertion subsystem is active.
+    \post instance() == this, the assertion subsystem is active, and the hardware clock source is running.
 
     \warning Only one CoreApplication may exist at a time. Constructing a second instance overwrites the singleton.
 
@@ -221,6 +223,9 @@ private:
 
   /// Application version.
   Version _version{};
+
+  /// Hardware clock source; alive for the full application lifetime.
+  chrono::ClockSource _clockSource;
 };
 
 } // namespace toy::application

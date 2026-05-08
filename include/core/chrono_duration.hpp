@@ -61,6 +61,60 @@ using TimePoint = std::chrono::time_point<Clock, Dur>;
 /// Brings \c std::chrono::duration_cast into \ref toy::chrono for unqualified use at call sites.
 using std::chrono::duration_cast;
 
+/*!
+  \struct DurationFormat
+
+  \ingroup Chrono
+
+  \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
+
+  Passed to \c toy::OStringStream::operator<< to format the duration according to the pattern. The pattern is scanned
+  character-by-character; recognised tokens are substituted with the corresponding time component; all other characters
+  are emitted as literals.
+
+  \section pattern_tokens Pattern Tokens
+
+  | Token | Component    | Behaviour                     |
+  |-------|--------------|-------------------------------|
+  | \c h  | hours        | no leading zero (e.g. \c 9)   |
+  | \c hh | hours        | always 2 digits (e.g. \c 09)  |
+  | \c m  | minutes      | no leading zero (e.g. \c 3)   |
+  | \c mm | minutes      | always 2 digits (e.g. \c 03)  |
+  | \c s  | seconds      | no leading zero (e.g. \c 5)   |
+  | \c ss | seconds      | always 2 digits (e.g. \c 05)  |
+  | \c z  | milliseconds | no leading zero (e.g. \c 42)  |
+  | \c zzz| milliseconds | always 3 digits (e.g. \c 042) |
+
+  Any other character in \a pattern is emitted verbatim. Negative durations are prefixed with \c '-' followed by the
+  formatted absolute value.
+
+  \tparam Rep    Arithmetic representation type of the duration tick count.
+  \tparam Period \c std::ratio specifying the tick period relative to one second.
+
+  \section usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  toy::chrono::ClockSource clock;
+  toy::chrono::Stopwatch   sw;
+  // ... work ...
+  const auto fmt = toy::chrono::DurationFormat{sw.elapsed(), "hh:mm:ss.zzz"};
+  toy::OStringStream<toy::FixedString<32>> stream;
+  stream << fmt; // e.g. "00:00:01.042"
+  \endcode
+
+  \sa \ref toy::chrono::Duration, \ref toy::chrono::Stopwatch
+*/
+template <typename Rep, typename Period>
+struct DurationFormat {
+  /// Duration value to format.
+  Duration<Rep, Period> value;
+
+  /// Null-terminated pattern string; see pattern token table above.
+  const char * pattern;
+};
+
 } // namespace toy::chrono
 
 #endif // INCLUDE_CORE_CHRONO_DURATION_HPP_
