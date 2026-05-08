@@ -49,7 +49,8 @@ namespace toy::application {
 
   - **Singleton access**: instance() returns the single active application; only one instance is permitted.
   - **Lifecycle management**: Constructor invokes toy::initialize(); destructor invokes toy::deInitialize().
-  - **Clock ownership**: Owns a \ref toy::chrono::ClockSource for the full application lifetime; \ref toy::chrono::SteadyClock,
+  - **Clock ownership**: Owns a \ref toy::chrono::ClockSource for the full application lifetime;
+    \ref toy::chrono::SteadyClock,
     \ref toy::chrono::Stopwatch, and \ref toy::chrono::CountdownTimer are available throughout run().
   - **Argument handling**: Stores argc/argv from run() and exposes typed accessors.
   - **Version tracking**: Holds a \ref toy::application::Version for the running application.
@@ -76,7 +77,8 @@ namespace toy::application {
 
   \section performance Performance Characteristics
 
-  - **Construction/destruction**: O(1); delegates to toy::initialize()/toy::deInitialize() and initializes the clock source.
+  - **Construction/destruction**: O(1); delegates to toy::initialize()/toy::deInitialize() and initializes the clock
+    source.
   - **Argument access**: O(1) by index.
   - **Memory**: No heap allocation in CoreApplication itself.
 
