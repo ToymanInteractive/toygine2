@@ -64,9 +64,9 @@ using std::chrono::duration_cast;
 /*!
   \struct DurationFormat
 
-  \ingroup Chrono
-
   \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
+
+  \ingroup Chrono
 
   Passed to \c toy::OStringStream::operator<< to format the duration according to the pattern. The pattern is scanned
   character-by-character; recognised tokens are substituted with the corresponding time component; all other characters

@@ -391,6 +391,7 @@ struct is_fixed_point : false_type {};
 
 /*!
   \struct is_fixed_point
+
   \brief Specialization for \ref toy::math::fixed: always \c true_type.
 
   \tparam Base         Storage type for raw fixed-point value.

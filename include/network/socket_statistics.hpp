@@ -34,6 +34,7 @@ namespace toy::network {
 
 /*!
   \struct SocketStatistics
+
   \brief Byte counters for socket traffic (sent and received).
 */
 struct SocketStatistics {
