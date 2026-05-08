@@ -40,7 +40,7 @@ TEST_CASE("chrono/countdown_timer/object_structure") {
 
 // expired() returns false immediately after construction with a large timeout.
 TEST_CASE("chrono/countdown_timer/not_expired_after_construction") {
-  ClockSource clock;
+  [[maybe_unused]] ClockSource clock;
 
   const CountdownTimer timer{std::chrono::hours{1}};
 
@@ -49,7 +49,7 @@ TEST_CASE("chrono/countdown_timer/not_expired_after_construction") {
 
 // expired() returns true when constructed with a zero timeout.
 TEST_CASE("chrono/countdown_timer/expired_with_zero_timeout") {
-  ClockSource clock;
+  [[maybe_unused]] ClockSource clock;
 
   const CountdownTimer timer{CountdownTimer::duration{0}};
 
@@ -58,7 +58,7 @@ TEST_CASE("chrono/countdown_timer/expired_with_zero_timeout") {
 
 // remaining() returns duration{0} when the timer has expired.
 TEST_CASE("chrono/countdown_timer/remaining_zero_when_expired") {
-  ClockSource clock;
+  [[maybe_unused]] ClockSource clock;
 
   const CountdownTimer timer{CountdownTimer::duration{0}};
 
@@ -67,7 +67,7 @@ TEST_CASE("chrono/countdown_timer/remaining_zero_when_expired") {
 
 // remaining() returns a positive value for a timer that has not expired.
 TEST_CASE("chrono/countdown_timer/remaining_positive_when_not_expired") {
-  ClockSource clock;
+  [[maybe_unused]] ClockSource clock;
 
   constexpr auto       timeout = std::chrono::hours{1};
   const CountdownTimer timer{timeout};
@@ -78,7 +78,7 @@ TEST_CASE("chrono/countdown_timer/remaining_positive_when_not_expired") {
 
 // restart() moves the deadline forward; an expired timer becomes active again.
 TEST_CASE("chrono/countdown_timer/restart_resets_deadline") {
-  ClockSource clock;
+  [[maybe_unused]] ClockSource clock;
 
   CountdownTimer timer{CountdownTimer::duration{0}};
   REQUIRE(timer.expired());

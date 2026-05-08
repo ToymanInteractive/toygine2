@@ -30,22 +30,22 @@ namespace toy::chrono {
 void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   constexpr auto timeout = std::chrono::seconds{1};
 
-  ClockSource clock;
+  [[maybe_unused]] ClockSource clock;
 
   bench.run("CountdownTimer construction", [&] {
     const CountdownTimer timer{timeout};
     doNotOptimize(timer);
   });
 
-  CountdownTimer timer{timeout};
-
   bench.run("CountdownTimer::expired()", [&] {
-    auto r = timer.expired();
+    const CountdownTimer timer{timeout};
+    auto                 r = timer.expired();
     doNotOptimize(r);
   });
 
   bench.run("CountdownTimer::remaining()", [&] {
-    auto r = timer.remaining();
+    const CountdownTimer timer{timeout};
+    auto                 r = timer.remaining();
     doNotOptimize(r);
   });
 }

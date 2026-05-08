@@ -31,6 +31,7 @@ inline CountdownTimer::CountdownTimer(duration timeout) noexcept
 
 inline CountdownTimer::duration CountdownTimer::remaining() const noexcept {
   const auto now = SteadyClock::nowTicks();
+
   return now >= _deadlineTicks ? duration{0} : duration{_deadlineTicks - now};
 }
 
