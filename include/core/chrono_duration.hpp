@@ -63,6 +63,8 @@ using TimePoint = std::chrono::time_point<Clock, Dur>;
 using std::chrono::duration_cast;
 
 /*!
+  \struct DurationFormat
+
   \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
 
   \ingroup Chrono
