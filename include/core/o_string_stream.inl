@@ -304,11 +304,11 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
                  : chrono::Duration<Rep, Period>(std::numeric_limits<Rep>::max());
   }
 
-  const int64_t total_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
-  const int64_t h        = total_ms / 3600000LL;
-  const int32_t m        = static_cast<int32_t>(total_ms % 3600000LL) / 60000;
-  const int32_t s        = static_cast<int32_t>((total_ms % 60000LL)) / 1000;
-  const auto    z        = static_cast<int32_t>(total_ms % 1000LL);
+  const int64_t totalMs = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+  const int64_t h       = totalMs / 3600000LL;
+  const int32_t m       = static_cast<int32_t>(totalMs % 3600000LL) / 60000;
+  const int32_t s       = static_cast<int32_t>((totalMs % 60000LL)) / 1000;
+  const auto    z       = static_cast<int32_t>(totalMs % 1000LL);
 
   for (const char * p = value.pattern.c_str(); *p != '\0'; ++p) {
     if (*p == 'h' && p[1] == 'h') {
