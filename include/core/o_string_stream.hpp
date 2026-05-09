@@ -598,6 +598,7 @@ public:
   */
   template <typename Rep, typename Period>
   constexpr OStringStream & operator<<(chrono::DurationFormat<Rep, Period> value) noexcept;
+
   /*!
     \brief Returns a const reference to the underlying string.
 
