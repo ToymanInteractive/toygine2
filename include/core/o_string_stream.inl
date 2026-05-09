@@ -250,7 +250,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
 
 template <OStringStreamBackend BackendType>
 template <typename Rep, typename Period>
-  requires std::is_integral_v<Rep>
+  requires std::signed_integral<Rep>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   const chrono::Duration<Rep, Period> & value
 ) noexcept {
@@ -286,7 +286,8 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
     put('.');
     _writeZeroPadded(count % den * scale / den, digits);
   } else {
-    *this << (count * static_cast<int64_t>(Period::num) / static_cast<int64_t>(Period::den));
+    using seconds_type = std::chrono::duration<int64_t>;
+    *this << std::chrono::duration_cast<seconds_type>(chrono::Duration<int64_t, Period>{count}).count();
   }
 
   return put('s');
@@ -294,7 +295,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
 template <OStringStreamBackend BackendType>
 template <typename Rep, typename Period>
-  requires std::is_integral_v<Rep>
+  requires std::signed_integral<Rep>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   const chrono::DurationFormat<Rep, Period> & value
 ) noexcept {

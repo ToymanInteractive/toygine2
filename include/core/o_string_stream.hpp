@@ -570,7 +570,7 @@ public:
     \sa tellp()
   */
   template <typename Rep, typename Period>
-    requires std::is_integral_v<Rep>
+    requires std::signed_integral<Rep>
   constexpr OStringStream & operator<<(const chrono::Duration<Rep, Period> & value) noexcept;
 
   /*!
@@ -598,7 +598,7 @@ public:
     \sa tellp()
   */
   template <typename Rep, typename Period>
-    requires std::is_integral_v<Rep>
+    requires std::signed_integral<Rep>
   constexpr OStringStream & operator<<(const chrono::DurationFormat<Rep, Period> & value) noexcept;
 
   /*!
@@ -750,10 +750,10 @@ public:
   constexpr size_t setPrecision(size_t newPrecision) noexcept;
 
 private:
-  /// Writes \a v zero-padded to exactly \a width decimal digits.
+  /// Writes \a value zero-padded to exactly \a width decimal digits.
   void _writeZeroPadded(int64_t value, size_t width) noexcept;
 
-  /// Writes \a v zero-padded to exactly \a width decimal digits.
+  /// Writes \a value zero-padded to exactly \a width decimal digits.
   void _writeZeroPadded(int32_t value, size_t width) noexcept;
 
   /// Internal string storage for the stream content.
