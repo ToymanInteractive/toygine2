@@ -71,6 +71,9 @@ using std::chrono::duration_cast;
   character-by-character; recognised tokens are substituted with the corresponding time component; all other characters
   are emitted as literals.
 
+  \tparam Rep    Arithmetic representation type of the duration tick count.
+  \tparam Period \c std::ratio specifying the tick period relative to one second.
+
   \section pattern_tokens Pattern Tokens
 
   | Token | Component    | Behaviour                     |
@@ -86,9 +89,6 @@ using std::chrono::duration_cast;
 
   Any other character in \a pattern is emitted verbatim. Negative durations are prefixed with \c '-' followed by the
   formatted absolute value.
-
-  \tparam Rep    Arithmetic representation type of the duration tick count.
-  \tparam Period \c std::ratio specifying the tick period relative to one second.
 
   \section usage Usage Example
 
@@ -107,7 +107,7 @@ using std::chrono::duration_cast;
            temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string
            literal or storage with static lifetime.
 
-  \sa \ref toy::chrono::Duration, \ref toy::chrono::Stopwatch
+  \sa \ref toy::chrono::Duration
 */
 template <typename Rep, typename Period>
 struct DurationFormat {
