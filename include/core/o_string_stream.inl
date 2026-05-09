@@ -292,6 +292,52 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 }
 
 template <OStringStreamBackend BackendType>
+template <typename Rep, typename Period>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  chrono::DurationFormat<Rep, Period> value
+) noexcept {
+  auto duration = value.duration;
+  if (duration.count() < 0) {
+    put('-');
+    duration = -duration;
+  }
+
+  const int64_t total_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+  const int64_t h        = total_ms / 3600000LL;
+  const int32_t m        = static_cast<int32_t>(total_ms % 3600000LL) / 60000;
+  const int32_t s        = static_cast<int32_t>((total_ms % 60000LL)) / 1000;
+  const int32_t z        = static_cast<int32_t>(total_ms % 1000LL);
+
+  for (const char * p = value.pattern.c_str(); *p != '\0'; ++p) {
+    if (*p == 'h' && p[1] == 'h') {
+      writeZeroPadded(h, 2);
+      ++p;
+    } else if (*p == 'h') {
+      *this << h;
+    } else if (*p == 'm' && p[1] == 'm') {
+      writeZeroPadded(m, 2);
+      ++p;
+    } else if (*p == 'm') {
+      *this << m;
+    } else if (*p == 's' && p[1] == 's') {
+      writeZeroPadded(s, 2);
+      ++p;
+    } else if (*p == 's') {
+      *this << s;
+    } else if (*p == 'z' && p[1] == 'z' && p[2] == 'z') {
+      writeZeroPadded(z, 3);
+      p += 2;
+    } else if (*p == 'z') {
+      *this << z;
+    } else {
+      put(*p);
+    }
+  }
+
+  return *this;
+}
+
+template <OStringStreamBackend BackendType>
 constexpr const BackendType & OStringStream<BackendType>::str() const noexcept {
   return _string;
 }
