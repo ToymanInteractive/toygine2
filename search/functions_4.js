@@ -4,5 +4,6 @@ var searchData=
   ['deg2rad_1',['deg2rad',['../d5/d12/group___math_functions.html#ga0657be370e1e444bef7bc969c35a22d4',1,'toy::math']]],
   ['deinitialize_2',['deInitialize',['../d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c',1,'toy::deInitialize()'],['../d2/da2/namespacetoy_1_1assertion.html#a76cdd87cc138c0cc4219fd40fc20571f',1,'toy::assertion::deInitialize()']]],
   ['denorm_5fmin_3',['denorm_min',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a582b3db515a99717044cb5276d56795b',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['dispatchformatarg_4',['dispatchFormatArg',['../d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a95f15086e82bf0c62e07dbf71dc2b4e9',1,'toy::anonymous_namespace{format.inl}']]]
+  ['dispatchformatarg_4',['dispatchFormatArg',['../d8/de4/namespacetoy_1_1anonymous__namespace_02format_8inl_03.html#a95f15086e82bf0c62e07dbf71dc2b4e9',1,'toy::anonymous_namespace{format.inl}']]],
+  ['durationformat_5',['DurationFormat',['../db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2',1,'toy::chrono']]]
 ];

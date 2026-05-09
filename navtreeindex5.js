@@ -1,5 +1,12 @@
 var NAVTREEINDEX5 =
 {
+"dc/d16/circle_8inl_source.html":[6,0,0,5,1],
+"dc/d28/constexpr__utils_8inl.html":[6,0,0,2,17],
+"dc/d28/constexpr__utils_8inl_source.html":[6,0,0,2,17],
+"dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html":[3,0,0],
+"dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html#a07572d2d9e70e5a99f68489693c33f38":[3,0,0,0],
+"dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html#a21041d1029e29dbb94233d3d46eff369":[3,0,0,1],
+"dc/d2d/core__application__windows_8cpp.html":[6,0,1,3,8,0,1],
 "dc/d2d/core__application__windows_8cpp.html#a9f918755b601cf4bffca775992e6fb90":[6,0,1,3,8,0,1,0],
 "dc/d2d/core__application__windows_8cpp.html#ac7bef5d85e3dcd73eef56ad39ffc84a9":[6,0,1,3,8,0,1,1],
 "dc/d41/group___string_storage.html":[2,2,1],
@@ -242,12 +249,5 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#naming-tests":[1,25],
 "df/d81/md__a_g_e_n_t_s.html#nodiscard":[1,10,1],
 "df/d81/md__a_g_e_n_t_s.html#noexcept":[1,10,0],
-"df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment":[1,6,2],
-"df/d81/md__a_g_e_n_t_s.html#private-members":[1,12,1],
-"df/d81/md__a_g_e_n_t_s.html#project-context":[1,3],
-"df/d81/md__a_g_e_n_t_s.html#project-structure":[1,1],
-"df/d81/md__a_g_e_n_t_s.html#range-based-for-loops":[1,10,7],
-"df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication":[1,21],
-"df/d81/md__a_g_e_n_t_s.html#regular-class":[1,15,0],
-"df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five":[1,10,5]
+"df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment":[1,6,2]
 };

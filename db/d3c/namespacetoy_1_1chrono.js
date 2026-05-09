@@ -12,5 +12,6 @@ var namespacetoy_1_1chrono =
     [ "SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", "d6/df8/classtoy_1_1chrono_1_1_steady_clock" ],
     [ "Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", "da/dd4/classtoy_1_1chrono_1_1_stopwatch" ],
     [ "Duration", "df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191", null ],
-    [ "TimePoint", "df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff", null ]
+    [ "TimePoint", "df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff", null ],
+    [ "DurationFormat", "db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2", null ]
 ];

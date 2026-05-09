@@ -49,5 +49,6 @@ var searchData=
   ['_5fsymbolsizeinutf8bytes_46',['_symbolSizeInUTF8Bytes',['../d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html#add640015f8e9da6a0ee393f89a2ebbd9',1,'toy::anonymous_namespace{utils.cpp}']]],
   ['_5fvalue_47',['_value',['../dd/d5c/classtoy_1_1math_1_1fixed.html#a0c5dc943d74bacd02cb3cea35dfa4e7f',1,'toy::math::fixed']]],
   ['_5fversion_48',['_version',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a16c14348457b85c7dd6902a1133ec2ee',1,'toy::application::CoreApplication']]],
-  ['_5fwritefn_49',['_writeFn',['../d8/dde/classtoy_1_1_format_context.html#ad07aad5a6a43d562677caabb55640261',1,'toy::FormatContext']]]
+  ['_5fwritefn_49',['_writeFn',['../d8/dde/classtoy_1_1_format_context.html#ad07aad5a6a43d562677caabb55640261',1,'toy::FormatContext']]],
+  ['_5fwritezeropadded_50',['_writeZeroPadded',['../d7/d15/classtoy_1_1_o_string_stream.html#a2c6b5f0d70e6d3b0abd4011f7e357c15',1,'toy::OStringStream::_writeZeroPadded(int64_t value, size_t width) noexcept'],['../d7/d15/classtoy_1_1_o_string_stream.html#a2cac1d4257ba27f5a59dc414bcfe1e90',1,'toy::OStringStream::_writeZeroPadded(int32_t value, size_t width) noexcept']]]
 ];

@@ -17,5 +17,6 @@ var searchData=
   ['_5finsert_5fraw_14',['_insert_raw',['../d3/d7a/classtoy_1_1_fixed_string.html#a3147780a38d04c4298370ee6848a287f',1,'toy::FixedString']]],
   ['_5freplace_5fraw_15',['_replace_raw',['../d3/d7a/classtoy_1_1_fixed_string.html#a056a7c84f6d671f2fb5192af93d2c4f4',1,'toy::FixedString']]],
   ['_5frfind_5fraw_16',['_rfind_raw',['../d5/d03/classtoy_1_1_c_string_view.html#ac374898ed5679a18a77639c363126ba4',1,'toy::CStringView::_rfind_raw()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a046f421bc4e826db9e77bef9646811e3',1,'toy::FixedString::_rfind_raw()']]],
-  ['_5fsymbolsizeinutf8bytes_17',['_symbolSizeInUTF8Bytes',['../d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html#add640015f8e9da6a0ee393f89a2ebbd9',1,'toy::anonymous_namespace{utils.cpp}']]]
+  ['_5fsymbolsizeinutf8bytes_17',['_symbolSizeInUTF8Bytes',['../d9/da4/namespacetoy_1_1anonymous__namespace_02utils_8cpp_03.html#add640015f8e9da6a0ee393f89a2ebbd9',1,'toy::anonymous_namespace{utils.cpp}']]],
+  ['_5fwritezeropadded_18',['_writeZeroPadded',['../d7/d15/classtoy_1_1_o_string_stream.html#a2c6b5f0d70e6d3b0abd4011f7e357c15',1,'toy::OStringStream::_writeZeroPadded(int64_t value, size_t width) noexcept'],['../d7/d15/classtoy_1_1_o_string_stream.html#a2cac1d4257ba27f5a59dc414bcfe1e90',1,'toy::OStringStream::_writeZeroPadded(int32_t value, size_t width) noexcept']]]
 ];

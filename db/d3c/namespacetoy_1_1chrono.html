@@ -166,11 +166,50 @@ Typedefs</h2></td></tr>
 <tr class="memitem:ga799792e1caf29eefec74051e954b99ff" id="r_ga799792e1caf29eefec74051e954b99ff"><td class="memTemplParams" colspan="2">template&lt;typename Clock, typename Dur = typename Clock::duration&gt; </td></tr>
 <tr class="memitem:ga799792e1caf29eefec74051e954b99ff template"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff">TimePoint</a> = std::chrono::time_point&lt;Clock, Dur&gt;</td></tr>
 <tr class="memdesc:ga799792e1caf29eefec74051e954b99ff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Generic time-point alias over <code>std::chrono::time_point</code>.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
+Functions</h2></td></tr>
+<tr class="memitem:a7fc6999224cefd61148e07395b74d8c2" id="r_a7fc6999224cefd61148e07395b74d8c2"><td class="memTemplParams" colspan="2">template&lt;typename Rep, typename Period&gt; </td></tr>
+<tr class="memitem:a7fc6999224cefd61148e07395b74d8c2 template"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a7fc6999224cefd61148e07395b74d8c2">DurationFormat</a> (const char *, <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191">Duration</a>&lt; Rep, Period &gt;) -&gt; DurationFormat&lt; Rep, Period &gt;</td></tr>
+<tr class="memdesc:a7fc6999224cefd61148e07395b74d8c2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Deduction guide: enables <code><a class="el" href="../../d0/d23/structtoy_1_1chrono_1_1_duration_format.html" title="Pairs a toy::chrono::Duration with a null-terminated display pattern.">DurationFormat</a>{"pattern"</code>, duration} without explicit template arguments when the second argument is a <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Time-measurement types: duration and time-point aliases over <code>std::chrono</code>. </p>
 <p>Thin wrappers that keep engine code free of direct <code>std::chrono</code> qualification while preserving full interoperability with the standard library. All members are transparent aliases; no additional runtime behavior is introduced. </p>
-</div></div><!-- contents -->
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
+<a id="a7fc6999224cefd61148e07395b74d8c2" name="a7fc6999224cefd61148e07395b74d8c2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7fc6999224cefd61148e07395b74d8c2">&#9670;&#160;</a></span>DurationFormat()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;typename Rep, typename Period&gt; </div>
+      <table class="memname">
+        <tr>
+          <td class="memname">toy::chrono::DurationFormat </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em></em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191">Duration</a>&lt; Rep, Period &gt;</td>          <td class="paramname"><span class="paramname"><em></em></span>&#160;) -&gt;  DurationFormat&lt; Rep, Period &gt;</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Deduction guide: enables <code><a class="el" href="../../d0/d23/structtoy_1_1chrono_1_1_duration_format.html" title="Pairs a toy::chrono::Duration with a null-terminated display pattern.">DurationFormat</a>{"pattern"</code>, duration} without explicit template arguments when the second argument is a <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>. </p>
+<dl class="tparams"><dt>Template Parameters</dt><dd>
+  <table class="tparams">
+    <tr><td class="paramname">Rep</td><td>Arithmetic representation type deduced from the <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> argument. </td></tr>
+    <tr><td class="paramname">Period</td><td><code>std::ratio</code> tick period deduced from the <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> argument. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
