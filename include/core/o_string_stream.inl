@@ -249,6 +249,100 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
 }
 
 template <OStringStreamBackend BackendType>
+template <typename Rep, typename Period>
+  requires std::signed_integral<Rep>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  const chrono::Duration<Rep, Period> & value
+) noexcept {
+  auto count = static_cast<int64_t>(value.count());
+  if (count < 0) {
+    put('-');
+    count = (count != std::numeric_limits<int64_t>::min()) ? -count : std::numeric_limits<int64_t>::max();
+  }
+
+  if constexpr (Period::num == 1 && Period::den > 1) {
+    constexpr auto fracDigits = [](int64_t n) constexpr noexcept {
+      int d = 0;
+      while (n > 0) {
+        n /= 10;
+        ++d;
+      }
+
+      return d;
+    };
+    constexpr auto pow10 = [](int n) constexpr noexcept {
+      int64_t r = 1;
+      while (n-- > 0) {
+        r *= 10;
+      }
+
+      return r;
+    };
+
+    constexpr auto den    = static_cast<int64_t>(Period::den);
+    constexpr auto digits = fracDigits(den - 1);
+    constexpr auto scale  = pow10(digits);
+    *this << (count / den);
+    put('.');
+    _writeZeroPadded(count % den * scale / den, digits);
+  } else {
+    using seconds_type = std::chrono::duration<int64_t>;
+    *this << std::chrono::duration_cast<seconds_type>(chrono::Duration<int64_t, Period>{count}).count();
+  }
+
+  return put('s');
+}
+
+template <OStringStreamBackend BackendType>
+template <typename Rep, typename Period>
+  requires std::signed_integral<Rep>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  const chrono::DurationFormat<Rep, Period> & value
+) noexcept {
+  auto duration = value.duration;
+  if (duration.count() < 0) {
+    put('-');
+    duration = (duration.count() != std::numeric_limits<Rep>::min())
+                 ? -duration
+                 : chrono::Duration<Rep, Period>(std::numeric_limits<Rep>::max());
+  }
+
+  const int64_t totalMs = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+  const int64_t h       = totalMs / 3600000LL;
+  const int32_t m       = static_cast<int32_t>(totalMs % 3600000LL) / 60000;
+  const int32_t s       = static_cast<int32_t>((totalMs % 60000LL)) / 1000;
+  const auto    z       = static_cast<int32_t>(totalMs % 1000LL);
+
+  for (const char * p = value.pattern.c_str(); *p != '\0'; ++p) {
+    if (*p == 'h' && p[1] == 'h') {
+      _writeZeroPadded(h, 2);
+      ++p;
+    } else if (*p == 'h') {
+      *this << h;
+    } else if (*p == 'm' && p[1] == 'm') {
+      _writeZeroPadded(m, 2);
+      ++p;
+    } else if (*p == 'm') {
+      *this << m;
+    } else if (*p == 's' && p[1] == 's') {
+      _writeZeroPadded(s, 2);
+      ++p;
+    } else if (*p == 's') {
+      *this << s;
+    } else if (*p == 'z' && p[1] == 'z' && p[2] == 'z') {
+      _writeZeroPadded(z, 3);
+      p += 2;
+    } else if (*p == 'z') {
+      *this << z;
+    } else {
+      put(*p);
+    }
+  }
+
+  return *this;
+}
+
+template <OStringStreamBackend BackendType>
 constexpr const BackendType & OStringStream<BackendType>::str() const noexcept {
   return _string;
 }
@@ -303,6 +397,30 @@ constexpr size_t OStringStream<BackendType>::setPrecision(size_t newPrecision) n
   _precision = newPrecision;
 
   return oldPrecision;
+}
+
+template <OStringStreamBackend BackendType>
+void OStringStream<BackendType>::_writeZeroPadded(int64_t value, size_t width) noexcept {
+  char buffer[22];
+  utoa(buffer, size(buffer), static_cast<uint64_t>(value));
+
+  const auto length = char_traits<char>::length(buffer);
+  if (width > length)
+    _string.append(width - length, '0');
+
+  _string.append(buffer, length);
+}
+
+template <OStringStreamBackend BackendType>
+void OStringStream<BackendType>::_writeZeroPadded(int32_t value, size_t width) noexcept {
+  char buffer[12];
+  utoa(buffer, size(buffer), static_cast<uint32_t>(value));
+
+  const auto length = char_traits<char>::length(buffer);
+  if (width > length)
+    _string.append(width - length, '0');
+
+  _string.append(buffer, length);
 }
 
 } // namespace toy

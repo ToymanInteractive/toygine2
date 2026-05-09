@@ -183,6 +183,20 @@ TEST_CASE("format/empty_pattern") {
   static_assert(result.empty(), "empty pattern must produce an empty string");
 }
 
+// chrono::Duration interpolated in a format string as decimal seconds.
+TEST_CASE("format/chrono_duration") {
+  const auto result = format<32>("elapsed: {}", std::chrono::milliseconds{500});
+
+  REQUIRE(result == "elapsed: 0.500s");
+}
+
+// chrono::DurationFormat interpolated in a format string using a clock pattern.
+TEST_CASE("format/chrono_duration_format") {
+  const auto result = format<32>("time: {}", chrono::DurationFormat{"h:mm:ss", std::chrono::seconds{3723}});
+
+  REQUIRE(result == "time: 1:02:03");
+}
+
 // formatTo replaces the content of an existing string.
 TEST_CASE("format_to/replaces_output") {
   FixedString<64> output("stale-content");
@@ -205,37 +219,51 @@ TEST_CASE("format_to/positional") {
 
 // Single auto placeholder substitutes an integer and returns by value.
 TEST_CASE("vformat/single_int") {
-  const auto result = vformat<32>(CStringView("value: {}"), 42);
+  const auto result = vformat<32>("value: {}", 42);
 
   REQUIRE(result == "value: 42");
 }
 
 // Multiple arguments of different types are substituted left to right.
 TEST_CASE("vformat/mixed_types") {
-  const auto result = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
+  const auto result = vformat<64>("{} {} {}", 42, "world", true);
 
   REQUIRE(result == "42 world true");
 }
 
 // Positional placeholders select arguments by index.
 TEST_CASE("vformat/positional_reorder") {
-  const auto result = vformat<32>(CStringView("{1} before {0}"), 10, 20);
+  const auto result = vformat<32>("{1} before {0}", 10, 20);
 
   REQUIRE(result == "20 before 10");
 }
 
 // Escaped {{ and }} emit literal braces around a placeholder.
 TEST_CASE("vformat/escaped_braces") {
-  const auto result = vformat<32>(CStringView("{{{}}}"), 42);
+  const auto result = vformat<32>("{{{}}}", 42);
 
   REQUIRE(result == "{42}");
 }
 
 // std::nullptr_t is formatted as "nullptr".
 TEST_CASE("vformat/nullptr") {
-  const auto result = vformat<16>(CStringView("{}"), nullptr);
+  const auto result = vformat<16>("{}", nullptr);
 
   REQUIRE(result == "nullptr");
+}
+
+// chrono::Duration interpolated via vformat with a runtime pattern string.
+TEST_CASE("vformat/chrono_duration") {
+  const auto result = vformat<32>("{}", std::chrono::nanoseconds{16000000});
+
+  REQUIRE(result == "0.016000000s");
+}
+
+// chrono::DurationFormat interpolated via vformat with a runtime pattern string.
+TEST_CASE("vformat/chrono_duration_format") {
+  const auto result = vformat<32>("{}", chrono::DurationFormat{"hh:mm:ss.zzz", std::chrono::seconds{3723}});
+
+  REQUIRE(result == "01:02:03.000");
 }
 
 // ----- vformatTo -----

@@ -124,12 +124,22 @@ using std::chrono::duration_cast;
 */
 template <typename Rep, typename Period>
 struct DurationFormat {
-  /// Duration value to format.
-  Duration<Rep, Period> value;
-
-  /// Pattern string.
+  /// Format pattern.
   CStringView pattern;
+
+  /// Duration value to format.
+  Duration<Rep, Period> duration;
 };
+
+/*!
+  \brief Deduction guide: enables \c DurationFormat{"pattern", duration} without explicit template arguments when the
+         second argument is a \ref toy::chrono::Duration.
+
+  \tparam Rep    Arithmetic representation type deduced from the \ref toy::chrono::Duration argument.
+  \tparam Period \c std::ratio tick period deduced from the \ref toy::chrono::Duration argument.
+*/
+template <typename Rep, typename Period>
+DurationFormat(const char *, Duration<Rep, Period>) -> DurationFormat<Rep, Period>;
 
 } // namespace toy::chrono
 
