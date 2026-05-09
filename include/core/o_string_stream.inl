@@ -294,7 +294,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 template <OStringStreamBackend BackendType>
 template <typename Rep, typename Period>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
-  chrono::DurationFormat<Rep, Period> value
+  const chrono::DurationFormat<Rep, Period> & value
 ) noexcept {
   auto duration = value.duration;
   if (duration.count() < 0) {
