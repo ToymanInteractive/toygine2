@@ -749,10 +749,10 @@ public:
 
 private:
   /// Writes \a v zero-padded to exactly \a width decimal digits.
-  void writeZeroPadded(int64_t value, size_t width) noexcept;
+  void _writeZeroPadded(int64_t value, size_t width) noexcept;
 
   /// Writes \a v zero-padded to exactly \a width decimal digits.
-  void writeZeroPadded(int32_t value, size_t width) noexcept;
+  void _writeZeroPadded(int32_t value, size_t width) noexcept;
 
   /// Internal string storage for the stream content.
   BackendType _string;

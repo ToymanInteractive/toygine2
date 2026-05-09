@@ -256,7 +256,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   auto count = static_cast<int64_t>(value.count());
   if (count < 0) {
     put('-');
-    count = -count;
+    count = (count != std::numeric_limits<int64_t>::min()) ? -count : std::numeric_limits<int64_t>::max();
   }
 
   if constexpr (Period::num == 1 && Period::den > 1) {
@@ -283,7 +283,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
     constexpr auto scale  = pow10(digits);
     *this << (count / den);
     put('.');
-    writeZeroPadded(count % den * scale / den, digits);
+    _writeZeroPadded(count % den * scale / den, digits);
   } else {
     *this << (count * static_cast<int64_t>(Period::num) / static_cast<int64_t>(Period::den));
   }
@@ -310,22 +310,22 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
   for (const char * p = value.pattern.c_str(); *p != '\0'; ++p) {
     if (*p == 'h' && p[1] == 'h') {
-      writeZeroPadded(h, 2);
+      _writeZeroPadded(h, 2);
       ++p;
     } else if (*p == 'h') {
       *this << h;
     } else if (*p == 'm' && p[1] == 'm') {
-      writeZeroPadded(m, 2);
+      _writeZeroPadded(m, 2);
       ++p;
     } else if (*p == 'm') {
       *this << m;
     } else if (*p == 's' && p[1] == 's') {
-      writeZeroPadded(s, 2);
+      _writeZeroPadded(s, 2);
       ++p;
     } else if (*p == 's') {
       *this << s;
     } else if (*p == 'z' && p[1] == 'z' && p[2] == 'z') {
-      writeZeroPadded(z, 3);
+      _writeZeroPadded(z, 3);
       p += 2;
     } else if (*p == 'z') {
       *this << z;
@@ -395,7 +395,7 @@ constexpr size_t OStringStream<BackendType>::setPrecision(size_t newPrecision) n
 }
 
 template <OStringStreamBackend BackendType>
-void OStringStream<BackendType>::writeZeroPadded(int64_t value, size_t width) noexcept {
+void OStringStream<BackendType>::_writeZeroPadded(int64_t value, size_t width) noexcept {
   char buffer[22];
   utoa(buffer, size(buffer), static_cast<uint64_t>(value));
 
@@ -407,7 +407,7 @@ void OStringStream<BackendType>::writeZeroPadded(int64_t value, size_t width) no
 }
 
 template <OStringStreamBackend BackendType>
-void OStringStream<BackendType>::writeZeroPadded(int32_t value, size_t width) noexcept {
+void OStringStream<BackendType>::_writeZeroPadded(int32_t value, size_t width) noexcept {
   char buffer[12];
   utoa(buffer, size(buffer), static_cast<uint32_t>(value));
 
