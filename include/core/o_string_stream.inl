@@ -260,7 +260,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   }
 
   if constexpr (Period::num == 1 && Period::den > 1) {
-    constexpr auto fracDigits = [](int64_t n) constexpr noexcept -> int {
+    constexpr auto fracDigits = [](int64_t n) constexpr noexcept -> auto {
       int d = 0;
       while (n > 0) {
         n /= 10;
@@ -269,7 +269,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
       return d;
     };
-    constexpr auto pow10 = [](int n) constexpr noexcept -> int64_t {
+    constexpr auto pow10 = [](int n) constexpr noexcept -> auto {
       int64_t r = 1;
       while (n-- > 0) {
         r *= 10;
@@ -278,9 +278,9 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
       return r;
     };
 
-    constexpr int64_t den    = static_cast<int64_t>(Period::den);
-    constexpr int     digits = fracDigits(den - 1);
-    constexpr auto    scale  = pow10(digits);
+    constexpr auto den    = static_cast<int64_t>(Period::den);
+    constexpr auto digits = fracDigits(den - 1);
+    constexpr auto scale  = pow10(digits);
     *this << (count / den);
     put('.');
     writeZeroPadded(count % den * scale / den, digits);
@@ -306,7 +306,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   const int64_t h        = total_ms / 3600000LL;
   const int32_t m        = static_cast<int32_t>(total_ms % 3600000LL) / 60000;
   const int32_t s        = static_cast<int32_t>((total_ms % 60000LL)) / 1000;
-  const int32_t z        = static_cast<int32_t>(total_ms % 1000LL);
+  const auto    z        = static_cast<int32_t>(total_ms % 1000LL);
 
   for (const char * p = value.pattern.c_str(); *p != '\0'; ++p) {
     if (*p == 'h' && p[1] == 'h') {
