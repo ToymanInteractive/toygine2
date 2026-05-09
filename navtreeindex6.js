@@ -1,5 +1,10 @@
 var NAVTREEINDEX6 =
 {
+"df/d81/md__a_g_e_n_t_s.html#runtime-tests":[1,20,1],
+"df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional":[1,14,3,2],
+"df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics":[1,14,3,0],
+"df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees":[1,14,3,1],
+"df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility":[1,15,4],
 "df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming":[1,12,0],
 "df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8":[1,23],
 "df/d81/md__a_g_e_n_t_s.html#struct":[1,15,3],

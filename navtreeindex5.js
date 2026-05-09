@@ -1,5 +1,10 @@
 var NAVTREEINDEX5 =
 {
+"dc/d2d/core__application__windows_8cpp.html#a9f918755b601cf4bffca775992e6fb90":[6,0,1,3,8,0,1,0],
+"dc/d2d/core__application__windows_8cpp.html#ac7bef5d85e3dcd73eef56ad39ffc84a9":[6,0,1,3,8,0,1,1],
+"dc/d41/group___string_storage.html":[2,2,1],
+"dc/d62/classtoy_1_1_format_string.html":[2,2,0,2],
+"dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370":[2,2,0,2,0],
 "dc/d62/classtoy_1_1_format_string.html#a8bddc50cb2304cfc22f2f5fdc201dfc5":[2,2,0,2,3],
 "dc/d62/classtoy_1_1_format_string.html#aa80fa19ae3c237c10b36f9c9688e4e65":[2,2,0,2,6],
 "dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339":[2,2,0,2,4],
@@ -180,8 +185,8 @@ var NAVTREEINDEX5 =
 "df/d4a/c__string__view_8inl.html":[6,0,0,2,4],
 "df/d4a/c__string__view_8inl_source.html":[6,0,0,2,4],
 "df/d55/group___chrono.html":[2,0],
-"df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff":[2,0,5],
-"df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191":[2,0,4],
+"df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff":[2,0,6],
+"df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191":[2,0,5],
 "df/d61/bitwise__enum_8hpp.html":[6,0,0,2,1],
 "df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf":[6,0,0,2,1,1],
 "df/d61/bitwise__enum_8hpp_source.html":[6,0,0,2,1],
@@ -244,10 +249,5 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#range-based-for-loops":[1,10,7],
 "df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication":[1,21],
 "df/d81/md__a_g_e_n_t_s.html#regular-class":[1,15,0],
-"df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five":[1,10,5],
-"df/d81/md__a_g_e_n_t_s.html#runtime-tests":[1,20,1],
-"df/d81/md__a_g_e_n_t_s.html#section-compatibility-compatibility-optional":[1,14,3,2],
-"df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics":[1,14,3,0],
-"df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees":[1,14,3,1],
-"df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility":[1,15,4]
+"df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five":[1,10,5]
 };

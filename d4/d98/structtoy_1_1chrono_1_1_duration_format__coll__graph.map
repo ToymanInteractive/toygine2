@@ -1,0 +1,5 @@
+<map id="toy::chrono::DurationFormat&lt; Rep, Period &gt;" name="toy::chrono::DurationFormat&lt; Rep, Period &gt;">
+<area shape="rect" id="Node000001" title="Pairs a toy::chrono::Duration with a null&#45;terminated display pattern." alt="" coords="5,101,209,141"/>
+<area shape="rect" id="Node000002" href="$d5/d03/classtoy_1_1_c_string_view.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="43,5,172,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,45,110,101,105,101,105,45"/>
+</map>

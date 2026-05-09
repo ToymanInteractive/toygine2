@@ -36,5 +36,6 @@ var searchData=
   ['dummy_33',['Dummy',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8eabcf036b6f33e182d4705f4f5b1af13ac',1,'toy::network']]],
   ['duplication_34',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
   ['duration_35',['Duration',['../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191',1,'toy::chrono']]],
-  ['duration_36',['duration',['../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#adc875f17528d818624d652bcccc9d2af',1,'toy::chrono::CountdownTimer::duration'],['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07',1,'toy::chrono::SteadyClock::duration'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f',1,'toy::chrono::Stopwatch::duration']]]
+  ['duration_36',['duration',['../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#adc875f17528d818624d652bcccc9d2af',1,'toy::chrono::CountdownTimer::duration'],['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07',1,'toy::chrono::SteadyClock::duration'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f',1,'toy::chrono::Stopwatch::duration']]],
+  ['durationformat_37',['DurationFormat',['../d0/d23/structtoy_1_1chrono_1_1_duration_format.html',1,'toy::chrono']]]
 ];

@@ -1,5 +1,9 @@
 var group___chrono =
 [
+    [ "toy::chrono::DurationFormat&lt; Rep, Period &gt;", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", [
+      [ "pattern", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html#acc44dca9d06f3e1a493c31fa9c6395dd", null ],
+      [ "value", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html#ad851f40006ee92d8d31df4d9f54dd926", null ]
+    ] ],
     [ "toy::chrono::ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", [
       [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html#a3652b8ed4c9604d1e8758e6b0b56bcba", null ],
       [ "~ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html#a44fcf11a1746334c23c3b5acebd90fbe", null ],

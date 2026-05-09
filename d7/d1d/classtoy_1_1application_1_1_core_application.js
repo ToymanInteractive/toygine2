@@ -16,5 +16,6 @@ var classtoy_1_1application_1_1_core_application =
     [ "version", "d7/d1d/classtoy_1_1application_1_1_core_application.html#a6d785a4ffeb5ebfccdae7a1207e0fc27", null ],
     [ "_argumentsCount", "d7/d1d/classtoy_1_1application_1_1_core_application.html#a420e8249915a43983206295a84b3e49b", null ],
     [ "_argumentsVector", "d7/d1d/classtoy_1_1application_1_1_core_application.html#a3451be5d97c564b12b23d86c8d06d63b", null ],
+    [ "_clockSource", "d7/d1d/classtoy_1_1application_1_1_core_application.html#a3060ae870cf65a5938ccf2b0f0ebb061", null ],
     [ "_version", "d7/d1d/classtoy_1_1application_1_1_core_application.html#a16c14348457b85c7dd6902a1133ec2ee", null ]
 ];

@@ -23,6 +23,7 @@ var hierarchy =
     [ "toy::CallbacksPool&lt; T, AllocatedSize &gt;::StaticCallback", "d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html", null ],
     [ "toy::chrono::ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", null ],
     [ "toy::chrono::CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", null ],
+    [ "toy::chrono::DurationFormat&lt; Rep, Period &gt;", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", null ],
     [ "toy::chrono::SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", null ],
     [ "toy::chrono::Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", null ],
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", null ],
