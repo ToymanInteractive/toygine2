@@ -1061,6 +1061,123 @@ TEST_CASE("o_string_stream/operator_insert") {
 
     REQUIRE(stream.str() == "A\nB\tC");
   }
+
+  // operator<< Duration<int64_t, ratio<1,1000000000>> (nanoseconds) formats with 9 fractional digits.
+  SUBCASE("chrono/duration/format_nanoseconds") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::chrono::nanoseconds{16000000};
+
+    REQUIRE(stream.view() == "0.016000000s");
+  }
+
+  // operator<< Duration<int64_t, ratio<1,1000>> (milliseconds) formats with 3 fractional digits.
+  SUBCASE("chrono/duration/format_milliseconds") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::chrono::milliseconds{500};
+
+    REQUIRE(stream.view() == "0.500s");
+  }
+
+  // operator<< Duration<int64_t, ratio<1>> (seconds) formats without fractional part.
+  SUBCASE("chrono/duration/format_whole_seconds") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::chrono::seconds{5};
+
+    REQUIRE(stream.view() == "5s");
+  }
+
+  // operator<< Duration<int64_t, ratio<3600>> (hours) converts to total seconds.
+  SUBCASE("chrono/duration/format_hours") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::chrono::hours{1};
+
+    REQUIRE(stream.view() == "3600s");
+  }
+
+  // operator<< negative nanosecond duration is prefixed with '-'.
+  SUBCASE("chrono/duration/format_negative") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::chrono::nanoseconds{-1000000};
+
+    REQUIRE(stream.view() == "-0.001000000s");
+  }
+
+  // operator<< zero duration prints the full fractional part as zeros.
+  SUBCASE("chrono/duration/format_zero") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << std::chrono::nanoseconds{0};
+
+    REQUIRE(stream.view() == "0.000000000s");
+  }
+
+  // operator<< DurationFormat: full hh:mm:ss.zzz pattern.
+  SUBCASE("chrono/duration_format/hh_mm_ss_zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"hh:mm:ss.zzz", std::chrono::hours{1} + std::chrono::seconds{3}};
+
+    REQUIRE(stream.view() == "01:00:03.000");
+  }
+
+  // operator<< DurationFormat: h:mm:ss — hours without leading zero.
+  SUBCASE("chrono/duration_format/h_mm_ss") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"h:mm:ss", std::chrono::seconds{3723}};
+
+    REQUIRE(stream.view() == "1:02:03");
+  }
+
+  // operator<< DurationFormat: s.zzz — seconds and milliseconds only.
+  SUBCASE("chrono/duration_format/s_dot_zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"s.zzz", std::chrono::milliseconds{3042}};
+
+    REQUIRE(stream.view() == "3.042");
+  }
+
+  // operator<< DurationFormat: z vs zzz — variable vs fixed-width milliseconds.
+  SUBCASE("chrono/duration_format/z_vs_zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"z / zzz", std::chrono::milliseconds{42}};
+
+    REQUIRE(stream.view() == "42 / 042");
+  }
+
+  // operator<< DurationFormat: negative duration is prefixed with '-'.
+  SUBCASE("chrono/duration_format/negative") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"h:mm:ss", std::chrono::seconds{-3723}};
+
+    REQUIRE(stream.view() == "-1:02:03");
+  }
+
+  // operator<< DurationFormat: non-token characters (colons, brackets, spaces) are emitted verbatim.
+  SUBCASE("chrono/duration_format/literal_passthrough") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"[hh:mm:ss]", std::chrono::seconds{5}};
+
+    REQUIRE(stream.view() == "[00:00:05]");
+  }
+
+  // operator<< DurationFormat: zero duration renders all components as zero.
+  SUBCASE("chrono/duration_format/zero") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"hh:mm:ss.zzz", std::chrono::nanoseconds{0}};
+
+    REQUIRE(stream.view() == "00:00:00.000");
+  }
 }
 
 } // namespace toy

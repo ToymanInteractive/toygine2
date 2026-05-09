@@ -249,6 +249,49 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
 }
 
 template <OStringStreamBackend BackendType>
+template <typename Rep, typename Period>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  const chrono::Duration<Rep, Period> & value
+) noexcept {
+  auto count = static_cast<int64_t>(value.count());
+  if (count < 0) {
+    put('-');
+    count = -count;
+  }
+
+  if constexpr (Period::num == 1 && Period::den > 1) {
+    constexpr auto fracDigits = [](int64_t n) constexpr noexcept -> int {
+      int d = 0;
+      while (n > 0) {
+        n /= 10;
+        ++d;
+      }
+
+      return d;
+    };
+    constexpr auto pow10 = [](int n) constexpr noexcept -> int64_t {
+      int64_t r = 1;
+      while (n-- > 0) {
+        r *= 10;
+      }
+
+      return r;
+    };
+
+    constexpr int64_t den    = static_cast<int64_t>(Period::den);
+    constexpr int     digits = fracDigits(den - 1);
+    constexpr auto    scale  = pow10(digits);
+    *this << (count / den);
+    put('.');
+    writeZeroPadded(count % den * scale / den, digits);
+  } else {
+    *this << (count * static_cast<int64_t>(Period::num) / static_cast<int64_t>(Period::den));
+  }
+
+  return put('s');
+}
+
+template <OStringStreamBackend BackendType>
 constexpr const BackendType & OStringStream<BackendType>::str() const noexcept {
   return _string;
 }
@@ -303,6 +346,38 @@ constexpr size_t OStringStream<BackendType>::setPrecision(size_t newPrecision) n
   _precision = newPrecision;
 
   return oldPrecision;
+}
+
+template <OStringStreamBackend BackendType>
+void OStringStream<BackendType>::writeZeroPadded(int64_t value, size_t width) noexcept {
+  char buffer[22];
+  utoa(buffer, size(buffer), static_cast<uint64_t>(value));
+
+  const auto length = char_traits<char>::length(buffer);
+  if (width > length)
+    _string.append(width - length, '0');
+
+  _string.append(buffer, length);
+}
+
+template <OStringStreamBackend BackendType>
+void OStringStream<BackendType>::writeZeroPadded(int32_t value, size_t width) noexcept {
+  char buffer[12];
+  utoa(buffer, size(buffer), static_cast<uint32_t>(value));
+
+  const auto length = char_traits<char>::length(buffer);
+  if (width > length)
+    _string.append(width - length, '0');
+
+  _string.append(buffer, length);
+}
+
+template <OStringStreamBackend BackendType>
+template <typename Clock, typename Dur>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  chrono::TimePoint<Clock, Dur> value
+) noexcept {
+  return *this << value.time_since_epoch();
 }
 
 } // namespace toy

@@ -89,12 +89,14 @@ BreakBeforeConceptDeclarations: Always
 BreakBeforeInlineASMColon: OnlyMultiline
 BreakBeforeTemplateCloser: true
 BreakBeforeTernaryOperators: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#breakbinaryoperations
-BreakTemplateDeclarations: Yes
+BreakBinaryOperations: Never
 BreakConstructorInitializers: BeforeComma
-BreakInheritanceList: BeforeColon
+BreakFunctionDefinitionParameters: false
+BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
+BreakTemplateDeclarations: Yes
 ColumnLimit: 120
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#compactnamespaces
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
 Cpp11BracedListStyle: true

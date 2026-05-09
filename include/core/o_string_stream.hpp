@@ -79,8 +79,8 @@ concept OStringStreamBackend
   \brief Output stream that appends formatted values into a \ref toy::OStringStreamBackend backend.
 
   OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow
-  \a BackendType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string, and
-  string-like inserts are supported where exposed by the template API.
+  \a BackendType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string,
+  string-like, and \ref toy::chrono::Duration inserts are supported.
 
   \tparam BackendType The type of the underlying storage. Must satisfy the \ref toy::OStringStreamBackend concept.
 
@@ -90,6 +90,9 @@ concept OStringStreamBackend
   - **constexpr**: Construction and many inserts are usable in constant evaluation when \a BackendType allows it.
   - **noexcept**: Members are \c noexcept; failed capacity is handled per \a BackendType (typically debug assertions).
   - **Floating-point precision**: \c precision() / \c setPrecision() affect subsequent floating inserts.
+  - **Chrono types**: \ref toy::chrono::Duration formats as a decimal second count with an \c 's' suffix
+    (e.g. \c "0.016000000s") or, via \ref toy::chrono::DurationFormat, as a clock-style string using a pattern
+    (e.g. \c "hh:mm:ss.zzz" → \c "00:00:01.042").
 
   \section usage Usage Example
 
@@ -187,8 +190,6 @@ public:
 
     \post The write position is advanced by the length of the appended string (4 for "true", 5 for "false").
 
-    \sa put(char_type)
-    \sa write(const char_type *, size_t)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(bool value) noexcept;
@@ -208,7 +209,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(long).
 
     \sa operator<<(unsigned long)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(long value) noexcept;
@@ -228,7 +228,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned long).
 
     \sa operator<<(long)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(unsigned long value) noexcept;
@@ -248,7 +247,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(long long).
 
     \sa operator<<(unsigned long long)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(long long value) noexcept;
@@ -268,7 +266,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned long long).
 
     \sa operator<<(long long)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(unsigned long long value) noexcept;
@@ -291,7 +288,6 @@ public:
     \sa precision() const
     \sa setPrecision(size_t)
     \sa operator<<(float)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(double value) noexcept;
@@ -313,7 +309,6 @@ public:
     \note For null pointers, use operator<<(nullptr_t) for consistent "nullptr" output.
 
     \sa operator<<(nullptr_t)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(const void * value) noexcept;
@@ -333,7 +328,6 @@ public:
     \note This operator is preferred over operator<<(const void*) for null pointer literals.
 
     \sa operator<<(const void *)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(nullptr_t) noexcept;
@@ -353,7 +347,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(short).
 
     \sa operator<<(unsigned short)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(short value) noexcept;
@@ -373,7 +366,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(int).
 
     \sa operator<<(unsigned int)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(int value) noexcept;
@@ -393,7 +385,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned short).
 
     \sa operator<<(short)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(unsigned short value) noexcept;
@@ -413,7 +404,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned int).
 
     \sa operator<<(int)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(unsigned int value) noexcept;
@@ -436,7 +426,6 @@ public:
     \sa precision() const
     \sa setPrecision(size_t)
     \sa operator<<(double)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(float value) noexcept;
@@ -456,7 +445,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(signed char).
 
     \sa operator<<(unsigned char)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(signed char value) noexcept;
@@ -476,7 +464,6 @@ public:
     \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned char).
 
     \sa operator<<(signed char)
-    \sa put(char_type)
     \sa tellp()
   */
   constexpr OStringStream & operator<<(unsigned char value) noexcept;
@@ -558,6 +545,59 @@ public:
   */
   constexpr OStringStream & operator<<(const char_type * value) noexcept;
 
+  /*!
+    \brief Inserts a \ref toy::chrono::Duration as decimal seconds into the stream.
+
+    Converts \a value to seconds using integer-only arithmetic and appends it with an \c 's' suffix. The fractional part
+    width is determined at compile time from \c Period::den (e.g. 9 digits for nanoseconds, 3 for milliseconds).
+    Negative durations are prefixed with \c '-'.
+
+    \tparam Rep    Arithmetic representation type of the duration tick count.
+    \tparam Period \c std::ratio specifying the tick period relative to one second.
+
+    \param value The duration to insert into the stream.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note For sub-second periods (\c Period::num == 1 && \c Period::den > 1), the output includes a decimal point
+          followed by \c ceil(log10(Period::den)) fractional digits (e.g. \c "0.016000000s" for nanoseconds).
+    \note For coarser-than-second periods (e.g. hours, minutes), the output is the total number of whole seconds
+          (e.g. \c "3600s" for one hour).
+
+    \sa operator<<(chrono::DurationFormat<Rep, Period>)
+    \sa tellp()
+  */
+  template <typename Rep, typename Period>
+  constexpr OStringStream & operator<<(const chrono::Duration<Rep, Period> & value) noexcept;
+
+  /*!
+    \brief Inserts a \ref toy::chrono::Duration formatted using the clock-style pattern in \a value.
+
+    Decomposes the duration into hours, minutes, seconds, and milliseconds via a single \c duration_cast to
+    milliseconds. The \c pattern field is then iterated character-by-character: recognised tokens are replaced with the
+    corresponding time component; all other characters are emitted verbatim. Negative durations are prefixed with
+    \c '-'.
+
+    \tparam Rep    Arithmetic representation type of the duration tick count.
+    \tparam Period \c std::ratio specifying the tick period relative to one second.
+
+    \param value Wrapper carrying the duration and the null-terminated display pattern; see
+                 \ref toy::chrono::DurationFormat for the full token reference.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note Recognised tokens: \c h / \c hh (hours), \c m / \c mm (minutes), \c s / \c ss (seconds),
+          \c z / \c zzz (milliseconds); all other pattern characters are emitted verbatim.
+
+    \sa operator<<(chrono::Duration<Rep, Period>)
+    \sa tellp()
+  */
+  template <typename Rep, typename Period>
+  constexpr OStringStream & operator<<(chrono::DurationFormat<Rep, Period> value) noexcept;
   /*!
     \brief Returns a const reference to the underlying string.
 
@@ -707,6 +747,12 @@ public:
   constexpr size_t setPrecision(size_t newPrecision) noexcept;
 
 private:
+  /// Writes \a v zero-padded to exactly \a width decimal digits.
+  void writeZeroPadded(int64_t value, size_t width) noexcept;
+
+  /// Writes \a v zero-padded to exactly \a width decimal digits.
+  void writeZeroPadded(int32_t value, size_t width) noexcept;
+
   /// Internal string storage for the stream content.
   BackendType _string;
 
