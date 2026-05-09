@@ -260,7 +260,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   }
 
   if constexpr (Period::num == 1 && Period::den > 1) {
-    constexpr auto fracDigits = [](int64_t n) constexpr noexcept -> auto {
+    constexpr auto fracDigits = [](int64_t n) constexpr noexcept {
       int d = 0;
       while (n > 0) {
         n /= 10;
@@ -269,7 +269,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
       return d;
     };
-    constexpr auto pow10 = [](int n) constexpr noexcept -> auto {
+    constexpr auto pow10 = [](int n) constexpr noexcept {
       int64_t r = 1;
       while (n-- > 0) {
         r *= 10;

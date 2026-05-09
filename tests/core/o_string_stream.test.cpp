@@ -1125,22 +1125,67 @@ TEST_CASE("o_string_stream/operator_insert") {
     REQUIRE(stream.view() == "01:00:03.000");
   }
 
-  // operator<< DurationFormat: h:mm:ss — hours without leading zero.
-  SUBCASE("chrono/duration_format/h_mm_ss") {
+  // operator<< DurationFormat: h:mm:ss.zzz — hours without leading zero.
+  SUBCASE("chrono/duration_format/h_mm_ss_zzz") {
     OStringStream<FixedString<64>> stream;
 
-    stream << chrono::DurationFormat{"h:mm:ss", std::chrono::seconds{3723}};
+    stream << chrono::DurationFormat{"h:mm:ss.zzz", std::chrono::hours{1} + std::chrono::seconds{3}};
 
-    REQUIRE(stream.view() == "1:02:03");
+    REQUIRE(stream.view() == "1:00:03.000");
   }
 
-  // operator<< DurationFormat: s.zzz — seconds and milliseconds only.
-  SUBCASE("chrono/duration_format/s_dot_zzz") {
+  // operator<< DurationFormat: mm:ss.zzz pattern.
+  SUBCASE("chrono/duration_format/mm_ss_zzz") {
     OStringStream<FixedString<64>> stream;
 
-    stream << chrono::DurationFormat{"s.zzz", std::chrono::milliseconds{3042}};
+    stream << chrono::DurationFormat{"mm:ss.zzz", std::chrono::minutes{1} + std::chrono::seconds{3}};
 
-    REQUIRE(stream.view() == "3.042");
+    REQUIRE(stream.view() == "01:03.000");
+  }
+
+  // operator<< DurationFormat: m:ss.zzz — minutes without leading zero.
+  SUBCASE("chrono/duration_format/m_ss_zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"m:ss.zzz", std::chrono::minutes{1} + std::chrono::seconds{3}};
+
+    REQUIRE(stream.view() == "1:03.000");
+  }
+
+  // operator<< DurationFormat: ss.zzz pattern.
+  SUBCASE("chrono/duration_format/ss_zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"ss.zzz", std::chrono::seconds{1} + std::chrono::milliseconds{3}};
+
+    REQUIRE(stream.view() == "01.003");
+  }
+
+  // operator<< DurationFormat: s.zzz — seconds without leading zero.
+  SUBCASE("chrono/duration_format/s_zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"s.zzz", std::chrono::seconds{1} + std::chrono::milliseconds{3}};
+
+    REQUIRE(stream.view() == "1.003");
+  }
+
+  // operator<< DurationFormat: zzz pattern.
+  SUBCASE("chrono/duration_format/zzz") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"zzz", std::chrono::milliseconds{3}};
+
+    REQUIRE(stream.view() == "003");
+  }
+
+  // operator<< DurationFormat: z pattern — milliseconds without leading zero.
+  SUBCASE("chrono/duration_format/z") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::DurationFormat{"z", std::chrono::milliseconds{3}};
+
+    REQUIRE(stream.view() == "3");
   }
 
   // operator<< DurationFormat: z vs zzz — variable vs fixed-width milliseconds.
