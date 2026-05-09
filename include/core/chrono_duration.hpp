@@ -67,28 +67,32 @@ using std::chrono::duration_cast;
 
   \ingroup Chrono
 
-  Passed to \c toy::OStringStream::operator<< to format the duration according to the pattern. The pattern is scanned
-  character-by-character; recognised tokens are substituted with the corresponding time component; all other characters
-  are emitted as literals.
+  Passed to \c toy::OStringStream::operator<< to format the duration into a human-readable clock representation. The
+  pattern is scanned character-by-character; recognised tokens are replaced with the corresponding time component
+  derived from a millisecond decomposition; all other characters are emitted verbatim.
 
   \tparam Rep    Arithmetic representation type of the duration tick count.
   \tparam Period \c std::ratio specifying the tick period relative to one second.
 
+  \section features Key Features
+
+  - **Flexible patterns**: any combination of \c h, \c m, \c s, \c z tokens with arbitrary literal separators.
+  - **Millisecond precision**: decomposes duration down to milliseconds; sub-millisecond ticks are truncated.
+  - **Negative durations**: prefixes the formatted output with \c '-'; absolute value is formatted normally.
+  - **Literal passthrough**: non-token characters (\c ':', \c '.', spaces, labels) are emitted unchanged.
+
   \section pattern_tokens Pattern Tokens
 
-  | Token | Component    | Behaviour                     |
-  |-------|--------------|-------------------------------|
-  | \c h  | hours        | no leading zero (e.g. \c 9)   |
-  | \c hh | hours        | always 2 digits (e.g. \c 09)  |
-  | \c m  | minutes      | no leading zero (e.g. \c 3)   |
-  | \c mm | minutes      | always 2 digits (e.g. \c 03)  |
-  | \c s  | seconds      | no leading zero (e.g. \c 5)   |
-  | \c ss | seconds      | always 2 digits (e.g. \c 05)  |
-  | \c z  | milliseconds | no leading zero (e.g. \c 42)  |
-  | \c zzz| milliseconds | always 3 digits (e.g. \c 042) |
-
-  Any other character in \a pattern is emitted verbatim. Negative durations are prefixed with \c '-' followed by the
-  formatted absolute value.
+  | Token  | Component    | Behaviour                     |
+  |--------|--------------|-------------------------------|
+  | \c h   | hours        | no leading zero (e.g. \c 9)   |
+  | \c hh  | hours        | always 2 digits (e.g. \c 09)  |
+  | \c m   | minutes      | no leading zero (e.g. \c 3)   |
+  | \c mm  | minutes      | always 2 digits (e.g. \c 03)  |
+  | \c s   | seconds      | no leading zero (e.g. \c 5)   |
+  | \c ss  | seconds      | always 2 digits (e.g. \c 05)  |
+  | \c z   | milliseconds | no leading zero (e.g. \c 42)  |
+  | \c zzz | milliseconds | always 3 digits (e.g. \c 042) |
 
   \section usage Usage Example
 
@@ -103,9 +107,20 @@ using std::chrono::duration_cast;
   stream << fmt; // e.g. "00:00:01.042"
   \endcode
 
-  \warning The string referenced by \c pattern must outlive the \c DurationFormat value. Passing a pointer to a
-           temporary or stack-allocated buffer beyond that buffer's lifetime causes undefined behavior. Use a string
-           literal or storage with static lifetime.
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1); no computation at construction time.
+  - **Formatting**: O(n) where \a n is the length of \a pattern; one \c duration_cast to milliseconds then a
+    single pass through the pattern string.
+  - **Memory usage**: 8–16 bytes depending on \a Rep and pointer size; no heap allocation.
+
+  \section safety Safety Guarantees
+
+  - **Pattern lifetime**: \a pattern must remain valid for the duration of the format operation; string literals
+    and static-storage pointers satisfy this. Dangling pointers cause undefined behaviour.
+  - **Exception safety**: all operations are \c noexcept.
+  - **Overflow**: safe for durations up to ~292 years at nanosecond resolution; \c duration_cast to milliseconds
+    is integer-only and does not overflow for any practical game session length.
 
   \sa \ref toy::chrono::Duration
 */
