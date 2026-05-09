@@ -299,7 +299,9 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   auto duration = value.duration;
   if (duration.count() < 0) {
     put('-');
-    duration = -duration;
+    duration = (duration.count() != std::numeric_limits<Rep>::min())
+                 ? -duration
+                 : chrono::Duration<Rep, Period>(std::numeric_limits<Rep>::max());
   }
 
   const int64_t total_ms = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
