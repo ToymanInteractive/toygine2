@@ -21,8 +21,9 @@
   \file   chrono_duration.hpp
   \brief  Duration and time-point aliases over \c std::chrono.
 
-  Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, and brings
-  \c std::chrono::duration_cast into \ref toy::chrono so call sites can use it unqualified.
+  Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, brings
+  \c std::chrono::duration_cast into \ref toy::chrono for unqualified use, and provides \ref toy::chrono::DurationFormat
+  for pattern-based duration formatting.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -60,6 +61,75 @@ using TimePoint = std::chrono::time_point<Clock, Dur>;
 
 /// Brings \c std::chrono::duration_cast into \ref toy::chrono for unqualified use at call sites.
 using std::chrono::duration_cast;
+
+/*!
+  \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
+
+  \ingroup Chrono
+
+  Passed to \c toy::OStringStream::operator<< to format the duration into a human-readable clock representation. The
+  pattern is scanned character-by-character; recognised tokens are replaced with the corresponding time component
+  derived from a millisecond decomposition; all other characters are emitted verbatim.
+
+  \tparam Rep    Arithmetic representation type of the duration tick count.
+  \tparam Period \c std::ratio specifying the tick period relative to one second.
+
+  \section features Key Features
+
+  - **Flexible patterns**: any combination of \c h, \c m, \c s, \c z tokens with arbitrary literal separators.
+  - **Millisecond precision**: decomposes duration down to milliseconds; sub-millisecond ticks are truncated.
+  - **Negative durations**: prefixes the formatted output with \c '-'; absolute value is formatted normally.
+  - **Literal passthrough**: non-token characters (\c ':', \c '.', spaces, labels) are emitted unchanged.
+
+  \section pattern_tokens Pattern Tokens
+
+  | Token  | Component    | Behaviour                     |
+  |--------|--------------|-------------------------------|
+  | \c h   | hours        | no leading zero (e.g. \c 9)   |
+  | \c hh  | hours        | always 2 digits (e.g. \c 09)  |
+  | \c m   | minutes      | no leading zero (e.g. \c 3)   |
+  | \c mm  | minutes      | always 2 digits (e.g. \c 03)  |
+  | \c s   | seconds      | no leading zero (e.g. \c 5)   |
+  | \c ss  | seconds      | always 2 digits (e.g. \c 05)  |
+  | \c z   | milliseconds | no leading zero (e.g. \c 42)  |
+  | \c zzz | milliseconds | always 3 digits (e.g. \c 042) |
+
+  \section usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  toy::chrono::ClockSource clock;
+  toy::chrono::Stopwatch   sw;
+  // ... work ...
+  const auto fmt = toy::chrono::DurationFormat{sw.elapsed(), "hh:mm:ss.zzz"};
+  toy::OStringStream<toy::FixedString<32>> stream;
+  stream << fmt; // e.g. "00:00:01.042"
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1); no computation at construction time.
+  - **Formatting**: O(n) where \a n is the length of \a pattern; one \c duration_cast to milliseconds then a
+    single pass through the pattern string.
+  - **Memory usage**: 8–16 bytes depending on \a Rep and pointer size; no heap allocation.
+
+  \section safety Safety Guarantees
+
+  - **Pattern lifetime**: \a pattern must remain valid for the duration of the format operation; string literals
+    and static-storage pointers satisfy this. Dangling pointers cause undefined behaviour.
+  - **Exception safety**: all operations are \c noexcept.
+
+  \sa \ref toy::chrono::Duration
+*/
+template <typename Rep, typename Period>
+struct DurationFormat {
+  /// Duration value to format.
+  Duration<Rep, Period> value;
+
+  /// Pattern string.
+  CStringView pattern;
+};
 
 } // namespace toy::chrono
 
