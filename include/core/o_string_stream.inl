@@ -372,14 +372,6 @@ void OStringStream<BackendType>::writeZeroPadded(int32_t value, size_t width) no
   _string.append(buffer, length);
 }
 
-template <OStringStreamBackend BackendType>
-template <typename Clock, typename Dur>
-constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
-  chrono::TimePoint<Clock, Dur> value
-) noexcept {
-  return *this << value.time_since_epoch();
-}
-
 } // namespace toy
 
 #endif // INCLUDE_CORE_O_STRING_STREAM_INL_
