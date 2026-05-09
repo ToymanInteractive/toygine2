@@ -119,8 +119,6 @@ using std::chrono::duration_cast;
   - **Pattern lifetime**: \a pattern must remain valid for the duration of the format operation; string literals
     and static-storage pointers satisfy this. Dangling pointers cause undefined behaviour.
   - **Exception safety**: all operations are \c noexcept.
-  - **Overflow**: safe for durations up to ~292 years at nanosecond resolution; \c duration_cast to milliseconds
-    is integer-only and does not overflow for any practical game session length.
 
   \sa \ref toy::chrono::Duration
 */
