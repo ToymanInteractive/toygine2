@@ -570,6 +570,7 @@ public:
     \sa tellp()
   */
   template <typename Rep, typename Period>
+    requires std::is_integral_v<Rep>
   constexpr OStringStream & operator<<(const chrono::Duration<Rep, Period> & value) noexcept;
 
   /*!
@@ -597,6 +598,7 @@ public:
     \sa tellp()
   */
   template <typename Rep, typename Period>
+    requires std::is_integral_v<Rep>
   constexpr OStringStream & operator<<(const chrono::DurationFormat<Rep, Period> & value) noexcept;
 
   /*!

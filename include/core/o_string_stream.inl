@@ -250,6 +250,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
 
 template <OStringStreamBackend BackendType>
 template <typename Rep, typename Period>
+  requires std::is_integral_v<Rep>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   const chrono::Duration<Rep, Period> & value
 ) noexcept {
@@ -293,6 +294,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
 template <OStringStreamBackend BackendType>
 template <typename Rep, typename Period>
+  requires std::is_integral_v<Rep>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   const chrono::DurationFormat<Rep, Period> & value
 ) noexcept {
