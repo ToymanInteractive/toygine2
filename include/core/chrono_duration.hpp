@@ -21,9 +21,8 @@
   \file   chrono_duration.hpp
   \brief  Duration and time-point aliases over \c std::chrono.
 
-  Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, brings
-  \c std::chrono::duration_cast into \ref toy::chrono for unqualified use, and provides \ref toy::chrono::DurationFormat
-  for pattern-based duration formatting.
+  Defines \ref toy::chrono::Duration and \ref toy::chrono::TimePoint as thin aliases over \c std::chrono, and provides
+  \ref toy::chrono::DurationFormat for pattern-based duration formatting.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -41,7 +40,7 @@ namespace toy::chrono {
   \tparam Rep    Arithmetic type representing the tick count.
   \tparam Period \c std::ratio specifying the tick period relative to one second.
 
-  \sa \ref toy::chrono::TimePoint, duration_cast()
+  \sa \ref toy::chrono::TimePoint
 */
 template <typename Rep, typename Period>
 using Duration = std::chrono::duration<Rep, Period>;
@@ -58,9 +57,6 @@ using Duration = std::chrono::duration<Rep, Period>;
 */
 template <typename Clock, typename Dur = typename Clock::duration>
 using TimePoint = std::chrono::time_point<Clock, Dur>;
-
-/// Brings \c std::chrono::duration_cast into \ref toy::chrono for unqualified use at call sites.
-using std::chrono::duration_cast;
 
 /*!
   \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.

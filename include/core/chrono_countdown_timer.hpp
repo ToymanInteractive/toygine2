@@ -59,11 +59,11 @@ namespace toy::chrono {
 
   toy::chrono::ClockSource clock;
 
-  toy::chrono::CountdownTimer timer{std::chrono::milliseconds{500}};
+  toy::chrono::CountdownTimer timer{toy::chrono::milliseconds{500}};
   if (timer.expired()) {
     // handle timeout
   }
-  const auto left = toy::chrono::duration_cast<std::chrono::milliseconds>(timer.remaining());
+  const auto left = toy::chrono::duration_cast<toy::chrono::milliseconds>(timer.remaining());
   \endcode
 
   \section performance Performance Characteristics

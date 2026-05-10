@@ -287,7 +287,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
     _writeZeroPadded(count % den * scale / den, digits);
   } else {
     using seconds_type = std::chrono::duration<int64_t>;
-    *this << std::chrono::duration_cast<seconds_type>(chrono::Duration<int64_t, Period>{count}).count();
+    *this << chrono::duration_cast<seconds_type>(chrono::Duration<int64_t, Period>{count}).count();
   }
 
   return put('s');
@@ -302,12 +302,12 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   auto duration = value.duration;
   if (duration.count() < 0) {
     put('-');
-    duration = (duration.count() != std::numeric_limits<Rep>::min())
+    duration = (duration.count() != numeric_limits<Rep>::min())
                  ? -duration
-                 : chrono::Duration<Rep, Period>(std::numeric_limits<Rep>::max());
+                 : chrono::Duration<Rep, Period>(numeric_limits<Rep>::max());
   }
 
-  const int64_t totalMs = std::chrono::duration_cast<std::chrono::milliseconds>(duration).count();
+  const int64_t totalMs = chrono::duration_cast<chrono::milliseconds>(duration).count();
   const int64_t h       = totalMs / 3600000LL;
   const int32_t m       = static_cast<int32_t>(totalMs % 3600000LL) / 60000;
   const int32_t s       = static_cast<int32_t>((totalMs % 60000LL)) / 1000;
