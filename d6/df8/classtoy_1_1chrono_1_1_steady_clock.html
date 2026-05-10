@@ -186,7 +186,7 @@ Usage Example</h1>
 <div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> t0 = <a class="code hl_function" href="#ae568912e06cf7ed5d3a2368bec084bc2">toy::chrono::SteadyClock::now</a>();</div>
 <div class="line">  <span class="comment">// ... work ...</span></div>
 <div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> t1 = <a class="code hl_function" href="#ae568912e06cf7ed5d3a2368bec084bc2">toy::chrono::SteadyClock::now</a>();</div>
-<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> elapsed = std::chrono::duration_cast&lt;std::chrono::milliseconds&gt;(t1 - t0);</div>
+<div class="line">  <span class="keyword">const</span> <span class="keyword">auto</span> elapsed = toy::chrono::duration_cast&lt;toy::chrono::milliseconds&gt;(t1 - t0);</div>
 <div class="line">}</div>
 <div class="ttc" id="aclasstoy_1_1chrono_1_1_clock_source_html"><div class="ttname"><a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></div><div class="ttdoc">RAII owner of the platform hardware time source.</div><div class="ttdef"><b>Definition</b> chrono_clock_source.hpp:95</div></div>
 <div class="ttc" id="aclasstoy_1_1chrono_1_1_steady_clock_html_ae568912e06cf7ed5d3a2368bec084bc2"><div class="ttname"><a href="#ae568912e06cf7ed5d3a2368bec084bc2">toy::chrono::SteadyClock::now</a></div><div class="ttdeci">static time_point now() noexcept</div><div class="ttdoc">Current time as a typed time_point.</div><div class="ttdef"><b>Definition</b> clock_source_macos.cpp:72</div></div>
