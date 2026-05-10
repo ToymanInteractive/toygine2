@@ -61,7 +61,7 @@ private:
   enum class State {
     Normal,
     Escape,
-    Csi
+    Csi,
   };
 
   State _state{State::Normal};
