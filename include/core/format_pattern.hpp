@@ -56,7 +56,7 @@ enum class FormatPatternValidationError {
   argCountMismatch,
 
   /// Positional index out of range or overflow while parsing digits.
-  indexOutOfRange
+  indexOutOfRange,
 };
 
 /*!

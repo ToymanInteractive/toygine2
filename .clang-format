@@ -101,9 +101,10 @@ ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
 Cpp11BracedListStyle: FunctionCall
 DerivePointerAlignment: false
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#disableformat
 EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: LogicalBlock
+EnumTrailingComma: Insert
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#experimentalautodetectbinpacking
 FixNamespaceComments: true
 IncludeBlocks: Regroup
 IncludeCategories:

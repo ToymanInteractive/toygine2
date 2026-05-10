@@ -61,7 +61,7 @@ enum class WindowStyle : uint8_t {
   FullScreen = 0x10,
 
   /// Window has been resized.
-  Resized = 0x20
+  Resized = 0x20,
 };
 
 } // namespace toy::platform::ui

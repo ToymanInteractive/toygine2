@@ -25,17 +25,17 @@ cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 set(MSVC_C_FLAGS   "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5039 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
 set(MSVC_CXX_FLAGS "/nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5039 /wd5045 /wd5219 /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /EHsc /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:rvalueCast /GR- /permissive- /arch:SSE2")
 
-set(MSVC_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl                     /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
-set(MSVC_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl                     /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_C_FLAGS_DEBUG            "/ZI /diagnostics:caret   /sdl  /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
+set(MSVC_CXX_FLAGS_DEBUG          "/ZI /diagnostics:caret   /sdl  /Od /Ob0 /Oi-     /Oy-         /D_DEBUG /GF- /RTCc /D_ALLOW_RTCc_IN_STL /RTCsu /MTd /GS  /guard:cf- /Gy  /Qpar- /fp:strict  /fp:except  /Gd /MP")
 
-set(MSVC_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /fsanitize=address /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
-set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /fsanitize=address /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
+set(MSVC_C_FLAGS_RELWITHDEBINFO   "/Zi /diagnostics:column  /sdl  /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
+set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /Ox /Ob3 /Oi  /Ot /Oy- /GT /GL /D_DEBUG /GF                                    /MTd /GS  /guard:cf  /Gy- /Qpar- /fp:precise /fp:except  /Gr")
 
-set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl-                    /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
-set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl-                    /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
+set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
+set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Winvalid-utf8
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wvla
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
 
 set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2 -Wbad-function-cast -Wcast-align=strict -Wcast-qual                                           -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5 -Winit-self                                   -Wlogical-op                                          -Wmissing-noreturn -Wmissing-prototypes -Wnested-externs            -Wnormalized=nfc -Wnull-dereference                                         -Wpacked                   -Wredundant-decls                  -Wshadow=local                                     -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn                                                                                -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas                                   -Wwrite-strings                                 -fstrict-flex-arrays=2")
@@ -74,8 +74,13 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     if (CMAKE_SIZEOF_VOID_P MATCHES "4")
 
-      set(CMAKE_C_FLAGS_DEBUG   "${MSVC_C_FLAGS_DEBUG}   /hotpatch")
-      set(CMAKE_CXX_FLAGS_DEBUG "${MSVC_CXX_FLAGS_DEBUG} /hotpatch")
+      set(CMAKE_C_FLAGS_DEBUG   "${CMAKE_C_FLAGS_DEBUG}   /hotpatch")
+      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /hotpatch")
+
+    elseif (CMAKE_SIZEOF_VOID_P MATCHES "8")
+
+      set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /fsanitize=address")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /fsanitize=address")
 
     endif ()
 
@@ -99,8 +104,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
     message(FATAL_ERROR "GCC >= 13.3 required")
   endif ()
 
-  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}")
-  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}")
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wvector-operation-performance")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS} -Wvector-operation-performance")
 
   set(CMAKE_C_FLAGS_DEBUG                   "${GCC_C_FLAGS_DEBUG}")
   set(CMAKE_CXX_FLAGS_DEBUG                 "${GCC_CXX_FLAGS_DEBUG}")

@@ -42,7 +42,7 @@ enum class PlaceholderMode {
   autoIndex,
 
   /// Only positional \c {N} placeholders appear in the pattern.
-  positional
+  positional,
 };
 
 /*!
