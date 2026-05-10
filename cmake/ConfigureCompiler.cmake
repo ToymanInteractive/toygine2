@@ -79,8 +79,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     elseif (CMAKE_SIZEOF_VOID_P MATCHES "8")
 
-      set(CMAKE_C_FLAGS_DEBUG   "${CMAKE_C_FLAGS_DEBUG}   /fsanitize=address")
-      set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} /fsanitize=address")
+      set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /fsanitize=address")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /fsanitize=address")
 
     endif ()
 
