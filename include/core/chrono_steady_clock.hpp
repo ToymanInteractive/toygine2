@@ -66,7 +66,7 @@ namespace toy::chrono {
     const auto t0 = toy::chrono::SteadyClock::now();
     // ... work ...
     const auto t1 = toy::chrono::SteadyClock::now();
-    const auto elapsed = std::chrono::duration_cast<std::chrono::milliseconds>(t1 - t0);
+    const auto elapsed = toy::chrono::duration_cast<toy::chrono::milliseconds>(t1 - t0);
   }
   \endcode
 

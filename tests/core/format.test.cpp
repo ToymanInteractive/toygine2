@@ -185,14 +185,14 @@ TEST_CASE("format/empty_pattern") {
 
 // chrono::Duration interpolated in a format string as decimal seconds.
 TEST_CASE("format/chrono_duration") {
-  const auto result = format<32>("elapsed: {}", std::chrono::milliseconds{500});
+  const auto result = format<32>("elapsed: {}", chrono::milliseconds{500});
 
   REQUIRE(result == "elapsed: 0.500s");
 }
 
 // chrono::DurationFormat interpolated in a format string using a clock pattern.
 TEST_CASE("format/chrono_duration_format") {
-  const auto result = format<32>("time: {}", chrono::DurationFormat{"h:mm:ss", std::chrono::seconds{3723}});
+  const auto result = format<32>("time: {}", chrono::DurationFormat{"h:mm:ss", chrono::seconds{3723}});
 
   REQUIRE(result == "time: 1:02:03");
 }
@@ -254,14 +254,14 @@ TEST_CASE("vformat/nullptr") {
 
 // chrono::Duration interpolated via vformat with a runtime pattern string.
 TEST_CASE("vformat/chrono_duration") {
-  const auto result = vformat<32>("{}", std::chrono::nanoseconds{16000000});
+  const auto result = vformat<32>("{}", chrono::nanoseconds{16000000});
 
   REQUIRE(result == "0.016000000s");
 }
 
 // chrono::DurationFormat interpolated via vformat with a runtime pattern string.
 TEST_CASE("vformat/chrono_duration_format") {
-  const auto result = vformat<32>("{}", chrono::DurationFormat{"hh:mm:ss.zzz", std::chrono::seconds{3723}});
+  const auto result = vformat<32>("{}", chrono::DurationFormat{"hh:mm:ss.zzz", chrono::seconds{3723}});
 
   REQUIRE(result == "01:02:03.000");
 }

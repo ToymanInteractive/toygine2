@@ -42,7 +42,7 @@ TEST_CASE("chrono/countdown_timer/object_structure") {
 TEST_CASE("chrono/countdown_timer/not_expired_after_construction") {
   [[maybe_unused]] ClockSource clock;
 
-  const CountdownTimer timer{std::chrono::hours{1}};
+  const CountdownTimer timer{hours{1}};
 
   REQUIRE(!timer.expired());
 }
@@ -69,7 +69,7 @@ TEST_CASE("chrono/countdown_timer/remaining_zero_when_expired") {
 TEST_CASE("chrono/countdown_timer/remaining_positive_when_not_expired") {
   [[maybe_unused]] ClockSource clock;
 
-  constexpr auto       timeout = std::chrono::hours{1};
+  constexpr auto       timeout = hours{1};
   const CountdownTimer timer{timeout};
 
   REQUIRE(timer.remaining() > CountdownTimer::duration{0});
@@ -83,7 +83,7 @@ TEST_CASE("chrono/countdown_timer/restart_resets_deadline") {
   CountdownTimer timer{CountdownTimer::duration{0}};
   REQUIRE(timer.expired());
 
-  timer.restart(std::chrono::hours{1});
+  timer.restart(hours{1});
   REQUIRE(!timer.expired());
 }
 

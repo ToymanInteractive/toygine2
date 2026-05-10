@@ -60,7 +60,7 @@ namespace toy::chrono {
 
   toy::chrono::Stopwatch sw;
   // ... work ...
-  const auto ms = toy::chrono::duration_cast<std::chrono::milliseconds>(sw.elapsed());
+  const auto ms = toy::chrono::duration_cast<toy::chrono::milliseconds>(sw.elapsed());
   \endcode
 
   \section performance Performance Characteristics

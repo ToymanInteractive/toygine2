@@ -230,6 +230,27 @@ using std::char_traits;
   Thin wrappers that keep engine code free of direct \c std::chrono qualification while preserving full interoperability
   with the standard library. All members are transparent aliases; no additional runtime behavior is introduced.
 */
+namespace toy::chrono {
+
+// https://cppreference.com/cpp/chrono/duration/duration_cast
+using std::chrono::duration_cast;
+
+// https://cppreference.com/cpp/chrono/duration
+using std::chrono::hours;
+
+// https://cppreference.com/cpp/chrono/duration
+using std::chrono::minutes;
+
+// https://cppreference.com/cpp/chrono/duration
+using std::chrono::seconds;
+
+// https://cppreference.com/cpp/chrono/duration
+using std::chrono::milliseconds;
+
+// https://cppreference.com/cpp/chrono/duration
+using std::chrono::nanoseconds;
+
+} // namespace toy::chrono
 
 //--------------------------------------------------------------------------------------------------------------------
 
