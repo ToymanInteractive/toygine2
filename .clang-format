@@ -96,11 +96,12 @@ BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
 BreakTemplateDeclarations: Yes
 ColumnLimit: 120
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#compactnamespaces
+CompactNamespaces: false
 ConstructorInitializerIndentWidth: 2
 ContinuationIndentWidth: 2
-Cpp11BracedListStyle: true
+Cpp11BracedListStyle: FunctionCall
 DerivePointerAlignment: false
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#disableformat
 EmptyLineAfterAccessModifier: Never
 EmptyLineBeforeAccessModifier: LogicalBlock
 FixNamespaceComments: true
