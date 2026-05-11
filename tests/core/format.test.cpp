@@ -197,6 +197,21 @@ TEST_CASE("format/chrono_duration_format") {
   REQUIRE(result == "time: 1:02:03");
 }
 
+// chrono::TimePoint interpolated in a format string as decimal seconds.
+TEST_CASE("format/chrono_time_point") {
+  const auto result = format<32>("time point: {}", chrono::SteadyClock::time_point{chrono::seconds{3723}});
+
+  REQUIRE(result == "time point: 3723.000000000s");
+}
+
+// chrono::TimePointFormat interpolated in a format string using a clock pattern.
+TEST_CASE("format/chrono_time_point_format") {
+  const chrono::SteadyClock::time_point tp{chrono::seconds{3723}};
+  const auto                            result = format<32>("time point: {}", chrono::TimePointFormat{"h:mm:ss", tp});
+
+  REQUIRE(result == "time point: 1:02:03");
+}
+
 // formatTo replaces the content of an existing string.
 TEST_CASE("format_to/replaces_output") {
   FixedString<64> output("stale-content");
@@ -264,6 +279,21 @@ TEST_CASE("vformat/chrono_duration_format") {
   const auto result = vformat<32>("{}", chrono::DurationFormat{"hh:mm:ss.zzz", chrono::seconds{3723}});
 
   REQUIRE(result == "01:02:03.000");
+}
+
+// chrono::TimePoint interpolated in a vformat string as decimal seconds.
+TEST_CASE("vformat/chrono_time_point") {
+  const auto result = vformat<32>("time point: {}", chrono::SteadyClock::time_point{chrono::seconds{3723}});
+
+  REQUIRE(result == "time point: 3723.000000000s");
+}
+
+// chrono::TimePointFormat interpolated in a vformat string using a clock pattern.
+TEST_CASE("vformat/chrono_time_point_format") {
+  const chrono::SteadyClock::time_point tp{chrono::seconds{3723}};
+  const auto                            result = vformat<32>("time point: {}", chrono::TimePointFormat{"h:mm:ss", tp});
+
+  REQUIRE(result == "time point: 1:02:03");
 }
 
 // ----- vformatTo -----

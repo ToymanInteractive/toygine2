@@ -1223,6 +1223,24 @@ TEST_CASE("o_string_stream/operator_insert") {
 
     REQUIRE(stream.view() == "00:00:00.000");
   }
+
+  // operator<< TimePoint formatting delegates to its duration since epoch.
+  SUBCASE("insert_chrono_time_point") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::SteadyClock::time_point{chrono::seconds{1}};
+
+    REQUIRE(stream.view() == "1.000000000s");
+  }
+
+  // operator<< TimePointFormat: non-token characters (colons, brackets, spaces) are emitted verbatim.
+  SUBCASE("insert_chrono_time_point_format_literal_passthrough") {
+    OStringStream<FixedString<64>> stream;
+
+    stream << chrono::TimePointFormat{"[hh:mm:ss]", chrono::SteadyClock::time_point{chrono::seconds{5}}};
+
+    REQUIRE(stream.view() == "[00:00:05]");
+  }
 }
 
 } // namespace toy

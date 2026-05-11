@@ -46,19 +46,8 @@ template <typename Rep, typename Period>
 using Duration = std::chrono::duration<Rep, Period>;
 
 /*!
-  \brief Generic time-point alias over \c std::chrono::time_point.
+  \class DurationFormat
 
-  \ingroup Chrono
-
-  \tparam Clock The clock type that defines the epoch.
-  \tparam Dur   Duration type used to store the offset from the epoch (defaults to \c Clock::duration).
-
-  \sa \ref toy::chrono::Duration
-*/
-template <typename Clock, typename Dur = typename Clock::duration>
-using TimePoint = std::chrono::time_point<Clock, Dur>;
-
-/*!
   \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
 
   \ingroup Chrono
@@ -98,7 +87,7 @@ using TimePoint = std::chrono::time_point<Clock, Dur>;
   toy::chrono::ClockSource clock;
   toy::chrono::Stopwatch   sw;
   // ... work ...
-  const auto fmt = toy::chrono::DurationFormat{sw.elapsed(), "hh:mm:ss.zzz"};
+  const auto fmt = toy::chrono::DurationFormat{"hh:mm:ss.zzz", sw.elapsed()};
   toy::OStringStream<toy::FixedString<32>> stream;
   stream << fmt; // e.g. "00:00:01.042"
   \endcode
@@ -136,6 +125,98 @@ struct DurationFormat {
 */
 template <typename Rep, typename Period>
 DurationFormat(const char *, Duration<Rep, Period>) -> DurationFormat<Rep, Period>;
+
+/*!
+  \brief Generic time-point alias over \c std::chrono::time_point.
+
+  \ingroup Chrono
+
+  \tparam Clock The clock type that defines the epoch.
+  \tparam Dur   Duration type used to store the offset from the epoch (defaults to \c Clock::duration).
+
+  \sa \ref toy::chrono::Duration
+*/
+template <typename Clock, typename Dur = typename Clock::duration>
+using TimePoint = std::chrono::time_point<Clock, Dur>;
+
+/*!
+  \class TimePointFormat
+
+  \brief Pairs a \ref toy::chrono::TimePoint with a null-terminated display pattern.
+
+  \ingroup Chrono
+
+  Passed to \c toy::OStringStream::operator<< to format the time point into a human-readable clock representation. The
+  pattern is scanned character-by-character; recognised tokens are replaced with the corresponding time component
+  derived from a millisecond decomposition; all other characters are emitted verbatim.
+
+  \tparam Clock The clock type that defines the epoch.
+  \tparam Dur   Duration type of the time point; its \c rep must be an integral type.
+
+  \section features Key Features
+
+  - **Epoch-relative display**: time measured from the hardware counter start, not from a calendar epoch.
+  - **Flexible patterns**: any combination of \c h, \c m, \c s, \c z tokens with arbitrary literal separators.
+  - **Millisecond precision**: decomposes duration down to milliseconds; sub-millisecond ticks are truncated.
+  - **Negative durations**: prefixes the formatted output with \c '-'; absolute value is formatted normally.
+  - **Literal passthrough**: non-token characters (\c ':', \c '.', spaces, labels) are emitted unchanged.
+
+  \section pattern_tokens Pattern Tokens
+
+  | Token  | Component    | Behaviour                     |
+  |--------|--------------|-------------------------------|
+  | \c h   | hours        | no leading zero (e.g. \c 9)   |
+  | \c hh  | hours        | always 2 digits (e.g. \c 09)  |
+  | \c m   | minutes      | no leading zero (e.g. \c 3)   |
+  | \c mm  | minutes      | always 2 digits (e.g. \c 03)  |
+  | \c s   | seconds      | no leading zero (e.g. \c 5)   |
+  | \c ss  | seconds      | always 2 digits (e.g. \c 05)  |
+  | \c z   | milliseconds | no leading zero (e.g. \c 42)  |
+  | \c zzz | milliseconds | always 3 digits (e.g. \c 042) |
+
+  \section usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  toy::chrono::ClockSource clock;
+  const auto now = toy::chrono::SteadyClock::now();
+  toy::OStringStream<toy::FixedString<32>> stream;
+  stream << toy::chrono::TimePointFormat{"hh:mm:ss.zzz", now}; // e.g. "00:01:23.456"
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1); no computation at construction time.
+  - **Formatting**: O(n) where \a n is the length of \a pattern; delegates to \ref toy::chrono::DurationFormat.
+  - **Memory usage**: 8–16 bytes depending clock duration size; no heap allocation.
+
+  \section safety Safety Guarantees
+
+  - **Pattern lifetime**: \a pattern must remain valid for the duration of the format operation; string literals
+    and static-storage pointers satisfy this. Dangling pointers cause undefined behaviour.
+  - **Exception safety**: all operations are \c noexcept.
+
+  \sa \ref toy::chrono::TimePoint
+*/
+template <typename Clock, typename Dur = typename Clock::duration>
+struct TimePointFormat {
+  /// Format pattern.
+  CStringView pattern;
+
+  /// Time point value to format.
+  TimePoint<Clock, Dur> timePoint;
+};
+
+/*!
+  \brief Deduction guide: enables \c TimePointFormat{"pattern", time_point} without explicit template arguments when the
+         second argument is a \ref toy::chrono::TimePoint.
+
+  \tparam Clock The clock type deduced from the \ref toy::chrono::TimePoint argument.
+  \tparam Dur   Duration type deduced from the \ref toy::chrono::TimePoint argument.
+*/
+template <typename Clock, typename Dur>
+TimePointFormat(const char *, TimePoint<Clock, Dur>) -> TimePointFormat<Clock, Dur>;
 
 } // namespace toy::chrono
 
