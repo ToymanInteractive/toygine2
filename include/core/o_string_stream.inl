@@ -344,6 +344,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
 template <OStringStreamBackend BackendType>
 template <typename Clock, typename Dur>
+  requires std::signed_integral<typename Dur::rep>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   chrono::TimePoint<Clock, Dur> value
 ) noexcept {
@@ -352,7 +353,7 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 
 template <OStringStreamBackend BackendType>
 template <typename Clock, typename Dur>
-  requires std::is_integral_v<typename Dur::rep>
+  requires std::signed_integral<typename Dur::rep>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
   chrono::TimePointFormat<Clock, Dur> value
 ) noexcept {

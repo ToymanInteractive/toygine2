@@ -484,7 +484,7 @@ public:
           (e.g. \c "3600s" for one hour).
 
     \sa operator<<(chrono::DurationFormat<Rep, Period>)
-    \sa operator<<(chrono::TimePoint<Rep, Period>)
+    \sa operator<<(chrono::TimePoint<Clock, Dur>)
     \sa tellp()
   */
   template <typename Rep, typename Period>
@@ -543,6 +543,7 @@ public:
     \sa tellp()
   */
   template <typename Clock, typename Dur>
+    requires std::signed_integral<typename Dur::rep>
   constexpr OStringStream & operator<<(chrono::TimePoint<Clock, Dur> value) noexcept;
 
   /*!
@@ -570,7 +571,7 @@ public:
     \sa tellp()
   */
   template <typename Clock, typename Dur>
-    requires std::is_integral_v<typename Dur::rep>
+    requires std::signed_integral<typename Dur::rep>
   constexpr OStringStream & operator<<(chrono::TimePointFormat<Clock, Dur> value) noexcept;
 
   /*!
