@@ -358,8 +358,10 @@ constexpr void FixedString<allocatedSize>::push_back(char character) noexcept {
 
   assert_message(_storage.size + 1 < allocatedSize, "String must have space for new character");
 
-  _storage.buffer[_storage.size++] = character;
-  _storage.buffer[_storage.size]   = '\0';
+  _storage.buffer[_storage.size]     = character;
+  _storage.buffer[_storage.size + 1] = '\0';
+
+  ++_storage.size;
 }
 
 template <size_t allocatedSize>
