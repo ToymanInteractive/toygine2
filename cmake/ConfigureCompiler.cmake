@@ -35,7 +35,7 @@ set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  
 set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html
-#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wno-vla-parameter
+#                 https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Warning-Options.html#index-Wstack-protector
 # Option Summary  https://gcc.gnu.org/onlinedocs/gcc-14.2.0/gcc/Warning-Options.html
 
 set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2 -Wbad-function-cast -Wcast-align=strict -Wcast-qual                                           -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5 -Winit-self                                   -Wlogical-op                                          -Wmissing-noreturn -Wmissing-prototypes -Wnested-externs            -Wnormalized=nfc -Wnull-dereference                                         -Wpacked                   -Wredundant-decls                  -Wshadow=local                                     -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn                                                                                -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas                                   -Wvla -Wwrite-strings                                 -fstrict-flex-arrays=2")
