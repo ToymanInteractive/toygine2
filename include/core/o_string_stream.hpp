@@ -21,7 +21,9 @@
   \file   o_string_stream.hpp
   \brief  Allocator-free output string stream that appends into string-like storage.
 
-  Defines \ref toy::OStringStream.
+  Defines \ref toy::OStringStream: an allocator-free output stream that appends formatted values into any storage
+  satisfying \ref toy::OStringStreamBackend. Used when building diagnostic strings, log entries, or formatted output
+  with bounded or fixed storage (e.g. \ref toy::FixedString) without heap allocation.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -80,7 +82,7 @@ concept OStringStreamBackend
 
   OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow
   \a BackendType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string,
-  string-like, and \ref toy::chrono::Duration inserts are supported.
+  string-like, \ref toy::chrono::Duration, and \ref toy::chrono::TimePoint inserts are supported.
 
   \tparam BackendType The type of the underlying storage. Must satisfy the \ref toy::OStringStreamBackend concept.
 
@@ -92,7 +94,8 @@ concept OStringStreamBackend
   - **Floating-point precision**: \c precision() / \c setPrecision() affect subsequent floating inserts.
   - **Chrono types**: \ref toy::chrono::Duration formats as a decimal second count with an \c 's' suffix
     (e.g. \c "0.016000000s") or, via \ref toy::chrono::DurationFormat, as a clock-style string using a pattern
-    (e.g. \c "hh:mm:ss.zzz" → \c "00:00:01.042").
+    (e.g. \c "hh:mm:ss.zzz" → \c "00:00:01.042"), and \ref toy::chrono::TimePoint delegates to
+    \ref toy::chrono::Duration.
 
   \section usage Usage Example
 
@@ -141,11 +144,9 @@ public:
   constexpr OStringStream() noexcept = default;
 
   /*!
-    \brief Constructs an OStringStream from a string-like object.
+    \brief Constructs an OStringStream with initial content copied from \a string.
 
-    This constructor initializes the stream by copying the content from a string-like object.
-
-    \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
+    \tparam SourceStringType Source string type. Must satisfy the \ref toy::StringLike concept.
 
     \param string The source string-like object to copy content from.
 
@@ -153,42 +154,32 @@ public:
 
     \post The stream contains a copy of the source string content.
 
-    \note The constructor performs a deep copy of the string content.
-    \note The source string type can be different from \a BackendType as long as both satisfy \ref toy::StringLike.
+    \note \a SourceStringType may differ from \a BackendType provided both satisfy \ref toy::StringLike.
   */
   template <StringLike SourceStringType>
   explicit constexpr OStringStream(const SourceStringType & string) noexcept;
 
   /*!
-    \brief Swaps the contents of this stream with another stream.
-
-    This method exchanges the underlying string storage between this stream and the \a other stream. Both streams must
-    have the same \a BackendType template parameter.
+    \brief Swaps the contents of this stream with \a other.
 
     \param other The stream to swap contents with.
 
     \post The contents of this stream and \a other are exchanged.
-    \post Both streams remain valid after the swap operation.
 
     \note Self-swap is safe and has no effect.
-    \note The operation is noexcept and provides strong exception guarantee.
-    \note This method is useful for efficient content exchange without copying.
   */
   constexpr void swap(OStringStream & other) noexcept;
 
   /*!
     \brief Inserts a boolean value into the stream.
 
-    This operator converts the boolean \a value to its string representation and appends it to the stream. The value
-    \c true is converted to the string "true", and the value \c false is converted to the string "false".
+    Appends \c "true" or \c "false" according to \a value.
 
-    \param value The boolean value to insert into the stream.
+    \param value The boolean value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(bool).
-
-    \post The write position is advanced by the length of the appended string (4 for "true", 5 for "false").
+    \post The write position is advanced by 4 (\c true) or 5 (\c false) characters.
 
     \sa tellp()
   */
@@ -197,16 +188,11 @@ public:
   /*!
     \brief Inserts a signed long integer value into the stream.
 
-    This operator converts the signed long integer \a value to its decimal string representation and appends it to the
-    stream. Negative values are prefixed with a minus sign.
-
-    \param value The signed long integer value to insert into the stream.
+    \param value The signed long integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(long).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(unsigned long)
     \sa tellp()
@@ -216,16 +202,11 @@ public:
   /*!
     \brief Inserts an unsigned long integer value into the stream.
 
-    This operator converts the unsigned long integer \a value to its decimal string representation and appends it to
-    the stream.
-
-    \param value The unsigned long integer value to insert into the stream.
+    \param value The unsigned long integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned long).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(long)
     \sa tellp()
@@ -235,16 +216,11 @@ public:
   /*!
     \brief Inserts a signed long long integer value into the stream.
 
-    This operator converts the signed long long integer \a value to its decimal string representation and appends it to
-    the stream. Negative values are prefixed with a minus sign.
-
-    \param value The signed long long integer value to insert into the stream.
+    \param value The signed long long integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(long long).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(unsigned long long)
     \sa tellp()
@@ -254,16 +230,11 @@ public:
   /*!
     \brief Inserts an unsigned long long integer value into the stream.
 
-    This operator converts the unsigned long long integer \a value to its decimal string representation and appends it
-    to the stream.
-
-    \param value The unsigned long long integer value to insert into the stream.
+    \param value The unsigned long long integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned long long).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(long long)
     \sa tellp()
@@ -273,17 +244,15 @@ public:
   /*!
     \brief Inserts a double-precision floating-point value into the stream.
 
-    This operator converts the double \a value to its decimal string representation with the current precision setting
-    and appends it to the stream. The precision controls the number of digits displayed.
+    The number of digits is controlled by the current precision setting.
 
-    \param value The double-precision floating-point value to insert into the stream.
+    \param value The double-precision floating-point value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
+    \post The write position is advanced by the length of the formatted representation.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(double).
-    \note The precision is controlled by setPrecision(size_t) and defaults to 6 digits.
+    \note The precision defaults to 6 digits; use setPrecision() to change it.
 
     \sa precision() const
     \sa setPrecision(size_t)
@@ -293,20 +262,18 @@ public:
   constexpr OStringStream & operator<<(double value) noexcept;
 
   /*!
-    \brief Inserts a pointer value into the stream.
+    \brief Inserts a pointer value into the stream as a zero-padded hexadecimal address.
 
-    This operator converts the pointer \a value to its hexadecimal string representation with "0x" prefix and appends it
-    to the stream. The value is zero-padded to the pointer width: 8 hex digits for 32-bit pointers, 16 for 64-bit,
-    so the output length is fixed for a given platform (e.g. "0x00000000" or "0x0000000000000000").
+    The output has a \c "0x" prefix and is zero-padded to the pointer width: 8 hex digits on 32-bit platforms, 16 on
+    64-bit (e.g. \c "0x00000000" or \c "0x0000000000000000").
 
-    \param value The pointer value to insert into the stream.
+    \param value The pointer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string (2 + sizeof(void*) * 2 characters).
+    \post The write position is advanced by \c 2 + sizeof(void*) * 2 characters.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(const void*).
-    \note For null pointers, use operator<<(nullptr_t) for consistent "nullptr" output.
+    \note Null pointers are redirected to operator<<(nullptr_t) which outputs \c "nullptr".
 
     \sa operator<<(nullptr_t)
     \sa tellp()
@@ -314,18 +281,13 @@ public:
   constexpr OStringStream & operator<<(const void * value) noexcept;
 
   /*!
-    \brief Inserts a null pointer literal into the stream.
-
-    This operator inserts the string "nullptr" into the stream when a null pointer literal is provided. This provides
-    a consistent and readable representation for null pointers.
+    \brief Inserts the string \c "nullptr" into the stream.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by 7 characters (length of "nullptr").
+    \post The write position is advanced by 7 characters.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(nullptr_t).
-    \note The output is always the string "nullptr", regardless of the actual null pointer value.
-    \note This operator is preferred over operator<<(const void*) for null pointer literals.
+    \note Prefer this overload over operator<<(const void*) when the intent is to indicate a null pointer.
 
     \sa operator<<(const void *)
     \sa tellp()
@@ -335,16 +297,11 @@ public:
   /*!
     \brief Inserts a signed short integer value into the stream.
 
-    This operator converts the signed short integer \a value to its decimal string representation and appends it to the
-    stream. Negative values are prefixed with a minus sign.
-
-    \param value The signed short integer value to insert into the stream.
+    \param value The signed short integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(short).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(unsigned short)
     \sa tellp()
@@ -354,16 +311,11 @@ public:
   /*!
     \brief Inserts a signed integer value into the stream.
 
-    This operator converts the signed integer \a value to its decimal string representation and appends it to the
-    stream. Negative values are prefixed with a minus sign.
-
-    \param value The signed integer value to insert into the stream.
+    \param value The signed integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(int).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(unsigned int)
     \sa tellp()
@@ -373,16 +325,11 @@ public:
   /*!
     \brief Inserts an unsigned short integer value into the stream.
 
-    This operator converts the unsigned short integer \a value to its decimal string representation and appends it to
-    the stream.
-
-    \param value The unsigned short integer value to insert into the stream.
+    \param value The unsigned short integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned short).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(short)
     \sa tellp()
@@ -392,16 +339,11 @@ public:
   /*!
     \brief Inserts an unsigned integer value into the stream.
 
-    This operator converts the unsigned integer \a value to its decimal string representation and appends it to the
-    stream.
-
-    \param value The unsigned integer value to insert into the stream.
+    \param value The unsigned integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned int).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(int)
     \sa tellp()
@@ -411,17 +353,15 @@ public:
   /*!
     \brief Inserts a single-precision floating-point value into the stream.
 
-    This operator converts the float \a value to its decimal string representation with the current precision setting
-    and appends it to the stream. The precision controls the number of digits displayed.
+    The number of digits is controlled by the current precision setting.
 
-    \param value The single-precision floating-point value to insert into the stream.
+    \param value The single-precision floating-point value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
+    \post The write position is advanced by the length of the formatted representation.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(float).
-    \note The precision is controlled by setPrecision() and defaults to 6 digits.
+    \note The precision defaults to 6 digits; use setPrecision() to change it.
 
     \sa precision() const
     \sa setPrecision(size_t)
@@ -433,16 +373,11 @@ public:
   /*!
     \brief Inserts a signed 8-bit integer value into the stream.
 
-    This operator converts the signed 8-bit integer \a value to its decimal string representation and appends it to the
-    stream. Negative values are prefixed with a minus sign.
-
-    \param value The signed 8-bit integer value to insert into the stream.
+    \param value The signed 8-bit integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(signed char).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(unsigned char)
     \sa tellp()
@@ -452,16 +387,11 @@ public:
   /*!
     \brief Inserts an unsigned 8-bit integer value into the stream.
 
-    This operator converts the unsigned 8-bit integer \a value to its decimal string representation and appends it to
-    the stream.
-
-    \param value The unsigned 8-bit integer value to insert into the stream.
+    \param value The unsigned 8-bit integer value to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
-    \post The write position is advanced by the length of the appended string.
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(unsigned char).
+    \post The write position is advanced by the length of the decimal representation.
 
     \sa operator<<(signed char)
     \sa tellp()
@@ -471,17 +401,17 @@ public:
   /*!
     \brief Inserts a single character into the stream.
 
-    This operator appends the specified \a value character to the end of the stream. The character is added directly
-    without any conversion or formatting.
+    The character is appended as-is; no numeric conversion is applied. To insert the numeric value of a byte, use
+    operator<<(signed char) or operator<<(unsigned char).
 
-    \param value The character to insert into the stream.
+    \param value The character to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \post The write position is advanced by one character.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(char_type).
-
+    \sa operator<<(signed char)
+    \sa operator<<(unsigned char)
     \sa operator<<(const char_type *)
     \sa operator<<(const SourceStringType &)
     \sa put(char_type)
@@ -492,12 +422,9 @@ public:
   /*!
     \brief Inserts a string-like object into the stream.
 
-    This operator appends the content of a string-like object to the end of the stream. The string content is copied
-    and appended to the current stream content.
-
     \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param value The string-like object to insert into the stream.
+    \param value The string-like object to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
@@ -505,10 +432,7 @@ public:
 
     \post The write position is advanced by the length of the appended string.
 
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(const std::string&).
-    \note The source string type can be different from \a BackendType as long as both satisfy \ref toy::StringLike.
-    \note This operator is useful for inserting string literals, \ref toy::FixedString objects, and other string-like
-    types.
+    \note \a SourceStringType may differ from \a BackendType provided both satisfy \ref toy::StringLike.
 
     \sa operator<<(const char_type *)
     \sa operator<<(char_type)
@@ -520,22 +444,15 @@ public:
   constexpr OStringStream & operator<<(const SourceStringType & value) noexcept;
 
   /*!
-    \brief Inserts a C string into the stream.
+    \brief Inserts a null-terminated C string into the stream.
 
-    This operator appends the content of a C string to the end of the stream. The string is copied and appended to the
-    current stream content.
-
-    \param value The C string to insert into the stream.
+    \param value The C string to insert. Must not be null.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
     \pre The \a value must not be null.
 
-    \post The write position is advanced by the length of the appended string (excluding the null terminator).
-
-    \note This operator follows the same pattern as \c std::ostringstream::operator<<(const char*).
-    \note The string is appended up to but not including the null terminator.
-    \note This operator is useful for inserting C-style string literals and null-terminated character arrays.
+    \post The write position is advanced by the string length (excluding the null terminator).
 
     \sa operator<<(const SourceStringType &)
     \sa operator<<(char_type)
@@ -555,7 +472,7 @@ public:
     \tparam Rep    Arithmetic representation type of the duration tick count.
     \tparam Period \c std::ratio specifying the tick period relative to one second.
 
-    \param value The duration to insert into the stream.
+    \param value The duration to insert.
 
     \return A reference to this OStringStream, allowing operator chaining.
 
@@ -567,6 +484,7 @@ public:
           (e.g. \c "3600s" for one hour).
 
     \sa operator<<(chrono::DurationFormat<Rep, Period>)
+    \sa operator<<(chrono::TimePoint<Clock, Dur>)
     \sa tellp()
   */
   template <typename Rep, typename Period>
@@ -595,6 +513,7 @@ public:
           \c z / \c zzz (milliseconds); all other pattern characters are emitted verbatim.
 
     \sa operator<<(chrono::Duration<Rep, Period>)
+    \sa operator<<(chrono::TimePointFormat<Clock, Dur>)
     \sa tellp()
   */
   template <typename Rep, typename Period>
@@ -602,11 +521,63 @@ public:
   constexpr OStringStream & operator<<(const chrono::DurationFormat<Rep, Period> & value) noexcept;
 
   /*!
-    \brief Returns a const reference to the underlying string.
+    \brief Inserts a \ref toy::chrono::TimePoint as decimal seconds since the clock epoch into the stream.
 
-    This method provides read-only access to the internal string storage.
+    Formats \a value by delegating to operator<<(chrono::Duration) with \c value.time_since_epoch(). The output
+    represents the duration from the clock epoch to \a value in seconds with a fractional width determined by the
+    clock's tick period.
 
-    \return A const reference to the underlying string.
+    \tparam Clock The clock type that defines the epoch.
+    \tparam Dur   Duration type used to store the offset from the epoch.
+
+    \param value The time point to insert.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the appended string.
+
+    \note The epoch is implementation-defined and may differ across processes and reboots; only differences between
+          two time points produced by the same \ref toy::chrono::ClockSource are meaningful.
+
+    \sa operator<<(chrono::Duration<Rep, Period>)
+    \sa tellp()
+  */
+  template <typename Clock, typename Dur>
+    requires std::signed_integral<typename Dur::rep>
+  constexpr OStringStream & operator<<(chrono::TimePoint<Clock, Dur> value) noexcept;
+
+  /*!
+    \brief Inserts a \ref toy::chrono::TimePoint formatted using the clock-style pattern in \a value.
+
+    Delegates to operator<<(chrono::DurationFormat) with \c value.timePoint.time_since_epoch(), so the output represents
+    elapsed time since the clock epoch using the same token language as \ref toy::chrono::DurationFormat.
+
+    \tparam Clock The clock type that defines the epoch.
+    \tparam Dur   Duration type of the time point; its \c rep must be an signed integral type.
+
+    \param value Wrapper carrying the time point and the null-terminated display pattern; see
+                 \ref toy::chrono::DurationFormat for the full token reference.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by the length of the formatted string.
+
+    \note The epoch is implementation-defined; only differences between time points from the same
+          \ref toy::chrono::ClockSource are meaningful.
+    \note No floating-point arithmetic is performed; safe on FPU-less targets (GBA, NDS).
+
+    \sa operator<<(chrono::DurationFormat<Rep, Period>)
+    \sa operator<<(chrono::TimePoint<Clock, Dur>)
+    \sa tellp()
+  */
+  template <typename Clock, typename Dur>
+    requires std::signed_integral<typename Dur::rep>
+  constexpr OStringStream & operator<<(chrono::TimePointFormat<Clock, Dur> value) noexcept;
+
+  /*!
+    \brief Returns a const reference to the underlying string storage.
+
+    \return A const reference to the underlying \a BackendType string.
 
     \note The returned reference is valid for the lifetime of the OStringStream object.
 
@@ -615,22 +586,17 @@ public:
   [[nodiscard]] constexpr const BackendType & str() const noexcept;
 
   /*!
-    \brief Sets the content of the stream from a string-like object.
-
-    This method replaces the current content of the stream with the content from a string-like object.
+    \brief Replaces the stream content with a copy of \a string.
 
     \tparam SourceStringType The type of the source string. Must satisfy the \ref toy::StringLike concept.
 
-    \param string The source string-like object to set the content from.
+    \param string The source string-like object to copy content from.
 
     \pre The \a string must be valid and properly initialized.
 
-    \post The stream contains a copy of the source string content.
-    \post The previous content of the stream is replaced.
+    \post The stream contains a copy of \a string; the previous content is discarded.
 
-    \note The method performs a deep copy of the string content.
-    \note The source string type can be different from \a BackendType as long as both satisfy \ref toy::StringLike.
-    \note This method provides a convenient way to update the stream content after construction.
+    \note \a SourceStringType may differ from \a BackendType provided both satisfy \ref toy::StringLike.
 
     \sa str() const
   */
@@ -640,16 +606,11 @@ public:
   /*!
     \brief Returns a non-owning view of the underlying string.
 
-    This method creates and returns a \ref toy::CStringView that provides read-only access to the underlying string
-    storage without copying the content. The view is lightweight and does not own the string data.
+    \return A \ref toy::CStringView over the current stream content.
 
-    \return A \ref toy::CStringView representing the current content of the stream.
-
-    \note The returned view is valid for the lifetime of the OStringStream object.
-    \note The view does not own the string data and should not be used after the OStringStream is destroyed.
-    \note This method is useful for passing the stream content to functions that accept \ref toy::CStringView without
-          creating a copy.
-    \note The view reflects the current state of the stream at the time of the call.
+    \note The view is valid for the lifetime of the OStringStream object; do not use it after the stream is destroyed.
+    \note The view reflects the state at the time of the call; subsequent writes are not visible through an existing
+          view.
 
     \sa str() const
     \sa \ref toy::CStringView
@@ -657,16 +618,13 @@ public:
   [[nodiscard]] constexpr CStringView view() const noexcept;
 
   /*!
-    \brief Appends a single character to the end of the stream.
+    \brief Appends a single character to the stream.
 
-    This method appends the specified \a character to the end of the underlying string storage. The character is added
-    to the current content without replacing it.
-
-    \param character The character to append to the stream.
+    \param character The character to append.
 
     \return A reference to this OStringStream, allowing method chaining.
 
-    \pre The \a character must not be the null character ('\0').
+    \pre The \a character must not be the null character (\c '\0').
 
     \post The \a character is appended to the end of the stream content.
     \post The write position is advanced by one character.
@@ -677,55 +635,44 @@ public:
   constexpr OStringStream & put(char_type character) noexcept;
 
   /*!
-    \brief Writes a specified number of characters from a buffer to the stream.
+    \brief Writes \a count characters from \a string to the stream.
 
-    This method appends \a count characters from the buffer pointed to by \a string to the end of the stream. The
-    characters are copied directly from the buffer without requiring null termination.
+    Unlike operator<<(const char_type *), the input does not need to be null-terminated.
 
-    \param string The pointer to the character buffer to write from. Must not be null if \a count is greater than zero.
-    \param count  The number of characters to write from the buffer.
+    \param string The pointer to the character buffer to write from. Must not be null when \a count > 0.
+    \param count  The number of characters to write.
 
     \return A reference to this OStringStream, allowing method chaining.
 
-    \pre If \a count is greater than zero, \a string must not be null and must point to a valid buffer of at least
-         \a count characters.
-    \pre All characters in the buffer must not be null characters ('\0').
+    \pre If \a count > 0, \a string must not be null and must point to a valid buffer of at least \a count characters.
 
-    \post \a count characters from the buffer are appended to the end of the stream content.
+    \post \a count characters from \a string are appended to the stream.
     \post The write position is advanced by \a count characters.
 
-    \note This method is useful for writing binary data or partial strings that may not be null-terminated.
-    \note If \a count is zero, the method returns without modifying the stream.
+    \note When \a count is zero, the method returns without modifying the stream.
 
-    \sa put(char_type), tellp()
+    \sa put(char_type)
+    \sa tellp()
   */
   constexpr OStringStream & write(const char_type * string, size_t count) noexcept;
 
   /*!
-    \brief Returns the current write position in the stream.
+    \brief Returns the current write position, equal to the number of characters appended so far.
 
-    This method returns the position where the next write operation will append data. Since OStringStream only supports
-    appending operations (all writes go to the end), the write position always equals the number of characters currently
-    in the stream, which is the same as the size of the underlying string.
+    Because all writes go to the end, this value always equals \c str().size().
 
-    \return The current write position, representing the index where the next character will be appended. This value is
-            always equal to the number of characters written so far and to \c str().size().
+    \return The current write position.
 
-    \note Since all operations append to the end, the write position is always equal to the stream size.
-
-    \sa str() const, put(char_type), write(const char_type *, size_t)
+    \sa str() const
+    \sa put(char_type)
+    \sa write(const char_type *, size_t)
   */
   [[nodiscard]] constexpr pos_type tellp() const noexcept;
 
   /*!
-    \brief Returns the current floating-point precision setting.
+    \brief Returns the current floating-point precision.
 
-    This method returns the precision value that will be used for formatting floating-point numbers when writing to the
-    stream. The precision specifies the number of digits to display.
-
-    \return The current precision value.
-
-    \note The precision value affects how floating-point numbers are formatted when written to the stream.
+    \return The number of digits used when formatting floating-point values.
 
     \sa setPrecision(size_t)
   */
@@ -734,16 +681,11 @@ public:
   /*!
     \brief Sets the floating-point precision and returns the previous value.
 
-    This method sets the precision value that will be used for formatting floating-point numbers when writing to the
-    stream. The precision specifies the number of digits to display.
+    \param newPrecision The new number of digits to use when formatting floating-point values.
 
-    \param newPrecision The new precision value to set.
+    \return The previous precision value.
 
-    \return The previous precision value before the change.
-
-    \pre The \a newPrecision must be lower than or equal to the maximum supported digits for long double.
-
-    \note The precision value affects how floating-point numbers are formatted when written to the stream.
+    \pre The \a newPrecision must not exceed the maximum supported digits for \c long \c double.
 
     \sa precision() const
   */

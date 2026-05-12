@@ -343,6 +343,25 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 }
 
 template <OStringStreamBackend BackendType>
+template <typename Clock, typename Dur>
+  requires std::signed_integral<typename Dur::rep>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  chrono::TimePoint<Clock, Dur> value
+) noexcept {
+  return *this << value.time_since_epoch();
+}
+
+template <OStringStreamBackend BackendType>
+template <typename Clock, typename Dur>
+  requires std::signed_integral<typename Dur::rep>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  chrono::TimePointFormat<Clock, Dur> value
+) noexcept {
+  return *this << chrono::DurationFormat<typename Dur::rep, typename Dur::period>{value.pattern,
+                                                                                  value.timePoint.time_since_epoch()};
+}
+
+template <OStringStreamBackend BackendType>
 constexpr const BackendType & OStringStream<BackendType>::str() const noexcept {
   return _string;
 }

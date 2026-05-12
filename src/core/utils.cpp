@@ -321,17 +321,16 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
     --strBegin;
   }
 
-  const auto digits = char_traits<char>::length(strBegin);
-  size_t     intDigits{0};
-  size_t     leadingZeros{0};
+  const auto digits = static_cast<int32_t>(char_traits<char>::length(strBegin));
+  int32_t    intDigits{0};
+  int32_t    leadingZeros{0};
   if (static_cast<size_t>(std::abs(exp10)) >= precision) {
     intDigits = 1;
   } else if (exp10 >= 0) {
-    intDigits = static_cast<size_t>(exp10 + 1);
+    intDigits = exp10 + 1;
     exp10     = 0;
   } else {
-    intDigits    = 0;
-    leadingZeros = static_cast<size_t>(-exp10 - 1);
+    leadingZeros = -exp10 - 1;
     exp10        = 0;
   }
 
@@ -339,13 +338,13 @@ void _floatPostProcess(char * dest, char * srcBuffer, size_t bufferSize, int32_t
   if (*srcBuffer == '-') // copy sign if negative
     *outputPointer++ = '-';
 
-  size_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
+  int32_t fractionDigits = digits > intDigits ? digits - intDigits : 0;
   if (intDigits > 0) {
     auto count = std::min(intDigits, digits);
-    while (count--)
+    while (count-- > 0)
       *outputPointer++ = *strBegin++;
 
-    auto trailingZeros = static_cast<int32_t>(intDigits) - static_cast<int32_t>(digits);
+    auto trailingZeros = intDigits - digits;
     while (trailingZeros-- > 0)
       *outputPointer++ = '0';
   } else {
