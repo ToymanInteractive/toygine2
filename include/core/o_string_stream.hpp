@@ -21,9 +21,9 @@
   \file   o_string_stream.hpp
   \brief  Allocator-free output string stream that appends into string-like storage.
 
-  Defines \ref toy::OStringStream: an allocator-free output stream that appends formatted values into any
-  \ref toy::OStringStreamBackend satisfying storage. Used when building diagnostic strings, log entries, or formatted
-  output with bounded or fixed storage (e.g. \ref toy::FixedString) without heap allocation.
+  Defines \ref toy::OStringStream: an allocator-free output stream that appends formatted values into any storage
+  satisfying \ref toy::OStringStreamBackend. Used when building diagnostic strings, log entries, or formatted output
+  with bounded or fixed storage (e.g. \ref toy::FixedString) without heap allocation.
 
   \note Included by core.hpp only; do not include this file directly.
 */
