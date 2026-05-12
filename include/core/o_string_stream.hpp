@@ -553,7 +553,7 @@ public:
     elapsed time since the clock epoch using the same token language as \ref toy::chrono::DurationFormat.
 
     \tparam Clock The clock type that defines the epoch.
-    \tparam Dur   Duration type of the time point; its \c rep must be an integral type.
+    \tparam Dur   Duration type of the time point; its \c rep must be an signed integral type.
 
     \param value Wrapper carrying the time point and the null-terminated display pattern; see
                  \ref toy::chrono::DurationFormat for the full token reference.
