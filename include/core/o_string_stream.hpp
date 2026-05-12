@@ -22,8 +22,8 @@
   \brief  Allocator-free output string stream that appends into string-like storage.
 
   Defines \ref toy::OStringStream: an allocator-free output stream that appends formatted values into any
-  \ref toy::OStringStreamBackend-satisfying storage. Used when building diagnostic strings, log entries, or
-  formatted output with bounded or fixed storage (e.g. \ref toy::FixedString) without heap allocation.
+  \ref toy::OStringStreamBackend satisfying storage. Used when building diagnostic strings, log entries, or formatted
+  output with bounded or fixed storage (e.g. \ref toy::FixedString) without heap allocation.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -550,7 +550,7 @@ public:
     \brief Inserts a \ref toy::chrono::TimePoint formatted using the clock-style pattern in \a value.
 
     Delegates to operator<<(chrono::DurationFormat) with \c value.timePoint.time_since_epoch(), so the output represents
-    elapsed time since the hardware counter start using the same token language as \ref toy::chrono::DurationFormat.
+    elapsed time since the clock epoch using the same token language as \ref toy::chrono::DurationFormat.
 
     \tparam Clock The clock type that defines the epoch.
     \tparam Dur   Duration type of the time point; its \c rep must be an integral type.
