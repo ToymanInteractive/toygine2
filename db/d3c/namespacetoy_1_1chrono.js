@@ -11,7 +11,9 @@ var namespacetoy_1_1chrono =
     [ "DurationFormat", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", "d0/d23/structtoy_1_1chrono_1_1_duration_format" ],
     [ "SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", "d6/df8/classtoy_1_1chrono_1_1_steady_clock" ],
     [ "Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", "da/dd4/classtoy_1_1chrono_1_1_stopwatch" ],
+    [ "TimePointFormat", "da/d20/structtoy_1_1chrono_1_1_time_point_format.html", "da/d20/structtoy_1_1chrono_1_1_time_point_format" ],
     [ "Duration", "df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191", null ],
     [ "TimePoint", "df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff", null ],
-    [ "DurationFormat", "db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2", null ]
+    [ "DurationFormat", "db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2", null ],
+    [ "TimePointFormat", "db/d3c/namespacetoy_1_1chrono.html#a216344103a3f68241210862eae97e28b", null ]
 ];

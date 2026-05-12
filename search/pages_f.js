@@ -1,7 +1,7 @@
 var searchData=
 [
   ['parity_0',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['pattern_20tokens_1',['Pattern Tokens',['../d0/d23/structtoy_1_1chrono_1_1_duration_format.html#pattern_tokens',1,'']]],
+  ['pattern_20tokens_1',['Pattern Tokens',['../da/d20/structtoy_1_1chrono_1_1_time_point_format.html#pattern_tokens',1,'']]],
   ['performance_20characteristics_2',['Performance Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#performance',1,'Performance Characteristics']]],
   ['performance_20performance_20characteristics_3',['&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'']]],
   ['point_20rules_4',['Floating-Point Rules',['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'']]],

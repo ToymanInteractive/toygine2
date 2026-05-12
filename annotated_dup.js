@@ -28,7 +28,8 @@ var annotated_dup =
         [ "CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer" ],
         [ "DurationFormat", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", "d0/d23/structtoy_1_1chrono_1_1_duration_format" ],
         [ "SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", "d6/df8/classtoy_1_1chrono_1_1_steady_clock" ],
-        [ "Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", "da/dd4/classtoy_1_1chrono_1_1_stopwatch" ]
+        [ "Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", "da/dd4/classtoy_1_1chrono_1_1_stopwatch" ],
+        [ "TimePointFormat", "da/d20/structtoy_1_1chrono_1_1_time_point_format.html", "da/d20/structtoy_1_1chrono_1_1_time_point_format" ]
       ] ],
       [ "geometry", "da/d08/namespacetoy_1_1geometry.html", [
         [ "Circle", "df/d25/classtoy_1_1geometry_1_1_circle.html", "df/d25/classtoy_1_1geometry_1_1_circle" ],

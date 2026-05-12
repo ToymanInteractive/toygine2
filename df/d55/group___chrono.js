@@ -1,9 +1,5 @@
 var group___chrono =
 [
-    [ "toy::chrono::DurationFormat&lt; Rep, Period &gt;", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", [
-      [ "duration", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html#a2d5dc253518da50a20f72c83d58112c1", null ],
-      [ "pattern", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html#acc44dca9d06f3e1a493c31fa9c6395dd", null ]
-    ] ],
     [ "toy::chrono::ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", [
       [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html#a3652b8ed4c9604d1e8758e6b0b56bcba", null ],
       [ "~ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html#a44fcf11a1746334c23c3b5acebd90fbe", null ],
@@ -20,6 +16,14 @@ var group___chrono =
       [ "remaining", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a14259532630c167c091b1049d8f13210", null ],
       [ "restart", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#ae9b591441a67129704bd8e47be1a9566", null ],
       [ "_deadlineTicks", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a5bb8c3cddefcd7dae6d831f01f7d31b0", null ]
+    ] ],
+    [ "toy::chrono::DurationFormat&lt; Rep, Period &gt;", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", [
+      [ "duration", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html#a2d5dc253518da50a20f72c83d58112c1", null ],
+      [ "pattern", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html#acc44dca9d06f3e1a493c31fa9c6395dd", null ]
+    ] ],
+    [ "toy::chrono::TimePointFormat&lt; Clock, Dur &gt;", "da/d20/structtoy_1_1chrono_1_1_time_point_format.html", [
+      [ "pattern", "da/d20/structtoy_1_1chrono_1_1_time_point_format.html#a69eb23b3dafbc373786d65fa7f952bc1", null ],
+      [ "timePoint", "da/d20/structtoy_1_1chrono_1_1_time_point_format.html#a2999535f93e42cd49a59309317fdc9c6", null ]
     ] ],
     [ "toy::chrono::SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", [
       [ "duration", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07", null ],

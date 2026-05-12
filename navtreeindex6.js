@@ -1,5 +1,13 @@
 var NAVTREEINDEX6 =
 {
+"df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order":[1,14,1],
+"df/d81/md__a_g_e_n_t_s.html#modern-c-practices":[1,10],
+"df/d81/md__a_g_e_n_t_s.html#module-structure":[1,7,0],
+"df/d81/md__a_g_e_n_t_s.html#naming-conventions":[1,12],
+"df/d81/md__a_g_e_n_t_s.html#naming-tests":[1,25],
+"df/d81/md__a_g_e_n_t_s.html#nodiscard":[1,10,1],
+"df/d81/md__a_g_e_n_t_s.html#noexcept":[1,10,0],
+"df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment":[1,6,2],
 "df/d81/md__a_g_e_n_t_s.html#private-members":[1,12,1],
 "df/d81/md__a_g_e_n_t_s.html#project-context":[1,3],
 "df/d81/md__a_g_e_n_t_s.html#project-structure":[1,1],
