@@ -18,8 +18,6 @@ var NAVTREEINDEX5 =
 "dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html#a07572d2d9e70e5a99f68489693c33f38":[3,0,0,0],
 "dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html#a21041d1029e29dbb94233d3d46eff369":[3,0,0,1],
 "dc/d2d/core__application__windows_8cpp.html":[6,0,1,3,8,0,1],
-"dc/d2d/core__application__windows_8cpp.html#a9f918755b601cf4bffca775992e6fb90":[6,0,1,3,8,0,1,0],
-"dc/d2d/core__application__windows_8cpp.html#ac7bef5d85e3dcd73eef56ad39ffc84a9":[6,0,1,3,8,0,1,1],
 "dc/d41/group___string_storage.html":[2,2,1],
 "dc/d62/classtoy_1_1_format_string.html":[2,2,0,2],
 "dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370":[2,2,0,2,0],
@@ -249,5 +247,7 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#include-order":[1,7,3],
 "df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing":[1,6,0],
 "df/d81/md__a_g_e_n_t_s.html#inl-files":[1,7,6],
-"df/d81/md__a_g_e_n_t_s.html#inline-and-template-code":[1,7,5]
+"df/d81/md__a_g_e_n_t_s.html#inline-and-template-code":[1,7,5],
+"df/d81/md__a_g_e_n_t_s.html#interaction-guidelines":[1,0],
+"df/d81/md__a_g_e_n_t_s.html#language-and-standard":[1,5]
 };

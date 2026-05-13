@@ -1,7 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"df/d81/md__a_g_e_n_t_s.html#interaction-guidelines":[1,0],
-"df/d81/md__a_g_e_n_t_s.html#language-and-standard":[1,5],
 "df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules":[1,8],
 "df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order":[1,14,1],
 "df/d81/md__a_g_e_n_t_s.html#modern-c-practices":[1,10],
