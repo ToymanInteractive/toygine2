@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"d7/d15/classtoy_1_1_o_string_stream.html#a53e052604b75bd2ac7feee9a8b405e64":[2,2,2,1,20],
+"d7/d15/classtoy_1_1_o_string_stream.html#a56a621046b67488ac86c2e5da5e1f6de":[2,2,2,1,12],
+"d7/d15/classtoy_1_1_o_string_stream.html#a5b939b9dd04b24b83d57fa4eb9988d54":[2,2,2,1,19],
 "d7/d15/classtoy_1_1_o_string_stream.html#a5fed364efc96b9c691575b4842638f42":[2,2,2,1,3],
 "d7/d15/classtoy_1_1_o_string_stream.html#a62860acd710d516f7900b09e6c293b85":[2,2,2,1,14],
 "d7/d15/classtoy_1_1_o_string_stream.html#a6c07ff70ae19675a6bec198476ac25a2":[2,2,2,1,18],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "d8/d34/concepttoy_1_1math_1_1_vector2_component.html":[4,0,1,4],
 "d8/d39/game_8hpp.html":[6,0,0,14],
 "d8/d39/game_8hpp_source.html":[6,0,0,14],
-"d8/d43/core_2utils_8hpp.html":[6,0,0,2,41],
-"d8/d43/core_2utils_8hpp_source.html":[6,0,0,2,41],
-"d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html":[3,0,2,4,1],
-"d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html#a0e324373ae8d4e629b1b404d4113f416":[3,0,2,4,1,7]
+"d8/d43/core_2utils_8hpp.html":[6,0,0,2,41]
 };

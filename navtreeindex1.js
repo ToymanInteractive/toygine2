@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d3/d7a/classtoy_1_1_fixed_string.html#a2485978245ef94f732a4cadc6607dcd6":[2,2,1,1,68],
+"d3/d7a/classtoy_1_1_fixed_string.html#a2512493e108e9c272f1685e46f6ae8fd":[2,2,1,1,26],
 "d3/d7a/classtoy_1_1_fixed_string.html#a25d8d6c9202fa74080d317f22b86abc8":[2,2,1,1,58],
 "d3/d7a/classtoy_1_1_fixed_string.html#a2ab04499e75620da5d7aaa3fcc79c57b":[2,2,1,1,99],
 "d3/d7a/classtoy_1_1_fixed_string.html#a2ba113ddb17ef24b8e5b7db13adcd422":[2,2,1,1,21],
@@ -136,6 +138,7 @@ var NAVTREEINDEX1 =
 "d4/d01/application_8hpp_source.html":[6,0,0,10],
 "d4/d0a/format_8hpp.html":[6,0,0,2,22],
 "d4/d0a/format_8hpp_source.html":[6,0,0,2,22],
+"d4/d42/clock__source__linux_8cpp.html":[6,0,1,3,3,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,0,0],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[3,0,1,1,22],
@@ -246,8 +249,5 @@ var NAVTREEINDEX1 =
 "d4/da9/namespacetoy.html#a50ab25ff3fb94874504ea406b6e7d689":[3,0,2,58],
 "d4/da9/namespacetoy.html#a5568d083a1e1f805d9a0b9e22d3ea00d":[3,0,2,67],
 "d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78":[3,0,2,37],
-"d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b":[3,0,2,34],
-"d4/da9/namespacetoy.html#a5a201490c0074b46a75d3053aef1850a":[3,0,2,94],
-"d4/da9/namespacetoy.html#a66eecb2acd9da94710c77b796f60cb21":[3,0,2,53],
-"d4/da9/namespacetoy.html#a6e7299d83e4f5d41d4951f84a44abdf4":[3,0,2,71]
+"d4/da9/namespacetoy.html#a591ce52797bb53b8d8ce64a31cabba6b":[3,0,2,34]
 };
