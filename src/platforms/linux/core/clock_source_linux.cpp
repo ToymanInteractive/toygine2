@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   clock_source_macos.cpp
-  \brief  macOS implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
+  \file   clock_source_linux.cpp
+  \brief  Linux implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
 */
 
 #include <time.h>

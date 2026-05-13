@@ -37,6 +37,7 @@ ToyGine2 is a modern C++ high‑level engine.
 | OS    | Version                 | Reason                               |
 | ----- | ----------------------- | ------------------------------------ |
 | macOS | 10.12 (Sierra) or later | `clock_gettime(CLOCK_MONOTONIC_RAW)` |
+| Linux | 2.6.28 or later         | `clock_gettime(CLOCK_MONOTONIC_RAW)` |
 
 ### Tools
 
