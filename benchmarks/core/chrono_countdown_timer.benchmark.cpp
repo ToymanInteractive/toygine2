@@ -40,14 +40,16 @@ void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("CountdownTimer::expired()", [&] {
     CountdownTimer timer{timeout};
-    auto           r = timer.expired();
+
+    auto r = timer.expired();
 
     doNotOptimize(r);
   });
 
   bench.run("CountdownTimer::remaining()", [&] {
     CountdownTimer timer{timeout};
-    auto           r = timer.remaining();
+
+    auto r = timer.remaining();
 
     doNotOptimize(r);
   });

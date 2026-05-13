@@ -48,21 +48,21 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Section<int> midpoint", [] {
-    constexpr Section s(10, 20);
+    Section s(10, 20);
 
     auto r = s.midpoint();
 
     doNotOptimize(r);
   });
   bench.run("Section<float> midpoint", [] {
-    constexpr Section s(10.0f, 20.0f);
+    Section s(10.0f, 20.0f);
 
     auto r = s.midpoint();
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> midpoint", [] {
-    constexpr Section s(fixed_type(10), fixed_type(20));
+    Section s(fixed_type(10), fixed_type(20));
 
     auto r = s.midpoint();
 
@@ -70,21 +70,21 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Section<int> length", [] {
-    constexpr Section s(10, 20);
+    Section s(10, 20);
 
     auto r = s.length();
 
     doNotOptimize(r);
   });
   bench.run("Section<float> length", [] {
-    constexpr Section s(10.0f, 20.0f);
+    Section s(10.0f, 20.0f);
 
     auto r = s.length();
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> length", [] {
-    constexpr Section s(fixed_type(10), fixed_type(20));
+    Section s(fixed_type(10), fixed_type(20));
 
     auto r = s.length();
 
@@ -93,18 +93,21 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Section<int> reset", [] {
     Section s(10, 20);
+
     s.reset();
 
     doNotOptimize(s);
   });
   bench.run("Section<float> reset", [] {
     Section s(10.0f, 20.0f);
+
     s.reset();
 
     doNotOptimize(s);
   });
   bench.run("Section<fixed_type> reset", [] {
     Section s(fixed_type(10), fixed_type(20));
+
     s.reset();
 
     doNotOptimize(s);
@@ -112,64 +115,67 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Section<int> expand value", [] {
     Section s(10, 20);
+
     s.expand(5);
 
     doNotOptimize(s);
   });
   bench.run("Section<float> expand value", [] {
     Section s(10.0f, 20.0f);
+
     s.expand(5.0f);
 
     doNotOptimize(s);
   });
   bench.run("Section<fixed_type> expand value", [] {
     Section s(fixed_type(10), fixed_type(20));
+
     s.expand(fixed_type(5));
 
     doNotOptimize(s);
   });
 
   bench.run("Section<int> expand section", [] {
-    constexpr Section other(25, 30);
-
+    Section other(25, 30);
     Section s(10, 20);
+
     s.expand(other);
 
     doNotOptimize(s);
   });
   bench.run("Section<float> expand section", [] {
-    constexpr Section other(25.0f, 30.0f);
-
+    Section other(25.0f, 30.0f);
     Section s(10.0f, 20.0f);
+
     s.expand(other);
 
     doNotOptimize(s);
   });
   bench.run("Section<fixed_type> expand section", [] {
-    constexpr Section other(fixed_type(25), fixed_type(30));
-
+    Section other(fixed_type(25), fixed_type(30));
     Section s(fixed_type(10), fixed_type(20));
+
     s.expand(other);
 
     doNotOptimize(s);
   });
 
   bench.run("Section<int> isReset", [] {
-    constexpr Section<int> s;
+    Section<int> s;
 
     auto r = s.isReset();
 
     doNotOptimize(r);
   });
   bench.run("Section<float> isReset", [] {
-    constexpr Section<float> s;
+    Section<float> s;
 
     auto r = s.isReset();
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> isReset", [] {
-    constexpr Section<fixed_type> s;
+    Section<fixed_type> s;
 
     auto r = s.isReset();
 
@@ -177,21 +183,21 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Section<int> isValid", [] {
-    constexpr Section s(10, 20);
+    Section s(10, 20);
 
     auto r = s.isValid();
 
     doNotOptimize(r);
   });
   bench.run("Section<float> isValid", [] {
-    constexpr Section s(10.0f, 20.0f);
+    Section s(10.0f, 20.0f);
 
     auto r = s.isValid();
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> isValid", [] {
-    constexpr Section s(fixed_type(10), fixed_type(20));
+    Section s(fixed_type(10), fixed_type(20));
 
     auto r = s.isValid();
 
@@ -199,21 +205,21 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Section<int> isContains", [] {
-    constexpr Section s(10, 20);
+    Section s(10, 20);
 
     auto r = s.isContains(15);
 
     doNotOptimize(r);
   });
   bench.run("Section<float> isContains", [] {
-    constexpr Section s(10.0f, 20.0f);
+    Section s(10.0f, 20.0f);
 
     auto r = s.isContains(15.0f);
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> isContains", [] {
-    constexpr Section s(fixed_type(10), fixed_type(20));
+    Section s(fixed_type(10), fixed_type(20));
 
     auto r = s.isContains(fixed_type(15));
 
@@ -221,24 +227,24 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Section<int> operator==", [] {
-    constexpr Section a(10, 20);
-    constexpr Section b(10, 20);
+    Section a(10, 20);
+    Section b(10, 20);
 
     auto r = (a == b);
 
     doNotOptimize(r);
   });
   bench.run("Section<float> operator==", [] {
-    constexpr Section a(10.0f, 20.0f);
-    constexpr Section b(10.0f, 20.0f);
+    Section a(10.0f, 20.0f);
+    Section b(10.0f, 20.0f);
 
     auto r = (a == b);
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> operator==", [] {
-    constexpr Section a(fixed_type(10), fixed_type(20));
-    constexpr Section b(fixed_type(10), fixed_type(20));
+    Section a(fixed_type(10), fixed_type(20));
+    Section b(fixed_type(10), fixed_type(20));
 
     auto r = (a == b);
 
@@ -246,24 +252,24 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Section<int> operator!=", [] {
-    constexpr Section a(10, 20);
-    constexpr Section b(15, 25);
+    Section a(10, 20);
+    Section b(15, 25);
 
     auto r = (a != b);
 
     doNotOptimize(r);
   });
   bench.run("Section<float> operator!=", [] {
-    constexpr Section a(10.0f, 20.0f);
-    constexpr Section b(15.0f, 25.0f);
+    Section a(10.0f, 20.0f);
+    Section b(15.0f, 25.0f);
 
     auto r = (a != b);
 
     doNotOptimize(r);
   });
   bench.run("Section<fixed_type> operator!=", [] {
-    constexpr Section a(fixed_type(10), fixed_type(20));
-    constexpr Section b(fixed_type(15), fixed_type(25));
+    Section a(fixed_type(10), fixed_type(20));
+    Section b(fixed_type(15), fixed_type(25));
 
     auto r = (a != b);
 

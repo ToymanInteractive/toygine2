@@ -37,8 +37,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(v);
   });
   bench.run("Vector2<fixed_type> coordinate construct", [] {
-    constexpr fixed_type x(10);
-    constexpr fixed_type y(20);
+    fixed_type x(10);
+    fixed_type y(20);
 
     Vector2 v(x, y);
 
@@ -46,34 +46,34 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator+=", [] {
-    constexpr Vector2 addition(5.0f, -10.0f);
-
+    Vector2 addition(5.0f, -10.0f);
     Vector2 v(10.0f, 20.0f);
+
     v += addition;
 
     doNotOptimize(v);
   });
   bench.run("Vector2<fixed_type> operator+=", [] {
-    constexpr Vector2 addition(fixed_type(5), fixed_type(-10));
-
+    Vector2 addition(fixed_type(5), fixed_type(-10));
     Vector2 v(fixed_type(10), fixed_type(20));
+
     v += addition;
 
     doNotOptimize(v);
   });
 
   bench.run("Vector2<float> operator-=", [] {
-    constexpr Vector2 subtraction(5.0f, 10.0f);
-
+    Vector2 subtraction(5.0f, 10.0f);
     Vector2 v(15.0f, 25.0f);
+
     v -= subtraction;
 
     doNotOptimize(v);
   });
   bench.run("Vector2<fixed_type> operator-=", [] {
-    constexpr Vector2 subtraction(fixed_type(5), fixed_type(10));
-
+    Vector2 subtraction(fixed_type(5), fixed_type(10));
     Vector2 v(fixed_type(15), fixed_type(25));
+
     v -= subtraction;
 
     doNotOptimize(v);
@@ -81,14 +81,15 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Vector2<float> operator*=", [] {
     Vector2 v(10.0f, 20.0f);
+
     v *= 2.5f;
 
     doNotOptimize(v);
   });
   bench.run("Vector2<fixed_type> operator*=", [] {
-    constexpr fixed_type scalar(2);
+    fixed_type scalar(2);
+    Vector2    v(fixed_type(10), fixed_type(20));
 
-    Vector2 v(fixed_type(10), fixed_type(20));
     v *= scalar;
 
     doNotOptimize(v);
@@ -96,28 +97,29 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Vector2<float> operator/=", [] {
     Vector2 v(20.0f, 45.0f);
+
     v /= 2.5f;
 
     doNotOptimize(v);
   });
   bench.run("Vector2<fixed_type> operator/=", [] {
-    constexpr fixed_type scalar(2);
+    fixed_type scalar(2);
+    Vector2    v(fixed_type(20), fixed_type(45));
 
-    Vector2 v(fixed_type(20), fixed_type(45));
     v /= scalar;
 
     doNotOptimize(v);
   });
 
   bench.run("Vector2<float> sqrMagnitude", [] {
-    constexpr Vector2 v(3.0f, 4.0f);
+    Vector2 v(3.0f, 4.0f);
 
     auto r = v.sqrMagnitude();
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> sqrMagnitude", [] {
-    constexpr Vector2 v(fixed_type(3), fixed_type(4));
+    Vector2 v(fixed_type(3), fixed_type(4));
 
     auto r = v.sqrMagnitude();
 
@@ -126,26 +128,28 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Vector2<float> setZero", [] {
     Vector2 v(100.0f, 200.0f);
+
     v.setZero();
 
     doNotOptimize(v);
   });
   bench.run("Vector2<fixed_type> setZero", [] {
     Vector2 v(fixed_type(100), fixed_type(200));
+
     v.setZero();
 
     doNotOptimize(v);
   });
 
   bench.run("Vector2<float> isZero", [] {
-    constexpr Vector2 v(0.0f, 0.0f);
+    Vector2 v(0.0f, 0.0f);
 
     auto r = v.isZero();
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> isZero", [] {
-    constexpr Vector2 v(fixed_type(0), fixed_type(0));
+    Vector2 v(fixed_type(0), fixed_type(0));
 
     auto r = v.isZero();
 
@@ -153,16 +157,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> isEqual", [] {
-    constexpr Vector2 a(10.0f, 20.0f);
-    constexpr Vector2 b(10.0f, 20.0f);
+    Vector2 a(10.0f, 20.0f);
+    Vector2 b(10.0f, 20.0f);
 
     auto r = a.isEqual(b);
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> isEqual", [] {
-    constexpr Vector2 a(fixed_type(10), fixed_type(20));
-    constexpr Vector2 b(fixed_type(10), fixed_type(20));
+    Vector2 a(fixed_type(10), fixed_type(20));
+    Vector2 b(fixed_type(10), fixed_type(20));
 
     auto r = a.isEqual(b);
 
@@ -170,16 +174,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator+", [] {
-    constexpr Vector2 a(10.0f, 20.0f);
-    constexpr Vector2 b(5.0f, -10.0f);
+    Vector2 a(10.0f, 20.0f);
+    Vector2 b(5.0f, -10.0f);
 
     auto r = a + b;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator+", [] {
-    constexpr Vector2 a(fixed_type(10), fixed_type(20));
-    constexpr Vector2 b(fixed_type(5), fixed_type(-10));
+    Vector2 a(fixed_type(10), fixed_type(20));
+    Vector2 b(fixed_type(5), fixed_type(-10));
 
     auto r = a + b;
 
@@ -187,16 +191,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator-", [] {
-    constexpr Vector2 a(15.0f, 25.0f);
-    constexpr Vector2 b(5.0f, 10.0f);
+    Vector2 a(15.0f, 25.0f);
+    Vector2 b(5.0f, 10.0f);
 
     auto r = a - b;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator-", [] {
-    constexpr Vector2 a(fixed_type(15), fixed_type(25));
-    constexpr Vector2 b(fixed_type(5), fixed_type(10));
+    Vector2 a(fixed_type(15), fixed_type(25));
+    Vector2 b(fixed_type(5), fixed_type(10));
 
     auto r = a - b;
 
@@ -204,14 +208,14 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator- unary", [] {
-    constexpr Vector2 v(10.0f, -20.0f);
+    Vector2 v(10.0f, -20.0f);
 
     auto r = -v;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator- unary", [] {
-    constexpr Vector2 v(fixed_type(10), fixed_type(-20));
+    Vector2 v(fixed_type(10), fixed_type(-20));
 
     auto r = -v;
 
@@ -219,15 +223,15 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator* scalar", [] {
-    constexpr Vector2 v(10.0f, 20.0f);
+    Vector2 v(10.0f, 20.0f);
 
     auto r = v * 2.5f;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator* scalar", [] {
-    constexpr Vector2    v(fixed_type(10), fixed_type(20));
-    constexpr fixed_type scalar(2);
+    Vector2    v(fixed_type(10), fixed_type(20));
+    fixed_type scalar(2);
 
     auto r = v * scalar;
 
@@ -235,14 +239,14 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> scalar * vector", [] {
-    constexpr Vector2 v(10.0f, 20.0f);
+    Vector2 v(10.0f, 20.0f);
 
     auto r = 2.5f * v;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> scalar * vector", [] {
-    constexpr Vector2 v(fixed_type(10), fixed_type(20));
+    Vector2 v(fixed_type(10), fixed_type(20));
 
     auto r = fixed_type(2) * v;
 
@@ -250,16 +254,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> dot product", [] {
-    constexpr Vector2 a(10.0f, 20.0f);
-    constexpr Vector2 b(5.0f, 10.0f);
+    Vector2 a(10.0f, 20.0f);
+    Vector2 b(5.0f, 10.0f);
 
     auto r = a * b;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> dot product", [] {
-    constexpr Vector2 a(fixed_type(10), fixed_type(20));
-    constexpr Vector2 b(fixed_type(5), fixed_type(10));
+    Vector2 a(fixed_type(10), fixed_type(20));
+    Vector2 b(fixed_type(5), fixed_type(10));
 
     auto r = a * b;
 
@@ -267,15 +271,15 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator/", [] {
-    constexpr Vector2 v(25.0f, 50.0f);
+    Vector2 v(25.0f, 50.0f);
 
     auto r = v / 2.5f;
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator/", [] {
-    constexpr Vector2    v(fixed_type(25), fixed_type(50));
-    constexpr fixed_type scalar(2);
+    Vector2    v(fixed_type(25), fixed_type(50));
+    fixed_type scalar(2);
 
     auto r = v / scalar;
 
@@ -283,16 +287,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator==", [] {
-    constexpr Vector2 a(10.0f, 20.0f);
-    constexpr Vector2 b(10.0f, 20.0f);
+    Vector2 a(10.0f, 20.0f);
+    Vector2 b(10.0f, 20.0f);
 
     auto r = (a == b);
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator==", [] {
-    constexpr Vector2 a(fixed_type(10), fixed_type(20));
-    constexpr Vector2 b(fixed_type(10), fixed_type(20));
+    Vector2 a(fixed_type(10), fixed_type(20));
+    Vector2 b(fixed_type(10), fixed_type(20));
 
     auto r = (a == b);
 
@@ -300,16 +304,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator!=", [] {
-    constexpr Vector2 a(10.0f, 20.0f);
-    constexpr Vector2 b(11.0f, 20.0f);
+    Vector2 a(10.0f, 20.0f);
+    Vector2 b(11.0f, 20.0f);
 
     auto r = (a != b);
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> operator!=", [] {
-    constexpr Vector2 a(fixed_type(10), fixed_type(20));
-    constexpr Vector2 b(fixed_type(11), fixed_type(20));
+    Vector2 a(fixed_type(10), fixed_type(20));
+    Vector2 b(fixed_type(11), fixed_type(20));
 
     auto r = (a != b);
 
@@ -317,16 +321,16 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> cross", [] {
-    constexpr Vector2 a(3.0f, 4.0f);
-    constexpr Vector2 b(1.0f, 0.0f);
+    Vector2 a(3.0f, 4.0f);
+    Vector2 b(1.0f, 0.0f);
 
     auto r = cross(a, b);
 
     doNotOptimize(r);
   });
   bench.run("Vector2<fixed_type> cross", [] {
-    constexpr Vector2 a(fixed_type(3), fixed_type(4));
-    constexpr Vector2 b(fixed_type(1), fixed_type(0));
+    Vector2 a(fixed_type(3), fixed_type(4));
+    Vector2 b(fixed_type(1), fixed_type(0));
 
     auto r = cross(a, b);
 

@@ -38,18 +38,18 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator+=", [] {
-    constexpr Point addition(5, -3);
-
+    Point addition(5, -3);
     Point p(10, 20);
+
     p += addition;
 
     doNotOptimize(p);
   });
 
   bench.run("Point operator-=", [] {
-    constexpr Point subtraction(5, 10);
-
+    Point subtraction(5, 10);
     Point p(15, 25);
+
     p -= subtraction;
 
     doNotOptimize(p);
@@ -57,6 +57,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Point operator*=", [] {
     Point p(10, 20);
+
     p *= 2;
 
     doNotOptimize(p);
@@ -64,15 +65,16 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Point operator*= float", [] {
     Point p(10, 20);
+
     p *= 2.5f;
 
     doNotOptimize(p);
   });
 
   bench.run("Point operator*= fixed_type", [] {
-    constexpr fixed_type scalar(2);
+    fixed_type scalar(2);
+    Point      p(10, 20);
 
-    Point p(10, 20);
     p *= scalar;
 
     doNotOptimize(p);
@@ -80,6 +82,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Point operator/=", [] {
     Point p(30, 60);
+
     p /= 3;
 
     doNotOptimize(p);
@@ -87,23 +90,24 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Point operator/= float", [] {
     Point p(25, 50);
+
     p /= 2.5f;
 
     doNotOptimize(p);
   });
 
   bench.run("Point operator/= fixed_type", [] {
-    constexpr fixed_type scalar(3);
+    fixed_type scalar(3);
+    Point      p(30, 60);
 
-    Point p(30, 60);
     p /= scalar;
 
     doNotOptimize(p);
   });
 
   bench.run("Point operator+", [] {
-    constexpr Point a(10, 20);
-    constexpr Point b(5, -10);
+    Point a(10, 20);
+    Point b(5, -10);
 
     auto r = a + b;
 
@@ -111,8 +115,8 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator-", [] {
-    constexpr Point a(15, 25);
-    constexpr Point b(5, 10);
+    Point a(15, 25);
+    Point b(5, 10);
 
     auto r = a - b;
 
@@ -120,7 +124,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator- unary", [] {
-    constexpr Point p(10, -20);
+    Point p(10, -20);
 
     auto r = -p;
 
@@ -128,7 +132,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator* scalar", [] {
-    constexpr Point p(10, 20);
+    Point p(10, 20);
 
     auto r = p * 3;
 
@@ -136,7 +140,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator* float", [] {
-    constexpr Point p(10, 20);
+    Point p(10, 20);
 
     auto r = p * 2.5f;
 
@@ -144,8 +148,8 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator* fixed_type", [] {
-    constexpr Point      p(10, 20);
-    constexpr fixed_type scalar(2);
+    Point      p(10, 20);
+    fixed_type scalar(2);
 
     auto r = p * scalar;
 
@@ -153,8 +157,8 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point fixed_type * point", [] {
-    constexpr Point      p(5, 10);
-    constexpr fixed_type scalar(3);
+    Point      p(5, 10);
+    fixed_type scalar(3);
 
     auto r = scalar * p;
 
@@ -162,7 +166,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator/ scalar", [] {
-    constexpr Point p(30, 60);
+    Point p(30, 60);
 
     auto r = p / 3;
 
@@ -170,7 +174,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator/ float", [] {
-    constexpr Point p(25, 50);
+    Point p(25, 50);
 
     auto r = p / 2.5f;
 
@@ -178,8 +182,8 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator/ fixed_type", [] {
-    constexpr Point      p(30, 60);
-    constexpr fixed_type scalar(3);
+    Point      p(30, 60);
+    fixed_type scalar(3);
 
     auto r = p / scalar;
 
@@ -187,7 +191,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point isZero", [] {
-    constexpr Point p(0, 0);
+    Point p(0, 0);
 
     auto r = p.isZero();
 
@@ -195,8 +199,8 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point isEqual", [] {
-    constexpr Point a(10, 20);
-    constexpr Point b(10, 20);
+    Point a(10, 20);
+    Point b(10, 20);
 
     auto r = a.isEqual(b);
 
@@ -204,8 +208,8 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Point operator==", [] {
-    constexpr Point a(10, 20);
-    constexpr Point b(10, 20);
+    Point a(10, 20);
+    Point b(10, 20);
 
     auto r = (a == b);
 

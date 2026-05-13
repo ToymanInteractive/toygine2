@@ -31,11 +31,11 @@ using fixed_type = fixed<int32_t, int64_t, 24>;
 
 // Utils benchmarks
 void utilsMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  constexpr float angleDegFloat = 15.0f;
-  constexpr float angleRadFloat = 1.25f;
+  float angleDegFloat = 15.0f;
+  float angleRadFloat = 1.25f;
 
-  constexpr fixed_type angleDegFixed{15.0f};
-  constexpr fixed_type angleRadFixed{1.25f};
+  fixed_type angleDegFixed{15.0f};
+  fixed_type angleRadFixed{1.25f};
 
   bench.run("deg2rad float", [&] {
     auto result = deg2rad(angleDegFloat);

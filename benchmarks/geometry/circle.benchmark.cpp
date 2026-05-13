@@ -43,14 +43,14 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> area", [] {
-    constexpr Circle c(math::Vector2(0.0f, 0.0f), 10.0f);
+    Circle c(math::Vector2(0.0f, 0.0f), 10.0f);
 
     auto r = c.area();
 
     doNotOptimize(r);
   });
   bench.run("Circle<fixed_type> area", [] {
-    constexpr Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
+    Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
 
     auto r = c.area();
 
@@ -59,12 +59,14 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Circle<float> reset", [] {
     Circle c(math::Vector2(10.0f, 20.0f), 5.0f);
+
     c.reset();
 
     doNotOptimize(c);
   });
   bench.run("Circle<fixed_type> reset", [] {
     Circle c(math::Vector2(fixed_type(10), fixed_type(20)), fixed_type(5));
+
     c.reset();
 
     doNotOptimize(c);
@@ -73,6 +75,7 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Circle<float> isReset", [] {
     Circle<float> c;
     c.reset();
+
     auto r = c.isReset();
 
     doNotOptimize(r);
@@ -80,20 +83,21 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Circle<fixed_type> isReset", [] {
     Circle<fixed_type> c;
     c.reset();
+
     auto r = c.isReset();
 
     doNotOptimize(r);
   });
 
   bench.run("Circle<float> isValid", [] {
-    constexpr Circle c(math::Vector2(0.0f, 0.0f), 1.0f);
+    Circle c(math::Vector2(0.0f, 0.0f), 1.0f);
 
     auto r = c.isValid();
 
     doNotOptimize(r);
   });
   bench.run("Circle<fixed_type> isValid", [] {
-    constexpr Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
+    Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
 
     auto r = c.isValid();
 
@@ -101,14 +105,14 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> isContain", [] {
-    constexpr Circle c(math::Vector2(0.0f, 0.0f), 10.0f);
+    Circle c(math::Vector2(0.0f, 0.0f), 10.0f);
 
     auto r = c.isContain(math::Vector2(5.0f, 0.0f));
 
     doNotOptimize(r);
   });
   bench.run("Circle<fixed_type> isContain", [] {
-    constexpr Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
+    Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
 
     auto r = c.isContain(math::Vector2(fixed_type(5), fixed_type(0)));
 
@@ -116,16 +120,16 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> operator==", [] {
-    constexpr Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
-    constexpr Circle b(math::Vector2(1.0f, 2.0f), 3.0f);
+    Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
+    Circle b(math::Vector2(1.0f, 2.0f), 3.0f);
 
     auto r = (a == b);
 
     doNotOptimize(r);
   });
   bench.run("Circle<fixed_type> operator==", [] {
-    constexpr Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
-    constexpr Circle b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+    Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+    Circle b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
 
     auto r = (a == b);
 
@@ -133,16 +137,16 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> operator!=", [] {
-    constexpr Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
-    constexpr Circle b(math::Vector2(1.0f, 2.0f), 4.0f);
+    Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
+    Circle b(math::Vector2(1.0f, 2.0f), 4.0f);
 
     auto r = (a != b);
 
     doNotOptimize(r);
   });
   bench.run("Circle<fixed_type> operator!=", [] {
-    constexpr Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
-    constexpr Circle b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
+    Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+    Circle b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
 
     auto r = (a != b);
 

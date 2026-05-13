@@ -59,12 +59,14 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("Ellipse<float> reset", [] {
     Ellipse e(math::Vector2(10.0f, 20.0f), math::Vector2(5.0f, 3.0f));
+
     e.reset();
 
     doNotOptimize(e);
   });
   bench.run("Ellipse<fixed_type> reset", [] {
     Ellipse e(math::Vector2(fixed_type(10), fixed_type(20)), math::Vector2(fixed_type(5), fixed_type(3)));
+
     e.reset();
 
     doNotOptimize(e);
@@ -73,6 +75,7 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Ellipse<float> isReset", [] {
     Ellipse<float> e;
     e.reset();
+
     auto r = e.isReset();
 
     doNotOptimize(r);
@@ -80,6 +83,7 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Ellipse<fixed_type> isReset", [] {
     Ellipse<fixed_type> e;
     e.reset();
+
     auto r = e.isReset();
 
     doNotOptimize(r);

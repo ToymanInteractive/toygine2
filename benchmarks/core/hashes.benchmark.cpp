@@ -40,28 +40,32 @@ void hashesCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("crc8 short string", [] {
     static const char s[] = "Hello";
-    auto              r   = toy::crc8(s, sizeof(s) - 1);
+
+    auto r = toy::crc8(s, sizeof(s) - 1);
 
     doNotOptimize(r);
   });
 
   bench.run("crc8 medium string", [] {
     static const char s[] = "Toygine2 - Free 2D/3D game engine.";
-    auto              r   = toy::crc8(s, sizeof(s) - 1);
+
+    auto r = toy::crc8(s, sizeof(s) - 1);
 
     doNotOptimize(r);
   });
 
   bench.run("crc16 medium string", [] {
     static const char s[] = "Toygine2 - Free 2D/3D game engine.";
-    auto              r   = toy::crc16(s, sizeof(s) - 1);
+
+    auto r = toy::crc16(s, sizeof(s) - 1);
 
     doNotOptimize(r);
   });
 
   bench.run("crc32 medium string", [] {
     static const char s[] = "Toygine2 - Free 2D/3D game engine.";
-    auto              r   = toy::crc32(s, sizeof(s) - 1);
+
+    auto r = toy::crc32(s, sizeof(s) - 1);
 
     doNotOptimize(r);
   });
