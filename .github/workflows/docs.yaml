@@ -37,7 +37,7 @@ jobs:
           cmake --build --preset linux-ninja-debug --target docs
 
       - name: Deploy to GitHub Pages
-        uses: peaceiris/actions-gh-pages@v4.0.0
+        uses: peaceiris/actions-gh-pages@v4.1.0
         if: ${{ github.ref_name == 'main' }}
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
