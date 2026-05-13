@@ -117,10 +117,16 @@ IncludeCategories:
   - Regex: '^"'
     Priority: 4
 IndentAccessModifiers: false
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#indentcaseblocks
+IndentCaseBlocks: false
 IndentCaseLabels: true
+IndentExportBlock: false
+IndentExternBlock: NoIndent
+IndentGotoLabels: false
+IndentPPDirectives: None
+IndentRequiresClause: true
 IndentWidth: 2
 IndentWrappedFunctionNames: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#insertbraces
 InsertNewlineAtEOF: true
 KeepEmptyLinesAtTheStartOfBlocks: false
 LambdaBodyIndentation: Signature
