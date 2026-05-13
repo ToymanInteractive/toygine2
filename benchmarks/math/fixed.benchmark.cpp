@@ -32,52 +32,69 @@ using fixed_type = fixed<int32_t, int64_t, 24>;
 // fixed benchmarks
 void fixedMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("fixed = fixed", [] {
+    constexpr fixed_type b(42);
+
     fixed_type a(0);
-    fixed_type b(42);
+
     a = b;
+
     doNotOptimize(a);
   });
   bench.run("fixed = int", [] {
     fixed_type a(0);
+
     a = 42;
+
     doNotOptimize(a);
   });
 
   bench.run("fixed == fixed", [] {
-    fixed_type a(42);
-    fixed_type b(42);
-    auto       r = (a == b);
+    constexpr fixed_type a(42);
+    constexpr fixed_type b(42);
+
+    auto r = (a == b);
+
     doNotOptimize(r);
   });
   bench.run("fixed == int", [] {
-    fixed_type f(42);
-    int        i = 42;
-    auto       r = (f == i);
+    constexpr fixed_type f(42);
+    constexpr int        i = 42;
+
+    auto r = (f == i);
+
     doNotOptimize(r);
   });
   bench.run("int == fixed", [] {
-    int        i = 42;
-    fixed_type f(42);
-    auto       r = (i == f);
+    constexpr int        i = 42;
+    constexpr fixed_type f(42);
+
+    auto r = (i == f);
+
     doNotOptimize(r);
   });
 
   bench.run("fixed <=> fixed", [] {
-    fixed_type a(42);
-    fixed_type b(42);
-    auto       r = (a <=> b);
+    constexpr fixed_type a(42);
+    constexpr fixed_type b(42);
+
+    auto r = (a <=> b);
+
     doNotOptimize(r);
   });
   bench.run("fixed <=> int", [] {
-    fixed_type f(42);
-    int        i = 42;
-    auto       r = (f <=> i);
+    constexpr fixed_type f(42);
+    constexpr int        i = 42;
+
+    auto r = (f <=> i);
+
     doNotOptimize(r);
   });
   bench.run("int <=> fixed", [] {
-    int        i = 42;
-    fixed_type f(42);
-    auto       r = (i <=> f);
+    constexpr int        i = 42;
+    constexpr fixed_type f(42);
+
+    auto r = (i <=> f);
+
     doNotOptimize(r);
   });
 }

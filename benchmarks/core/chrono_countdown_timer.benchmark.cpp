@@ -33,19 +33,22 @@ void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   [[maybe_unused]] ClockSource clock;
 
   bench.run("CountdownTimer construction", [&] {
-    const CountdownTimer timer{timeout};
+    CountdownTimer timer{timeout};
+
     doNotOptimize(timer);
   });
 
   bench.run("CountdownTimer::expired()", [&] {
-    const CountdownTimer timer{timeout};
-    auto                 r = timer.expired();
+    CountdownTimer timer{timeout};
+    auto           r = timer.expired();
+
     doNotOptimize(r);
   });
 
   bench.run("CountdownTimer::remaining()", [&] {
-    const CountdownTimer timer{timeout};
-    auto                 r = timer.remaining();
+    CountdownTimer timer{timeout};
+    auto           r = timer.remaining();
+
     doNotOptimize(r);
   });
 }
