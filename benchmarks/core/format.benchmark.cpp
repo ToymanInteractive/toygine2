@@ -47,8 +47,8 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("vformatTo single c-string", [] {
-    FixedString<64> output;
     const char *    msg = "hello";
+    FixedString<64> output;
 
     vformatTo(output, CStringView("say: {}"), msg);
 
@@ -56,8 +56,8 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("vformatTo single FixedString", [] {
-    FixedString<64> output;
     FixedString<16> name("engine");
+    FixedString<64> output;
 
     vformatTo(output, CStringView("toy {}"), name);
 
@@ -65,8 +65,8 @@ void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("vformatTo single CStringView", [] {
-    FixedString<64> output;
     CStringView     sv("engine");
+    FixedString<64> output;
 
     vformatTo(output, CStringView("toy {}"), sv);
 

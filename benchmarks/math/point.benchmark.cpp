@@ -33,143 +33,187 @@ using fixed_type = fixed<int32_t, int64_t, 24>;
 void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Point coordinate construct", [] {
     Point p(10, 20);
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator+=", [] {
+    Point addition(5, -3);
     Point p(10, 20);
-    p += Point(5, -3);
+
+    p += addition;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator-=", [] {
+    Point subtraction(5, 10);
     Point p(15, 25);
-    p -= Point(5, 10);
+
+    p -= subtraction;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator*=", [] {
     Point p(10, 20);
+
     p *= 2;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator*= float", [] {
     Point p(10, 20);
+
     p *= 2.5f;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator*= fixed_type", [] {
-    Point p(10, 20);
-    p *= fixed_type(2);
+    fixed_type scalar(2);
+    Point      p(10, 20);
+
+    p *= scalar;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator/=", [] {
     Point p(30, 60);
+
     p /= 3;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator/= float", [] {
     Point p(25, 50);
+
     p /= 2.5f;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator/= fixed_type", [] {
-    Point p(30, 60);
-    p /= fixed_type(3);
+    fixed_type scalar(3);
+    Point      p(30, 60);
+
+    p /= scalar;
+
     doNotOptimize(p);
   });
 
   bench.run("Point operator+", [] {
     Point a(10, 20);
     Point b(5, -10);
-    auto  r = a + b;
+
+    auto r = a + b;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator-", [] {
     Point a(15, 25);
     Point b(5, 10);
-    auto  r = a - b;
+
+    auto r = a - b;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator- unary", [] {
     Point p(10, -20);
-    auto  r = -p;
+
+    auto r = -p;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator* scalar", [] {
     Point p(10, 20);
-    auto  r = p * 3;
+
+    auto r = p * 3;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator* float", [] {
     Point p(10, 20);
-    auto  r = p * 2.5f;
+
+    auto r = p * 2.5f;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator* fixed_type", [] {
-    Point p(10, 20);
-    auto  r = p * fixed_type(2);
+    Point      p(10, 20);
+    fixed_type scalar(2);
+
+    auto r = p * scalar;
+
     doNotOptimize(r);
   });
 
   bench.run("Point fixed_type * point", [] {
-    Point p(5, 10);
-    auto  r = fixed_type(3) * p;
+    Point      p(5, 10);
+    fixed_type scalar(3);
+
+    auto r = scalar * p;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator/ scalar", [] {
     Point p(30, 60);
-    auto  r = p / 3;
+
+    auto r = p / 3;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator/ float", [] {
     Point p(25, 50);
-    auto  r = p / 2.5f;
+
+    auto r = p / 2.5f;
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator/ fixed_type", [] {
-    Point p(30, 60);
-    auto  r = p / fixed_type(3);
+    Point      p(30, 60);
+    fixed_type scalar(3);
+
+    auto r = p / scalar;
+
     doNotOptimize(r);
   });
 
   bench.run("Point isZero", [] {
     Point p(0, 0);
-    auto  r = p.isZero();
+
+    auto r = p.isZero();
+
     doNotOptimize(r);
   });
 
   bench.run("Point isEqual", [] {
     Point a(10, 20);
     Point b(10, 20);
-    auto  r = a.isEqual(b);
+
+    auto r = a.isEqual(b);
+
     doNotOptimize(r);
   });
 
   bench.run("Point operator==", [] {
     Point a(10, 20);
     Point b(10, 20);
-    auto  r = (a == b);
-    doNotOptimize(r);
-  });
 
-  bench.run("Point c_arr", [] {
-    Point  p(42, -17);
-    auto * arr = p.c_arr();
-    doNotOptimize(arr);
+    auto r = (a == b);
+
+    doNotOptimize(r);
   });
 }
 

@@ -39,6 +39,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream<FixedString<64>> literal and int", [] {
     OStringStream<FixedString<64>> s;
+
     s << "n=" << 12345;
 
     doNotOptimize(s);
@@ -46,6 +47,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream<FixedString<64>> chained mixed", [] {
     OStringStream<FixedString<64>> s;
+
     s << "v=" << -42 << ' ' << 3.1415926f << CStringView(" end");
 
     doNotOptimize(s);
@@ -55,6 +57,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream Duration nanoseconds", [] {
     OStringStream<FixedString<32>> s;
+
     s << chrono::nanoseconds{16'000'000};
 
     doNotOptimize(s);
@@ -62,6 +65,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream Duration milliseconds", [] {
     OStringStream<FixedString<32>> s;
+
     s << chrono::milliseconds{1'042};
 
     doNotOptimize(s);
@@ -69,6 +73,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream Duration seconds", [] {
     OStringStream<FixedString<32>> s;
+
     s << chrono::seconds{65};
 
     doNotOptimize(s);
@@ -76,6 +81,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream Duration negative milliseconds", [] {
     OStringStream<FixedString<32>> s;
+
     s << chrono::milliseconds{-500};
 
     doNotOptimize(s);
@@ -85,6 +91,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream DurationFormat hh:mm:ss", [] {
     OStringStream<FixedString<32>> s;
+
     s << chrono::DurationFormat{"h:m:s:z", chrono::milliseconds{3'723'000}};
 
     doNotOptimize(s);
@@ -92,6 +99,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
 
   bench.run("OStringStream DurationFormat hh:mm:ss.zzz", [] {
     OStringStream<FixedString<32>> s;
+
     s << chrono::DurationFormat{"hh:mm:ss.zzz", chrono::milliseconds{3'723'042}};
 
     doNotOptimize(s);
@@ -102,6 +110,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("OStringStream TimePoint milliseconds", [] {
     OStringStream<FixedString<32>>                                     s;
     const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
+
     s << tp;
 
     doNotOptimize(s);
@@ -110,6 +119,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("OStringStream TimePointFormat hh:mm:ss.zzz", [] {
     OStringStream<FixedString<32>>                                     s;
     const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
+
     s << chrono::TimePointFormat{"hh:mm:ss.zzz", tp};
 
     doNotOptimize(s);
