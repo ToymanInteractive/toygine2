@@ -40,7 +40,7 @@ int main(int argc, char * argv[]) noexcept {
 
   runCoreBenchmarks(argc > 1 ? coreBench : bench);
   runGeometryBenchmarks(argc > 1 ? geometryBench : bench);
-  runMathBenchmarks(argc > 1 ? geometryBench : bench);
+  runMathBenchmarks(argc > 1 ? mathBench : bench);
 
   if (argc > 1) {
     std::ofstream out(argv[1]);
