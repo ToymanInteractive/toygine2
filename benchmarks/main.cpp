@@ -22,16 +22,27 @@
   \brief  Entry point for nanobench benchmarks (core, geometry, math).
 */
 
+#include <fstream>
+
 #include <nanobench.h>
 
-ankerl::nanobench::Bench runCoreBenchmarks() noexcept;
-ankerl::nanobench::Bench runGeometryBenchmarks() noexcept;
-ankerl::nanobench::Bench runMathBenchmarks() noexcept;
+#include "benchmark_factory.hpp"
 
-int main() noexcept {
-  runCoreBenchmarks();
-  runGeometryBenchmarks();
-  runMathBenchmarks();
+void runCoreBenchmarks(ankerl::nanobench::Bench) noexcept;
+void runGeometryBenchmarks(ankerl::nanobench::Bench) noexcept;
+void runMathBenchmarks(ankerl::nanobench::Bench) noexcept;
+
+int main(int argc, char * argv[]) noexcept {
+  auto bench = createBench("toygine2");
+
+  runCoreBenchmarks(argc > 1 ? createBench("Core module") : bench);
+  runGeometryBenchmarks(argc > 1 ? createBench("Geometry module") : bench);
+  runMathBenchmarks(argc > 1 ? createBench("Math module") : bench);
+
+  if (argc > 1) {
+    std::ofstream out(argv[1]);
+    ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, out);
+  }
 
   return 0;
 }
