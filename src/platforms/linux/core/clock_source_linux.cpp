@@ -60,19 +60,19 @@ int64_t ClockSource::nowTicks() const noexcept {
 SteadyClock::rep SteadyClock::nowTicks() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::nowTicks: no active ClockSource");
 
-  return activeSource->nowTicks();
+  return activeSource != nullptr ? activeSource->nowTicks() : 0;
 }
 
 SteadyClock::rep SteadyClock::frequency() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::frequency: no active ClockSource");
 
-  return activeSource->frequency();
+  return activeSource != nullptr ? activeSource->frequency() : 0;
 }
 
 SteadyClock::time_point SteadyClock::now() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
 
-  return time_point{duration{activeSource->nowTicks()}};
+  return activeSource != nullptr ? time_point{duration{activeSource->nowTicks()}} : time_point{};
 }
 
 } // namespace toy::chrono

@@ -18,11 +18,9 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   clock_source_macos.cpp
-  \brief  macOS implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
+  \file   clock_source_windows.cpp
+  \brief  Windows implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
 */
-
-#include <time.h>
 
 #include "core.hpp"
 
@@ -33,12 +31,22 @@ namespace {
 /// Process-wide active source; null when none is registered.
 ClockSource * activeSource{nullptr};
 
+/// QueryPerformanceFrequency result cached at construction; constant for the process lifetime.
+int64_t qpcFrequency{1};
+
 } // namespace
 
 ClockSource::ClockSource()
   : _frequency{c_steadyClockPeriodDenominator} {
   assert_message(activeSource == nullptr, "ClockSource: at most one active instance is allowed per process");
 
+  LARGE_INTEGER freq{};
+  const BOOL    ok = QueryPerformanceFrequency(&freq);
+  assert_message(ok && freq.QuadPart > 0, "ClockSource: QueryPerformanceFrequency failed");
+  if (!ok || freq.QuadPart <= 0)
+    return;
+
+  qpcFrequency = freq.QuadPart;
   activeSource = this;
 }
 
@@ -47,14 +55,20 @@ ClockSource::~ClockSource() {
 }
 
 int64_t ClockSource::nowTicks() const noexcept {
-  timespec ts{};
+  LARGE_INTEGER counter{};
 
-  const int rc = clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-  assert_message(rc == 0, "ClockSource::nowTicks: clock_gettime(CLOCK_MONOTONIC_RAW) failed");
-  if (rc != 0)
+  const BOOL ok = QueryPerformanceCounter(&counter);
+  assert_message(ok, "ClockSource::nowTicks: QueryPerformanceCounter failed");
+  if (!ok)
     return 0;
 
-  return ts.tv_sec * c_steadyClockPeriodDenominator + ts.tv_nsec;
+  // Convert QPC ticks to nanoseconds in two steps to avoid int64_t overflow.
+  // At a typical QPC frequency of 10 MHz, direct multiplication (ticks * 1e9) overflows int64_t after ~920 seconds.
+  const int64_t ticks     = counter.QuadPart;
+  const int64_t seconds   = ticks / qpcFrequency;
+  const int64_t remainder = ticks % qpcFrequency;
+
+  return seconds * c_steadyClockPeriodDenominator + remainder * c_steadyClockPeriodDenominator / qpcFrequency;
 }
 
 SteadyClock::rep SteadyClock::nowTicks() noexcept {
