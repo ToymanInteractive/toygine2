@@ -1,5 +1,9 @@
 var NAVTREEINDEX3 =
 {
+"d7/d15/classtoy_1_1_o_string_stream.html#a4723c09169f143844092a6f2cce1bbea":[2,2,2,1,0],
+"d7/d15/classtoy_1_1_o_string_stream.html#a4a0bf4e14936ba1158d14e56043f157d":[2,2,2,1,15],
+"d7/d15/classtoy_1_1_o_string_stream.html#a4adecfc2744954faf1453ce899241321":[2,2,2,1,22],
+"d7/d15/classtoy_1_1_o_string_stream.html#a4bc117bcf611aee3d92424b65afce31e":[2,2,2,1,30],
 "d7/d15/classtoy_1_1_o_string_stream.html#a53e052604b75bd2ac7feee9a8b405e64":[2,2,2,1,20],
 "d7/d15/classtoy_1_1_o_string_stream.html#a56a621046b67488ac86c2e5da5e1f6de":[2,2,2,1,12],
 "d7/d15/classtoy_1_1_o_string_stream.html#a5b939b9dd04b24b83d57fa4eb9988d54":[2,2,2,1,19],
@@ -245,9 +249,5 @@ var NAVTREEINDEX3 =
 "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaad0f2e5376298c880665077b565ffd7dd":[3,0,2,8,0,1],
 "d8/d2a/concepttoy_1_1math_1_1_fractional_constant_type.html":[3,0,2,11,7],
 "d8/d2a/concepttoy_1_1math_1_1_fractional_constant_type.html":[4,0,1,1],
-"d8/d34/concepttoy_1_1math_1_1_vector2_component.html":[3,0,2,11,10],
-"d8/d34/concepttoy_1_1math_1_1_vector2_component.html":[4,0,1,4],
-"d8/d39/game_8hpp.html":[6,0,0,14],
-"d8/d39/game_8hpp_source.html":[6,0,0,14],
-"d8/d43/core_2utils_8hpp.html":[6,0,0,2,41]
+"d8/d34/concepttoy_1_1math_1_1_vector2_component.html":[3,0,2,11,10]
 };

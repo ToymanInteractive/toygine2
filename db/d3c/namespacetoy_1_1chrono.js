@@ -9,6 +9,10 @@ var namespacetoy_1_1chrono =
     [ "anonymous_namespace{clock_source_stub.cpp}", "dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html", [
       [ "activeSource", "dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html#a2e58dca645b49629596f121b001da66e", null ]
     ] ],
+    [ "anonymous_namespace{clock_source_windows.cpp}", "d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html", [
+      [ "activeSource", "d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#a4b5058bda1491f8e5595f3d34713c24b", null ],
+      [ "qpcFrequency", "d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#ad2295a6ee12b871f32fd2851f1d1cc31", null ]
+    ] ],
     [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", "d9/d63/classtoy_1_1chrono_1_1_clock_source" ],
     [ "CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer" ],
     [ "DurationFormat", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", "d0/d23/structtoy_1_1chrono_1_1_duration_format" ],

@@ -1,5 +1,9 @@
 var NAVTREEINDEX4 =
 {
+"d8/d34/concepttoy_1_1math_1_1_vector2_component.html":[4,0,1,4],
+"d8/d39/game_8hpp.html":[6,0,0,14],
+"d8/d39/game_8hpp_source.html":[6,0,0,14],
+"d8/d43/core_2utils_8hpp.html":[6,0,0,2,41],
 "d8/d43/core_2utils_8hpp_source.html":[6,0,0,2,41],
 "d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html":[3,0,2,4,1],
 "d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html#a0e324373ae8d4e629b1b404d4113f416":[3,0,2,4,1,7],
@@ -200,16 +204,16 @@ var NAVTREEINDEX4 =
 "da/de0/core_8cpp.html":[6,0,1,1,0],
 "db/d1a/chrono__countdown__timer_8hpp.html":[6,0,0,2,9],
 "db/d1a/chrono__countdown__timer_8hpp_source.html":[6,0,0,2,9],
-"db/d29/windows_2platform__config_8hpp.html":[6,0,1,3,8,1],
-"db/d29/windows_2platform__config_8hpp_source.html":[6,0,1,3,8,1],
+"db/d29/windows_2platform__config_8hpp.html":[6,0,1,3,8,2],
+"db/d29/windows_2platform__config_8hpp_source.html":[6,0,1,3,8,2],
 "db/d2d/hashes_8cpp.html":[6,0,1,1,1],
 "db/d33/string__fixed__storage_8inl.html":[6,0,0,2,39],
 "db/d33/string__fixed__storage_8inl_source.html":[6,0,0,2,39],
 "db/d37/volume__type_8hpp.html":[6,0,0,1,0],
 "db/d37/volume__type_8hpp_source.html":[6,0,0,1,0],
 "db/d3c/namespacetoy_1_1chrono.html":[3,0,2,6],
-"db/d3c/namespacetoy_1_1chrono.html#a216344103a3f68241210862eae97e28b":[3,0,2,6,12],
-"db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2":[3,0,2,6,11],
+"db/d3c/namespacetoy_1_1chrono.html#a216344103a3f68241210862eae97e28b":[3,0,2,6,13],
+"db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2":[3,0,2,6,12],
 "db/d3d/pixel__format_8cpp.html":[6,0,1,4,0],
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html":[3,0,2,4,0,0],
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html":[5,0,1,3,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX4 =
 "db/d6f/classtoy_1_1geometry_1_1_section.html#ad9674e1bc236eacc544d96cc8e7b019a":[5,0,1,5,2,9],
 "db/d7c/classtoy_1_1array_1_1const__reverse__iterator.html":[3,0,2,15,3],
 "db/d7c/classtoy_1_1array_1_1const__reverse__iterator.html":[5,0,1,9,3],
-"db/d7c/section_8inl.html":[6,0,0,5,5],
-"db/d7c/section_8inl_source.html":[6,0,0,5,5],
-"db/d83/switch_2platform__config_8hpp.html":[6,0,1,3,7,0],
-"db/d83/switch_2platform__config_8hpp_source.html":[6,0,1,3,7,0],
-"db/d8a/ellipse_8inl.html":[6,0,0,5,3]
+"db/d7c/section_8inl.html":[6,0,0,5,5]
 };

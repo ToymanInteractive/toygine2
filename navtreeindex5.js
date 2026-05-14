@@ -1,5 +1,9 @@
 var NAVTREEINDEX5 =
 {
+"db/d7c/section_8inl_source.html":[6,0,0,5,5],
+"db/d83/switch_2platform__config_8hpp.html":[6,0,1,3,7,0],
+"db/d83/switch_2platform__config_8hpp_source.html":[6,0,1,3,7,0],
+"db/d8a/ellipse_8inl.html":[6,0,0,5,3],
 "db/d8a/ellipse_8inl_source.html":[6,0,0,5,3],
 "db/da8/core__application__stub_8cpp.html":[6,0,1,3,6,0,0],
 "db/db6/console__application_8cpp.html":[6,0,1,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#headers":[1,7,4],
 "df/d81/md__a_g_e_n_t_s.html#include-guards":[1,7,1],
 "df/d81/md__a_g_e_n_t_s.html#include-order":[1,7,3],
-"df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing":[1,6,0],
-"df/d81/md__a_g_e_n_t_s.html#inl-files":[1,7,6],
-"df/d81/md__a_g_e_n_t_s.html#inline-and-template-code":[1,7,5],
-"df/d81/md__a_g_e_n_t_s.html#interaction-guidelines":[1,0],
-"df/d81/md__a_g_e_n_t_s.html#language-and-standard":[1,5]
+"df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing":[1,6,0]
 };
