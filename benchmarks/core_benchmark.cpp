@@ -22,7 +22,8 @@
   \brief  Implementation of nanobench benchmarks for the core module.
 */
 
-#include "benchmark_factory.hpp"
+#include <nanobench.h>
+
 #include "core.hpp"
 
 namespace toy {
@@ -45,9 +46,7 @@ void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy
 
-ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
-  auto bench = createBench("Core module");
-
+void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::formatCoreBenchmarks(bench);
   toy::ftoaCoreBenchmarks(bench);
   toy::hashesCoreBenchmarks(bench);
@@ -58,6 +57,4 @@ ankerl::nanobench::Bench runCoreBenchmarks() noexcept {
   toy::formatNumberStringCoreBenchmarks(bench);
   toy::highestBitCoreBenchmarks(bench);
   toy::chrono::countdownTimerCoreBenchmarks(bench);
-
-  return bench;
 }

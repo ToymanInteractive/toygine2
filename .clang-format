@@ -126,8 +126,9 @@ IndentPPDirectives: None
 IndentRequiresClause: true
 IndentWidth: 2
 IndentWrappedFunctionNames: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#insertbraces
+InsertBraces: false
 InsertNewlineAtEOF: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#inserttrailingcommas
 KeepEmptyLinesAtTheStartOfBlocks: false
 LambdaBodyIndentation: Signature
 MaxEmptyLinesToKeep: 1

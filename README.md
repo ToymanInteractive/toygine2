@@ -29,15 +29,16 @@ ToyGine2 is a modern C++ high‑level engine.
 | ------- | ----------------------- | -------------------------------- |
 | Windows | Microsoft Visual Studio | MSVC 2022 17.4 and above         |
 | macOS   | Xcode                   | 16.4 and above (Apple Clang 17+) |
-| Linux   | GCC                     | 14.2 and above                   |
+| Linux   | GCC                     | 13.3 and above                   |
 | GBA     | devkitARM               | release 66 (GCC 15.2.0)          |
 
 ### Minimum OS versions
 
-| OS    | Version                 | Reason                               |
-| ----- | ----------------------- | ------------------------------------ |
-| macOS | 10.12 (Sierra) or later | `clock_gettime(CLOCK_MONOTONIC_RAW)` |
-| Linux | 2.6.28 or later         | `clock_gettime(CLOCK_MONOTONIC_RAW)` |
+| OS      | Version                 | Reason                                                  |
+| ------- | ----------------------- | ------------------------------------------------------- |
+| Windows | 2000 Professional       | `QueryPerformanceFrequency` / `QueryPerformanceCounter` |
+| macOS   | 10.12 (Sierra) or later | `clock_gettime(CLOCK_MONOTONIC_RAW)`                    |
+| Linux   | 2.6.28 or later         | `clock_gettime(CLOCK_MONOTONIC_RAW)`                    |
 
 ### Tools
 
