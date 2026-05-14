@@ -46,7 +46,7 @@ void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy
 
-void runCoreBenchmarks(ankerl::nanobench::Bench bench) noexcept {
+void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::formatCoreBenchmarks(bench);
   toy::ftoaCoreBenchmarks(bench);
   toy::hashesCoreBenchmarks(bench);

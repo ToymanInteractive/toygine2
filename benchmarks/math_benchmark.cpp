@@ -38,7 +38,7 @@ using namespace toy::math;
 
 using fixed_type = fixed<int32_t, int64_t, 24>;
 
-void runMathBenchmarks(ankerl::nanobench::Bench bench) noexcept {
+void runMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::math::fixedMathBenchmarks(bench);
   toy::math::pointMathBenchmarks(bench);
   toy::math::utilsMathBenchmarks(bench);

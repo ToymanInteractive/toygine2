@@ -28,19 +28,25 @@
 
 #include "benchmark_factory.hpp"
 
-void runCoreBenchmarks(ankerl::nanobench::Bench) noexcept;
-void runGeometryBenchmarks(ankerl::nanobench::Bench) noexcept;
-void runMathBenchmarks(ankerl::nanobench::Bench) noexcept;
+void runCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
+void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 int main(int argc, char * argv[]) noexcept {
-  auto bench = createBench("toygine2");
+  auto bench         = createBench("toygine2");
+  auto coreBench     = createBench("Core module");
+  auto geometryBench = createBench("Geometry module");
+  auto mathBench     = createBench("Math module");
 
-  runCoreBenchmarks(argc > 1 ? createBench("Core module") : bench);
-  runGeometryBenchmarks(argc > 1 ? createBench("Geometry module") : bench);
-  runMathBenchmarks(argc > 1 ? createBench("Math module") : bench);
+  runCoreBenchmarks(argc > 1 ? coreBench : bench);
+  runGeometryBenchmarks(argc > 1 ? geometryBench : bench);
+  runMathBenchmarks(argc > 1 ? geometryBench : bench);
 
   if (argc > 1) {
     std::ofstream out(argv[1]);
+    if (!out.is_open())
+      return 1;
+
     ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, out);
   }
 
