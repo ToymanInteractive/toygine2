@@ -32,7 +32,7 @@ namespace {
 ClockSource * activeSource{nullptr};
 
 /// QueryPerformanceFrequency result cached at construction; constant for the process lifetime.
-int64_t qpcFrequency{0};
+int64_t qpcFrequency{1};
 
 } // namespace
 
@@ -43,6 +43,8 @@ ClockSource::ClockSource()
   LARGE_INTEGER freq{};
   const BOOL    ok = QueryPerformanceFrequency(&freq);
   assert_message(ok && freq.QuadPart > 0, "ClockSource: QueryPerformanceFrequency failed");
+  if (!ok || freq.QuadPart <= 0)
+    return;
 
   qpcFrequency = freq.QuadPart;
   activeSource = this;
@@ -50,12 +52,12 @@ ClockSource::ClockSource()
 
 ClockSource::~ClockSource() {
   activeSource = nullptr;
-  qpcFrequency = 0;
 }
 
 int64_t ClockSource::nowTicks() const noexcept {
   LARGE_INTEGER counter{};
-  const BOOL    ok = QueryPerformanceCounter(&counter);
+
+  const BOOL ok = QueryPerformanceCounter(&counter);
   assert_message(ok, "ClockSource::nowTicks: QueryPerformanceCounter failed");
   if (!ok)
     return 0;
@@ -65,25 +67,26 @@ int64_t ClockSource::nowTicks() const noexcept {
   const int64_t ticks     = counter.QuadPart;
   const int64_t seconds   = ticks / qpcFrequency;
   const int64_t remainder = ticks % qpcFrequency;
+
   return seconds * c_steadyClockPeriodDenominator + remainder * c_steadyClockPeriodDenominator / qpcFrequency;
 }
 
 SteadyClock::rep SteadyClock::nowTicks() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::nowTicks: no active ClockSource");
 
-  return activeSource->nowTicks();
+  return activeSource != nullptr ? activeSource->nowTicks() : 0;
 }
 
 SteadyClock::rep SteadyClock::frequency() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::frequency: no active ClockSource");
 
-  return activeSource->frequency();
+  return activeSource != nullptr ? activeSource->frequency() : 0;
 }
 
 SteadyClock::time_point SteadyClock::now() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
 
-  return time_point{duration{activeSource->nowTicks()}};
+  return activeSource != nullptr ? time_point{duration{activeSource->nowTicks()}} : time_point{};
 }
 
 } // namespace toy::chrono
