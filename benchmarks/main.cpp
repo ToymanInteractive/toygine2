@@ -38,9 +38,9 @@ int main(int argc, char * argv[]) noexcept {
   auto geometryBench = createBench("Geometry module");
   auto mathBench     = createBench("Math module");
 
-  runCoreBenchmarks(argc > 1 ? coreBench : bench);
-  runGeometryBenchmarks(argc > 1 ? geometryBench : bench);
-  runMathBenchmarks(argc > 1 ? mathBench : bench);
+  runCoreBenchmarks(argc > 1 ? bench : coreBench);
+  runGeometryBenchmarks(argc > 1 ? bench : geometryBench);
+  runMathBenchmarks(argc > 1 ? bench : mathBench);
 
   if (argc > 1) {
     std::ofstream out(argv[1]);
