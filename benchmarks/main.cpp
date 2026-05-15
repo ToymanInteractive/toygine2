@@ -64,7 +64,7 @@ int main(int argc, char * argv[]) noexcept {
     auto bench = createBench("toygine2");
 
     for (const auto & entry : c_benchmarks)
-      entry.fn(bench);
+      entry.fn(bench.unit(entry.name));
 
     std::ofstream out(argv[1]);
     if (!out.is_open()) {
