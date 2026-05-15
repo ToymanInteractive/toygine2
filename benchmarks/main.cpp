@@ -51,6 +51,12 @@ constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
    }
 };
 
+// Renders results in Bencher Metric Format (BMF) for bencher.dev ingestion.
+// Schema: https://bencher.dev/bmf.json
+constexpr char c_bmfTemplate[] = R"({
+{{#result}}  "{{title}}/{{name}}": {"latency": {"value": {{median(elapsed)}}}}{{^-last}},{{/-last}}
+{{/result}}})";
+
 } // namespace
 
 int main(int argc, char * argv[]) noexcept {
@@ -66,7 +72,7 @@ int main(int argc, char * argv[]) noexcept {
       return 1;
     }
 
-    ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, out);
+    ankerl::nanobench::render(c_bmfTemplate, bench, out);
   } else {
     for (const auto & entry : c_benchmarks) {
       auto bench = createBench(entry.name);

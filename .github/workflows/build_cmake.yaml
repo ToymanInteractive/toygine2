@@ -187,7 +187,11 @@ jobs:
 
       - name: Build and Test
         run: |
-          cmake ${{ matrix.run_benchmarks == 'true' && '-DBENCHMARKS_OUTPUT_FILE=benchmarks_results.json' || '' }} --preset ${{ matrix.cmake_preset }}
+          BENCHMARKS_ARG=""
+          if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
+            BENCHMARKS_ARG="-DBENCHMARKS_OUTPUT_FILE=$GITHUB_WORKSPACE/benchmarks_bmf.json"
+          fi
+          cmake $BENCHMARKS_ARG --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
@@ -195,25 +199,6 @@ jobs:
           if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
-
-      - name: Convert benchmarks to BMF
-        if: matrix.run_benchmarks == 'true'
-        run: |
-          python3 - <<'EOF'
-          import json
-
-          data = json.load(open("./out/build/${{ matrix.cmake_preset }}/benchmarks/benchmarks_results.json"))
-          bmf = {}
-          for r in data["results"]:
-              key = r["title"] + "/" + r["name"]
-              elapsed = [m["elapsed"] for m in r.get("measurements", [])]
-              entry = {"value": r["median(elapsed)"]}
-              if elapsed:
-                  entry["lower_value"] = min(elapsed)
-                  entry["upper_value"] = max(elapsed)
-              bmf[key] = {"latency": entry}
-          json.dump(bmf, open("benchmarks_bmf.json", "w"), indent=2)
-          EOF
 
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
