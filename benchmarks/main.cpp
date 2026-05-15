@@ -24,6 +24,7 @@
 
 #include <array>
 #include <fstream>
+#include <iostream>
 
 #include <nanobench.h>
 
@@ -60,9 +61,12 @@ int main(int argc, char * argv[]) noexcept {
       entry.fn(bench);
 
     std::ofstream out(argv[1]);
-    if (!out.is_open())
+    if (!out.is_open()) {
+      std::cerr << "Failed to open output file: " << argv[1] << std::endl;
       return 1;
+    }
 
+    std::cout << "Open output file: " << argv[1] << std::endl;
     ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, out);
   } else {
     for (const auto & entry : c_benchmarks) {
