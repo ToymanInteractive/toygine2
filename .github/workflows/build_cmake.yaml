@@ -200,6 +200,17 @@ jobs:
         if: matrix.run_benchmarks == 'true'
         uses: bencherdev/bencher@0.6.5
 
+      - name: Upload benchmarks to bencher.dev
+        if: matrix.run_benchmarks == 'true'
+        run: |
+          bencher run \
+            --project toygine2 \
+            --token "${{ secrets.BENCHER_API_TOKEN }}" \
+            --branch "${{ github.ref_name }}" \
+            --testbed "${{ matrix.bencher_testbed }}" \
+            --adapter nanobench \
+            --file benchmarks_results.json
+
   unit-tests:
     name: Collect unit tests
     runs-on: ubuntu-24.04
