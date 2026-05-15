@@ -69,10 +69,18 @@ int main(int argc, char * argv[]) noexcept {
     std::ofstream out(argv[1]);
     if (!out.is_open()) {
       std::cerr << "Failed to open output file: " << argv[1] << std::endl;
+
       return 1;
     }
 
     ankerl::nanobench::render(c_bmfTemplate, bench, out);
+    out.flush();
+    if (!out.good()) {
+      std::cerr << "Failed to write benchmark output file: " << argv[1] << std::endl;
+
+      return 1;
+    }
+
   } else {
     for (const auto & entry : c_benchmarks) {
       auto bench = createBench(entry.name);
