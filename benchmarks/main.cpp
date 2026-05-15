@@ -24,6 +24,7 @@
 
 #include <array>
 #include <fstream>
+#include <iostream>
 
 #include <nanobench.h>
 
@@ -50,20 +51,36 @@ constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
    }
 };
 
+// Renders results in Bencher Metric Format (BMF) for bencher.dev ingestion.
+// Schema: https://bencher.dev/bmf.json
+constexpr char c_bmfTemplate[] = R"({
+{{#result}}  "{{title}}/{{name}}": {"latency": {"value": {{median(elapsed)}}}}{{^-last}},{{/-last}}
+{{/result}}})";
+
 } // namespace
 
 int main(int argc, char * argv[]) noexcept {
-  auto bench = createBench("toygine2");
-
   if (argc > 1) {
+    auto bench = createBench("toygine2");
+
     for (const auto & entry : c_benchmarks)
       entry.fn(bench);
 
     std::ofstream out(argv[1]);
-    if (!out.is_open())
-      return 1;
+    if (!out.is_open()) {
+      std::cerr << "Failed to open output file: " << argv[1] << std::endl;
 
-    ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, out);
+      return 1;
+    }
+
+    ankerl::nanobench::render(c_bmfTemplate, bench, out);
+    out.flush();
+    if (!out.good()) {
+      std::cerr << "Failed to write benchmark output file: " << argv[1] << std::endl;
+
+      return 1;
+    }
+
   } else {
     for (const auto & entry : c_benchmarks) {
       auto bench = createBench(entry.name);

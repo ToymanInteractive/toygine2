@@ -187,7 +187,11 @@ jobs:
 
       - name: Build and Test
         run: |
-          cmake ${{ matrix.run_benchmarks == 'true' && '-DBENCHMARKS_OUTPUT_FILE=benchmarks_results.json' || '' }} --preset ${{ matrix.cmake_preset }}
+          BENCHMARKS_ARG=""
+          if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
+            BENCHMARKS_ARG="-DBENCHMARKS_OUTPUT_FILE=$GITHUB_WORKSPACE/benchmarks_bmf.json"
+          fi
+          cmake $BENCHMARKS_ARG --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
@@ -198,7 +202,18 @@ jobs:
 
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
-        uses: bencherdev/bencher@0.6.5
+        uses: bencherdev/bencher@v0.6.5
+
+      - name: Upload benchmarks to bencher.dev
+        if: matrix.run_benchmarks == 'true'
+        run: |
+          bencher run \
+            --project toygine2 \
+            --token "${{ secrets.BENCHER_API_TOKEN }}" \
+            --branch "${{ github.ref_name }}" \
+            --testbed "${{ matrix.bencher_testbed }}" \
+            --adapter json \
+            --file benchmarks_bmf.json
 
   unit-tests:
     name: Collect unit tests
