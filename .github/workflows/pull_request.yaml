@@ -66,5 +66,6 @@ jobs:
     permissions:
       contents: read
       packages: read
+      pull-requests: write
     uses: ./.github/workflows/build_cmake.yaml
     secrets: inherit
