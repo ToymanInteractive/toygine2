@@ -202,7 +202,7 @@ jobs:
           python3 - <<'EOF'
           import json
 
-          data = json.load(open("benchmarks_results.json"))
+          data = json.load(open("./out/build/${{ matrix.cmake_preset }}/benchmarks_results.json"))
           bmf = {}
           for r in data["results"]:
               key = r["title"] + "/" + r["name"]
