@@ -8,7 +8,7 @@ on:
       CODECOV_TOKEN:
         required: true
       BENCHER_API_TOKEN:
-        required: false
+        required: true
 
 permissions:
   contents: read
@@ -195,6 +195,10 @@ jobs:
           if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
+
+      - name: Install bencher CLI
+        if: matrix.run_benchmarks == 'true'
+        uses: bencherdev/bencher@main
 
   unit-tests:
     name: Collect unit tests
