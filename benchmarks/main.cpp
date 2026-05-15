@@ -53,9 +53,9 @@ constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
 } // namespace
 
 int main(int argc, char * argv[]) noexcept {
-  auto bench = createBench("toygine2");
-
   if (argc > 1) {
+    auto bench = createBench("toygine2");
+
     for (const auto & entry : c_benchmarks)
       entry.fn(bench);
 
