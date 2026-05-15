@@ -54,7 +54,7 @@ constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
 // Renders results in Bencher Metric Format (BMF) for bencher.dev ingestion.
 // Schema: https://bencher.dev/bmf.json
 constexpr char c_bmfTemplate[] = R"({
-{{#result}}  "{{title}}/{{name}}": {"latency": {"value": {{median(elapsed)}}}}{{^-last}},{{/-last}}
+{{#result}}  "{{unit}}/{{name}}": {"latency": {"value": {{median(elapsed)}}}}{{^-last}},{{/-last}}
 {{/result}}})";
 
 } // namespace
