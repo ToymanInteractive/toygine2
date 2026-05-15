@@ -50,7 +50,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 endif ()
 
-set(BENCHMARKS_OUTPUT_FILE "" CACHE STRING "Output file for benchmarks (empty = stdout)")
+set(BENCHMARKS_OUTPUT_FILE "" CACHE STRING "Output file path for JSON benchmark results")
 
 include(FetchContent)
 
@@ -62,14 +62,9 @@ file(GLOB_RECURSE BENCHMARKS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/
 add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${BENCHMARKS_SRC})
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench ${TOYGINE_LIBRARY_NAME})
 
-if(BENCHMARKS_OUTPUT_FILE)
-  set(BENCHMARK_OUTPUT_REDIRECT "> ${BENCHMARKS_OUTPUT_FILE}")
-else()
-  set(BENCHMARK_OUTPUT_REDIRECT "")
-endif()
-
 add_custom_target(benchmarks_run
-  COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks> ${BENCHMARK_OUTPUT_REDIRECT}
+  COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+          $<$<BOOL:${BENCHMARKS_OUTPUT_FILE}>:${BENCHMARKS_OUTPUT_FILE}>
   WORKING_DIRECTORY $<TARGET_FILE_DIR:${TOYGINE_LIBRARY_NAME}-benchmarks>
-  COMMENT "Running benchmarks and saving results"
+  COMMENT "Running benchmarks"
 )

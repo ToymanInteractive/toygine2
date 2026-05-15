@@ -34,7 +34,7 @@ set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /Ox /Ob3 /Oi  
 set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
-# 3.10 Options for Debugging Your Program https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Debugging-Options.html#index-ggdb
+# 3.10 Options for Debugging Your Program https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Debugging-Options.html#index-gdwarf
 
 set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2 -Wbad-function-cast -Wcast-align=strict -Wcast-qual                                           -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5 -Winit-self                                   -Wlogical-op                                          -Wmissing-noreturn -Wmissing-prototypes -Wnested-externs            -Wnormalized=nfc -Wnull-dereference                                         -Wpacked                   -Wredundant-decls                  -Wshadow=local                                     -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn                                                                                -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas                                   -Wvla -Wwrite-strings                                 -fstrict-flex-arrays=2")
 set(GCC_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2                     -Wcast-align=strict -Wcast-qual -Wcatch-value=2 -Wconditionally-supported -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5             -Winvalid-constexpr -Winvalid-pch -Wlogical-op -Wmismatched-tags -Wmissing-declarations -Wmissing-noreturn                                       -Wnoexcept -Wnormalized=nfc -Wnull-dereference -Wold-style-cast -Woverloaded-virtual=2 -Wpacked -Wplacement-new=2 -Wredundant-decls -Wredundant-tags -Wshadow=local -Wshift-negative-value -Wsign-promo -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wswitch-enum -Wsuggest-override -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas -Wuse-after-free=3 -Wuseless-cast -Wvla -Wwrite-strings -Wzero-as-null-pointer-constant -fstrict-flex-arrays=2")
@@ -105,12 +105,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wvector-operation-performance")
   set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS} -Wvector-operation-performance")
 
-  set(CMAKE_C_FLAGS_DEBUG                   "${GCC_C_FLAGS_DEBUG}")
-  set(CMAKE_CXX_FLAGS_DEBUG                 "${GCC_CXX_FLAGS_DEBUG}")
+  set(CMAKE_C_FLAGS_DEBUG                   "${GCC_C_FLAGS_DEBUG}   -ggdb3")
+  set(CMAKE_CXX_FLAGS_DEBUG                 "${GCC_CXX_FLAGS_DEBUG} -ggdb3")
   set(CMAKE_EXE_LINKER_FLAGS_DEBUG          "-rdynamic")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${GCC_C_FLAGS_RELWITHDEBINFO}")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${GCC_C_FLAGS_RELWITHDEBINFO}   -ggdb")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${GCC_CXX_FLAGS_RELWITHDEBINFO} -ggdb")
   set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "-rdynamic")
 
   set(CMAKE_C_FLAGS_RELEASE                 "${GCC_C_FLAGS_RELEASE}")
@@ -183,11 +183,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
   set(CMAKE_C_FLAGS   "-D__GBA__ ${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
   set(CMAKE_CXX_FLAGS "-D__GBA__ ${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti -fno-threadsafe-statics")
 
-  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
-  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}   -ggdb3")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG} -ggdb3")
 
-  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
-  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}   -ggdb")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO} -ggdb")
 
   set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
   set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
