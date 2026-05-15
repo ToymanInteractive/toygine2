@@ -22,6 +22,7 @@
   \brief  Entry point for nanobench benchmarks (core, geometry, math).
 */
 
+#include <array>
 #include <fstream>
 
 #include <nanobench.h>
@@ -32,22 +33,42 @@ void runCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
-int main(int argc, char * argv[]) noexcept {
-  auto bench         = createBench("toygine2");
-  auto coreBench     = createBench("Core module");
-  auto geometryBench = createBench("Geometry module");
-  auto mathBench     = createBench("Math module");
+namespace {
 
-  runCoreBenchmarks(argc > 1 ? bench : coreBench);
-  runGeometryBenchmarks(argc > 1 ? bench : geometryBench);
-  runMathBenchmarks(argc > 1 ? bench : mathBench);
+using benchmark_fn_type = void (*)(ankerl::nanobench::Bench &) noexcept;
+
+struct BenchmarkEntry {
+  const char *      name;
+  benchmark_fn_type fn;
+};
+
+constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
+  {
+   {"Core module", runCoreBenchmarks},
+   {"Geometry module", runGeometryBenchmarks},
+   {"Math module", runMathBenchmarks},
+   }
+};
+
+} // namespace
+
+int main(int argc, char * argv[]) noexcept {
+  auto bench = createBench("toygine2");
 
   if (argc > 1) {
+    for (const auto & entry : c_benchmarks)
+      entry.fn(bench);
+
     std::ofstream out(argv[1]);
     if (!out.is_open())
       return 1;
 
     ankerl::nanobench::render(ankerl::nanobench::templates::json(), bench, out);
+  } else {
+    for (const auto & entry : c_benchmarks) {
+      auto bench = createBench(entry.name);
+      entry.fn(bench);
+    }
   }
 
   return 0;

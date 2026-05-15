@@ -198,7 +198,7 @@ jobs:
 
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
-        uses: bencherdev/bencher@main
+        uses: bencherdev/bencher@0.6.5
 
   unit-tests:
     name: Collect unit tests

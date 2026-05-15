@@ -128,11 +128,18 @@ IndentWidth: 2
 IndentWrappedFunctionNames: true
 InsertBraces: false
 InsertNewlineAtEOF: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#inserttrailingcommas
-KeepEmptyLinesAtTheStartOfBlocks: false
+InsertTrailingCommas: None
+KeepEmptyLines:
+  AtEndOfFile: false
+  AtStartOfBlock: false
+  AtStartOfFile: false
+KeepFormFeed: false
 LambdaBodyIndentation: Signature
+# LineEnding: CRLF
+MainIncludeChar: Quote
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#numericliteralcase
 PackConstructorInitializers: BinPack
 PenaltyBreakBeforeFirstCallParameter: 19937
 PenaltyReturnTypeOnItsOwnLine: 19937
