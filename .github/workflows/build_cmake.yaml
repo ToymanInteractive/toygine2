@@ -196,6 +196,25 @@ jobs:
             cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
           fi
 
+      - name: Convert benchmarks to BMF
+        if: matrix.run_benchmarks == 'true'
+        run: |
+          python3 - <<'EOF'
+          import json
+
+          data = json.load(open("benchmarks_results.json"))
+          bmf = {}
+          for r in data["results"]:
+              key = r["title"] + "/" + r["name"]
+              elapsed = [m["elapsed"] for m in r.get("measurements", [])]
+              entry = {"value": r["median(elapsed)"]}
+              if elapsed:
+                  entry["lower_value"] = min(elapsed)
+                  entry["upper_value"] = max(elapsed)
+              bmf[key] = {"latency": entry}
+          json.dump(bmf, open("benchmarks_bmf.json", "w"), indent=2)
+          EOF
+
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
         uses: bencherdev/bencher@v0.6.5
@@ -208,8 +227,8 @@ jobs:
             --token "${{ secrets.BENCHER_API_TOKEN }}" \
             --branch "${{ github.ref_name }}" \
             --testbed "${{ matrix.bencher_testbed }}" \
-            --adapter nanobench \
-            --file benchmarks_results.json
+            --adapter json \
+            --file benchmarks_bmf.json
 
   unit-tests:
     name: Collect unit tests
