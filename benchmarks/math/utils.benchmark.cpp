@@ -22,7 +22,8 @@
   \brief  Nanobench benchmarks for \c toy::math angle conversion and related utilities (\c float vs \c fixed).
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
+
 #include "math.hpp"
 
 namespace toy::math {

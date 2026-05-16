@@ -28,8 +28,6 @@
 
 #include <nanobench.h>
 
-#include "benchmark_factory.hpp"
-
 void runCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
@@ -60,31 +58,26 @@ constexpr char c_bmfTemplate[] = R"({
 } // namespace
 
 int main(int argc, char * argv[]) noexcept {
+  auto bench
+    = ankerl::nanobench::Bench().title("toygine2").warmup(100).epochs(100).minEpochIterations(1000).relative(true);
+
+  for (const auto & entry : c_benchmarks)
+    entry.fn(bench.unit(entry.name));
+
   if (argc > 1) {
-    auto bench = createBench("toygine2");
-
-    for (const auto & entry : c_benchmarks)
-      entry.fn(bench.unit(entry.name));
-
-    std::ofstream out(argv[1]);
-    if (!out.is_open()) {
+    std::ofstream json(argv[1]);
+    if (!json.is_open()) {
       std::cerr << "Failed to open output file: " << argv[1] << std::endl;
 
       return 1;
     }
 
-    ankerl::nanobench::render(c_bmfTemplate, bench, out);
-    out.flush();
-    if (!out.good()) {
+    ankerl::nanobench::render(c_bmfTemplate, bench, json);
+    json.flush();
+    if (!json.good()) {
       std::cerr << "Failed to write benchmark output file: " << argv[1] << std::endl;
 
       return 1;
-    }
-
-  } else {
-    for (const auto & entry : c_benchmarks) {
-      auto bench = createBench(entry.name);
-      entry.fn(bench);
     }
   }
 

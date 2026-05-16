@@ -22,7 +22,7 @@
   \brief  Implementations for fixed-point nanobench benchmarks in the math module.
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
 #include "math.hpp"
 
 namespace toy::math {

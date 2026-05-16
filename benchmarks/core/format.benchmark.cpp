@@ -22,7 +22,7 @@
   \brief  Nanobench benchmarks for toy::vformat() and toy::vformatTo().
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
 #include "core.hpp"
 
 namespace toy {

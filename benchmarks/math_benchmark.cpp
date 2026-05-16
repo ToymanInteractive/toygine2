@@ -22,7 +22,8 @@
   \brief  Implementation of nanobench benchmarks for the math module.
 */
 
-#include "benchmark_factory.hpp"
+#include <nanobench.h>
+
 #include "math.hpp"
 
 namespace toy::math {
