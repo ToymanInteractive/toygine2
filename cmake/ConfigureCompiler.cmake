@@ -34,7 +34,7 @@ set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /Ox /Ob3 /Oi  
 set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
-# 3.10 Options for Debugging Your Program https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Debugging-Options.html#index-gdwarf
+# 3.10 Options for Debugging Your Program https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Debugging-Options.html#index-feliminate-unused-debug-symbols
 
 set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2 -Wbad-function-cast -Wcast-align=strict -Wcast-qual                                           -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5 -Winit-self                                   -Wlogical-op                                          -Wmissing-noreturn -Wmissing-prototypes -Wnested-externs            -Wnormalized=nfc -Wnull-dereference                                         -Wpacked                   -Wredundant-decls                  -Wshadow=local                                     -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn                                                                                -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas                                   -Wvla -Wwrite-strings                                 -fstrict-flex-arrays=2")
 set(GCC_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2                     -Wcast-align=strict -Wcast-qual -Wcatch-value=2 -Wconditionally-supported -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5             -Winvalid-constexpr -Winvalid-pch -Wlogical-op -Wmismatched-tags -Wmissing-declarations -Wmissing-noreturn                                       -Wnoexcept -Wnormalized=nfc -Wnull-dereference -Wold-style-cast -Woverloaded-virtual=2 -Wpacked -Wplacement-new=2 -Wredundant-decls -Wredundant-tags -Wshadow=local -Wshift-negative-value -Wsign-promo -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wswitch-enum -Wsuggest-override -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas -Wuse-after-free=3 -Wuseless-cast -Wvla -Wwrite-strings -Wzero-as-null-pointer-constant -fstrict-flex-arrays=2")
@@ -42,11 +42,11 @@ set(GCC_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-
 set(GCC_C_FLAGS_DEBUG            "    -g3 -D_DEBUG")
 set(GCC_CXX_FLAGS_DEBUG          "    -g3 -D_DEBUG")
 
-set(GCC_C_FLAGS_RELWITHDEBINFO   "-O3 -g  -D_DEBUG")
-set(GCC_CXX_FLAGS_RELWITHDEBINFO "-O3 -g  -D_DEBUG")
+set(GCC_C_FLAGS_RELWITHDEBINFO   "-O3 -g2 -D_DEBUG")
+set(GCC_CXX_FLAGS_RELWITHDEBINFO "-O3 -g2 -D_DEBUG")
 
-set(GCC_C_FLAGS_RELEASE          "-O3     -DNDEBUG")
-set(GCC_CXX_FLAGS_RELEASE        "-O3     -DNDEBUG")
+set(GCC_C_FLAGS_RELEASE          "-O3 -g0 -DNDEBUG")
+set(GCC_CXX_FLAGS_RELEASE        "-O3 -g0 -DNDEBUG")
 
 set(CLANG_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                 -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
 set(CLANG_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes  -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")

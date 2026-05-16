@@ -139,7 +139,13 @@ LambdaBodyIndentation: Signature
 MainIncludeChar: Quote
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#numericliteralcase
+# NumericLiteralCase
+ObjCBinPackProtocolList: Always
+ObjCBlockIndentWidth: 2
+ObjCBreakBeforeNestedBlockParam: false
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#ppindentwidth
 PackConstructorInitializers: BinPack
 PenaltyBreakBeforeFirstCallParameter: 19937
 PenaltyReturnTypeOnItsOwnLine: 19937

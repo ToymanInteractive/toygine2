@@ -22,7 +22,7 @@
   \brief  Nanobench benchmarks for \ref toy::chrono::CountdownTimer.
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
 #include "core.hpp"
 
 namespace toy::chrono {

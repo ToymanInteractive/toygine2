@@ -22,7 +22,7 @@
   \brief  Implementations for vector2 nanobench benchmarks in the math module.
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
 #include "math.hpp"
 
 namespace toy::math {

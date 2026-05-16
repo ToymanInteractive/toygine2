@@ -22,7 +22,8 @@
   \brief  Implementations for utility function nanobench benchmarks in the core module.
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
+
 #include "core.hpp"
 
 namespace toy {

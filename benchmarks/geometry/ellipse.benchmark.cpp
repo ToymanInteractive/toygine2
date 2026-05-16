@@ -22,7 +22,7 @@
   \brief  Implementations for ellipse nanobench benchmarks in the geometry module.
 */
 
-#include "../benchmark_factory.hpp"
+#include "../utils.hpp"
 #include "geometry.hpp"
 
 namespace toy::geometry {

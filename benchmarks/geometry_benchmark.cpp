@@ -22,7 +22,8 @@
   \brief  Implementation of nanobench benchmarks for the geometry module.
 */
 
-#include "benchmark_factory.hpp"
+#include <nanobench.h>
+
 #include "geometry.hpp"
 
 namespace toy::geometry {

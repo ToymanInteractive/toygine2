@@ -30,17 +30,6 @@
 #include <nanobench.h>
 
 /*!
-  \brief Creates an ankerl::nanobench::Bench configured with default warmup, epochs, and relative results.
-
-  \param title Benchmark title shown in the report.
-
-  \return A Bench instance with warmup(100), epochs(100), minEpochIterations(1000), relative(true).
-*/
-inline ankerl::nanobench::Bench createBench(const char * title) noexcept {
-  return ankerl::nanobench::Bench().title(title).warmup(100).epochs(100).minEpochIterations(1000).relative(true);
-}
-
-/*!
   \brief Prevents the compiler from optimizing away \a value in benchmarks.
 
   Forwards to ankerl::nanobench::doNotOptimizeAway so that computed results are not removed as dead code.
