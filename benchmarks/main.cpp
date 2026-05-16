@@ -81,21 +81,21 @@ int main(int argc, char * argv[]) noexcept {
     json << "{" << std::endl;
     for (const auto & suite : report.suites) {
       for (const auto & benchmark : suite.benchmarks) {
-        int64_t lowerValue = std::numeric_limits<int64_t>::max();
-        int64_t upperValue = std::numeric_limits<int64_t>::min();
+        auto lowerValue = std::numeric_limits<double>::max();
+        auto upperValue = std::numeric_limits<double>::min();
 
         for (const auto & data : benchmark.data) {
-          const int64_t val = data.total_time_ns / data.dimension;
-          lowerValue        = std::min(lowerValue, val);
-          upperValue        = std::max(upperValue, val);
+          const auto val = static_cast<double>(data.total_time_ns) / data.dimension;
+          lowerValue     = std::min(lowerValue, val);
+          upperValue     = std::max(upperValue, val);
         }
 
         json << "  \"" << suite.name << "." << benchmark.name << "\": {";
         json << "\"latency\":{";
-        json << "\"value\":{" << std::midpoint(lowerValue, upperValue) << "},";
-        json << "\"lower_value\":{" << lowerValue << "},";
-        json << "\"upper_value\":{" << upperValue << "},";
-        json << "},";
+        json << "\"value\": " << std::midpoint(lowerValue, upperValue) << ",";
+        json << "\"lower_value\": " << lowerValue << "}";
+        json << "\"upper_value\": " << upperValue;
+        json << "}";
         json << "}," << std::endl;
       }
     }
