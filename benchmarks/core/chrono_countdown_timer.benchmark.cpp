@@ -19,40 +19,50 @@
 //
 /*!
   \file   chrono_countdown_timer.benchmark.cpp
-  \brief  Nanobench benchmarks for \ref toy::chrono::CountdownTimer.
+  \brief  Picobench benchmarks for \ref toy::chrono::CountdownTimer.
 */
 
 #include "../utils.hpp"
 #include "core.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy::chrono {
 
-void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  constexpr auto timeout = seconds{1};
+constexpr auto timeout = seconds{1};
 
-  [[maybe_unused]] ClockSource clock;
+static void constructor(picobench::state & state) noexcept {
+  ClockSource clock;
 
-  bench.run("CountdownTimer construction", [&] {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
     CountdownTimer timer{timeout};
-
-    doNotOptimize(timer);
-  });
-
-  bench.run("CountdownTimer::expired()", [&] {
-    CountdownTimer timer{timeout};
-
-    auto r = timer.expired();
-
-    doNotOptimize(r);
-  });
-
-  bench.run("CountdownTimer::remaining()", [&] {
-    CountdownTimer timer{timeout};
-
-    auto r = timer.remaining();
-
-    doNotOptimize(r);
-  });
 }
+
+static void expired(picobench::state & state) noexcept {
+  ClockSource clock;
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    CountdownTimer timer{timeout};
+
+    auto _ = timer.expired();
+  }
+}
+
+static void remaining(picobench::state & state) noexcept {
+  ClockSource clock;
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    CountdownTimer timer{timeout};
+
+    auto _ = timer.remaining();
+  }
+}
+
+PICOBENCH_SUITE("toy::chrono::CountdownTimer");
+PICOBENCH(constructor);
+PICOBENCH(expired);
+PICOBENCH(remaining);
 
 } // namespace toy::chrono

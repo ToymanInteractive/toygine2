@@ -28,6 +28,9 @@
 
 #include <nanobench.h>
 
+#define PICOBENCH_IMPLEMENT
+#include "picobench/picobench.hpp"
+
 void runCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
@@ -49,15 +52,15 @@ constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
    }
 };
 
-// Renders results in Bencher Metric Format (BMF) for bencher.dev ingestion.
-// Schema: https://bencher.dev/bmf.json
-constexpr char c_bmfTemplate[] = R"({
-{{#result}}  "{{unit}}/{{name}}": {"latency": {"value": {{median(elapsed)}}}}{{^-last}},{{/-last}}
-{{/result}}})";
-
 } // namespace
 
 int main(int argc, char * argv[]) noexcept {
+  picobench::runner runner;
+
+  runner.run_benchmarks(123);
+  auto report = runner.generate_report();
+  report.to_text(std::cout);
+
   auto bench
     = ankerl::nanobench::Bench().title("toygine2").warmup(100).epochs(100).minEpochIterations(1000).relative(true);
 
@@ -72,7 +75,32 @@ int main(int argc, char * argv[]) noexcept {
       return 1;
     }
 
-    ankerl::nanobench::render(c_bmfTemplate, bench, json);
+    // Bencher Metric Format (BMF) :
+    // https://bencher.dev/docs/reference/bencher-metric-format/#example-bencher-metric-format-bmf-json
+
+    json << "{" << std::endl;
+    for (const auto & suite : report.suites) {
+      for (const auto & benchmark : suite.benchmarks) {
+        int64_t lowerValue = std::numeric_limits<int64_t>::max();
+        int64_t upperValue = std::numeric_limits<int64_t>::min();
+
+        for (const auto & data : benchmark.data) {
+          const int64_t val = data.total_time_ns / data.dimension;
+          lowerValue        = std::min(lowerValue, val);
+          upperValue        = std::max(upperValue, val);
+        }
+
+        json << "  \"" << suite.name << "." << benchmark.name << "\": {";
+        json << "\"latency\":{";
+        json << "\"value\":{" << std::midpoint(lowerValue, upperValue) << "},";
+        json << "\"lower_value\":{" << lowerValue << "},";
+        json << "\"upper_value\":{" << upperValue << "},";
+        json << "},";
+        json << "}," << std::endl;
+      }
+    }
+    json << "}" << std::endl;
+
     json.flush();
     if (!json.good()) {
       std::cerr << "Failed to write benchmark output file: " << argv[1] << std::endl;
