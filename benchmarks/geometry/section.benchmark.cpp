@@ -37,7 +37,7 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(s);
   });
   bench.run("Section<float> construct min max", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
     doNotOptimize(s);
   });
@@ -55,7 +55,7 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(r);
   });
   bench.run("Section<float> midpoint", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
     auto r = s.midpoint();
 
@@ -77,7 +77,7 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(r);
   });
   bench.run("Section<float> length", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
     auto r = s.length();
 
@@ -99,7 +99,7 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(s);
   });
   bench.run("Section<float> reset", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
     s.reset();
 
@@ -121,9 +121,9 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(s);
   });
   bench.run("Section<float> expand value", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
-    s.expand(5.0f);
+    s.expand(5.0F);
 
     doNotOptimize(s);
   });
@@ -144,8 +144,8 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(s);
   });
   bench.run("Section<float> expand section", [] {
-    Section other(25.0f, 30.0f);
-    Section s(10.0f, 20.0f);
+    Section other(25.0F, 30.0F);
+    Section s(10.0F, 20.0F);
 
     s.expand(other);
 
@@ -190,7 +190,7 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(r);
   });
   bench.run("Section<float> isValid", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
     auto r = s.isValid();
 
@@ -212,9 +212,9 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(r);
   });
   bench.run("Section<float> isContains", [] {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
-    auto r = s.isContains(15.0f);
+    auto r = s.isContains(15.0F);
 
     doNotOptimize(r);
   });
@@ -235,8 +235,8 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(r);
   });
   bench.run("Section<float> operator==", [] {
-    Section a(10.0f, 20.0f);
-    Section b(10.0f, 20.0f);
+    Section a(10.0F, 20.0F);
+    Section b(10.0F, 20.0F);
 
     auto r = (a == b);
 
@@ -260,8 +260,8 @@ void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     doNotOptimize(r);
   });
   bench.run("Section<float> operator!=", [] {
-    Section a(10.0f, 20.0f);
-    Section b(15.0f, 25.0f);
+    Section a(10.0F, 20.0F);
+    Section b(15.0F, 25.0F);
 
     auto r = (a != b);
 

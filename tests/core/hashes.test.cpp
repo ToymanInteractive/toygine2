@@ -45,7 +45,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(single.c_str(), single.size()) == 0x18);
     REQUIRE(crc16(single.c_str(), single.size()) == 0x30C0);
-    REQUIRE(crc32(single.c_str(), single.size()) == 0xd3d99e8b);
+    REQUIRE(crc32(single.c_str(), single.size()) == 0xD3D99E8B);
   }
 
   // Short string input.
@@ -83,7 +83,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(special.c_str(), special.size()) == 0x77);
     REQUIRE(crc16(special.c_str(), special.size()) == 0x9618);
-    REQUIRE(crc32(special.c_str(), special.size()) == 0xa07c9757);
+    REQUIRE(crc32(special.c_str(), special.size()) == 0xA07C9757);
   }
 
   // String with digits.
@@ -101,7 +101,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(mixed.c_str(), mixed.size()) == 0x23);
     REQUIRE(crc16(mixed.c_str(), mixed.size()) == 0xFF9D);
-    REQUIRE(crc32(mixed.c_str(), mixed.size()) == 0xc473d6d6);
+    REQUIRE(crc32(mixed.c_str(), mixed.size()) == 0xC473D6D6);
   }
 
   // Unicode string input.
@@ -110,7 +110,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(unicode.c_str(), unicode.size()) == 0xDB);
     REQUIRE(crc16(unicode.c_str(), unicode.size()) == 0xF20D);
-    REQUIRE(crc32(unicode.c_str(), unicode.size()) == 0xc35cc603);
+    REQUIRE(crc32(unicode.c_str(), unicode.size()) == 0xC35CC603);
   }
 
   // Binary data input.
@@ -119,7 +119,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(binaryData, sizeof(binaryData)) == 0x2C);
     REQUIRE(crc16(binaryData, sizeof(binaryData)) == 0x9B7D);
-    REQUIRE(crc32(binaryData, sizeof(binaryData)) == 0x2542c930);
+    REQUIRE(crc32(binaryData, sizeof(binaryData)) == 0x2542C930);
   }
 
   // All-zero bytes.
@@ -128,7 +128,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(zeros, sizeof(zeros)) == 0x00);
     REQUIRE(crc16(zeros, sizeof(zeros)) == 0x0000);
-    REQUIRE(crc32(zeros, sizeof(zeros)) == 0xc622f71d);
+    REQUIRE(crc32(zeros, sizeof(zeros)) == 0xC622F71D);
   }
 
   // All-ones bytes.
@@ -137,7 +137,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(ones, sizeof(ones)) == 0x44);
     REQUIRE(crc16(ones, sizeof(ones)) == 0x8015);
-    REQUIRE(crc32(ones, sizeof(ones)) == 0xd2fd1072);
+    REQUIRE(crc32(ones, sizeof(ones)) == 0xD2FD1072);
   }
 
   // Pattern bytes.
@@ -146,7 +146,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(pattern, sizeof(pattern)) == 0xC5);
     REQUIRE(crc16(pattern, sizeof(pattern)) == 0x519B);
-    REQUIRE(crc32(pattern, sizeof(pattern)) == 0xfefe37b2);
+    REQUIRE(crc32(pattern, sizeof(pattern)) == 0xFEFE37B2);
   }
 
   // Sequential bytes.
@@ -155,7 +155,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8(sequential, sizeof(sequential)) == 0xF2);
     REQUIRE(crc16(sequential, sizeof(sequential)) == 0x4204);
-    REQUIRE(crc32(sequential, sizeof(sequential)) == 0x456cd746);
+    REQUIRE(crc32(sequential, sizeof(sequential)) == 0x456CD746);
   }
 
   // Incremental CRC with previous value.
@@ -172,7 +172,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc8_2 == 0x5B);
     REQUIRE(crc16_2 == 0x0676);
-    REQUIRE(crc32_2 == 0xf78fcd49);
+    REQUIRE(crc32_2 == 0xF78FCD49);
   }
 
   // Same input yields same CRC.
@@ -201,7 +201,7 @@ TEST_CASE("hashes/crc_functions") {
 
     REQUIRE(crc32_1 == crc32_2);
     REQUIRE(crc32_2 == crc32_3);
-    REQUIRE(crc32_1 == 0x8fadd6d9);
+    REQUIRE(crc32_1 == 0x8FADD6D9);
   }
 
   // Different input yields different CRC.

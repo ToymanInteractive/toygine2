@@ -54,19 +54,19 @@ TEST_CASE("geometry/ellipse/object_structure") {
 TEST_CASE("geometry/ellipse/constructor_center_radiuses") {
   // Floating-point component type.
   SUBCASE("float") {
-    constexpr Ellipse e(math::Vector2(5.0f, 10.0f), math::Vector2(3.0f, 4.0f));
+    constexpr Ellipse e(math::Vector2(5.0F, 10.0F), math::Vector2(3.0F, 4.0F));
 
-    REQUIRE(math::isEqual(e.center.x, 5.0f));
-    REQUIRE(math::isEqual(e.center.y, 10.0f));
-    REQUIRE(math::isEqual(e.radiuses.x, 3.0f));
-    REQUIRE(math::isEqual(e.radiuses.y, 4.0f));
+    REQUIRE(math::isEqual(e.center.x, 5.0F));
+    REQUIRE(math::isEqual(e.center.y, 10.0F));
+    REQUIRE(math::isEqual(e.radiuses.x, 3.0F));
+    REQUIRE(math::isEqual(e.radiuses.y, 4.0F));
     REQUIRE(e.isValid());
     REQUIRE(!e.isReset());
 
-    static_assert(math::isEqual(e.center.x, 5.0f), "constructor must store center.x");
-    static_assert(math::isEqual(e.center.y, 10.0f), "constructor must store center.y");
-    static_assert(math::isEqual(e.radiuses.x, 3.0f), "constructor must store radiuses.x");
-    static_assert(math::isEqual(e.radiuses.y, 4.0f), "constructor must store radiuses.y");
+    static_assert(math::isEqual(e.center.x, 5.0F), "constructor must store center.x");
+    static_assert(math::isEqual(e.center.y, 10.0F), "constructor must store center.y");
+    static_assert(math::isEqual(e.radiuses.x, 3.0F), "constructor must store radiuses.x");
+    static_assert(math::isEqual(e.radiuses.y, 4.0F), "constructor must store radiuses.y");
     static_assert(e.isValid(), "ellipse with positive semi-axes must be valid");
     static_assert(!e.isReset(), "ellipse with non-zero radiuses must not be reset");
   }
@@ -95,20 +95,20 @@ TEST_CASE("geometry/ellipse/constructor_center_radiuses") {
 TEST_CASE("geometry/ellipse/area") {
   // Floating-point component type.
   SUBCASE("float") {
-    constexpr Ellipse e(math::Vector2(0.0f, 0.0f), math::Vector2(10.0f, 5.0f));
+    constexpr Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
 
-    REQUIRE(e.area() == doctest::Approx(157.07963268f));
+    REQUIRE(e.area() == doctest::Approx(157.07963268F));
 
-    static_assert(math::isEqual(e.area(), 157.07963268f), "area with semi-axes 10 and 5 must equal π×10×5");
+    static_assert(math::isEqual(e.area(), 157.07963268F), "area with semi-axes 10 and 5 must equal π×10×5");
   }
 
   // Fixed-point component type.
   SUBCASE("fixed") {
     constexpr Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(10), fixed_type(5)));
 
-    REQUIRE(math::isEqual(e.area(), fixed_type(157.07963268f)));
+    REQUIRE(math::isEqual(e.area(), fixed_type(157.07963268F)));
 
-    static_assert(math::isEqual(e.area(), fixed_type(157.07963268f)), "area with semi-axes 10 and 5 must equal π×10×5");
+    static_assert(math::isEqual(e.area(), fixed_type(157.07963268F)), "area with semi-axes 10 and 5 must equal π×10×5");
   }
 }
 
@@ -116,7 +116,7 @@ TEST_CASE("geometry/ellipse/area") {
 TEST_CASE("geometry/ellipse/reset") {
   // Floating-point component type.
   SUBCASE("float") {
-    Ellipse e(math::Vector2(10.0f, 20.0f), math::Vector2(5.0f, 3.0f));
+    Ellipse e(math::Vector2(10.0F, 20.0F), math::Vector2(5.0F, 3.0F));
 
     e.reset();
 
@@ -144,7 +144,7 @@ TEST_CASE("geometry/ellipse/is_reset") {
   // Floating-point component type.
   SUBCASE("float") {
     Ellipse<float>    eZero;
-    constexpr Ellipse ePos(math::Vector2(0.0f, 0.0f), math::Vector2(1.0f, 2.0f));
+    constexpr Ellipse ePos(math::Vector2(0.0F, 0.0F), math::Vector2(1.0F, 2.0F));
 
     eZero.reset();
 
@@ -173,7 +173,7 @@ TEST_CASE("geometry/ellipse/is_valid") {
   // Floating-point component type.
   SUBCASE("float") {
     Ellipse<float>    eZero;
-    constexpr Ellipse ePos(math::Vector2(0.0f, 0.0f), math::Vector2(1.0f, 2.0f));
+    constexpr Ellipse ePos(math::Vector2(0.0F, 0.0F), math::Vector2(1.0F, 2.0F));
 
     eZero.reset();
 
@@ -201,21 +201,21 @@ TEST_CASE("geometry/ellipse/is_valid") {
 TEST_CASE("geometry/ellipse/is_contain") {
   // Floating-point: center (0,0), semi-axes (10, 5). Center inside; (10,0) and (0,5) on boundary; (11,0) outside.
   SUBCASE("float") {
-    constexpr Ellipse e(math::Vector2(0.0f, 0.0f), math::Vector2(10.0f, 5.0f));
+    constexpr Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
 
-    REQUIRE(e.isContain(math::Vector2(0.0f, 0.0f)));
-    REQUIRE(e.isContain(math::Vector2(5.0f, 0.0f)));
-    REQUIRE(e.isContain(math::Vector2(10.0f, 0.0f)));
-    REQUIRE(e.isContain(math::Vector2(0.0f, 5.0f)));
-    REQUIRE(!e.isContain(math::Vector2(11.0f, 0.0f)));
-    REQUIRE(!e.isContain(math::Vector2(0.0f, 6.0f)));
+    REQUIRE(e.isContain(math::Vector2(0.0F, 0.0F)));
+    REQUIRE(e.isContain(math::Vector2(5.0F, 0.0F)));
+    REQUIRE(e.isContain(math::Vector2(10.0F, 0.0F)));
+    REQUIRE(e.isContain(math::Vector2(0.0F, 5.0F)));
+    REQUIRE(!e.isContain(math::Vector2(11.0F, 0.0F)));
+    REQUIRE(!e.isContain(math::Vector2(0.0F, 6.0F)));
 
-    static_assert(e.isContain(math::Vector2(0.0f, 0.0f)), "center must be contained");
-    static_assert(e.isContain(math::Vector2(5.0f, 0.0f)), "point inside must be contained");
-    static_assert(e.isContain(math::Vector2(10.0f, 0.0f)), "point on boundary (x-axis) must be contained");
-    static_assert(e.isContain(math::Vector2(0.0f, 5.0f)), "point on boundary (y-axis) must be contained");
-    static_assert(!e.isContain(math::Vector2(11.0f, 0.0f)), "point outside must not be contained");
-    static_assert(!e.isContain(math::Vector2(0.0f, 6.0f)), "point outside must not be contained");
+    static_assert(e.isContain(math::Vector2(0.0F, 0.0F)), "center must be contained");
+    static_assert(e.isContain(math::Vector2(5.0F, 0.0F)), "point inside must be contained");
+    static_assert(e.isContain(math::Vector2(10.0F, 0.0F)), "point on boundary (x-axis) must be contained");
+    static_assert(e.isContain(math::Vector2(0.0F, 5.0F)), "point on boundary (y-axis) must be contained");
+    static_assert(!e.isContain(math::Vector2(11.0F, 0.0F)), "point outside must not be contained");
+    static_assert(!e.isContain(math::Vector2(0.0F, 6.0F)), "point outside must not be contained");
   }
 
   // Fixed-point component type.
@@ -244,8 +244,8 @@ TEST_CASE("geometry/ellipse/is_contain") {
 TEST_CASE("geometry/ellipse/operator_equality") {
   // Identical center and radiuses yield equality.
   SUBCASE("equal") {
-    constexpr Ellipse a(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 4.0f));
-    constexpr Ellipse b(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 4.0f));
+    constexpr Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+    constexpr Ellipse b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
     constexpr Ellipse af(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
     constexpr Ellipse bf(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
 
@@ -262,9 +262,9 @@ TEST_CASE("geometry/ellipse/operator_equality") {
 
   // Different center or radiuses yield inequality.
   SUBCASE("not_equal") {
-    constexpr Ellipse a(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 4.0f));
-    constexpr Ellipse b(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 5.0f));
-    constexpr Ellipse c(math::Vector2(1.0f, 3.0f), math::Vector2(3.0f, 4.0f));
+    constexpr Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+    constexpr Ellipse b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 5.0F));
+    constexpr Ellipse c(math::Vector2(1.0F, 3.0F), math::Vector2(3.0F, 4.0F));
     constexpr Ellipse af(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
     constexpr Ellipse bf(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(5)));
     constexpr Ellipse cf(math::Vector2(fixed_type(1), fixed_type(3)), math::Vector2(fixed_type(3), fixed_type(4)));

@@ -59,7 +59,7 @@ void itoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("itoa int64_t", [&] {
     char buf[bufSize];
 
-    char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807LL});
+    char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807});
 
     doNotOptimize(r);
   });
@@ -72,7 +72,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint8_t base 10", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint8_t{200}, 10u);
+    char * r = toy::utoa(buf, bufSize, uint8_t{200}, 10U);
 
     doNotOptimize(r);
   });
@@ -80,7 +80,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint16_t base 10", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint16_t{65535}, 10u);
+    char * r = toy::utoa(buf, bufSize, uint16_t{65535}, 10U);
 
     doNotOptimize(r);
   });
@@ -88,7 +88,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint32_t base 10", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint32_t{4000000000u}, 10);
+    char * r = toy::utoa(buf, bufSize, uint32_t{4000000000}, 10);
 
     doNotOptimize(r);
   });
@@ -96,7 +96,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint64_t base 10", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615ULL}, 10);
+    char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615U}, 10);
 
     doNotOptimize(r);
   });
@@ -104,7 +104,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint32_t base 16", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint32_t{0xDEADBEEFu}, 16);
+    char * r = toy::utoa(buf, bufSize, uint32_t{0xDEADBEEF}, 16);
 
     doNotOptimize(r);
   });
@@ -112,7 +112,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint64_t base 16", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint64_t{0xFFFFFFFFFFFFFFFFULL}, 16);
+    char * r = toy::utoa(buf, bufSize, uint64_t{0xFFFFFFFFFFFFFFFF}, 16);
 
     doNotOptimize(r);
   });
@@ -125,7 +125,7 @@ void ftoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("ftoa float default precision", [&] {
     char buf[bufSize];
 
-    char * r = toy::ftoa(buf, bufSize, 3.14159265f);
+    char * r = toy::ftoa(buf, bufSize, 3.14159265F);
 
     doNotOptimize(r);
   });
@@ -133,7 +133,7 @@ void ftoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("ftoa float custom precision", [&] {
     char buf[bufSize];
 
-    char * r = toy::ftoa(buf, bufSize, -123.456f, 4);
+    char * r = toy::ftoa(buf, bufSize, -123.456F, 4);
 
     doNotOptimize(r);
   });

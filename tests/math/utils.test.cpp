@@ -66,9 +66,9 @@ TEST_CASE("math/utils/abs") {
 
   // Float and double: non-negative unchanged, negative yields positive (within epsilon).
   SUBCASE("floating_point") {
-    REQUIRE(isEqual(abs(0.0f), 0.0f));
-    REQUIRE(isEqual(abs(1.5f), 1.5f));
-    REQUIRE(isEqual(abs(-1.5f), 1.5f));
+    REQUIRE(isEqual(abs(0.0F), 0.0F));
+    REQUIRE(isEqual(abs(1.5F), 1.5F));
+    REQUIRE(isEqual(abs(-1.5F), 1.5F));
     REQUIRE(isEqual(abs(0.0), 0.0));
     REQUIRE(isEqual(abs(1.5), 1.5));
     REQUIRE(isEqual(abs(-1.5), 1.5));
@@ -76,9 +76,9 @@ TEST_CASE("math/utils/abs") {
     REQUIRE(isEqual(abs(1.5L), 1.5L));
     REQUIRE(isEqual(abs(-1.5L), 1.5L));
 
-    static_assert(isEqual(abs(0.0f), 0.0f), "abs of zero float must be zero within machine epsilon");
-    static_assert(isEqual(abs(1.5f), 1.5f), "abs of positive float must be unchanged within epsilon");
-    static_assert(isEqual(abs(-1.5f), 1.5f), "abs of negative float must yield positive within epsilon");
+    static_assert(isEqual(abs(0.0F), 0.0F), "abs of zero float must be zero within machine epsilon");
+    static_assert(isEqual(abs(1.5F), 1.5F), "abs of positive float must be unchanged within epsilon");
+    static_assert(isEqual(abs(-1.5F), 1.5F), "abs of negative float must yield positive within epsilon");
     static_assert(isEqual(abs(0.0), 0.0), "abs of zero double must be zero within machine epsilon");
     static_assert(isEqual(abs(1.5), 1.5), "abs of positive double must be unchanged within epsilon");
     static_assert(isEqual(abs(-1.5), 1.5), "abs of negative double must yield positive within epsilon");
@@ -107,8 +107,8 @@ TEST_CASE("math/utils/abs") {
 TEST_CASE("math/utils/is_equal") {
   // Identical values are equal (float).
   SUBCASE("identical_values") {
-    REQUIRE(isEqual(0.0f, 0.0f));
-    REQUIRE(isEqual(1.0f, 1.0f));
+    REQUIRE(isEqual(0.0F, 0.0F));
+    REQUIRE(isEqual(1.0F, 1.0F));
     REQUIRE(isEqual(0.0, 0.0));
     REQUIRE(isEqual(1.0, 1.0));
     REQUIRE(isEqual(0.0L, 0.0L));
@@ -116,8 +116,8 @@ TEST_CASE("math/utils/is_equal") {
     REQUIRE(isEqual(fixed_type(0), fixed_type(0)));
     REQUIRE(isEqual(fixed_type(1), fixed_type(1)));
 
-    static_assert(isEqual(0.0f, 0.0f), "identical float values must be equal");
-    static_assert(isEqual(1.0f, 1.0f), "identical float values must be equal");
+    static_assert(isEqual(0.0F, 0.0F), "identical float values must be equal");
+    static_assert(isEqual(1.0F, 1.0F), "identical float values must be equal");
     static_assert(isEqual(0.0, 0.0), "identical double values must be equal");
     static_assert(isEqual(1.0, 1.0), "identical double values must be equal");
     static_assert(isEqual(0.0L, 0.0L), "identical long double values must be equal");
@@ -128,19 +128,19 @@ TEST_CASE("math/utils/is_equal") {
 
   // Within default absolute epsilon: treated as equal; beyond it (with relEpsilon zero) treated as not equal.
   SUBCASE("within_absolute_epsilon") {
-    constexpr float eps = 8.0f * numeric_limits<float>::epsilon();
+    constexpr float eps = 8.0F * numeric_limits<float>::epsilon();
 
-    REQUIRE(isEqual(0.0f, eps));
-    REQUIRE(isEqual(0.0f, -eps));
-    REQUIRE(isEqual(1.0f, 1.0f + eps * 0.5f));
-    REQUIRE(!isEqual(0.0f, eps * 1.5f, eps, 0.0f));
-    REQUIRE(!isEqual(0.0f, -eps * 1.5f, eps, 0.0f));
+    REQUIRE(isEqual(0.0F, eps));
+    REQUIRE(isEqual(0.0F, -eps));
+    REQUIRE(isEqual(1.0F, 1.0F + eps * 0.5F));
+    REQUIRE(!isEqual(0.0F, eps * 1.5F, eps, 0.0F));
+    REQUIRE(!isEqual(0.0F, -eps * 1.5F, eps, 0.0F));
 
-    static_assert(isEqual(0.0f, eps), "values within absolute epsilon must be equal");
-    static_assert(isEqual(0.0f, -eps), "values within absolute epsilon must be equal");
-    static_assert(isEqual(1.0f, 1.0f + eps * 0.5f), "values within absolute epsilon must be equal");
-    static_assert(!isEqual(0.0f, eps * 1.5f, eps, 0.0f), "values beyond absolute epsilon must not be equal");
-    static_assert(!isEqual(0.0f, -eps * 1.5f, eps, 0.0f), "values beyond absolute epsilon must not be equal");
+    static_assert(isEqual(0.0F, eps), "values within absolute epsilon must be equal");
+    static_assert(isEqual(0.0F, -eps), "values within absolute epsilon must be equal");
+    static_assert(isEqual(1.0F, 1.0F + eps * 0.5F), "values within absolute epsilon must be equal");
+    static_assert(!isEqual(0.0F, eps * 1.5F, eps, 0.0F), "values beyond absolute epsilon must not be equal");
+    static_assert(!isEqual(0.0F, -eps * 1.5F, eps, 0.0F), "values beyond absolute epsilon must not be equal");
   }
 
   // Double: within absolute epsilon using type-specific epsilon.
@@ -157,12 +157,12 @@ TEST_CASE("math/utils/is_equal") {
 
   // Within default relative epsilon for large values: treated as equal.
   SUBCASE("within_relative_epsilon") {
-    constexpr float big    = 1e6f;
-    constexpr float relEps = 64.0f * numeric_limits<float>::epsilon();
+    constexpr float big    = 1e6F;
+    constexpr float relEps = 64.0F * numeric_limits<float>::epsilon();
 
-    REQUIRE(isEqual(big, big * (1.0f + relEps * 0.5f)));
+    REQUIRE(isEqual(big, big * (1.0F + relEps * 0.5F)));
 
-    static_assert(isEqual(big, big * (1.0f + relEps * 0.5f)), "large values within relative epsilon must be equal");
+    static_assert(isEqual(big, big * (1.0F + relEps * 0.5F)), "large values within relative epsilon must be equal");
   }
 
   // Double: relative epsilon for large values.
@@ -178,27 +178,27 @@ TEST_CASE("math/utils/is_equal") {
 
   // Clearly different values: not equal.
   SUBCASE("clearly_different") {
-    REQUIRE(!isEqual(0.0f, 1.0f));
-    REQUIRE(!isEqual(1.0f, 2.0f));
-    REQUIRE(!isEqual(-1.0f, 1.0f));
+    REQUIRE(!isEqual(0.0F, 1.0F));
+    REQUIRE(!isEqual(1.0F, 2.0F));
+    REQUIRE(!isEqual(-1.0F, 1.0F));
     REQUIRE(!isEqual(0.0, 1.0));
     REQUIRE(!isEqual(-1.0L, 1.0L));
 
-    static_assert(!isEqual(0.0f, 1.0f), "clearly different values must not be equal");
-    static_assert(!isEqual(1.0f, 2.0f), "clearly different values must not be equal");
-    static_assert(!isEqual(-1.0f, 1.0f), "clearly different values must not be equal");
+    static_assert(!isEqual(0.0F, 1.0F), "clearly different values must not be equal");
+    static_assert(!isEqual(1.0F, 2.0F), "clearly different values must not be equal");
+    static_assert(!isEqual(-1.0F, 1.0F), "clearly different values must not be equal");
     static_assert(!isEqual(0.0, 1.0), "clearly different double values must not be equal");
   }
 
   // Custom epsilons: absolute only.
   SUBCASE("custom_epsilons") {
-    constexpr float absEps = 0.01f;
+    constexpr float absEps = 0.01F;
 
-    REQUIRE(isEqual(0.0f, 0.005f, absEps, 0.0f));
-    REQUIRE(!isEqual(0.0f, 0.02f, absEps, 0.0f));
+    REQUIRE(isEqual(0.0F, 0.005F, absEps, 0.0F));
+    REQUIRE(!isEqual(0.0F, 0.02F, absEps, 0.0F));
 
-    static_assert(isEqual(0.0f, 0.005f, absEps, 0.0f), "values within custom absolute epsilon must be equal");
-    static_assert(!isEqual(0.0f, 0.02f, absEps, 0.0f), "values beyond custom absolute epsilon must not be equal");
+    static_assert(isEqual(0.0F, 0.005F, absEps, 0.0F), "values within custom absolute epsilon must be equal");
+    static_assert(!isEqual(0.0F, 0.02F, absEps, 0.0F), "values beyond custom absolute epsilon must not be equal");
   }
 
   // Double: custom epsilons.
@@ -245,15 +245,15 @@ TEST_CASE("math/utils/is_equal") {
 TEST_CASE("math/utils/deg2rad_rad2deg") {
   // Zero: deg2rad(0) and rad2deg(0) are zero.
   SUBCASE("zero") {
-    REQUIRE(isEqual(deg2rad(0.0f), 0.0f));
-    REQUIRE(isEqual(rad2deg(0.0f), 0.0f));
+    REQUIRE(isEqual(deg2rad(0.0F), 0.0F));
+    REQUIRE(isEqual(rad2deg(0.0F), 0.0F));
     REQUIRE(isEqual(deg2rad(0.0), 0.0));
     REQUIRE(isEqual(rad2deg(0.0), 0.0));
     REQUIRE(deg2rad(fixed_type(0)) == fixed_type(0));
     REQUIRE(rad2deg(fixed_type(0)) == fixed_type(0));
 
-    static_assert(isEqual(deg2rad(0.0f), 0.0f), "deg2rad(0) float must be zero");
-    static_assert(isEqual(rad2deg(0.0f), 0.0f), "rad2deg(0) float must be zero");
+    static_assert(isEqual(deg2rad(0.0F), 0.0F), "deg2rad(0) float must be zero");
+    static_assert(isEqual(rad2deg(0.0F), 0.0F), "rad2deg(0) float must be zero");
     static_assert(isEqual(deg2rad(0.0), 0.0), "deg2rad(0) double must be zero");
     static_assert(isEqual(rad2deg(0.0), 0.0), "rad2deg(0) double must be zero");
     static_assert(deg2rad(fixed_type(0)) == fixed_type(0), "deg2rad(0) fixed must be zero");
@@ -262,15 +262,15 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
 
   // 180 degrees equals π radians; π radians equals 180 degrees.
   SUBCASE("half_turn") {
-    REQUIRE(isEqual(deg2rad(180.0f), constants::pi_v<float>));
-    REQUIRE(isEqual(rad2deg(constants::pi_v<float>), 180.0f));
+    REQUIRE(isEqual(deg2rad(180.0F), constants::pi_v<float>));
+    REQUIRE(isEqual(rad2deg(constants::pi_v<float>), 180.0F));
     REQUIRE(isEqual(deg2rad(180.0), constants::pi_v<double>));
     REQUIRE(isEqual(rad2deg(constants::pi_v<double>), 180.0));
     REQUIRE(isEqual(deg2rad(fixed_type(180)), constants::pi_v<fixed_type>));
     REQUIRE(isEqual(rad2deg(constants::pi_v<fixed_type>), fixed_type(180)));
 
-    static_assert(isEqual(deg2rad(180.0f), constants::pi_v<float>), "deg2rad(180) float must equal π");
-    static_assert(isEqual(rad2deg(constants::pi_v<float>), 180.0f), "rad2deg(π) float must equal 180");
+    static_assert(isEqual(deg2rad(180.0F), constants::pi_v<float>), "deg2rad(180) float must equal π");
+    static_assert(isEqual(rad2deg(constants::pi_v<float>), 180.0F), "rad2deg(π) float must equal 180");
     static_assert(isEqual(deg2rad(180.0), constants::pi_v<double>), "deg2rad(180) double must equal π");
     static_assert(isEqual(rad2deg(constants::pi_v<double>), 180.0), "rad2deg(π) double must equal 180");
     static_assert(isEqual(deg2rad(fixed_type(180)), constants::pi_v<fixed_type>), "deg2rad(180) fixed must equal π");
@@ -279,11 +279,11 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
 
   // Round-trip: rad2deg(deg2rad(x)) ≈ x.
   SUBCASE("round_trip") {
-    REQUIRE(isEqual(rad2deg(deg2rad(0.0f)), 0.0f));
-    REQUIRE(isEqual(rad2deg(deg2rad(45.0f)), 45.0f));
-    REQUIRE(isEqual(rad2deg(deg2rad(90.0f)), 90.0f));
-    REQUIRE(isEqual(rad2deg(deg2rad(180.0f)), 180.0f));
-    REQUIRE(isEqual(rad2deg(deg2rad(360.0f)), 360.0f));
+    REQUIRE(isEqual(rad2deg(deg2rad(0.0F)), 0.0F));
+    REQUIRE(isEqual(rad2deg(deg2rad(45.0F)), 45.0F));
+    REQUIRE(isEqual(rad2deg(deg2rad(90.0F)), 90.0F));
+    REQUIRE(isEqual(rad2deg(deg2rad(180.0F)), 180.0F));
+    REQUIRE(isEqual(rad2deg(deg2rad(360.0F)), 360.0F));
     REQUIRE(isEqual(rad2deg(deg2rad(0.0)), 0.0));
     REQUIRE(isEqual(rad2deg(deg2rad(45.0)), 45.0));
     REQUIRE(isEqual(rad2deg(deg2rad(90.0)), 90.0));
@@ -295,11 +295,11 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     REQUIRE(isEqual(rad2deg(deg2rad(fixed_type(180))), fixed_type(180)));
     REQUIRE(isEqual(rad2deg(deg2rad(fixed_type(360))), fixed_type(360)));
 
-    static_assert(isEqual(rad2deg(deg2rad(0.0f)), 0.0f), "round-trip 0 deg float must be 0");
-    static_assert(isEqual(rad2deg(deg2rad(45.0f)), 45.0f), "round-trip 45 deg float must be 45");
-    static_assert(isEqual(rad2deg(deg2rad(90.0f)), 90.0f), "round-trip 90 deg float must be 90");
-    static_assert(isEqual(rad2deg(deg2rad(180.0f)), 180.0f), "round-trip 180 deg float must be 180");
-    static_assert(isEqual(rad2deg(deg2rad(360.0f)), 360.0f), "round-trip 360 deg double must be 360");
+    static_assert(isEqual(rad2deg(deg2rad(0.0F)), 0.0F), "round-trip 0 deg float must be 0");
+    static_assert(isEqual(rad2deg(deg2rad(45.0F)), 45.0F), "round-trip 45 deg float must be 45");
+    static_assert(isEqual(rad2deg(deg2rad(90.0F)), 90.0F), "round-trip 90 deg float must be 90");
+    static_assert(isEqual(rad2deg(deg2rad(180.0F)), 180.0F), "round-trip 180 deg float must be 180");
+    static_assert(isEqual(rad2deg(deg2rad(360.0F)), 360.0F), "round-trip 360 deg float must be 360");
     static_assert(isEqual(rad2deg(deg2rad(0.0)), 0.0), "round-trip 0 deg double must be 0");
     static_assert(isEqual(rad2deg(deg2rad(45.0)), 45.0), "round-trip 45 deg double must be 45");
     static_assert(isEqual(rad2deg(deg2rad(90.0)), 90.0), "round-trip 90 deg double must be 90");

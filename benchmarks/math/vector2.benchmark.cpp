@@ -32,7 +32,7 @@ using fixed_type = fixed<int32_t, int64_t, 24>;
 // Vector2 benchmarks
 void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Vector2<float> coordinate construct", [] {
-    Vector2 v(10.0f, 20.0f);
+    Vector2 v(10.0F, 20.0F);
 
     doNotOptimize(v);
   });
@@ -46,8 +46,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator+=", [] {
-    Vector2 addition(5.0f, -10.0f);
-    Vector2 v(10.0f, 20.0f);
+    Vector2 addition(5.0F, -10.0F);
+    Vector2 v(10.0F, 20.0F);
 
     v += addition;
 
@@ -63,8 +63,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator-=", [] {
-    Vector2 subtraction(5.0f, 10.0f);
-    Vector2 v(15.0f, 25.0f);
+    Vector2 subtraction(5.0F, 10.0F);
+    Vector2 v(15.0F, 25.0F);
 
     v -= subtraction;
 
@@ -80,9 +80,9 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator*=", [] {
-    Vector2 v(10.0f, 20.0f);
+    Vector2 v(10.0F, 20.0F);
 
-    v *= 2.5f;
+    v *= 2.5F;
 
     doNotOptimize(v);
   });
@@ -96,9 +96,9 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator/=", [] {
-    Vector2 v(20.0f, 45.0f);
+    Vector2 v(20.0F, 45.0F);
 
-    v /= 2.5f;
+    v /= 2.5F;
 
     doNotOptimize(v);
   });
@@ -112,7 +112,7 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> sqrMagnitude", [] {
-    Vector2 v(3.0f, 4.0f);
+    Vector2 v(3.0F, 4.0F);
 
     auto r = v.sqrMagnitude();
 
@@ -127,7 +127,7 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> setZero", [] {
-    Vector2 v(100.0f, 200.0f);
+    Vector2 v(100.0F, 200.0F);
 
     v.setZero();
 
@@ -142,7 +142,7 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> isZero", [] {
-    Vector2 v(0.0f, 0.0f);
+    Vector2 v(0.0F, 0.0F);
 
     auto r = v.isZero();
 
@@ -157,8 +157,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> isEqual", [] {
-    Vector2 a(10.0f, 20.0f);
-    Vector2 b(10.0f, 20.0f);
+    Vector2 a(10.0F, 20.0F);
+    Vector2 b(10.0F, 20.0F);
 
     auto r = a.isEqual(b);
 
@@ -174,8 +174,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator+", [] {
-    Vector2 a(10.0f, 20.0f);
-    Vector2 b(5.0f, -10.0f);
+    Vector2 a(10.0F, 20.0F);
+    Vector2 b(5.0F, -10.0F);
 
     auto r = a + b;
 
@@ -191,8 +191,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator-", [] {
-    Vector2 a(15.0f, 25.0f);
-    Vector2 b(5.0f, 10.0f);
+    Vector2 a(15.0F, 25.0F);
+    Vector2 b(5.0F, 10.0F);
 
     auto r = a - b;
 
@@ -208,7 +208,7 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator- unary", [] {
-    Vector2 v(10.0f, -20.0f);
+    Vector2 v(10.0F, -20.0F);
 
     auto r = -v;
 
@@ -223,9 +223,9 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator* scalar", [] {
-    Vector2 v(10.0f, 20.0f);
+    Vector2 v(10.0F, 20.0F);
 
-    auto r = v * 2.5f;
+    auto r = v * 2.5F;
 
     doNotOptimize(r);
   });
@@ -239,9 +239,9 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> scalar * vector", [] {
-    Vector2 v(10.0f, 20.0f);
+    Vector2 v(10.0F, 20.0F);
 
-    auto r = 2.5f * v;
+    auto r = 2.5F * v;
 
     doNotOptimize(r);
   });
@@ -254,8 +254,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> dot product", [] {
-    Vector2 a(10.0f, 20.0f);
-    Vector2 b(5.0f, 10.0f);
+    Vector2 a(10.0F, 20.0F);
+    Vector2 b(5.0F, 10.0F);
 
     auto r = a * b;
 
@@ -271,9 +271,9 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator/", [] {
-    Vector2 v(25.0f, 50.0f);
+    Vector2 v(25.0F, 50.0F);
 
-    auto r = v / 2.5f;
+    auto r = v / 2.5F;
 
     doNotOptimize(r);
   });
@@ -287,8 +287,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator==", [] {
-    Vector2 a(10.0f, 20.0f);
-    Vector2 b(10.0f, 20.0f);
+    Vector2 a(10.0F, 20.0F);
+    Vector2 b(10.0F, 20.0F);
 
     auto r = (a == b);
 
@@ -304,8 +304,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> operator!=", [] {
-    Vector2 a(10.0f, 20.0f);
-    Vector2 b(11.0f, 20.0f);
+    Vector2 a(10.0F, 20.0F);
+    Vector2 b(11.0F, 20.0F);
 
     auto r = (a != b);
 
@@ -321,8 +321,8 @@ void vector2MathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Vector2<float> cross", [] {
-    Vector2 a(3.0f, 4.0f);
-    Vector2 b(1.0f, 0.0f);
+    Vector2 a(3.0F, 4.0F);
+    Vector2 b(1.0F, 0.0F);
 
     auto r = cross(a, b);
 

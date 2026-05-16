@@ -32,7 +32,7 @@ using fixed_type = math::fixed<int32_t, int64_t, 24>;
 // Ellipse benchmarks
 void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Ellipse<float> construct center radiuses", [] {
-    Ellipse e(math::Vector2(5.0f, 10.0f), math::Vector2(3.0f, 4.0f));
+    Ellipse e(math::Vector2(5.0F, 10.0F), math::Vector2(3.0F, 4.0F));
 
     doNotOptimize(e);
   });
@@ -43,7 +43,7 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Ellipse<float> area", [] {
-    constexpr Ellipse e(math::Vector2(0.0f, 0.0f), math::Vector2(10.0f, 5.0f));
+    constexpr Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
 
     auto r = e.area();
 
@@ -58,7 +58,7 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Ellipse<float> reset", [] {
-    Ellipse e(math::Vector2(10.0f, 20.0f), math::Vector2(5.0f, 3.0f));
+    Ellipse e(math::Vector2(10.0F, 20.0F), math::Vector2(5.0F, 3.0F));
 
     e.reset();
 
@@ -90,7 +90,7 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Ellipse<float> isValid", [] {
-    constexpr Ellipse e(math::Vector2(0.0f, 0.0f), math::Vector2(1.0f, 1.0f));
+    constexpr Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(1.0F, 1.0F));
 
     auto r = e.isValid();
 
@@ -105,9 +105,9 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Ellipse<float> isContain", [] {
-    constexpr Ellipse e(math::Vector2(0.0f, 0.0f), math::Vector2(10.0f, 5.0f));
+    constexpr Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
 
-    auto r = e.isContain(math::Vector2(5.0f, 2.0f));
+    auto r = e.isContain(math::Vector2(5.0F, 2.0F));
 
     doNotOptimize(r);
   });
@@ -120,8 +120,8 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Ellipse<float> operator==", [] {
-    constexpr Ellipse a(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 4.0f));
-    constexpr Ellipse b(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 4.0f));
+    constexpr Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+    constexpr Ellipse b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
 
     auto r = (a == b);
 
@@ -137,8 +137,8 @@ void ellipseGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Ellipse<float> operator!=", [] {
-    constexpr Ellipse a(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 4.0f));
-    constexpr Ellipse b(math::Vector2(1.0f, 2.0f), math::Vector2(3.0f, 5.0f));
+    constexpr Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+    constexpr Ellipse b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 5.0F));
 
     auto r = (a != b);
 

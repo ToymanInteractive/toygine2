@@ -685,9 +685,9 @@ TEST_CASE("o_string_stream/operator_insert") {
   SUBCASE("insert_natural_numbers") {
     array<OStringStream<FixedString<16>>, 6> streams;
 
-    streams[0] << 123.456f;
-    streams[1] << -123.456f;
-    streams[2] << 0.0f;
+    streams[0] << 123.456F;
+    streams[1] << -123.456F;
+    streams[2] << 0.0F;
     streams[3] << 123.456;
     streams[4] << -123.456;
     streams[5] << 0.0;
@@ -706,7 +706,7 @@ TEST_CASE("o_string_stream/operator_insert") {
     stream << long{0} << static_cast<unsigned long>(0) << static_cast<long long>(0)
            << static_cast<unsigned long long>(0) << short{0} << static_cast<unsigned short>(0) << int{0}
            << static_cast<unsigned int>(0) << static_cast<signed char>(0) << static_cast<unsigned char>(0) << int8_t{0}
-           << uint8_t{0} << int16_t{0} << uint16_t{0} << int32_t{0} << uint32_t{0} << int64_t{0} << uint64_t{0} << 0.0f
+           << uint8_t{0} << int16_t{0} << uint16_t{0} << int32_t{0} << uint32_t{0} << int64_t{0} << uint64_t{0} << 0.0F
            << 0.0;
 
     REQUIRE(stream.str() == "00000000000000000000");
@@ -728,7 +728,7 @@ TEST_CASE("o_string_stream/operator_insert") {
     streams[6] << int{123};
     streams[7] << static_cast<unsigned short>(123);
     streams[8] << static_cast<unsigned int>(123);
-    streams[9] << 123.0f;
+    streams[9] << 123.0F;
     streams[10] << static_cast<signed char>(123);
     streams[11] << static_cast<unsigned char>(123);
 
@@ -750,7 +750,7 @@ TEST_CASE("o_string_stream/operator_insert") {
     auto & ref6  = streams[6] << int{789};
     auto & ref7  = streams[7] << static_cast<unsigned short>(890);
     auto & ref8  = streams[8] << static_cast<unsigned int>(901);
-    auto & ref9  = streams[9] << 012.0f;
+    auto & ref9  = streams[9] << 012.0F;
     auto & ref10 = streams[10] << static_cast<signed char>(123);
     auto & ref11 = streams[11] << static_cast<unsigned char>(234);
 
@@ -803,7 +803,7 @@ TEST_CASE("o_string_stream/operator_insert") {
     stream.put(' ');
     stream << static_cast<unsigned int>(901);
     stream.put(' ');
-    stream << 012.0f;
+    stream << 012.0F;
     stream.put(' ');
     stream << static_cast<signed char>(123);
     stream.put(' ');
@@ -853,9 +853,9 @@ TEST_CASE("o_string_stream/operator_insert") {
     REQUIRE(streams[0].str().starts_with("0x"));
 
     if constexpr (sizeof(void *) == 4) {
-      REQUIRE(streams[0].str().length() == 10u);
+      REQUIRE(streams[0].str().length() == 10U);
     } else if constexpr (sizeof(void *) == 8) {
-      REQUIRE(streams[0].str().length() == 18u);
+      REQUIRE(streams[0].str().length() == 18U);
     } else {
       static_assert(sizeof(void *) == 4 || sizeof(void *) == 8, "Unsupported value size");
     }

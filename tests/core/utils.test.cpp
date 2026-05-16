@@ -53,8 +53,8 @@ constexpr array<wchar_t, 86> unicodeTestData{
 };
 
 constexpr array<float, 16> floats{
-  {0.0f, -0.0f, 10000000.0f, -10000000.0f, 100000.0f, -100000.0f, 4200.0f, -4200.0f, 42.0f, -42.0f, 0.042f, -0.042f,
-   0.000042f, -0.000042f, 0.00000042f, -0.00000042f}
+  {0.0F, -0.0F, 10000000.0F, -10000000.0F, 100000.0F, -100000.0F, 4200.0F, -4200.0F, 42.0F, -42.0F, 0.042F, -0.042F,
+   0.000042F, -0.000042F, 0.00000042F, -0.00000042F}
 };
 
 constexpr array<double, 16> doubles{
@@ -407,7 +407,7 @@ TEST_CASE("utils/ftoa_converts_float_to_string") {
   SUBCASE("float and double positive") {
     char buffer[32];
 
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795f), "3.141592") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795F), "3.141592") == 0);
     REQUIRE(strcmp(ftoa(buffer, size(buffer), 3.1415926535897932384626433832795), "3.14159244298935") == 0);
   }
 
@@ -415,7 +415,7 @@ TEST_CASE("utils/ftoa_converts_float_to_string") {
   SUBCASE("float and double negative") {
     char buffer[32];
 
-    REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795f), "-3.141592") == 0);
+    REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795F), "-3.141592") == 0);
     REQUIRE(strcmp(ftoa(buffer, size(buffer), -3.1415926535897932384626433832795), "-3.14159244298935") == 0);
   }
 

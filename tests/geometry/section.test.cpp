@@ -75,15 +75,15 @@ TEST_CASE("geometry/section/constructor_bounds") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    constexpr Section s(10.0f, 20.0f);
+    constexpr Section s(10.0F, 20.0F);
 
-    REQUIRE(math::isEqual(s.start, 10.0f));
-    REQUIRE(math::isEqual(s.end, 20.0f));
+    REQUIRE(math::isEqual(s.start, 10.0F));
+    REQUIRE(math::isEqual(s.end, 20.0F));
     REQUIRE(s.isValid());
     REQUIRE(!s.isReset());
 
-    static_assert(math::isEqual(s.start, 10.0f), "constructor must store start");
-    static_assert(math::isEqual(s.end, 20.0f), "constructor must store end");
+    static_assert(math::isEqual(s.start, 10.0F), "constructor must store start");
+    static_assert(math::isEqual(s.end, 20.0F), "constructor must store end");
     static_assert(s.isValid(), "Section(10,20) float must be valid");
     static_assert(!s.isReset(), "Section(10,20) float must not be reset");
   }
@@ -117,11 +117,11 @@ TEST_CASE("geometry/section/midpoint") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    constexpr Section s(1.0f, 3.0f);
+    constexpr Section s(1.0F, 3.0F);
 
-    REQUIRE(math::isEqual(s.midpoint(), 2.0f));
+    REQUIRE(math::isEqual(s.midpoint(), 2.0F));
 
-    static_assert(math::isEqual(s.midpoint(), 2.0f), "midpoint of [1,3] float must be 2");
+    static_assert(math::isEqual(s.midpoint(), 2.0F), "midpoint of [1,3] float must be 2");
   }
 
   // Fixed-point endpoint type.
@@ -147,11 +147,11 @@ TEST_CASE("geometry/section/length") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    constexpr Section s(7.0f, 7.0f);
+    constexpr Section s(7.0F, 7.0F);
 
-    REQUIRE(math::isEqual(s.length(), 0.0f));
+    REQUIRE(math::isEqual(s.length(), 0.0F));
 
-    static_assert(math::isEqual(s.length(), 0.0f), "length of point section float must be 0");
+    static_assert(math::isEqual(s.length(), 0.0F), "length of point section float must be 0");
   }
 
   // Fixed-point endpoint type.
@@ -180,7 +180,7 @@ TEST_CASE("geometry/section/reset") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    Section s(1.0f, 10.0f);
+    Section s(1.0F, 10.0F);
 
     s.reset();
 
@@ -227,22 +227,22 @@ TEST_CASE("geometry/section/expand_value") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    Section s(10.0f, 20.0f);
+    Section s(10.0F, 20.0F);
 
-    s.expand(5.0f);
+    s.expand(5.0F);
 
-    REQUIRE(math::isEqual(s.start, 5.0f));
-    REQUIRE(math::isEqual(s.end, 20.0f));
+    REQUIRE(math::isEqual(s.start, 5.0F));
+    REQUIRE(math::isEqual(s.end, 20.0F));
 
-    s.expand(25.0f);
+    s.expand(25.0F);
 
-    REQUIRE(math::isEqual(s.start, 5.0f));
-    REQUIRE(math::isEqual(s.end, 25.0f));
+    REQUIRE(math::isEqual(s.start, 5.0F));
+    REQUIRE(math::isEqual(s.end, 25.0F));
 
-    s.expand(15.0f);
+    s.expand(15.0F);
 
-    REQUIRE(math::isEqual(s.start, 5.0f));
-    REQUIRE(math::isEqual(s.end, 25.0f));
+    REQUIRE(math::isEqual(s.start, 5.0F));
+    REQUIRE(math::isEqual(s.end, 25.0F));
   }
 
   // Fixed-point endpoint type.
@@ -284,16 +284,16 @@ TEST_CASE("geometry/section/expand_section") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    Section s(5.0f, 10.0f);
-    Section t(5.0f, 15.0f);
+    Section s(5.0F, 10.0F);
+    Section t(5.0F, 15.0F);
 
-    s.expand(Section(20.0f, 30.0f));
-    t.expand(Section(1.0f, 3.0f));
+    s.expand(Section(20.0F, 30.0F));
+    t.expand(Section(1.0F, 3.0F));
 
-    REQUIRE(math::isEqual(s.start, 5.0f));
-    REQUIRE(math::isEqual(s.end, 30.0f));
-    REQUIRE(math::isEqual(t.start, 1.0f));
-    REQUIRE(math::isEqual(t.end, 15.0f));
+    REQUIRE(math::isEqual(s.start, 5.0F));
+    REQUIRE(math::isEqual(s.end, 30.0F));
+    REQUIRE(math::isEqual(t.start, 1.0F));
+    REQUIRE(math::isEqual(t.end, 15.0F));
   }
 
   // Fixed-point endpoint type.
@@ -329,7 +329,7 @@ TEST_CASE("geometry/section/is_reset") {
   // Floating-point endpoint type.
   SUBCASE("float") {
     Section<float>    empty;
-    constexpr Section valid(1.0f, 2.0f);
+    constexpr Section valid(1.0F, 2.0F);
 
     empty.reset();
 
@@ -371,7 +371,7 @@ TEST_CASE("geometry/section/is_valid") {
   // Floating-point endpoint type.
   SUBCASE("float") {
     Section<float>    empty;
-    constexpr Section valid(1.0f, 2.0f);
+    constexpr Section valid(1.0F, 2.0F);
 
     empty.reset();
 
@@ -416,19 +416,19 @@ TEST_CASE("geometry/section/is_contains") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    constexpr Section s(10.0f, 20.0f);
+    constexpr Section s(10.0F, 20.0F);
 
-    REQUIRE(s.isContains(10.0f));
-    REQUIRE(s.isContains(15.0f));
-    REQUIRE(s.isContains(20.0f));
-    REQUIRE(!s.isContains(9.0f));
-    REQUIRE(!s.isContains(21.0f));
+    REQUIRE(s.isContains(10.0F));
+    REQUIRE(s.isContains(15.0F));
+    REQUIRE(s.isContains(20.0F));
+    REQUIRE(!s.isContains(9.0F));
+    REQUIRE(!s.isContains(21.0F));
 
-    static_assert(s.isContains(10.0f), "10 must be inside [10,20] float");
-    static_assert(s.isContains(15.0f), "15 must be inside [10,20] float");
-    static_assert(s.isContains(20.0f), "20 must be inside [10,20] float");
-    static_assert(!s.isContains(9.0f), "9 must be outside [10,20] float");
-    static_assert(!s.isContains(21.0f), "21 must be outside [10,20] float");
+    static_assert(s.isContains(10.0F), "10 must be inside [10,20] float");
+    static_assert(s.isContains(15.0F), "15 must be inside [10,20] float");
+    static_assert(s.isContains(20.0F), "20 must be inside [10,20] float");
+    static_assert(!s.isContains(9.0F), "9 must be outside [10,20] float");
+    static_assert(!s.isContains(21.0F), "21 must be outside [10,20] float");
   }
 
   // Fixed-point endpoint type.
@@ -470,9 +470,9 @@ TEST_CASE("geometry/section/operator_eq") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    constexpr Section a(1.0f, 2.0f);
-    constexpr Section b(1.0f, 2.0f);
-    constexpr Section c(1.0f, 3.0f);
+    constexpr Section a(1.0F, 2.0F);
+    constexpr Section b(1.0F, 2.0F);
+    constexpr Section c(1.0F, 3.0F);
 
     REQUIRE(a == b);
     REQUIRE(!(a != b));
@@ -521,8 +521,8 @@ TEST_CASE("geometry/section/operator_ne") {
 
   // Floating-point endpoint type.
   SUBCASE("float") {
-    constexpr Section a(1.0f, 2.0f);
-    constexpr Section b(1.0f, 3.0f);
+    constexpr Section a(1.0F, 2.0F);
+    constexpr Section b(1.0F, 3.0F);
 
     REQUIRE(a != b);
     REQUIRE(!(a == b));

@@ -1,0 +1,11 @@
+*               text=auto
+
+*.c             text
+*.cpp           text
+*.h             text
+*.hpp           text
+*.inl           text
+
+CMakeLists.txt  text eol=crlf
+*.cmake         text eol=crlf
+*.cmake.in      text eol=crlf

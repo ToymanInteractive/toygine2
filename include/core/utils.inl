@@ -128,7 +128,7 @@ constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base) noex
   if (_BitScanReverse(&index, static_cast<unsigned long>(value >> 32)) != 0) {
     index += 32;
   } else {
-    _BitScanReverse(&index, static_cast<unsigned long>(value & 0xfffffffflu));
+    _BitScanReverse(&index, static_cast<unsigned long>(value & 0xFFFFFFFFLU));
   }
 #endif
   return index;

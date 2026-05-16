@@ -64,7 +64,7 @@ TEST_CASE("math/vector2/object_structure") {
 TEST_CASE("math/vector2/constructors") {
   // Constructor with positive x, y.
   SUBCASE("constructor_with_positive_coordinates") {
-    constexpr Vector2 vectorFloat(12.0f, 23.0f);
+    constexpr Vector2 vectorFloat(12.0F, 23.0F);
     constexpr Vector2 vectorFixed(fixed_type(12), fixed_type(23));
 
     REQUIRE(vectorFloat.x == doctest::Approx(12));
@@ -72,15 +72,15 @@ TEST_CASE("math/vector2/constructors") {
     REQUIRE(vectorFixed.x == 12);
     REQUIRE(vectorFixed.y == 23);
 
-    static_assert(isEqual(vectorFloat.x, 12.0f), "x must match constructor argument");
-    static_assert(isEqual(vectorFloat.y, 23.0f), "y must match constructor argument");
+    static_assert(isEqual(vectorFloat.x, 12.0F), "x must match constructor argument");
+    static_assert(isEqual(vectorFloat.y, 23.0F), "y must match constructor argument");
     static_assert(vectorFixed.x == 12, "x must match constructor argument");
     static_assert(vectorFixed.y == 23, "y must match constructor argument");
   }
 
   // Constructor with negative x, y.
   SUBCASE("constructor_with_negative_coordinates") {
-    constexpr Vector2 vectorFloat(-5.0f, -15.0f);
+    constexpr Vector2 vectorFloat(-5.0F, -15.0F);
     constexpr Vector2 vectorFixed(fixed_type(-5), fixed_type(-15));
 
     REQUIRE(vectorFloat.x == doctest::Approx(-5));
@@ -88,15 +88,15 @@ TEST_CASE("math/vector2/constructors") {
     REQUIRE(vectorFixed.x == -5);
     REQUIRE(vectorFixed.y == -15);
 
-    static_assert(isEqual(vectorFloat.x, -5.0f), "x must match constructor argument");
-    static_assert(isEqual(vectorFloat.y, -15.0f), "y must match constructor argument");
+    static_assert(isEqual(vectorFloat.x, -5.0F), "x must match constructor argument");
+    static_assert(isEqual(vectorFloat.y, -15.0F), "y must match constructor argument");
     static_assert(vectorFixed.x == -5, "x must match constructor argument");
     static_assert(vectorFixed.y == -15, "y must match constructor argument");
   }
 
   // Constructor with mixed-sign x, y.
   SUBCASE("constructor_with_mixed_coordinates") {
-    constexpr Vector2 vectorFloat(-100.0f, 200.0f);
+    constexpr Vector2 vectorFloat(-100.0F, 200.0F);
     constexpr Vector2 vectorFixed(fixed_type(-100), fixed_type(200));
 
     REQUIRE(vectorFloat.x == doctest::Approx(-100));
@@ -104,15 +104,15 @@ TEST_CASE("math/vector2/constructors") {
     REQUIRE(vectorFixed.x == -100);
     REQUIRE(vectorFixed.y == 200);
 
-    static_assert(isEqual(vectorFloat.x, -100.0f), "x must match constructor argument");
-    static_assert(isEqual(vectorFloat.y, 200.0f), "y must match constructor argument");
+    static_assert(isEqual(vectorFloat.x, -100.0F), "x must match constructor argument");
+    static_assert(isEqual(vectorFloat.y, 200.0F), "y must match constructor argument");
     static_assert(vectorFixed.x == -100, "x must match constructor argument");
     static_assert(vectorFixed.y == 200, "y must match constructor argument");
   }
 
   // Constructor with zero x, y.
   SUBCASE("constructor_with_zero_coordinates") {
-    constexpr Vector2 vectorFloat(0.0f, 0.0f);
+    constexpr Vector2 vectorFloat(0.0F, 0.0F);
     constexpr Vector2 vectorFixed(fixed_type(0), fixed_type(0));
 
     REQUIRE(vectorFloat.x == doctest::Approx(0));
@@ -120,8 +120,8 @@ TEST_CASE("math/vector2/constructors") {
     REQUIRE(vectorFixed.x == 0);
     REQUIRE(vectorFixed.y == 0);
 
-    static_assert(isEqual(vectorFloat.x, 0.0f), "x must be 0");
-    static_assert(isEqual(vectorFloat.y, 0.0f), "y must be 0");
+    static_assert(isEqual(vectorFloat.x, 0.0F), "x must be 0");
+    static_assert(isEqual(vectorFloat.y, 0.0F), "y must be 0");
     static_assert(vectorFixed.x == 0, "x must be 0");
     static_assert(vectorFixed.y == 0, "y must be 0");
   }
@@ -129,7 +129,7 @@ TEST_CASE("math/vector2/constructors") {
   // Constructor from pointer to two-element array.
   SUBCASE("constructor_from_pointer_to_array") {
     constexpr array<float, 2> arrFloat{
-      {42.0f, -17.0f}
+      {42.0F, -17.0F}
     };
     constexpr array<fixed_type, 2> arrFixed{fixed_type(42), fixed_type(-17)};
     constexpr Vector2              vectorFloat(arrFloat.data());
@@ -140,15 +140,15 @@ TEST_CASE("math/vector2/constructors") {
     REQUIRE(vectorFixed.x == 42);
     REQUIRE(vectorFixed.y == -17);
 
-    static_assert(isEqual(vectorFloat.x, 42.0f), "x must match array element");
-    static_assert(isEqual(vectorFloat.y, -17.0f), "y must match array element");
+    static_assert(isEqual(vectorFloat.x, 42.0F), "x must match array element");
+    static_assert(isEqual(vectorFloat.y, -17.0F), "y must match array element");
     static_assert(vectorFixed.x == 42, "x must match array element");
     static_assert(vectorFixed.y == -17, "y must match array element");
   }
 
   // Runtime constructor behavior for float and toy::math::fixed.
   SUBCASE("runtime_constructors") {
-    Vector2 vectorFloat(123.0f, -456.0f);
+    Vector2 vectorFloat(123.0F, -456.0F);
     Vector2 vectorFixed(fixed_type(123), fixed_type(-456));
     REQUIRE(vectorFloat.x == doctest::Approx(123));
     REQUIRE(vectorFloat.y == doctest::Approx(-456));
@@ -156,7 +156,7 @@ TEST_CASE("math/vector2/constructors") {
     REQUIRE(vectorFixed.y == -456);
 
     constexpr array<float, 2> arrFloat{
-      {789.0f, -321.0f}
+      {789.0F, -321.0F}
     };
     constexpr array<fixed_type, 2> arrFixed{fixed_type(789), fixed_type(-321)};
     Vector2                        arrayFloat(arrFloat.data());
@@ -172,7 +172,7 @@ TEST_CASE("math/vector2/constructors") {
 TEST_CASE("math/vector2/c_arr_methods") {
   // Non-const c_arr() returns writable pointer to x,y (float and toy::math::fixed).
   SUBCASE("non_const_c_arr") {
-    Vector2 vectorFloat(42.0f, -17.0f);
+    Vector2 vectorFloat(42.0F, -17.0F);
     Vector2 vectorFixed(fixed_type(42), fixed_type(-17));
     auto *  arrFloat = vectorFloat.c_arr();
     auto *  arrFixed = vectorFixed.c_arr();
@@ -184,8 +184,8 @@ TEST_CASE("math/vector2/c_arr_methods") {
     REQUIRE(arrFixed[0] == 42);
     REQUIRE(arrFixed[1] == -17);
 
-    arrFloat[0] = 100.0f;
-    arrFloat[1] = -200.0f;
+    arrFloat[0] = 100.0F;
+    arrFloat[1] = -200.0F;
     arrFixed[0] = fixed_type(100);
     arrFixed[1] = fixed_type(-200);
     REQUIRE(vectorFloat.x == doctest::Approx(100));
@@ -196,7 +196,7 @@ TEST_CASE("math/vector2/c_arr_methods") {
 
   // Const c_arr() returns pointer to x,y.
   SUBCASE("const_c_arr") {
-    constexpr Vector2 vectorFloat(123.0f, -456.0f);
+    constexpr Vector2 vectorFloat(123.0F, -456.0F);
     constexpr Vector2 vectorFixed(fixed_type(123), fixed_type(-456));
     const auto *      arrFloat = vectorFloat.c_arr();
     const auto *      arrFixed = vectorFixed.c_arr();
@@ -213,9 +213,9 @@ TEST_CASE("math/vector2/c_arr_methods") {
 TEST_CASE("math/vector2/operators") {
   // operator+= adds vector (float and toy::math::fixed).
   SUBCASE("operator_plus_assign") {
-    Vector2           vectorFloat(10.0f, 20.0f);
+    Vector2           vectorFloat(10.0F, 20.0F);
     Vector2           vectorFixed(fixed_type(10), fixed_type(20));
-    constexpr Vector2 addFloat(5.0f, -10.0f);
+    constexpr Vector2 addFloat(5.0F, -10.0F);
     constexpr Vector2 addFixed(fixed_type(5), fixed_type(-10));
 
     vectorFloat += addFloat;
@@ -229,9 +229,9 @@ TEST_CASE("math/vector2/operators") {
 
   // operator-= subtracts vector.
   SUBCASE("operator_minus_assign") {
-    Vector2           vectorFloat(15.0f, 25.0f);
+    Vector2           vectorFloat(15.0F, 25.0F);
     Vector2           vectorFixed(fixed_type(15), fixed_type(25));
-    constexpr Vector2 subFloat(5.0f, 10.0f);
+    constexpr Vector2 subFloat(5.0F, 10.0F);
     constexpr Vector2 subFixed(fixed_type(5), fixed_type(10));
 
     vectorFloat -= subFloat;
@@ -245,10 +245,10 @@ TEST_CASE("math/vector2/operators") {
 
   // operator*= multiplies by scalar (float and toy::math::fixed).
   SUBCASE("operator_times_assign") {
-    Vector2              vectorFloat(10.0f, 20.0f);
+    Vector2              vectorFloat(10.0F, 20.0F);
     Vector2              vectorFixed(fixed_type(10), fixed_type(20));
-    constexpr float      scalarFloat = 2.5f;
-    constexpr fixed_type scalarFixed(2.5f);
+    constexpr float      scalarFloat = 2.5F;
+    constexpr fixed_type scalarFixed(2.5F);
 
     vectorFloat *= scalarFloat;
     vectorFixed *= scalarFixed;
@@ -261,10 +261,10 @@ TEST_CASE("math/vector2/operators") {
 
   // operator/= divides by scalar.
   SUBCASE("operator_div_assign") {
-    Vector2              vectorFloat(20.0f, 45.0f);
+    Vector2              vectorFloat(20.0F, 45.0F);
     Vector2              vectorFixed(fixed_type(20), fixed_type(45));
-    constexpr float      scalarFloat = 2.5f;
-    constexpr fixed_type scalarFixed(2.5f);
+    constexpr float      scalarFloat = 2.5F;
+    constexpr fixed_type scalarFixed(2.5F);
 
     vectorFloat /= scalarFloat;
     vectorFixed /= scalarFixed;
@@ -277,13 +277,13 @@ TEST_CASE("math/vector2/operators") {
 
   // Chained compound assignments.
   SUBCASE("chained_compound_assign") {
-    Vector2           vectorFloat(10.0f, 20.0f);
+    Vector2           vectorFloat(10.0F, 20.0F);
     Vector2           vectorFixed(fixed_type(10), fixed_type(20));
-    constexpr Vector2 offsetFloat(5.0f, 10.0f);
+    constexpr Vector2 offsetFloat(5.0F, 10.0F);
     constexpr Vector2 offsetFixed(fixed_type(5), fixed_type(10));
 
     vectorFloat += offsetFloat;
-    vectorFloat *= 2.0f;
+    vectorFloat *= 2.0F;
     vectorFloat -= offsetFloat;
     vectorFixed += offsetFixed;
     vectorFixed *= fixed_type(2);
@@ -300,19 +300,19 @@ TEST_CASE("math/vector2/operators") {
 TEST_CASE("math/vector2/methods") {
   // sqrMagnitude() returns x² + y² (float and toy::math::fixed).
   SUBCASE("sqr_magnitude") {
-    constexpr Vector2 vectorFloat(3.0f, 4.0f);
+    constexpr Vector2 vectorFloat(3.0F, 4.0F);
     constexpr Vector2 vectorFixed(fixed_type(3), fixed_type(4));
 
     REQUIRE(vectorFloat.sqrMagnitude() == doctest::Approx(25));
     REQUIRE(vectorFixed.sqrMagnitude() == 25);
 
-    static_assert(isEqual(vectorFloat.sqrMagnitude(), 25.0f), "sqrMagnitude of (3,4) must be 25");
+    static_assert(isEqual(vectorFloat.sqrMagnitude(), 25.0F), "sqrMagnitude of (3,4) must be 25");
     static_assert(vectorFixed.sqrMagnitude() == 25, "sqrMagnitude of (3,4) must be 25");
   }
 
   // sqrMagnitude() is zero for origin.
   SUBCASE("sqr_magnitude_zero") {
-    constexpr Vector2 vectorFloat(0.0f, 0.0f);
+    constexpr Vector2 vectorFloat(0.0F, 0.0F);
     constexpr Vector2 vectorFixed(fixed_type(0), fixed_type(0));
 
     REQUIRE(vectorFloat.sqrMagnitude() == doctest::Approx(0));
@@ -323,7 +323,7 @@ TEST_CASE("math/vector2/methods") {
 
   // setZero() sets x, y to zero.
   SUBCASE("set_zero") {
-    Vector2 vectorFloat(100.0f, 200.0f);
+    Vector2 vectorFloat(100.0F, 200.0F);
     Vector2 vectorFixed(fixed_type(100), fixed_type(200));
 
     vectorFloat.setZero();
@@ -337,9 +337,9 @@ TEST_CASE("math/vector2/methods") {
 
   // isZero() true for zero vector, false otherwise; true after setZero().
   SUBCASE("is_zero") {
-    constexpr Vector2 vectorFloatZero(0.0f, 0.0f);
+    constexpr Vector2 vectorFloatZero(0.0F, 0.0F);
     constexpr Vector2 vectorFixedZero(fixed_type(0), fixed_type(0));
-    constexpr Vector2 vectorFloatNonZero(1.0f, 0.0f);
+    constexpr Vector2 vectorFloatNonZero(1.0F, 0.0F);
     constexpr Vector2 vectorFixedNonZero(fixed_type(1), fixed_type(0));
 
     REQUIRE(vectorFloatZero.isZero());
@@ -352,7 +352,7 @@ TEST_CASE("math/vector2/methods") {
     static_assert(!vectorFloatNonZero.isZero(), "non-zero vector must not be zero");
     static_assert(!vectorFixedNonZero.isZero(), "non-zero vector must not be zero");
 
-    Vector2 v(100.0f, 200.0f);
+    Vector2 v(100.0F, 200.0F);
     REQUIRE(!v.isZero());
     v.setZero();
     REQUIRE(v.isZero());
@@ -360,9 +360,9 @@ TEST_CASE("math/vector2/methods") {
 
   // isEqual() exact match and different vectors (float and toy::math::fixed).
   SUBCASE("is_equal_exact_and_different") {
-    constexpr Vector2 aFloat(10.0f, 20.0f);
-    constexpr Vector2 bFloat(10.0f, 20.0f);
-    constexpr Vector2 cFloat(11.0f, 20.0f);
+    constexpr Vector2 aFloat(10.0F, 20.0F);
+    constexpr Vector2 bFloat(10.0F, 20.0F);
+    constexpr Vector2 cFloat(11.0F, 20.0F);
     constexpr Vector2 aFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 bFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 cFixed(fixed_type(11), fixed_type(20));
@@ -380,11 +380,11 @@ TEST_CASE("math/vector2/methods") {
 
   // isEqual() with tolerance: within tolerance returns true, outside returns false.
   SUBCASE("is_equal_with_tolerance") {
-    constexpr Vector2 v1Float(10.0f, 20.0f);
-    constexpr Vector2 v2Float(12.0f, 18.0f);
-    constexpr float   toleranceOk = 3.0f;
-    constexpr Vector2 v3Float(15.0f, 25.0f);
-    constexpr float   toleranceTooSmall = 2.0f;
+    constexpr Vector2 v1Float(10.0F, 20.0F);
+    constexpr Vector2 v2Float(12.0F, 18.0F);
+    constexpr float   toleranceOk = 3.0F;
+    constexpr Vector2 v3Float(15.0F, 25.0F);
+    constexpr float   toleranceTooSmall = 2.0F;
 
     REQUIRE(v1Float.isEqual(v2Float, toleranceOk));
     REQUIRE(!v1Float.isEqual(v3Float, toleranceTooSmall));
@@ -395,9 +395,9 @@ TEST_CASE("math/vector2/methods") {
 
   // isEqual() with zero tolerance requires exact match.
   SUBCASE("is_equal_zero_tolerance") {
-    constexpr Vector2 v1(10.0f, 20.0f);
-    constexpr Vector2 v2(10.0f, 21.0f);
-    constexpr float   tol = 0.0f;
+    constexpr Vector2 v1(10.0F, 20.0F);
+    constexpr Vector2 v2(10.0F, 21.0F);
+    constexpr float   tol = 0.0F;
 
     REQUIRE(!v1.isEqual(v2, tol));
 
@@ -409,7 +409,7 @@ TEST_CASE("math/vector2/methods") {
 TEST_CASE("math/vector2/binary_operators") {
   // Unary minus negates x, y (float and toy::math::fixed).
   SUBCASE("unary_minus") {
-    constexpr Vector2 vectorFloat(10.0f, -20.0f);
+    constexpr Vector2 vectorFloat(10.0F, -20.0F);
     constexpr Vector2 vectorFixed(fixed_type(10), fixed_type(-20));
     constexpr auto    resultFloat = -vectorFloat;
     constexpr auto    resultFixed = -vectorFixed;
@@ -419,16 +419,16 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(resultFixed.x == -10);
     REQUIRE(resultFixed.y == 20);
 
-    static_assert(isEqual(resultFloat.x, -10.0f), "unary minus must negate x");
-    static_assert(isEqual(resultFloat.y, 20.0f), "unary minus must negate y");
+    static_assert(isEqual(resultFloat.x, -10.0F), "unary minus must negate x");
+    static_assert(isEqual(resultFloat.y, 20.0F), "unary minus must negate y");
     static_assert(resultFixed.x == -10, "unary minus must negate x");
     static_assert(resultFixed.y == 20, "unary minus must negate y");
   }
 
   // operator+ adds vectors component-wise.
   SUBCASE("addition") {
-    constexpr Vector2 aFloat(10.0f, 20.0f);
-    constexpr Vector2 bFloat(5.0f, -10.0f);
+    constexpr Vector2 aFloat(10.0F, 20.0F);
+    constexpr Vector2 bFloat(5.0F, -10.0F);
     constexpr Vector2 aFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 bFixed(fixed_type(5), fixed_type(-10));
     constexpr auto    resultFloat = aFloat + bFloat;
@@ -439,16 +439,16 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(resultFixed.x == 15);
     REQUIRE(resultFixed.y == 10);
 
-    static_assert(isEqual(resultFloat.x, 15.0f), "addition x must be sum of x components");
-    static_assert(isEqual(resultFloat.y, 10.0f), "addition y must be sum of y components");
+    static_assert(isEqual(resultFloat.x, 15.0F), "addition x must be sum of x components");
+    static_assert(isEqual(resultFloat.y, 10.0F), "addition y must be sum of y components");
     static_assert(resultFixed.x == 15, "addition x must be sum of x components");
     static_assert(resultFixed.y == 10, "addition y must be sum of y components");
   }
 
   // operator- subtracts vectors component-wise.
   SUBCASE("subtraction") {
-    constexpr Vector2 aFloat(15.0f, 25.0f);
-    constexpr Vector2 bFloat(5.0f, 10.0f);
+    constexpr Vector2 aFloat(15.0F, 25.0F);
+    constexpr Vector2 bFloat(5.0F, 10.0F);
     constexpr Vector2 aFixed(fixed_type(15), fixed_type(25));
     constexpr Vector2 bFixed(fixed_type(5), fixed_type(10));
     constexpr auto    resultFloat = aFloat - bFloat;
@@ -459,18 +459,18 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(resultFixed.x == 10);
     REQUIRE(resultFixed.y == 15);
 
-    static_assert(isEqual(resultFloat.x, 10.0f), "subtraction x must be difference of x components");
-    static_assert(isEqual(resultFloat.y, 15.0f), "subtraction y must be difference of y components");
+    static_assert(isEqual(resultFloat.x, 10.0F), "subtraction x must be difference of x components");
+    static_assert(isEqual(resultFloat.y, 15.0F), "subtraction y must be difference of y components");
     static_assert(resultFixed.x == 10, "subtraction x must be difference of x components");
     static_assert(resultFixed.y == 15, "subtraction y must be difference of y components");
   }
 
   // Vector * scalar and scalar * vector (float and toy::math::fixed).
   SUBCASE("multiplication_scalar") {
-    constexpr Vector2    vectorFloat(10.0f, 20.0f);
+    constexpr Vector2    vectorFloat(10.0F, 20.0F);
     constexpr Vector2    vectorFixed(fixed_type(10), fixed_type(20));
-    constexpr float      scalarFloat = 2.5f;
-    constexpr fixed_type scalarFixed(2.5f);
+    constexpr float      scalarFloat = 2.5F;
+    constexpr fixed_type scalarFixed(2.5F);
 
     constexpr auto resultFloat = vectorFloat * scalarFloat;
     constexpr auto resultFixed = vectorFixed * scalarFixed;
@@ -479,8 +479,8 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(resultFixed.x == 25);
     REQUIRE(resultFixed.y == 50);
 
-    static_assert(isEqual(resultFloat.x, 25.0f), "vector * scalar must scale x component");
-    static_assert(isEqual(resultFloat.y, 50.0f), "vector * scalar must scale y component");
+    static_assert(isEqual(resultFloat.x, 25.0F), "vector * scalar must scale x component");
+    static_assert(isEqual(resultFloat.y, 50.0F), "vector * scalar must scale y component");
     static_assert(resultFixed.x == 25, "vector * scalar must scale x component for fixed");
     static_assert(resultFixed.y == 50, "vector * scalar must scale y component for fixed");
 
@@ -491,31 +491,32 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(swappedFixed.x == 25);
     REQUIRE(swappedFixed.y == 50);
 
-    static_assert(isEqual(swappedFloat.x, 25.0f), "scalar * vector must scale x component");
-    static_assert(isEqual(swappedFloat.y, 50.0f), "scalar * vector must scale y component");
+    static_assert(isEqual(swappedFloat.x, 25.0F), "scalar * vector must scale x component");
+    static_assert(isEqual(swappedFloat.y, 50.0F), "scalar * vector must scale y component");
     static_assert(swappedFixed.x == 25, "scalar * vector must scale x component for fixed");
     static_assert(swappedFixed.y == 50, "scalar * vector must scale y component for fixed");
   }
 
   // Dot product: left.x*right.x + left.y*right.y.
   SUBCASE("dot_product") {
-    constexpr Vector2 aFloat(10.0f, 20.0f);
-    constexpr Vector2 bFloat(5.0f, 10.0f);
+    constexpr Vector2 aFloat(10.0F, 20.0F);
+    constexpr Vector2 bFloat(5.0F, 10.0F);
     constexpr Vector2 aFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 bFixed(fixed_type(5), fixed_type(10));
 
-    REQUIRE(aFloat * bFloat == doctest::Approx(250.0f));
+    REQUIRE(aFloat * bFloat == doctest::Approx(250.0F));
     REQUIRE(aFixed * bFixed == 250);
 
+    static_assert(isEqual(aFloat * bFloat, 250.0F), "dot product (10,20)·(5,10) must be 250 for float");
     static_assert(aFixed * bFixed == 250, "dot product (10,20)·(5,10) must be 250");
   }
 
   // Division by scalar.
   SUBCASE("division_scalar") {
-    constexpr Vector2    vectorFloat(25.0f, 50.0f);
+    constexpr Vector2    vectorFloat(25.0F, 50.0F);
     constexpr Vector2    vectorFixed(fixed_type(25), fixed_type(50));
-    constexpr float      scalarFloat = 2.5f;
-    constexpr fixed_type scalarFixed(2.5f);
+    constexpr float      scalarFloat = 2.5F;
+    constexpr fixed_type scalarFixed(2.5F);
 
     constexpr auto resultFloat = vectorFloat / scalarFloat;
     constexpr auto resultFixed = vectorFixed / scalarFixed;
@@ -525,17 +526,17 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(isEqual(resultFixed.x, fixed_type(10)));
     REQUIRE(isEqual(resultFixed.y, fixed_type(20)));
 
-    static_assert(isEqual(resultFloat.x, 10.0f), "vector / scalar must divide x component");
-    static_assert(isEqual(resultFloat.y, 20.0f), "vector / scalar must divide y component");
+    static_assert(isEqual(resultFloat.x, 10.0F), "vector / scalar must divide x component");
+    static_assert(isEqual(resultFloat.y, 20.0F), "vector / scalar must divide y component");
     static_assert(isEqual(resultFixed.x, fixed_type(10)), "vector / scalar must divide x component for fixed");
     static_assert(isEqual(resultFixed.y, fixed_type(20)), "vector / scalar must divide y component for fixed");
   }
 
   // operator== and operator!= (float and toy::math::fixed).
   SUBCASE("equality") {
-    constexpr Vector2 aFloat(10.0f, 20.0f);
-    constexpr Vector2 bFloat(10.0f, 20.0f);
-    constexpr Vector2 cFloat(11.0f, 20.0f);
+    constexpr Vector2 aFloat(10.0F, 20.0F);
+    constexpr Vector2 bFloat(10.0F, 20.0F);
+    constexpr Vector2 cFloat(11.0F, 20.0F);
     constexpr Vector2 aFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 bFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 cFixed(fixed_type(11), fixed_type(20));
@@ -553,8 +554,8 @@ TEST_CASE("math/vector2/binary_operators") {
 
   // operator== for float uses default tolerances (same as isEqual with defaults); near-equal vectors compare equal.
   SUBCASE("equality_float_within_default_tolerance") {
-    constexpr Vector2 a(10.0f, 20.0f);
-    constexpr Vector2 b(10.0f + 1e-6f, 20.0f - 1e-6f);
+    constexpr Vector2 a(10.0F, 20.0F);
+    constexpr Vector2 b(10.0F + 1e-6F, 20.0F - 1e-6F);
 
     REQUIRE(a == b);
 
@@ -563,9 +564,9 @@ TEST_CASE("math/vector2/binary_operators") {
 
   // operator!= is the negation of operator==.
   SUBCASE("inequality") {
-    constexpr Vector2 aFloat(10.0f, 20.0f);
-    constexpr Vector2 bFloat(10.0f, 20.0f);
-    constexpr Vector2 cFloat(11.0f, 20.0f);
+    constexpr Vector2 aFloat(10.0F, 20.0F);
+    constexpr Vector2 bFloat(10.0F, 20.0F);
+    constexpr Vector2 cFloat(11.0F, 20.0F);
     constexpr Vector2 aFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 bFixed(fixed_type(10), fixed_type(20));
     constexpr Vector2 cFixed(fixed_type(11), fixed_type(20));
@@ -583,29 +584,30 @@ TEST_CASE("math/vector2/binary_operators") {
 
   // cross(left, right) = left.x*right.y - left.y*right.x.
   SUBCASE("cross") {
-    constexpr Vector2 aFloat(3.0f, 4.0f);
-    constexpr Vector2 bFloat(1.0f, 0.0f);
+    constexpr Vector2 aFloat(3.0F, 4.0F);
+    constexpr Vector2 bFloat(1.0F, 0.0F);
     constexpr Vector2 aFixed(fixed_type(3), fixed_type(4));
     constexpr Vector2 bFixed(fixed_type(1), fixed_type(0));
 
-    REQUIRE(cross(aFloat, bFloat) == doctest::Approx(-4.0f));
+    REQUIRE(cross(aFloat, bFloat) == doctest::Approx(-4.0F));
     REQUIRE(cross(aFixed, bFixed) == -4);
 
+    static_assert(isEqual(cross(aFloat, bFloat), -4.0F), "cross (3,4)×(1,0) must be -4 for float");
     static_assert(cross(aFixed, bFixed) == -4, "cross (3,4)×(1,0) must be -4");
   }
 
   // Chained binary operations.
   SUBCASE("chained") {
-    constexpr Vector2 v1Float(10.0f, 20.0f);
-    constexpr Vector2 v2Float(5.0f, 10.0f);
-    constexpr float   sFloat      = 2.0f;
+    constexpr Vector2 v1Float(10.0F, 20.0F);
+    constexpr Vector2 v2Float(5.0F, 10.0F);
+    constexpr float   sFloat      = 2.0F;
     constexpr auto    resultFloat = (v1Float + v2Float) * sFloat - v1Float;
 
     REQUIRE(resultFloat.x == doctest::Approx(20));
     REQUIRE(resultFloat.y == doctest::Approx(40));
 
-    static_assert(isEqual(resultFloat.x, 20.0f), "chained (v1+v2)*s-v1 must yield correct x");
-    static_assert(isEqual(resultFloat.y, 40.0f), "chained (v1+v2)*s-v1 must yield correct y");
+    static_assert(isEqual(resultFloat.x, 20.0F), "chained (v1+v2)*s-v1 must yield correct x");
+    static_assert(isEqual(resultFloat.y, 40.0F), "chained (v1+v2)*s-v1 must yield correct y");
 
     constexpr Vector2    v1Fixed(fixed_type(10), fixed_type(20));
     constexpr Vector2    v2Fixed(fixed_type(5), fixed_type(10));
