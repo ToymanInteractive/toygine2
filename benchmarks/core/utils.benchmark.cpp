@@ -96,7 +96,7 @@ void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("utoa uint64_t base 10", [&] {
     char buf[bufSize];
 
-    char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615}, 10);
+    char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615U}, 10);
 
     doNotOptimize(r);
   });
