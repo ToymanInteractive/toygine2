@@ -26,7 +26,7 @@
 
 namespace ansi_filter {
 
-constexpr std::streambuf::int_type kEsc         = 0x1b;
+constexpr std::streambuf::int_type kEsc         = 0x1B;
 constexpr std::streambuf::int_type kCsiFinalMin = 0x40;
 constexpr std::streambuf::int_type kCsiFinalMax = 0x7E;
 

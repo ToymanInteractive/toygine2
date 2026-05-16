@@ -129,17 +129,21 @@ IndentWrappedFunctionNames: true
 InsertBraces: false
 InsertNewlineAtEOF: true
 InsertTrailingCommas: None
+# IntegerLiteralSeparator
 KeepEmptyLines:
   AtEndOfFile: false
   AtStartOfBlock: false
   AtStartOfFile: false
 KeepFormFeed: false
 LambdaBodyIndentation: Signature
-# LineEnding: CRLF
 MainIncludeChar: Quote
 MaxEmptyLinesToKeep: 1
 NamespaceIndentation: None
-# NumericLiteralCase
+NumericLiteralCase:
+  ExponentLetter: Lower
+  HexDigit: Upper
+  Prefix: Lower
+  Suffix: Upper
 ObjCBinPackProtocolList: Always
 ObjCBlockIndentWidth: 2
 ObjCBreakBeforeNestedBlockParam: false

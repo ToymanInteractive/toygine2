@@ -66,7 +66,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Point operator*= float", [] {
     Point p(10, 20);
 
-    p *= 2.5f;
+    p *= 2.5F;
 
     doNotOptimize(p);
   });
@@ -91,7 +91,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Point operator/= float", [] {
     Point p(25, 50);
 
-    p /= 2.5f;
+    p /= 2.5F;
 
     doNotOptimize(p);
   });
@@ -142,7 +142,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Point operator* float", [] {
     Point p(10, 20);
 
-    auto r = p * 2.5f;
+    auto r = p * 2.5F;
 
     doNotOptimize(r);
   });
@@ -176,7 +176,7 @@ void pointMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Point operator/ float", [] {
     Point p(25, 50);
 
-    auto r = p / 2.5f;
+    auto r = p / 2.5F;
 
     doNotOptimize(r);
   });

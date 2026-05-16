@@ -48,7 +48,7 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("OStringStream<FixedString<64>> chained mixed", [] {
     OStringStream<FixedString<64>> s;
 
-    s << "v=" << -42 << ' ' << 3.1415926f << CStringView(" end");
+    s << "v=" << -42 << ' ' << 3.1415926F << CStringView(" end");
 
     doNotOptimize(s);
   });

@@ -75,15 +75,15 @@ TEST_CASE("math/fixed/constructors") {
 
   // Float constructor scales and rounds (or truncates when rounding disabled).
   SUBCASE("from_float") {
-    constexpr fixed_type f_half(0.5f);
-    constexpr fixed_type f_neg_half(-0.5f);
-    constexpr fixed_type f_round_up(0.502f);               // 0.502 * 256 = 128.512, rounds to 129
-    constexpr fixed_type f_round_down(0.498f);             // 0.498 * 256 = 127.488, rounds to 127
-    constexpr fixed_type f_round_up_neg(-0.502f);          // rounds to -129
-    constexpr fixed_type f_round_down_neg(-0.498f);        // rounds to -127
+    constexpr fixed_type f_half(0.5F);
+    constexpr fixed_type f_neg_half(-0.5F);
+    constexpr fixed_type f_round_up(0.502F);               // 0.502 * 256 = 128.512, rounds to 129
+    constexpr fixed_type f_round_down(0.498F);             // 0.498 * 256 = 127.488, rounds to 127
+    constexpr fixed_type f_round_up_neg(-0.502F);          // rounds to -129
+    constexpr fixed_type f_round_down_neg(-0.498F);        // rounds to -127
 
-    constexpr fixed_type_no_rounding f_trunc(0.502f);      // 0.502 * 256 = 128.512, truncates to 128
-    constexpr fixed_type_no_rounding f_trunc_neg(-0.502f); // truncates to -128
+    constexpr fixed_type_no_rounding f_trunc(0.502F);      // 0.502 * 256 = 128.512, truncates to 128
+    constexpr fixed_type_no_rounding f_trunc_neg(-0.502F); // truncates to -128
 
     REQUIRE(f_half.rawValue() == 128);
     REQUIRE(f_neg_half.rawValue() == -128);
@@ -191,12 +191,12 @@ TEST_CASE("math/fixed/conversion_operators") {
     constexpr fixed_type f1(1);
     constexpr fixed_type f2(-1);
 
-    REQUIRE(isEqual(static_cast<float>(f1), 1.0f));
-    REQUIRE(isEqual(static_cast<float>(f2), -1.0f));
+    REQUIRE(isEqual(static_cast<float>(f1), 1.0F));
+    REQUIRE(isEqual(static_cast<float>(f2), -1.0F));
 
-    static_assert(static_cast<float>(f1) >= 0.99f && static_cast<float>(f1) <= 1.01f,
+    static_assert(static_cast<float>(f1) >= 0.99F && static_cast<float>(f1) <= 1.01F,
                   "cast fixed(1) to float must be approximately 1.0");
-    static_assert(static_cast<float>(f2) >= -1.01f && static_cast<float>(f2) <= -0.99f,
+    static_assert(static_cast<float>(f2) >= -1.01F && static_cast<float>(f2) <= -0.99F,
                   "cast fixed(-1) to float must be approximately -1.0");
   }
 }

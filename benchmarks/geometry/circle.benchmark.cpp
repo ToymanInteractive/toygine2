@@ -32,7 +32,7 @@ using fixed_type = math::fixed<int32_t, int64_t, 24>;
 // Circle benchmarks
 void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   bench.run("Circle<float> construct center radius", [] {
-    Circle c(math::Vector2(5.0f, 10.0f), 3.0f);
+    Circle c(math::Vector2(5.0F, 10.0F), 3.0F);
 
     doNotOptimize(c);
   });
@@ -43,7 +43,7 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> area", [] {
-    Circle c(math::Vector2(0.0f, 0.0f), 10.0f);
+    Circle c(math::Vector2(0.0F, 0.0F), 10.0F);
 
     auto r = c.area();
 
@@ -58,7 +58,7 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> reset", [] {
-    Circle c(math::Vector2(10.0f, 20.0f), 5.0f);
+    Circle c(math::Vector2(10.0F, 20.0F), 5.0F);
 
     c.reset();
 
@@ -90,7 +90,7 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> isValid", [] {
-    Circle c(math::Vector2(0.0f, 0.0f), 1.0f);
+    Circle c(math::Vector2(0.0F, 0.0F), 1.0F);
 
     auto r = c.isValid();
 
@@ -105,9 +105,9 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> isContain", [] {
-    Circle c(math::Vector2(0.0f, 0.0f), 10.0f);
+    Circle c(math::Vector2(0.0F, 0.0F), 10.0F);
 
-    auto r = c.isContain(math::Vector2(5.0f, 0.0f));
+    auto r = c.isContain(math::Vector2(5.0F, 0.0F));
 
     doNotOptimize(r);
   });
@@ -120,8 +120,8 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> operator==", [] {
-    Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
-    Circle b(math::Vector2(1.0f, 2.0f), 3.0f);
+    Circle a(math::Vector2(1.0F, 2.0F), 3.0F);
+    Circle b(math::Vector2(1.0F, 2.0F), 3.0F);
 
     auto r = (a == b);
 
@@ -137,8 +137,8 @@ void circleGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   });
 
   bench.run("Circle<float> operator!=", [] {
-    Circle a(math::Vector2(1.0f, 2.0f), 3.0f);
-    Circle b(math::Vector2(1.0f, 2.0f), 4.0f);
+    Circle a(math::Vector2(1.0F, 2.0F), 3.0F);
+    Circle b(math::Vector2(1.0F, 2.0F), 4.0F);
 
     auto r = (a != b);
 
