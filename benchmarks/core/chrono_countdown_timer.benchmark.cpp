@@ -45,7 +45,7 @@ static void expired(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
-    auto _ = timer.expired();
+    [[maybe_unused]] auto val = timer.expired();
   }
 }
 
@@ -56,7 +56,7 @@ static void remaining(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
-    auto _ = timer.remaining();
+    [[maybe_unused]] auto val = timer.remaining();
   }
 }
 

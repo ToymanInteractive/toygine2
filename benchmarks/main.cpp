@@ -103,7 +103,7 @@ int main(int argc, char * argv[]) noexcept {
         json << "\"value\": " << std::midpoint(latencyLowerValue, latencyUpperValue) << ",";
         json << "\"lower_value\": " << latencyLowerValue << ",";
         json << "\"upper_value\": " << latencyUpperValue;
-        json << "}";
+        json << "},";
 
         json << "\"throughput\":{";
         json << "\"value\": " << std::midpoint(throughputLowerValue, throughputUpperValue) << ",";
