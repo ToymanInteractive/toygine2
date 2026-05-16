@@ -93,7 +93,7 @@ int main(int argc, char * argv[]) noexcept {
         json << "  \"" << suite.name << "." << benchmark.name << "\": {";
         json << "\"latency\":{";
         json << "\"value\": " << std::midpoint(lowerValue, upperValue) << ",";
-        json << "\"lower_value\": " << lowerValue << "}";
+        json << "\"lower_value\": " << lowerValue << ",";
         json << "\"upper_value\": " << upperValue;
         json << "}";
         json << "}," << std::endl;
