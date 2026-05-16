@@ -204,6 +204,15 @@ jobs:
         if: matrix.run_benchmarks == 'true'
         uses: bencherdev/bencher@v0.6.5
 
+      # TODO: remove after verifying BMF output is correct
+      - name: Upload BMF artifact
+        if: matrix.run_benchmarks == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: benchmarks-bmf-${{ matrix.bencher_testbed }}
+          path: benchmarks_bmf.json
+          retention-days: 7
+
       - name: Upload benchmarks to bencher.dev
         if: matrix.run_benchmarks == 'true'
         run: |
@@ -214,15 +223,6 @@ jobs:
             --testbed "${{ matrix.bencher_testbed }}" \
             --adapter json \
             --file benchmarks_bmf.json
-
-      # TODO: remove after verifying BMF output is correct
-      - name: Upload BMF artifact
-        if: matrix.run_benchmarks == 'true'
-        uses: actions/upload-artifact@v4
-        with:
-          name: benchmarks-bmf-${{ matrix.bencher_testbed }}
-          path: benchmarks_bmf.json
-          retention-days: 7
 
   unit-tests:
     name: Collect unit tests
