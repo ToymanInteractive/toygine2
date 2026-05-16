@@ -172,7 +172,11 @@
             "name": "linux-ninja-tests-coverage",
             "displayName": "Linux Ninja Tests Coverage",
             "description": "ToyGine 2 Linux Ninja (Test Coverage)",
-            "inherits": "linux-ninja-debug"
+            "inherits": "linux-ninja-debug",
+            "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "OFF"
+            }
         }
     ],
     "buildPresets": [

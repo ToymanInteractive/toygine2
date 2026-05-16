@@ -100,13 +100,13 @@ int main(int argc, char * argv[]) noexcept {
         json << "  \"" << suite.name << "." << benchmark.name << "\": {";
 
         json << "\"latency\":{";
-        json << "\"value\": " << std::midpoint(latencyLowerValue, latencyUpperValue) << ",";
+        json << "\"value\": " << (latencyLowerValue + latencyUpperValue) * 0.5 << ",";
         json << "\"lower_value\": " << latencyLowerValue << ",";
         json << "\"upper_value\": " << latencyUpperValue;
         json << "},";
 
         json << "\"throughput\":{";
-        json << "\"value\": " << std::midpoint(throughputLowerValue, throughputUpperValue) << ",";
+        json << "\"value\": " << (throughputLowerValue + throughputUpperValue) * 0.5 << ",";
         json << "\"lower_value\": " << throughputLowerValue << ",";
         json << "\"upper_value\": " << throughputUpperValue;
         json << "}";
