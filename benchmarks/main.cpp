@@ -80,9 +80,10 @@ int main(int argc, char * argv[]) noexcept {
 
     json << "{" << std::endl;
     for (const auto & suite : report.suites) {
-      for (const auto & benchmark : suite.benchmarks) {
-        auto lowerValue = std::numeric_limits<double>::max();
-        auto upperValue = std::numeric_limits<double>::min();
+      for (size_t benchmarkIndex = 0; benchmarkIndex < suite.benchmarks.size(); ++benchmarkIndex) {
+        const auto & benchmark  = suite.benchmarks[benchmarkIndex];
+        auto         lowerValue = std::numeric_limits<double>::max();
+        auto         upperValue = std::numeric_limits<double>::min();
 
         for (const auto & data : benchmark.data) {
           const auto val = static_cast<double>(data.total_time_ns) / data.dimension;
@@ -96,7 +97,7 @@ int main(int argc, char * argv[]) noexcept {
         json << "\"lower_value\": " << lowerValue << ",";
         json << "\"upper_value\": " << upperValue;
         json << "}";
-        json << "}," << std::endl;
+        json << "}" << (benchmarkIndex < suite.benchmarks.size() - 1 ? "," : "") << std::endl;
       }
     }
     json << "}" << std::endl;
