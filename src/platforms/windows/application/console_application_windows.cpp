@@ -48,7 +48,7 @@ void freeStringArray(char ** array) noexcept {
   \return Null-terminated \c char** array of UTF-8 strings on success, \c nullptr on allocation failure.
 */
 [[nodiscard]] char ** convertWideStringArray(wchar_t ** wide, std::size_t count) noexcept {
-  auto array = static_cast<char **>(malloc(sizeof(char *) * (count + 1)));
+  auto array = static_cast<char **>(calloc(count + 1, sizeof(char *)));
   if (array == nullptr)
     return nullptr;
 

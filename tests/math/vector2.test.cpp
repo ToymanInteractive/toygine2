@@ -507,6 +507,7 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(aFloat * bFloat == doctest::Approx(250.0F));
     REQUIRE(aFixed * bFixed == 250);
 
+    static_assert(isEqual(aFloat * bFloat, 250.0F), "dot product (10,20)·(5,10) must be 250 for float");
     static_assert(aFixed * bFixed == 250, "dot product (10,20)·(5,10) must be 250");
   }
 
@@ -591,6 +592,7 @@ TEST_CASE("math/vector2/binary_operators") {
     REQUIRE(cross(aFloat, bFloat) == doctest::Approx(-4.0F));
     REQUIRE(cross(aFixed, bFixed) == -4);
 
+    static_assert(isEqual(cross(aFloat, bFloat), -4.0F), "cross (3,4)×(1,0) must be -4 for float");
     static_assert(cross(aFixed, bFixed) == -4, "cross (3,4)×(1,0) must be -4");
   }
 

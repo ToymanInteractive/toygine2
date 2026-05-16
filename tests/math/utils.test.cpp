@@ -299,7 +299,7 @@ TEST_CASE("math/utils/deg2rad_rad2deg") {
     static_assert(isEqual(rad2deg(deg2rad(45.0F)), 45.0F), "round-trip 45 deg float must be 45");
     static_assert(isEqual(rad2deg(deg2rad(90.0F)), 90.0F), "round-trip 90 deg float must be 90");
     static_assert(isEqual(rad2deg(deg2rad(180.0F)), 180.0F), "round-trip 180 deg float must be 180");
-    static_assert(isEqual(rad2deg(deg2rad(360.0F)), 360.0F), "round-trip 360 deg double must be 360");
+    static_assert(isEqual(rad2deg(deg2rad(360.0F)), 360.0F), "round-trip 360 deg float must be 360");
     static_assert(isEqual(rad2deg(deg2rad(0.0)), 0.0), "round-trip 0 deg double must be 0");
     static_assert(isEqual(rad2deg(deg2rad(45.0)), 45.0), "round-trip 45 deg double must be 45");
     static_assert(isEqual(rad2deg(deg2rad(90.0)), 90.0), "round-trip 90 deg double must be 90");
