@@ -81,22 +81,36 @@ int main(int argc, char * argv[]) noexcept {
     json << "{" << std::endl;
     for (const auto & suite : report.suites) {
       for (size_t benchmarkIndex = 0; benchmarkIndex < suite.benchmarks.size(); ++benchmarkIndex) {
-        const auto & benchmark  = suite.benchmarks[benchmarkIndex];
-        auto         lowerValue = std::numeric_limits<double>::max();
-        auto         upperValue = std::numeric_limits<double>::min();
+        const auto & benchmark            = suite.benchmarks[benchmarkIndex];
+        auto         latencyLowerValue    = std::numeric_limits<double>::max();
+        auto         latencyUpperValue    = std::numeric_limits<double>::min();
+        auto         throughputLowerValue = std::numeric_limits<double>::max();
+        auto         throughputUpperValue = std::numeric_limits<double>::min();
 
         for (const auto & data : benchmark.data) {
-          const auto val = static_cast<double>(data.total_time_ns) / data.dimension;
-          lowerValue     = std::min(lowerValue, val);
-          upperValue     = std::max(upperValue, val);
+          const auto latencyValue = static_cast<double>(data.total_time_ns) / data.dimension;
+          latencyLowerValue       = std::min(latencyLowerValue, latencyValue);
+          latencyUpperValue       = std::max(latencyUpperValue, latencyValue);
+
+          const auto throughputValue = data.dimension * (1000000000.0 / static_cast<double>(data.total_time_ns));
+          throughputLowerValue       = std::min(throughputLowerValue, throughputValue);
+          throughputUpperValue       = std::max(throughputUpperValue, throughputValue);
         }
 
         json << "  \"" << suite.name << "." << benchmark.name << "\": {";
+
         json << "\"latency\":{";
-        json << "\"value\": " << std::midpoint(lowerValue, upperValue) << ",";
-        json << "\"lower_value\": " << lowerValue << ",";
-        json << "\"upper_value\": " << upperValue;
+        json << "\"value\": " << std::midpoint(latencyLowerValue, latencyUpperValue) << ",";
+        json << "\"lower_value\": " << latencyLowerValue << ",";
+        json << "\"upper_value\": " << latencyUpperValue;
         json << "}";
+
+        json << "\"throughput\":{";
+        json << "\"value\": " << std::midpoint(throughputLowerValue, throughputUpperValue) << ",";
+        json << "\"lower_value\": " << throughputLowerValue << ",";
+        json << "\"upper_value\": " << throughputUpperValue;
+        json << "}";
+
         json << "}" << (benchmarkIndex < suite.benchmarks.size() - 1 ? "," : "") << std::endl;
       }
     }
