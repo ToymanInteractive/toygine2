@@ -88,13 +88,17 @@ int main(int argc, char * argv[]) noexcept {
         auto         throughputUpperValue = std::numeric_limits<double>::min();
 
         for (const auto & data : benchmark.data) {
-          const auto latencyValue = static_cast<double>(data.total_time_ns) / data.dimension;
-          latencyLowerValue       = std::min(latencyLowerValue, latencyValue);
-          latencyUpperValue       = std::max(latencyUpperValue, latencyValue);
+          if (data.dimension > 0) {
+            const auto latencyValue = static_cast<double>(data.total_time_ns) / data.dimension;
+            latencyLowerValue       = std::min(latencyLowerValue, latencyValue);
+            latencyUpperValue       = std::max(latencyUpperValue, latencyValue);
+          }
 
-          const auto throughputValue = data.dimension * (1000000000.0 / static_cast<double>(data.total_time_ns));
-          throughputLowerValue       = std::min(throughputLowerValue, throughputValue);
-          throughputUpperValue       = std::max(throughputUpperValue, throughputValue);
+          if (data.total_time_ns > 0) {
+            const auto throughputValue = data.dimension * (1000000000.0 / static_cast<double>(data.total_time_ns));
+            throughputLowerValue       = std::min(throughputLowerValue, throughputValue);
+            throughputUpperValue       = std::max(throughputUpperValue, throughputValue);
+          }
         }
 
         json << "  \"" << suite.name << "." << benchmark.name << "\": {";
