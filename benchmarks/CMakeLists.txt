@@ -50,6 +50,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 endif ()
 
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+
 set(BENCHMARKS_OUTPUT_FILE "" CACHE STRING "Output file path for JSON benchmark results")
 
 include(FetchContent)
