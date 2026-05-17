@@ -86,34 +86,42 @@ int main(int argc, char * argv[]) noexcept {
         auto         latencyUpperValue    = std::numeric_limits<double>::min();
         auto         throughputLowerValue = std::numeric_limits<double>::max();
         auto         throughputUpperValue = std::numeric_limits<double>::min();
+        bool         hasLatency           = false;
+        bool         hasThroughput        = false;
 
         for (const auto & data : benchmark.data) {
           if (data.dimension > 0) {
             const auto latencyValue = static_cast<double>(data.total_time_ns) / data.dimension;
             latencyLowerValue       = std::min(latencyLowerValue, latencyValue);
             latencyUpperValue       = std::max(latencyUpperValue, latencyValue);
+            hasLatency              = true;
           }
 
           if (data.total_time_ns > 0) {
             const auto throughputValue = data.dimension * (1000000000.0 / static_cast<double>(data.total_time_ns));
             throughputLowerValue       = std::min(throughputLowerValue, throughputValue);
             throughputUpperValue       = std::max(throughputUpperValue, throughputValue);
+            hasThroughput              = true;
           }
         }
 
         json << "  \"" << suite.name << "." << benchmark.name << "\": {";
 
-        json << "\"latency\":{";
-        json << "\"value\": " << (latencyLowerValue + latencyUpperValue) * 0.5 << ",";
-        json << "\"lower_value\": " << latencyLowerValue << ",";
-        json << "\"upper_value\": " << latencyUpperValue;
-        json << "},";
+        if (hasLatency) {
+          json << "\"latency\":{";
+          json << "\"value\": " << (latencyLowerValue + latencyUpperValue) * 0.5 << ",";
+          json << "\"lower_value\": " << latencyLowerValue << ",";
+          json << "\"upper_value\": " << latencyUpperValue;
+          json << "}" << (hasThroughput ? "," : "");
+        }
 
-        json << "\"throughput\":{";
-        json << "\"value\": " << (throughputLowerValue + throughputUpperValue) * 0.5 << ",";
-        json << "\"lower_value\": " << throughputLowerValue << ",";
-        json << "\"upper_value\": " << throughputUpperValue;
-        json << "}";
+        if (hasThroughput) {
+          json << "\"throughput\":{";
+          json << "\"value\": " << (throughputLowerValue + throughputUpperValue) * 0.5 << ",";
+          json << "\"lower_value\": " << throughputLowerValue << ",";
+          json << "\"upper_value\": " << throughputUpperValue;
+          json << "}";
+        }
 
         json << "}" << (benchmarkIndex < suite.benchmarks.size() - 1 ? "," : "") << std::endl;
       }
