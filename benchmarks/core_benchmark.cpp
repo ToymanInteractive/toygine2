@@ -38,12 +38,6 @@ void formatNumberStringCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void highestBitCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
-namespace chrono {
-
-void countdownTimerCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-
-} // namespace chrono
-
 } // namespace toy
 
 void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
@@ -56,5 +50,4 @@ void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::utoaCoreBenchmarks(bench);
   toy::formatNumberStringCoreBenchmarks(bench);
   toy::highestBitCoreBenchmarks(bench);
-  toy::chrono::countdownTimerCoreBenchmarks(bench);
 }

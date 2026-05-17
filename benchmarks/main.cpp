@@ -28,6 +28,9 @@
 
 #include <nanobench.h>
 
+#define PICOBENCH_IMPLEMENT
+#include "picobench/picobench.hpp"
+
 void runCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
@@ -49,15 +52,15 @@ constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
    }
 };
 
-// Renders results in Bencher Metric Format (BMF) for bencher.dev ingestion.
-// Schema: https://bencher.dev/bmf.json
-constexpr char c_bmfTemplate[] = R"({
-{{#result}}  "{{unit}}/{{name}}": {"latency": {"value": {{median(elapsed)}}}}{{^-last}},{{/-last}}
-{{/result}}})";
-
 } // namespace
 
 int main(int argc, char * argv[]) noexcept {
+  picobench::runner runner;
+
+  runner.run_benchmarks(123);
+  auto report = runner.generate_report();
+  report.to_text(std::cout);
+
   auto bench
     = ankerl::nanobench::Bench().title("toygine2").warmup(100).epochs(100).minEpochIterations(1000).relative(true);
 
@@ -72,7 +75,59 @@ int main(int argc, char * argv[]) noexcept {
       return 1;
     }
 
-    ankerl::nanobench::render(c_bmfTemplate, bench, json);
+    // Bencher Metric Format (BMF) :
+    // https://bencher.dev/docs/reference/bencher-metric-format/#example-bencher-metric-format-bmf-json
+
+    json << "{" << std::endl;
+    for (const auto & suite : report.suites) {
+      for (size_t benchmarkIndex = 0; benchmarkIndex < suite.benchmarks.size(); ++benchmarkIndex) {
+        const auto & benchmark            = suite.benchmarks[benchmarkIndex];
+        auto         latencyLowerValue    = std::numeric_limits<double>::max();
+        auto         latencyUpperValue    = std::numeric_limits<double>::min();
+        auto         throughputLowerValue = std::numeric_limits<double>::max();
+        auto         throughputUpperValue = std::numeric_limits<double>::min();
+        bool         hasLatency           = false;
+        bool         hasThroughput        = false;
+
+        for (const auto & data : benchmark.data) {
+          if (data.dimension > 0) {
+            const auto latencyValue = static_cast<double>(data.total_time_ns) / data.dimension;
+            latencyLowerValue       = std::min(latencyLowerValue, latencyValue);
+            latencyUpperValue       = std::max(latencyUpperValue, latencyValue);
+            hasLatency              = true;
+          }
+
+          if (data.total_time_ns > 0) {
+            const auto throughputValue = data.dimension * (1000000000.0 / static_cast<double>(data.total_time_ns));
+            throughputLowerValue       = std::min(throughputLowerValue, throughputValue);
+            throughputUpperValue       = std::max(throughputUpperValue, throughputValue);
+            hasThroughput              = true;
+          }
+        }
+
+        json << "  \"" << suite.name << "." << benchmark.name << "\": {";
+
+        if (hasLatency) {
+          json << "\"latency\":{";
+          json << "\"value\": " << (latencyLowerValue + latencyUpperValue) * 0.5 << ",";
+          json << "\"lower_value\": " << latencyLowerValue << ",";
+          json << "\"upper_value\": " << latencyUpperValue;
+          json << "}" << (hasThroughput ? "," : "");
+        }
+
+        if (hasThroughput) {
+          json << "\"throughput\":{";
+          json << "\"value\": " << (throughputLowerValue + throughputUpperValue) * 0.5 << ",";
+          json << "\"lower_value\": " << throughputLowerValue << ",";
+          json << "\"upper_value\": " << throughputUpperValue;
+          json << "}";
+        }
+
+        json << "}" << (benchmarkIndex < suite.benchmarks.size() - 1 ? "," : "") << std::endl;
+      }
+    }
+    json << "}" << std::endl;
+
     json.flush();
     if (!json.good()) {
       std::cerr << "Failed to write benchmark output file: " << argv[1] << std::endl;

@@ -19,36 +19,38 @@
 #-------------------------------------------------------------------------------------------
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4625 /wd4626 /wd5026 /wd5027")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4365 /wd4625 /wd4626 /wd5026 /wd5027")
 
   # MSVC x86
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4738")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch-default")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-exit-time-destructors -Wno-extra-semi-stmt -Wno-global-constructors -Wno-missing-variable-declarations -Wno-shadow-field-in-constructor -Wno-sign-conversion -Wno-switch-default -Wno-weak-vtables")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 endif ()
+
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 
 set(BENCHMARKS_OUTPUT_FILE "" CACHE STRING "Output file path for JSON benchmark results")
 
@@ -57,10 +59,13 @@ include(FetchContent)
 FetchContent_Declare(nanobench GIT_REPOSITORY https://github.com/martinus/nanobench.git GIT_TAG v4.3.11 GIT_SHALLOW TRUE)
 FetchContent_MakeAvailable(nanobench)
 
+FetchContent_Declare(picobench GIT_REPOSITORY https://github.com/iboB/picobench.git GIT_TAG v2.9.0 GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(picobench)
+
 file(GLOB_RECURSE BENCHMARKS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 
 add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${BENCHMARKS_SRC})
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench ${TOYGINE_LIBRARY_NAME})
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench picobench ${TOYGINE_LIBRARY_NAME})
 
 add_custom_target(benchmarks_run
   COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
