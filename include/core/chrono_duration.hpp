@@ -155,7 +155,8 @@ using TimePoint = std::chrono::time_point<Clock, Dur>;
 
   \section features Key Features
 
-  - **Clock-agnostic**: works with any clock type, including \ref toy::chrono::SteadyClock and \ref toy::chrono::SystemClock; formats the duration since the clock's epoch.
+  - **Clock-agnostic**: works with any clock type, including \ref toy::chrono::SteadyClock and
+    \ref toy::chrono::SystemClock; formats the duration since the clock's epoch.
   - **Flexible patterns**: any combination of \c h, \c m, \c s, \c z tokens with arbitrary literal separators.
   - **Millisecond precision**: decomposes duration down to milliseconds; sub-millisecond ticks are truncated.
   - **Negative durations**: prefixes the formatted output with \c '-'; absolute value is formatted normally.

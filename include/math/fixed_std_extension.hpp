@@ -90,12 +90,12 @@ public:
   static constexpr bool is_modulo  = numeric_limits<Base>::is_modulo;
 
   /// Number of radix digits in \a Base (same as \c numeric_limits<Base>::digits).
-  static constexpr int digits   = numeric_limits<Base>::digits;
+  static constexpr int digits       = numeric_limits<Base>::digits;
   /// Guaranteed significant decimal digits for the full fixed-point value.
-  static constexpr int digits10 = _calcDigits10(numeric_limits<Base>::digits);
+  static constexpr int digits10     = _calcDigits10(numeric_limits<Base>::digits);
   /// Max decimal digits needed to represent any value (integer + fractional part).
-  static constexpr int max_digits10
-    = _calcMaxDigits10(numeric_limits<Base>::digits - Fraction) + _calcMaxDigits10(Fraction);
+  static constexpr int max_digits10 = _calcMaxDigits10(numeric_limits<Base>::digits - Fraction)
+                                      + _calcMaxDigits10(Fraction);
 
   /// 2 (binary radix).
   static constexpr int radix          = 2;

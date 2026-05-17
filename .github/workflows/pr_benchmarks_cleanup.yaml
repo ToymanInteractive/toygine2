@@ -1,0 +1,26 @@
+name: Pull Request Benchmarks Cleanup
+
+on:
+  pull_request:
+    types:
+      - closed
+
+jobs:
+  archive_pr_branch:
+    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6.0.2
+        with:
+          submodules: recursive
+
+      - name: Install bencher CLI
+        uses: bencherdev/bencher@v0.6.5
+
+      - name: Bencher archive PR branch
+        run: |
+          bencher archive \
+          --project toygine2 \
+          --token '${{ secrets.BENCHER_API_TOKEN }}' \
+          --branch "${{ github.head_ref }}"
