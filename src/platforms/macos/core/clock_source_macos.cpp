@@ -19,7 +19,8 @@
 //
 /*!
   \file   clock_source_macos.cpp
-  \brief  macOS implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
+  \brief  macOS implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock, and
+          \ref toy::chrono::SystemClock.
 */
 
 #include <time.h>
@@ -73,6 +74,10 @@ SteadyClock::time_point SteadyClock::now() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
 
   return activeSource != nullptr ? time_point{duration{activeSource->nowTicks()}} : time_point{};
+}
+
+SystemClock::time_point SystemClock::now() noexcept {
+  return time_point{};
 }
 
 } // namespace toy::chrono
