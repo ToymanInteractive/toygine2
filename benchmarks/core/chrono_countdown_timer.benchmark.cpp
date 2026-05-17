@@ -22,7 +22,6 @@
   \brief  Picobench benchmarks for \ref toy::chrono::CountdownTimer.
 */
 
-#include "../utils.hpp"
 #include "core.hpp"
 #include "picobench/picobench.hpp"
 
