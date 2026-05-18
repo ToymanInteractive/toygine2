@@ -141,16 +141,17 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d0/d5a/concept
 <a href="#details">More...</a></p>
 <h2 id="header-conceptdef" class="groupheader">Concept definition</h2>
 <div class="fragment"><div class="line"><span class="keyword">template</span>&lt;<span class="keyword">typename</span> T&gt;</div>
-<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html">OStringStreamBackend</a> = std::default_initializable&lt;T&gt; &amp;&amp; std::assignable_from&lt;T &amp;, const T &amp;&gt; &amp;&amp; std::is_nothrow_swappable_v&lt;T&gt;</div>
-<div class="line">    &amp;&amp; <span class="keyword">requires</span>(T &amp; str, <span class="keyword">const</span> T &amp; constStr, <span class="keyword">const</span> <span class="keywordtype">char</span> * cstr, <span class="keywordtype">size_t</span> count, <span class="keywordtype">char</span> ch) {</div>
-<div class="line">         { constStr.size() } <span class="keyword">noexcept</span> -&gt; std::same_as&lt;size_t&gt;;</div>
-<div class="line">         { constStr.c_str() } <span class="keyword">noexcept</span> -&gt; std::convertible_to&lt;const char *&gt;;</div>
-<div class="line">         { str.push_back(ch) } <span class="keyword">noexcept</span>;</div>
-<div class="line">         { str.append(cstr) } <span class="keyword">noexcept</span>;</div>
-<div class="line">         { str.append(cstr, count) } <span class="keyword">noexcept</span>;</div>
-<div class="line">         { str.append(count, ch) } <span class="keyword">noexcept</span>;</div>
-<div class="line">       }</div>
-<div class="ttc" id="aconcepttoy_1_1_o_string_stream_backend_html"><div class="ttname"><a href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html">toy::OStringStreamBackend</a></div><div class="ttdoc">Concept satisfied when T can serve as the backing storage for toy::OStringStream.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:66</div></div>
+<div class="line"><span class="keyword">concept </span><a class="code hl_concept" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html">OStringStreamBackend</a> = std::default_initializable&lt;T&gt; &amp;&amp; std::assignable_from&lt;T &amp;, const T &amp;&gt;</div>
+<div class="line">                               &amp;&amp; std::is_nothrow_swappable_v&lt;T&gt;</div>
+<div class="line">                               &amp;&amp; <span class="keyword">requires</span>(T &amp; str, <span class="keyword">const</span> T &amp; constStr, <span class="keyword">const</span> <span class="keywordtype">char</span> * cstr, <span class="keywordtype">size_t</span> count, <span class="keywordtype">char</span> ch) {</div>
+<div class="line">                                    { constStr.size() } <span class="keyword">noexcept</span> -&gt; std::same_as&lt;size_t&gt;;</div>
+<div class="line">                                    { constStr.c_str() } <span class="keyword">noexcept</span> -&gt; std::convertible_to&lt;const char *&gt;;</div>
+<div class="line">                                    { str.push_back(ch) } <span class="keyword">noexcept</span>;</div>
+<div class="line">                                    { str.append(cstr) } <span class="keyword">noexcept</span>;</div>
+<div class="line">                                    { str.append(cstr, count) } <span class="keyword">noexcept</span>;</div>
+<div class="line">                                    { str.append(count, ch) } <span class="keyword">noexcept</span>;</div>
+<div class="line">                                  }</div>
+<div class="ttc" id="aconcepttoy_1_1_o_string_stream_backend_html"><div class="ttname"><a href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html">toy::OStringStreamBackend</a></div><div class="ttdoc">Concept satisfied when T can serve as the backing storage for toy::OStringStream.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:65</div></div>
 </div><!-- fragment --><a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Concept satisfied when <em class="arg">T</em> can serve as the backing storage for <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a>. </p>
 <p>Expresses the mutable string interface that <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="toy::OStringStream">toy::OStringStream</a> requires from its template argument. Types satisfying this concept support character-by-character append, block appends with and without a repetition count, null-terminated read access, and swap. <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a> is the canonical representative.</p>

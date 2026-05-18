@@ -26,6 +26,7 @@ var hierarchy =
     [ "toy::chrono::DurationFormat&lt; Rep, Period &gt;", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", null ],
     [ "toy::chrono::SteadyClock", "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html", null ],
     [ "toy::chrono::Stopwatch", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html", null ],
+    [ "toy::chrono::SystemClock", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html", null ],
     [ "toy::chrono::TimePointFormat&lt; Clock, Dur &gt;", "da/d20/structtoy_1_1chrono_1_1_time_point_format.html", null ],
     [ "toy::CStringView", "d5/d03/classtoy_1_1_c_string_view.html", null ],
     [ "toy::EnableBitwiseOperators&lt; T &gt;", "dc/d6d/classtoy_1_1_enable_bitwise_operators.html", null ],

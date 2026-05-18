@@ -190,7 +190,7 @@ Static Public Attributes</h2></td></tr>
 <tr class="memdesc:af72edb17450ef46df574d2dbe7a69b49"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of radix digits in <em class="arg">Base</em> (same as <code>numeric_limits&lt;Base&gt;::digits</code>).  <br /></td></tr>
 <tr class="memitem:a8b50310bde22496df21b0b9788ed23ac" id="r_a8b50310bde22496df21b0b9788ed23ac"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a8b50310bde22496df21b0b9788ed23ac">digits10</a> = <a class="el" href="#a17f9df2f3872f0b6549c76daa479fa56">_calcDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a>)</td></tr>
 <tr class="memdesc:a8b50310bde22496df21b0b9788ed23ac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Guaranteed significant decimal digits for the full fixed-point value.  <br /></td></tr>
-<tr class="memitem:a8a3a43a4b271ce4b5e1a3578176273d9" id="r_a8a3a43a4b271ce4b5e1a3578176273d9"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a8a3a43a4b271ce4b5e1a3578176273d9">max_digits10</a> = <a class="el" href="#a9e022bee7e6efdf09b64ad8d5ed86138">_calcMaxDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - Fraction) + <a class="el" href="#a9e022bee7e6efdf09b64ad8d5ed86138">_calcMaxDigits10</a>(Fraction)</td></tr>
+<tr class="memitem:a8a3a43a4b271ce4b5e1a3578176273d9" id="r_a8a3a43a4b271ce4b5e1a3578176273d9"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a8a3a43a4b271ce4b5e1a3578176273d9">max_digits10</a></td></tr>
 <tr class="memdesc:a8a3a43a4b271ce4b5e1a3578176273d9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Max decimal digits needed to represent any value (integer + fractional part).  <br /></td></tr>
 <tr class="memitem:a4e315a22a0727c409b1e0582d45950c3" id="r_a4e315a22a0727c409b1e0582d45950c3"><td class="memItemLeft">static constexpr int&#160;</td><td class="memItemRight"><a class="el" href="#a4e315a22a0727c409b1e0582d45950c3">radix</a> = 2</td></tr>
 <tr class="memdesc:a4e315a22a0727c409b1e0582d45950c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">2 (binary radix).  <br /></td></tr>
@@ -911,7 +911,7 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::max_digits10 = <a class="el" href="#a9e022bee7e6efdf09b64ad8d5ed86138">_calcMaxDigits10</a>(<a class="el" href="../../db/dc2/classnumeric__limits.html">numeric_limits</a>&lt;Base&gt;<a class="el" href="#af72edb17450ef46df574d2dbe7a69b49">::digits</a> - Fraction) + <a class="el" href="#a9e022bee7e6efdf09b64ad8d5ed86138">_calcMaxDigits10</a>(Fraction)</td>
+          <td class="memname">int std::numeric_limits&lt; <a class="el" href="../../dd/d5c/classtoy_1_1math_1_1fixed.html">toy::math::fixed</a>&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::max_digits10</td>
         </tr>
       </table>
   </td>
@@ -920,7 +920,11 @@ template&lt;typename Base, typename Intermediate, unsigned Fraction, bool Roundi
   </tr>
 </table>
 </div><div class="memdoc">
-
+<b>Initial value:</b><div class="fragment"><div class="line">= <a class="code hl_function" href="#a9e022bee7e6efdf09b64ad8d5ed86138">_calcMaxDigits10</a>(<a class="code hl_class" href="../../db/dc2/classnumeric__limits.html">numeric_limits&lt;Base&gt;::digits</a> - Fraction)</div>
+<div class="line">  + <a class="code hl_function" href="#a9e022bee7e6efdf09b64ad8d5ed86138">_calcMaxDigits10</a>(Fraction)</div>
+<div class="ttc" id="aclassnumeric__limits_html"><div class="ttname"><a href="../../db/dc2/classnumeric__limits.html">numeric_limits</a></div><div class="ttdoc">Specialization of std::numeric_limits for toy::math::fixed.</div></div>
+<div class="ttc" id="aclassstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4_html_a9e022bee7e6efdf09b64ad8d5ed86138"><div class="ttname"><a href="#a9e022bee7e6efdf09b64ad8d5ed86138">std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;::_calcMaxDigits10</a></div><div class="ttdeci">static consteval int _calcMaxDigits10(int bits) noexcept</div><div class="ttdoc">Helper: ceil(bits * log10(2)) using fixed-point; log10(2) in 8.24 format is 5050445.</div><div class="ttdef"><b>Definition</b> fixed_std_extension.hpp:48</div></div>
+</div><!-- fragment -->
 <p>Max decimal digits needed to represent any value (integer + fractional part). </p>
 
 </div>

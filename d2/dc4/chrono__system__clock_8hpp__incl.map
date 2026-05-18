@@ -1,0 +1,5 @@
+<map id="include/core/chrono_system_clock.hpp" name="include/core/chrono_system_clock.hpp">
+<area shape="rect" id="Node000001" title="Wall&#45;clock type anchored to the Unix epoch." alt="" coords="8,5,157,45"/>
+<area shape="rect" id="Node000002" href="$dd/ddb/chrono__duration_8hpp.html" title="Duration and time&#45;point aliases over std::chrono." alt="" coords="5,93,160,119"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="85,46,85,79,80,79,80,46"/>
+</map>

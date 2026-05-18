@@ -6,5 +6,6 @@ var searchData=
   ['staticcallback_3',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
   ['steadyclock_4',['SteadyClock',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html',1,'toy::chrono']]],
   ['stopwatch_5',['Stopwatch',['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html',1,'toy::chrono']]],
-  ['stringfixedstorage_6',['StringFixedStorage',['../d0/d21/classtoy_1_1_string_fixed_storage.html',1,'toy']]]
+  ['stringfixedstorage_6',['StringFixedStorage',['../d0/d21/classtoy_1_1_string_fixed_storage.html',1,'toy']]],
+  ['systemclock_7',['SystemClock',['../d7/d73/classtoy_1_1chrono_1_1_system_clock.html',1,'toy::chrono']]]
 ];

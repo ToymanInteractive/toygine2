@@ -19,7 +19,7 @@ var searchData=
   ['this_20repository_16',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
   ['time_20constexpr_20tests_17',['Compile-Time (&lt;span class=&quot;tt&quot;&gt;constexpr&lt;/span&gt;) Tests',['../df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests',1,'']]],
   ['time_20vs_20runtime_20testing_18',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
-  ['time_5fpoint_19',['time_point',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#a270bdb6853334858930e2cf339fbc762',1,'toy::chrono::SteadyClock']]],
+  ['time_5fpoint_19',['time_point',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#a270bdb6853334858930e2cf339fbc762',1,'toy::chrono::SteadyClock::time_point'],['../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a346fc728ed83cce6f81cc1757e2d4335',1,'toy::chrono::SystemClock::time_point']]],
   ['timeout_20',['Timeout',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eac85a251cc457840f1e032f1b733e9398',1,'toy::network']]],
   ['timepoint_21',['TimePoint',['../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff',1,'toy::chrono']]],
   ['timepoint_22',['timePoint',['../da/d20/structtoy_1_1chrono_1_1_time_point_format.html#a2999535f93e42cd49a59309317fdc9c6',1,'toy::chrono::TimePointFormat']]],

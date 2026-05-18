@@ -9,7 +9,7 @@ var searchData=
   ['pattern_20tokens_6',['Pattern Tokens',['../da/d20/structtoy_1_1chrono_1_1_time_point_format.html#pattern_tokens',1,'']]],
   ['performance_20characteristics_7',['Performance Characteristics',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#performance',1,'Performance Characteristics']]],
   ['performance_20performance_20characteristics_8',['&lt;span class=&quot;tt&quot;&gt;\\section performance Performance Characteristics&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-performance-performance-characteristics',1,'']]],
-  ['period_9',['period',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#af39a56709c8462626b32f09c6d62f785',1,'toy::chrono::SteadyClock']]],
+  ['period_9',['period',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#af39a56709c8462626b32f09c6d62f785',1,'toy::chrono::SteadyClock::period'],['../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#ac992aa676e566b6beec847a91af6deaa',1,'toy::chrono::SystemClock::period']]],
   ['phi_5fv_10',['phi_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#ae86d51e3de21dfeea848b396d99306ac',1,'toy::math::constants']]],
   ['phi_5fv_3c_20toy_3a_3amath_3a_3afixed_3c_20base_2c_20intermediate_2c_20fraction_2c_20rounding_20_3e_20_3e_11',['phi_v&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;',['../da/d94/namespacestd_1_1numbers.html#a5cfec7b8b2c8bc445ed8619a3c15d48c',1,'std::numbers']]],
   ['pi_5fv_12',['pi_v',['../dd/d71/namespacetoy_1_1math_1_1constants.html#aa386bcc63af4cf420bac521cb769e6bc',1,'toy::math::constants']]],

@@ -1,5 +1,12 @@
 var NAVTREEINDEX6 =
 {
+"df/d81/md__a_g_e_n_t_s.html#general-coding-principles":[1,4],
+"df/d81/md__a_g_e_n_t_s.html#general-test-principles":[1,18],
+"df/d81/md__a_g_e_n_t_s.html#header--source-organization":[1,7],
+"df/d81/md__a_g_e_n_t_s.html#headers":[1,7,4],
+"df/d81/md__a_g_e_n_t_s.html#include-guards":[1,7,1],
+"df/d81/md__a_g_e_n_t_s.html#include-order":[1,7,3],
+"df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing":[1,6,0],
 "df/d81/md__a_g_e_n_t_s.html#inl-files":[1,7,6],
 "df/d81/md__a_g_e_n_t_s.html#inline-and-template-code":[1,7,5],
 "df/d81/md__a_g_e_n_t_s.html#interaction-guidelines":[1,0],
@@ -73,6 +80,8 @@ var NAVTREEINDEX6 =
 "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ab1c94ca2fbc3e78fc30069c8d0f01680":[3,0,2,14,0,4],
 "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ac41a31890959544c6523af684561abe5":[3,0,2,14,0,1],
 "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895":[3,0,2,14,0,3],
+"df/da9/chrono__system__clock_8hpp.html":[6,0,0,2,15],
+"df/da9/chrono__system__clock_8hpp_source.html":[6,0,0,2,15],
 "df/db1/gba_2platform__config_8hpp.html":[6,0,1,3,2,0],
 "df/db1/gba_2platform__config_8hpp_source.html":[6,0,1,3,2,0],
 "df/dd0/console__application__windows_8cpp.html":[6,0,1,3,8,0,0],

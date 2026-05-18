@@ -15,6 +15,7 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "chrono_steady_clock.hpp", "d3/d6a/chrono__steady__clock_8hpp.html", null ],
     [ "chrono_stopwatch.hpp", "d9/de5/chrono__stopwatch_8hpp.html", null ],
     [ "chrono_stopwatch.inl", "d2/d43/chrono__stopwatch_8inl.html", null ],
+    [ "chrono_system_clock.hpp", "df/da9/chrono__system__clock_8hpp.html", null ],
     [ "class_macros.hpp", "d3/d0f/class__macros_8hpp.html", "d3/d0f/class__macros_8hpp" ],
     [ "constexpr_utils.hpp", "d4/dc0/constexpr__utils_8hpp.html", "d4/dc0/constexpr__utils_8hpp" ],
     [ "constexpr_utils.inl", "dc/d28/constexpr__utils_8inl.html", "dc/d28/constexpr__utils_8inl" ],

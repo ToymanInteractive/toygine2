@@ -30,17 +30,17 @@
 <area shape="poly" id="edge31_Node000002_Node000024" title=" " alt="" coords="2794,207,2997,252,3028,259,3027,265,2996,257,2793,212"/>
 <area shape="rect" id="Node000025" href="$df/de5/assertion__linux_8cpp.html" title="Linux implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3166,255,3350,295"/>
 <area shape="poly" id="edge32_Node000002_Node000025" title=" " alt="" coords="2806,203,3153,252,3166,254,3165,259,3152,257,2805,208"/>
-<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock." alt="" coords="3374,255,3582,295"/>
+<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3374,255,3582,295"/>
 <area shape="poly" id="edge33_Node000002_Node000026" title=" " alt="" coords="2806,198,3054,219,3362,252,3374,254,3373,259,3362,257,3054,224,2805,204"/>
 <area shape="rect" id="Node000027" href="$d5/d5a/assertion__macos_8cpp.html" title="macOS implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3606,255,3801,295"/>
 <area shape="poly" id="edge34_Node000002_Node000027" title=" " alt="" coords="2806,195,3149,213,3370,229,3594,252,3606,254,3605,259,3594,257,3370,235,3148,218,2806,201"/>
-<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock." alt="" coords="3825,255,4043,295"/>
+<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3825,255,4043,295"/>
 <area shape="poly" id="edge35_Node000002_Node000028" title=" " alt="" coords="2806,194,3235,210,3522,227,3813,252,3824,253,3824,259,3812,257,3522,232,3235,215,2806,200"/>
 <area shape="rect" id="Node000029" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="4068,255,4248,295"/>
 <area shape="poly" id="edge36_Node000002_Node000029" title=" " alt="" coords="2806,192,3021,194,3331,202,3690,220,3875,234,4055,252,4068,254,4067,259,4055,257,3874,239,3689,226,3330,208,3021,200,2806,198"/>
-<area shape="rect" id="Node000030" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock." alt="" coords="4272,255,4476,295"/>
+<area shape="rect" id="Node000030" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemCl..." alt="" coords="4272,255,4476,295"/>
 <area shape="poly" id="edge37_Node000002_Node000030" title=" " alt="" coords="2806,192,3050,194,3410,201,3831,219,4048,233,4261,252,4272,253,4271,259,4260,257,4048,239,3831,224,3410,206,3050,199,2806,198"/>
-<area shape="rect" id="Node000031" href="$d0/db3/clock__source__windows_8cpp.html" title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock." alt="" coords="4500,255,4733,295"/>
+<area shape="rect" id="Node000031" href="$d0/db3/clock__source__windows_8cpp.html" title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Sy..." alt="" coords="4500,255,4733,295"/>
 <area shape="poly" id="edge38_Node000002_Node000031" title=" " alt="" coords="2806,192,3082,193,3497,200,3987,218,4240,233,4489,252,4500,253,4499,258,4488,257,4240,238,3987,223,3497,205,3082,198,2806,198"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="636,281,466,286,272,298,106,317,49,330,31,337,20,345,11,357,8,370,11,383,19,395,40,401,92,407,269,417,816,435,1859,453,1859,458,816,440,269,423,91,412,39,406,16,400,6,385,3,370,6,355,16,341,28,332,48,325,105,312,271,293,466,281,636,275"/>
 <area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="30,350,201,390"/>

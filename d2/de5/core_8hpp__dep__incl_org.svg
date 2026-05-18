@@ -255,7 +255,7 @@
 <!-- Node25 -->
 <g id="Node000025" class="node">
 <title>Node25</title>
-<g id="a_Node000025"><a xlink:href="../../d4/d42/clock__source__linux_8cpp.html" target="_top" xlink:title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock.">
+<g id="a_Node000025"><a xlink:href="../../d4/d42/clock__source__linux_8cpp.html" target="_top" xlink:title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst...">
 <polygon fill="white" stroke="#666666" points="2682.39,-162 2526.39,-162 2526.39,-132 2682.39,-132 2682.39,-162"/>
 <text text-anchor="start" x="2534.39" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/linux</text>
 <text text-anchor="middle" x="2604.39" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_linux.cpp</text>
@@ -293,7 +293,7 @@
 <!-- Node27 -->
 <g id="Node000027" class="node">
 <title>Node27</title>
-<g id="a_Node000027"><a xlink:href="../../d6/d9a/clock__source__macos_8cpp.html" target="_top" xlink:title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock.">
+<g id="a_Node000027"><a xlink:href="../../d6/d9a/clock__source__macos_8cpp.html" target="_top" xlink:title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst...">
 <polygon fill="white" stroke="#666666" points="3028.39,-162 2864.39,-162 2864.39,-132 3028.39,-132 3028.39,-162"/>
 <text text-anchor="start" x="2872.39" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
 <text text-anchor="middle" x="2946.39" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_macos.cpp</text>
@@ -331,7 +331,7 @@
 <!-- Node29 -->
 <g id="Node000029" class="node">
 <title>Node29</title>
-<g id="a_Node000029"><a xlink:href="../../d4/dbf/clock__source__stub_8cpp.html" target="_top" xlink:title="Stub implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock.">
+<g id="a_Node000029"><a xlink:href="../../d4/dbf/clock__source__stub_8cpp.html" target="_top" xlink:title="Stub implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemCl...">
 <polygon fill="white" stroke="#666666" points="3352.89,-162 3199.89,-162 3199.89,-132 3352.89,-132 3352.89,-162"/>
 <text text-anchor="start" x="3207.89" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/stub</text>
 <text text-anchor="middle" x="3276.39" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_stub.cpp</text>
@@ -350,7 +350,7 @@
 <!-- Node30 -->
 <g id="Node000030" class="node">
 <title>Node30</title>
-<g id="a_Node000030"><a xlink:href="../../d0/db3/clock__source__windows_8cpp.html" target="_top" xlink:title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock.">
+<g id="a_Node000030"><a xlink:href="../../d0/db3/clock__source__windows_8cpp.html" target="_top" xlink:title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Sy...">
 <polygon fill="white" stroke="#666666" points="3545.89,-162 3370.89,-162 3370.89,-132 3545.89,-132 3545.89,-162"/>
 <text text-anchor="start" x="3378.89" y="-150" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/windows</text>
 <text text-anchor="middle" x="3458.39" y="-139" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_windows.cpp</text>

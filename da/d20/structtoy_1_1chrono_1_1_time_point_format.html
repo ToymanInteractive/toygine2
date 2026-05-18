@@ -167,7 +167,7 @@ class toy::chrono::TimePointFormat&lt; Clock, Dur &gt;</div><p>Pairs a <a class=
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li><b>Epoch-relative display</b>: time measured from the hardware counter start, not from a calendar epoch.</li>
+<li><b>Clock-agnostic</b>: works with any clock type, including <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a> and <a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html" title="toy::chrono::SystemClock">toy::chrono::SystemClock</a>; formats the duration since the clock's epoch.</li>
 <li><b>Flexible patterns</b>: any combination of <code>h</code>, <code>m</code>, <code>s</code>, <code>z</code> tokens with arbitrary literal separators.</li>
 <li><b>Millisecond precision</b>: decomposes duration down to milliseconds; sub-millisecond ticks are truncated.</li>
 <li><b>Negative durations</b>: prefixes the formatted output with <code>'-'</code>; absolute value is formatted normally.</li>
@@ -205,9 +205,9 @@ Usage Example</h1>
 <div class="line">stream &lt;&lt; <a class="code hl_class" href="../../da/d20/structtoy_1_1chrono_1_1_time_point_format.html">toy::chrono::TimePointFormat</a>{<span class="stringliteral">&quot;hh:mm:ss.zzz&quot;</span>, now}; <span class="comment">// e.g. &quot;00:01:23.456&quot;</span></div>
 <div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Output stream that appends formatted values into a toy::OStringStreamBackend backend.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:135</div></div>
 <div class="ttc" id="aclasstoy_1_1chrono_1_1_clock_source_html"><div class="ttname"><a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></div><div class="ttdoc">RAII owner of the platform hardware time source.</div><div class="ttdef"><b>Definition</b> chrono_clock_source.hpp:95</div></div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_steady_clock_html_ae568912e06cf7ed5d3a2368bec084bc2"><div class="ttname"><a href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#ae568912e06cf7ed5d3a2368bec084bc2">toy::chrono::SteadyClock::now</a></div><div class="ttdeci">static time_point now() noexcept</div><div class="ttdoc">Current time as a typed time_point.</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:72</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_steady_clock_html_ae568912e06cf7ed5d3a2368bec084bc2"><div class="ttname"><a href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#ae568912e06cf7ed5d3a2368bec084bc2">toy::chrono::SteadyClock::now</a></div><div class="ttdeci">static time_point now() noexcept</div><div class="ttdoc">Current time as a typed time_point.</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:73</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
-<div class="ttc" id="astructtoy_1_1chrono_1_1_time_point_format_html"><div class="ttname"><a href="../../da/d20/structtoy_1_1chrono_1_1_time_point_format.html">toy::chrono::TimePointFormat</a></div><div class="ttdoc">Pairs a toy::chrono::TimePoint with a null-terminated display pattern.</div><div class="ttdef"><b>Definition</b> chrono_duration.hpp:203</div></div>
+<div class="ttc" id="astructtoy_1_1chrono_1_1_time_point_format_html"><div class="ttname"><a href="../../da/d20/structtoy_1_1chrono_1_1_time_point_format.html">toy::chrono::TimePointFormat</a></div><div class="ttdoc">Pairs a toy::chrono::TimePoint with a null-terminated display pattern.</div><div class="ttdef"><b>Definition</b> chrono_duration.hpp:204</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
