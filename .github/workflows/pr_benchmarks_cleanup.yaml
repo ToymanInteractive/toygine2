@@ -19,7 +19,7 @@ jobs:
           submodules: recursive
 
       - name: Install bencher CLI
-        uses: bencherdev/bencher@v0.6.5
+        uses: bencherdev/bencher@v0.6.6
 
       - name: Bencher archive PR branch
         env:
