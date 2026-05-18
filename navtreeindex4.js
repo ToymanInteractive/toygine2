@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"d8/d25/namespacetoy_1_1game.html":[3,0,2,8],
 "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827eda":[3,0,2,8,0],
 "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e":[3,0,2,8,0,0],
 "d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaac76fd517e45cc95709f4ac106efa4a94":[3,0,2,8,0,2],
@@ -248,6 +249,5 @@ var NAVTREEINDEX4 =
 "db/d6f/classtoy_1_1geometry_1_1_section.html#aac80f4567a8c718c91e530a0ef79ae85":[5,0,1,5,2,1],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#ab93fe647a2132bcec9475dc07436be4f":[3,0,2,9,2,3],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#ab93fe647a2132bcec9475dc07436be4f":[5,0,1,5,2,3],
-"db/d6f/classtoy_1_1geometry_1_1_section.html#ac41e8ef5d949f060004098070aa70062":[3,0,2,9,2,2],
-"db/d6f/classtoy_1_1geometry_1_1_section.html#ac41e8ef5d949f060004098070aa70062":[5,0,1,5,2,2]
+"db/d6f/classtoy_1_1geometry_1_1_section.html#ac41e8ef5d949f060004098070aa70062":[3,0,2,9,2,2]
 };

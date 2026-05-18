@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"d7/d15/classtoy_1_1_o_string_stream.html#a44c7cca838780f331af5e3e2f8ffe82d":[2,2,2,1,6],
 "d7/d15/classtoy_1_1_o_string_stream.html#a4723c09169f143844092a6f2cce1bbea":[2,2,2,1,0],
 "d7/d15/classtoy_1_1_o_string_stream.html#a4a0bf4e14936ba1158d14e56043f157d":[2,2,2,1,15],
 "d7/d15/classtoy_1_1_o_string_stream.html#a4adecfc2744954faf1453ce899241321":[2,2,2,1,22],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a":[3,0,2,21,13],
 "d7/dec/classtoy_1_1_fixed_vector.html#af41f645630eaed35f734c222c05ba49a":[5,0,1,15,13],
 "d8/d0d/format__context_8hpp.html":[6,0,0,2,25],
-"d8/d0d/format__context_8hpp_source.html":[6,0,0,2,25],
-"d8/d25/namespacetoy_1_1game.html":[3,0,2,8]
+"d8/d0d/format__context_8hpp_source.html":[6,0,0,2,25]
 };

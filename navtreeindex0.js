@@ -103,6 +103,7 @@ var NAVTREEINDEX0 =
 "d1/d71/audio_8hpp.html":[6,0,0,11],
 "d1/d71/audio_8hpp_source.html":[6,0,0,11],
 "d1/d74/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__linux_8cpp_03.html":[3,0,2,6,0],
+"d1/d74/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__linux_8cpp_03.html#af4a11290d06cd9a2a3e28f0ec02c28ce":[3,0,2,6,0,1],
 "d1/d74/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__linux_8cpp_03.html#afd25227d8353396835077aeb016d1d9f":[3,0,2,6,0,0],
 "d1/d85/filesystem_8hpp.html":[6,0,0,13],
 "d1/d85/filesystem_8hpp_source.html":[6,0,0,13],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "d3/d7a/classtoy_1_1_fixed_string.html#a1ad2b4e15e4d0a78c2675c8fdf85e49a":[2,2,1,1,69],
 "d3/d7a/classtoy_1_1_fixed_string.html#a1adeddf0595ab0a0db264c98ac9582cb":[2,2,1,1,81],
 "d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611":[2,2,1,1,6],
-"d3/d7a/classtoy_1_1_fixed_string.html#a1c304eb847c05f3c1105335485a0491e":[2,2,1,1,19],
-"d3/d7a/classtoy_1_1_fixed_string.html#a1d04360b41223ac8f8c400ccbe1c1695":[2,2,1,1,50]
+"d3/d7a/classtoy_1_1_fixed_string.html#a1c304eb847c05f3c1105335485a0491e":[2,2,1,1,19]
 };
