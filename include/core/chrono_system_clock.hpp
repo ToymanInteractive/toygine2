@@ -112,8 +112,6 @@ public:
             UTC, or \c time_point{} on platforms without RTC.
 
     \note On platforms without an RTC (e.g. GBA) this function always returns \c time_point{} (epoch).
-
-    \sa \ref toy::chrono::SteadyClock::now()
   */
   [[nodiscard]] static time_point now() noexcept;
 };

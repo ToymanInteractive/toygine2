@@ -149,7 +149,7 @@ ObjCBlockIndentWidth: 2
 ObjCBreakBeforeNestedBlockParam: false
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
-PPIndentWidth: 1
+PPIndentWidth: 2
 PackConstructorInitializers: BinPack
 PenaltyBreakAssignment: 19937
 PenaltyBreakBeforeFirstCallParameter: 19937
