@@ -19,45 +19,42 @@
 //
 /*!
   \file   string_fixed_storage.benchmark.cpp
-  \brief  Implementations for string fixed storage nanobench benchmarks in the core module.
+  \brief  Picobench benchmarks for string fixed storage nanobench benchmarks in the core module.
 */
 
-#include "../utils.hpp"
 #include "core.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy {
 
-// StringFixedStorage benchmarks
-void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("StringFixedStorage<32> default construct", [] {
-    toy::StringFixedStorage<32> s;
+static void capacity(picobench::state & state) noexcept {
+  picobench::scope scope(state);
 
-    doNotOptimize(s.data());
-  });
-
-  bench.run("StringFixedStorage<256> capacity", [] {
-    auto c = toy::StringFixedStorage<256>::capacity();
-
-    doNotOptimize(c);
-  });
-
-  bench.run("StringFixedStorage<8> size", [] {
-    toy::StringFixedStorage<8> s;
-
-    auto n = s.size();
-
-    doNotOptimize(n);
-  });
-
-  bench.run("StringFixedStorage<32> setSize", [] {
-    toy::StringFixedStorage<32> s;
-
-    s.data()[0] = 'a';
-    s.data()[1] = 'b';
-    s.setSize(2);
-
-    doNotOptimize(s.data());
-  });
+  for (int i = 0; i < state.iterations(); ++i) {
+    [[maybe_unused]] auto val = StringFixedStorage<16>::capacity();
+  }
 }
+
+static void size(picobench::state & state) noexcept {
+  StringFixedStorage<16> storage;
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    [[maybe_unused]] auto val = storage.size();
+  }
+}
+
+static void setSize(picobench::state & state) noexcept {
+  StringFixedStorage<16> storage;
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    storage.setSize(2);
+}
+
+PICOBENCH_SUITE("toy::StringFixedStorage");
+PICOBENCH(capacity);
+PICOBENCH(size);
+PICOBENCH(setSize);
 
 } // namespace toy
