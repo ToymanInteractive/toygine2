@@ -1021,13 +1021,12 @@ constexpr size_t FixedString<allocatedSize>::_find_raw(size_t position, const ch
   const char * occurrence;
 
   if consteval {
-    occurrence
-      = dataSize == 1 ? cstrchr(_storage.buffer + position, data[0]) : cstrstr(_storage.buffer + position, data);
+    occurrence = dataSize == 1 ? cstrchr(_storage.buffer + position, data[0])
+                               : cstrstr(_storage.buffer + position, data);
   } else {
-    occurrence
-      = dataSize == 1
-          ? static_cast<const char *>(std::memchr(_storage.buffer + position, data[0], _storage.size - position))
-          : std::strstr(_storage.buffer + position, data);
+    occurrence = dataSize == 1 ? static_cast<const char *>(std::memchr(_storage.buffer + position, data[0],
+                                                                       _storage.size - position))
+                               : std::strstr(_storage.buffer + position, data);
   }
 
   return occurrence != nullptr ? static_cast<size_t>(occurrence - _storage.buffer) : npos;
@@ -1066,8 +1065,8 @@ constexpr size_t FixedString<allocatedSize>::_find_first_of_raw(size_t position,
   const char * occurrence;
 
   if consteval {
-    occurrence
-      = dataSize == 1 ? cstrchr(_storage.buffer + position, data[0]) : cstrpbrk(_storage.buffer + position, data);
+    occurrence = dataSize == 1 ? cstrchr(_storage.buffer + position, data[0])
+                               : cstrpbrk(_storage.buffer + position, data);
   } else {
     occurrence = dataSize == 1 ? std::strchr(_storage.buffer + position, data[0])
                                : std::strpbrk(_storage.buffer + position, data);

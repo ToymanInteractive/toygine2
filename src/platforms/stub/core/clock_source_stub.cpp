@@ -19,7 +19,8 @@
 //
 /*!
   \file   clock_source_stub.cpp
-  \brief  Stub implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock.
+  \brief  Stub implementations of \ref toy::chrono::ClockSource, \ref toy::chrono::SteadyClock, and
+          \ref toy::chrono::SystemClock.
 */
 
 #include "core.hpp"
@@ -64,6 +65,10 @@ SteadyClock::time_point SteadyClock::now() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
 
   return time_point{duration{activeSource->nowTicks()}};
+}
+
+SystemClock::time_point SystemClock::now() noexcept {
+  return time_point{};
 }
 
 } // namespace toy::chrono

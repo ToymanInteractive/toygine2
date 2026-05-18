@@ -149,9 +149,14 @@ ObjCBlockIndentWidth: 2
 ObjCBreakBeforeNestedBlockParam: false
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#ppindentwidth
+PPIndentWidth: 2
 PackConstructorInitializers: BinPack
+PenaltyBreakAssignment: 19937
 PenaltyBreakBeforeFirstCallParameter: 19937
+PenaltyBreakBeforeMemberAccess: 19937
+PenaltyBreakComment: 19937
+PenaltyBreakFirstLessLess: 19937
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#penaltybreakstring
 PenaltyReturnTypeOnItsOwnLine: 19937
 PointerAlignment: Middle
 QualifierAlignment: Left

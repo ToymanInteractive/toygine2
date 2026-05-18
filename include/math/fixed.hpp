@@ -50,9 +50,9 @@ namespace toy::math {
   \sa \ref toy::math::fixed
 */
 template <typename Base, typename Intermediate, unsigned Fraction>
-concept ValidFixedPointTypes
-  = integral<Base> && (Fraction > 0) && (Fraction <= numeric_limits<Base>::digits)
-    && (sizeof(Intermediate) >= sizeof(Base)) && (is_signed_v<Base> == is_signed_v<Intermediate>);
+concept ValidFixedPointTypes = integral<Base> && (Fraction > 0) && (Fraction <= numeric_limits<Base>::digits)
+                               && (sizeof(Intermediate) >= sizeof(Base))
+                               && (is_signed_v<Base> == is_signed_v<Intermediate>);
 
 /*!
   \class fixed
