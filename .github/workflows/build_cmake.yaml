@@ -212,8 +212,12 @@ jobs:
             --token "${{ secrets.BENCHER_API_TOKEN }}" \
             --branch "${{ github.ref_name }}" \
             --testbed "${{ matrix.bencher_testbed }}" \
+            --threshold-measure latency \
+            --threshold-test t_test \
+            --error-on-alert \
             --adapter json \
             --file benchmarks_bmf.json
+            --github-actions '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Upload benchmarks to bencher.dev (PR)
         if: matrix.run_benchmarks == 'true' && github.event_name == 'pull_request'

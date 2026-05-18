@@ -1,5 +1,0 @@
-thresholds:
-  - branch: main
-    testbed: "*"
-    measure: "*"
-    model: t-test
