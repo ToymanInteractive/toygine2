@@ -36,7 +36,6 @@ void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void utoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void formatNumberStringCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void highestBitCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void stringFixedStorageCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy
 
@@ -46,7 +45,6 @@ void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::hashesCoreBenchmarks(bench);
   toy::itoaCoreBenchmarks(bench);
   toy::oStringStreamCoreBenchmarks(bench);
-  toy::stringFixedStorageCoreBenchmarks(bench);
   toy::utoaCoreBenchmarks(bench);
   toy::formatNumberStringCoreBenchmarks(bench);
   toy::highestBitCoreBenchmarks(bench);

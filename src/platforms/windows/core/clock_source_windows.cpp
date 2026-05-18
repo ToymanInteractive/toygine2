@@ -19,7 +19,7 @@
 //
 /*!
   \file   clock_source_windows.cpp
-  \brief  Windows implementations of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock, and
+  \brief  Windows implementations of \ref toy::chrono::ClockSource, \ref toy::chrono::SteadyClock, and
           \ref toy::chrono::SystemClock.
 */
 
