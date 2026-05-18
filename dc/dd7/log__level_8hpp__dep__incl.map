@@ -28,17 +28,17 @@
 <area shape="poly" id="edge31_Node000002_Node000024" title=" " alt="" coords="2794,104,2998,149,3029,157,3028,162,2997,155,2793,109"/>
 <area shape="rect" id="Node000025" href="$df/de5/assertion__linux_8cpp.html" title="Linux implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3166,152,3350,192"/>
 <area shape="poly" id="edge32_Node000002_Node000025" title=" " alt="" coords="2806,100,3154,149,3166,151,3165,157,3153,155,2805,105"/>
-<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3374,152,3582,192"/>
+<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Linux implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemC..." alt="" coords="3374,152,3582,192"/>
 <area shape="poly" id="edge33_Node000002_Node000026" title=" " alt="" coords="2806,96,3054,116,3362,149,3374,151,3373,156,3362,155,3054,122,2805,101"/>
 <area shape="rect" id="Node000027" href="$d5/d5a/assertion__macos_8cpp.html" title="macOS implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3606,152,3801,192"/>
 <area shape="poly" id="edge34_Node000002_Node000027" title=" " alt="" coords="2806,93,3149,110,3370,127,3594,149,3606,151,3605,156,3594,155,3370,132,3148,116,2806,98"/>
-<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3825,152,4043,192"/>
+<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemC..." alt="" coords="3825,152,4043,192"/>
 <area shape="poly" id="edge35_Node000002_Node000028" title=" " alt="" coords="2806,92,3235,107,3522,124,3813,149,3824,151,3824,156,3812,155,3522,130,3235,113,2806,97"/>
 <area shape="rect" id="Node000029" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="4068,152,4248,192"/>
 <area shape="poly" id="edge36_Node000002_Node000029" title=" " alt="" coords="2806,90,3021,92,3331,100,3690,118,3875,132,4055,149,4068,151,4067,156,4055,155,3874,137,3689,123,3330,105,3021,97,2806,95"/>
 <area shape="rect" id="Node000030" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemCl..." alt="" coords="4272,152,4476,192"/>
 <area shape="poly" id="edge37_Node000002_Node000030" title=" " alt="" coords="2806,90,3050,91,3410,98,3831,116,4048,131,4261,149,4272,151,4271,156,4260,155,4048,136,3831,122,3410,104,3050,96,2806,95"/>
-<area shape="rect" id="Node000031" href="$d0/db3/clock__source__windows_8cpp.html" title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Sy..." alt="" coords="4500,152,4733,192"/>
+<area shape="rect" id="Node000031" href="$d0/db3/clock__source__windows_8cpp.html" title="Windows implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::Syste..." alt="" coords="4500,152,4733,192"/>
 <area shape="poly" id="edge38_Node000002_Node000031" title=" " alt="" coords="2806,90,3082,90,3497,97,3987,115,4240,130,4489,149,4500,150,4499,156,4488,155,4240,135,3987,121,3497,103,3082,96,2806,95"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="636,178,466,184,272,195,106,214,49,227,31,234,20,242,11,255,8,268,11,280,19,292,40,298,92,304,269,315,816,332,1859,350,1859,356,816,337,269,320,91,309,39,303,16,297,6,282,3,268,6,253,16,238,28,230,48,222,105,209,271,190,466,178,636,173"/>
 <area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="30,247,201,287"/>

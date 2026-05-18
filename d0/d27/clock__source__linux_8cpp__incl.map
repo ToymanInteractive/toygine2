@@ -1,5 +1,5 @@
 <map id="src/platforms/linux/core/clock_source_linux.cpp" name="src/platforms/linux/core/clock_source_linux.cpp">
-<area shape="rect" id="Node000001" title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3383,5,3591,45"/>
+<area shape="rect" id="Node000001" title="Linux implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemC..." alt="" coords="3383,5,3591,45"/>
 <area shape="rect" id="Node000002" title=" " alt="" coords="3407,93,3471,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3477,47,3455,83,3451,80,3473,44"/>
 <area shape="rect" id="Node000003" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3495,93,3574,119"/>

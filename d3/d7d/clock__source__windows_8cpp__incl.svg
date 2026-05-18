@@ -58,7 +58,7 @@ var sectionId = 'dynsection-0';
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Sy...">
+<g id="a_Node000001"><a xlink:title="Windows implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::Syste...">
 <polygon fill="#999999" stroke="#666666" points="2734.5,-283 2559.5,-283 2559.5,-253 2734.5,-253 2734.5,-283"/>
 <text text-anchor="start" x="2567.5" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/windows</text>
 <text text-anchor="middle" x="2647" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_windows.cpp</text>

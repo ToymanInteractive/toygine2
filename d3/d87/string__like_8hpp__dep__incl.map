@@ -36,17 +36,17 @@
 <area shape="poly" id="edge31_Node000002_Node000024" title=" " alt="" coords="2794,295,2997,340,3028,347,3027,353,2996,345,2793,300"/>
 <area shape="rect" id="Node000025" href="$df/de5/assertion__linux_8cpp.html" title="Linux implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3166,343,3350,383"/>
 <area shape="poly" id="edge32_Node000002_Node000025" title=" " alt="" coords="2806,291,3154,340,3166,342,3165,347,3153,345,2805,296"/>
-<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Linux implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3374,343,3582,383"/>
+<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Linux implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemC..." alt="" coords="3374,343,3582,383"/>
 <area shape="poly" id="edge33_Node000002_Node000026" title=" " alt="" coords="2806,286,3054,307,3362,340,3374,342,3373,347,3362,345,3054,312,2805,292"/>
 <area shape="rect" id="Node000027" href="$d5/d5a/assertion__macos_8cpp.html" title="macOS implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3606,343,3801,383"/>
 <area shape="poly" id="edge34_Node000002_Node000027" title=" " alt="" coords="2806,283,3149,301,3370,317,3594,340,3606,342,3605,347,3594,345,3370,323,3148,306,2806,289"/>
-<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Syst..." alt="" coords="3825,343,4043,383"/>
+<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="macOS implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemC..." alt="" coords="3825,343,4043,383"/>
 <area shape="poly" id="edge35_Node000002_Node000028" title=" " alt="" coords="2806,282,3235,298,3522,315,3813,340,3824,341,3824,347,3812,345,3522,320,3235,303,2806,288"/>
 <area shape="rect" id="Node000029" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="4068,343,4248,383"/>
 <area shape="poly" id="edge36_Node000002_Node000029" title=" " alt="" coords="2806,280,3021,282,3331,290,3690,308,3875,322,4055,340,4068,342,4067,347,4055,345,3874,327,3689,314,3330,296,3021,288,2806,286"/>
 <area shape="rect" id="Node000030" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemCl..." alt="" coords="4272,343,4476,383"/>
 <area shape="poly" id="edge37_Node000002_Node000030" title=" " alt="" coords="2806,280,3050,282,3410,289,3831,307,4048,321,4261,340,4272,341,4271,347,4260,345,4048,327,3831,312,3410,294,3050,287,2806,286"/>
-<area shape="rect" id="Node000031" href="$d0/db3/clock__source__windows_8cpp.html" title="Windows implementations of toy::chrono::ClockSource and toy::chrono::SteadyClock, and toy::chrono::Sy..." alt="" coords="4500,343,4733,383"/>
+<area shape="rect" id="Node000031" href="$d0/db3/clock__source__windows_8cpp.html" title="Windows implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::Syste..." alt="" coords="4500,343,4733,383"/>
 <area shape="poly" id="edge38_Node000002_Node000031" title=" " alt="" coords="2806,280,3082,281,3497,288,3987,306,4240,321,4489,340,4500,341,4499,346,4488,345,4240,326,3987,311,3497,293,3082,286,2806,286"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="636,369,466,374,272,386,106,405,49,418,31,425,20,433,11,445,8,458,11,471,19,483,40,489,92,495,269,505,816,523,1859,541,1859,546,816,528,269,511,91,500,39,494,16,488,6,473,3,458,6,443,16,429,28,420,48,413,105,400,271,381,466,369,636,363"/>
 <area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="30,438,201,478"/>

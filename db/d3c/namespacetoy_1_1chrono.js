@@ -4,7 +4,8 @@ var namespacetoy_1_1chrono =
       [ "activeSource", "d1/d74/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__linux_8cpp_03.html#afd25227d8353396835077aeb016d1d9f", null ]
     ] ],
     [ "anonymous_namespace{clock_source_macos.cpp}", "df/dd2/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__macos_8cpp_03.html", [
-      [ "activeSource", "df/dd2/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__macos_8cpp_03.html#a881dade096baa585b5cd836bdfcbfb05", null ]
+      [ "activeSource", "df/dd2/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__macos_8cpp_03.html#a881dade096baa585b5cd836bdfcbfb05", null ],
+      [ "c_systemClockPeriodDenominator", "df/dd2/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__macos_8cpp_03.html#a1363e62ad465d2080eb82b3c08e0936d", null ]
     ] ],
     [ "anonymous_namespace{clock_source_stub.cpp}", "dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html", [
       [ "activeSource", "dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html#a2e58dca645b49629596f121b001da66e", null ]
