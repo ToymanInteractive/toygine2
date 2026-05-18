@@ -34,6 +34,9 @@ namespace {
 /// Process-wide active source; null when none is registered.
 ClockSource * activeSource{nullptr};
 
+/// Denominator of the \ref toy::chrono::SystemClock tick period (nanosecond resolution).
+constexpr int64_t c_systemClockPeriodDenominator = 1'000'000'000;
+
 } // namespace
 
 ClockSource::ClockSource()
@@ -77,7 +80,14 @@ SteadyClock::time_point SteadyClock::now() noexcept {
 }
 
 SystemClock::time_point SystemClock::now() noexcept {
-  return time_point{};
+  timespec ts{};
+
+  const int rc = clock_gettime(CLOCK_REALTIME, &ts);
+  assert_message(rc == 0, "SystemClock::now: clock_gettime(CLOCK_REALTIME) failed");
+  if (rc != 0)
+    return time_point{};
+
+  return time_point{duration{ts.tv_sec * c_systemClockPeriodDenominator + ts.tv_nsec}};
 }
 
 } // namespace toy::chrono
