@@ -205,7 +205,7 @@ jobs:
         uses: bencherdev/bencher@v0.6.6
 
       - name: Upload benchmarks to bencher.dev
-        if: matrix.run_benchmarks == 'true' && github.event_name != 'pull_request' && github.ref.name == 'main'
+        if: matrix.run_benchmarks == 'true' && github.event_name != 'pull_request' && github.ref_name == 'main'
         run: |
           bencher run \
             --project toygine2 \
@@ -219,7 +219,7 @@ jobs:
             --thresholds-reset \
             --error-on-alert \
             --adapter json \
-            --file benchmarks_bmf.json
+            --file benchmarks_bmf.json \
             --github-actions '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Upload benchmarks to bencher.dev (PR)
@@ -232,14 +232,14 @@ jobs:
             --token "${{ secrets.BENCHER_API_TOKEN }}" \
             --branch "$GITHUB_HEAD_REF" \
             --start-point "$GITHUB_BASE_REF" \
-            --start-point-hash '$BENCHER_BASE_SHA' \
+            --start-point-hash "$BENCHER_BASE_SHA" \
             --start-point-clone-thresholds \
             --start-point-reset \
             --testbed "${{ matrix.bencher_testbed }}" \
             --error-on-alert \
             --adapter json \
-            --file benchmarks_bmf.json
-            --github-actions '${{ secrets.GITHUB_TOKEN }}' \
+            --file benchmarks_bmf.json \
+            --github-actions "${{ secrets.GITHUB_TOKEN }}"
 
   unit-tests:
     name: Collect unit tests
