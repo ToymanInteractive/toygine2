@@ -19,7 +19,7 @@
 //
 /*!
   \file   chrono_countdown_timer.benchmark.cpp
-  \brief  Picobench benchmarks for \ref toy::chrono::CountdownTimer.
+  \brief  Implementation of picobench benchmarks for \ref toy::chrono::CountdownTimer.
 */
 
 #include "core.hpp"
@@ -40,11 +40,12 @@ static void constructor(picobench::state & state) noexcept {
 static void expired(picobench::state & state) noexcept {
   ClockSource clock;
 
+  volatile bool    aggregatedVal = false;
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
-    [[maybe_unused]] auto val = timer.expired();
+    aggregatedVal |= timer.expired();
   }
 }
 

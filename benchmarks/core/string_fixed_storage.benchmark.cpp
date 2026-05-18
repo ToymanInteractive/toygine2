@@ -19,7 +19,7 @@
 //
 /*!
   \file   string_fixed_storage.benchmark.cpp
-  \brief  Picobench benchmarks for string fixed storage nanobench benchmarks in the core module.
+  \brief  Implementation of picobench benchmarks for \ref toy::StringFixedStorage.
 */
 
 #include "core.hpp"
@@ -28,19 +28,21 @@
 namespace toy {
 
 static void capacity(picobench::state & state) noexcept {
-  picobench::scope scope(state);
+  volatile size_t aggregatedCapacity = 0;
 
+  picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    [[maybe_unused]] auto val = StringFixedStorage<16>::capacity();
+    aggregatedCapacity += StringFixedStorage<16>::capacity();
   }
 }
 
 static void size(picobench::state & state) noexcept {
   StringFixedStorage<16> storage;
 
+  volatile size_t  aggregatedSize = 0;
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    [[maybe_unused]] auto val = storage.size();
+    aggregatedSize += storage.size();
   }
 }
 

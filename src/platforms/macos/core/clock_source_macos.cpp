@@ -34,6 +34,9 @@ namespace {
 /// Process-wide active source; null when none is registered.
 ClockSource * activeSource{nullptr};
 
+/// Denominator of the \ref toy::chrono::SystemClock tick period (nanosecond resolution).
+constexpr int64_t c_systemClockPeriodDenominator = 1'000'000'000;
+
 } // namespace
 
 ClockSource::ClockSource()
@@ -84,8 +87,7 @@ SystemClock::time_point SystemClock::now() noexcept {
   if (rc != 0)
     return time_point{};
 
-  constexpr int64_t c_nsPerSec = 1'000'000'000;
-  return time_point{duration{ts.tv_sec * c_nsPerSec + ts.tv_nsec}};
+  return time_point{duration{ts.tv_sec * c_systemClockPeriodDenominator + ts.tv_nsec}};
 }
 
 } // namespace toy::chrono
