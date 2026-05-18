@@ -78,6 +78,12 @@ int main(int argc, char * argv[]) noexcept {
     // Bencher Metric Format (BMF) :
     // https://bencher.dev/docs/reference/bencher-metric-format/#example-bencher-metric-format-bmf-json
 
+    size_t benchmarksCount = 0;
+    for (const auto & suite : report.suites)
+      benchmarksCount += suite.benchmarks.size();
+
+    size_t benchmarksTotalIndex = 0;
+
     json << "{" << std::endl;
     for (const auto & suite : report.suites) {
       for (size_t benchmarkIndex = 0; benchmarkIndex < suite.benchmarks.size(); ++benchmarkIndex) {
@@ -123,7 +129,8 @@ int main(int argc, char * argv[]) noexcept {
           json << "}";
         }
 
-        json << "}" << (benchmarkIndex < suite.benchmarks.size() - 1 ? "," : "") << std::endl;
+        ++benchmarksTotalIndex;
+        json << "}" << (benchmarksTotalIndex < benchmarksCount ? "," : "") << std::endl;
       }
     }
     json << "}" << std::endl;
