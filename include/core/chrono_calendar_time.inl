@@ -24,6 +24,9 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_CORE_CHRONO_CALENDAR_TIME_INL_
+#define INCLUDE_CORE_CHRONO_CALENDAR_TIME_INL_
+
 namespace toy::chrono {
 
 constexpr CalendarTime CalendarTime::invalid() noexcept {
@@ -31,3 +34,5 @@ constexpr CalendarTime CalendarTime::invalid() noexcept {
 }
 
 } // namespace toy::chrono
+
+#endif // INCLUDE_CORE_CHRONO_CALENDAR_TIME_INL_
