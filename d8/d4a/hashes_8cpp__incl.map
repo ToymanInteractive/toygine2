@@ -1,144 +1,148 @@
 <map id="src/core/hashes.cpp" name="src/core/hashes.cpp">
-<area shape="rect" id="Node000001" title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32()." alt="" coords="3459,5,3610,31"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3495,79,3574,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3537,31,3537,65,3532,65,3532,31"/>
+<area shape="rect" id="Node000001" title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32()." alt="" coords="3646,5,3797,31"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3682,79,3761,104"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3724,31,3724,65,3719,65,3719,31"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,167,91,192"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="3495,96,2834,100,1726,111,654,129,283,141,166,147,103,155,80,163,78,158,102,149,165,142,283,135,654,123,1726,105,2834,95,3495,90"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="3682,96,2987,99,1818,110,686,128,294,140,169,147,103,155,80,163,78,158,102,149,169,142,293,135,685,122,1818,104,2987,94,3682,90"/>
 <area shape="rect" id="Node000004" title=" " alt="" coords="115,167,171,192"/>
-<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="3495,95,2847,98,1764,106,1207,114,719,124,358,138,244,146,183,155,168,161,166,157,182,149,243,140,358,132,719,119,1207,108,1764,101,2847,93,3495,90"/>
+<area shape="poly" id="edge3_Node000002_Node000004" title=" " alt="" coords="3682,95,3001,97,1857,105,1268,112,751,123,368,137,247,145,183,155,168,161,166,157,182,149,247,140,368,131,751,117,1268,107,1857,100,3001,92,3682,90"/>
 <area shape="rect" id="Node000005" title=" " alt="" coords="195,167,234,192"/>
-<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="3495,95,2858,96,1795,103,1250,110,771,121,418,135,306,144,248,155,237,160,235,155,246,149,305,139,417,130,771,115,1250,105,1795,98,2858,91,3495,90"/>
+<area shape="poly" id="edge4_Node000002_Node000005" title=" " alt="" coords="3681,95,3011,96,1887,102,1309,109,802,119,428,134,309,144,248,155,237,160,235,155,246,149,309,138,427,129,802,114,1309,103,1887,96,3011,90,3681,90"/>
 <area shape="rect" id="Node000006" title=" " alt="" coords="259,167,325,192"/>
-<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="3495,96,2874,99,1843,109,848,127,504,140,395,147,338,155,320,162,318,157,337,149,395,141,504,134,848,122,1843,104,2874,94,3495,90"/>
+<area shape="poly" id="edge5_Node000002_Node000006" title=" " alt="" coords="3682,95,3028,99,1936,108,1373,116,880,126,515,139,399,146,338,155,320,162,318,157,337,149,399,141,515,133,880,121,1373,110,1936,103,3028,93,3682,90"/>
 <area shape="rect" id="Node000007" title=" " alt="" coords="350,167,413,192"/>
-<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="3495,95,2889,99,1886,109,920,127,586,139,480,147,425,155,408,162,406,157,423,149,480,141,586,134,920,121,1886,103,2889,94,3495,90"/>
+<area shape="poly" id="edge6_Node000002_Node000007" title=" " alt="" coords="3682,95,3043,98,1979,108,1432,115,951,125,596,138,484,146,425,155,408,162,406,157,423,149,483,141,596,133,951,120,1431,110,1979,102,3043,93,3682,90"/>
 <area shape="rect" id="Node000008" title=" " alt="" coords="437,167,515,192"/>
-<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="3495,96,1939,112,1007,130,685,142,583,148,529,155,507,163,505,158,527,149,582,143,685,136,1007,125,1939,107,3495,90"/>
+<area shape="poly" id="edge7_Node000002_Node000008" title=" " alt="" coords="3682,96,3062,100,2032,111,1039,129,695,141,586,148,529,155,507,163,505,158,527,149,586,142,695,136,1039,124,2032,106,3062,95,3682,90"/>
 <area shape="rect" id="Node000009" title=" " alt="" coords="540,167,620,192"/>
-<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="3495,96,1992,113,1094,131,783,142,685,148,633,155,611,163,609,158,631,149,684,143,783,137,1093,125,1992,107,3495,90"/>
+<area shape="poly" id="edge8_Node000002_Node000009" title=" " alt="" coords="3682,96,2084,112,1125,130,793,141,688,148,633,155,611,163,609,158,631,149,688,142,793,136,1125,124,2084,106,3682,90"/>
 <area shape="rect" id="Node000010" title=" " alt="" coords="645,167,715,192"/>
-<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="3495,96,2040,112,1173,130,874,142,779,148,729,155,709,162,707,157,727,149,778,143,873,136,1173,125,2040,107,3495,90"/>
+<area shape="poly" id="edge9_Node000002_Node000010" title=" " alt="" coords="3682,96,3097,100,2132,111,1204,129,884,141,782,148,729,155,709,162,707,157,727,149,782,142,884,136,1204,124,2132,106,3097,95,3682,90"/>
 <area shape="rect" id="Node000011" title=" " alt="" coords="740,167,807,192"/>
-<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="3495,96,2086,112,1248,130,959,141,868,148,819,155,802,162,800,157,818,149,867,143,959,136,1248,125,2086,107,3495,90"/>
+<area shape="poly" id="edge10_Node000002_Node000011" title=" " alt="" coords="3682,96,3113,100,2178,111,1280,129,969,141,871,147,819,155,802,162,800,157,818,149,871,142,969,135,1280,124,2178,106,3113,95,3682,90"/>
 <area shape="rect" id="Node000012" title=" " alt="" coords="831,167,897,192"/>
-<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="3495,96,2132,113,1323,131,1045,142,957,148,910,155,892,162,890,157,909,149,956,143,1045,137,1323,125,2131,107,3495,90"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="3682,96,3128,100,2223,111,1355,129,1055,141,960,148,910,155,892,162,890,157,909,149,960,142,1055,136,1355,124,2223,106,3128,95,3682,90"/>
 <area shape="rect" id="Node000013" title=" " alt="" coords="922,167,987,192"/>
-<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="3495,96,2176,113,1398,131,1129,142,1044,148,999,155,982,162,980,157,998,149,1044,143,1129,137,1397,125,2176,108,3495,90"/>
+<area shape="poly" id="edge12_Node000002_Node000013" title=" " alt="" coords="3682,96,3144,100,2269,112,1429,130,1139,141,1048,148,999,155,982,162,980,157,998,149,1047,142,1139,136,1429,124,2269,106,3144,95,3682,90"/>
 <area shape="rect" id="Node000014" title=" " alt="" coords="1011,167,1122,192"/>
-<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="3495,95,3036,98,2295,107,1563,125,1292,138,1197,146,1134,155,1103,164,1102,159,1133,149,1196,141,1292,133,1563,120,2295,102,3036,93,3495,90"/>
+<area shape="poly" id="edge13_Node000002_Node000014" title=" " alt="" coords="3682,95,3191,98,2390,106,1973,113,1598,124,1305,137,1202,145,1134,155,1103,164,1102,159,1133,149,1201,140,1305,132,1598,118,1973,108,2390,100,3191,92,3682,90"/>
 <area shape="rect" id="Node000015" title=" " alt="" coords="1146,167,1217,192"/>
-<area shape="poly" id="edge14_Node000002_Node000015" title=" " alt="" coords="3495,95,3053,96,2340,102,1971,109,1639,120,1380,135,1289,144,1230,155,1211,162,1209,157,1229,149,1289,139,1380,129,1639,114,1971,104,2340,97,3052,90,3495,90"/>
+<area shape="poly" id="edge14_Node000002_Node000015" title=" " alt="" coords="3682,95,3207,95,2435,100,2035,107,1674,118,1393,133,1295,143,1230,155,1211,162,1209,157,1229,149,1294,138,1393,128,1674,112,2034,101,2435,95,3207,89,3682,90"/>
 <area shape="rect" id="Node000016" title=" " alt="" coords="1241,167,1300,192"/>
-<area shape="poly" id="edge15_Node000002_Node000016" title=" " alt="" coords="3495,95,3066,95,2380,100,2024,107,1705,117,1457,133,1370,143,1313,155,1297,162,1295,157,1311,149,1369,138,1456,128,1705,112,2024,101,2380,94,3066,89,3495,90"/>
+<area shape="poly" id="edge15_Node000002_Node000016" title=" " alt="" coords="3682,96,2427,113,1690,131,1435,142,1355,148,1313,155,1297,161,1295,157,1311,149,1354,143,1435,137,1689,125,2427,108,3682,90"/>
 <area shape="rect" id="Node000017" title=" " alt="" coords="1324,167,1401,192"/>
-<area shape="poly" id="edge16_Node000002_Node000017" title=" " alt="" coords="3495,95,3084,97,2430,105,2092,113,1788,123,1552,137,1468,145,1414,155,1393,163,1391,158,1413,149,1468,140,1551,131,1788,118,2092,107,2430,100,3084,92,3495,90"/>
+<area shape="poly" id="edge16_Node000002_Node000017" title=" " alt="" coords="3682,95,3239,96,2526,103,2156,110,1824,121,1565,135,1474,144,1414,155,1393,163,1391,158,1413,149,1473,139,1564,130,1824,115,2156,105,2526,98,3239,91,3682,90"/>
 <area shape="rect" id="Node000018" title=" " alt="" coords="1426,167,1513,192"/>
-<area shape="poly" id="edge17_Node000002_Node000018" title=" " alt="" coords="3495,96,3103,99,2485,108,1880,126,1656,139,1578,146,1526,155,1502,163,1500,158,1525,149,1577,141,1656,133,1879,121,2485,103,3103,94,3495,90"/>
+<area shape="poly" id="edge17_Node000002_Node000018" title=" " alt="" coords="3682,95,3258,98,2581,106,2230,114,1915,124,1669,137,1583,146,1526,155,1502,163,1500,158,1525,149,1582,140,1669,132,1915,119,2230,108,2580,101,3258,93,3682,90"/>
 <area shape="rect" id="Node000019" title=" " alt="" coords="1537,167,1596,192"/>
-<area shape="poly" id="edge18_Node000002_Node000019" title=" " alt="" coords="3495,95,3118,97,2525,104,2219,111,1945,121,1732,136,1658,145,1609,155,1593,162,1591,157,1607,149,1657,139,1732,130,1945,116,2219,106,2525,98,3118,91,3495,90"/>
+<area shape="poly" id="edge18_Node000002_Node000019" title=" " alt="" coords="3682,95,3272,95,2620,101,2283,108,1980,119,1745,134,1663,144,1609,155,1593,162,1591,157,1607,149,1662,138,1745,129,1980,114,2282,103,2620,96,3272,90,3682,90"/>
 <area shape="rect" id="Node000020" title=" " alt="" coords="1621,167,1713,192"/>
-<area shape="poly" id="edge19_Node000002_Node000020" title=" " alt="" coords="3495,96,3138,100,2583,111,2041,128,1841,140,1725,155,1700,163,1698,158,1723,149,1841,135,2041,123,2583,105,3138,95,3495,90"/>
+<area shape="poly" id="edge19_Node000002_Node000020" title=" " alt="" coords="3682,96,3293,99,2678,109,2076,126,1854,139,1776,146,1725,155,1700,163,1698,158,1723,149,1775,141,1854,134,2076,121,2678,103,3293,94,3682,90"/>
 <area shape="rect" id="Node000021" title=" " alt="" coords="1737,167,1797,192"/>
-<area shape="poly" id="edge20_Node000002_Node000021" title=" " alt="" coords="3495,95,3153,98,2623,106,2351,114,2108,124,1918,138,1852,146,1809,155,1793,162,1791,157,1807,149,1851,140,1918,132,2107,119,2351,108,2623,101,3153,93,3495,90"/>
+<area shape="poly" id="edge20_Node000002_Node000021" title=" " alt="" coords="3682,95,3307,97,2718,104,2415,111,2143,122,1931,136,1857,145,1809,155,1793,162,1791,157,1807,149,1856,139,1931,131,2143,116,2414,106,2718,98,3307,91,3682,90"/>
 <area shape="rect" id="Node000022" href="$dd/d9e/linux_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Linux." alt="" coords="1821,152,2027,207"/>
-<area shape="poly" id="edge21_Node000002_Node000022" title=" " alt="" coords="3495,96,2804,113,2368,131,2185,142,2047,155,2041,155,2040,150,2046,149,2184,136,2367,125,2803,108,3495,91"/>
+<area shape="poly" id="edge21_Node000002_Node000022" title=" " alt="" coords="3682,96,2906,111,2411,129,2203,141,2047,155,2041,155,2040,150,2046,149,2203,135,2411,123,2906,106,3682,90"/>
 <area shape="rect" id="Node000023" href="$d3/d60/platform_8hpp.html" title="Platform and CPU architecture enums with compile&#45;time and runtime detection." alt="" coords="1926,255,2063,295"/>
-<area shape="poly" id="edge57_Node000002_Node000023" title=" " alt="" coords="3495,95,3202,94,2759,100,2534,107,2334,118,2179,133,2126,143,2092,154,2075,168,2055,191,2016,245,2012,242,2051,188,2071,164,2089,150,2125,138,2178,128,2333,112,2534,101,2759,94,3202,89,3495,90"/>
+<area shape="poly" id="edge58_Node000002_Node000023" title=" " alt="" coords="3682,96,3341,101,2823,113,2336,130,2170,142,2118,148,2092,154,2075,168,2055,191,2016,245,2012,242,2051,188,2071,164,2089,150,2117,143,2170,136,2336,125,2823,107,3341,96,3682,91"/>
 <area shape="rect" id="Node000024" href="$d5/d96/assertion_8hpp.html" title="Assertion system: callbacks, initialize/shutdown, and assertion() entry point." alt="" coords="2103,167,2246,192"/>
-<area shape="poly" id="edge23_Node000002_Node000024" title=" " alt="" coords="3495,96,3257,100,2899,110,2530,128,2375,140,2259,155,2218,165,2217,160,2258,149,2375,135,2529,122,2899,105,3257,95,3495,90"/>
+<area shape="poly" id="edge23_Node000002_Node000024" title=" " alt="" coords="3682,96,3414,98,3001,107,2573,125,2394,138,2259,155,2218,165,2217,160,2258,149,2393,133,2573,120,3001,102,3414,93,3682,90"/>
 <area shape="rect" id="Node000025" href="$df/d61/bitwise__enum_8hpp.html" title="Opt&#45;in bitwise operators for scoped enumerations used as flag sets." alt="" coords="2271,167,2444,192"/>
-<area shape="poly" id="edge24_Node000002_Node000025" title=" " alt="" coords="3495,95,3330,95,3076,102,2773,120,2616,135,2463,155,2410,166,2409,161,2462,149,2616,130,2772,115,3076,97,3330,90,3495,90"/>
-<area shape="rect" id="Node000026" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning view over null&#45;terminated C strings." alt="" coords="3356,262,3527,287"/>
-<area shape="poly" id="edge25_Node000002_Node000026" title=" " alt="" coords="3495,96,3460,100,3422,110,3386,127,3357,154,3350,167,3348,178,3357,205,3378,233,3406,253,3403,257,3375,237,3352,208,3343,179,3345,165,3353,150,3383,122,3420,105,3459,95,3495,90"/>
-<area shape="rect" id="Node000027" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="3801,343,3919,368"/>
-<area shape="poly" id="edge59_Node000002_Node000027" title=" " alt="" coords="3546,103,3589,157,3631,205,3681,245,3735,281,3827,334,3824,339,3732,285,3678,249,3628,209,3584,160,3541,106"/>
+<area shape="poly" id="edge24_Node000002_Node000025" title=" " alt="" coords="3682,96,3094,114,2730,131,2578,142,2463,155,2410,166,2409,160,2462,149,2577,137,2730,126,3094,108,3682,91"/>
+<area shape="rect" id="Node000026" href="$dd/ded/c__string__view_8hpp.html" title="Non&#45;owning view over null&#45;terminated C strings." alt="" coords="3543,262,3713,287"/>
+<area shape="poly" id="edge25_Node000002_Node000026" title=" " alt="" coords="3682,96,3647,100,3608,110,3572,127,3543,154,3536,167,3535,178,3544,205,3565,233,3592,253,3589,257,3561,237,3539,208,3529,179,3531,165,3539,150,3569,122,3607,105,3646,95,3681,90"/>
+<area shape="rect" id="Node000027" href="$de/deb/string__like_8hpp.html" title="Concept for read&#45;only C&#45;string views with explicit length." alt="" coords="3988,343,4105,368"/>
+<area shape="poly" id="edge60_Node000002_Node000027" title=" " alt="" coords="3732,103,3775,157,3818,205,3868,245,3921,281,4013,334,4011,339,3918,285,3865,249,3814,209,3771,160,3728,106"/>
 <area shape="rect" id="Node000028" href="$d1/d5c/callbacks__pool_8hpp.html" title="Fixed&#45;capacity pool of function&#45;pointer callbacks." alt="" coords="2719,167,2897,192"/>
-<area shape="poly" id="edge27_Node000002_Node000028" title=" " alt="" coords="3496,97,3250,114,3085,131,2916,155,2863,166,2862,161,2916,149,3084,126,3250,109,3495,92"/>
-<area shape="rect" id="Node000029" href="$d7/d97/chrono__clock__source_8hpp.html" title="RAII owner of the platform hardware time source." alt="" coords="2973,167,3190,192"/>
-<area shape="poly" id="edge28_Node000002_Node000029" title=" " alt="" coords="3496,102,3210,155,3150,167,3149,161,3209,149,3495,97"/>
-<area shape="rect" id="Node000030" href="$d3/d0f/class__macros_8hpp.html" title="Class&#45;level utility macros for explicit Rule of Five compliance." alt="" coords="3077,262,3216,287"/>
-<area shape="poly" id="edge38_Node000002_Node000030" title=" " alt="" coords="3495,97,3446,101,3386,111,3322,128,3261,154,3221,194,3168,253,3164,250,3218,190,3259,150,3320,123,3385,105,3445,96,3495,91"/>
-<area shape="rect" id="Node000031" href="$db/d1a/chrono__countdown__timer_8hpp.html" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="2519,159,2695,199"/>
-<area shape="poly" id="edge30_Node000002_Node000031" title=" " alt="" coords="3495,96,3364,98,3169,107,2940,125,2822,138,2707,155,2685,159,2684,154,2706,149,2822,133,2940,119,3169,102,3364,93,3495,90"/>
-<area shape="rect" id="Node000032" href="$d3/d6a/chrono__steady__clock_8hpp.html" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="2777,262,2964,287"/>
-<area shape="poly" id="edge34_Node000002_Node000032" title=" " alt="" coords="3495,95,3376,98,3220,106,3068,124,3007,137,2963,154,2945,170,2925,195,2887,252,2882,249,2921,192,2942,166,2960,150,3005,132,3067,118,3219,100,3376,92,3495,90"/>
-<area shape="rect" id="Node000033" href="$dd/ddb/chrono__duration_8hpp.html" title="Duration and time&#45;point aliases over std::chrono." alt="" coords="2793,343,2948,368"/>
-<area shape="poly" id="edge33_Node000002_Node000033" title=" " alt="" coords="3496,100,3420,117,3379,133,3340,154,3320,171,3305,189,3287,226,3267,263,3252,281,3229,297,3181,315,3113,330,2962,349,2961,344,3112,324,3180,310,3227,292,3248,277,3263,260,3282,224,3301,186,3316,168,3337,150,3376,128,3418,112,3495,95"/>
-<area shape="rect" id="Node000034" href="$d9/de5/chrono__stopwatch_8hpp.html" title="Elapsed&#45;time measurement type over the active toy::chrono::SteadyClock." alt="" coords="3367,167,3567,192"/>
-<area shape="poly" id="edge35_Node000002_Node000034" title=" " alt="" coords="3528,106,3487,157,3483,154,3523,103"/>
-<area shape="rect" id="Node000035" href="$df/da9/chrono__system__clock_8hpp.html" title="Wall&#45;clock type anchored to the Unix epoch." alt="" coords="2470,255,2623,295"/>
-<area shape="poly" id="edge36_Node000002_Node000035" title=" " alt="" coords="3495,96,3268,102,2945,113,2650,131,2552,142,2522,148,2509,154,2499,174,2501,196,2511,220,2524,242,2520,245,2506,223,2496,198,2494,173,2505,150,2521,143,2551,136,2650,125,2945,108,3268,96,3495,91"/>
-<area shape="rect" id="Node000036" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr helpers for compile&#45;time string and buffer operations." alt="" coords="3641,167,3823,192"/>
-<area shape="poly" id="edge39_Node000002_Node000036" title=" " alt="" coords="3562,102,3694,159,3692,163,3560,107"/>
-<area shape="rect" id="Node000037" href="$d7/d7f/fixed__string_8hpp.html" title="Fixed&#45;capacity string with stack storage." alt="" coords="3781,262,3939,287"/>
-<area shape="poly" id="edge40_Node000002_Node000037" title=" " alt="" coords="3574,93,3641,99,3719,110,3790,126,3817,137,3837,150,3852,173,3861,199,3865,248,3860,249,3856,200,3847,175,3833,154,3815,142,3788,131,3718,115,3640,104,3574,98"/>
-<area shape="rect" id="Node000038" href="$d7/dea/fixed__vector_8hpp.html" title="Fixed&#45;capacity vector with inline storage." alt="" coords="3897,167,4057,192"/>
-<area shape="poly" id="edge42_Node000002_Node000038" title=" " alt="" coords="3575,96,3710,117,3879,149,3925,160,3924,166,3878,155,3709,122,3574,101"/>
-<area shape="rect" id="Node000039" href="$d4/d0a/format_8hpp.html" title="Format functions for substituting arguments into {} and {N} placeholders." alt="" coords="4133,167,4259,192"/>
-<area shape="poly" id="edge43_Node000002_Node000039" title=" " alt="" coords="3574,91,3804,106,3958,123,4114,149,4153,160,4151,165,4113,155,3958,129,3804,112,3574,97"/>
-<area shape="rect" id="Node000040" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="3993,262,4132,287"/>
-<area shape="poly" id="edge50_Node000002_Node000040" title=" " alt="" coords="3574,91,3697,97,3854,108,3995,125,4044,137,4071,150,4084,174,4086,200,4082,227,4075,250,4070,249,4077,226,4081,200,4079,175,4067,154,4043,142,3994,131,3853,114,3696,103,3574,97"/>
-<area shape="rect" id="Node000041" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="4156,262,4311,287"/>
-<area shape="poly" id="edge56_Node000002_Node000041" title=" " alt="" coords="3574,90,3739,92,3960,101,4069,108,4164,118,4235,132,4259,140,4274,150,4282,162,4285,175,4282,203,4269,230,4254,253,4250,250,4265,227,4276,201,4280,176,4277,164,4270,154,4257,145,4234,137,4163,124,4069,113,3960,106,3738,98,3574,95"/>
-<area shape="rect" id="Node000042" href="$d8/d0d/format__context_8hpp.html" title="Type&#45;erased write sink for the runtime formatting path." alt="" coords="4335,167,4518,192"/>
-<area shape="poly" id="edge48_Node000002_Node000042" title=" " alt="" coords="3574,91,3883,105,4098,122,4316,149,4372,161,4371,166,4316,155,4097,128,3882,110,3574,96"/>
-<area shape="rect" id="Node000043" href="$d7/d5b/format__pattern_8hpp.html" title="Shared compile&#45;time validation for format patterns using {} and {N} placeholders." alt="" coords="4542,167,4722,192"/>
-<area shape="poly" id="edge49_Node000002_Node000043" title=" " alt="" coords="3574,90,3729,91,3965,98,4245,116,4390,130,4531,149,4582,160,4581,166,4530,155,4389,135,4245,121,3965,103,3729,96,3574,95"/>
-<area shape="rect" id="Node000044" href="$dd/d8e/hashes_8hpp.html" title="Table&#45;driven CRC&#45;8, CRC&#45;16, and CRC&#45;32 over byte buffers." alt="" coords="4747,167,4875,192"/>
-<area shape="poly" id="edge51_Node000002_Node000044" title=" " alt="" coords="3574,90,3800,94,4136,104,4482,122,4627,134,4735,149,4771,159,4770,165,4734,155,4626,140,4482,127,4136,110,3800,100,3574,96"/>
-<area shape="rect" id="Node000045" href="$d0/d01/log__level_8hpp.html" title="Severity levels for the logger." alt="" coords="4899,167,5040,192"/>
-<area shape="poly" id="edge52_Node000002_Node000045" title=" " alt="" coords="3575,90,3825,94,4206,103,4599,121,4763,134,4887,149,4928,160,4926,165,4886,155,4763,139,4599,126,4206,109,3825,99,3575,96"/>
-<area shape="rect" id="Node000046" href="$da/d67/log__metadata_8hpp.html" title="Compile&#45;time metadata associated with each log call site." alt="" coords="5065,167,5237,192"/>
-<area shape="poly" id="edge53_Node000002_Node000046" title=" " alt="" coords="3574,90,3851,94,4280,104,4725,122,4912,134,5052,149,5102,160,5101,165,5052,155,4911,139,4725,127,4280,109,3851,100,3574,96"/>
-<area shape="rect" id="Node000047" href="$d1/d3a/log__record_8hpp.html" title="In&#45;flight log record stored in the transport ring buffer." alt="" coords="5261,167,5411,192"/>
-<area shape="poly" id="edge54_Node000002_Node000047" title=" " alt="" coords="3574,90,3883,92,4369,99,4630,106,4877,117,5090,131,5250,149,5293,160,5292,165,5249,155,5089,136,4876,122,4630,112,4369,104,3883,97,3574,95"/>
-<area shape="rect" id="Node000048" href="$d9/d26/log__sink_8hpp.html" title="Abstract sink interface for the logger." alt="" coords="5436,167,5572,192"/>
-<area shape="poly" id="edge55_Node000002_Node000048" title=" " alt="" coords="3574,90,3911,89,4448,95,4737,101,5011,112,5247,128,5424,149,5464,160,5462,165,5424,155,5247,133,5011,118,4737,107,4448,100,3911,95,3574,95"/>
-<area shape="rect" id="Node000049" href="$d2/dd2/string__fixed__storage_8hpp.html" title="Fixed&#45;size raw character buffer with explicit length for string&#45;like containers." alt="" coords="5596,167,5809,192"/>
-<area shape="poly" id="edge58_Node000002_Node000049" title=" " alt="" coords="3574,90,3935,93,4519,101,5132,119,5390,132,5584,149,5647,161,5646,166,5584,155,5390,138,5132,124,4518,107,3935,98,3574,95"/>
-<area shape="rect" id="Node000050" href="$d8/d43/core_2utils_8hpp.html" title="Core utilities: encoding conversion, string metrics, and number formatting." alt="" coords="5834,167,5945,192"/>
-<area shape="poly" id="edge60_Node000002_Node000050" title=" " alt="" coords="3574,90,4013,94,4719,103,5414,121,5671,134,5762,141,5822,149,5854,159,5852,164,5821,155,5761,147,5671,139,5414,127,4719,109,4013,99,3574,96"/>
-<area shape="rect" id="Node000051" href="$dd/d61/bitwise__enum_8inl.html" title="Inline implementations for toy::EnableBitwiseOperators and scoped&#45;enum bitwise operators." alt="" coords="5969,167,6135,192"/>
-<area shape="poly" id="edge61_Node000002_Node000051" title=" " alt="" coords="3574,90,4784,107,5523,125,5797,137,5958,149,6006,160,6004,165,5957,155,5796,142,5523,131,4784,113,3574,96"/>
-<area shape="rect" id="Node000052" href="$df/d4a/c__string__view_8inl.html" title="Inline implementations for toy::CStringView." alt="" coords="6159,167,6321,192"/>
-<area shape="poly" id="edge62_Node000002_Node000052" title=" " alt="" coords="3574,90,4876,106,5676,124,5973,136,6147,149,6194,160,6193,165,6146,155,5972,141,5676,129,4876,111,3574,96"/>
-<area shape="rect" id="Node000053" href="$d6/ddb/callbacks__pool_8inl.html" title="Inline implementations for toy::CallbacksPool." alt="" coords="6345,167,6516,192"/>
-<area shape="poly" id="edge63_Node000002_Node000053" title=" " alt="" coords="3574,90,4101,95,4967,105,5827,123,6146,135,6334,149,6383,160,6382,165,6333,155,6146,141,5827,129,4967,111,4100,100,3574,96"/>
-<area shape="rect" id="Node000054" href="$dd/de5/chrono__clock__source_8inl.html" title="Inline implementations for toy::chrono::ClockSource accessor." alt="" coords="6541,167,6750,192"/>
-<area shape="poly" id="edge64_Node000002_Node000054" title=" " alt="" coords="3575,90,5061,107,5984,125,6327,136,6528,149,6591,161,6590,166,6528,155,6327,142,5984,130,5061,112,3574,96"/>
-<area shape="rect" id="Node000055" href="$d4/db0/chrono__countdown__timer_8inl.html" title="Inline implementations for toy::chrono::CountdownTimer." alt="" coords="6775,159,6951,199"/>
-<area shape="poly" id="edge65_Node000002_Node000055" title=" " alt="" coords="3574,90,4172,94,5174,103,6174,121,6545,134,6676,141,6763,149,6787,154,6786,159,6762,155,6676,147,6545,139,6174,126,5174,109,4172,99,3574,95"/>
-<area shape="rect" id="Node000056" href="$d2/d43/chrono__stopwatch_8inl.html" title="Inline implementations for toy::chrono::Stopwatch." alt="" coords="6975,167,7167,192"/>
-<area shape="poly" id="edge66_Node000002_Node000056" title=" " alt="" coords="3574,90,4206,94,5271,103,6335,121,6731,134,6871,141,6963,149,7020,161,7019,166,6962,155,6870,147,6731,139,6335,127,5271,109,4206,99,3574,95"/>
-<area shape="rect" id="Node000057" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr helpers declared in constexpr_utils.hpp." alt="" coords="7191,167,7364,192"/>
-<area shape="poly" id="edge67_Node000002_Node000057" title=" " alt="" coords="3574,90,4241,92,5374,101,5971,108,6509,118,6931,132,7081,140,7179,149,7230,160,7229,166,7178,155,7080,145,6931,137,6509,124,5971,113,5374,106,4241,98,3574,95"/>
-<area shape="rect" id="Node000058" href="$d7/d40/fixed__string_8inl.html" title="Inline implementations for toy::FixedString." alt="" coords="7388,167,7537,192"/>
-<area shape="poly" id="edge68_Node000002_Node000058" title=" " alt="" coords="3574,90,4274,90,5470,97,6100,104,6669,114,7115,129,7273,139,7376,149,7420,160,7419,165,7376,155,7272,144,7115,135,6669,120,6100,109,5470,102,4274,96,3574,95"/>
-<area shape="rect" id="Node000059" href="$da/dc9/fixed__vector_8inl.html" title="Inline implementations for toy::FixedVector." alt="" coords="7561,167,7713,192"/>
-<area shape="poly" id="edge69_Node000002_Node000059" title=" " alt="" coords="3574,90,4302,90,5554,96,6213,103,6809,113,7276,129,7441,138,7550,149,7594,160,7593,165,7549,155,7441,144,7276,134,6809,119,6213,108,5553,101,4302,95,3574,95"/>
-<area shape="rect" id="Node000060" href="$d0/d67/format_8inl.html" title="Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo()." alt="" coords="7738,167,7857,192"/>
-<area shape="poly" id="edge70_Node000002_Node000060" title=" " alt="" coords="3575,90,4368,95,5725,106,7044,124,7502,136,7648,142,7726,149,7760,159,7759,164,7725,155,7648,148,7502,141,7044,129,5725,111,4368,100,3575,96"/>
-<area shape="rect" id="Node000061" href="$d0/d27/format__context_8inl.html" title="Inline implementations for toy::FormatContext." alt="" coords="7881,167,8055,192"/>
-<area shape="poly" id="edge71_Node000002_Node000061" title=" " alt="" coords="3574,90,4354,90,5706,97,6421,104,7066,114,7573,129,7752,139,7870,149,7921,160,7920,166,7869,155,7751,144,7573,135,7066,119,6421,109,5706,102,4354,96,3574,95"/>
-<area shape="rect" id="Node000062" href="$d5/d9f/format__pattern_8inl.html" title="Inline implementations for toy::validateFormatPattern()." alt="" coords="8079,167,8251,192"/>
-<area shape="poly" id="edge72_Node000002_Node000062" title=" " alt="" coords="3574,90,4386,90,5801,95,6550,102,7226,113,7757,128,7945,138,8068,149,8118,160,8117,165,8068,155,7944,143,7757,133,7226,118,6550,107,5801,100,4386,95,3574,95"/>
-<area shape="rect" id="Node000063" href="$d4/d97/format__string_8inl.html" title="Inline implementations for toy::FormatString." alt="" coords="8276,167,8439,192"/>
-<area shape="poly" id="edge73_Node000002_Node000063" title=" " alt="" coords="3574,90,4418,89,5895,93,6677,99,7384,110,7939,127,8135,137,8264,149,8312,160,8311,165,8264,155,8135,142,7939,132,7384,116,6677,105,5895,98,4418,94,3574,95"/>
-<area shape="rect" id="Node000064" href="$d9/dcb/o__string__stream_8inl.html" title="Inline implementations for toy::OStringStream." alt="" coords="8463,167,8641,192"/>
-<area shape="poly" id="edge74_Node000002_Node000064" title=" " alt="" coords="3574,90,4449,89,5985,94,6798,101,7535,111,8112,127,8317,138,8451,149,8504,160,8502,166,8450,155,8316,143,8112,133,7535,117,6798,106,5985,99,4449,95,3574,95"/>
-<area shape="rect" id="Node000065" href="$db/d33/string__fixed__storage_8inl.html" title="Inline implementations for toy::StringFixedStorage." alt="" coords="8665,167,8871,192"/>
-<area shape="poly" id="edge75_Node000002_Node000065" title=" " alt="" coords="3574,90,4481,90,6081,96,6929,103,7697,113,8300,129,8513,138,8654,149,8715,161,8714,166,8653,155,8513,144,8300,134,7697,119,6929,108,6081,101,4481,95,3574,95"/>
-<area shape="rect" id="Node000066" href="$d2/d2b/core_2utils_8inl.html" title="Inline implementations for utilities declared in utils.hpp." alt="" coords="8895,167,8998,192"/>
-<area shape="poly" id="edge76_Node000002_Node000066" title=" " alt="" coords="3574,90,4565,92,6302,99,7207,106,8003,117,8595,131,8783,140,8883,149,8912,158,8911,164,8882,155,8783,145,8595,136,8003,122,7207,112,6302,104,4565,97,3574,95"/>
+<area shape="poly" id="edge27_Node000002_Node000028" title=" " alt="" coords="3682,96,3553,99,3362,108,3139,126,2911,155,2860,166,2859,161,2910,149,3138,120,3362,103,3553,94,3682,90"/>
+<area shape="rect" id="Node000029" href="$d9/d7d/chrono__calendar__time_8hpp.html" title="Broken&#45;down calendar date and time with millisecond resolution." alt="" coords="2922,159,3083,199"/>
+<area shape="poly" id="edge28_Node000002_Node000029" title=" " alt="" coords="3682,97,3437,113,3271,130,3103,155,3082,159,3081,154,3102,149,3270,125,3436,108,3682,92"/>
+<area shape="rect" id="Node000030" href="$d7/d97/chrono__clock__source_8hpp.html" title="RAII owner of the platform hardware time source." alt="" coords="3159,167,3377,192"/>
+<area shape="poly" id="edge29_Node000002_Node000030" title=" " alt="" coords="3682,102,3397,155,3336,167,3335,161,3395,149,3681,97"/>
+<area shape="rect" id="Node000031" href="$d3/d0f/class__macros_8hpp.html" title="Class&#45;level utility macros for explicit Rule of Five compliance." alt="" coords="3264,262,3403,287"/>
+<area shape="poly" id="edge39_Node000002_Node000031" title=" " alt="" coords="3682,97,3633,101,3572,111,3508,128,3448,154,3408,194,3354,253,3350,250,3404,190,3445,150,3507,123,3571,105,3632,96,3682,91"/>
+<area shape="rect" id="Node000032" href="$db/d1a/chrono__countdown__timer_8hpp.html" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="2519,159,2695,199"/>
+<area shape="poly" id="edge31_Node000002_Node000032" title=" " alt="" coords="3682,95,3525,95,3284,102,2999,120,2851,135,2707,155,2685,159,2684,154,2706,149,2851,130,2998,115,3284,97,3525,90,3682,90"/>
+<area shape="rect" id="Node000033" href="$d3/d6a/chrono__steady__clock_8hpp.html" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="2917,262,3104,287"/>
+<area shape="poly" id="edge35_Node000002_Node000033" title=" " alt="" coords="3682,96,3564,99,3408,109,3256,126,3194,139,3149,154,3132,166,3122,178,3112,192,3098,209,3040,256,3036,252,3094,205,3108,189,3118,175,3129,162,3147,150,3193,134,3255,121,3408,103,3564,94,3682,91"/>
+<area shape="rect" id="Node000034" href="$dd/ddb/chrono__duration_8hpp.html" title="Duration and time&#45;point aliases over std::chrono." alt="" coords="2933,343,3088,368"/>
+<area shape="poly" id="edge34_Node000002_Node000034" title=" " alt="" coords="3682,100,3607,117,3565,133,3527,154,3506,171,3492,189,3474,226,3454,263,3438,281,3416,297,3392,308,3359,317,3278,333,3102,351,3101,346,3277,327,3358,312,3390,303,3413,292,3435,277,3450,260,3469,224,3488,186,3503,168,3524,150,3563,128,3605,112,3681,95"/>
+<area shape="rect" id="Node000035" href="$d9/de5/chrono__stopwatch_8hpp.html" title="Elapsed&#45;time measurement type over the active toy::chrono::SteadyClock." alt="" coords="3553,167,3753,192"/>
+<area shape="poly" id="edge36_Node000002_Node000035" title=" " alt="" coords="3714,106,3674,157,3669,154,3710,103"/>
+<area shape="rect" id="Node000036" href="$df/da9/chrono__system__clock_8hpp.html" title="Wall&#45;clock type anchored to the Unix epoch." alt="" coords="2517,255,2670,295"/>
+<area shape="poly" id="edge37_Node000002_Node000036" title=" " alt="" coords="3682,96,3418,100,3033,110,2679,127,2561,140,2525,147,2508,154,2501,166,2499,177,2509,205,2525,227,2545,245,2542,249,2521,231,2504,208,2494,178,2496,164,2505,150,2524,142,2560,134,2679,122,3033,104,3418,94,3682,90"/>
+<area shape="rect" id="Node000037" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr helpers for compile&#45;time string and buffer operations." alt="" coords="3828,167,4009,192"/>
+<area shape="poly" id="edge40_Node000002_Node000037" title=" " alt="" coords="3749,102,3881,159,3878,163,3747,107"/>
+<area shape="rect" id="Node000038" href="$d7/d7f/fixed__string_8hpp.html" title="Fixed&#45;capacity string with stack storage." alt="" coords="3968,262,4125,287"/>
+<area shape="poly" id="edge41_Node000002_Node000038" title=" " alt="" coords="3761,93,3827,99,3905,110,3976,126,4004,137,4023,150,4039,173,4048,199,4052,248,4046,249,4042,200,4034,175,4019,154,4001,142,3975,131,3904,115,3827,104,3761,98"/>
+<area shape="rect" id="Node000039" href="$d7/dea/fixed__vector_8hpp.html" title="Fixed&#45;capacity vector with inline storage." alt="" coords="4084,167,4244,192"/>
+<area shape="poly" id="edge43_Node000002_Node000039" title=" " alt="" coords="3761,96,3896,117,4066,149,4111,160,4110,166,4065,155,3896,122,3760,101"/>
+<area shape="rect" id="Node000040" href="$d4/d0a/format_8hpp.html" title="Format functions for substituting arguments into {} and {N} placeholders." alt="" coords="4319,167,4446,192"/>
+<area shape="poly" id="edge44_Node000002_Node000040" title=" " alt="" coords="3761,91,3991,106,4145,123,4301,149,4339,160,4338,165,4299,155,4144,129,3990,112,3761,97"/>
+<area shape="rect" id="Node000041" href="$d9/d6a/format__string_8hpp.html" title="Compile&#45;time validated format&#45;string wrapper for auto {} and positional {N} placeholders." alt="" coords="4180,262,4319,287"/>
+<area shape="poly" id="edge51_Node000002_Node000041" title=" " alt="" coords="3761,91,3883,97,4041,108,4182,125,4231,137,4258,150,4270,174,4273,200,4269,227,4262,250,4257,249,4264,226,4268,200,4265,175,4254,154,4229,142,4181,131,4040,114,3883,103,3761,97"/>
+<area shape="rect" id="Node000042" href="$de/d2d/o__string__stream_8hpp.html" title="Allocator&#45;free output string stream that appends into string&#45;like storage." alt="" coords="4343,262,4497,287"/>
+<area shape="poly" id="edge57_Node000002_Node000042" title=" " alt="" coords="3761,90,3925,92,4147,101,4256,108,4351,118,4422,132,4446,140,4461,150,4468,162,4472,175,4468,203,4456,230,4441,253,4436,250,4451,227,4463,201,4466,176,4464,164,4457,154,4443,145,4420,137,4350,124,4255,113,4147,106,3925,98,3761,95"/>
+<area shape="rect" id="Node000043" href="$d8/d0d/format__context_8hpp.html" title="Type&#45;erased write sink for the runtime formatting path." alt="" coords="4522,167,4705,192"/>
+<area shape="poly" id="edge49_Node000002_Node000043" title=" " alt="" coords="3761,91,4069,105,4284,122,4503,149,4559,161,4558,166,4502,155,4284,128,4069,110,3761,96"/>
+<area shape="rect" id="Node000044" href="$d7/d5b/format__pattern_8hpp.html" title="Shared compile&#45;time validation for format patterns using {} and {N} placeholders." alt="" coords="4729,167,4909,192"/>
+<area shape="poly" id="edge50_Node000002_Node000044" title=" " alt="" coords="3761,90,3916,91,4152,98,4432,116,4576,130,4718,149,4769,160,4768,166,4717,155,4576,135,4431,121,4151,103,3915,96,3761,95"/>
+<area shape="rect" id="Node000045" href="$dd/d8e/hashes_8hpp.html" title="Table&#45;driven CRC&#45;8, CRC&#45;16, and CRC&#45;32 over byte buffers." alt="" coords="4933,167,5061,192"/>
+<area shape="poly" id="edge52_Node000002_Node000045" title=" " alt="" coords="3761,90,3986,94,4323,104,4669,122,4813,134,4922,149,4958,159,4957,165,4921,155,4813,140,4668,127,4323,110,3986,100,3761,96"/>
+<area shape="rect" id="Node000046" href="$d0/d01/log__level_8hpp.html" title="Severity levels for the logger." alt="" coords="5085,167,5227,192"/>
+<area shape="poly" id="edge53_Node000002_Node000046" title=" " alt="" coords="3761,90,4012,94,4392,103,4786,121,4950,134,5074,149,5114,160,5113,165,5073,155,4950,139,4785,126,4392,109,4012,99,3761,96"/>
+<area shape="rect" id="Node000047" href="$da/d67/log__metadata_8hpp.html" title="Compile&#45;time metadata associated with each log call site." alt="" coords="5251,167,5423,192"/>
+<area shape="poly" id="edge54_Node000002_Node000047" title=" " alt="" coords="3761,90,4038,94,4466,104,4912,122,5099,134,5239,149,5289,160,5288,165,5238,155,5098,139,4911,127,4466,109,4038,100,3761,96"/>
+<area shape="rect" id="Node000048" href="$d1/d3a/log__record_8hpp.html" title="In&#45;flight log record stored in the transport ring buffer." alt="" coords="5447,167,5598,192"/>
+<area shape="poly" id="edge55_Node000002_Node000048" title=" " alt="" coords="3761,90,4069,92,4556,99,4817,106,5063,117,5276,131,5436,149,5480,160,5478,165,5436,155,5276,136,5063,122,4816,112,4556,104,4069,97,3761,95"/>
+<area shape="rect" id="Node000049" href="$d9/d26/log__sink_8hpp.html" title="Abstract sink interface for the logger." alt="" coords="5623,167,5759,192"/>
+<area shape="poly" id="edge56_Node000002_Node000049" title=" " alt="" coords="3761,90,4097,89,4635,95,4924,101,5198,112,5434,128,5611,149,5650,160,5649,165,5610,155,5433,133,5197,118,4924,107,4635,100,4097,95,3761,95"/>
+<area shape="rect" id="Node000050" href="$d2/dd2/string__fixed__storage_8hpp.html" title="Fixed&#45;size raw character buffer with explicit length for string&#45;like containers." alt="" coords="5783,167,5996,192"/>
+<area shape="poly" id="edge59_Node000002_Node000050" title=" " alt="" coords="3761,90,4122,93,4705,101,5319,119,5577,132,5771,149,5834,161,5833,166,5770,155,5577,138,5318,124,4705,107,4122,98,3761,95"/>
+<area shape="rect" id="Node000051" href="$d8/d43/core_2utils_8hpp.html" title="Core utilities: encoding conversion, string metrics, and number formatting." alt="" coords="6021,167,6131,192"/>
+<area shape="poly" id="edge61_Node000002_Node000051" title=" " alt="" coords="3761,90,4200,94,4905,103,5600,121,5858,134,5948,141,6009,149,6040,159,6039,164,6007,155,5948,147,5857,139,5600,127,4905,109,4200,99,3761,96"/>
+<area shape="rect" id="Node000052" href="$dd/d61/bitwise__enum_8inl.html" title="Inline implementations for toy::EnableBitwiseOperators and scoped&#45;enum bitwise operators." alt="" coords="6156,167,6321,192"/>
+<area shape="poly" id="edge62_Node000002_Node000052" title=" " alt="" coords="3761,90,4971,107,5710,125,5983,137,6144,149,6192,160,6191,165,6144,155,5983,142,5709,131,4971,113,3761,96"/>
+<area shape="rect" id="Node000053" href="$df/d4a/c__string__view_8inl.html" title="Inline implementations for toy::CStringView." alt="" coords="6345,167,6508,192"/>
+<area shape="poly" id="edge63_Node000002_Node000053" title=" " alt="" coords="3761,90,5063,106,5863,124,6159,136,6334,149,6381,160,6380,165,6333,155,6159,141,5863,129,5063,111,3761,96"/>
+<area shape="rect" id="Node000054" href="$d6/ddb/callbacks__pool_8inl.html" title="Inline implementations for toy::CallbacksPool." alt="" coords="6532,167,6703,192"/>
+<area shape="poly" id="edge64_Node000002_Node000054" title=" " alt="" coords="3761,90,4287,95,5154,105,6014,123,6333,135,6520,149,6570,160,6569,165,6520,155,6333,141,6014,129,5154,111,4287,100,3761,96"/>
+<area shape="rect" id="Node000055" href="$d2/d30/chrono__calendar__time_8inl.html" title="Inline implementations for toy::chrono::CalendarTime." alt="" coords="6727,159,6889,199"/>
+<area shape="poly" id="edge65_Node000002_Node000055" title=" " alt="" coords="3761,90,4320,94,5248,104,6171,121,6514,134,6635,141,6715,149,6736,153,6735,159,6714,155,6635,147,6514,139,6171,127,5248,109,4320,99,3761,96"/>
+<area shape="rect" id="Node000056" href="$dd/de5/chrono__clock__source_8inl.html" title="Inline implementations for toy::chrono::ClockSource accessor." alt="" coords="6913,167,7122,192"/>
+<area shape="poly" id="edge66_Node000002_Node000056" title=" " alt="" coords="3761,90,5338,106,6321,124,6687,136,6902,149,6963,161,6962,166,6901,155,6687,141,6321,129,5337,111,3761,96"/>
+<area shape="rect" id="Node000057" href="$d4/db0/chrono__countdown__timer_8inl.html" title="Inline implementations for toy::chrono::CountdownTimer." alt="" coords="7147,159,7323,199"/>
+<area shape="poly" id="edge67_Node000002_Node000057" title=" " alt="" coords="3761,90,4390,93,5451,102,6510,120,6904,133,7043,141,7135,149,7159,154,7158,159,7134,155,7043,146,6904,138,6510,125,5450,108,4390,98,3761,95"/>
+<area shape="rect" id="Node000058" href="$d2/d43/chrono__stopwatch_8inl.html" title="Inline implementations for toy::chrono::Stopwatch." alt="" coords="7347,167,7539,192"/>
+<area shape="poly" id="edge68_Node000002_Node000058" title=" " alt="" coords="3761,90,4423,93,5547,102,6671,120,7089,133,7237,141,7335,149,7392,161,7391,166,7334,155,7237,146,7089,139,6671,126,5547,108,4423,99,3761,95"/>
+<area shape="rect" id="Node000059" href="$dc/d28/constexpr__utils_8inl.html" title="Inline implementations for constexpr helpers declared in constexpr_utils.hpp." alt="" coords="7563,167,7736,192"/>
+<area shape="poly" id="edge69_Node000002_Node000059" title=" " alt="" coords="3761,90,4458,92,5651,99,6279,107,6846,117,7290,131,7447,140,7551,149,7602,160,7601,166,7550,155,7447,145,7290,137,6845,123,6278,112,5651,105,4458,97,3761,95"/>
+<area shape="rect" id="Node000060" href="$d7/d40/fixed__string_8inl.html" title="Inline implementations for toy::FixedString." alt="" coords="7760,167,7909,192"/>
+<area shape="poly" id="edge70_Node000002_Node000060" title=" " alt="" coords="3761,90,4491,90,5746,95,6408,102,7005,113,7474,128,7639,138,7748,149,7792,160,7791,165,7748,155,7639,143,7474,134,7005,118,6408,108,5746,101,4491,95,3761,95"/>
+<area shape="rect" id="Node000061" href="$da/dc9/fixed__vector_8inl.html" title="Inline implementations for toy::FixedVector." alt="" coords="7933,167,8085,192"/>
+<area shape="poly" id="edge71_Node000002_Node000061" title=" " alt="" coords="3761,90,4519,90,5829,95,6520,101,7145,112,7635,128,7808,138,7922,149,7966,160,7965,165,7921,155,7807,143,7634,133,7145,117,6520,107,5829,100,4519,95,3761,95"/>
+<area shape="rect" id="Node000062" href="$d0/d67/format_8inl.html" title="Inline implementations for toy::format(), toy::formatTo(), toy::vformat(), and toy::vformatTo()." alt="" coords="8110,167,8229,192"/>
+<area shape="poly" id="edge72_Node000002_Node000062" title=" " alt="" coords="3761,90,4586,94,6004,105,7384,123,7864,135,8016,142,8098,149,8132,159,8131,164,8097,155,8016,147,7864,140,7384,128,6004,110,4586,100,3761,95"/>
+<area shape="rect" id="Node000063" href="$d0/d27/format__context_8inl.html" title="Inline implementations for toy::FormatContext." alt="" coords="8253,167,8427,192"/>
+<area shape="poly" id="edge73_Node000002_Node000063" title=" " alt="" coords="3761,90,4572,90,5983,95,6729,102,7403,113,7932,128,8119,138,8242,149,8293,160,8292,166,8241,155,8118,143,7931,134,7403,118,6728,108,5983,101,4572,95,3761,95"/>
+<area shape="rect" id="Node000064" href="$d5/d9f/format__pattern_8inl.html" title="Inline implementations for toy::validateFormatPattern()." alt="" coords="8451,167,8623,192"/>
+<area shape="poly" id="edge74_Node000002_Node000064" title=" " alt="" coords="3761,90,4604,89,6077,94,6857,101,7563,111,8116,127,8312,138,8440,149,8490,160,8489,165,8440,155,8311,143,8116,133,7562,117,6857,106,6077,99,4604,95,3761,95"/>
+<area shape="rect" id="Node000065" href="$d4/d97/format__string_8inl.html" title="Inline implementations for toy::FormatString." alt="" coords="8648,167,8811,192"/>
+<area shape="poly" id="edge75_Node000002_Node000065" title=" " alt="" coords="3761,90,6272,107,7830,125,8372,136,8544,143,8636,149,8684,160,8683,165,8636,155,8544,148,8372,142,7830,130,6272,112,3761,96"/>
+<area shape="rect" id="Node000066" href="$d9/dcb/o__string__stream_8inl.html" title="Inline implementations for toy::OStringStream." alt="" coords="8835,167,9013,192"/>
+<area shape="poly" id="edge76_Node000002_Node000066" title=" " alt="" coords="3761,90,4665,89,6259,93,7105,99,7870,110,8471,127,8683,137,8823,149,8876,160,8874,166,8822,155,8683,142,8471,132,7870,116,7105,105,6259,98,4665,94,3761,95"/>
+<area shape="rect" id="Node000067" href="$db/d33/string__fixed__storage_8inl.html" title="Inline implementations for toy::StringFixedStorage." alt="" coords="9037,167,9243,192"/>
+<area shape="poly" id="edge77_Node000002_Node000067" title=" " alt="" coords="3761,90,4698,90,6356,95,7236,102,8033,112,8659,128,8880,138,9026,149,9087,161,9086,166,9025,155,8880,143,8659,133,8033,118,7236,107,6356,100,4698,95,3761,95"/>
+<area shape="rect" id="Node000068" href="$d2/d2b/core_2utils_8inl.html" title="Inline implementations for utilities declared in utils.hpp." alt="" coords="9267,167,9370,192"/>
+<area shape="poly" id="edge78_Node000002_Node000068" title=" " alt="" coords="3761,90,4782,91,6581,98,7518,105,8343,116,8956,130,9151,139,9255,149,9284,158,9283,164,9254,155,9151,145,8956,136,8343,121,7518,111,6581,103,4782,97,3761,95"/>
 <area shape="poly" id="edge22_Node000022_Node000023" title=" " alt="" coords="1946,205,1974,242,1970,246,1942,209"/>
-<area shape="poly" id="edge26_Node000026_Node000027" title=" " alt="" coords="3503,285,3788,338,3787,343,3502,290"/>
-<area shape="poly" id="edge29_Node000029_Node000030" title=" " alt="" coords="3092,190,3133,249,3129,252,3087,194"/>
-<area shape="poly" id="edge31_Node000031_Node000032" title=" " alt="" coords="2661,197,2826,255,2824,260,2659,202"/>
-<area shape="poly" id="edge32_Node000032_Node000033" title=" " alt="" coords="2873,288,2873,329,2868,329,2868,288"/>
-<area shape="poly" id="edge37_Node000035_Node000033" title=" " alt="" coords="2624,292,2811,337,2810,342,2623,297"/>
-<area shape="poly" id="edge41_Node000037_Node000027" title=" " alt="" coords="3863,288,3863,329,3857,329,3857,288"/>
-<area shape="poly" id="edge44_Node000039_Node000040" title=" " alt="" coords="4181,194,4092,256,4089,252,4178,190"/>
-<area shape="poly" id="edge46_Node000039_Node000041" title=" " alt="" coords="4203,191,4226,248,4221,250,4198,193"/>
-<area shape="poly" id="edge45_Node000040_Node000027" title=" " alt="" coords="4034,290,3903,340,3901,335,4032,285"/>
-<area shape="poly" id="edge47_Node000041_Node000027" title=" " alt="" coords="4180,290,3928,342,3927,337,4179,285"/>
+<area shape="poly" id="edge26_Node000026_Node000027" title=" " alt="" coords="3689,285,3975,338,3974,343,3688,290"/>
+<area shape="poly" id="edge30_Node000030_Node000031" title=" " alt="" coords="3278,190,3320,249,3315,252,3274,194"/>
+<area shape="poly" id="edge32_Node000032_Node000033" title=" " alt="" coords="2678,197,2707,204,2943,257,2942,262,2706,209,2677,202"/>
+<area shape="poly" id="edge33_Node000033_Node000034" title=" " alt="" coords="3013,288,3013,329,3008,329,3008,288"/>
+<area shape="poly" id="edge38_Node000036_Node000034" title=" " alt="" coords="2671,288,2937,337,2936,343,2670,293"/>
+<area shape="poly" id="edge42_Node000038_Node000027" title=" " alt="" coords="4049,288,4049,329,4044,329,4044,288"/>
+<area shape="poly" id="edge45_Node000040_Node000041" title=" " alt="" coords="4368,194,4278,256,4275,252,4365,190"/>
+<area shape="poly" id="edge47_Node000040_Node000042" title=" " alt="" coords="4390,191,4413,248,4408,250,4385,193"/>
+<area shape="poly" id="edge46_Node000041_Node000027" title=" " alt="" coords="4221,290,4090,340,4088,335,4219,285"/>
+<area shape="poly" id="edge48_Node000042_Node000027" title=" " alt="" coords="4366,290,4115,342,4114,337,4365,285"/>
 </map>

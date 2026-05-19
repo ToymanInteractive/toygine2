@@ -16,5 +16,6 @@ var searchData=
   ['hidden_13',['Hidden',['../d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e',1,'toy::game::Hidden'],['../d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca7acdf85c69cc3c5305456a293524386e',1,'toy::platform::ui::Hidden']]],
   ['highestbit_14',['highestBit',['../d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d',1,'toy']]],
   ['hostnameastext_15',['hostnameAsText',['../d3/d53/classtoy_1_1network_1_1_endpoint.html#aeda5592286cef23855e93c8bfdfc28fd',1,'toy::network::Endpoint']]],
-  ['hpp_16',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]]
+  ['hour_16',['hour',['../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a3f17e9f127449885dc0a076ca84413f6',1,'toy::chrono::CalendarTime']]],
+  ['hpp_17',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]]
 ];

@@ -158,12 +158,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#a1d04360b41223ac8f8c400ccbe1c1695",
-"d4/da9/namespacetoy.html#a58d00a4a7bbd87ef48d346903b5a8c78",
-"d7/d15/classtoy_1_1_o_string_stream.html#a44c7cca838780f331af5e3e2f8ffe82d",
-"d8/d25/namespacetoy_1_1game.html",
-"db/d6f/classtoy_1_1geometry_1_1_section.html#ac41e8ef5d949f060004098070aa70062",
-"df/d81/md__a_g_e_n_t_s.html#formatting"
+"d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611",
+"d4/da9/namespacetoy.html#a50ab25ff3fb94874504ea406b6e7d689",
+"d7/d15/classtoy_1_1_o_string_stream.html#a34b8aed089bfbe268732ef912112cc8f",
+"d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b",
+"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3d47475e7d6754d1ccb1312bdb180b2",
+"df/d81/md__a_g_e_n_t_s.html#braces"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

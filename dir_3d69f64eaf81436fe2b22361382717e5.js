@@ -7,6 +7,8 @@ var dir_3d69f64eaf81436fe2b22361382717e5 =
     [ "c_string_view.inl", "df/d4a/c__string__view_8inl.html", "df/d4a/c__string__view_8inl" ],
     [ "callbacks_pool.hpp", "d1/d5c/callbacks__pool_8hpp.html", "d1/d5c/callbacks__pool_8hpp" ],
     [ "callbacks_pool.inl", "d6/ddb/callbacks__pool_8inl.html", null ],
+    [ "chrono_calendar_time.hpp", "d9/d7d/chrono__calendar__time_8hpp.html", "d9/d7d/chrono__calendar__time_8hpp" ],
+    [ "chrono_calendar_time.inl", "d2/d30/chrono__calendar__time_8inl.html", null ],
     [ "chrono_clock_source.hpp", "d7/d97/chrono__clock__source_8hpp.html", null ],
     [ "chrono_clock_source.inl", "dd/de5/chrono__clock__source_8inl.html", null ],
     [ "chrono_countdown_timer.hpp", "db/d1a/chrono__countdown__timer_8hpp.html", null ],

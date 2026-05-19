@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611":[2,2,1,1,6],
+"d3/d7a/classtoy_1_1_fixed_string.html#a1c304eb847c05f3c1105335485a0491e":[2,2,1,1,19],
 "d3/d7a/classtoy_1_1_fixed_string.html#a1d04360b41223ac8f8c400ccbe1c1695":[2,2,1,1,50],
 "d3/d7a/classtoy_1_1_fixed_string.html#a213682f68bd2b2500e5ed15acc068951":[2,2,1,1,20],
 "d3/d7a/classtoy_1_1_fixed_string.html#a2485978245ef94f732a4cadc6607dcd6":[2,2,1,1,68],
@@ -138,8 +140,8 @@ var NAVTREEINDEX1 =
 "d4/d01/application_8hpp.html":[6,0,0,10],
 "d4/d01/application_8hpp.html#a1b2bd9ba8ddc8a14eb069ad482bce9e3":[6,0,0,10,0],
 "d4/d01/application_8hpp_source.html":[6,0,0,10],
-"d4/d0a/format_8hpp.html":[6,0,0,2,23],
-"d4/d0a/format_8hpp_source.html":[6,0,0,2,23],
+"d4/d0a/format_8hpp.html":[6,0,0,2,25],
+"d4/d0a/format_8hpp_source.html":[6,0,0,2,25],
 "d4/d42/clock__source__linux_8cpp.html":[6,0,1,3,3,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,0,0],
@@ -217,8 +219,8 @@ var NAVTREEINDEX1 =
 "d4/d6e/group___string.html#ga001484b1a940bb2691fdd2d66c1a14c9":[2,2,4],
 "d4/d78/math_8hpp.html":[6,0,0,16],
 "d4/d78/math_8hpp_source.html":[6,0,0,16],
-"d4/d97/format__string_8inl.html":[6,0,0,2,30],
-"d4/d97/format__string_8inl_source.html":[6,0,0,2,30],
+"d4/d97/format__string_8inl.html":[6,0,0,2,32],
+"d4/d97/format__string_8inl_source.html":[6,0,0,2,32],
 "d4/da9/namespacetoy.html":[3,0,2],
 "d4/da9/namespacetoy.html#a00ce0b516e9a47a62227a9309afdb583":[3,0,2,33],
 "d4/da9/namespacetoy.html#a0bd773c8ce056b71c2520fdb09b900df":[3,0,2,68],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9":[3,0,2,63],
 "d4/da9/namespacetoy.html#a3e935013c7764b31202b25105a86cedd":[3,0,2,55],
 "d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c":[3,0,2,38],
-"d4/da9/namespacetoy.html#a43b66e65ca273e28eb053c19537093c9":[3,0,2,57],
-"d4/da9/namespacetoy.html#a50ab25ff3fb94874504ea406b6e7d689":[3,0,2,58],
-"d4/da9/namespacetoy.html#a5568d083a1e1f805d9a0b9e22d3ea00d":[3,0,2,67]
+"d4/da9/namespacetoy.html#a43b66e65ca273e28eb053c19537093c9":[3,0,2,57]
 };
