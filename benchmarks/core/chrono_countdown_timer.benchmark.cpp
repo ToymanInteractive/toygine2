@@ -58,8 +58,7 @@ static void remaining(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
-    [[maybe_unused]] auto val  = timer.remaining();
-    result                    += val;
+    result += timer.remaining();
   }
   state.set_result(bit_cast<uintptr_t>(&result));
 }
