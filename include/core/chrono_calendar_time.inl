@@ -18,54 +18,21 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   chrono_countdown_timer.benchmark.cpp
-  \brief  Implementation of picobench benchmarks for \ref toy::chrono::CountdownTimer.
+  \file   chrono_calendar_time.inl
+  \brief  Inline implementations for \ref toy::chrono::CalendarTime.
+
+  \note Included by core.hpp only; do not include this file directly.
 */
 
-#include "core.hpp"
-#include "picobench/picobench.hpp"
+#ifndef INCLUDE_CORE_CHRONO_CALENDAR_TIME_INL_
+#define INCLUDE_CORE_CHRONO_CALENDAR_TIME_INL_
 
 namespace toy::chrono {
 
-constexpr auto timeout = seconds{1};
-
-static void constructor(picobench::state & state) noexcept {
-  ClockSource clock;
-
-  picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i)
-    CountdownTimer timer{timeout};
+constexpr CalendarTime CalendarTime::invalid() noexcept {
+  return {};
 }
-
-static void expired(picobench::state & state) noexcept {
-  ClockSource clock;
-
-  bool             result{false};
-  picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    CountdownTimer timer{timeout};
-
-    result |= timer.expired();
-  }
-  state.set_result(result ? 1 : 0);
-}
-
-static void remaining(picobench::state & state) noexcept {
-  ClockSource clock;
-
-  CountdownTimer::duration result{0};
-  picobench::scope         scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    CountdownTimer timer{timeout};
-
-    result += timer.remaining();
-  }
-  state.set_result(bit_cast<uintptr_t>(&result));
-}
-
-PICOBENCH_SUITE("toy::chrono::CountdownTimer");
-PICOBENCH(constructor);
-PICOBENCH(expired);
-PICOBENCH(remaining);
 
 } // namespace toy::chrono
+
+#endif // INCLUDE_CORE_CHRONO_CALENDAR_TIME_INL_

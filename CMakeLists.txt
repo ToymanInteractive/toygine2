@@ -129,11 +129,13 @@ set(HDR_CORE_LIST
     include/core/bitwise_enum.hpp
     include/core/c_string_view.hpp
     include/core/callbacks_pool.hpp
+    include/core/chrono_calendar_time.hpp
     include/core/chrono_clock_source.hpp
     include/core/chrono_countdown_timer.hpp
     include/core/chrono_duration.hpp
     include/core/chrono_steady_clock.hpp
     include/core/chrono_stopwatch.hpp
+    include/core/chrono_system_clock.hpp
     include/core/constexpr_utils.hpp
     include/core/fixed_string.hpp
     include/core/fixed_vector.hpp
@@ -155,6 +157,7 @@ set(INL_CORE_LIST
     include/core/bitwise_enum.inl
     include/core/c_string_view.inl
     include/core/callbacks_pool.inl
+    include/core/chrono_calendar_time.inl
     include/core/chrono_clock_source.inl
     include/core/chrono_countdown_timer.inl
     include/core/chrono_stopwatch.inl
