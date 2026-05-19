@@ -40,25 +40,28 @@ static void constructor(picobench::state & state) noexcept {
 static void expired(picobench::state & state) noexcept {
   ClockSource clock;
 
-  bool             aggregatedVal = false;
+  bool             result{false};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
-    aggregatedVal |= timer.expired();
+    result |= timer.expired();
   }
-  state.set_result(aggregatedVal ? 1 : 0);
+  state.set_result(result ? 1 : 0);
 }
 
 static void remaining(picobench::state & state) noexcept {
   ClockSource clock;
 
-  picobench::scope scope(state);
+  CountdownTimer::duration result{0};
+  picobench::scope         scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
-    [[maybe_unused]] auto val = timer.remaining();
+    [[maybe_unused]] auto val  = timer.remaining();
+    result                    += val;
   }
+  state.set_result(result.count());
 }
 
 PICOBENCH_SUITE("toy::chrono::CountdownTimer");
