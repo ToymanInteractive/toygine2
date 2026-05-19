@@ -28,105 +28,108 @@
 namespace toy {
 
 static void vformatToNoPlaceholders(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("Hello World"));
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatToSingleInt(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("value: {}"), 42);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatToSingleCString(picobench::state & state) noexcept {
-  const char *    msg = "engine";
-  volatile size_t totalSize{0};
+  const char * msg = "engine";
 
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("toy {}"), msg);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatToSingleFixedString(picobench::state & state) noexcept {
   constexpr FixedString<16> name{"engine"};
-  volatile size_t           totalSize{0};
 
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("toy {}"), name);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatToSingleCStringView(picobench::state & state) noexcept {
   constexpr CStringView sv{"engine"};
-  volatile size_t       totalSize{0};
 
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("toy {}"), sv);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatTo3ArgsMixed(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("{} {} {}"), 42, "world", true);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatTo5ArgsInt(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<128> output;
     vformatTo(output, CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatToPositionalReorder(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("{1} before {0}"), 10, 20);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 static void vformatToEscapedBraces(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
     vformatTo(output, CStringView("{{{}}}: {{done}}"), 42);
-    totalSize += output.size();
+    result += output.size();
   }
+  state.set_result(result);
 }
 
 PICOBENCH_SUITE("toy::vformatTo");
@@ -141,33 +144,33 @@ PICOBENCH(vformatToPositionalReorder);
 PICOBENCH(vformatToEscapedBraces);
 
 static void vformatSingleInt(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    const auto result  = vformat<64>(CStringView("value: {}"), 42);
-    totalSize         += result.size();
+    const auto formattedString  = vformat<64>(CStringView("value: {}"), 42);
+    result                     += formattedString.size();
   }
+  state.set_result(result);
 }
 
 static void vformat3ArgsMixed(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    const auto result  = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
-    totalSize         += result.size();
+    const auto formattedString  = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
+    result                     += formattedString.size();
   }
+  state.set_result(result);
 }
 
 static void vformat5ArgsInt(picobench::state & state) noexcept {
-  volatile size_t totalSize{0};
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    const auto result  = vformat<128>(CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
-    totalSize         += result.size();
+    const auto formattedString  = vformat<128>(CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
+    result                     += formattedString.size();
   }
+  state.set_result(result);
 }
 
 PICOBENCH_SUITE("toy::vformat");

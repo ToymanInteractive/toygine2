@@ -28,22 +28,23 @@
 namespace toy {
 
 static void capacity(picobench::state & state) noexcept {
-  volatile size_t aggregatedCapacity = 0;
-
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    aggregatedCapacity += StringFixedStorage<16>::capacity();
+    result += StringFixedStorage<16>::capacity();
   }
+  state.set_result(result);
 }
 
 static void size(picobench::state & state) noexcept {
   StringFixedStorage<16> storage;
 
-  volatile size_t  aggregatedSize = 0;
+  size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    aggregatedSize += storage.size();
+    result += storage.size();
   }
+  state.set_result(result);
 }
 
 static void setSize(picobench::state & state) noexcept {

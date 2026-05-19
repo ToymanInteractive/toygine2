@@ -40,13 +40,14 @@ static void constructor(picobench::state & state) noexcept {
 static void expired(picobench::state & state) noexcept {
   ClockSource clock;
 
-  volatile bool    aggregatedVal = false;
+  bool             aggregatedVal = false;
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     CountdownTimer timer{timeout};
 
     aggregatedVal |= timer.expired();
   }
+  state.set_result(aggregatedVal ? 1 : 0);
 }
 
 static void remaining(picobench::state & state) noexcept {
