@@ -162,8 +162,11 @@ PenaltyExcessCharacter: 19937
 PenaltyReturnTypeOnItsOwnLine: 19937
 PointerAlignment: Middle
 QualifierAlignment: Left
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#referencealignment
-ReflowComments: true
+ReferenceAlignment: Middle
+ReflowComments: Always
+RemoveBracesLLVM: false
+RemoveEmptyLinesInUnwrappedLines: false
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#removeparentheses
 RequiresClausePosition: OwnLine
 SeparateDefinitionBlocks: Leave
 ShortNamespaceLines: 0

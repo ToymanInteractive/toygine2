@@ -19,111 +19,127 @@
 //
 /*!
   \file   format.benchmark.cpp
-  \brief  Nanobench benchmarks for toy::vformat() and toy::vformatTo().
+  \brief  Implementation of picobench benchmarks for toy::vformat() and toy::vformatTo().
 */
 
-#include "../utils.hpp"
 #include "core.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy {
 
-void formatCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  // ----- vformatTo -----
-
-  bench.run("vformatTo no placeholders", [] {
+static void vformatToNoPlaceholders(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
     FixedString<64> output;
-
     vformatTo(output, CStringView("Hello World"));
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo single int", [] {
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("value: {}"), 42);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo single c-string", [] {
-    const char *    msg = "hello";
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("say: {}"), msg);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo single FixedString", [] {
-    FixedString<16> name("engine");
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("toy {}"), name);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo single CStringView", [] {
-    CStringView     sv("engine");
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("toy {}"), sv);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo 3 args mixed", [] {
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("{} {} {}"), 42, "world", true);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo 5 args int", [] {
-    FixedString<128> output;
-
-    vformatTo(output, CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo positional reorder", [] {
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("{1} before {0}"), 10, 20);
-
-    doNotOptimize(output);
-  });
-
-  bench.run("vformatTo escaped braces", [] {
-    FixedString<64> output;
-
-    vformatTo(output, CStringView("{{{}}}: {{done}}"), 42);
-
-    doNotOptimize(output);
-  });
-
-  // ----- vformat -----
-
-  bench.run("vformat single int", [] {
-    auto result = vformat<64>(CStringView("value: {}"), 42);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat 3 args mixed", [] {
-    auto result = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("vformat 5 args int", [] {
-    auto result = vformat<128>(CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
-
-    doNotOptimize(result);
-  });
+  }
 }
+
+static void vformatToSingleInt(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("value: {}"), 42);
+  }
+}
+
+static void vformatToSingleCString(picobench::state & state) noexcept {
+  const char * msg = "hello";
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("say: {}"), msg);
+  }
+}
+
+static void vformatToSingleFixedString(picobench::state & state) noexcept {
+  FixedString<16> name("engine");
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("toy {}"), name);
+  }
+}
+
+static void vformatToSingleCStringView(picobench::state & state) noexcept {
+  CStringView sv("engine");
+
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("toy {}"), sv);
+  }
+}
+
+static void vformatTo3ArgsMixed(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("{} {} {}"), 42, "world", true);
+  }
+}
+
+static void vformatTo5ArgsInt(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<128> output;
+    vformatTo(output, CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
+  }
+}
+
+static void vformatToPositionalReorder(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("{1} before {0}"), 10, 20);
+  }
+}
+
+static void vformatToEscapedBraces(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    FixedString<64> output;
+    vformatTo(output, CStringView("{{{}}}: {{done}}"), 42);
+  }
+}
+
+PICOBENCH_SUITE("toy::vformatTo");
+PICOBENCH(vformatToNoPlaceholders);
+PICOBENCH(vformatToSingleInt);
+PICOBENCH(vformatToSingleCString);
+PICOBENCH(vformatToSingleFixedString);
+PICOBENCH(vformatToSingleCStringView);
+PICOBENCH(vformatTo3ArgsMixed);
+PICOBENCH(vformatTo5ArgsInt);
+PICOBENCH(vformatToPositionalReorder);
+PICOBENCH(vformatToEscapedBraces);
+
+static void vformatSingleInt(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    [[maybe_unused]] auto result = vformat<64>(CStringView("value: {}"), 42);
+  }
+}
+
+static void vformat3ArgsMixed(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    [[maybe_unused]] auto result = vformat<64>(CStringView("{} {} {}"), 42, "world", true);
+  }
+}
+
+static void vformat5ArgsInt(picobench::state & state) noexcept {
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    [[maybe_unused]] auto result = vformat<128>(CStringView("{} {} {} {} {}"), 1, 2, 3, 4, 5);
+  }
+}
+
+PICOBENCH_SUITE("toy::vformat");
+PICOBENCH(vformatSingleInt);
+PICOBENCH(vformat3ArgsMixed);
+PICOBENCH(vformat5ArgsInt);
 
 } // namespace toy
