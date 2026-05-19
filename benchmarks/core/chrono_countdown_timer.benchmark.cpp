@@ -61,7 +61,7 @@ static void remaining(picobench::state & state) noexcept {
     [[maybe_unused]] auto val  = timer.remaining();
     result                    += val;
   }
-  state.set_result(bit_cast<uintptr_t>(result));
+  state.set_result(bit_cast<uintptr_t>(&result));
 }
 
 PICOBENCH_SUITE("toy::chrono::CountdownTimer");
