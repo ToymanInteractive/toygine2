@@ -156,6 +156,19 @@ static void oStringStreamTimePointFormatHhMmSsZzz(picobench::state & state) noex
   state.set_result(result);
 }
 
+static void oStringStreamCalendarTime(picobench::state & state) noexcept {
+  const chrono::CalendarTime ct = chrono::SystemClock::now();
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << ct;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
 PICOBENCH_SUITE("toy::OStringStream");
 PICOBENCH(oStringStreamDefaultConstruct);
 PICOBENCH(oStringStreamLiteralAndInt);
@@ -168,5 +181,6 @@ PICOBENCH(oStringStreamDurationFormatHhMmSs);
 PICOBENCH(oStringStreamDurationFormatHhMmSsZzz);
 PICOBENCH(oStringStreamTimePointMilliseconds);
 PICOBENCH(oStringStreamTimePointFormatHhMmSsZzz);
+PICOBENCH(oStringStreamCalendarTime);
 
 } // namespace toy

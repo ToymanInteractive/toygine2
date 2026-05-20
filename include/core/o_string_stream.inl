@@ -362,6 +362,25 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
 }
 
 template <OStringStreamBackend BackendType>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(chrono::CalendarTime value) noexcept {
+  _writeZeroPadded(static_cast<int32_t>(value.year), 4);
+  put('-');
+  _writeZeroPadded(static_cast<int32_t>(value.month), 2);
+  put('-');
+  _writeZeroPadded(static_cast<int32_t>(value.day), 2);
+  put(' ');
+  _writeZeroPadded(static_cast<int32_t>(value.hour), 2);
+  put(':');
+  _writeZeroPadded(static_cast<int32_t>(value.minute), 2);
+  put(':');
+  _writeZeroPadded(static_cast<int32_t>(value.second), 2);
+  put('.');
+  _writeZeroPadded(static_cast<int32_t>(value.millisecond), 3);
+
+  return *this;
+}
+
+template <OStringStreamBackend BackendType>
 constexpr const BackendType & OStringStream<BackendType>::str() const noexcept {
   return _string;
 }

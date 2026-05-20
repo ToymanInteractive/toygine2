@@ -34,7 +34,7 @@ CalendarTime SystemClock::now() noexcept {
     return CalendarTime::invalid();
 
   tm utcTM;
-  gmtime_r(&ts.tv_sec, &utcTM);
+  localtime_r(&ts.tv_sec, &utcTM);
 
   return CalendarTime{
     .year        = static_cast<int16_t>(utcTM.tm_year + 1900),
@@ -44,7 +44,7 @@ CalendarTime SystemClock::now() noexcept {
     .hour        = static_cast<uint8_t>(utcTM.tm_hour),
     .minute      = static_cast<uint8_t>(utcTM.tm_min),
     .second      = static_cast<uint8_t>(utcTM.tm_sec),
-    .millisecond = static_cast<uint16_t>(ts.tv_nsec / 1000),
+    .millisecond = static_cast<uint16_t>(ts.tv_nsec / 1'000'000),
   };
 }
 
