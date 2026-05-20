@@ -18,29 +18,37 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   core_benchmark.cpp
-  \brief  Implementation of nanobench benchmarks for the core module.
+  \file   system_clock_posix.cpp
+  \brief  Implementation of \ref toy::chrono::SystemClock for POSIX.
 */
-
-#include <nanobench.h>
 
 #include "core.hpp"
 
-namespace toy {
+namespace toy::chrono {
 
-void ftoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void itoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void utoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void formatNumberStringCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void highestBitCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+CalendarTime SystemClock::now() noexcept {
+  timespec  ts{};
+  const int rc = clock_gettime(CLOCK_REALTIME, &ts);
+  assert_message(rc == 0, "SystemClock::now: clock_gettime(CLOCK_REALTIME) failed");
+  if (rc != 0)
+    return CalendarTime::invalid();
 
-} // namespace toy
+  tm               utcTM;
+  const tm * const tmResult = localtime_r(&ts.tv_sec, &utcTM);
+  assert_message(tmResult != nullptr, "SystemClock::now: localtime_r failed");
+  if (tmResult == nullptr)
+    return CalendarTime::invalid();
 
-void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  toy::ftoaCoreBenchmarks(bench);
-  toy::itoaCoreBenchmarks(bench);
-  toy::utoaCoreBenchmarks(bench);
-  toy::formatNumberStringCoreBenchmarks(bench);
-  toy::highestBitCoreBenchmarks(bench);
+  return CalendarTime{
+    .year        = static_cast<int16_t>(utcTM.tm_year + 1900),
+    .month       = static_cast<uint8_t>(utcTM.tm_mon + 1),
+    .day         = static_cast<uint8_t>(utcTM.tm_mday),
+    .dayOfWeek   = static_cast<uint8_t>(utcTM.tm_wday),
+    .hour        = static_cast<uint8_t>(utcTM.tm_hour),
+    .minute      = static_cast<uint8_t>(utcTM.tm_min),
+    .second      = static_cast<uint8_t>(utcTM.tm_sec),
+    .millisecond = static_cast<uint16_t>(ts.tv_nsec / 1'000'000),
+  };
 }
+
+} // namespace toy::chrono

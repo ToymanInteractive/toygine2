@@ -19,111 +19,168 @@
 //
 /*!
   \file   o_string_stream.benchmark.cpp
-  \brief  Implementations for output string stream nanobench benchmarks in the core module.
+  \brief  Implementation of picobench benchmarks for \ref toy::OStringStream.
 */
 
-#include "../utils.hpp"
 #include "core.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy {
 
-// OStringStream benchmarks (FixedString backend)
-void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  // ----- primitive inserts -----
-
-  bench.run("OStringStream<FixedString<64>> default construct", [] {
+static void oStringStreamDefaultConstruct(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
     OStringStream<FixedString<64>> s;
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream<FixedString<64>> literal and int", [] {
-    OStringStream<FixedString<64>> s;
-
-    s << "n=" << 12345;
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream<FixedString<64>> chained mixed", [] {
-    OStringStream<FixedString<64>> s;
-
-    s << "v=" << -42 << ' ' << 3.1415926F << CStringView(" end");
-
-    doNotOptimize(s);
-  });
-
-  // ----- chrono::Duration -----
-
-  bench.run("OStringStream Duration nanoseconds", [] {
-    OStringStream<FixedString<32>> s;
-
-    s << chrono::nanoseconds{16'000'000};
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream Duration milliseconds", [] {
-    OStringStream<FixedString<32>> s;
-
-    s << chrono::milliseconds{1'042};
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream Duration seconds", [] {
-    OStringStream<FixedString<32>> s;
-
-    s << chrono::seconds{65};
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream Duration negative milliseconds", [] {
-    OStringStream<FixedString<32>> s;
-
-    s << chrono::milliseconds{-500};
-
-    doNotOptimize(s);
-  });
-
-  // ----- chrono::DurationFormat -----
-
-  bench.run("OStringStream DurationFormat hh:mm:ss", [] {
-    OStringStream<FixedString<32>> s;
-
-    s << chrono::DurationFormat{"h:m:s:z", chrono::milliseconds{3'723'000}};
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream DurationFormat hh:mm:ss.zzz", [] {
-    OStringStream<FixedString<32>> s;
-
-    s << chrono::DurationFormat{"hh:mm:ss.zzz", chrono::milliseconds{3'723'042}};
-
-    doNotOptimize(s);
-  });
-
-  // ----- chrono::TimePoint / TimePointFormat -----
-
-  bench.run("OStringStream TimePoint milliseconds", [] {
-    OStringStream<FixedString<32>>                                     s;
-    const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
-
-    s << tp;
-
-    doNotOptimize(s);
-  });
-
-  bench.run("OStringStream TimePointFormat hh:mm:ss.zzz", [] {
-    OStringStream<FixedString<32>>                                     s;
-    const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
-
-    s << chrono::TimePointFormat{"hh:mm:ss.zzz", tp};
-
-    doNotOptimize(s);
-  });
+    result += s.str().size();
+  }
+  state.set_result(result);
 }
+
+static void oStringStreamLiteralAndInt(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<64>> s;
+    s << "n=" << 12345;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamChainedMixed(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<64>> s;
+    s << "v=" << -42 << ' ' << 3.1415926F << CStringView(" end");
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamDurationNanoseconds(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << chrono::nanoseconds{16'000'000};
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamDurationMilliseconds(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << chrono::milliseconds{1'042};
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamDurationSeconds(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << chrono::seconds{65};
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamDurationNegativeMilliseconds(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << chrono::milliseconds{-500};
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamDurationFormatHhMmSs(picobench::state & state) noexcept {
+  const chrono::DurationFormat fmt{"h:m:s:z", chrono::milliseconds{3'723'000}};
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << fmt;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamDurationFormatHhMmSsZzz(picobench::state & state) noexcept {
+  const chrono::DurationFormat fmt{"hh:mm:ss.zzz", chrono::milliseconds{3'723'042}};
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << fmt;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamTimePointMilliseconds(picobench::state & state) noexcept {
+  const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << tp;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamTimePointFormatHhMmSsZzz(picobench::state & state) noexcept {
+  const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
+  const chrono::TimePointFormat                                      fmt{"hh:mm:ss.zzz", tp};
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << fmt;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamCalendarTime(picobench::state & state) noexcept {
+  const chrono::CalendarTime ct = chrono::SystemClock::now();
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << ct;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+PICOBENCH_SUITE("toy::OStringStream");
+PICOBENCH(oStringStreamDefaultConstruct);
+PICOBENCH(oStringStreamLiteralAndInt);
+PICOBENCH(oStringStreamChainedMixed);
+PICOBENCH(oStringStreamDurationNanoseconds);
+PICOBENCH(oStringStreamDurationMilliseconds);
+PICOBENCH(oStringStreamDurationSeconds);
+PICOBENCH(oStringStreamDurationNegativeMilliseconds);
+PICOBENCH(oStringStreamDurationFormatHhMmSs);
+PICOBENCH(oStringStreamDurationFormatHhMmSsZzz);
+PICOBENCH(oStringStreamTimePointMilliseconds);
+PICOBENCH(oStringStreamTimePointFormatHhMmSsZzz);
+PICOBENCH(oStringStreamCalendarTime);
 
 } // namespace toy

@@ -82,7 +82,8 @@ concept OStringStreamBackend = std::default_initializable<T> && std::assignable_
 
   OStringStream provides a \c std::ostringstream-like \c operator<< surface; allocation and capacity follow
   \a BackendType (e.g. \ref toy::FixedString). Integral, floating-point, boolean, pointer, character, C-string,
-  string-like, \ref toy::chrono::Duration, and \ref toy::chrono::TimePoint inserts are supported.
+  string-like, \ref toy::chrono::Duration, \ref toy::chrono::TimePoint, and \ref toy::chrono::CalendarTime inserts are
+  supported.
 
   \tparam BackendType The type of the underlying storage. Must satisfy the \ref toy::OStringStreamBackend concept.
 
@@ -94,8 +95,8 @@ concept OStringStreamBackend = std::default_initializable<T> && std::assignable_
   - **Floating-point precision**: \c precision() / \c setPrecision() affect subsequent floating inserts.
   - **Chrono types**: \ref toy::chrono::Duration formats as a decimal second count with an \c 's' suffix
     (e.g. \c "0.016000000s") or, via \ref toy::chrono::DurationFormat, as a clock-style string using a pattern
-    (e.g. \c "hh:mm:ss.zzz" → \c "00:00:01.042"), and \ref toy::chrono::TimePoint delegates to
-    \ref toy::chrono::Duration.
+    (e.g. \c "hh:mm:ss.zzz" → \c "00:00:01.042"); \ref toy::chrono::TimePoint delegates to \ref toy::chrono::Duration;
+    \ref toy::chrono::CalendarTime outputs \c "YYYY-MM-DD HH:MM:SS.ZZZ" (e.g. \c "2026-05-20 14:30:45.123").
 
   \section usage Usage Example
 
@@ -485,6 +486,7 @@ public:
 
     \sa operator<<(chrono::DurationFormat<Rep, Period>)
     \sa operator<<(chrono::TimePoint<Clock, Dur>)
+    \sa operator<<(chrono::CalendarTime)
     \sa tellp()
   */
   template <typename Rep, typename Period>
@@ -539,7 +541,9 @@ public:
     \note The epoch is implementation-defined and may differ across processes and reboots; only differences between
           two time points produced by the same \ref toy::chrono::ClockSource are meaningful.
 
+    \sa operator<<(chrono::TimePointFormat<Clock, Dur>)
     \sa operator<<(chrono::Duration<Rep, Period>)
+    \sa operator<<(chrono::CalendarTime)
     \sa tellp()
   */
   template <typename Clock, typename Dur>
@@ -573,6 +577,26 @@ public:
   template <typename Clock, typename Dur>
     requires std::signed_integral<typename Dur::rep>
   constexpr OStringStream & operator<<(chrono::TimePointFormat<Clock, Dur> value) noexcept;
+
+  /*!
+    \brief Inserts a \ref toy::chrono::CalendarTime as \c "YYYY-MM-DD HH:MM:SS.ZZZ" into the stream.
+
+    Formats \a value using UTC field values from \a value directly. All numeric fields are zero-padded to their
+    canonical width. When \a value equals chrono::CalendarTime::invalid() the output is \c "0000-00-00 00:00:00.000".
+
+    \param value The calendar date and time to insert.
+
+    \return A reference to this OStringStream, allowing operator chaining.
+
+    \post The write position is advanced by 23 characters (the fixed width of the formatted string).
+
+    \note No locale, time zone, or DST conversion is applied; fields are taken from \a value as-is.
+
+    \sa operator<<(chrono::Duration<Rep, Period>)
+    \sa operator<<(chrono::TimePoint<Clock, Dur>)
+    \sa tellp()
+  */
+  constexpr OStringStream & operator<<(chrono::CalendarTime value) noexcept;
 
   /*!
     \brief Returns a const reference to the underlying string storage.

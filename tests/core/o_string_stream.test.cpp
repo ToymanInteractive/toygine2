@@ -1241,6 +1241,35 @@ TEST_CASE("o_string_stream/operator_insert") {
 
     REQUIRE(stream.view() == "[00:00:05]");
   }
+
+  // operator<< CalendarTime: all fields are emitted as zero-padded ISO 8601 date-time.
+  SUBCASE("insert_chrono_calendar_time") {
+    OStringStream<FixedString<32>> stream;
+    const chrono::CalendarTime     ct{2026, 5, 20, 3, 14, 30, 45, 123};
+
+    stream << ct;
+
+    REQUIRE(stream.view() == "2026-05-20 14:30:45.123");
+  }
+
+  // operator<< CalendarTime: single-digit fields are zero-padded to their canonical width.
+  SUBCASE("insert_chrono_calendar_time_zero_padding") {
+    OStringStream<FixedString<32>> stream;
+    const chrono::CalendarTime     ct{2026, 1, 5, 0, 9, 5, 3, 7};
+
+    stream << ct;
+
+    REQUIRE(stream.view() == "2026-01-05 09:05:03.007");
+  }
+
+  // operator<< CalendarTime::invalid() outputs the all-zero sentinel string.
+  SUBCASE("insert_chrono_calendar_time_invalid") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << chrono::CalendarTime::invalid();
+
+    REQUIRE(stream.view() == "0000-00-00 00:00:00.000");
+  }
 }
 
 } // namespace toy

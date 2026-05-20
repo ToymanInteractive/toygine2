@@ -117,18 +117,22 @@ public:
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> min() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(1);
   }
+
   /// Returns lowest (most negative) value.
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> lowest() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(numeric_limits<Base>::lowest());
   }
+
   /// Returns maximum finite value.
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> max() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(numeric_limits<Base>::max());
   }
+
   /// Returns 1 LSB (smallest representable positive).
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> epsilon() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>::fromRawValue(1);
   }
+
   /// Returns 0.5 (maximum rounding error).
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> round_error() noexcept {
     if constexpr (Rounding) {
@@ -137,6 +141,7 @@ public:
       return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1);     // 1.0
     }
   }
+
   /// Returns min() (no denormals).
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> denorm_min() noexcept {
     return min();
@@ -146,10 +151,12 @@ public:
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> infinity() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
+
   /// Returns zero (fixed-point has no NaN).
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> quiet_NaN() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
   }
+
   /// Returns zero (fixed-point has no NaN).
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> signaling_NaN() noexcept {
     return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(0);
