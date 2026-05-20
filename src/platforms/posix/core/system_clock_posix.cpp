@@ -19,7 +19,7 @@
 //
 /*!
   \file   system_clock_posix.cpp
-  \brief  Implementation of \ref toy::chrono::ClockSource for POSIX.
+  \brief  Implementation of \ref toy::chrono::SystemClock for POSIX.
 */
 
 #include "core.hpp"

@@ -582,8 +582,7 @@ public:
     \brief Inserts a \ref toy::chrono::CalendarTime as \c "YYYY-MM-DD HH:MM:SS.ZZZ" into the stream.
 
     Formats \a value using UTC field values from \a value directly. All numeric fields are zero-padded to their
-    canonical width. When \a value equals \ref toy::chrono::CalendarTime::invalid() (all fields zero) the output is
-    \c "0000-00-00 00:00:00.000".
+    canonical width. When \a value equals chrono::CalendarTime::invalid() the output is \c "0000-00-00 00:00:00.000".
 
     \param value The calendar date and time to insert.
 
