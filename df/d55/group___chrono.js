@@ -44,11 +44,7 @@ var group___chrono =
       [ "_startTicks", "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#aae84a9d7dc4d54a1048ddf0baaf03846", null ]
     ] ],
     [ "toy::chrono::SystemClock", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html", [
-      [ "duration", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#afb7b86a12184846ac29fa283f1174d2c", null ],
-      [ "period", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#ac992aa676e566b6beec847a91af6deaa", null ],
-      [ "rep", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a55feec04ca0b1ff9c2941621eae71289", null ],
-      [ "time_point", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a346fc728ed83cce6f81cc1757e2d4335", null ],
-      [ "now", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#acfaba8494190b6a794fe3267dbb59200", null ],
+      [ "now", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b", null ],
       [ "is_steady", "d7/d73/classtoy_1_1chrono_1_1_system_clock.html#aff8525abeeca418b948a0ba65717c259", null ]
     ] ],
     [ "toy::chrono::Duration", "df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191", null ],

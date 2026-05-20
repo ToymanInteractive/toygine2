@@ -1,5 +1,5 @@
 <map id="include/core/chrono_system_clock.hpp" name="include/core/chrono_system_clock.hpp">
-<area shape="rect" id="Node000001" title="Wall&#45;clock type anchored to the Unix epoch." alt="" coords="2653,5,2802,45"/>
+<area shape="rect" id="Node000001" title="Wall&#45;clock type that returns the current UTC date and time as a broken&#45;down toy::chrono::CalendarTime..." alt="" coords="2653,5,2802,45"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2663,93,2792,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2730,59,2730,93,2725,93,2725,59"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="650,174,823,199"/>

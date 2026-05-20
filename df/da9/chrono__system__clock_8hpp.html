@@ -137,19 +137,12 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('df/da9/chrono_
 </div><!--header-->
 <div class="contents">
 
-<p>Wall-clock type anchored to the Unix epoch.  
+<p>Wall-clock type that returns the current UTC date and time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &quot;<a class="el" href="../../dd/ddb/chrono__duration_8hpp_source.html">chrono_duration.hpp</a>&quot;</code><br />
-</div><div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>Include dependency graph for chrono_system_clock.hpp:</div>
+<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
 <div id="dynsection-0-summary" class="dynsummary" style="display:block;">
 </div>
 <div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../d2/dc4/chrono__system__clock_8hpp__incl.svg" width="166" height="124"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
-</div><div class="textblock"><div id="dynsection-1" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
-<div id="dynsection-1-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-1-content" class="dyncontent" style="display:none;">
 <div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dc/dcd/chrono__system__clock_8hpp__dep__incl.svg" width="100%" height="591"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
 </div>
 </div>
@@ -158,7 +151,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('df/da9/chrono_
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
 <tr class="memitem:toy_3A_3Achrono_3A_3ASystemClock" id="r_toy_3A_3Achrono_3A_3ASystemClock"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html">toy::chrono::SystemClock</a></td></tr>
-<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stateless wall clock anchored to the Unix epoch (Jan 1, 1970, UTC).  <a href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#details">More...</a><br /></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Stateless wall clock that returns the current UTC date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  <a href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
 Namespaces</h2></td></tr>
@@ -168,8 +161,8 @@ Namespaces</h2></td></tr>
 <tr class="memdesc:db/d3c/namespacetoy_1_1chrono"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time-measurement types: duration and time-point aliases over <code>std::chrono</code>. <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Wall-clock type anchored to the Unix epoch. </p>
-<p>Defines toy::chrono::SystemClock: a stateless clock that returns the current calendar time as nanoseconds since Jan 1, 1970 (UTC). Does not depend on <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>; delegates directly to the platform time API on each call. Not steady — the returned value may decrease if the system clock is adjusted (NTP, DST, manual set).</p>
+<div class="textblock"><p>Wall-clock type that returns the current UTC date and time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
+<p>Defines toy::chrono::SystemClock: a stateless clock that returns a <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. Not steady — the returned value may change non-monotonically if the system clock is adjusted (NTP, DST, manual set).</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a> only; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

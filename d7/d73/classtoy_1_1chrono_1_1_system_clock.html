@@ -137,136 +137,59 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d7/d73/classto
 </div><!--header-->
 <div class="contents">
 
-<p>Stateless wall clock anchored to the Unix epoch (Jan 1, 1970, UTC).  
+<p>Stateless wall clock that returns the current UTC date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-types" class="groupheader"><a id="pub-types" name="pub-types"></a>
-Public Types</h2></td></tr>
-<tr class="memitem:a55feec04ca0b1ff9c2941621eae71289" id="r_a55feec04ca0b1ff9c2941621eae71289"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a55feec04ca0b1ff9c2941621eae71289">rep</a> = int64_t</td></tr>
-<tr class="memdesc:a55feec04ca0b1ff9c2941621eae71289"><td class="mdescLeft">&#160;</td><td class="mdescRight">Arithmetic type used to count nanoseconds since the Unix epoch.  <br /></td></tr>
-<tr class="memitem:ac992aa676e566b6beec847a91af6deaa" id="r_ac992aa676e566b6beec847a91af6deaa"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#ac992aa676e566b6beec847a91af6deaa">period</a> = std::ratio&lt;1, 1'000'000'000&gt;</td></tr>
-<tr class="memdesc:ac992aa676e566b6beec847a91af6deaa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tick period: one nanosecond, fixed on all platforms.  <br /></td></tr>
-<tr class="memitem:afb7b86a12184846ac29fa283f1174d2c" id="r_afb7b86a12184846ac29fa283f1174d2c"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#afb7b86a12184846ac29fa283f1174d2c">duration</a> = <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191">Duration</a>&lt;<a class="el" href="#a55feec04ca0b1ff9c2941621eae71289">rep</a>, <a class="el" href="#ac992aa676e566b6beec847a91af6deaa">period</a>&gt;</td></tr>
-<tr class="memdesc:afb7b86a12184846ac29fa283f1174d2c"><td class="mdescLeft">&#160;</td><td class="mdescRight"><a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="Generic duration alias over std::chrono::duration.">Duration</a> type produced by <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a>; nanoseconds as a <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>.  <br /></td></tr>
-<tr class="memitem:a346fc728ed83cce6f81cc1757e2d4335" id="r_a346fc728ed83cce6f81cc1757e2d4335"><td class="memItemLeft">using&#160;</td><td class="memItemRight"><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335">time_point</a> = <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff">TimePoint</a>&lt;<a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html">SystemClock</a>&gt;</td></tr>
-<tr class="memdesc:a346fc728ed83cce6f81cc1757e2d4335"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time-point type returned by <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a>; anchored to the Unix epoch via this clock.  <br /></td></tr>
-</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:acfaba8494190b6a794fe3267dbb59200" id="r_acfaba8494190b6a794fe3267dbb59200"><td class="memItemLeft">static <a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335">time_point</a>&#160;</td><td class="memItemRight"><a class="el" href="#acfaba8494190b6a794fe3267dbb59200">now</a> () noexcept</td></tr>
-<tr class="memdesc:acfaba8494190b6a794fe3267dbb59200"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).  <br /></td></tr>
+<tr class="memitem:a034db0f8f0dcd82f897e9e1b46bd3f0b" id="r_a034db0f8f0dcd82f897e9e1b46bd3f0b"><td class="memItemLeft">static <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a>&#160;</td><td class="memItemRight"><a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">now</a> () noexcept</td></tr>
+<tr class="memdesc:a034db0f8f0dcd82f897e9e1b46bd3f0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current UTC wall-clock time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
 <tr class="memitem:aff8525abeeca418b948a0ba65717c259" id="r_aff8525abeeca418b948a0ba65717c259"><td class="memItemLeft">static constexpr bool&#160;</td><td class="memItemRight"><a class="el" href="#aff8525abeeca418b948a0ba65717c259">is_steady</a> = false</td></tr>
-<tr class="memdesc:aff8525abeeca418b948a0ba65717c259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not steady: the underlying platform clock may be adjusted after construction.  <br /></td></tr>
+<tr class="memdesc:aff8525abeeca418b948a0ba65717c259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not steady: the underlying platform clock may be adjusted at any time by the operating system.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stateless wall clock anchored to the Unix epoch (Jan 1, 1970, UTC). </p>
-<p>Returns the current calendar time as a <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> with nanosecond resolution. Does not require an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a> — each call to <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a> reads the platform time API directly. The clock is not steady: the returned value may decrease or jump when the system clock is adjusted by NTP, DST changes, or a manual time set. Use <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a> for elapsed-time measurement and <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a> or <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> for interval logic.</p>
+<div class="textblock"><p>Stateless wall clock that returns the current UTC date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
+<p>Each call to <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> reads the platform calendar-time API directly and returns a broken-down UTC time as a <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> aggregate. Does not require an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>. The clock is not steady: the returned value may change non-monotonically when the system clock is adjusted by NTP, DST changes, or a manual time set. Use <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a> for elapsed-time measurement and <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a> or <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> for interval logic.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li><b>Unix epoch</b>: <code><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335" title="Time-point type returned by now(); anchored to the Unix epoch via this clock.">time_point</a></code> is measured from Jan 1, 1970, 00:00:00 UTC; compatible with POSIX and OS calendar APIs.</li>
-<li><b>No <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="RAII owner of the platform hardware time source.">ClockSource</a> dependency</b>: stateless; no RAII owner required before calling <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a>.</li>
-<li><b>Nanosecond period</b>: <code>period</code> is <code>std::ratio&lt;1,1000000000&gt;</code> on all platforms; precision is bounded by the underlying platform API.</li>
+<li><b>Broken-down UTC time</b>: <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns year, month, day, weekday, hour, minute, second, and millisecond directly — no epoch arithmetic required at the call site.</li>
+<li><b>No <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="RAII owner of the platform hardware time source.">ClockSource</a> dependency</b>: stateless; no RAII owner required before calling <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a>.</li>
+<li><b>Millisecond resolution</b>: sub-millisecond precision from the underlying platform API is truncated.</li>
 <li><b>Not steady</b>: <code>is_steady</code> is <code>false</code> — the clock may be adjusted at any time by the operating system.</li>
-<li><b>Stub support</b>: on platforms without RTC (e.g. GBA) <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a> returns <code><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335" title="Time-point type returned by now(); anchored to the Unix epoch via this clock.">time_point</a>{}</code> (epoch).</li>
+<li><b>Stub support</b>: on platforms without RTC <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> <a class="code hl_function" href="#acfaba8494190b6a794fe3267dbb59200">now</a> = <a class="code hl_function" href="#acfaba8494190b6a794fe3267dbb59200">toy::chrono::SystemClock::now</a>();</div>
-<div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> secondsSinceEpoch =</div>
-<div class="line">  toy::chrono::duration_cast&lt;toy::chrono::seconds&gt;(<a class="code hl_function" href="#acfaba8494190b6a794fe3267dbb59200">now</a>.time_since_epoch());</div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_acfaba8494190b6a794fe3267dbb59200"><div class="ttname"><a href="#acfaba8494190b6a794fe3267dbb59200">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static time_point now() noexcept</div><div class="ttdoc">Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:82</div></div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a> ct = <a class="code hl_function" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a>();</div>
+<div class="line"><span class="comment">// ct.year == 2026, ct.month == 5, ct.day == 20, ct.hour == 14, ...</span></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:79</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+<div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down UTC calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:69</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
-<li><b><a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a></b>: O(1); one platform API call (<code>clock_gettime</code> on POSIX, <code>GetSystemTimePreciseAsFileTime</code> on Windows).</li>
+<li><b><a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a></b>: O(1); one platform API call (<code>clock_gettime</code> + <code>gmtime_r</code> on POSIX, <code>GetSystemTime</code> on Windows).</li>
 <li><b>Memory usage</b>: 0 bytes (stateless type).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
 <ul>
-<li><b>No preconditions</b>: <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a> may be called without an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>.</li>
-<li><b>Non-negative on RTC platforms</b>: <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a>.time_since_epoch().count() is non-negative on all platforms with a functioning RTC initialised to a date after Jan 1, 1970.</li>
-<li><b>Stub behaviour</b>: on platforms without RTC, <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a> returns <code><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335" title="Time-point type returned by now(); anchored to the Unix epoch via this clock.">time_point</a>{}</code> (epoch, count == 0).</li>
+<li><b>No preconditions</b>: <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> may be called without an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>.</li>
+<li><b>Stub behaviour</b>: on platforms without RTC, <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>.</li>
 <li><b>Exception safety</b>: all operations are <code>noexcept</code>.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd><code>is_steady</code> is <code>false:</code> the clock may jump backward or forward when the system time is adjusted.</dd></dl>
 <dl class="section warning"><dt>Warning</dt><dd>Do not use for elapsed-time measurement or interval logic; use <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a>, or <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> instead.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a>, <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> </dd></dl>
-</div><a name="doc-typedef-members" id="doc-typedef-members"></a><h2 id="header-doc-typedef-members" class="groupheader">Member Typedef Documentation</h2>
-<a id="afb7b86a12184846ac29fa283f1174d2c" name="afb7b86a12184846ac29fa283f1174d2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb7b86a12184846ac29fa283f1174d2c">&#9670;&#160;</a></span>duration</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#afb7b86a12184846ac29fa283f1174d2c">toy::chrono::SystemClock::duration</a> = <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191">Duration</a>&lt;<a class="el" href="#a55feec04ca0b1ff9c2941621eae71289">rep</a>, <a class="el" href="#ac992aa676e566b6beec847a91af6deaa">period</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p><a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="Generic duration alias over std::chrono::duration.">Duration</a> type produced by <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a>; nanoseconds as a <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>. </p>
-
-</div>
-</div>
-<a id="ac992aa676e566b6beec847a91af6deaa" name="ac992aa676e566b6beec847a91af6deaa"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac992aa676e566b6beec847a91af6deaa">&#9670;&#160;</a></span>period</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#ac992aa676e566b6beec847a91af6deaa">toy::chrono::SystemClock::period</a> = std::ratio&lt;1, 1'000'000'000&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Tick period: one nanosecond, fixed on all platforms. </p>
-
-</div>
-</div>
-<a id="a55feec04ca0b1ff9c2941621eae71289" name="a55feec04ca0b1ff9c2941621eae71289"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a55feec04ca0b1ff9c2941621eae71289">&#9670;&#160;</a></span>rep</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a55feec04ca0b1ff9c2941621eae71289">toy::chrono::SystemClock::rep</a> = int64_t</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Arithmetic type used to count nanoseconds since the Unix epoch. </p>
-
-</div>
-</div>
-<a id="a346fc728ed83cce6f81cc1757e2d4335" name="a346fc728ed83cce6f81cc1757e2d4335"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a346fc728ed83cce6f81cc1757e2d4335">&#9670;&#160;</a></span>time_point</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">using <a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335">toy::chrono::SystemClock::time_point</a> = <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff">TimePoint</a>&lt;<a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html">SystemClock</a>&gt;</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Time-point type returned by <a class="el" href="#acfaba8494190b6a794fe3267dbb59200" title="Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).">now()</a>; anchored to the Unix epoch via this clock. </p>
-
-</div>
-</div>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="acfaba8494190b6a794fe3267dbb59200" name="acfaba8494190b6a794fe3267dbb59200"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acfaba8494190b6a794fe3267dbb59200">&#9670;&#160;</a></span>now()</h2>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>, <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a>, <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a>, <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> </dd></dl>
+</div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
+<a id="a034db0f8f0dcd82f897e9e1b46bd3f0b" name="a034db0f8f0dcd82f897e9e1b46bd3f0b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">&#9670;&#160;</a></span>now()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,7 +198,7 @@ Safety Guarantees</h1>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335">SystemClock::time_point</a> toy::chrono::SystemClock::now </td>
+          <td class="memname"><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a> toy::chrono::SystemClock::now </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -288,10 +211,10 @@ Safety Guarantees</h1>
 </table>
 </div><div class="memdoc">
 
-<p>Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC). </p>
-<p>Reads the platform calendar-time API directly on each call. The returned value advances with real time but may decrease or jump if the system clock is adjusted (NTP sync, DST change, manual set).</p>
-<dl class="section return"><dt>Returns</dt><dd><code><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335" title="Time-point type returned by now(); anchored to the Unix epoch via this clock.">time_point</a></code> whose <code>time_since_epoch()</code> is the number of nanoseconds elapsed since Jan 1, 1970, 00:00:00 UTC, or <code><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335" title="Time-point type returned by now(); anchored to the Unix epoch via this clock.">time_point</a>{}</code> on platforms without RTC.</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>On platforms without an RTC (e.g. GBA) this function always returns <code><a class="el" href="#a346fc728ed83cce6f81cc1757e2d4335" title="Time-point type returned by now(); anchored to the Unix epoch via this clock.">time_point</a>{}</code> (epoch). </dd></dl>
+<p>Current UTC wall-clock time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
+<p>Reads the platform calendar-time API directly on each call. The returned value advances with real time but may change non-monotonically if the system clock is adjusted (NTP sync, DST change, manual set).</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> with all fields filled from the current UTC time.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>On platforms without an RTC this function always returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>. </dd></dl>
 
 </div>
 </div>
@@ -316,7 +239,7 @@ Safety Guarantees</h1>
 </table>
 </div><div class="memdoc">
 
-<p>Not steady: the underlying platform clock may be adjusted after construction. </p>
+<p>Not steady: the underlying platform clock may be adjusted at any time by the operating system. </p>
 
 </div>
 </div>

@@ -59,9 +59,9 @@ var sectionId = 'dynsection-0';
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Duration and time&#45;point aliases over std::chrono.">
-<polygon fill="#999999" stroke="#666666" points="2120.39,-415 2008.39,-415 2008.39,-385 2120.39,-385 2120.39,-415"/>
-<text text-anchor="start" x="2016.39" y="-403" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
-<text text-anchor="middle" x="2064.39" y="-392" font-family="Helvetica,sans-Serif" font-size="10.00">_duration.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="2101.39,-415 1989.39,-415 1989.39,-385 2101.39,-385 2101.39,-415"/>
+<text text-anchor="start" x="1997.39" y="-403" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
+<text text-anchor="middle" x="2045.39" y="-392" font-family="Helvetica,sans-Serif" font-size="10.00">_duration.hpp</text>
 </a>
 </g>
 </g>
@@ -78,8 +78,8 @@ var sectionId = 'dynsection-0';
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2027.17,-379.29C2016.17,-371.45 2005.45,-361.32 1999.39,-349 1990.63,-331.22 2002.74,-266.85 2008.39,-253 2014.05,-239.1 2025.06,-225.62 2032.8,-217.2"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2025.3,-382.25 2035.57,-384.84 2029.16,-376.41 2025.3,-382.25"/>
+<path fill="none" stroke="#63b8ff" d="M2032.18,-375.76C2028.21,-367.57 2024.38,-358.12 2022.39,-349 2011.59,-299.71 2030.27,-239.26 2038.14,-217.14"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2029.1,-377.43 2036.79,-384.71 2035.32,-374.22 2029.1,-377.43"/>
 </a>
 </g>
 </g>
@@ -87,9 +87,9 @@ var sectionId = 'dynsection-0';
 <g id="Node000032" class="node">
 <title>Node32</title>
 <g id="a_Node000032"><a xlink:href="../../d3/d6a/chrono__steady__clock_8hpp.html" target="_top" xlink:title="Stateless monotonic clock facade over the active toy::chrono::ClockSource.">
-<polygon fill="white" stroke="#666666" points="2120.39,-349 2008.39,-349 2008.39,-319 2120.39,-319 2120.39,-349"/>
-<text text-anchor="start" x="2016.39" y="-337" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
-<text text-anchor="middle" x="2064.39" y="-326" font-family="Helvetica,sans-Serif" font-size="10.00">_steady_clock.hpp</text>
+<polygon fill="white" stroke="#666666" points="2143.39,-349 2031.39,-349 2031.39,-319 2143.39,-319 2143.39,-349"/>
+<text text-anchor="start" x="2039.39" y="-337" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
+<text text-anchor="middle" x="2087.39" y="-326" font-family="Helvetica,sans-Serif" font-size="10.00">_steady_clock.hpp</text>
 </a>
 </g>
 </g>
@@ -97,27 +97,8 @@ var sectionId = 'dynsection-0';
 <g id="edge39_Node000001_Node000032" class="edge">
 <title>Node1&#45;&gt;Node32</title>
 <g id="a_edge39_Node000001_Node000032"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2064.39,-374.54C2064.39,-365.96 2064.39,-356.61 2064.39,-349.16"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2060.89,-374.8 2064.39,-384.8 2067.89,-374.8 2060.89,-374.8"/>
-</a>
-</g>
-</g>
-<!-- Node34 -->
-<g id="Node000034" class="node">
-<title>Node34</title>
-<g id="a_Node000034"><a xlink:href="../../df/da9/chrono__system__clock_8hpp.html" target="_top" xlink:title="Wall&#45;clock type anchored to the Unix epoch.">
-<polygon fill="white" stroke="#666666" points="2281.39,-283 2169.39,-283 2169.39,-253 2281.39,-253 2281.39,-283"/>
-<text text-anchor="start" x="2177.39" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
-<text text-anchor="middle" x="2225.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_system_clock.hpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node34 -->
-<g id="edge43_Node000001_Node000034" class="edge">
-<title>Node1&#45;&gt;Node34</title>
-<g id="a_edge43_Node000001_Node000034"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2091.18,-378.76C2102.98,-369.75 2116.96,-358.95 2129.39,-349 2157.67,-326.35 2189.9,-299.21 2208.9,-283.07"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2088.87,-376.13 2083.03,-384.97 2093.1,-381.7 2088.87,-376.13"/>
+<path fill="none" stroke="#63b8ff" d="M2060.32,-376.24C2066.24,-367.21 2072.88,-357.11 2078.09,-349.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2057.27,-374.52 2054.71,-384.8 2063.12,-378.36 2057.27,-374.52"/>
 </a>
 </g>
 </g>
@@ -738,8 +719,8 @@ var sectionId = 'dynsection-0';
 <g id="edge40_Node000032_Node000002" class="edge">
 <title>Node32&#45;&gt;Node2</title>
 <g id="a_edge40_Node000032_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2036.28,-312.32C2027.57,-304.25 2019.04,-294.23 2014.39,-283 2004.7,-259.61 2022.88,-231.36 2033.88,-217.31"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2034.04,-315 2043.9,-318.89 2038.61,-309.71 2034.04,-315"/>
+<path fill="none" stroke="#63b8ff" d="M2073.36,-309.87C2068.76,-301.6 2063.93,-292.08 2060.39,-283 2051.45,-260.12 2045.54,-231.65 2042.93,-217.44"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2070.35,-311.65 2078.37,-318.58 2076.42,-308.16 2070.35,-311.65"/>
 </a>
 </g>
 </g>
@@ -747,9 +728,9 @@ var sectionId = 'dynsection-0';
 <g id="Node000033" class="node">
 <title>Node33</title>
 <g id="a_Node000033"><a xlink:href="../../db/d1a/chrono__countdown__timer_8hpp.html" target="_top" xlink:title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock.">
-<polygon fill="white" stroke="#666666" points="2150.89,-283 2023.89,-283 2023.89,-253 2150.89,-253 2150.89,-283"/>
-<text text-anchor="start" x="2031.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
-<text text-anchor="middle" x="2087.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_countdown_timer.hpp</text>
+<polygon fill="white" stroke="#666666" points="2196.89,-283 2069.89,-283 2069.89,-253 2196.89,-253 2196.89,-283"/>
+<text text-anchor="start" x="2077.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/chrono</text>
+<text text-anchor="middle" x="2133.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_countdown_timer.hpp</text>
 </a>
 </g>
 </g>
@@ -757,8 +738,8 @@ var sectionId = 'dynsection-0';
 <g id="edge41_Node000032_Node000033" class="edge">
 <title>Node32&#45;&gt;Node33</title>
 <g id="a_edge41_Node000032_Node000033"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2072.97,-309.11C2076.11,-300.38 2079.56,-290.78 2082.3,-283.16"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2069.58,-308.2 2069.49,-318.8 2076.17,-310.57 2069.58,-308.2"/>
+<path fill="none" stroke="#63b8ff" d="M2103.54,-310.53C2110.08,-301.43 2117.43,-291.19 2123.21,-283.16"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2100.59,-308.63 2097.59,-318.8 2106.27,-312.72 2100.59,-308.63"/>
 </a>
 </g>
 </g>
@@ -766,17 +747,8 @@ var sectionId = 'dynsection-0';
 <g id="edge42_Node000033_Node000002" class="edge">
 <title>Node33&#45;&gt;Node2</title>
 <g id="a_edge42_Node000033_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2069.93,-244.8C2062.39,-235.21 2054,-224.54 2048.28,-217.27"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2067.32,-247.14 2076.25,-252.84 2072.82,-242.81 2067.32,-247.14"/>
-</a>
-</g>
-</g>
-<!-- Node34&#45;&gt;Node2 -->
-<g id="edge44_Node000034_Node000002" class="edge">
-<title>Node34&#45;&gt;Node2</title>
-<g id="a_edge44_Node000034_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2171.54,-249.88C2137.62,-239.09 2095.29,-225.64 2068.29,-217.05"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2170.72,-253.29 2181.31,-252.99 2172.84,-246.62 2170.72,-253.29"/>
+<path fill="none" stroke="#63b8ff" d="M2102.48,-247.35C2086.32,-237.07 2067.36,-225.02 2054.9,-217.09"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2100.8,-250.43 2111.12,-252.84 2104.55,-244.52 2100.8,-250.43"/>
 </a>
 </g>
 </g>

@@ -1,10 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3d47475e7d6754d1ccb1312bdb180b2":[5,0,1,3,0,0,1],
-"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3dfdcf530123b508c663d69c673253f":[3,0,2,4,0,0,0],
-"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3dfdcf530123b508c663d69c673253f":[5,0,1,3,0,0,0],
-"db/d6f/classtoy_1_1geometry_1_1_section.html":[3,0,2,9,2],
-"db/d6f/classtoy_1_1geometry_1_1_section.html":[5,0,1,5,2],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[3,0,2,9,2,5],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[5,0,1,5,2,5],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a195fe743b6a5d26df7e20ab2cdf97237":[3,0,2,9,2,4],
@@ -249,5 +244,10 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#auto":[1,10,6],
 "df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete":[1,10,4],
 "df/d81/md__a_g_e_n_t_s.html#binary-operators":[1,6,3],
-"df/d81/md__a_g_e_n_t_s.html#brace-initialization":[1,10,9]
+"df/d81/md__a_g_e_n_t_s.html#brace-initialization":[1,10,9],
+"df/d81/md__a_g_e_n_t_s.html#braces":[1,6,1],
+"df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide":[1,2],
+"df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,14,2],
+"df/d81/md__a_g_e_n_t_s.html#class-documentation-templates":[1,15],
+"df/d81/md__a_g_e_n_t_s.html#comments-and-documentation":[1,13]
 };

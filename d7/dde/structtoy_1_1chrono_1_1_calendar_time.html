@@ -166,7 +166,7 @@ Public Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Broken-down UTC calendar date and time with millisecond resolution. </p>
-<p>A plain aggregate populated by <a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#acfaba8494190b6a794fe3267dbb59200" title="toy::chrono::SystemClock::now()">toy::chrono::SystemClock::now()</a>. All fields are zero on platforms without an RTC.</p>
+<p>A plain aggregate populated by <a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="toy::chrono::SystemClock::now()">toy::chrono::SystemClock::now()</a>. All fields are zero on platforms without an RTC.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
@@ -178,9 +178,9 @@ Key Features</h1>
 Usage Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a> ct = <a class="code hl_function" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#acfaba8494190b6a794fe3267dbb59200">toy::chrono::SystemClock::now</a>();</div>
+<div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a> ct = <a class="code hl_function" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a>();</div>
 <div class="line"><span class="comment">// ct.year == 2026, ct.month == 5, ct.day == 19, ct.hour == 14, ...</span></div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_acfaba8494190b6a794fe3267dbb59200"><div class="ttname"><a href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#acfaba8494190b6a794fe3267dbb59200">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static time_point now() noexcept</div><div class="ttdoc">Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:82</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:79</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 <div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down UTC calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:69</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>

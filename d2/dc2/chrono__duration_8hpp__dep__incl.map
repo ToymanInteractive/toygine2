@@ -1,11 +1,9 @@
 <map id="include/core/chrono_duration.hpp" name="include/core/chrono_duration.hpp">
-<area shape="rect" id="Node000001" title="Duration and time&#45;point aliases over std::chrono." alt="" coords="2683,5,2833,45"/>
+<area shape="rect" id="Node000001" title="Duration and time&#45;point aliases over std::chrono." alt="" coords="2658,5,2807,45"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2663,269,2792,295"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2710,55,2689,73,2674,94,2670,121,2673,159,2686,220,2701,246,2718,267,2714,271,2696,249,2681,222,2667,160,2664,121,2669,92,2685,69,2706,51"/>
-<area shape="rect" id="Node000032" href="$d3/d6a/chrono__steady__clock_8hpp.html" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="2683,93,2833,133"/>
-<area shape="poly" id="edge39_Node000001_Node000032" title=" " alt="" coords="2761,59,2761,93,2755,93,2755,59"/>
-<area shape="rect" id="Node000034" href="$df/da9/chrono__system__clock_8hpp.html" title="Wall&#45;clock type anchored to the Unix epoch." alt="" coords="2898,181,3047,221"/>
-<area shape="poly" id="edge43_Node000001_Node000034" title=" " alt="" coords="2795,52,2846,91,2952,179,2949,183,2843,95,2792,56"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2717,59,2704,94,2700,144,2706,194,2716,238,2725,268,2720,270,2711,239,2700,195,2695,144,2699,93,2712,57"/>
+<area shape="rect" id="Node000032" href="$d3/d6a/chrono__steady__clock_8hpp.html" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="2714,93,2863,133"/>
+<area shape="poly" id="edge39_Node000001_Node000032" title=" " alt="" coords="2755,56,2778,92,2774,95,2750,58"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="650,350,823,375"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="2649,289,824,361,824,355,2648,284"/>
 <area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="1860,533,2019,559"/>
@@ -72,9 +70,8 @@
 <area shape="poly" id="edge25_Node000019_Node000004" title=" " alt="" coords="2460,376,2554,403,2592,417,2612,429,2621,444,2624,459,2621,473,2612,487,2581,503,2525,515,2363,532,2177,542,2019,546,2019,541,2177,536,2363,527,2524,509,2579,497,2608,483,2616,471,2619,459,2616,446,2608,433,2589,422,2552,408,2458,381"/>
 <area shape="rect" id="Node000020" href="$db/d3d/pixel__format_8cpp.html" title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format...." alt="" coords="2673,445,2873,471"/>
 <area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="2460,376,2727,443,2726,448,2459,381"/>
-<area shape="poly" id="edge40_Node000032_Node000002" title=" " alt="" coords="2722,144,2706,162,2694,182,2690,205,2696,229,2719,268,2715,270,2691,231,2685,206,2689,180,2702,159,2718,140"/>
-<area shape="rect" id="Node000033" href="$db/d1a/chrono__countdown__timer_8hpp.html" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="2704,181,2873,221"/>
-<area shape="poly" id="edge41_Node000032_Node000033" title=" " alt="" coords="2772,146,2784,180,2779,182,2767,147"/>
-<area shape="poly" id="edge42_Node000033_Node000002" title=" " alt="" coords="2767,234,2738,271,2734,267,2763,231"/>
-<area shape="poly" id="edge44_Node000034_Node000002" title=" " alt="" coords="2902,228,2764,272,2762,267,2900,223"/>
+<area shape="poly" id="edge40_Node000032_Node000002" title=" " alt="" coords="2772,147,2755,182,2740,230,2732,269,2727,268,2735,229,2750,180,2767,144"/>
+<area shape="rect" id="Node000033" href="$db/d1a/chrono__countdown__timer_8hpp.html" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="2765,181,2935,221"/>
+<area shape="poly" id="edge41_Node000032_Node000033" title=" " alt="" coords="2812,143,2838,180,2834,183,2808,146"/>
+<area shape="poly" id="edge42_Node000033_Node000002" title=" " alt="" coords="2810,231,2747,271,2744,267,2807,227"/>
 </map>

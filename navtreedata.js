@@ -158,12 +158,12 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "annotated.html",
-"d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611",
-"d4/da9/namespacetoy.html#a50ab25ff3fb94874504ea406b6e7d689",
-"d7/d15/classtoy_1_1_o_string_stream.html#a34b8aed089bfbe268732ef912112cc8f",
-"d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b",
-"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3d47475e7d6754d1ccb1312bdb180b2",
-"df/d81/md__a_g_e_n_t_s.html#braces"
+"d3/d7a/classtoy_1_1_fixed_string.html#a1c304eb847c05f3c1105335485a0491e",
+"d4/da9/namespacetoy.html#a5568d083a1e1f805d9a0b9e22d3ea00d",
+"d7/d15/classtoy_1_1_o_string_stream.html#a3a29f25768bb67c014008fc313ed9c43",
+"d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03",
+"db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9",
+"df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

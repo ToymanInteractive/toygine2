@@ -2,5 +2,5 @@ var searchData=
 [
   ['difference_5ftype_0',['difference_type',['../d3/d7a/classtoy_1_1_fixed_string.html#af0a932d6255074d2eeb76fe6264b8598',1,'toy::FixedString::difference_type'],['../d7/dec/classtoy_1_1_fixed_vector.html#a8f4d0bbecd1cae924c3f72beca3b0b13',1,'toy::FixedVector::difference_type']]],
   ['duration_1',['Duration',['../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191',1,'toy::chrono']]],
-  ['duration_2',['duration',['../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#adc875f17528d818624d652bcccc9d2af',1,'toy::chrono::CountdownTimer::duration'],['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07',1,'toy::chrono::SteadyClock::duration'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f',1,'toy::chrono::Stopwatch::duration'],['../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#afb7b86a12184846ac29fa283f1174d2c',1,'toy::chrono::SystemClock::duration']]]
+  ['duration_2',['duration',['../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#adc875f17528d818624d652bcccc9d2af',1,'toy::chrono::CountdownTimer::duration'],['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#acd69f9033acc176ec96710d3565f3e07',1,'toy::chrono::SteadyClock::duration'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f',1,'toy::chrono::Stopwatch::duration']]]
 ];
