@@ -93,6 +93,15 @@ struct CalendarTime {
   uint8_t  second;
   /// Millisecond within the current second: 0–999.
   uint16_t millisecond;
+
+  /*!
+    \brief Equality comparison is deleted.
+
+    \ref toy::chrono::CalendarTime carries no time-zone metadata: identical field values from different hosts or after a
+    DST transition do not refer to the same instant. Comparing two values would silently hide that ambiguity. Compare
+    explicit fields directly when the intent is well-defined.
+  */
+  friend bool operator==(const CalendarTime & lhs, const CalendarTime & rhs) = delete;
 };
 
 } // namespace toy::chrono
