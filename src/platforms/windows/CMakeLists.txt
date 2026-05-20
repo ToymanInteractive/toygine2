@@ -24,7 +24,8 @@ set(PLATFORM_LIB_APPLICATION_LIST )
 
 set(PLATFORM_SRC_CORE_LIST
     src/platforms/stub/core/assertion_stub.cpp
-    src/platforms/windows/core/clock_source_windows.cpp)
+    src/platforms/windows/core/clock_source_windows.cpp
+    src/platforms/windows/core/system_clock_windows.cpp)
 set(PLATFORM_HDR_CORE_LIST )
 set(PLATFORM_LIB_CORE_LIST )
 
