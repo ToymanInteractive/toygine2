@@ -21,7 +21,7 @@
   \file   chrono_calendar_time.hpp
   \brief  Broken-down calendar date and time with millisecond resolution.
 
-  Defines \ref toy::chrono::CalendarTime: a plain aggregate holding the Gregorian date and UTC time components
+  Defines \ref toy::chrono::CalendarTime: a plain aggregate holding the Gregorian date and local time components
   returned by \ref toy::chrono::SystemClock::now().
 
   \note Included by core.hpp only; do not include this file directly.
@@ -34,7 +34,7 @@ namespace toy::chrono {
 
 /*!
   \struct CalendarTime
-  \brief  Broken-down UTC calendar date and time with millisecond resolution.
+  \brief  Broken-down local calendar date and time with millisecond resolution.
 
   A plain aggregate populated by \ref toy::chrono::SystemClock::now(). All fields are zero on platforms without an RTC.
 
