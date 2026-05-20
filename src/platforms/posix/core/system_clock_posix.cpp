@@ -19,7 +19,7 @@
 //
 /*!
   \file   system_clock_posix.cpp
-  \brief  POSIX implementations of \ref toy::chrono::SystemClock.
+  \brief  Implementation of \ref toy::chrono::ClockSource for POSIX.
 */
 
 #include "core.hpp"
@@ -33,8 +33,11 @@ CalendarTime SystemClock::now() noexcept {
   if (rc != 0)
     return CalendarTime::invalid();
 
-  tm utcTM;
-  localtime_r(&ts.tv_sec, &utcTM);
+  tm               utcTM;
+  const tm * const tmResult = localtime_r(&ts.tv_sec, &utcTM);
+  assert_message(tmResult != nullptr, "SystemClock::now: localtime_r failed");
+  if (tmResult == nullptr)
+    return CalendarTime::invalid();
 
   return CalendarTime{
     .year        = static_cast<int16_t>(utcTM.tm_year + 1900),

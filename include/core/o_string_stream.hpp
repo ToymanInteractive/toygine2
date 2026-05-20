@@ -96,7 +96,7 @@ concept OStringStreamBackend = std::default_initializable<T> && std::assignable_
   - **Chrono types**: \ref toy::chrono::Duration formats as a decimal second count with an \c 's' suffix
     (e.g. \c "0.016000000s") or, via \ref toy::chrono::DurationFormat, as a clock-style string using a pattern
     (e.g. \c "hh:mm:ss.zzz" → \c "00:00:01.042"); \ref toy::chrono::TimePoint delegates to \ref toy::chrono::Duration;
-    \ref toy::chrono::CalendarTime outputs ISO 8601 (e.g. \c "2026-05-20 14:30:45.123").
+    \ref toy::chrono::CalendarTime outputs \c "YYYY-MM-DD HH:MM:SS.ZZZ" (e.g. \c "2026-05-20 14:30:45.123").
 
   \section usage Usage Example
 
@@ -579,11 +579,11 @@ public:
   constexpr OStringStream & operator<<(chrono::TimePointFormat<Clock, Dur> value) noexcept;
 
   /*!
-    \brief Inserts a \ref toy::chrono::CalendarTime as an ISO 8601 date-time string into the stream.
+    \brief Inserts a \ref toy::chrono::CalendarTime as \c "YYYY-MM-DD HH:MM:SS.ZZZ" into the stream.
 
-    Formats \a value as \c "YYYY-MM-DD HH:MM:SS.ZZZ" using UTC field values from \a value directly. All numeric fields
-    are zero-padded to their canonical width. When \a value equals \ref toy::chrono::CalendarTime::invalid() (all fields
-    zero) the output is \c "0000-00-00 00:00:00.000".
+    Formats \a value using UTC field values from \a value directly. All numeric fields are zero-padded to their
+    canonical width. When \a value equals \ref toy::chrono::CalendarTime::invalid() (all fields zero) the output is
+    \c "0000-00-00 00:00:00.000".
 
     \param value The calendar date and time to insert.
 

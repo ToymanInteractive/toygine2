@@ -1244,8 +1244,8 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< CalendarTime: all fields are emitted as zero-padded ISO 8601 date-time.
   SUBCASE("insert_chrono_calendar_time") {
-    OStringStream<FixedString<32>>  stream;
-    const chrono::CalendarTime      ct{2026, 5, 20, 3, 14, 30, 45, 123};
+    OStringStream<FixedString<32>> stream;
+    const chrono::CalendarTime     ct{2026, 5, 20, 3, 14, 30, 45, 123};
 
     stream << ct;
 
@@ -1254,8 +1254,8 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< CalendarTime: single-digit fields are zero-padded to their canonical width.
   SUBCASE("insert_chrono_calendar_time_zero_padding") {
-    OStringStream<FixedString<32>>  stream;
-    const chrono::CalendarTime      ct{2026, 1, 5, 0, 9, 5, 3, 7};
+    OStringStream<FixedString<32>> stream;
+    const chrono::CalendarTime     ct{2026, 1, 5, 0, 9, 5, 3, 7};
 
     stream << ct;
 

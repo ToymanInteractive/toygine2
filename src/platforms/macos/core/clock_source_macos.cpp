@@ -19,7 +19,7 @@
 //
 /*!
   \file   clock_source_macos.cpp
-  \brief  macOS implementations of \ref toy::chrono::ClockSource, \ref toy::chrono::SteadyClock.
+  \brief  Implementation of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock for macOS.
 */
 
 #include "core.hpp"
