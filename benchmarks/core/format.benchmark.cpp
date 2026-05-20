@@ -50,7 +50,7 @@ static void vformatToSingleInt(picobench::state & state) noexcept {
 }
 
 static void vformatToSingleCString(picobench::state & state) noexcept {
-  const char * msg = "engine";
+  static constexpr char msg[] = "engine";
 
   size_t           result{0};
   picobench::scope scope(state);

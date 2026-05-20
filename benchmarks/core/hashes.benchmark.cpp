@@ -19,17 +19,60 @@
 //
 /*!
   \file   hashes.benchmark.cpp
-  \brief  Implementations for hashes nanobench benchmarks in the core module.
+  \brief  Implementation of picobench benchmarks for toy::crc8(), toy::crc16(), and toy::crc32().
 */
 
-#include "../utils.hpp"
 #include "core.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy {
 
-// Hashes benchmarks (crc8, crc16, crc32)
-void hashesCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  static constexpr auto crcPayload512 = []() consteval noexcept {
+static void crc8ShortString(picobench::state & state) noexcept {
+  static constexpr char s[] = "Hello";
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += crc8(s, sizeof(s) - 1);
+
+  state.set_result(result);
+}
+
+static void crc8MediumString(picobench::state & state) noexcept {
+  static constexpr char s[] = "Toygine2 - Free 2D/3D game engine.";
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += crc8(s, sizeof(s) - 1);
+
+  state.set_result(result);
+}
+
+static void crc16MediumString(picobench::state & state) noexcept {
+  static constexpr char s[] = "Toygine2 - Free 2D/3D game engine.";
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += crc16(s, sizeof(s) - 1);
+
+  state.set_result(result);
+}
+
+static void crc32MediumString(picobench::state & state) noexcept {
+  static constexpr char s[] = "Toygine2 - Free 2D/3D game engine.";
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += crc32(s, sizeof(s) - 1);
+
+  state.set_result(result);
+}
+
+static void crc32Buffer512(picobench::state & state) noexcept {
+  static constexpr auto payload = []() consteval noexcept {
     array<unsigned char, 512> arr{};
 
     for (size_t i = 0; i < 512; ++i)
@@ -38,43 +81,19 @@ void hashesCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
     return arr;
   }();
 
-  bench.run("crc8 short string", [] {
-    static const char s[] = "Hello";
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += crc32(payload.data(), payload.size());
 
-    auto r = toy::crc8(s, sizeof(s) - 1);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("crc8 medium string", [] {
-    static const char s[] = "Toygine2 - Free 2D/3D game engine.";
-
-    auto r = toy::crc8(s, sizeof(s) - 1);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("crc16 medium string", [] {
-    static const char s[] = "Toygine2 - Free 2D/3D game engine.";
-
-    auto r = toy::crc16(s, sizeof(s) - 1);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("crc32 medium string", [] {
-    static const char s[] = "Toygine2 - Free 2D/3D game engine.";
-
-    auto r = toy::crc32(s, sizeof(s) - 1);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("crc32 512 byte buffer", [] {
-    auto r = toy::crc32(crcPayload512.data(), crcPayload512.size());
-
-    doNotOptimize(r);
-  });
+  state.set_result(result);
 }
+
+PICOBENCH_SUITE("toy::hashes");
+PICOBENCH(crc8ShortString);
+PICOBENCH(crc8MediumString);
+PICOBENCH(crc16MediumString);
+PICOBENCH(crc32MediumString);
+PICOBENCH(crc32Buffer512);
 
 } // namespace toy

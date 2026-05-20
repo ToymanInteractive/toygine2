@@ -30,8 +30,6 @@
 #ifndef INCLUDE_CORE_CHRONO_SYSTEM_CLOCK_HPP_
 #define INCLUDE_CORE_CHRONO_SYSTEM_CLOCK_HPP_
 
-#include "chrono_duration.hpp"
-
 namespace toy::chrono {
 
 /*!
@@ -39,45 +37,41 @@ namespace toy::chrono {
 
   \ingroup Chrono
 
-  \brief Stateless wall clock anchored to the Unix epoch (Jan 1, 1970, UTC).
+  \brief Stateless wall clock that returns the current UTC date and time as \ref toy::chrono::CalendarTime.
 
-  Returns the current calendar time as a \ref toy::chrono::TimePoint with nanosecond resolution. Does not require an
-  active \ref toy::chrono::ClockSource — each call to now() reads the platform time API directly. The clock is not
-  steady: the returned value may decrease or jump when the system clock is adjusted by NTP, DST changes, or a manual
-  time set. Use \ref toy::chrono::SteadyClock for elapsed-time measurement and \ref toy::chrono::Stopwatch or
+  Each call to now() reads the platform calendar-time API directly and returns a broken-down UTC time as a
+  \ref toy::chrono::CalendarTime aggregate. Does not require an active \ref toy::chrono::ClockSource. The clock is not
+  steady: the returned value may change non-monotonically when the system clock is adjusted by NTP, DST changes, or a
+  manual time set. Use \ref toy::chrono::SteadyClock for elapsed-time measurement and \ref toy::chrono::Stopwatch or
   \ref toy::chrono::CountdownTimer for interval logic.
 
   \section features Key Features
 
-  - **Unix epoch**: \c time_point is measured from Jan 1, 1970, 00:00:00 UTC; compatible with POSIX and OS calendar
-    APIs.
+  - **Broken-down UTC time**: now() returns year, month, day, weekday, hour, minute, second, and millisecond directly —
+    no epoch arithmetic required at the call site.
   - **No ClockSource dependency**: stateless; no RAII owner required before calling now().
-  - **Nanosecond period**: \c period is \c std::ratio<1,1000000000> on all platforms; precision is bounded by the
-    underlying platform API.
+  - **Millisecond resolution**: sub-millisecond precision from the underlying platform API is truncated.
   - **Not steady**: \c is_steady is \c false — the clock may be adjusted at any time by the operating system.
-  - **Stub support**: on platforms without RTC (e.g. GBA) now() returns \c time_point{} (epoch).
+  - **Stub support**: on platforms without RTC now() returns \ref toy::chrono::CalendarTime::invalid().
 
   \section usage Usage Example
 
   \code
   #include "core.hpp"
 
-  const auto now = toy::chrono::SystemClock::now();
-  const auto secondsSinceEpoch =
-    toy::chrono::duration_cast<toy::chrono::seconds>(now.time_since_epoch());
+  const toy::chrono::CalendarTime ct = toy::chrono::SystemClock::now();
+  // ct.year == 2026, ct.month == 5, ct.day == 20, ct.hour == 14, ...
   \endcode
 
   \section performance Performance Characteristics
 
-  - **now()**: O(1); one platform API call (\c clock_gettime on POSIX, \c GetSystemTimePreciseAsFileTime on Windows).
+  - **now()**: O(1); one platform API call (\c clock_gettime + \c gmtime_r on POSIX, \c GetSystemTime on Windows).
   - **Memory usage**: 0 bytes (stateless type).
 
   \section safety Safety Guarantees
 
   - **No preconditions**: now() may be called without an active \ref toy::chrono::ClockSource.
-  - **Non-negative on RTC platforms**: now().time_since_epoch().count() is non-negative on all platforms with a
-    functioning RTC initialised to a date after Jan 1, 1970.
-  - **Stub behaviour**: on platforms without RTC, now() returns \c time_point{} (epoch, count == 0).
+  - **Stub behaviour**: on platforms without RTC, now() returns \ref toy::chrono::CalendarTime::invalid().
   - **Exception safety**: all operations are \c noexcept.
 
   \note \c is_steady is \c false: the clock may jump backward or forward when the system time is adjusted.
@@ -85,23 +79,23 @@ namespace toy::chrono {
   \warning Do not use for elapsed-time measurement or interval logic; use \ref toy::chrono::SteadyClock,
            \ref toy::chrono::Stopwatch, or \ref toy::chrono::CountdownTimer instead.
 
-  \sa \ref toy::chrono::SteadyClock, \ref toy::chrono::Stopwatch, \ref toy::chrono::CountdownTimer
+  \sa \ref toy::chrono::CalendarTime, \ref toy::chrono::SteadyClock, \ref toy::chrono::Stopwatch,
+      \ref toy::chrono::CountdownTimer
 */
 class SystemClock {
 public:
-  /// Not steady: the underlying platform clock may be adjusted after construction.
+  /// Not steady: the underlying platform clock may be adjusted at any time by the operating system.
   static constexpr bool is_steady = false;
 
   /*!
-    \brief Current wall-clock time as nanoseconds since the Unix epoch (Jan 1, 1970, UTC).
+    \brief Current UTC wall-clock time as a broken-down \ref toy::chrono::CalendarTime.
 
     Reads the platform calendar-time API directly on each call. The returned value advances with real time but may
-    decrease or jump if the system clock is adjusted (NTP sync, DST change, manual set).
+    change non-monotonically if the system clock is adjusted (NTP sync, DST change, manual set).
 
-    \return \c time_point whose \c time_since_epoch() is the number of nanoseconds elapsed since Jan 1, 1970, 00:00:00
-            UTC, or \c time_point{} on platforms without RTC.
+    \return \ref toy::chrono::CalendarTime with all fields filled from the current UTC time.
 
-    \note On platforms without an RTC (e.g. GBA) this function always returns \c time_point{} (epoch).
+    \note On platforms without an RTC this function always returns \ref toy::chrono::CalendarTime::invalid().
   */
   [[nodiscard]] static CalendarTime now() noexcept;
 };

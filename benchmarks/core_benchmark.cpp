@@ -29,7 +29,6 @@
 namespace toy {
 
 void ftoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void hashesCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void itoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void utoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
@@ -40,7 +39,6 @@ void highestBitCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::ftoaCoreBenchmarks(bench);
-  toy::hashesCoreBenchmarks(bench);
   toy::itoaCoreBenchmarks(bench);
   toy::oStringStreamCoreBenchmarks(bench);
   toy::utoaCoreBenchmarks(bench);
