@@ -19,11 +19,10 @@
 //
 /*!
   \file   chrono_system_clock.hpp
-  \brief  Wall-clock type anchored to the Unix epoch.
+  \brief  Wall-clock type that returns the current UTC date and time as a broken-down \ref toy::chrono::CalendarTime.
 
-  Defines \ref toy::chrono::SystemClock: a stateless clock that returns the current calendar time as nanoseconds since
-  Jan 1, 1970 (UTC). Does not depend on \ref toy::chrono::ClockSource; delegates directly to the platform time API on
-  each call. Not steady — the returned value may decrease if the system clock is adjusted (NTP, DST, manual set).
+  Defines \ref toy::chrono::SystemClock: a stateless clock that returns a \ref toy::chrono::CalendarTime. Not steady —
+  the returned value may change non-monotonically if the system clock is adjusted (NTP, DST, manual set).
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -90,15 +89,6 @@ namespace toy::chrono {
 */
 class SystemClock {
 public:
-  /// Arithmetic type used to count nanoseconds since the Unix epoch.
-  using rep        = int64_t;
-  /// Tick period: one nanosecond, fixed on all platforms.
-  using period     = std::ratio<1, 1'000'000'000>;
-  /// Duration type produced by now(); nanoseconds as a \ref toy::chrono::Duration.
-  using duration   = Duration<rep, period>;
-  /// Time-point type returned by now(); anchored to the Unix epoch via this clock.
-  using time_point = TimePoint<SystemClock>;
-
   /// Not steady: the underlying platform clock may be adjusted after construction.
   static constexpr bool is_steady = false;
 
@@ -113,7 +103,7 @@ public:
 
     \note On platforms without an RTC (e.g. GBA) this function always returns \c time_point{} (epoch).
   */
-  [[nodiscard]] static time_point now() noexcept;
+  [[nodiscard]] static CalendarTime now() noexcept;
 };
 
 } // namespace toy::chrono
