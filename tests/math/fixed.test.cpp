@@ -1103,7 +1103,7 @@ TEST_CASE("math/fixed/operator_ordering") {
 
     REQUIRE(a < b);
     REQUIRE(2 < b);
-    REQUIRE((a < 5));
+    REQUIRE(a < 5);
     REQUIRE(a <= b);
     REQUIRE(2 <= b);
     REQUIRE(a <= 5);

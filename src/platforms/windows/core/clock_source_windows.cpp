@@ -90,8 +90,8 @@ SteadyClock::time_point SteadyClock::now() noexcept {
   return activeSource != nullptr ? time_point{duration{activeSource->nowTicks()}} : time_point{};
 }
 
-SystemClock::time_point SystemClock::now() noexcept {
-  return time_point{};
+CalendarTime SystemClock::now() noexcept {
+  return CalendarTime::invalid();
 }
 
 } // namespace toy::chrono
