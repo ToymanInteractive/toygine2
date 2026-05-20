@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03":[3,0,2,21,12],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03":[5,0,1,15,12],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad9a73bb841a3c9f159db82bcbbbe7d57":[3,0,2,21,42],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad9a73bb841a3c9f159db82bcbbbe7d57":[5,0,1,15,42],
@@ -229,10 +230,11 @@ var NAVTREEINDEX4 =
 "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#aae84a9d7dc4d54a1048ddf0baaf03846":[2,0,5,5],
 "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f":[2,0,5,0],
 "da/de0/core_8cpp.html":[6,0,1,1,0],
+"db/d09/system__clock__posix_8cpp.html":[6,0,1,3,6,0,0],
 "db/d1a/chrono__countdown__timer_8hpp.html":[6,0,0,2,11],
 "db/d1a/chrono__countdown__timer_8hpp_source.html":[6,0,0,2,11],
-"db/d29/windows_2platform__config_8hpp.html":[6,0,1,3,8,2],
-"db/d29/windows_2platform__config_8hpp_source.html":[6,0,1,3,8,2],
+"db/d29/windows_2platform__config_8hpp.html":[6,0,1,3,9,2],
+"db/d29/windows_2platform__config_8hpp_source.html":[6,0,1,3,9,2],
 "db/d2d/hashes_8cpp.html":[6,0,1,1,1],
 "db/d33/string__fixed__storage_8inl.html":[6,0,0,2,42],
 "db/d33/string__fixed__storage_8inl_source.html":[6,0,0,2,42],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3d47475e7d6754d1ccb1312bdb180b2":[3,0,2,4,0,0,1],
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3d47475e7d6754d1ccb1312bdb180b2":[5,0,1,3,0,0,1],
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3dfdcf530123b508c663d69c673253f":[3,0,2,4,0,0,0],
-"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3dfdcf530123b508c663d69c673253f":[5,0,1,3,0,0,0],
-"db/d6f/classtoy_1_1geometry_1_1_section.html":[3,0,2,9,2],
-"db/d6f/classtoy_1_1geometry_1_1_section.html":[5,0,1,5,2]
+"db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html#af3dfdcf530123b508c663d69c673253f":[5,0,1,3,0,0,0]
 };

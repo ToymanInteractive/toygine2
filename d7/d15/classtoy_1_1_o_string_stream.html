@@ -215,6 +215,8 @@ requires std::signed_integral&lt;typename Dur::rep&gt;</td></tr>
 requires std::signed_integral&lt;typename Dur::rep&gt;</td></tr>
 <tr class="memitem:a19938a05e85f5411b635cad6fcca4476 template"><td class="memItemLeft">constexpr <a class="el" href="#adcc4bda14585fc0bbac5e0dbbf603d38">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a19938a05e85f5411b635cad6fcca4476">operator&lt;&lt;</a> (<a class="el" href="../../da/d20/structtoy_1_1chrono_1_1_time_point_format.html">chrono::TimePointFormat</a>&lt; Clock, Dur &gt; value) noexcept</td></tr>
 <tr class="memdesc:a19938a05e85f5411b635cad6fcca4476"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> formatted using the clock-style pattern in <em class="arg">value</em>.  <br /></td></tr>
+<tr class="memitem:ae7008f7557c2ddcbc5cc37c1b4ec72f2" id="r_ae7008f7557c2ddcbc5cc37c1b4ec72f2"><td class="memItemLeft">constexpr <a class="el" href="#adcc4bda14585fc0bbac5e0dbbf603d38">OStringStream</a> &amp;&#160;</td><td class="memItemRight"><a class="el" href="#ae7008f7557c2ddcbc5cc37c1b4ec72f2">operator&lt;&lt;</a> (<a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">chrono::CalendarTime</a> value) noexcept</td></tr>
+<tr class="memdesc:ae7008f7557c2ddcbc5cc37c1b4ec72f2"><td class="mdescLeft">&#160;</td><td class="mdescRight">Inserts a <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> as <code>"YYYY-MM-DD HH:MM:SS.ZZZ"</code> into the stream.  <br /></td></tr>
 <tr class="memitem:a34b8aed089bfbe268732ef912112cc8f" id="r_a34b8aed089bfbe268732ef912112cc8f"><td class="memItemLeft">constexpr const BackendType &amp;&#160;</td><td class="memItemRight"><a class="el" href="#a34b8aed089bfbe268732ef912112cc8f">str</a> () const noexcept</td></tr>
 <tr class="memdesc:a34b8aed089bfbe268732ef912112cc8f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns a const reference to the underlying string storage.  <br /></td></tr>
 <tr class="memitem:a9686e9fe73d3a373ba523a534312756c" id="r_a9686e9fe73d3a373ba523a534312756c"><td class="memTemplParams" colspan="2">template&lt;StringLike SourceStringType&gt; </td></tr>
@@ -264,7 +266,7 @@ Private Attributes</h2></td></tr>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><div class="compoundTemplParams">template&lt;OStringStreamBackend BackendType&gt;<br />
 class toy::OStringStream&lt; BackendType &gt;</div><p>Output stream that appends formatted values into a <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> backend. </p>
-<p><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::OStringStreamBackend backend.">OStringStream</a> provides a <code>std::ostringstream-like</code> <code>operator&lt;&lt;</code> surface; allocation and capacity follow <em class="arg">BackendType</em> (e.g. <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>). Integral, floating-point, boolean, pointer, character, C-string, string-like, <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>, and <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> inserts are supported.</p>
+<p><a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::OStringStreamBackend backend.">OStringStream</a> provides a <code>std::ostringstream-like</code> <code>operator&lt;&lt;</code> surface; allocation and capacity follow <em class="arg">BackendType</em> (e.g. <a class="el" href="../../d3/d7a/classtoy_1_1_fixed_string.html" title="toy::FixedString">toy::FixedString</a>). Integral, floating-point, boolean, pointer, character, C-string, string-like, <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>, <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a>, and <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> inserts are supported.</p>
 <dl class="tparams"><dt>Template Parameters</dt><dd>
   <table class="tparams">
     <tr><td class="paramname">BackendType</td><td>The type of the underlying storage. Must satisfy the <a class="el" href="../../d0/d5a/concepttoy_1_1_o_string_stream_backend.html" title="toy::OStringStreamBackend">toy::OStringStreamBackend</a> concept.</td></tr>
@@ -278,7 +280,7 @@ Key Features</h1>
 <li><b>constexpr</b>: Construction and many inserts are usable in constant evaluation when <em class="arg">BackendType</em> allows it.</li>
 <li><b>noexcept</b>: Members are <code>noexcept</code>; failed capacity is handled per <em class="arg">BackendType</em> (typically debug assertions).</li>
 <li><b>Floating-point precision</b>: <code><a class="el" href="#abfc06683ef353d726a10a24008c8ccba" title="Returns the current floating-point precision.">precision()</a></code> / <code><a class="el" href="#aef85961326b9f716f3c08429200b216f" title="Sets the floating-point precision and returns the previous value.">setPrecision()</a></code> affect subsequent floating inserts.</li>
-<li><b>Chrono types</b>: <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> formats as a decimal second count with an <code>'s'</code> suffix (e.g. <code>"0.016000000s"</code>) or, via <a class="el" href="../../d0/d23/structtoy_1_1chrono_1_1_duration_format.html" title="toy::chrono::DurationFormat">toy::chrono::DurationFormat</a>, as a clock-style string using a pattern (e.g. <code>"hh:mm:ss.zzz"</code> → <code>"00:00:01.042"</code>), and <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> delegates to <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>.</li>
+<li><b>Chrono types</b>: <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a> formats as a decimal second count with an <code>'s'</code> suffix (e.g. <code>"0.016000000s"</code>) or, via <a class="el" href="../../d0/d23/structtoy_1_1chrono_1_1_duration_format.html" title="toy::chrono::DurationFormat">toy::chrono::DurationFormat</a>, as a clock-style string using a pattern (e.g. <code>"hh:mm:ss.zzz"</code> → <code>"00:00:01.042"</code>); <a class="el" href="../../df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff" title="toy::chrono::TimePoint">toy::chrono::TimePoint</a> delegates to <a class="el" href="../../df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191" title="toy::chrono::Duration">toy::chrono::Duration</a>; <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> outputs <code>"YYYY-MM-DD HH:MM:SS.ZZZ"</code> (e.g. <code>"2026-05-20 14:30:45.123"</code>).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
@@ -290,8 +292,8 @@ Usage Example</h1>
 <div class="line"><span class="keyword">const</span> <span class="keyword">auto</span> result = stream.<a class="code hl_function" href="#a34b8aed089bfbe268732ef912112cc8f">str</a>();</div>
 <div class="line">(void)result;</div>
 <div class="ttc" id="aclasstoy_1_1_c_string_view_html"><div class="ttname"><a href="../../d5/d03/classtoy_1_1_c_string_view.html">toy::CStringView</a></div><div class="ttdoc">Non-owning string view class for C-style strings.</div><div class="ttdef"><b>Definition</b> c_string_view.hpp:111</div></div>
-<div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Output stream that appends formatted values into a toy::OStringStreamBackend backend.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:135</div></div>
-<div class="ttc" id="aclasstoy_1_1_o_string_stream_html_a34b8aed089bfbe268732ef912112cc8f"><div class="ttname"><a href="#a34b8aed089bfbe268732ef912112cc8f">toy::OStringStream::str</a></div><div class="ttdeci">constexpr const BackendType &amp; str() const noexcept</div><div class="ttdoc">Returns a const reference to the underlying string storage.</div><div class="ttdef"><b>Definition</b> o_string_stream.inl:365</div></div>
+<div class="ttc" id="aclasstoy_1_1_o_string_stream_html"><div class="ttname"><a href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a></div><div class="ttdoc">Output stream that appends formatted values into a toy::OStringStreamBackend backend.</div><div class="ttdef"><b>Definition</b> o_string_stream.hpp:136</div></div>
+<div class="ttc" id="aclasstoy_1_1_o_string_stream_html_a34b8aed089bfbe268732ef912112cc8f"><div class="ttname"><a href="#a34b8aed089bfbe268732ef912112cc8f">toy::OStringStream::str</a></div><div class="ttdeci">constexpr const BackendType &amp; str() const noexcept</div><div class="ttdoc">Returns a const reference to the underlying string storage.</div><div class="ttdef"><b>Definition</b> o_string_stream.inl:384</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
@@ -497,7 +499,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a44c7cca838780f331af5e3e2f8ffe82d" name="a44c7cca838780f331af5e3e2f8ffe82d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a44c7cca838780f331af5e3e2f8ffe82d">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a44c7cca838780f331af5e3e2f8ffe82d">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[1/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -536,7 +538,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a84bec8f857d27d5b9c34c43266959515" name="a84bec8f857d27d5b9c34c43266959515"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a84bec8f857d27d5b9c34c43266959515">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a84bec8f857d27d5b9c34c43266959515">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[2/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -584,8 +586,52 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 
 </div>
 </div>
+<a id="ae7008f7557c2ddcbc5cc37c1b4ec72f2" name="ae7008f7557c2ddcbc5cc37c1b4ec72f2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae7008f7557c2ddcbc5cc37c1b4ec72f2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/28]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<div class="memtemplate">
+template&lt;OStringStreamBackend BackendType&gt; </div>
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="#adcc4bda14585fc0bbac5e0dbbf603d38">OStringStream</a>&lt; BackendType &gt; &amp; <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html">toy::OStringStream</a>&lt; BackendType &gt;::operator&lt;&lt; </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">chrono::CalendarTime</a></td>          <td class="paramname"><span class="paramname"><em>value</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel constexpr">constexpr</span><span class="mlabel noexcept">noexcept</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Inserts a <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> as <code>"YYYY-MM-DD HH:MM:SS.ZZZ"</code> into the stream. </p>
+<p>Formats <em class="arg">value</em> using UTC field values from <em class="arg">value</em> directly. All numeric fields are zero-padded to their canonical width. When <em class="arg">value</em> equals <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="Returns a sentinel used on platforms without RTC.">chrono::CalendarTime::invalid()</a> the output is <code>"0000-00-00 00:00:00.000"</code>.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">value</td><td>The calendar date and time to insert.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::OStringStreamBackend backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
+<dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by 23 characters (the fixed width of the formatted string).</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>No locale, time zone, or DST conversion is applied; fields are taken from <em class="arg">value</em> as-is.</dd></dl>
+<dl class="section see"><dt>See also</dt><dd>operator&lt;&lt;(chrono::Duration&lt;Rep, Period&gt;) </dd>
+<dd>
+<a class="el" href="#ac63d33f1b0a8eb7275eca2fac283a094" title="Inserts a toy::chrono::TimePoint as decimal seconds since the clock epoch into the stream.">operator&lt;&lt;(chrono::TimePoint&lt;Clock, Dur&gt;)</a> </dd>
+<dd>
+<a class="el" href="#a80ddbc0bf2108f8624e7d05df70ab074" title="Returns the current write position, equal to the number of characters appended so far.">tellp()</a> </dd></dl>
+
+</div>
+</div>
 <a id="ac63d33f1b0a8eb7275eca2fac283a094" name="ac63d33f1b0a8eb7275eca2fac283a094"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac63d33f1b0a8eb7275eca2fac283a094">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[3/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac63d33f1b0a8eb7275eca2fac283a094">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -630,14 +676,18 @@ requires std::signed_integral&lt;typename Dur::rep&gt;</div>
 <dl class="section return"><dt>Returns</dt><dd>A reference to this <a class="el" href="../../d7/d15/classtoy_1_1_o_string_stream.html" title="Output stream that appends formatted values into a toy::OStringStreamBackend backend.">OStringStream</a>, allowing operator chaining.</dd></dl>
 <dl class="section post"><dt>Postcondition</dt><dd>The write position is advanced by the length of the appended string.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>The epoch is implementation-defined and may differ across processes and reboots; only differences between two time points produced by the same <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a> are meaningful.</dd></dl>
-<dl class="section see"><dt>See also</dt><dd>operator&lt;&lt;(chrono::Duration&lt;Rep, Period&gt;) </dd>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="#a19938a05e85f5411b635cad6fcca4476" title="Inserts a toy::chrono::TimePoint formatted using the clock-style pattern in value.">operator&lt;&lt;(chrono::TimePointFormat&lt;Clock, Dur&gt;)</a> </dd>
+<dd>
+operator&lt;&lt;(chrono::Duration&lt;Rep, Period&gt;) </dd>
+<dd>
+<a class="el" href="#ae7008f7557c2ddcbc5cc37c1b4ec72f2" title="Inserts a toy::chrono::CalendarTime as &quot;YYYY-MM-DD HH:MM:SS.ZZZ&quot; into the stream.">operator&lt;&lt;(chrono::CalendarTime)</a> </dd>
 <dd>
 <a class="el" href="#a80ddbc0bf2108f8624e7d05df70ab074" title="Returns the current write position, equal to the number of characters appended so far.">tellp()</a> </dd></dl>
 
 </div>
 </div>
 <a id="aeaeab4ae4319efe0b66e4c95541d3d2b" name="aeaeab4ae4319efe0b66e4c95541d3d2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aeaeab4ae4319efe0b66e4c95541d3d2b">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[4/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aeaeab4ae4319efe0b66e4c95541d3d2b">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[5/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -667,7 +717,7 @@ requires std::signed_integral&lt;typename Dur::rep&gt;</div>
 </div>
 </div>
 <a id="a19938a05e85f5411b635cad6fcca4476" name="a19938a05e85f5411b635cad6fcca4476"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a19938a05e85f5411b635cad6fcca4476">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[5/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a19938a05e85f5411b635cad6fcca4476">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[6/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -723,7 +773,7 @@ No floating-point arithmetic is performed; safe on FPU-less targets (GBA, NDS).<
 </div>
 </div>
 <a id="a2ca679cbf07425915a6a9fe01a63a2b2" name="a2ca679cbf07425915a6a9fe01a63a2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ca679cbf07425915a6a9fe01a63a2b2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[6/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2ca679cbf07425915a6a9fe01a63a2b2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[7/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -753,7 +803,7 @@ requires std::signed_integral&lt;typename Dur::rep&gt;</div>
 </div>
 </div>
 <a id="a56a621046b67488ac86c2e5da5e1f6de" name="a56a621046b67488ac86c2e5da5e1f6de"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a56a621046b67488ac86c2e5da5e1f6de">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[7/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a56a621046b67488ac86c2e5da5e1f6de">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[8/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -800,7 +850,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a09efb1530c932913e236f182350bee9c" name="a09efb1530c932913e236f182350bee9c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a09efb1530c932913e236f182350bee9c">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[8/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a09efb1530c932913e236f182350bee9c">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[9/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -851,12 +901,14 @@ For coarser-than-second periods (e.g. hours, minutes), the output is the total n
 <dd>
 <a class="el" href="#ac63d33f1b0a8eb7275eca2fac283a094" title="Inserts a toy::chrono::TimePoint as decimal seconds since the clock epoch into the stream.">operator&lt;&lt;(chrono::TimePoint&lt;Clock, Dur&gt;)</a> </dd>
 <dd>
+<a class="el" href="#ae7008f7557c2ddcbc5cc37c1b4ec72f2" title="Inserts a toy::chrono::CalendarTime as &quot;YYYY-MM-DD HH:MM:SS.ZZZ&quot; into the stream.">operator&lt;&lt;(chrono::CalendarTime)</a> </dd>
+<dd>
 <a class="el" href="#a80ddbc0bf2108f8624e7d05df70ab074" title="Returns the current write position, equal to the number of characters appended so far.">tellp()</a> </dd></dl>
 
 </div>
 </div>
 <a id="a62860acd710d516f7900b09e6c293b85" name="a62860acd710d516f7900b09e6c293b85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a62860acd710d516f7900b09e6c293b85">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[9/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a62860acd710d516f7900b09e6c293b85">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[10/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -886,7 +938,7 @@ requires std::signed_integral&lt;Rep&gt;</div>
 </div>
 </div>
 <a id="a4a0bf4e14936ba1158d14e56043f157d" name="a4a0bf4e14936ba1158d14e56043f157d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a0bf4e14936ba1158d14e56043f157d">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[10/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4a0bf4e14936ba1158d14e56043f157d">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[11/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -940,7 +992,7 @@ requires std::signed_integral&lt;Rep&gt;</div>
 </div>
 </div>
 <a id="a7d7353ee11db8848aff2fed468fb7c5f" name="a7d7353ee11db8848aff2fed468fb7c5f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d7353ee11db8848aff2fed468fb7c5f">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[11/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a7d7353ee11db8848aff2fed468fb7c5f">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[12/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -970,7 +1022,7 @@ requires std::signed_integral&lt;Rep&gt;</div>
 </div>
 </div>
 <a id="a00db0e12f8878917863f13d501a0fa6e" name="a00db0e12f8878917863f13d501a0fa6e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a00db0e12f8878917863f13d501a0fa6e">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[12/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a00db0e12f8878917863f13d501a0fa6e">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[13/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1026,7 +1078,7 @@ template&lt;StringLike SourceStringType&gt; </div>
 </div>
 </div>
 <a id="a6c07ff70ae19675a6bec198476ac25a2" name="a6c07ff70ae19675a6bec198476ac25a2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6c07ff70ae19675a6bec198476ac25a2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[13/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6c07ff70ae19675a6bec198476ac25a2">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[14/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1055,7 +1107,7 @@ template&lt;StringLike SourceStringType&gt; </div>
 </div>
 </div>
 <a id="a5b939b9dd04b24b83d57fa4eb9988d54" name="a5b939b9dd04b24b83d57fa4eb9988d54"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5b939b9dd04b24b83d57fa4eb9988d54">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[14/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5b939b9dd04b24b83d57fa4eb9988d54">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[15/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1097,7 +1149,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a53e052604b75bd2ac7feee9a8b405e64" name="a53e052604b75bd2ac7feee9a8b405e64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a53e052604b75bd2ac7feee9a8b405e64">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[15/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a53e052604b75bd2ac7feee9a8b405e64">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[16/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1143,7 +1195,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="af24710805f8f61b2b463c9279fcd8a62" name="af24710805f8f61b2b463c9279fcd8a62"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af24710805f8f61b2b463c9279fcd8a62">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[16/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#af24710805f8f61b2b463c9279fcd8a62">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[17/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1189,7 +1241,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a4adecfc2744954faf1453ce899241321" name="a4adecfc2744954faf1453ce899241321"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4adecfc2744954faf1453ce899241321">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[17/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4adecfc2744954faf1453ce899241321">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[18/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1229,7 +1281,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a1a476c7687a7910282d0045c291b0f13" name="a1a476c7687a7910282d0045c291b0f13"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1a476c7687a7910282d0045c291b0f13">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[18/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a476c7687a7910282d0045c291b0f13">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[19/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1269,7 +1321,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="acdf32cca71d2b6bf84e63e73d1f9d837" name="acdf32cca71d2b6bf84e63e73d1f9d837"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acdf32cca71d2b6bf84e63e73d1f9d837">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[19/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#acdf32cca71d2b6bf84e63e73d1f9d837">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[20/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1309,7 +1361,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a8a5dc341c639f9d9d3cdcd17d3356e48" name="a8a5dc341c639f9d9d3cdcd17d3356e48"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a5dc341c639f9d9d3cdcd17d3356e48">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[20/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a8a5dc341c639f9d9d3cdcd17d3356e48">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[21/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1344,7 +1396,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a2e558ce0632c4dada10f0afae31a6c50" name="a2e558ce0632c4dada10f0afae31a6c50"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2e558ce0632c4dada10f0afae31a6c50">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[21/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2e558ce0632c4dada10f0afae31a6c50">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[22/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1384,7 +1436,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a3a29f25768bb67c014008fc313ed9c43" name="a3a29f25768bb67c014008fc313ed9c43"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a29f25768bb67c014008fc313ed9c43">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[22/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a3a29f25768bb67c014008fc313ed9c43">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[23/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1424,7 +1476,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="ac57d522aa31cfb0957f5774452f1c31a" name="ac57d522aa31cfb0957f5774452f1c31a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac57d522aa31cfb0957f5774452f1c31a">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[23/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ac57d522aa31cfb0957f5774452f1c31a">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[24/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1464,7 +1516,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="abfa150afc94eecb75ce75efb19661458" name="abfa150afc94eecb75ce75efb19661458"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#abfa150afc94eecb75ce75efb19661458">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[24/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#abfa150afc94eecb75ce75efb19661458">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[25/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1504,7 +1556,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a4bc117bcf611aee3d92424b65afce31e" name="a4bc117bcf611aee3d92424b65afce31e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4bc117bcf611aee3d92424b65afce31e">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[25/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a4bc117bcf611aee3d92424b65afce31e">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[26/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1544,7 +1596,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="a2504247e73bdab37a942f3ddf3c9480f" name="a2504247e73bdab37a942f3ddf3c9480f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2504247e73bdab37a942f3ddf3c9480f">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[26/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a2504247e73bdab37a942f3ddf3c9480f">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[27/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1584,7 +1636,7 @@ template&lt;OStringStreamBackend BackendType&gt; </div>
 </div>
 </div>
 <a id="aa313838b7f14b7a6c2cecbffd95b95f0" name="aa313838b7f14b7a6c2cecbffd95b95f0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa313838b7f14b7a6c2cecbffd95b95f0">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[27/27]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa313838b7f14b7a6c2cecbffd95b95f0">&#9670;&#160;</a></span>operator&lt;&lt;() <span class="overload">[28/28]</span></h2>
 
 <div class="memitem">
 <div class="memproto">

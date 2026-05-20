@@ -10,6 +10,7 @@ var group___string_stream =
       [ "_writeZeroPadded", "d7/d15/classtoy_1_1_o_string_stream.html#a2c6b5f0d70e6d3b0abd4011f7e357c15", null ],
       [ "operator<<", "d7/d15/classtoy_1_1_o_string_stream.html#a44c7cca838780f331af5e3e2f8ffe82d", null ],
       [ "operator<<", "d7/d15/classtoy_1_1_o_string_stream.html#a84bec8f857d27d5b9c34c43266959515", null ],
+      [ "operator<<", "d7/d15/classtoy_1_1_o_string_stream.html#ae7008f7557c2ddcbc5cc37c1b4ec72f2", null ],
       [ "operator<<", "d7/d15/classtoy_1_1_o_string_stream.html#ac63d33f1b0a8eb7275eca2fac283a094", null ],
       [ "operator<<", "d7/d15/classtoy_1_1_o_string_stream.html#aeaeab4ae4319efe0b66e4c95541d3d2b", null ],
       [ "operator<<", "d7/d15/classtoy_1_1_o_string_stream.html#a19938a05e85f5411b635cad6fcca4476", null ],

@@ -32,7 +32,7 @@ var NAVTREEINDEX0 =
 "d0/d74/clear__flags_8hpp.html":[6,0,0,9,0],
 "d0/d74/clear__flags_8hpp_source.html":[6,0,0,9,0],
 "d0/d8a/core__application__linux_8cpp.html":[6,0,1,3,3,0,0],
-"d0/db3/clock__source__windows_8cpp.html":[6,0,1,3,8,1,0],
+"d0/db3/clock__source__windows_8cpp.html":[6,0,1,3,9,1,0],
 "d0/dbb/core__application_8cpp.html":[6,0,1,0,1],
 "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html":[3,0,2,2,0],
 "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html":[5,0,1,1,0],

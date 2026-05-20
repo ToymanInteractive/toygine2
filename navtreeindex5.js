@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"db/d6f/classtoy_1_1geometry_1_1_section.html":[3,0,2,9,2],
+"db/d6f/classtoy_1_1geometry_1_1_section.html":[5,0,1,5,2],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[3,0,2,9,2,5],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[5,0,1,5,2,5],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a195fe743b6a5d26df7e20ab2cdf97237":[3,0,2,9,2,4],
@@ -28,11 +30,11 @@ var NAVTREEINDEX5 =
 "db/d7c/classtoy_1_1array_1_1const__reverse__iterator.html":[5,0,1,9,3],
 "db/d7c/section_8inl.html":[6,0,0,5,5],
 "db/d7c/section_8inl_source.html":[6,0,0,5,5],
-"db/d83/switch_2platform__config_8hpp.html":[6,0,1,3,7,0],
-"db/d83/switch_2platform__config_8hpp_source.html":[6,0,1,3,7,0],
+"db/d83/switch_2platform__config_8hpp.html":[6,0,1,3,8,0],
+"db/d83/switch_2platform__config_8hpp_source.html":[6,0,1,3,8,0],
 "db/d8a/ellipse_8inl.html":[6,0,0,5,3],
 "db/d8a/ellipse_8inl_source.html":[6,0,0,5,3],
-"db/da8/core__application__stub_8cpp.html":[6,0,1,3,6,0,0],
+"db/da8/core__application__stub_8cpp.html":[6,0,1,3,7,0,0],
 "db/db6/console__application_8cpp.html":[6,0,1,0,0],
 "db/dbb/geometry_8hpp.html":[6,0,0,15],
 "db/dbb/geometry_8hpp_source.html":[6,0,0,15],
@@ -48,7 +50,7 @@ var NAVTREEINDEX5 =
 "dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html":[3,0,0],
 "dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html#a07572d2d9e70e5a99f68489693c33f38":[3,0,0,0],
 "dc/d2a/namespaceanonymous__namespace_02console__application__windows_8cpp_03.html#a21041d1029e29dbb94233d3d46eff369":[3,0,0,1],
-"dc/d2d/core__application__windows_8cpp.html":[6,0,1,3,8,0,1],
+"dc/d2d/core__application__windows_8cpp.html":[6,0,1,3,9,0,1],
 "dc/d41/group___string_storage.html":[2,2,1],
 "dc/d62/classtoy_1_1_format_string.html":[2,2,0,2],
 "dc/d62/classtoy_1_1_format_string.html#a06c00dea813cc4f7fcee89cc35ce9370":[2,2,0,2,0],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#brace-initialization":[1,10,9],
 "df/d81/md__a_g_e_n_t_s.html#braces":[1,6,1],
 "df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide":[1,2],
-"df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,14,2],
-"df/d81/md__a_g_e_n_t_s.html#class-documentation-templates":[1,15],
-"df/d81/md__a_g_e_n_t_s.html#comments-and-documentation":[1,13]
+"df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,14,2]
 };

@@ -168,7 +168,7 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a> ct = <a class="code hl_function" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a>();</div>
 <div class="line"><span class="comment">// ct.year == 2026, ct.month == 5, ct.day == 20, ct.hour == 14, ...</span></div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> clock_source_linux.cpp:79</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> system_clock_posix.cpp:29</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
 <div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down UTC calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:69</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
@@ -245,8 +245,7 @@ Safety Guarantees</h1>
 </div>
 <hr/>The documentation for this class was generated from the following files:<ul>
 <li>include/core/<a class="el" href="../../df/da9/chrono__system__clock_8hpp_source.html">chrono_system_clock.hpp</a></li>
-<li>src/platforms/linux/core/<a class="el" href="../../d4/d42/clock__source__linux_8cpp.html">clock_source_linux.cpp</a></li>
-<li>src/platforms/macos/core/<a class="el" href="../../d6/d9a/clock__source__macos_8cpp.html">clock_source_macos.cpp</a></li>
+<li>src/platforms/posix/core/<a class="el" href="../../db/d09/system__clock__posix_8cpp.html">system_clock_posix.cpp</a></li>
 <li>src/platforms/stub/core/<a class="el" href="../../d4/dbf/clock__source__stub_8cpp.html">clock_source_stub.cpp</a></li>
 <li>src/platforms/windows/core/<a class="el" href="../../d0/db3/clock__source__windows_8cpp.html">clock_source_windows.cpp</a></li>
 </ul>
