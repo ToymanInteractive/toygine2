@@ -40,7 +40,6 @@ void highestBitCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::ftoaCoreBenchmarks(bench);
   toy::itoaCoreBenchmarks(bench);
-  toy::oStringStreamCoreBenchmarks(bench);
   toy::utoaCoreBenchmarks(bench);
   toy::formatNumberStringCoreBenchmarks(bench);
   toy::highestBitCoreBenchmarks(bench);
