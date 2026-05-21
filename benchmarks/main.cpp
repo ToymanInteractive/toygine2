@@ -43,7 +43,7 @@ struct BenchmarkEntry {
   benchmark_fn_type fn;
 };
 
-constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
+constexpr std::array<BenchmarkEntry, 2> c_benchmarks{
   {
    {"Geometry module", runGeometryBenchmarks},
    {"Math module", runMathBenchmarks},
