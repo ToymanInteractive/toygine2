@@ -21,8 +21,8 @@
   \file   chrono_calendar_time.hpp
   \brief  Broken-down calendar date and time with millisecond resolution.
 
-  Defines \ref toy::chrono::CalendarTime: a plain aggregate holding the Gregorian date and local time components
-  returned by \ref toy::chrono::SystemClock::now().
+  Defines \ref toy::chrono::CalendarTime as the local broken-down time aggregate produced by SystemClock::now(), and
+  \ref toy::chrono::CalendarTimeFormat as a pattern+value pair used for formatted calendar output.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -103,6 +103,11 @@ struct CalendarTime {
     \ref toy::chrono::CalendarTime carries no time-zone metadata: identical field values from different hosts or after a
     DST transition do not refer to the same instant. Comparing two values would silently hide that ambiguity. Compare
     explicit fields directly when the intent is well-defined.
+
+    \param lhs Left-hand calendar value.
+    \param rhs Right-hand calendar value.
+
+    \return Not applicable; this operator is deleted.
   */
   friend bool operator==(const CalendarTime & lhs, const CalendarTime & rhs) = delete;
 };
@@ -114,9 +119,9 @@ struct CalendarTime {
 
   \brief Pairs a \ref toy::chrono::CalendarTime with a null-terminated display pattern.
 
-  Passed to \c toy::OStringStream::operator<< to format the calendar date and time into into a human-readable
-  representation. The pattern is scanned character-by-character; recognised tokens are replaced with the corresponding
-  field of the \ref toy::chrono::CalendarTime; all other characters are emitted verbatim.
+  Passed to \c toy::OStringStream::operator<< to format the calendar date and time into a human-readable representation.
+  The pattern is scanned character-by-character; recognised tokens are replaced with the corresponding field of the
+  \ref toy::chrono::CalendarTime; all other characters are emitted verbatim.
 
   \section features Key Features
 
