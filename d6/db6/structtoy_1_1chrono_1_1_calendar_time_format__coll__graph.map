@@ -1,0 +1,7 @@
+<map id="toy::chrono::CalendarTimeFormat" name="toy::chrono::CalendarTimeFormat">
+<area shape="rect" id="Node000001" title="Pairs a toy::chrono::CalendarTime with a null&#45;terminated display pattern." alt="" coords="65,101,259,141"/>
+<area shape="rect" id="Node000002" href="$d5/d03/classtoy_1_1_c_string_view.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="5,5,135,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="92,39,147,99,143,103,88,43"/>
+<area shape="rect" id="Node000003" href="$d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="Broken&#45;down local calendar date and time with millisecond resolution." alt="" coords="159,5,352,31"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="237,43,182,103,178,99,233,39"/>
+</map>

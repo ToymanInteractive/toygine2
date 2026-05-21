@@ -11,7 +11,7 @@
 <!-- Node0 -->
 <g id="Node000000" class="node">
 <title>Node0</title>
-<g id="a_Node000000"><a xlink:href="d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" target="_top" xlink:title="Broken&#45;down UTC calendar date and time with millisecond resolution.">
+<g id="a_Node000000"><a xlink:href="d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" target="_top" xlink:title="Broken&#45;down local calendar date and time with millisecond resolution.">
 <polygon fill="white" stroke="#666666" points="145,-19 0,-19 0,0 145,0 145,-19"/>
 <text text-anchor="middle" x="72.5" y="-7" font-family="Helvetica,sans-Serif" font-size="10.00">toy::chrono::CalendarTime</text>
 </a>

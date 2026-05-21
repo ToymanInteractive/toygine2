@@ -11,7 +11,7 @@
 <!-- Node1 -->
 <g id="Node000001" class="node">
 <title>Node1</title>
-<g id="a_Node000001"><a xlink:title="Windows implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::Syste...">
+<g id="a_Node000001"><a xlink:title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for Windows.">
 <polygon fill="#999999" stroke="#666666" points="2705.5,-283 2530.5,-283 2530.5,-253 2705.5,-253 2705.5,-283"/>
 <text text-anchor="start" x="2538.5" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/windows</text>
 <text text-anchor="middle" x="2618" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/core/clock_source_windows.cpp</text>
@@ -638,7 +638,7 @@
 <!-- Node36 -->
 <g id="Node000036" class="node">
 <title>Node36</title>
-<g id="a_Node000036"><a xlink:href="../../df/da9/chrono__system__clock_8hpp.html" target="_top" xlink:title="Wall&#45;clock type that returns the current UTC date and time as a broken&#45;down toy::chrono::CalendarTime...">
+<g id="a_Node000036"><a xlink:href="../../df/da9/chrono__system__clock_8hpp.html" target="_top" xlink:title="Wall&#45;clock type that returns the current local date and time as a broken&#45;down toy::chrono::CalendarTi...">
 <polygon fill="white" stroke="#666666" points="3171.5,-156.5 3056.5,-156.5 3056.5,-126.5 3171.5,-126.5 3171.5,-156.5"/>
 <text text-anchor="start" x="3064.5" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">core/chrono_system</text>
 <text text-anchor="middle" x="3114" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00">_clock.hpp</text>

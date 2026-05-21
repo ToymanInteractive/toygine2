@@ -137,13 +137,13 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d7/d73/classto
 </div><!--header-->
 <div class="contents">
 
-<p>Stateless wall clock that returns the current UTC date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  
+<p>Stateless wall clock that returns the current local date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a034db0f8f0dcd82f897e9e1b46bd3f0b" id="r_a034db0f8f0dcd82f897e9e1b46bd3f0b"><td class="memItemLeft">static <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a>&#160;</td><td class="memItemRight"><a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">now</a> () noexcept</td></tr>
-<tr class="memdesc:a034db0f8f0dcd82f897e9e1b46bd3f0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current UTC wall-clock time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  <br /></td></tr>
+<tr class="memdesc:a034db0f8f0dcd82f897e9e1b46bd3f0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Current local wall-clock time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-attribs" class="groupheader"><a id="pub-static-attribs" name="pub-static-attribs"></a>
 Static Public Attributes</h2></td></tr>
@@ -151,16 +151,16 @@ Static Public Attributes</h2></td></tr>
 <tr class="memdesc:aff8525abeeca418b948a0ba65717c259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Not steady: the underlying platform clock may be adjusted at any time by the operating system.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Stateless wall clock that returns the current UTC date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
-<p>Each call to <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> reads the platform calendar-time API directly and returns a broken-down UTC time as a <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> aggregate. Does not require an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>. The clock is not steady: the returned value may change non-monotonically when the system clock is adjusted by NTP, DST changes, or a manual time set. Use <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a> for elapsed-time measurement and <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a> or <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> for interval logic.</p>
+<div class="textblock"><p>Stateless wall clock that returns the current local date and time as <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
+<p>Each call to <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> reads the platform calendar-time API directly and returns broken-down local time as a <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> aggregate. Does not require an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>. The clock is not steady: the returned value may change non-monotonically when the system clock is adjusted by NTP, DST transitions, time-zone changes, or a manual time set. Use <a class="el" href="../../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html" title="toy::chrono::SteadyClock">toy::chrono::SteadyClock</a> for elapsed-time measurement and <a class="el" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html" title="toy::chrono::Stopwatch">toy::chrono::Stopwatch</a> or <a class="el" href="../../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html" title="toy::chrono::CountdownTimer">toy::chrono::CountdownTimer</a> for interval logic.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
-<li><b>Broken-down UTC time</b>: <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns year, month, day, weekday, hour, minute, second, and millisecond directly — no epoch arithmetic required at the call site.</li>
-<li><b>No <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="RAII owner of the platform hardware time source.">ClockSource</a> dependency</b>: stateless; no RAII owner required before calling <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a>.</li>
+<li><b>Broken-down local time</b>: <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns year, month, day, weekday, hour, minute, second, and millisecond directly — no epoch arithmetic required at the call site.</li>
+<li><b>No <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="RAII owner of the platform hardware time source.">ClockSource</a> dependency</b>: stateless; no RAII owner required before calling <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a>.</li>
 <li><b>Millisecond resolution</b>: sub-millisecond precision from the underlying platform API is truncated.</li>
 <li><b>Not steady</b>: <code>is_steady</code> is <code>false</code> — the clock may be adjusted at any time by the operating system.</li>
-<li><b>Stub support</b>: on platforms without RTC <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>.</li>
+<li><b>Stub support</b>: on platforms without RTC <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
 Usage Example</h1>
@@ -168,20 +168,20 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a> ct = <a class="code hl_function" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a>();</div>
 <div class="line"><span class="comment">// ct.year == 2026, ct.month == 5, ct.day == 20, ct.hour == 14, ...</span></div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> system_clock_posix.cpp:29</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current local wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> system_clock_posix.cpp:29</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
-<div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down UTC calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:69</div></div>
+<div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down local calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:72</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
-<li><b><a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a></b>: O(1); one platform API call (<code>clock_gettime</code> + <code>gmtime_r</code> on POSIX, <code>GetSystemTime</code> on Windows).</li>
+<li><b><a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a></b>: O(1); one platform API call (<code>clock_gettime</code> + <code>localtime_r</code> on POSIX, <code>GetLocalTime</code> on Windows).</li>
 <li><b>Memory usage</b>: 0 bytes (stateless type).</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
 <ul>
-<li><b>No preconditions</b>: <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> may be called without an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>.</li>
-<li><b>Stub behaviour</b>: on platforms without RTC, <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>.</li>
+<li><b>No preconditions</b>: <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> may be called without an active <a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="toy::chrono::ClockSource">toy::chrono::ClockSource</a>.</li>
+<li><b>Stub behaviour</b>: on platforms without RTC, <a class="el" href="#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="Current local wall-clock time as a broken-down toy::chrono::CalendarTime.">now()</a> returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>.</li>
 <li><b>Exception safety</b>: all operations are <code>noexcept</code>.</li>
 </ul>
 <dl class="section note"><dt>Note</dt><dd><code>is_steady</code> is <code>false:</code> the clock may jump backward or forward when the system time is adjusted.</dd></dl>
@@ -211,9 +211,9 @@ Safety Guarantees</h1>
 </table>
 </div><div class="memdoc">
 
-<p>Current UTC wall-clock time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
-<p>Reads the platform calendar-time API directly on each call. The returned value advances with real time but may change non-monotonically if the system clock is adjusted (NTP sync, DST change, manual set).</p>
-<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> with all fields filled from the current UTC time.</dd></dl>
+<p>Current local wall-clock time as a broken-down <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a>. </p>
+<p>Reads the platform calendar-time API directly on each call. The returned value advances with real time but may change non-monotonically if the system clock is adjusted (NTP sync, DST transition, time-zone change, manual set).</p>
+<dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> with all fields filled from the current local time.</dd></dl>
 <dl class="section note"><dt>Note</dt><dd>On platforms without an RTC this function always returns <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a2fbb0e32f6ce57e07a5c2a71d7c7faa6" title="toy::chrono::CalendarTime::invalid()">toy::chrono::CalendarTime::invalid()</a>. </dd></dl>
 
 </div>
@@ -247,7 +247,7 @@ Safety Guarantees</h1>
 <li>include/core/<a class="el" href="../../df/da9/chrono__system__clock_8hpp_source.html">chrono_system_clock.hpp</a></li>
 <li>src/platforms/posix/core/<a class="el" href="../../db/d09/system__clock__posix_8cpp.html">system_clock_posix.cpp</a></li>
 <li>src/platforms/stub/core/<a class="el" href="../../d4/dbf/clock__source__stub_8cpp.html">clock_source_stub.cpp</a></li>
-<li>src/platforms/windows/core/<a class="el" href="../../d0/db3/clock__source__windows_8cpp.html">clock_source_windows.cpp</a></li>
+<li>src/platforms/windows/core/<a class="el" href="../../d4/d3a/system__clock__windows_8cpp.html">system_clock_windows.cpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->

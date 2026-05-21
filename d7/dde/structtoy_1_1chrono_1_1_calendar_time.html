@@ -133,11 +133,11 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d7/dde/structt
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">toy::chrono::CalendarTime Struct Reference</div></div>
+  <div class="headertitle"><div class="title">toy::chrono::CalendarTime Struct Reference<div class="ingroups"><a class="el" href="../../df/d55/group___chrono.html">Chrono</a></div></div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Broken-down UTC calendar date and time with millisecond resolution.  
+<p>Broken-down local calendar date and time with millisecond resolution.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
@@ -163,9 +163,14 @@ Public Attributes</h2></td></tr>
 <tr class="memdesc:a9f2ecb27e06e201fa969ec887b3734e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Second within the minute: 0–60 (60 occurs on a positive leap second).  <br /></td></tr>
 <tr class="memitem:adf4b18d3888ce2595d6cb2ff22ede4e8" id="r_adf4b18d3888ce2595d6cb2ff22ede4e8"><td class="memItemLeft">uint16_t&#160;</td><td class="memItemRight"><a class="el" href="#adf4b18d3888ce2595d6cb2ff22ede4e8">millisecond</a></td></tr>
 <tr class="memdesc:adf4b18d3888ce2595d6cb2ff22ede4e8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Millisecond within the current second: 0–999.  <br /></td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
+Friends</h2></td></tr>
+<tr class="memitem:a1bd86f5f13979849ce237a008db60d59" id="r_a1bd86f5f13979849ce237a008db60d59"><td class="memItemLeft">bool&#160;</td><td class="memItemRight"><a class="el" href="#a1bd86f5f13979849ce237a008db60d59">operator==</a> (const <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a> &amp;lhs, const <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a> &amp;rhs)=delete</td></tr>
+<tr class="memdesc:a1bd86f5f13979849ce237a008db60d59"><td class="mdescLeft">&#160;</td><td class="mdescRight">Equality comparison is deleted.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Broken-down UTC calendar date and time with millisecond resolution. </p>
+<div class="textblock"><p>Broken-down local calendar date and time with millisecond resolution. </p>
 <p>A plain aggregate populated by <a class="el" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b" title="toy::chrono::SystemClock::now()">toy::chrono::SystemClock::now()</a>. All fields are zero on platforms without an RTC.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
@@ -180,14 +185,14 @@ Usage Example</h1>
 <div class="line"> </div>
 <div class="line"><span class="keyword">const</span> <a class="code hl_struct" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a> ct = <a class="code hl_function" href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a>();</div>
 <div class="line"><span class="comment">// ct.year == 2026, ct.month == 5, ct.day == 19, ct.hour == 14, ...</span></div>
-<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current UTC wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> system_clock_posix.cpp:29</div></div>
+<div class="ttc" id="aclasstoy_1_1chrono_1_1_system_clock_html_a034db0f8f0dcd82f897e9e1b46bd3f0b"><div class="ttname"><a href="../../d7/d73/classtoy_1_1chrono_1_1_system_clock.html#a034db0f8f0dcd82f897e9e1b46bd3f0b">toy::chrono::SystemClock::now</a></div><div class="ttdeci">static CalendarTime now() noexcept</div><div class="ttdoc">Current local wall-clock time as a broken-down toy::chrono::CalendarTime.</div><div class="ttdef"><b>Definition</b> system_clock_posix.cpp:29</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
-<div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down UTC calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:69</div></div>
+<div class="ttc" id="astructtoy_1_1chrono_1_1_calendar_time_html"><div class="ttname"><a href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">toy::chrono::CalendarTime</a></div><div class="ttdoc">Broken-down local calendar date and time with millisecond resolution.</div><div class="ttdef"><b>Definition</b> chrono_calendar_time.hpp:72</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
 <li><b>Size</b>: 10 bytes (no padding; alignment 2).</li>
-<li><b>Construction</b>: O(1); zero-initialization via <code><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="Broken-down UTC calendar date and time with millisecond resolution.">CalendarTime</a>{}</code>.</li>
+<li><b>Construction</b>: O(1); zero-initialization via <code><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="Broken-down local calendar date and time with millisecond resolution.">CalendarTime</a>{}</code>.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
@@ -224,6 +229,47 @@ Safety Guarantees</h1>
 <p>Returns a sentinel used on platforms without RTC. </p>
 <p><code>year</code> == <code>0</code> and <code>month</code> == <code>0</code> are not valid Gregorian values, so the result cannot be confused with a real timestamp.</p>
 <dl class="section return"><dt>Returns</dt><dd><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> with all fields zero. </dd></dl>
+
+</div>
+</div>
+<a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
+<a id="a1bd86f5f13979849ce237a008db60d59" name="a1bd86f5f13979849ce237a008db60d59"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1bd86f5f13979849ce237a008db60d59">&#9670;&#160;</a></span>operator==</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">bool operator== </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>lhs</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html">CalendarTime</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>rhs</em></span>&#160;)</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel friend">friend</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Equality comparison is deleted. </p>
+<p><a class="el" href="../../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html" title="toy::chrono::CalendarTime">toy::chrono::CalendarTime</a> carries no time-zone metadata: identical field values from different hosts or after a DST transition do not refer to the same instant. Comparing two values would silently hide that ambiguity. Compare explicit fields directly when the intent is well-defined.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">lhs</td><td>Left-hand calendar value. </td></tr>
+    <tr><td class="paramname">rhs</td><td>Right-hand calendar value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Not applicable; this operator is deleted. </dd></dl>
 
 </div>
 </div>

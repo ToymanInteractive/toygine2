@@ -76,7 +76,7 @@
 <area shape="poly" id="edge34_Node000002_Node000034" title=" " alt="" coords="3944,104,3727,110,3417,122,3124,142,3018,154,2958,169,2941,180,2931,193,2921,207,2907,223,2817,296,2741,352,2738,347,2814,292,2903,219,2917,204,2926,189,2937,176,2956,164,3017,149,3124,136,3417,117,3727,104,3943,98"/>
 <area shape="rect" id="Node000035" href="$d9/de5/chrono__stopwatch_8hpp.html" title="Elapsed&#45;time measurement type over the active toy::chrono::SteadyClock." alt="" coords="3363,181,3563,207"/>
 <area shape="poly" id="edge36_Node000002_Node000035" title=" " alt="" coords="3944,108,3782,133,3575,169,3522,181,3521,176,3573,164,3781,127,3943,103"/>
-<area shape="rect" id="Node000036" href="$df/da9/chrono__system__clock_8hpp.html" title="Wall&#45;clock type that returns the current UTC date and time as a broken&#45;down toy::chrono::CalendarTime..." alt="" coords="3587,174,3740,214"/>
+<area shape="rect" id="Node000036" href="$df/da9/chrono__system__clock_8hpp.html" title="Wall&#45;clock type that returns the current local date and time as a broken&#45;down toy::chrono::CalendarTi..." alt="" coords="3587,174,3740,214"/>
 <area shape="poly" id="edge37_Node000002_Node000036" title=" " alt="" coords="3944,114,3753,169,3741,173,3740,168,3752,164,3943,109"/>
 <area shape="rect" id="Node000037" href="$d4/dc0/constexpr__utils_8hpp.html" title="Constexpr helpers for compile&#45;time string and buffer operations." alt="" coords="3765,181,3946,207"/>
 <area shape="poly" id="edge39_Node000002_Node000037" title=" " alt="" coords="3969,114,3884,175,3881,171,3966,109"/>

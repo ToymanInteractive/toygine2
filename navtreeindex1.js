@@ -106,6 +106,9 @@ var NAVTREEINDEX1 =
 "d3/d86/fixed_8inl_source.html":[6,0,0,6,2],
 "d3/dad/constants_8hpp.html":[6,0,0,6,0],
 "d3/dad/constants_8hpp_source.html":[6,0,0,6,0],
+"d3/db5/structtoy_1_1chrono_1_1_calendar_time_format.html":[2,0,1],
+"d3/db5/structtoy_1_1chrono_1_1_calendar_time_format.html#a2650796b7694ff436dcf50b6b807678c":[2,0,1,1],
+"d3/db5/structtoy_1_1chrono_1_1_calendar_time_format.html#a7ab290b9e20dfad68bf8569f299fa552":[2,0,1,0],
 "d3/dce/classtoy_1_1math_1_1_point.html":[3,0,2,11,4],
 "d3/dce/classtoy_1_1math_1_1_point.html":[5,0,1,7,3],
 "d3/dce/classtoy_1_1math_1_1_point.html#a0e2b8d8b83c834d32bc08a46ba3b00e2":[3,0,2,11,4,10],
@@ -141,6 +144,7 @@ var NAVTREEINDEX1 =
 "d4/d01/application_8hpp_source.html":[6,0,0,10],
 "d4/d0a/format_8hpp.html":[6,0,0,2,25],
 "d4/d0a/format_8hpp_source.html":[6,0,0,2,25],
+"d4/d3a/system__clock__windows_8cpp.html":[6,0,1,3,9,1,1],
 "d4/d42/clock__source__linux_8cpp.html":[6,0,1,3,3,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,0,0],
@@ -245,9 +249,5 @@ var NAVTREEINDEX1 =
 "d4/da9/namespacetoy.html#a326a560f0c3c0d12d9c7a8642d001e6d":[3,0,2,51],
 "d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b":[3,0,2,49],
 "d4/da9/namespacetoy.html#a377071f6eeeb1a7746d86c53f7fc5f22":[3,0,2,65],
-"d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9":[3,0,2,63],
-"d4/da9/namespacetoy.html#a3e935013c7764b31202b25105a86cedd":[3,0,2,55],
-"d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c":[3,0,2,38],
-"d4/da9/namespacetoy.html#a43b66e65ca273e28eb053c19537093c9":[3,0,2,57],
-"d4/da9/namespacetoy.html#a50ab25ff3fb94874504ea406b6e7d689":[3,0,2,58]
+"d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9":[3,0,2,63]
 };

@@ -14,6 +14,7 @@ var namespacetoy_1_1chrono =
       [ "qpcFrequency", "d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#ad2295a6ee12b871f32fd2851f1d1cc31", null ]
     ] ],
     [ "CalendarTime", "d7/dde/structtoy_1_1chrono_1_1_calendar_time.html", "d7/dde/structtoy_1_1chrono_1_1_calendar_time" ],
+    [ "CalendarTimeFormat", "d3/db5/structtoy_1_1chrono_1_1_calendar_time_format.html", "d3/db5/structtoy_1_1chrono_1_1_calendar_time_format" ],
     [ "ClockSource", "d9/d63/classtoy_1_1chrono_1_1_clock_source.html", "d9/d63/classtoy_1_1chrono_1_1_clock_source" ],
     [ "CountdownTimer", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html", "d3/d1f/classtoy_1_1chrono_1_1_countdown_timer" ],
     [ "DurationFormat", "d0/d23/structtoy_1_1chrono_1_1_duration_format.html", "d0/d23/structtoy_1_1chrono_1_1_duration_format" ],

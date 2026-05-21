@@ -1,9 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"df/d81/md__a_g_e_n_t_s.html#class-documentation-templates":[1,15],
-"df/d81/md__a_g_e_n_t_s.html#comments-and-documentation":[1,13],
-"df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests":[1,20,0],
-"df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing":[1,20],
 "df/d81/md__a_g_e_n_t_s.html#concept":[1,15,1],
 "df/d81/md__a_g_e_n_t_s.html#concept-documentation":[1,14,3],
 "df/d81/md__a_g_e_n_t_s.html#const-reference-style":[1,12,2],

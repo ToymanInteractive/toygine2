@@ -1,9 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"db/d6f/classtoy_1_1geometry_1_1_section.html":[3,0,2,9,2],
-"db/d6f/classtoy_1_1geometry_1_1_section.html":[5,0,1,5,2],
-"db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[3,0,2,9,2,5],
-"db/d6f/classtoy_1_1geometry_1_1_section.html#a0a011c561366be8d0f2a1e4920201ca9":[5,0,1,5,2,5],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a195fe743b6a5d26df7e20ab2cdf97237":[3,0,2,9,2,4],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a195fe743b6a5d26df7e20ab2cdf97237":[5,0,1,5,2,4],
 "db/d6f/classtoy_1_1geometry_1_1_section.html#a2d077511e29f9fa80e66e0faa7359811":[3,0,2,9,2,0],
@@ -234,8 +230,8 @@ var NAVTREEINDEX5 =
 "df/d4a/c__string__view_8inl.html":[6,0,0,2,4],
 "df/d4a/c__string__view_8inl_source.html":[6,0,0,2,4],
 "df/d55/group___chrono.html":[2,0],
-"df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff":[2,0,8],
-"df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191":[2,0,7],
+"df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff":[2,0,10],
+"df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191":[2,0,9],
 "df/d61/bitwise__enum_8hpp.html":[6,0,0,2,1],
 "df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf":[6,0,0,2,1,1],
 "df/d61/bitwise__enum_8hpp_source.html":[6,0,0,2,1],
@@ -249,5 +245,9 @@ var NAVTREEINDEX5 =
 "df/d81/md__a_g_e_n_t_s.html#brace-initialization":[1,10,9],
 "df/d81/md__a_g_e_n_t_s.html#braces":[1,6,1],
 "df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide":[1,2],
-"df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,14,2]
+"df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order":[1,14,2],
+"df/d81/md__a_g_e_n_t_s.html#class-documentation-templates":[1,15],
+"df/d81/md__a_g_e_n_t_s.html#comments-and-documentation":[1,13],
+"df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests":[1,20,0],
+"df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing":[1,20]
 };

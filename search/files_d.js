@@ -9,5 +9,6 @@ var searchData=
   ['string_5ffixed_5fstorage_2ehpp_6',['string_fixed_storage.hpp',['../d2/dd2/string__fixed__storage_8hpp.html',1,'']]],
   ['string_5ffixed_5fstorage_2einl_7',['string_fixed_storage.inl',['../db/d33/string__fixed__storage_8inl.html',1,'']]],
   ['string_5flike_2ehpp_8',['string_like.hpp',['../de/deb/string__like_8hpp.html',1,'']]],
-  ['system_5fclock_5fposix_2ecpp_9',['system_clock_posix.cpp',['../db/d09/system__clock__posix_8cpp.html',1,'']]]
+  ['system_5fclock_5fposix_2ecpp_9',['system_clock_posix.cpp',['../db/d09/system__clock__posix_8cpp.html',1,'']]],
+  ['system_5fclock_5fwindows_2ecpp_10',['system_clock_windows.cpp',['../d4/d3a/system__clock__windows_8cpp.html',1,'']]]
 ];

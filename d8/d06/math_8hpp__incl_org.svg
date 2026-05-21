@@ -6,7 +6,7 @@
 <!-- Title: include/math.hpp Pages: 1 -->
 <svg width="7979pt" height="280pt"
  viewBox="0.00 0.00 7978.50 280.00" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<g id="graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 276)">
+<g id="page0,1_graph0" class="graph" transform="scale(1 1) rotate(0) translate(4 276)">
 <title>include/math.hpp</title>
 <!-- Node1 -->
 <g id="Node000001" class="node">
@@ -835,7 +835,7 @@
 <!-- Node37 -->
 <g id="Node000037" class="node">
 <title>Node37</title>
-<g id="a_Node000037"><a xlink:href="../../df/da9/chrono__system__clock_8hpp.html" target="_top" xlink:title="Wall&#45;clock type that returns the current UTC date and time as a broken&#45;down toy::chrono::CalendarTime...">
+<g id="a_Node000037"><a xlink:href="../../df/da9/chrono__system__clock_8hpp.html" target="_top" xlink:title="Wall&#45;clock type that returns the current local date and time as a broken&#45;down toy::chrono::CalendarTi...">
 <polygon fill="white" stroke="#666666" points="2753.5,-156.5 2638.5,-156.5 2638.5,-126.5 2753.5,-126.5 2753.5,-156.5"/>
 <text text-anchor="start" x="2646.5" y="-144.5" font-family="Helvetica,sans-Serif" font-size="10.00">core/chrono_system</text>
 <text text-anchor="middle" x="2696" y="-133.5" font-family="Helvetica,sans-Serif" font-size="10.00">_clock.hpp</text>
