@@ -152,7 +152,7 @@ struct CalendarTime {
 
   const toy::chrono::CalendarTime ct = toy::chrono::SystemClock::now();
   toy::OStringStream<toy::FixedString<32>> stream;
-  stream << toy::chrono::CalendarTimeFormat{"yyyy-MM-dd HH:mm:ss.zzz", ct}; // e.g. "2026-05-20 14:30:45.123"
+  stream << toy::chrono::CalendarTimeFormat{"yyyy-MM-dd hh:mm:ss.zzz", ct}; // e.g. "2026-05-20 14:30:45.123"
   \endcode
 
   \section performance Performance Characteristics

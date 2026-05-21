@@ -381,6 +381,65 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(ch
 }
 
 template <OStringStreamBackend BackendType>
+constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
+  chrono::CalendarTimeFormat value
+) noexcept {
+  const auto year   = static_cast<int32_t>(value.calendarTime.year);
+  const auto month  = static_cast<int32_t>(value.calendarTime.month);
+  const auto day    = static_cast<int32_t>(value.calendarTime.day);
+  const auto hour   = static_cast<int32_t>(value.calendarTime.hour);
+  const auto minute = static_cast<int32_t>(value.calendarTime.minute);
+  const auto second = static_cast<int32_t>(value.calendarTime.second);
+  const auto ms     = static_cast<int32_t>(value.calendarTime.millisecond);
+
+  for (const char * p = value.pattern.c_str(); *p != '\0'; ++p) {
+    if (*p == 'y' && p[1] == 'y' && p[2] == 'y' && p[3] == 'y') {
+      _writeZeroPadded(year, 4);
+      p += 3;
+    } else if (*p == 'y' && p[1] == 'y') {
+      _writeZeroPadded(year % 100, 2);
+      ++p;
+    } else if (*p == 'y') {
+      *this << year;
+    } else if (*p == 'M' && p[1] == 'M') {
+      _writeZeroPadded(month, 2);
+      ++p;
+    } else if (*p == 'M') {
+      *this << month;
+    } else if (*p == 'd' && p[1] == 'd') {
+      _writeZeroPadded(day, 2);
+      ++p;
+    } else if (*p == 'd') {
+      *this << day;
+    } else if (*p == 'h' && p[1] == 'h') {
+      _writeZeroPadded(hour, 2);
+      ++p;
+    } else if (*p == 'h') {
+      *this << hour;
+    } else if (*p == 'm' && p[1] == 'm') {
+      _writeZeroPadded(minute, 2);
+      ++p;
+    } else if (*p == 'm') {
+      *this << minute;
+    } else if (*p == 's' && p[1] == 's') {
+      _writeZeroPadded(second, 2);
+      ++p;
+    } else if (*p == 's') {
+      *this << second;
+    } else if (*p == 'z' && p[1] == 'z' && p[2] == 'z') {
+      _writeZeroPadded(ms, 3);
+      p += 2;
+    } else if (*p == 'z') {
+      *this << ms;
+    } else {
+      put(*p);
+    }
+  }
+
+  return *this;
+}
+
+template <OStringStreamBackend BackendType>
 constexpr const BackendType & OStringStream<BackendType>::str() const noexcept {
   return _string;
 }
