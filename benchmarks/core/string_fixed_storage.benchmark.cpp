@@ -30,9 +30,9 @@ namespace toy {
 static void capacity(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
+  for (int i = 0; i < state.iterations(); ++i)
     result += StringFixedStorage<16>::capacity();
-  }
+
   state.set_result(result);
 }
 
@@ -41,9 +41,9 @@ static void size(picobench::state & state) noexcept {
 
   size_t           result{0};
   picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
+  for (int i = 0; i < state.iterations(); ++i)
     result += storage.size();
-  }
+
   state.set_result(result);
 }
 

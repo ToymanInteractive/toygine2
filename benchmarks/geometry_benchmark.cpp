@@ -28,7 +28,6 @@
 
 namespace toy::geometry {
 
-void circleGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void ellipseGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void sectionGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
@@ -39,7 +38,6 @@ using namespace toy::geometry;
 using fixed_type = toy::math::fixed<int32_t, int64_t, 24>;
 
 void runGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  toy::geometry::circleGeometryBenchmarks(bench);
   toy::geometry::ellipseGeometryBenchmarks(bench);
   toy::geometry::sectionGeometryBenchmarks(bench);
 }

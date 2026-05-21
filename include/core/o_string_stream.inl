@@ -51,13 +51,12 @@ template <OStringStreamBackend BackendType>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(long value) noexcept {
   char buffer[21];
 
-  if constexpr (sizeof(value) == sizeof(int32_t)) {
+  if constexpr (sizeof(value) == sizeof(int32_t))
     itoa(buffer, size(buffer), static_cast<int32_t>(value));
-  } else if constexpr (sizeof(value) == sizeof(int64_t)) {
+  else if constexpr (sizeof(value) == sizeof(int64_t))
     itoa(buffer, size(buffer), static_cast<int64_t>(value));
-  } else {
+  else
     static_assert(sizeof(value) == sizeof(int32_t) || sizeof(value) == sizeof(int64_t), "Unsupported value size");
-  }
 
   _string.append(buffer);
 
@@ -68,13 +67,12 @@ template <OStringStreamBackend BackendType>
 constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(unsigned long value) noexcept {
   char buffer[21];
 
-  if constexpr (sizeof(value) == sizeof(uint32_t)) {
+  if constexpr (sizeof(value) == sizeof(uint32_t))
     utoa(buffer, size(buffer), static_cast<uint32_t>(value));
-  } else if constexpr (sizeof(value) == sizeof(uint64_t)) {
+  else if constexpr (sizeof(value) == sizeof(uint64_t))
     utoa(buffer, size(buffer), static_cast<uint64_t>(value));
-  } else {
+  else
     static_assert(sizeof(value) == sizeof(uint32_t) || sizeof(value) == sizeof(uint64_t), "Unsupported value size");
-  }
 
   _string.append(buffer);
 
@@ -121,13 +119,12 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
 
   char buffer[17];
 
-  if constexpr (sizeof(value) == 4) {
+  if constexpr (sizeof(value) == 4)
     utoa(buffer, size(buffer), static_cast<uint32_t>(reinterpret_cast<uintptr_t>(value)), 16);
-  } else if constexpr (sizeof(value) == 8) {
+  else if constexpr (sizeof(value) == 8)
     utoa(buffer, size(buffer), reinterpret_cast<uintptr_t>(value), 16);
-  } else {
+  else
     static_assert(sizeof(value) == 4 || sizeof(value) == 8, "Unsupported pointer size");
-  }
 
   _string.append("0x");
 
@@ -272,9 +269,8 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(
     };
     constexpr auto pow10 = [](int n) constexpr noexcept {
       int64_t r = 1;
-      while (n-- > 0) {
+      while (n-- > 0)
         r *= 10;
-      }
 
       return r;
     };

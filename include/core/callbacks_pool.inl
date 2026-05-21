@@ -34,10 +34,9 @@ constexpr bool CallbacksPool<T, AllocatedSize>::add(void (*method)(T arg)) noexc
   assert_message(method != nullptr, "Cannot add null callback");
 
   // Check if the method already exists
-  for (size_t index = 0; index < _subscribersCount; ++index) {
+  for (size_t index = 0; index < _subscribersCount; ++index)
     if (_callbacks[index].method == method)
       return true;
-  }
 
   assert_message(_subscribersCount < AllocatedSize, "No room for new callback, increase pool size");
   if (_subscribersCount >= AllocatedSize)
@@ -71,9 +70,8 @@ template <typename T, size_t AllocatedSize>
 
 template <typename T, size_t AllocatedSize>
 constexpr void CallbacksPool<T, AllocatedSize>::call(T arg) const noexcept {
-  for (size_t index = 0; index < _subscribersCount; ++index) {
+  for (size_t index = 0; index < _subscribersCount; ++index)
     (*_callbacks[index].method)(arg);
-  }
 }
 
 } // namespace toy

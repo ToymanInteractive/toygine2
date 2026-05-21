@@ -135,11 +135,10 @@ public:
 
   /// Returns 0.5 (maximum rounding error).
   [[nodiscard]] static constexpr toy::math::fixed<Base, Intermediate, Fraction, Rounding> round_error() noexcept {
-    if constexpr (Rounding) {
+    if constexpr (Rounding)
       return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1) / 2; // 0.5
-    } else {
+    else
       return toy::math::fixed<Base, Intermediate, Fraction, Rounding>(1);     // 1.0
-    }
   }
 
   /// Returns min() (no denormals).

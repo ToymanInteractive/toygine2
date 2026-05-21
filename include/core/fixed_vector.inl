@@ -427,10 +427,9 @@ template <typename type, size_t allocatedSize>
 
 template <typename type, size_t allocatedSize>
 constexpr void FixedVector<type, allocatedSize>::clear() noexcept {
-  if constexpr (!std::is_trivially_destructible_v<type>) {
+  if constexpr (!std::is_trivially_destructible_v<type>)
     for (size_type index = 0; index < _size; ++index)
       data()[index].~type();
-  }
 
   _size = 0;
 }

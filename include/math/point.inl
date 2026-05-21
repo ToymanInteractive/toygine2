@@ -84,13 +84,12 @@ constexpr Point & Point::operator*=(const T & scalar) noexcept {
 
 template <PointScalar T>
 constexpr Point & Point::operator/=(const T & scalar) noexcept {
-  if constexpr (integral<T>) {
+  if constexpr (integral<T>)
     assert_message(scalar != 0, "scalar must be non-zero");
-  } else if constexpr (fixed_point<T>) {
+  else if constexpr (fixed_point<T>)
     assert_message(scalar.rawValue() != 0, "scalar must be non-zero");
-  } else {
+  else
     assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
-  }
 
   if constexpr (floating_point<T>) {
     x = static_cast<int32_t>(static_cast<T>(x) / scalar);
@@ -146,13 +145,12 @@ constexpr Point operator*(const T & scalar, const Point & point) noexcept {
 
 template <PointScalar T>
 constexpr Point operator/(const Point & point, const T & scalar) noexcept {
-  if constexpr (integral<T>) {
+  if constexpr (integral<T>)
     assert_message(scalar != 0, "scalar must be non-zero");
-  } else if constexpr (fixed_point<T>) {
+  else if constexpr (fixed_point<T>)
     assert_message(scalar.rawValue() != 0, "scalar must be non-zero");
-  } else {
+  else
     assert_message(scalar > 0 || scalar < 0, "scalar must be non-zero");
-  }
 
   if constexpr (floating_point<T>) {
     return Point(static_cast<int32_t>(static_cast<T>(point.x) / scalar),

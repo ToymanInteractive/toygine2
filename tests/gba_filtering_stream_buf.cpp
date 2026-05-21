@@ -149,9 +149,9 @@ void GbaFilteringStreamBuf::_flushLine() noexcept {
 
     char *       dst = reinterpret_cast<char *>(0x04FFF600); // MGBA Log String Register
     const char * src = _lineBuffer;
-    while (*src) {
+    while (*src)
       *dst++ = *src++;
-    }
+
     *dst = '\0';
   }
 

@@ -103,11 +103,10 @@ constexpr bool Section<T>::isContains(const T & value) const noexcept {
 
 template <SectionEndpoint T>
 constexpr bool operator==(const Section<T> & left, const Section<T> & right) noexcept {
-  if constexpr (math::floating_point<T>) {
+  if constexpr (math::floating_point<T>)
     return math::isEqual(left.start, right.start) && math::isEqual(left.end, right.end);
-  } else {
+  else
     return left.start == right.start && left.end == right.end;
-  }
 }
 
 template <SectionEndpoint T>

@@ -50,9 +50,8 @@ static bool consoleAssert(const char * message) noexcept {
     }
 
     int temp = answer;
-    while (temp != EOF && temp != '\n') {
+    while (temp != EOF && temp != '\n')
       temp = getchar();
-    }
   }
 
   std::cout << "--------------------------------------------\n";

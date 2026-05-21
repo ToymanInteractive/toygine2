@@ -34,9 +34,8 @@ constexpr Circle<T>::Circle() noexcept
   : center()
   , radius() {
 #ifdef _DEBUG
-  if constexpr (math::floating_point<T>) {
+  if constexpr (math::floating_point<T>)
     radius = numeric_limits<T>::signaling_NaN();
-  }
 #endif
 }
 
@@ -63,20 +62,18 @@ constexpr bool Circle<T>::isReset() const noexcept {
   if (!center.isZero())
     return false;
 
-  if constexpr (math::floating_point<T>) {
+  if constexpr (math::floating_point<T>)
     return math::isEqual(radius, T{0});
-  } else if constexpr (math::fixed_point<T>) {
+  else if constexpr (math::fixed_point<T>)
     return radius.rawValue() == 0;
-  }
 }
 
 template <CircleComponent T>
 constexpr bool Circle<T>::isValid() const noexcept {
-  if constexpr (math::floating_point<T>) {
+  if constexpr (math::floating_point<T>)
     return radius > T{0};
-  } else if constexpr (math::fixed_point<T>) {
+  else if constexpr (math::fixed_point<T>)
     return radius.rawValue() > 0;
-  }
 }
 
 template <CircleComponent T>
@@ -91,11 +88,10 @@ constexpr bool operator==(const Circle<T> & left, const Circle<T> & right) noexc
   if (left.center != right.center)
     return false;
 
-  if constexpr (math::floating_point<T>) {
+  if constexpr (math::floating_point<T>)
     return math::isEqual(left.radius, right.radius);
-  } else if constexpr (math::fixed_point<T>) {
+  else if constexpr (math::fixed_point<T>)
     return left.radius == right.radius;
-  }
 }
 
 template <CircleComponent T>

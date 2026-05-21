@@ -275,9 +275,8 @@ TEST_CASE("utils/reverse_string_reverses_in_place") {
     memcpy(reverseBuffer, utf8TestData.data(), utf8TestData.size());
     reverseString(reverseBuffer, char_traits<char>::length(reverseBuffer));
 
-    for (size_t index = 0; index < (sizeof(reverseBuffer) - 1); ++index) {
+    for (size_t index = 0; index < (sizeof(reverseBuffer) - 1); ++index)
       REQUIRE(utf8TestData[index] == static_cast<uint8_t>(reverseBuffer[sizeof(reverseBuffer) - index - 2]));
-    }
   }
 
   // Second reverse restores original.

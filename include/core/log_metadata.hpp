@@ -35,6 +35,8 @@ namespace toy::log {
 /*!
   \struct Metadata
 
+  \ingroup Logger
+
   \brief  Immutable per-call-site descriptor stored as a static constexpr local.
 
   Created once at compile time by each \c LOG_* macro expansion. Only a pointer to the instance is passed at runtime,

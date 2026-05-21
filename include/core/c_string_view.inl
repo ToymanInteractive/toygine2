@@ -353,21 +353,18 @@ constexpr size_t CStringView::_find_first_not_of_raw(size_t position, const char
 
   if (dataSize == 1) {
     const auto exclude = data[0];
-    for (auto i = position; i < stringViewSize; ++i) {
+    for (auto i = position; i < stringViewSize; ++i)
       if (_data[i] != exclude)
         return i;
-    }
   } else {
     array<bool, 256> excludedChars{};
 
-    for (size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i)
       excludedChars[static_cast<unsigned char>(data[i])] = true;
-    }
 
-    for (auto i = position; i < stringViewSize; ++i) {
+    for (auto i = position; i < stringViewSize; ++i)
       if (!excludedChars[static_cast<unsigned char>(_data[i])])
         return i;
-    }
   }
 
   return npos;
@@ -394,9 +391,8 @@ constexpr size_t CStringView::_find_last_of_raw(size_t position, const char * da
   } else {
     array<bool, 256> targetChars{};
 
-    for (size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i)
       targetChars[static_cast<unsigned char>(data[i])] = true;
-    }
 
     for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
@@ -433,9 +429,8 @@ constexpr size_t CStringView::_find_last_not_of_raw(size_t position, const char 
   } else {
     array<bool, 256> excludedChars{};
 
-    for (size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i)
       excludedChars[static_cast<unsigned char>(data[i])] = true;
-    }
 
     for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;

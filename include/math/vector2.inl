@@ -112,13 +112,12 @@ constexpr void Vector2<T>::setZero() noexcept {
 
 template <Vector2Component T>
 constexpr bool Vector2<T>::isZero() const noexcept {
-  if constexpr (floating_point<T>) {
+  if constexpr (floating_point<T>)
     return math::isEqual(x, T{0}) && math::isEqual(y, T{0});
-  } else if constexpr (fixed_point<T>) {
+  else if constexpr (fixed_point<T>)
     return x.rawValue() == 0 && y.rawValue() == 0;
-  } else {
+  else
     static_assert(floating_point<T> || fixed_point<T>, "unsupported component type");
-  }
 }
 
 template <Vector2Component T>
@@ -168,13 +167,12 @@ constexpr Vector2<T> operator/(const Vector2<T> & left, const T & right) noexcep
 
 template <Vector2Component T>
 constexpr bool operator==(const Vector2<T> & left, const Vector2<T> & right) noexcept {
-  if constexpr (floating_point<T>) {
+  if constexpr (floating_point<T>)
     return left.isEqual(right);
-  } else if constexpr (fixed_point<T>) {
+  else if constexpr (fixed_point<T>)
     return left.x == right.x && left.y == right.y;
-  } else {
+  else
     static_assert(floating_point<T> || fixed_point<T>, "unsupported component type");
-  }
 }
 
 template <Vector2Component T>
