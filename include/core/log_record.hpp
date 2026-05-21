@@ -49,6 +49,8 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
 /*!
   \struct Record
 
+  \ingroup Logger
+
   \brief  Single log entry in the transport ring buffer.
 
   Carries the pre-formatted message along with its metadata pointer and timestamp. The message is formatted at the call

@@ -1086,21 +1086,18 @@ constexpr size_t FixedString<allocatedSize>::_find_first_not_of_raw(size_t posit
 
   if (dataSize == 1) {
     const auto exclude = data[0];
-    for (auto i = position; i < _storage.size; ++i) {
+    for (auto i = position; i < _storage.size; ++i)
       if (_storage.buffer[i] != exclude)
         return i;
-    }
   } else {
     array<bool, 256> excludedChars{};
 
-    for (size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i)
       excludedChars[static_cast<unsigned char>(data[i])] = true;
-    }
 
-    for (auto i = position; i < _storage.size; ++i) {
+    for (auto i = position; i < _storage.size; ++i)
       if (!excludedChars[static_cast<unsigned char>(_storage.buffer[i])])
         return i;
-    }
   }
 
   return npos;
@@ -1127,9 +1124,8 @@ constexpr size_t FixedString<allocatedSize>::_find_last_of_raw(size_t position, 
   } else {
     array<bool, 256> targetChars{};
 
-    for (size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i)
       targetChars[static_cast<unsigned char>(data[i])] = true;
-    }
 
     for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
@@ -1165,9 +1161,8 @@ constexpr size_t FixedString<allocatedSize>::_find_last_not_of_raw(size_t positi
   } else {
     array<bool, 256> excludedChars{};
 
-    for (size_t i = 0; i < dataSize; ++i) {
+    for (size_t i = 0; i < dataSize; ++i)
       excludedChars[static_cast<unsigned char>(data[i])] = true;
-    }
 
     for (size_t i = 0; i <= position; ++i) {
       const auto scanIndex = position - i;
@@ -1314,14 +1309,12 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize1> & lhs,
       return strong_ordering::less;
     else if (result > 0)
       return strong_ordering::greater;
-    else {
-      if (lhs.size() < rhs.size())
-        return strong_ordering::less;
-      else if (lhs.size() > rhs.size())
-        return strong_ordering::greater;
-      else
-        return strong_ordering::equal;
-    }
+    else if (lhs.size() < rhs.size())
+      return strong_ordering::less;
+    else if (lhs.size() > rhs.size())
+      return strong_ordering::greater;
+    else
+      return strong_ordering::equal;
   }
 }
 
@@ -1343,14 +1336,12 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
       return strong_ordering::less;
     else if (result > 0)
       return strong_ordering::greater;
-    else {
-      if (lhs.size() < rhs.size())
-        return strong_ordering::less;
-      else if (lhs.size() > rhs.size())
-        return strong_ordering::greater;
-      else
-        return strong_ordering::equal;
-    }
+    else if (lhs.size() < rhs.size())
+      return strong_ordering::less;
+    else if (lhs.size() > rhs.size())
+      return strong_ordering::greater;
+    else
+      return strong_ordering::equal;
   }
 }
 
@@ -1376,14 +1367,12 @@ constexpr strong_ordering operator<=>(const FixedString<allocatedSize> & lhs, co
     return strong_ordering::less;
   else if (result > 0)
     return strong_ordering::greater;
-  else {
-    if (lhs.size() < rhsLen)
-      return strong_ordering::less;
-    else if (lhs.size() > rhsLen)
-      return strong_ordering::greater;
-    else
-      return strong_ordering::equal;
-  }
+  else if (lhs.size() < rhsLen)
+    return strong_ordering::less;
+  else if (lhs.size() > rhsLen)
+    return strong_ordering::greater;
+  else
+    return strong_ordering::equal;
 }
 
 template <size_t allocatedSize>

@@ -164,7 +164,7 @@ PointerAlignment: Middle
 QualifierAlignment: Left
 ReferenceAlignment: Middle
 ReflowComments: Always
-RemoveBracesLLVM: false
+RemoveBracesLLVM: true
 RemoveEmptyLinesInUnwrappedLines: false
 RemoveParentheses: MultipleParentheses
 RemoveSemicolon: true
@@ -183,9 +183,15 @@ SpaceAfterCStyleCast: false
 SpaceAfterLogicalNot: false
 SpaceAfterOperatorKeyword: false
 SpaceAfterTemplateKeyword: true
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacearoundpointerqualifiers
+SpaceAroundPointerQualifiers: Both
 SpaceBeforeAssignmentOperators: true
-SpaceBeforeParens: ControlStatements
+SpaceBeforeCaseColon: false
+SpaceBeforeCpp11BracedList: false
+SpaceBeforeCtorInitializerColon: true
+SpaceBeforeInheritanceColon: true
+SpaceBeforeJsonColon: true
+SpaceBeforeParens: ControlStatementsExceptControlMacros
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacebeforeparensoptions
 SpaceInEmptyParentheses: false
 SpacesBeforeTrailingComments: 1
 SpacesInCStyleCastParentheses: false

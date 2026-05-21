@@ -115,10 +115,9 @@ constexpr array<SignalInfo, 31> c_signals = {
   \return Description string if \a id is present in \c c_signals, \c nullptr otherwise.
 */
 [[nodiscard]] const char * signalDescription(int id) noexcept {
-  for (const auto & signal : c_signals) {
+  for (const auto & signal : c_signals)
     if (signal.id == id)
       return signal.description;
-  }
 
   return nullptr;
 }

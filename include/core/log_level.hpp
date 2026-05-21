@@ -35,6 +35,8 @@ namespace toy::log {
 /*!
   \enum Level
 
+  \ingroup Logger
+
   \brief Severity level of a log message.
 
   Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than

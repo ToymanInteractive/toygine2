@@ -46,11 +46,9 @@ constexpr char * reverseString(char * string, size_t stringLength) noexcept {
   if (stringLength == 0)
     stringLength = char_traits<char>::length(string);
 
-  if (stringLength != 0) {
-    for (size_t i = 0, j = stringLength - 1; i < j; ++i, --j) {
+  if (stringLength != 0)
+    for (size_t i = 0, j = stringLength - 1; i < j; ++i, --j)
       std::swap(string[i], string[j]);
-    }
-  }
 
   return string;
 }
@@ -125,11 +123,10 @@ constexpr char * utoa(char * dest, size_t destSize, T value, unsigned base) noex
 #if defined(_WIN64)
   _BitScanReverse64(&index, value);
 #else
-  if (_BitScanReverse(&index, static_cast<unsigned long>(value >> 32)) != 0) {
+  if (_BitScanReverse(&index, static_cast<unsigned long>(value >> 32)) != 0)
     index += 32;
-  } else {
+  else
     _BitScanReverse(&index, static_cast<unsigned long>(value & 0xFFFFFFFFLU));
-  }
 #endif
   return index;
 #elif defined(__GNUC__) || defined(__clang__)

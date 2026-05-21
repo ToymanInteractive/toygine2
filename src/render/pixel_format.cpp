@@ -68,10 +68,9 @@ CStringView pixelFormatName(PixelFormat format) noexcept {
 }
 
 PixelFormat pixelFormatFromName(CStringView name) noexcept {
-  for (size_t index = 0; index < c_formatNames.size(); ++index) {
+  for (size_t index = 0; index < c_formatNames.size(); ++index)
     if (c_formatNames[index] == name)
       return static_cast<PixelFormat>(index);
-  }
 
   return PixelFormat::Unknown;
 }

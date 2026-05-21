@@ -48,10 +48,9 @@ constexpr const char * cstrchr(const char * str, int ch) noexcept {
 
   const auto target = static_cast<unsigned char>(ch);
 
-  for (; *str; ++str) {
+  for (; *str; ++str)
     if (static_cast<unsigned char>(*str) == target)
       return str;
-  }
 
   return (static_cast<unsigned char>(*str) == target) ? str : nullptr;
 }
@@ -61,10 +60,9 @@ constexpr const char * cstrpbrk(const char * str, const char * accept) noexcept 
     return nullptr;
 
   for (; *str != '\0'; ++str) {
-    for (const char * a = accept; *a != '\0'; ++a) {
+    for (const char * a = accept; *a != '\0'; ++a)
       if (*str == *a)
         return str;
-    }
   }
 
   return nullptr;

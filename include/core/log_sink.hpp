@@ -35,6 +35,8 @@ namespace toy::log {
 /*!
   \class ISink
 
+  \ingroup Logger
+
   \brief Abstract output destination for formatted log messages.
 
   Implemented by each concrete sink. \ref toy::LogBackend holds a pointer to the active sink and calls write() for every

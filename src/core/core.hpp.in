@@ -254,6 +254,24 @@ using std::chrono::nanoseconds;
 
 //--------------------------------------------------------------------------------------------------------------------
 
+/*!
+  \defgroup Logger Logger
+
+  \brief Compile-time filtered logging with pluggable sinks.
+*/
+
+/*!
+  \namespace toy::log
+
+  \brief Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interface.
+
+  Each \c LOG_* macro instantiates a \c static \c constexpr \ref toy::log::Metadata at its call site and dispatches a
+  \ref toy::log::Record to the active \ref toy::log::ISink. No heap allocation; the message is formatted on the caller's
+  stack before being forwarded.
+*/
+
+//--------------------------------------------------------------------------------------------------------------------
+
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
 #include "core/c_string_view.hpp"

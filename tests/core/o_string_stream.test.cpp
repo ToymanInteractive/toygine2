@@ -732,9 +732,8 @@ TEST_CASE("o_string_stream/operator_insert") {
     streams[10] << static_cast<signed char>(123);
     streams[11] << static_cast<unsigned char>(123);
 
-    for (size_t index = 0; index < streams.size(); ++index) {
+    for (size_t index = 0; index < streams.size(); ++index)
       REQUIRE(streams[index].str() == "Value: 123");
-    }
   }
 
   // operator<< numbers returns reference for chaining.
@@ -852,13 +851,12 @@ TEST_CASE("o_string_stream/operator_insert") {
 
     REQUIRE(streams[0].str().starts_with("0x"));
 
-    if constexpr (sizeof(void *) == 4) {
+    if constexpr (sizeof(void *) == 4)
       REQUIRE(streams[0].str().length() == 10U);
-    } else if constexpr (sizeof(void *) == 8) {
+    else if constexpr (sizeof(void *) == 8)
       REQUIRE(streams[0].str().length() == 18U);
-    } else {
+    else
       static_assert(sizeof(void *) == 4 || sizeof(void *) == 8, "Unsupported value size");
-    }
 
     REQUIRE(streams[1].str() == "nullptr");
     REQUIRE(streams[2].str() == "nullptr");
