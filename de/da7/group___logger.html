@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.17.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: include/core/log_sink.hpp File Reference</title>
+  <title>ToyGine2: Logger</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -107,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
   </div>
 </div>
 <script type="text/javascript">
-document.addEventListener('DOMContentLoaded',() => { initNavTree('d9/d26/log__sink_8hpp.html','../../',''); });
+document.addEventListener('DOMContentLoaded',() => { initNavTree('de/da7/group___logger.html','../../',''); });
 </script>
 <div id="container">
 <div id="doc-content">
@@ -133,38 +133,80 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d9/d26/log__si
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">log_sink.hpp File Reference</div></div>
+  <div class="headertitle"><div class="title">Logger </div></div>
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract sink interface for the logger.  
+<p>Compile-time filtered logging with pluggable sinks.  
 <a href="#details">More...</a></p>
-<div class="textblock"><div id="dynsection-0" onclick="return dynsection.toggleVisibility(this)" class="dynheader closed" style="cursor:pointer;"><span class="dynarrow"><span class="arrowhead closed"></span></span>This graph shows which files directly or indirectly include this file:</div>
-<div id="dynsection-0-summary" class="dynsummary" style="display:block;">
-</div>
-<div id="dynsection-0-content" class="dyncontent" style="display:none;">
-<div class="center"><div class="zoom"><iframe scrolling="no" loading="lazy" frameborder="0" src="../../dd/dcf/log__sink_8hpp__dep__incl.svg" width="100%" height="580"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div></div>
-</div>
-</div>
-<p><a href="../../d9/d26/log__sink_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
+<tr class="memitem:toy_3A_3Alog_3A_3AMetadata" id="r_toy_3A_3Alog_3A_3AMetadata"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html">toy::log::Metadata</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Immutable per-call-site descriptor stored as a static constexpr local.  <a href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html#details">More...</a><br /></td></tr>
+<tr class="memitem:toy_3A_3Alog_3A_3ARecord" id="r_toy_3A_3Alog_3A_3ARecord"><td class="memItemLeft">struct &#160;</td><td class="memItemRight"><a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html">toy::log::Record</a></td></tr>
+<tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Single log entry in the transport ring buffer.  <a href="../../d9/d14/structtoy_1_1log_1_1_record.html#details">More...</a><br /></td></tr>
 <tr class="memitem:toy_3A_3Alog_3A_3AISink" id="r_toy_3A_3Alog_3A_3AISink"><td class="memItemLeft">class &#160;</td><td class="memItemRight"><a class="el" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html">toy::log::ISink</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">Abstract output destination for formatted log messages.  <a href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html#details">More...</a><br /></td></tr>
 </table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-namespaces" class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:toy" id="r_toy"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></td></tr>
-<tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
-<tr class="memitem:toy_3A_3Alog" id="r_toy_3A_3Alog"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d15/namespacetoy_1_1log.html">toy::log</a></td></tr>
-<tr class="memdesc:da/d15/namespacetoy_1_1log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interface. <br /></td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
+Enumerations</h2></td></tr>
+<tr class="memitem:ga955f65710c884cc3393a41d2a3ad5a64" id="r_ga955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ga955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Level::Trace</a> = 0
+, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">toy::log::Level::Debug</a> = 1
+, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">toy::log::Level::Info</a> = 2
+, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">toy::log::Level::Warn</a> = 3
+, <br />
+&#160;&#160;<a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Level::Error</a> = 4
+, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">toy::log::Level::Off</a> = 5
+<br />
+ }</td></tr>
+<tr class="memdesc:ga955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="#ga955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract sink interface for the logger. </p>
-<p>Defines toy::log::ISink: the polymorphic output destination invoked by toy::LogBackend on every flushed <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html" title="toy::log::Record">toy::log::Record</a>. Concrete sinks (console, mGBA, custom) implement this interface.</p>
-<dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a> only; do not include this file directly. </dd></dl>
-</div></div><!-- contents -->
+<div class="textblock"><p>Compile-time filtered logging with pluggable sinks. </p>
+</div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
+<a id="ga955f65710c884cc3393a41d2a3ad5a64" name="ga955f65710c884cc3393a41d2a3ad5a64"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ga955f65710c884cc3393a41d2a3ad5a64">&#9670;&#160;</a></span>Level</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum class <a class="el" href="#ga955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Severity level of a log message. </p>
+<p>Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than <code>LOG_MIN_LEVEL</code>.</p>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>, LOG_MIN_LEVEL </dd></dl>
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1" name="gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"><p>Fine-grained diagnostic information. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba" name="gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc"><p>Coarser diagnostic information useful during development. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875" name="gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875"></a>Info&#160;</td><td class="fielddoc"><p>Normal operational events. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17" name="gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17"></a>Warn&#160;</td><td class="fielddoc"><p>Potentially harmful situations that do not prevent execution. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd" name="gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>Error events that may allow continued execution. </p>
+</td></tr>
+<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36" name="gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36"></a>Off&#160;</td><td class="fielddoc"><p>Disables all logging; no messages are emitted. </p>
+</td></tr>
+</table>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>
@@ -177,7 +219,6 @@ Namespaces</h2></td></tr>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a href="../../dir_d44c64559bbebec7f509842c48db8b23.html">include</a></li><li class="navelem"><a href="../../dir_3d69f64eaf81436fe2b22361382717e5.html">core</a></li><li class="navelem"><a href="../../d9/d26/log__sink_8hpp.html">log_sink.hpp</a></li>
     <li class="footer">Generated on <span class="timestamp"></span> for ToyGine2 by <a href="https://www.doxygen.org/index.html"><img class="footer" src="../../doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.17.0 </li>
   </ul>
 </div>

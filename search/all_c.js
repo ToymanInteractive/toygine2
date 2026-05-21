@@ -7,7 +7,7 @@ var searchData=
   ['length_4',['length',['../d5/d03/classtoy_1_1_c_string_view.html#a6120478d89996e674d30f8398ccfbc51',1,'toy::CStringView::length()'],['../d3/d7a/classtoy_1_1_fixed_string.html#a40f234d8be756c3babc9a5945e241dcd',1,'toy::FixedString::length()'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#a4efee9d8e3cf44bb07fbeed822858b7f',1,'toy::geometry::Section::length()']]],
   ['length_20and_20structure_5',['Test Length and Structure',['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'']]],
   ['length_20assertions_20including_20utf_208_6',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
-  ['level_7',['Level',['../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64',1,'toy::log']]],
+  ['level_7',['Level',['../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64',1,'toy::log']]],
   ['level_8',['level',['../d8/dfc/structtoy_1_1log_1_1_metadata.html#aae889c7e850c4fb5ac66665b6757f169',1,'toy::log::Metadata']]],
   ['line_9',['line',['../d8/dfc/structtoy_1_1log_1_1_metadata.html#a6e8db8b3ecfa0467e1ae540ff20c102f',1,'toy::log::Metadata']]],
   ['lines_10',['Empty Lines',['../df/d81/md__a_g_e_n_t_s.html#empty-lines',1,'']]],
@@ -28,6 +28,7 @@ var searchData=
   ['log_5frecord_2ehpp_25',['log_record.hpp',['../d1/d3a/log__record_8hpp.html',1,'']]],
   ['log_5fsink_2ecpp_26',['log_sink.cpp',['../d2/d51/log__sink_8cpp.html',1,'']]],
   ['log_5fsink_2ehpp_27',['log_sink.hpp',['../d9/d26/log__sink_8hpp.html',1,'']]],
-  ['loops_28',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
-  ['lowest_29',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
+  ['logger_28',['Logger',['../de/da7/group___logger.html',1,'']]],
+  ['loops_29',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
+  ['lowest_30',['lowest',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a9d605ddbec7e3ae998160a72290a276d',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]]
 ];

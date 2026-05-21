@@ -153,24 +153,25 @@ Namespaces</h2></td></tr>
 <tr class="memitem:toy" id="r_toy"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../d4/da9/namespacetoy.html">toy</a></td></tr>
 <tr class="memdesc:d4/da9/namespacetoy"><td class="mdescLeft">&#160;</td><td class="mdescRight">Root namespace containing all engine modules. <br /></td></tr>
 <tr class="memitem:toy_3A_3Alog" id="r_toy_3A_3Alog"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d15/namespacetoy_1_1log.html">toy::log</a></td></tr>
+<tr class="memdesc:da/d15/namespacetoy_1_1log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interface. <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a955f65710c884cc3393a41d2a3ad5a64" id="r_a955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t { <br />
-&#160;&#160;<a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Trace</a> = 0
-, <a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">toy::log::Debug</a> = 1
-, <a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">toy::log::Info</a> = 2
-, <a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">toy::log::Warn</a> = 3
+<tr class="memitem:ga955f65710c884cc3393a41d2a3ad5a64" id="r_ga955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Level::Trace</a> = 0
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">toy::log::Level::Debug</a> = 1
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">toy::log::Level::Info</a> = 2
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">toy::log::Level::Warn</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Error</a> = 4
-, <a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">toy::log::Off</a> = 5
+&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Level::Error</a> = 4
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">toy::log::Level::Off</a> = 5
 <br />
  }</td></tr>
-<tr class="memdesc:a955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
+<tr class="memdesc:ga955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Severity levels for the logger. </p>
-<p>Defines <a class="el" href="../../da/d15/namespacetoy_1_1log.html#a955f65710c884cc3393a41d2a3ad5a64" title="toy::log::Level">toy::log::Level</a> used to filter log output at compile time via <code>LOG_MIN_LEVEL</code> and at runtime via toy::LogBackend.</p>
+<p>Defines <a class="el" href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64" title="toy::log::Level">toy::log::Level</a> used to filter log output at compile time via <code>LOG_MIN_LEVEL</code> and at runtime via toy::LogBackend.</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a> only; do not include this file directly. </dd></dl>
 </div></div><!-- contents -->
 </div><!-- doc-content -->

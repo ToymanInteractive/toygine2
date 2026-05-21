@@ -1,18 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"df/d81/md__a_g_e_n_t_s.html#concept":[1,15,1],
-"df/d81/md__a_g_e_n_t_s.html#concept-documentation":[1,14,3],
-"df/d81/md__a_g_e_n_t_s.html#const-reference-style":[1,12,2],
-"df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity":[1,24],
-"df/d81/md__a_g_e_n_t_s.html#constexpr-first-design":[1,9],
-"df/d81/md__a_g_e_n_t_s.html#default-member-initialization":[1,10,8],
-"df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist":[1,15,5],
-"df/d81/md__a_g_e_n_t_s.html#documentation-style-rules":[1,14],
-"df/d81/md__a_g_e_n_t_s.html#documentation-tone":[1,13,0],
-"df/d81/md__a_g_e_n_t_s.html#doxygen-block-style":[1,13,1],
-"df/d81/md__a_g_e_n_t_s.html#empty-lines":[1,6,4],
-"df/d81/md__a_g_e_n_t_s.html#error-handling":[1,11],
-"df/d81/md__a_g_e_n_t_s.html#explicit-constructors":[1,10,3],
 "df/d81/md__a_g_e_n_t_s.html#file-documentation-file":[1,14,0],
 "df/d81/md__a_g_e_n_t_s.html#file-extensions":[1,7,2],
 "df/d81/md__a_g_e_n_t_s.html#final-rule":[1,28],

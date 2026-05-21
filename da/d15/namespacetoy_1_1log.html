@@ -136,6 +136,9 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('da/d15/namespa
   <div class="headertitle"><div class="title">toy::log Namespace Reference</div></div>
 </div><!--header-->
 <div class="contents">
+
+<p>Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interface.  
+<a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-nested-classes" class="groupheader"><a id="nested-classes" name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -148,65 +151,27 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:a955f65710c884cc3393a41d2a3ad5a64" id="r_a955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64">Level</a> : uint8_t { <br />
-&#160;&#160;<a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">Trace</a> = 0
-, <a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">Debug</a> = 1
-, <a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">Info</a> = 2
-, <a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">Warn</a> = 3
+<tr class="memitem:ga955f65710c884cc3393a41d2a3ad5a64" id="r_ga955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64">Level</a> : uint8_t { <br />
+&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">Level::Trace</a> = 0
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">Level::Debug</a> = 1
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">Level::Info</a> = 2
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">Level::Warn</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">Error</a> = 4
-, <a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">Off</a> = 5
+&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">Level::Error</a> = 4
+, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">Level::Off</a> = 5
 <br />
  }</td></tr>
-<tr class="memdesc:a955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="#a955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
+<tr class="memdesc:ga955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-var-members" class="groupheader"><a id="var-members" name="var-members"></a>
 Variables</h2></td></tr>
 <tr class="memitem:ae02319fb7aa246ee768f8df8a682b450" id="r_ae02319fb7aa246ee768f8df8a682b450"><td class="memItemLeft">constexpr size_t&#160;</td><td class="memItemRight"><a class="el" href="#ae02319fb7aa246ee768f8df8a682b450">c_messageCapacity</a> = <a class="el" href="../../d1/d3a/log__record_8hpp.html#a79a1795bad8b0cc794cde609930fd1d7">LOG_MESSAGE_CAPACITY</a></td></tr>
 <tr class="memdesc:ae02319fb7aa246ee768f8df8a682b450"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum byte length of a formatted log message including the null terminator.  <br /></td></tr>
 </table>
-<a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="a955f65710c884cc3393a41d2a3ad5a64" name="a955f65710c884cc3393a41d2a3ad5a64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a955f65710c884cc3393a41d2a3ad5a64">&#9670;&#160;</a></span>Level</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">enum class <a class="el" href="#a955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel strong">strong</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Severity level of a log message. </p>
-<p>Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than <code>LOG_MIN_LEVEL</code>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>, LOG_MIN_LEVEL </dd></dl>
-<table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1" name="a955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"><p>Fine-grained diagnostic information. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba" name="a955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc"><p>Coarser diagnostic information useful during development. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875" name="a955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875"></a>Info&#160;</td><td class="fielddoc"><p>Normal operational events. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17" name="a955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17"></a>Warn&#160;</td><td class="fielddoc"><p>Potentially harmful situations that do not prevent execution. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd" name="a955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>Error events that may allow continued execution. </p>
-</td></tr>
-<tr><td class="fieldname"><a id="a955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36" name="a955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36"></a>Off&#160;</td><td class="fielddoc"><p>Disables all logging; no messages are emitted. </p>
-</td></tr>
-</table>
-
-</div>
-</div>
-<a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interface. </p>
+<p>Each <code>LOG_*</code> macro instantiates a <code>static</code> <code>constexpr</code> <a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a> at its call site and dispatches a <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html" title="toy::log::Record">toy::log::Record</a> to the active <a class="el" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html" title="toy::log::ISink">toy::log::ISink</a>. No heap allocation; the message is formatted on the caller's stack before being forwarded. </p>
+</div><a name="doc-var-members" id="doc-var-members"></a><h2 id="header-doc-var-members" class="groupheader">Variable Documentation</h2>
 <a id="ae02319fb7aa246ee768f8df8a682b450" name="ae02319fb7aa246ee768f8df8a682b450"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ae02319fb7aa246ee768f8df8a682b450">&#9670;&#160;</a></span>c_messageCapacity</h2>
 

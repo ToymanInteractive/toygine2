@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['mathematical_20functions_0',['Common mathematical functions',['../d5/d12/group___math_functions.html',1,'']]]
+  ['logger_0',['Logger',['../de/da7/group___logger.html',1,'']]]
 ];
