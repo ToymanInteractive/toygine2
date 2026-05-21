@@ -936,10 +936,10 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< FixedString.
   SUBCASE("insert_string_like_fixed_string") {
-    array<OStringStream<FixedString<64>>, 2> streams;
+    constexpr FixedString<16> str0("Hello");
+    constexpr FixedString<16> str1("World");
 
-    const FixedString<16> str0("Hello");
-    const FixedString<16> str1("World");
+    array<OStringStream<FixedString<64>>, 2> streams;
 
     streams[0] << str0;
     streams[1] << str1;
@@ -950,10 +950,10 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< CStringView.
   SUBCASE("insert_string_like_c_string_view") {
-    array<OStringStream<FixedString<64>>, 2> streams;
+    constexpr CStringView view0("Test");
+    constexpr CStringView view1("String");
 
-    const CStringView view0("Test");
-    const CStringView view1("String");
+    array<OStringStream<FixedString<64>>, 2> streams;
 
     streams[0] << view0;
     streams[1] << view1;
@@ -964,9 +964,9 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< StringLike to stream with content.
   SUBCASE("insert_string_like_to_stream_with_content") {
-    OStringStream<FixedString<64>> stream(CStringView("Prefix: "));
+    constexpr FixedString<16> suffix("Suffix");
 
-    const FixedString<16> suffix("Suffix");
+    OStringStream<FixedString<64>> stream(CStringView("Prefix: "));
 
     stream << suffix;
 
@@ -975,11 +975,11 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< StringLike with chaining.
   SUBCASE("insert_string_like_with_chaining") {
-    OStringStream<FixedString<64>> stream;
+    constexpr FixedString<16> hello("Hello");
+    constexpr CStringView     space(" ");
+    constexpr FixedString<16> world("World");
 
-    const FixedString<16> hello("Hello");
-    const CStringView     space(" ");
-    const FixedString<16> world("World");
+    OStringStream<FixedString<64>> stream;
 
     stream << hello << space << world;
 
@@ -988,10 +988,10 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< StringLike returns reference for chaining.
   SUBCASE("insert_string_like_returns_reference_for_chaining") {
-    array<OStringStream<FixedString<64>>, 2> streams;
+    constexpr FixedString<16> str0("First");
+    constexpr FixedString<16> str1("Second");
 
-    const FixedString<16> str0("First");
-    const FixedString<16> str1("Second");
+    array<OStringStream<FixedString<64>>, 2> streams;
 
     auto & ref0 = streams[0] << str0;
     auto & ref1 = streams[1] << str1;
@@ -1244,8 +1244,9 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< CalendarTime: all fields are emitted as zero-padded ISO 8601 date-time.
   SUBCASE("insert_chrono_calendar_time") {
+    constexpr chrono::CalendarTime ct{2026, 5, 20, 3, 14, 30, 45, 123};
+
     OStringStream<FixedString<32>> stream;
-    const chrono::CalendarTime     ct{2026, 5, 20, 3, 14, 30, 45, 123};
 
     stream << ct;
 
@@ -1254,8 +1255,9 @@ TEST_CASE("o_string_stream/operator_insert") {
 
   // operator<< CalendarTime: single-digit fields are zero-padded to their canonical width.
   SUBCASE("insert_chrono_calendar_time_zero_padding") {
+    constexpr chrono::CalendarTime ct{2026, 1, 5, 0, 9, 5, 3, 7};
+
     OStringStream<FixedString<32>> stream;
-    const chrono::CalendarTime     ct{2026, 1, 5, 0, 9, 5, 3, 7};
 
     stream << ct;
 
@@ -1267,6 +1269,59 @@ TEST_CASE("o_string_stream/operator_insert") {
     OStringStream<FixedString<32>> stream;
 
     stream << chrono::CalendarTime::invalid();
+
+    REQUIRE(stream.view() == "0000-00-00 00:00:00.000");
+  }
+
+  // operator<< CalendarTimeFormat: full yyyy-MM-dd hh:mm:ss.zzz pattern matches the canonical CalendarTime layout.
+  SUBCASE("insert_chrono_calendar_time_format_full") {
+    constexpr chrono::CalendarTime ct{2026, 5, 20, 3, 14, 30, 45, 123};
+
+    OStringStream<FixedString<32>> stream;
+
+    stream << chrono::CalendarTimeFormat{"yyyy-MM-dd hh:mm:ss.zzz", ct};
+
+    REQUIRE(stream.view() == "2026-05-20 14:30:45.123");
+  }
+
+  // operator<< CalendarTimeFormat: single-letter tokens emit values without leading zeros.
+  SUBCASE("insert_chrono_calendar_time_format_no_padding") {
+    constexpr chrono::CalendarTime ct{2026, 1, 5, 0, 9, 5, 3, 7};
+
+    OStringStream<FixedString<32>> stream;
+
+    stream << chrono::CalendarTimeFormat{"y/M/d h:m:s.z", ct};
+
+    REQUIRE(stream.view() == "2026/1/5 9:5:3.7");
+  }
+
+  // operator<< CalendarTimeFormat: y vs yy vs yyyy — variable, two-digit, and four-digit year forms.
+  SUBCASE("insert_chrono_calendar_time_format_year_widths") {
+    constexpr chrono::CalendarTime ct{2026, 1, 1, 0, 0, 0, 0, 0};
+
+    OStringStream<FixedString<32>> stream;
+
+    stream << chrono::CalendarTimeFormat{"y / yy / yyyy", ct};
+
+    REQUIRE(stream.view() == "2026 / 26 / 2026");
+  }
+
+  // operator<< CalendarTimeFormat: non-token characters (separators, labels) are emitted verbatim.
+  SUBCASE("insert_chrono_calendar_time_format_literal_passthrough") {
+    constexpr chrono::CalendarTime ct{2026, 5, 20, 3, 14, 30, 45, 0};
+
+    OStringStream<FixedString<32>> stream;
+
+    stream << chrono::CalendarTimeFormat{"yyyy-MM-dd - hh:mm", ct};
+
+    REQUIRE(stream.view() == "2026-05-20 - 14:30");
+  }
+
+  // operator<< CalendarTimeFormat: CalendarTime::invalid() renders all numeric tokens as zero.
+  SUBCASE("insert_chrono_calendar_time_format_invalid") {
+    OStringStream<FixedString<32>> stream;
+
+    stream << chrono::CalendarTimeFormat{"yyyy-MM-dd hh:mm:ss.zzz", chrono::CalendarTime::invalid()};
 
     REQUIRE(stream.view() == "0000-00-00 00:00:00.000");
   }

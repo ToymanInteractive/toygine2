@@ -104,7 +104,7 @@ static void oStringStreamDurationNegativeMilliseconds(picobench::state & state) 
 }
 
 static void oStringStreamDurationFormatHhMmSs(picobench::state & state) noexcept {
-  const chrono::DurationFormat fmt{"h:m:s:z", chrono::milliseconds{3'723'000}};
+  constexpr chrono::DurationFormat fmt{"h:m:s:z", chrono::milliseconds{3'723'000}};
 
   size_t           result{0};
   picobench::scope scope(state);
@@ -117,7 +117,7 @@ static void oStringStreamDurationFormatHhMmSs(picobench::state & state) noexcept
 }
 
 static void oStringStreamDurationFormatHhMmSsZzz(picobench::state & state) noexcept {
-  const chrono::DurationFormat fmt{"hh:mm:ss.zzz", chrono::milliseconds{3'723'042}};
+  constexpr chrono::DurationFormat fmt{"hh:mm:ss.zzz", chrono::milliseconds{3'723'042}};
 
   size_t           result{0};
   picobench::scope scope(state);
@@ -130,7 +130,7 @@ static void oStringStreamDurationFormatHhMmSsZzz(picobench::state & state) noexc
 }
 
 static void oStringStreamTimePointMilliseconds(picobench::state & state) noexcept {
-  const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
+  constexpr chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
 
   size_t           result{0};
   picobench::scope scope(state);
@@ -143,8 +143,8 @@ static void oStringStreamTimePointMilliseconds(picobench::state & state) noexcep
 }
 
 static void oStringStreamTimePointFormatHhMmSsZzz(picobench::state & state) noexcept {
-  const chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
-  const chrono::TimePointFormat                                      fmt{"hh:mm:ss.zzz", tp};
+  constexpr chrono::TimePoint<chrono::SteadyClock, chrono::milliseconds> tp{chrono::milliseconds{3'723'042}};
+  constexpr chrono::TimePointFormat                                      fmt{"hh:mm:ss.zzz", tp};
 
   size_t           result{0};
   picobench::scope scope(state);
@@ -157,13 +157,38 @@ static void oStringStreamTimePointFormatHhMmSsZzz(picobench::state & state) noex
 }
 
 static void oStringStreamCalendarTime(picobench::state & state) noexcept {
-  const chrono::CalendarTime ct = chrono::SystemClock::now();
+  constexpr chrono::CalendarTime
+    ct{.year = 2026, .month = 5, .day = 21, .dayOfWeek = 4, .hour = 5, .minute = 45, .second = 30, .millisecond = 45};
 
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     OStringStream<FixedString<32>> s;
     s << ct;
+    result += s.str().size();
+  }
+  state.set_result(result);
+}
+
+static void oStringStreamCalendarTimeFormatYyyyMmDdHhMmSsZzz(picobench::state & state) noexcept {
+  constexpr chrono::CalendarTimeFormat fmt{
+    "yyyy-MM-dd hh:mm:ss.zzz", chrono::CalendarTime{
+                                                    .year        = 2026,
+                                                    .month       = 5,
+                                                    .day         = 21,
+                                                    .dayOfWeek   = 4,
+                                                    .hour        = 5,
+                                                    .minute      = 45,
+                                                    .second      = 30,
+                                                    .millisecond = 45,
+                                                    }
+  };
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    OStringStream<FixedString<32>> s;
+    s << fmt;
     result += s.str().size();
   }
   state.set_result(result);
@@ -182,5 +207,6 @@ PICOBENCH(oStringStreamDurationFormatHhMmSsZzz);
 PICOBENCH(oStringStreamTimePointMilliseconds);
 PICOBENCH(oStringStreamTimePointFormatHhMmSsZzz);
 PICOBENCH(oStringStreamCalendarTime);
+PICOBENCH(oStringStreamCalendarTimeFormatYyyyMmDdHhMmSsZzz);
 
 } // namespace toy

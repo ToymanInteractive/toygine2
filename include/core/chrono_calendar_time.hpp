@@ -21,8 +21,8 @@
   \file   chrono_calendar_time.hpp
   \brief  Broken-down calendar date and time with millisecond resolution.
 
-  Defines \ref toy::chrono::CalendarTime: a plain aggregate holding the Gregorian date and UTC time components
-  returned by \ref toy::chrono::SystemClock::now().
+  Defines \ref toy::chrono::CalendarTime as the local broken-down time aggregate produced by SystemClock::now(), and
+  \ref toy::chrono::CalendarTimeFormat as a pattern+value pair used for formatted calendar output.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -34,7 +34,10 @@ namespace toy::chrono {
 
 /*!
   \struct CalendarTime
-  \brief  Broken-down UTC calendar date and time with millisecond resolution.
+
+  \ingroup Chrono
+
+  \brief  Broken-down local calendar date and time with millisecond resolution.
 
   A plain aggregate populated by \ref toy::chrono::SystemClock::now(). All fields are zero on platforms without an RTC.
 
@@ -93,6 +96,95 @@ struct CalendarTime {
   uint8_t  second;
   /// Millisecond within the current second: 0–999.
   uint16_t millisecond;
+
+  /*!
+    \brief Equality comparison is deleted.
+
+    \ref toy::chrono::CalendarTime carries no time-zone metadata: identical field values from different hosts or after a
+    DST transition do not refer to the same instant. Comparing two values would silently hide that ambiguity. Compare
+    explicit fields directly when the intent is well-defined.
+
+    \param lhs Left-hand calendar value.
+    \param rhs Right-hand calendar value.
+
+    \return Not applicable; this operator is deleted.
+  */
+  friend bool operator==(const CalendarTime & lhs, const CalendarTime & rhs) = delete;
+};
+
+/*!
+  \struct CalendarTimeFormat
+
+  \ingroup Chrono
+
+  \brief Pairs a \ref toy::chrono::CalendarTime with a null-terminated display pattern.
+
+  Passed to \c toy::OStringStream::operator<< to format the calendar date and time into a human-readable representation.
+  The pattern is scanned character-by-character; recognised tokens are replaced with the corresponding field of the
+  \ref toy::chrono::CalendarTime; all other characters are emitted verbatim.
+
+  \section features Key Features
+
+  - **Flexible patterns**: any combination of \c y, \c M, \c d, \c h, \c m, \c s, \c z tokens with arbitrary literal
+    separators.
+  - **Literal passthrough**: non-token characters (\c '-', \c ':', \c '.', \c 'T', spaces, labels) are emitted
+  unchanged.
+
+  \section pattern_tokens Pattern Tokens
+
+  | Token   | Component    | Behaviour                                  |
+  |---------|--------------|--------------------------------------------|
+  | \c y    | year         | no leading zero (e.g. \c 2026)             |
+  | \c yy   | year         | last 2 digits, zero-padded (e.g. \c 26)    |
+  | \c yyyy | year         | always 4 digits, zero-padded (e.g. \c 2026)|
+  | \c M    | month        | no leading zero (e.g. \c 5)                |
+  | \c MM   | month        | always 2 digits (e.g. \c 05)               |
+  | \c d    | day          | no leading zero (e.g. \c 7)                |
+  | \c dd   | day          | always 2 digits (e.g. \c 07)               |
+  | \c h    | hour         | no leading zero (e.g. \c 9)                |
+  | \c hh   | hour         | always 2 digits (e.g. \c 09)               |
+  | \c m    | minute       | no leading zero (e.g. \c 3)                |
+  | \c mm   | minute       | always 2 digits (e.g. \c 03)               |
+  | \c s    | second       | no leading zero (e.g. \c 5)                |
+  | \c ss   | second       | always 2 digits (e.g. \c 05)               |
+  | \c z    | millisecond  | no leading zero (e.g. \c 42)               |
+  | \c zzz  | millisecond  | always 3 digits (e.g. \c 042)              |
+
+  \section usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  const toy::chrono::CalendarTime ct = toy::chrono::SystemClock::now();
+  toy::OStringStream<toy::FixedString<32>> stream;
+  stream << toy::chrono::CalendarTimeFormat{"yyyy-MM-dd hh:mm:ss.zzz", ct}; // e.g. "2026-05-20 14:30:45.123"
+  \endcode
+
+  \section performance Performance Characteristics
+
+  - **Construction**: O(1); no computation at construction time.
+  - **Formatting**: O(n) where \a n is the length of \a pattern; one pass through the pattern string.
+  - **Memory usage**: 12 bytes (\ref toy::CStringView pointer/length plus 10-byte \ref toy::chrono::CalendarTime); no
+    heap allocation.
+
+  \section safety Safety Guarantees
+
+  - **Pattern lifetime**: \a pattern must remain valid for the duration of the format operation; string literals and
+    static-storage pointers satisfy this. Dangling pointers cause undefined behaviour.
+  - **Exception safety**: all operations are \c noexcept.
+
+  \note Month token uses uppercase \c M to disambiguate from minutes; all other tokens are lowercase as in
+        \ref toy::chrono::DurationFormat.
+  \note \c yy emits the last two digits of the year (e.g. \c 2026 → \c 26).
+
+  \sa \ref toy::chrono::CalendarTime
+*/
+struct CalendarTimeFormat {
+  /// Format pattern.
+  CStringView pattern;
+
+  /// Calendar date and time to format.
+  CalendarTime calendarTime;
 };
 
 } // namespace toy::chrono

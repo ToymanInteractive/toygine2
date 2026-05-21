@@ -31,7 +31,6 @@
 #define PICOBENCH_IMPLEMENT
 #include "picobench/picobench.hpp"
 
-void runCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
@@ -44,9 +43,8 @@ struct BenchmarkEntry {
   benchmark_fn_type fn;
 };
 
-constexpr std::array<BenchmarkEntry, 3> c_benchmarks{
+constexpr std::array<BenchmarkEntry, 2> c_benchmarks{
   {
-   {"Core module", runCoreBenchmarks},
    {"Geometry module", runGeometryBenchmarks},
    {"Math module", runMathBenchmarks},
    }

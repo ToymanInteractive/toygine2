@@ -19,8 +19,7 @@
 //
 /*!
   \file   clock_source_windows.cpp
-  \brief  Windows implementations of \ref toy::chrono::ClockSource, \ref toy::chrono::SteadyClock, and
-          \ref toy::chrono::SystemClock.
+  \brief  Implementation of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock for Windows.
 */
 
 #include "core.hpp"
@@ -88,10 +87,6 @@ SteadyClock::time_point SteadyClock::now() noexcept {
   assert_message(activeSource != nullptr, "SteadyClock::now: no active ClockSource");
 
   return activeSource != nullptr ? time_point{duration{activeSource->nowTicks()}} : time_point{};
-}
-
-CalendarTime SystemClock::now() noexcept {
-  return CalendarTime::invalid();
 }
 
 } // namespace toy::chrono

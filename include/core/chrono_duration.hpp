@@ -48,9 +48,9 @@ using Duration = std::chrono::duration<Rep, Period>;
 /*!
   \class DurationFormat
 
-  \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
-
   \ingroup Chrono
+
+  \brief Pairs a \ref toy::chrono::Duration with a null-terminated display pattern.
 
   Passed to \c toy::OStringStream::operator<< to format the duration into a human-readable clock representation. The
   pattern is scanned character-by-character; recognised tokens are replaced with the corresponding time component
@@ -142,9 +142,9 @@ using TimePoint = std::chrono::time_point<Clock, Dur>;
 /*!
   \class TimePointFormat
 
-  \brief Pairs a \ref toy::chrono::TimePoint with a null-terminated display pattern.
-
   \ingroup Chrono
+
+  \brief Pairs a \ref toy::chrono::TimePoint with a null-terminated display pattern.
 
   Passed to \c toy::OStringStream::operator<< to format the time point into a human-readable clock representation. The
   pattern is scanned character-by-character; recognised tokens are replaced with the corresponding time component

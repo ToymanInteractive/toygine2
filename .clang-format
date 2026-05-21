@@ -172,11 +172,18 @@ RequiresClausePosition: OwnLineWithBrace
 RequiresExpressionIndentation: OuterScope
 SeparateDefinitionBlocks: Always
 ShortNamespaceLines: 0
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#skipmacrodefinitionbody
-SortIncludes: CaseSensitive
-SortUsingDeclarations: LexicographicNumeric
+SkipMacroDefinitionBody: false
+SortIncludes:
+  Enabled: true
+  IgnoreCase: false
+  IgnoreExtension: true
+SortJavaStaticImport: Before
+SortUsingDeclarations: Lexicographic
 SpaceAfterCStyleCast: false
+SpaceAfterLogicalNot: false
+SpaceAfterOperatorKeyword: false
 SpaceAfterTemplateKeyword: true
+# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#spacearoundpointerqualifiers
 SpaceBeforeAssignmentOperators: true
 SpaceBeforeParens: ControlStatements
 SpaceInEmptyParentheses: false

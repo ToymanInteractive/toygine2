@@ -33,20 +33,20 @@ CalendarTime SystemClock::now() noexcept {
   if (rc != 0)
     return CalendarTime::invalid();
 
-  tm               utcTM;
-  const tm * const tmResult = localtime_r(&ts.tv_sec, &utcTM);
+  tm               localTM;
+  const tm * const tmResult = localtime_r(&ts.tv_sec, &localTM);
   assert_message(tmResult != nullptr, "SystemClock::now: localtime_r failed");
   if (tmResult == nullptr)
     return CalendarTime::invalid();
 
   return CalendarTime{
-    .year        = static_cast<int16_t>(utcTM.tm_year + 1900),
-    .month       = static_cast<uint8_t>(utcTM.tm_mon + 1),
-    .day         = static_cast<uint8_t>(utcTM.tm_mday),
-    .dayOfWeek   = static_cast<uint8_t>(utcTM.tm_wday),
-    .hour        = static_cast<uint8_t>(utcTM.tm_hour),
-    .minute      = static_cast<uint8_t>(utcTM.tm_min),
-    .second      = static_cast<uint8_t>(utcTM.tm_sec),
+    .year        = static_cast<int16_t>(localTM.tm_year + 1900),
+    .month       = static_cast<uint8_t>(localTM.tm_mon + 1),
+    .day         = static_cast<uint8_t>(localTM.tm_mday),
+    .dayOfWeek   = static_cast<uint8_t>(localTM.tm_wday),
+    .hour        = static_cast<uint8_t>(localTM.tm_hour),
+    .minute      = static_cast<uint8_t>(localTM.tm_min),
+    .second      = static_cast<uint8_t>(localTM.tm_sec),
     .millisecond = static_cast<uint16_t>(ts.tv_nsec / 1'000'000),
   };
 }

@@ -18,29 +18,28 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   core_benchmark.cpp
-  \brief  Implementation of nanobench benchmarks for the core module.
+  \file   system_clock_windows.cpp
+  \brief  Implementation of \ref toy::chrono::SystemClock for Windows.
 */
-
-#include <nanobench.h>
 
 #include "core.hpp"
 
-namespace toy {
+namespace toy::chrono {
 
-void ftoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void itoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void oStringStreamCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void utoaCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void formatNumberStringCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void highestBitCoreBenchmarks(ankerl::nanobench::Bench &) noexcept;
+CalendarTime SystemClock::now() noexcept {
+  SYSTEMTIME st{};
+  GetLocalTime(&st);
 
-} // namespace toy
-
-void runCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  toy::ftoaCoreBenchmarks(bench);
-  toy::itoaCoreBenchmarks(bench);
-  toy::utoaCoreBenchmarks(bench);
-  toy::formatNumberStringCoreBenchmarks(bench);
-  toy::highestBitCoreBenchmarks(bench);
+  return CalendarTime{
+    .year        = static_cast<int16_t>(st.wYear),
+    .month       = static_cast<uint8_t>(st.wMonth),
+    .day         = static_cast<uint8_t>(st.wDay),
+    .dayOfWeek   = static_cast<uint8_t>(st.wDayOfWeek),
+    .hour        = static_cast<uint8_t>(st.wHour),
+    .minute      = static_cast<uint8_t>(st.wMinute),
+    .second      = static_cast<uint8_t>(st.wSecond),
+    .millisecond = static_cast<uint16_t>(st.wMilliseconds),
+  };
 }
+
+} // namespace toy::chrono

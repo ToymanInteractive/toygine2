@@ -19,7 +19,7 @@
 //
 /*!
   \file   chrono_system_clock.hpp
-  \brief  Wall-clock type that returns the current UTC date and time as a broken-down \ref toy::chrono::CalendarTime.
+  \brief  Wall-clock type that returns the current local date and time as a broken-down \ref toy::chrono::CalendarTime.
 
   Defines \ref toy::chrono::SystemClock: a stateless clock that returns a \ref toy::chrono::CalendarTime. Not steady —
   the returned value may change non-monotonically if the system clock is adjusted (NTP, DST, manual set).
@@ -37,18 +37,18 @@ namespace toy::chrono {
 
   \ingroup Chrono
 
-  \brief Stateless wall clock that returns the current UTC date and time as \ref toy::chrono::CalendarTime.
+  \brief Stateless wall clock that returns the current local date and time as \ref toy::chrono::CalendarTime.
 
-  Each call to now() reads the platform calendar-time API directly and returns a broken-down UTC time as a
+  Each call to now() reads the platform calendar-time API directly and returns broken-down local time as a
   \ref toy::chrono::CalendarTime aggregate. Does not require an active \ref toy::chrono::ClockSource. The clock is not
-  steady: the returned value may change non-monotonically when the system clock is adjusted by NTP, DST changes, or a
-  manual time set. Use \ref toy::chrono::SteadyClock for elapsed-time measurement and \ref toy::chrono::Stopwatch or
-  \ref toy::chrono::CountdownTimer for interval logic.
+  steady: the returned value may change non-monotonically when the system clock is adjusted by NTP, DST transitions,
+  time-zone changes, or a manual time set. Use \ref toy::chrono::SteadyClock for elapsed-time measurement and
+  \ref toy::chrono::Stopwatch or \ref toy::chrono::CountdownTimer for interval logic.
 
   \section features Key Features
 
-  - **Broken-down UTC time**: now() returns year, month, day, weekday, hour, minute, second, and millisecond directly —
-    no epoch arithmetic required at the call site.
+  - **Broken-down local time**: now() returns year, month, day, weekday, hour, minute, second, and millisecond directly
+    — no epoch arithmetic required at the call site.
   - **No ClockSource dependency**: stateless; no RAII owner required before calling now().
   - **Millisecond resolution**: sub-millisecond precision from the underlying platform API is truncated.
   - **Not steady**: \c is_steady is \c false — the clock may be adjusted at any time by the operating system.
@@ -65,7 +65,7 @@ namespace toy::chrono {
 
   \section performance Performance Characteristics
 
-  - **now()**: O(1); one platform API call (\c clock_gettime + \c gmtime_r on POSIX, \c GetSystemTime on Windows).
+  - **now()**: O(1); one platform API call (\c clock_gettime + \c localtime_r on POSIX, \c GetLocalTime on Windows).
   - **Memory usage**: 0 bytes (stateless type).
 
   \section safety Safety Guarantees
@@ -88,12 +88,12 @@ public:
   static constexpr bool is_steady = false;
 
   /*!
-    \brief Current UTC wall-clock time as a broken-down \ref toy::chrono::CalendarTime.
+    \brief Current local wall-clock time as a broken-down \ref toy::chrono::CalendarTime.
 
     Reads the platform calendar-time API directly on each call. The returned value advances with real time but may
-    change non-monotonically if the system clock is adjusted (NTP sync, DST change, manual set).
+    change non-monotonically if the system clock is adjusted (NTP sync, DST transition, time-zone change, manual set).
 
-    \return \ref toy::chrono::CalendarTime with all fields filled from the current UTC time.
+    \return \ref toy::chrono::CalendarTime with all fields filled from the current local time.
 
     \note On platforms without an RTC this function always returns \ref toy::chrono::CalendarTime::invalid().
   */

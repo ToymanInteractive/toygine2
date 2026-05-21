@@ -19,145 +19,170 @@
 //
 /*!
   \file   utils.benchmark.cpp
-  \brief  Implementations for utility function nanobench benchmarks in the core module.
+  \brief  Implementation of picobench benchmarks for utility functions in the core module.
 */
 
-#include "../utils.hpp"
-
 #include "core.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy {
 
-// itoa benchmarks
-void itoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  constexpr size_t bufSize = 32;
-
-  bench.run("itoa int8_t", [&] {
-    char buf[bufSize];
-
-    char * r = toy::itoa(buf, bufSize, int8_t{42});
-
-    doNotOptimize(r);
-  });
-
-  bench.run("itoa int16_t", [&] {
-    char buf[bufSize];
-
-    char * r = toy::itoa(buf, bufSize, int16_t{-1234});
-
-    doNotOptimize(r);
-  });
-
-  bench.run("itoa int32_t", [&] {
-    char buf[bufSize];
-
-    char * r = toy::itoa(buf, bufSize, int32_t{12345678});
-
-    doNotOptimize(r);
-  });
-
-  bench.run("itoa int64_t", [&] {
-    char buf[bufSize];
-
-    char * r = toy::itoa(buf, bufSize, int64_t{-9223372036854775807});
-
-    doNotOptimize(r);
-  });
+static void itoaInt8(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::itoa(buf, size(buf), int8_t{42});
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
 }
 
-// utoa benchmarks
-void utoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  constexpr size_t bufSize = 32;
-
-  bench.run("utoa uint8_t base 10", [&] {
-    char buf[bufSize];
-
-    char * r = toy::utoa(buf, bufSize, uint8_t{200}, 10U);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("utoa uint16_t base 10", [&] {
-    char buf[bufSize];
-
-    char * r = toy::utoa(buf, bufSize, uint16_t{65535}, 10U);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("utoa uint32_t base 10", [&] {
-    char buf[bufSize];
-
-    char * r = toy::utoa(buf, bufSize, uint32_t{4000000000}, 10);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("utoa uint64_t base 10", [&] {
-    char buf[bufSize];
-
-    char * r = toy::utoa(buf, bufSize, uint64_t{18446744073709551615U}, 10);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("utoa uint32_t base 16", [&] {
-    char buf[bufSize];
-
-    char * r = toy::utoa(buf, bufSize, uint32_t{0xDEADBEEF}, 16);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("utoa uint64_t base 16", [&] {
-    char buf[bufSize];
-
-    char * r = toy::utoa(buf, bufSize, uint64_t{0xFFFFFFFFFFFFFFFF}, 16);
-
-    doNotOptimize(r);
-  });
+static void itoaInt16(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::itoa(buf, size(buf), int16_t{-1234});
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
 }
 
-// ftoa benchmarks
-void ftoaCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  constexpr size_t bufSize = 64;
-
-  bench.run("ftoa float default precision", [&] {
-    char buf[bufSize];
-
-    char * r = toy::ftoa(buf, bufSize, 3.14159265F);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("ftoa float custom precision", [&] {
-    char buf[bufSize];
-
-    char * r = toy::ftoa(buf, bufSize, -123.456F, 4);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("ftoa double default precision", [&] {
-    char buf[bufSize];
-
-    char * r = toy::ftoa(buf, bufSize, 3.14159265358979);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("ftoa double custom precision", [&] {
-    char buf[bufSize];
-
-    char * r = toy::ftoa(buf, bufSize, -12345.6789012345, 8);
-
-    doNotOptimize(r);
-  });
+static void itoaInt32(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::itoa(buf, size(buf), int32_t{12'345'678});
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
 }
 
-// formatNumberString benchmarks
-void formatNumberStringCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  static constexpr auto initialBuf = []() consteval noexcept {
+static void itoaInt64(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::itoa(buf, size(buf), int64_t{-9'223'372'036'854'775'807LL});
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void utoaUint8Base10(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::utoa(buf, size(buf), uint8_t{200}, 10U);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void utoaUint16Base10(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::utoa(buf, size(buf), uint16_t{65'535}, 10U);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void utoaUint32Base10(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::utoa(buf, size(buf), uint32_t{4'000'000'000U}, 10U);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void utoaUint64Base10(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::utoa(buf, size(buf), uint64_t{18'446'744'073'709'551'615ULL}, 10U);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void utoaUint32Base16(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::utoa(buf, size(buf), uint32_t{0xDEADBEEFU}, 16U);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void utoaUint64Base16(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[32];
+    toy::utoa(buf, size(buf), uint64_t{0xFFFFFFFFFFFFFFFFULL}, 16U);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void ftoaFloatDefaultPrecision(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[64];
+    toy::ftoa(buf, size(buf), 3.14159265F);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void ftoaFloatCustomPrecision(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[64];
+    toy::ftoa(buf, size(buf), -123.456F, 4);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void ftoaDoubleDefaultPrecision(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[64];
+    toy::ftoa(buf, size(buf), 3.14159265358979);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void ftoaDoubleCustomPrecision(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    char buf[64];
+    toy::ftoa(buf, size(buf), -12345.6789012345, 8);
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
+}
+
+static void formatNumberStringLongComma(picobench::state & state) noexcept {
+  static constexpr auto c_initialBuf = []() consteval noexcept {
     const char * src = "123456789012345";
 
     std::array<char, 32> arr{};
@@ -170,22 +195,41 @@ void formatNumberStringCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept
     return arr;
   }();
 
-  bench.run("formatNumberString long comma", [] {
-    auto buf = initialBuf;
-
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    auto buf = c_initialBuf;
     toy::formatNumberString(buf.data(), buf.size(), ",");
-
-    doNotOptimize(buf);
-  });
+    result += static_cast<unsigned char>(buf[0]);
+  }
+  state.set_result(static_cast<int64_t>(result));
 }
 
-// highestBit benchmarks
-void highestBitCoreBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("highestBit high bits", [] {
-    auto r = toy::highestBit(0x8000000000000000ULL);
-
-    doNotOptimize(r);
-  });
+static void highestBitHighBits(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    result += toy::highestBit(0x8000000000000000ULL);
+  }
+  state.set_result(static_cast<int64_t>(result));
 }
+
+PICOBENCH_SUITE("toy::utils");
+PICOBENCH(itoaInt8);
+PICOBENCH(itoaInt16);
+PICOBENCH(itoaInt32);
+PICOBENCH(itoaInt64);
+PICOBENCH(utoaUint8Base10);
+PICOBENCH(utoaUint16Base10);
+PICOBENCH(utoaUint32Base10);
+PICOBENCH(utoaUint64Base10);
+PICOBENCH(utoaUint32Base16);
+PICOBENCH(utoaUint64Base16);
+PICOBENCH(ftoaFloatDefaultPrecision);
+PICOBENCH(ftoaFloatCustomPrecision);
+PICOBENCH(ftoaDoubleDefaultPrecision);
+PICOBENCH(ftoaDoubleCustomPrecision);
+PICOBENCH(formatNumberStringLongComma);
+PICOBENCH(highestBitHighBits);
 
 } // namespace toy
