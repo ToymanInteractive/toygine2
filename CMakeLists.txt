@@ -121,6 +121,7 @@ set(INL_AUDIO_LIST )
 set(SRC_CORE_LIST
     src/core/core.cpp
     src/core/hashes.cpp
+    src/core/log_backend.cpp
     src/core/log_sink.cpp
     src/core/utils.cpp)
 set(HDR_CORE_LIST
@@ -143,6 +144,7 @@ set(HDR_CORE_LIST
     include/core/format_context.hpp
     include/core/format_pattern.hpp
     include/core/format_string.hpp
+    include/core/log_backend.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
     include/core/log_record.hpp
@@ -168,6 +170,7 @@ set(INL_CORE_LIST
     include/core/format_context.inl
     include/core/format_pattern.inl
     include/core/format_string.inl
+    include/core/log_backend.inl
     include/core/o_string_stream.inl
     include/core/string_fixed_storage.inl
     include/core/utils.inl)

@@ -27,6 +27,7 @@
 namespace toy {
 
 namespace {
+
 /*!
   \brief UTF-8 character size lookup table for efficient UTF-8 parsing.
 

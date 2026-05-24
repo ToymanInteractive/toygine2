@@ -52,6 +52,8 @@ namespace toy::application {
   - **Clock ownership**: Owns a \ref toy::chrono::ClockSource for the full application lifetime;
     \ref toy::chrono::SteadyClock,
     \ref toy::chrono::Stopwatch, and \ref toy::chrono::CountdownTimer are available throughout run().
+  - **Logger ownership**: Owns a \ref toy::log::Backend for the full application lifetime; \c LOG_* macros are available
+    throughout run(). The backend starts with no sink installed and the default zero-returning timestamp policy.
   - **Argument handling**: Stores argc/argv from run() and exposes typed accessors.
   - **Version tracking**: Holds a \ref toy::application::Version for the running application.
   - **Platform extension**: Subclasses override runInternal() and implement pid()/sleep() per platform.
@@ -200,7 +202,8 @@ protected:
     \param assertionCallback Callback invoked on assertion failure; may be \c nullptr to disable.
     \param stackWalkCallback Callback invoked per stack frame on assertion failure; may be \c nullptr to suppress.
 
-    \post instance() == this, the assertion subsystem is active, and the hardware clock source is running.
+    \post instance() == this, the assertion subsystem is active, the \ref toy::chrono::ClockSource is running, and a
+          \ref toy::log::Backend is registered as the active logger with no sink installed.
 
     \warning Only one CoreApplication may exist at a time. Constructing a second instance overwrites the singleton.
 
@@ -228,6 +231,9 @@ private:
 
   /// Hardware clock source; alive for the full application lifetime.
   chrono::ClockSource _clockSource;
+
+  /// Process-wide logger backend; alive for the full application lifetime.
+  log::Backend _logBackend;
 };
 
 } // namespace toy::application
