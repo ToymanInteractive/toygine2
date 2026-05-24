@@ -29,42 +29,26 @@ namespace toy::geometry {
 
 using fixed_type = math::fixed<int32_t, int64_t, 24>;
 
-static void circleFloatConstruct(picobench::state & state) noexcept {
-  size_t           result{0};
-  picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(5.0F, 10.0F), 3.0F);
-    result += static_cast<size_t>(c.radius);
-  }
-  state.set_result(result);
-}
-
-static void circleFixedConstruct(picobench::state & state) noexcept {
-  size_t           result{0};
-  picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(fixed_type(5), fixed_type(10)), fixed_type(3));
-    result += static_cast<size_t>(c.radius.rawValue());
-  }
-  state.set_result(result);
-}
-
 static void circleFloatArea(picobench::state & state) noexcept {
+  Circle c(math::Vector2(0.0F, 0.0F), 10.0F);
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(0.0F, 0.0F), 10.0F);
-    result += static_cast<size_t>(c.area());
+    c.radius  = 10.0F + static_cast<float>(i & 1);
+    result   += static_cast<size_t>(c.area());
   }
   state.set_result(result);
 }
 
 static void circleFixedArea(picobench::state & state) noexcept {
+  Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
-    result += static_cast<size_t>(c.area().rawValue());
+    c.radius  = 10 + (i & 1);
+    result   += static_cast<size_t>(c.area().rawValue());
   }
   state.set_result(result);
 }
@@ -73,7 +57,7 @@ static void circleFloatReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(10.0F, 20.0F), 5.0F);
+    Circle c(math::Vector2(10.0F, 20.0F), 5.0F + static_cast<float>(i & 1));
     c.reset();
     result += static_cast<size_t>(c.radius);
   }
@@ -84,7 +68,7 @@ static void circleFixedReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(fixed_type(10), fixed_type(20)), fixed_type(5));
+    Circle c(math::Vector2(fixed_type(10), fixed_type(20)), fixed_type(5 + (i & 1)));
     c.reset();
     result += static_cast<size_t>(c.radius.rawValue());
   }
@@ -95,9 +79,9 @@ static void circleFloatIsReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle<float> c;
+    Circle c(math::Vector2(10.0F, 20.0F), 5.0F + static_cast<float>(i & 1));
     c.reset();
-    result += static_cast<size_t>(c.isReset());
+    result += c.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }
@@ -106,100 +90,114 @@ static void circleFixedIsReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle<fixed_type> c;
+    Circle c(math::Vector2(fixed_type(10), fixed_type(20)), fixed_type(5 + (i & 1)));
     c.reset();
-    result += static_cast<size_t>(c.isReset());
+    result += c.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void circleFloatIsValid(picobench::state & state) noexcept {
+  Circle c(math::Vector2(0.0F, 0.0F), 1.0F);
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(0.0F, 0.0F), 1.0F);
-    result += static_cast<size_t>(c.isValid());
+    c.radius  = 1.0F + static_cast<float>(i & 1);
+    result   += c.isValid() ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void circleFixedIsValid(picobench::state & state) noexcept {
+  Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(1));
-    result += static_cast<size_t>(c.isValid());
+    c.radius  = 1 + (i & 1);
+    result   += c.isValid() ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void circleFloatIsContain(picobench::state & state) noexcept {
+  constexpr Circle c(math::Vector2(0.0F, 0.0F), 10.0F);
+
   size_t           result{0};
   picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(0.0F, 0.0F), 10.0F);
-    result += static_cast<size_t>(c.isContain(math::Vector2(5.0F, 0.0F)));
-  }
+  for (int i = 0; i < state.iterations(); ++i)
+    result += c.isContain(math::Vector2(5.0F + static_cast<float>(i & 1), 0.0F)) ? 1 : 0;
+
   state.set_result(result);
 }
 
 static void circleFixedIsContain(picobench::state & state) noexcept {
+  constexpr Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
+
   size_t           result{0};
   picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Circle c(math::Vector2(fixed_type(0), fixed_type(0)), fixed_type(10));
-    result += static_cast<size_t>(c.isContain(math::Vector2(fixed_type(5), fixed_type(0))));
-  }
+  for (int i = 0; i < state.iterations(); ++i)
+    result += c.isContain(math::Vector2(fixed_type(5 + (i & 1)), fixed_type(0))) ? 1 : 0;
+
   state.set_result(result);
 }
 
 static void circleFloatEqual(picobench::state & state) noexcept {
+  constexpr Circle a(math::Vector2(1.0F, 2.0F), 3.0F);
+  Circle           b(math::Vector2(1.0F, 2.0F), 3.0F);
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle a(math::Vector2(1.0F, 2.0F), 3.0F);
-    Circle b(math::Vector2(1.0F, 2.0F), 3.0F);
-    result += static_cast<size_t>(a == b);
+    b.radius  = 3.0F + static_cast<float>(i & 1);
+    result   += (a == b) ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void circleFixedEqual(picobench::state & state) noexcept {
+  constexpr Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+  Circle           b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
-    Circle b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
-    result += static_cast<size_t>(a == b);
+    b.radius  = 3 + (i & 1);
+    result   += (a == b) ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void circleFloatNotEqual(picobench::state & state) noexcept {
+  constexpr Circle a(math::Vector2(1.0F, 2.0F), 3.0F);
+  Circle           b(math::Vector2(1.0F, 2.0F), 4.0F);
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle a(math::Vector2(1.0F, 2.0F), 3.0F);
-    Circle b(math::Vector2(1.0F, 2.0F), 4.0F);
-    result += static_cast<size_t>(a != b);
+    b.radius  = 3.0F + static_cast<float>(i & 1);
+    result   += (a != b) ? 1 : 0;
   }
+
   state.set_result(result);
 }
 
 static void circleFixedNotEqual(picobench::state & state) noexcept {
+  constexpr Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
+  Circle           b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Circle a(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(3));
-    Circle b(math::Vector2(fixed_type(1), fixed_type(2)), fixed_type(4));
-    result += static_cast<size_t>(a != b);
+    b.radius  = 3 + (i & 1);
+    result   += (a != b) ? 1 : 0;
   }
+
   state.set_result(result);
 }
 
 PICOBENCH_SUITE("toy::geometry::Circle");
-PICOBENCH(circleFloatConstruct);
-PICOBENCH(circleFixedConstruct);
 PICOBENCH(circleFloatArea);
 PICOBENCH(circleFixedArea);
 PICOBENCH(circleFloatReset);

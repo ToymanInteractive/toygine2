@@ -28,16 +28,12 @@
 
 namespace toy::geometry {
 
-void ellipseGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void sectionGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy::geometry
 
 using namespace toy::geometry;
 
-using fixed_type = toy::math::fixed<int32_t, int64_t, 24>;
-
 void runGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  toy::geometry::ellipseGeometryBenchmarks(bench);
   toy::geometry::sectionGeometryBenchmarks(bench);
 }

@@ -37,17 +37,18 @@ namespace toy::log {
 
   \ingroup Logger
 
-  \brief Abstract output destination for formatted log messages.
+  \brief Abstract output destination for log records.
 
   Implemented by each concrete sink. \ref toy::LogBackend holds a pointer to the active sink and calls write() for every
-  flushed \ref toy::log::Record. The interface is intentionally minimal: a single \c noexcept virtual method with no
-  buffering or formatting contract.
+  flushed \ref toy::log::Record. The interface is intentionally minimal: a single \c noexcept virtual method receiving
+  the full record so the sink can decide what to use (severity, timestamp, file, line, message) without further API
+  growth.
 
   \section features Key Features
 
   - **noexcept write**: Sinks must not throw; the log path is entirely exception-free.
   - **Pointer-based**: Backend holds \c ISink* so sinks can be swapped at runtime.
-  - **Minimal interface**: One virtual method; no buffering contract imposed on implementers.
+  - **Record-driven**: A single argument carries every piece of per-call data; sinks select what they need.
   - **Virtual dispatch**: Called from the backend flush path, not the hot encoding path.
 
   \section usage Usage Example
@@ -56,8 +57,8 @@ namespace toy::log {
   #include "core.hpp"
 
   struct StderrSink : toy::log::ISink {
-    void write(const char * message, size_t length) noexcept override {
-      std::fwrite(message, 1, length, stderr);
+    void write(const toy::log::Record & record) noexcept override {
+      std::fwrite(record.message.data(), 1, record.message.size(), stderr);
     }
   };
   \endcode
@@ -87,14 +88,20 @@ public:
   TOYGINE_NO_COPY_MOVE(ISink);
 
   /*!
-    \brief Writes \a length bytes from \a message to the output destination.
+    \brief Writes \a record to the output destination.
 
-    \param message Pointer to the formatted log message.
-    \param length  Byte length of \a message, excluding the null terminator.
+    Sinks decide which fields to consume: \c record.message for the formatted text, \c record.meta->level for severity
+    routing or styling, \c record.meta->file / \c record.meta->line for source attribution, \c record.timestamp for time
+    prefixing.
 
-    \pre \a message must not be null when \a length \c > \c 0.
+    \param record Fully populated log record.
+
+    \pre \a record.meta must be non-null and reference a \c static \c constexpr \ref toy::log::Metadata.
+
+    \note Implementations must consume \a record synchronously. If a sink defers work, it must first copy any data it
+          needs to retain after write() returns.
   */
-  virtual void write(const char * message, size_t length) noexcept = 0;
+  virtual void write(const Record & record) noexcept = 0;
 };
 
 } // namespace toy::log

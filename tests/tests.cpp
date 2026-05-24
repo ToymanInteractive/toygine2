@@ -60,7 +60,7 @@ int main() {
   doctest::Context context;
   context.setCout(&gbaStream);
 
-  //  context.applyCommandLine(argc, argv);
+  // context.applyCommandLine(argc, argv);
 
   int res = context.run(); // run doctest
 
