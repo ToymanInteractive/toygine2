@@ -32,7 +32,7 @@ static void itoaInt8(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::itoa(buf, size(buf), int8_t{42});
+    itoa(buf, size(buf), int8_t{42});
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -43,7 +43,7 @@ static void itoaInt16(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::itoa(buf, size(buf), int16_t{-1234});
+    itoa(buf, size(buf), int16_t{-1234});
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -54,7 +54,7 @@ static void itoaInt32(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::itoa(buf, size(buf), int32_t{12'345'678});
+    itoa(buf, size(buf), int32_t{12'345'678});
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -65,7 +65,7 @@ static void itoaInt64(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::itoa(buf, size(buf), int64_t{-9'223'372'036'854'775'807LL});
+    itoa(buf, size(buf), int64_t{-9'223'372'036'854'775'807LL});
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -76,7 +76,7 @@ static void utoaUint8Base10(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::utoa(buf, size(buf), uint8_t{200}, 10U);
+    utoa(buf, size(buf), uint8_t{200}, 10U);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -87,7 +87,7 @@ static void utoaUint16Base10(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::utoa(buf, size(buf), uint16_t{65'535}, 10U);
+    utoa(buf, size(buf), uint16_t{65'535}, 10U);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -98,7 +98,7 @@ static void utoaUint32Base10(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::utoa(buf, size(buf), uint32_t{4'000'000'000U}, 10U);
+    utoa(buf, size(buf), uint32_t{4'000'000'000U}, 10U);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -109,7 +109,7 @@ static void utoaUint64Base10(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::utoa(buf, size(buf), uint64_t{18'446'744'073'709'551'615ULL}, 10U);
+    utoa(buf, size(buf), uint64_t{18'446'744'073'709'551'615ULL}, 10U);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -120,7 +120,7 @@ static void utoaUint32Base16(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::utoa(buf, size(buf), uint32_t{0xDEADBEEFU}, 16U);
+    utoa(buf, size(buf), uint32_t{0xDEADBEEFU}, 16U);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -131,7 +131,7 @@ static void utoaUint64Base16(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[32];
-    toy::utoa(buf, size(buf), uint64_t{0xFFFFFFFFFFFFFFFFULL}, 16U);
+    utoa(buf, size(buf), uint64_t{0xFFFFFFFFFFFFFFFFULL}, 16U);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -142,7 +142,7 @@ static void ftoaFloatDefaultPrecision(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[64];
-    toy::ftoa(buf, size(buf), 3.14159265F);
+    ftoa(buf, size(buf), 3.14159265F);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -153,7 +153,7 @@ static void ftoaFloatCustomPrecision(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[64];
-    toy::ftoa(buf, size(buf), -123.456F, 4);
+    ftoa(buf, size(buf), -123.456F, 4);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -164,7 +164,7 @@ static void ftoaDoubleDefaultPrecision(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[64];
-    toy::ftoa(buf, size(buf), 3.14159265358979);
+    ftoa(buf, size(buf), 3.14159265358979);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -175,7 +175,7 @@ static void ftoaDoubleCustomPrecision(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     char buf[64];
-    toy::ftoa(buf, size(buf), -12345.6789012345, 8);
+    ftoa(buf, size(buf), -12345.6789012345, 8);
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -199,7 +199,7 @@ static void formatNumberStringLongComma(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     auto buf = c_initialBuf;
-    toy::formatNumberString(buf.data(), buf.size(), ",");
+    formatNumberString(buf.data(), buf.size(), ",");
     result += static_cast<unsigned char>(buf[0]);
   }
   state.set_result(result);
@@ -209,7 +209,7 @@ static void highestBitHighBits(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i)
-    result += toy::highestBit(0x8000000000000000ULL);
+    result += highestBit(0x8000000000000000ULL);
 
   state.set_result(result);
 }

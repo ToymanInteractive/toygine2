@@ -294,6 +294,7 @@ using std::chrono::nanoseconds;
 #include "core/hashes.hpp"
 #include "core/log_backend.hpp"
 #include "core/log_level.hpp"
+#include "core/log_macros.hpp"
 #include "core/log_metadata.hpp"
 #include "core/log_record.hpp"
 #include "core/log_sink.hpp"
