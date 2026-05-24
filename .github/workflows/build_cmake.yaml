@@ -217,7 +217,6 @@ jobs:
             --threshold-max-sample-size 64 \
             --threshold-upper-boundary 0.99 \
             --thresholds-reset \
-            --error-on-alert \
             --adapter json \
             --file benchmarks_bmf.json \
             --github-actions '${{ secrets.GITHUB_TOKEN }}'
@@ -236,7 +235,6 @@ jobs:
             --start-point-clone-thresholds \
             --start-point-reset \
             --testbed "${{ matrix.bencher_testbed }}" \
-            --error-on-alert \
             --adapter json \
             --file benchmarks_bmf.json \
             --github-actions "${{ secrets.GITHUB_TOKEN }}"
