@@ -137,7 +137,7 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('d4/dc4/classto
 </div><!--header-->
 <div class="contents">
 
-<p>Abstract output destination for formatted log messages.  
+<p>Abstract output destination for log records.  
  <a href="#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
@@ -148,18 +148,18 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a15ad2555fb5aa3a237198a30bd183895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Virtual destructor; defined out-of-line to anchor the vtable in a single translation unit.  <br /></td></tr>
 <tr class="memitem:a6a83268206a23a908185d0991d6077b1" id="r_a6a83268206a23a908185d0991d6077b1"><td class="memItemLeft">&#160;</td><td class="memItemRight"><a class="el" href="#a6a83268206a23a908185d0991d6077b1">TOYGINE_NO_COPY_MOVE</a> (<a class="el" href="#aaea92c40a462a53503de0316604c6354">ISink</a>)</td></tr>
 <tr class="memdesc:a6a83268206a23a908185d0991d6077b1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy and move are deleted; polymorphic types must not be copied or moved to prevent object slicing.  <br /></td></tr>
-<tr class="memitem:a630f61169456b36f1ceccf826a42fe72" id="r_a630f61169456b36f1ceccf826a42fe72"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a630f61169456b36f1ceccf826a42fe72">write</a> (const char *message, size_t length) noexcept=0</td></tr>
-<tr class="memdesc:a630f61169456b36f1ceccf826a42fe72"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes <em class="arg">length</em> bytes from <em class="arg">message</em> to the output destination.  <br /></td></tr>
+<tr class="memitem:a67f637e3e6eaa0f0d5138fcb513a30b8" id="r_a67f637e3e6eaa0f0d5138fcb513a30b8"><td class="memItemLeft">virtual void&#160;</td><td class="memItemRight"><a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8">write</a> (const <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html">Record</a> &amp;record) noexcept=0</td></tr>
+<tr class="memdesc:a67f637e3e6eaa0f0d5138fcb513a30b8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Writes <em class="arg">record</em> to the output destination.  <br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Abstract output destination for formatted log messages. </p>
-<p>Implemented by each concrete sink. toy::LogBackend holds a pointer to the active sink and calls <a class="el" href="#a630f61169456b36f1ceccf826a42fe72" title="Writes length bytes from message to the output destination.">write()</a> for every flushed <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html" title="toy::log::Record">toy::log::Record</a>. The interface is intentionally minimal: a single <code>noexcept</code> virtual method with no buffering or formatting contract.</p>
+<div class="textblock"><p>Abstract output destination for log records. </p>
+<p>Implemented by each concrete sink. toy::LogBackend holds a pointer to the active sink and calls <a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8" title="Writes record to the output destination.">write()</a> for every flushed <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html" title="toy::log::Record">toy::log::Record</a>. The interface is intentionally minimal: a single <code>noexcept</code> virtual method receiving the full record so the sink can decide what to use (severity, timestamp, file, line, message) without further API growth.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
 <li><b>noexcept write</b>: Sinks must not throw; the log path is entirely exception-free.</li>
 <li><b>Pointer-based</b>: Backend holds <code>ISink*</code> so sinks can be swapped at runtime.</li>
-<li><b>Minimal interface</b>: One virtual method; no buffering contract imposed on implementers.</li>
+<li><b>Record-driven</b>: A single argument carries every piece of per-call data; sinks select what they need.</li>
 <li><b>Virtual dispatch</b>: Called from the backend flush path, not the hot encoding path.</li>
 </ul>
 <h1 class="doxsection"><a class="anchor" id="usage"></a>
@@ -167,13 +167,14 @@ Usage Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keyword">struct </span>StderrSink : <a class="code hl_class" href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html">toy::log::ISink</a> {</div>
-<div class="line">  <span class="keywordtype">void</span> <a class="code hl_function" href="#a630f61169456b36f1ceccf826a42fe72">write</a>(<span class="keyword">const</span> <span class="keywordtype">char</span> * message, <span class="keywordtype">size_t</span> length) <span class="keyword">noexcept</span> <span class="keyword">override</span> {</div>
-<div class="line">    std::fwrite(message, 1, length, stderr);</div>
+<div class="line">  <span class="keywordtype">void</span> <a class="code hl_function" href="#a67f637e3e6eaa0f0d5138fcb513a30b8">write</a>(<span class="keyword">const</span> <a class="code hl_struct" href="../../d9/d14/structtoy_1_1log_1_1_record.html">toy::log::Record</a> &amp; record) <span class="keyword">noexcept</span> <span class="keyword">override</span> {</div>
+<div class="line">    std::fwrite(record.message.data(), 1, record.message.size(), stderr);</div>
 <div class="line">  }</div>
 <div class="line">};</div>
-<div class="ttc" id="aclasstoy_1_1log_1_1_i_sink_html"><div class="ttname"><a href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html">toy::log::ISink</a></div><div class="ttdoc">Abstract output destination for formatted log messages.</div><div class="ttdef"><b>Definition</b> log_sink.hpp:78</div></div>
-<div class="ttc" id="aclasstoy_1_1log_1_1_i_sink_html_a630f61169456b36f1ceccf826a42fe72"><div class="ttname"><a href="#a630f61169456b36f1ceccf826a42fe72">toy::log::ISink::write</a></div><div class="ttdeci">virtual void write(const char *message, size_t length) noexcept=0</div><div class="ttdoc">Writes length bytes from message to the output destination.</div></div>
+<div class="ttc" id="aclasstoy_1_1log_1_1_i_sink_html"><div class="ttname"><a href="../../d4/dc4/classtoy_1_1log_1_1_i_sink.html">toy::log::ISink</a></div><div class="ttdoc">Abstract output destination for log records.</div><div class="ttdef"><b>Definition</b> log_sink.hpp:79</div></div>
+<div class="ttc" id="aclasstoy_1_1log_1_1_i_sink_html_a67f637e3e6eaa0f0d5138fcb513a30b8"><div class="ttname"><a href="#a67f637e3e6eaa0f0d5138fcb513a30b8">toy::log::ISink::write</a></div><div class="ttdeci">virtual void write(const Record &amp;record) noexcept=0</div><div class="ttdoc">Writes record to the output destination.</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+<div class="ttc" id="astructtoy_1_1log_1_1_record_html"><div class="ttname"><a href="../../d9/d14/structtoy_1_1log_1_1_record.html">toy::log::Record</a></div><div class="ttdoc">Single log entry in the transport ring buffer.</div><div class="ttdef"><b>Definition</b> log_record.hpp:79</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
@@ -183,7 +184,7 @@ Performance Characteristics</h1>
 <h1 class="doxsection"><a class="anchor" id="safety"></a>
 Safety Guarantees</h1>
 <ul>
-<li><b>Exception safety</b>: <a class="el" href="#a630f61169456b36f1ceccf826a42fe72" title="Writes length bytes from message to the output destination.">write()</a> is <code>noexcept</code>; destructor defaults to <code>noexcept</code>.</li>
+<li><b>Exception safety</b>: <a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8" title="Writes record to the output destination.">write()</a> is <code>noexcept</code>; destructor defaults to <code>noexcept</code>.</li>
 <li><b>Lifetime</b>: The sink must outlive any toy::LogBackend that references it.</li>
 <li><b>Thread safety</b>: Not enforced; concrete sinks must document their own thread guarantees.</li>
 </ul>
@@ -263,8 +264,8 @@ Safety Guarantees</h1>
 
 </div>
 </div>
-<a id="a630f61169456b36f1ceccf826a42fe72" name="a630f61169456b36f1ceccf826a42fe72"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a630f61169456b36f1ceccf826a42fe72">&#9670;&#160;</a></span>write()</h2>
+<a id="a67f637e3e6eaa0f0d5138fcb513a30b8" name="a67f637e3e6eaa0f0d5138fcb513a30b8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a67f637e3e6eaa0f0d5138fcb513a30b8">&#9670;&#160;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -275,12 +276,8 @@ Safety Guarantees</h1>
         <tr>
           <td class="memname">virtual void toy::log::ISink::write </td>
           <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>message</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramtype">const <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html">Record</a> &amp;</td>          <td class="paramname"><span class="paramname"><em>record</em></span></td><td>)</td>
           <td></td>
-          <td class="paramtype">size_t</td>          <td class="paramname"><span class="paramname"><em>length</em></span>&#160;)</td>
         </tr>
       </table>
   </td>
@@ -290,15 +287,16 @@ Safety Guarantees</h1>
 </table>
 </div><div class="memdoc">
 
-<p>Writes <em class="arg">length</em> bytes from <em class="arg">message</em> to the output destination. </p>
+<p>Writes <em class="arg">record</em> to the output destination. </p>
+<p>Sinks decide which fields to consume: <code>record.message</code> for the formatted text, <code>record.meta-&gt;level</code> for severity routing or styling, <code>record.meta-&gt;file</code> / <code>record.meta-&gt;line</code> for source attribution, <code>record.timestamp</code> for time prefixing.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">message</td><td>Pointer to the formatted log message. </td></tr>
-    <tr><td class="paramname">length</td><td>Byte length of <em class="arg">message</em>, excluding the null terminator.</td></tr>
+    <tr><td class="paramname">record</td><td>Fully populated log record.</td></tr>
   </table>
   </dd>
 </dl>
-<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">message</em> must not be null when <em class="arg">length</em> <code>&gt;</code> <code>0</code>. </dd></dl>
+<dl class="section pre"><dt>Precondition</dt><dd><em class="arg">record.meta</em> must be non-null and reference a <code>static</code> <code>constexpr</code> <a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>Implementations must consume <em class="arg">record</em> synchronously. If a sink defers work, it must first copy any data it needs to retain after <a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8" title="Writes record to the output destination.">write()</a> returns. </dd></dl>
 
 </div>
 </div>

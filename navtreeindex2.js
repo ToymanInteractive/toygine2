@@ -51,7 +51,7 @@ var NAVTREEINDEX2 =
 "d4/dc0/constexpr__utils_8hpp_source.html":[6,0,0,2,19],
 "d4/dc4/classtoy_1_1log_1_1_i_sink.html":[2,2,2],
 "d4/dc4/classtoy_1_1log_1_1_i_sink.html#a15ad2555fb5aa3a237198a30bd183895":[2,2,2,1],
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a630f61169456b36f1ceccf826a42fe72":[2,2,2,3],
+"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a67f637e3e6eaa0f0d5138fcb513a30b8":[2,2,2,3],
 "d4/dc4/classtoy_1_1log_1_1_i_sink.html#a6a83268206a23a908185d0991d6077b1":[2,2,2,2],
 "d4/dc4/classtoy_1_1log_1_1_i_sink.html#aaea92c40a462a53503de0316604c6354":[2,2,2,0],
 "d4/ddd/namespacetoy_1_1platform.html":[3,0,2,13],
