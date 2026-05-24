@@ -207,7 +207,7 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
 */
 #define ENABLE_BITWISE_OPERATORS(T)                                                                                    \
   template <>                                                                                                          \
-  struct ::toy::EnableBitwiseOperators<T> {                                                                            \
+  struct toy::EnableBitwiseOperators<T> {                                                                              \
     static constexpr bool enable = true;                                                                               \
   };
 
