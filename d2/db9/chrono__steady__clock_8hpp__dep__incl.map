@@ -1,51 +1,53 @@
 <map id="include/core/chrono_steady_clock.hpp" name="include/core/chrono_steady_clock.hpp">
-<area shape="rect" id="Node000001" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="2831,5,2981,45"/>
-<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2841,181,2971,207"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2888,58,2872,94,2869,113,2872,133,2884,159,2899,180,2894,183,2879,161,2867,134,2864,113,2867,93,2883,56"/>
-<area shape="rect" id="Node000034" href="$db/d1a/chrono__countdown__timer_8hpp.html" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="2883,93,3052,133"/>
-<area shape="poly" id="edge41_Node000001_Node000034" title=" " alt="" coords="2930,55,2956,92,2951,95,2925,58"/>
+<area shape="rect" id="Node000001" title="Stateless monotonic clock facade over the active toy::chrono::ClockSource." alt="" coords="2942,5,3091,45"/>
+<area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2952,181,3081,207"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="2999,58,2983,94,2980,113,2983,133,2995,159,3009,180,3005,183,2990,161,2978,134,2974,113,2978,93,2994,56"/>
+<area shape="rect" id="Node000035" href="$db/d1a/chrono__countdown__timer_8hpp.html" title="Deadline&#45;based countdown timer over the active toy::chrono::SteadyClock." alt="" coords="2993,93,3163,133"/>
+<area shape="poly" id="edge42_Node000001_Node000035" title=" " alt="" coords="3040,55,3066,92,3062,95,3036,58"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="650,262,823,287"/>
-<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="2828,201,823,273,823,268,2827,195"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="2938,201,824,273,824,268,2938,195"/>
 <area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="1860,445,2019,471"/>
-<area shape="poly" id="edge27_Node000002_Node000004" title=" " alt="" coords="2827,198,2599,202,2297,210,1999,228,1876,241,1784,257,1722,269,1671,280,1650,288,1629,301,1610,319,1591,344,1583,358,1580,371,1583,383,1590,396,1608,409,1633,420,1703,437,1783,447,1860,452,1860,457,1783,452,1702,442,1631,425,1605,413,1587,399,1578,385,1575,371,1578,356,1586,341,1606,315,1626,296,1647,283,1670,275,1721,264,1783,252,1876,236,1999,223,2296,205,2599,196,2827,193"/>
+<area shape="poly" id="edge27_Node000002_Node000004" title=" " alt="" coords="2938,198,2689,200,2355,208,2024,226,1887,240,1784,257,1722,269,1671,280,1650,288,1629,301,1610,319,1591,344,1583,358,1580,371,1583,383,1590,396,1608,409,1633,420,1703,437,1783,447,1860,452,1860,457,1783,452,1702,442,1631,425,1605,413,1587,399,1578,385,1575,371,1578,356,1586,341,1606,315,1626,296,1647,283,1670,275,1721,264,1783,252,1886,234,2023,220,2355,203,2689,195,2938,193"/>
 <area shape="rect" id="Node000012" href="$d1/d71/audio_8hpp.html" title="Umbrella header for the audio module." alt="" coords="1601,357,1739,383"/>
-<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="2827,198,2616,200,2340,209,2071,227,1960,240,1877,257,1819,279,1765,308,1686,359,1683,355,1762,303,1817,274,1876,252,1959,235,2071,221,2340,203,2615,195,2827,193"/>
+<area shape="poly" id="edge11_Node000002_Node000012" title=" " alt="" coords="2938,198,2706,199,2399,206,2242,213,2096,224,1971,238,1877,257,1819,279,1765,307,1686,359,1683,355,1762,303,1817,274,1876,252,1970,233,2095,218,2241,208,2398,200,2706,193,2938,192"/>
 <area shape="rect" id="Node000013" href="$d8/d39/game_8hpp.html" title="Umbrella header for the game module." alt="" coords="1763,357,1902,383"/>
-<area shape="poly" id="edge13_Node000002_Node000013" title=" " alt="" coords="2827,199,2606,204,2325,215,2071,232,1980,243,1928,257,1898,279,1872,307,1840,359,1836,356,1868,304,1894,275,1926,252,1979,238,2070,226,2325,209,2605,199,2827,194"/>
+<area shape="poly" id="edge13_Node000002_Node000013" title=" " alt="" coords="2938,199,2694,203,2378,212,2090,229,1987,242,1928,257,1897,279,1872,307,1840,359,1836,356,1868,304,1894,275,1926,252,1986,237,2090,224,2378,207,2694,197,2938,193"/>
 <area shape="rect" id="Node000014" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="1940,262,2075,287"/>
-<area shape="poly" id="edge15_Node000002_Node000014" title=" " alt="" coords="2827,200,2688,205,2503,215,2296,232,2088,257,2051,265,2050,259,2087,252,2296,226,2503,209,2687,199,2827,194"/>
+<area shape="poly" id="edge15_Node000002_Node000014" title=" " alt="" coords="2938,199,2781,202,2570,212,2330,229,2088,257,2051,265,2050,259,2087,252,2329,224,2569,206,2781,197,2938,193"/>
 <area shape="rect" id="Node000016" href="$d6/d67/network_8hpp.html" title="Umbrella header for the network module." alt="" coords="2099,262,2254,287"/>
-<area shape="poly" id="edge19_Node000002_Node000016" title=" " alt="" coords="2828,203,2580,222,2427,238,2273,257,2231,265,2230,259,2272,252,2426,233,2579,217,2827,198"/>
+<area shape="poly" id="edge19_Node000002_Node000016" title=" " alt="" coords="2938,201,2645,219,2460,236,2273,257,2230,265,2229,259,2272,252,2459,230,2645,214,2938,196"/>
 <area shape="rect" id="Node000018" href="$de/dd6/ui_8hpp.html" title="Umbrella header for platform UI types." alt="" coords="2425,357,2598,383"/>
-<area shape="poly" id="edge22_Node000002_Node000018" title=" " alt="" coords="2828,200,2688,206,2528,217,2390,233,2343,244,2318,257,2313,265,2311,274,2319,293,2341,311,2378,328,2465,355,2463,360,2376,333,2338,315,2314,296,2306,274,2308,263,2315,253,2341,239,2389,228,2527,211,2688,201,2827,195"/>
+<area shape="poly" id="edge22_Node000002_Node000018" title=" " alt="" coords="2938,199,2773,203,2578,212,2407,230,2349,242,2330,249,2318,257,2312,265,2311,274,2319,293,2341,311,2378,328,2465,355,2463,360,2376,333,2338,315,2314,296,2306,274,2308,263,2315,253,2327,244,2347,237,2406,224,2577,207,2773,197,2938,193"/>
 <area shape="rect" id="Node000019" href="$d6/d4b/render_8hpp.html" title="Umbrella header for the render module." alt="" coords="2329,262,2472,287"/>
-<area shape="poly" id="edge24_Node000002_Node000019" title=" " alt="" coords="2828,207,2669,228,2484,257,2448,265,2447,259,2483,252,2668,223,2827,202"/>
+<area shape="poly" id="edge24_Node000002_Node000019" title=" " alt="" coords="2938,204,2732,224,2484,257,2447,265,2446,259,2483,252,2732,218,2938,199"/>
 <area shape="rect" id="Node000021" href="$da/de0/core_8cpp.html" title="Implementation of toy::initialize() and toy::deInitialize() lifecycle functions." alt="" coords="2496,262,2628,287"/>
-<area shape="poly" id="edge28_Node000002_Node000021" title=" " alt="" coords="2841,212,2640,257,2609,265,2608,259,2639,252,2839,207"/>
+<area shape="poly" id="edge28_Node000002_Node000021" title=" " alt="" coords="2939,208,2799,229,2640,257,2607,265,2606,259,2639,252,2798,224,2938,203"/>
 <area shape="rect" id="Node000022" href="$db/d2d/hashes_8cpp.html" title="Table&#45;driven implementations of toy::crc8(), toy::crc16(), and toy::crc32()." alt="" coords="2652,262,2803,287"/>
-<area shape="poly" id="edge29_Node000002_Node000022" title=" " alt="" coords="2869,215,2754,264,2752,260,2866,210"/>
-<area shape="rect" id="Node000023" href="$d2/d51/log__sink_8cpp.html" title="Out&#45;of&#45;line definitions for toy::log::ISink." alt="" coords="2827,262,2985,287"/>
-<area shape="poly" id="edge30_Node000002_Node000023" title=" " alt="" coords="2909,220,2909,262,2903,262,2903,220"/>
-<area shape="rect" id="Node000024" href="$de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp." alt="" coords="3009,262,3141,287"/>
-<area shape="poly" id="edge31_Node000002_Node000024" title=" " alt="" coords="2944,210,3052,260,3049,264,2942,215"/>
-<area shape="rect" id="Node000025" href="$df/de5/assertion__linux_8cpp.html" title="Linux implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3166,255,3350,295"/>
-<area shape="poly" id="edge32_Node000002_Node000025" title=" " alt="" coords="2971,207,3174,252,3173,257,2970,212"/>
-<area shape="rect" id="Node000026" href="$d4/d42/clock__source__linux_8cpp.html" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for Linux." alt="" coords="3374,255,3582,295"/>
-<area shape="poly" id="edge33_Node000002_Node000026" title=" " alt="" coords="2985,202,3362,252,3374,254,3373,259,3361,257,2984,207"/>
-<area shape="rect" id="Node000027" href="$d5/d5a/assertion__macos_8cpp.html" title="macOS implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3606,255,3801,295"/>
-<area shape="poly" id="edge34_Node000002_Node000027" title=" " alt="" coords="2984,197,3254,217,3424,233,3594,252,3606,254,3605,259,3594,257,3423,238,3254,222,2984,203"/>
-<area shape="rect" id="Node000028" href="$d6/d9a/clock__source__macos_8cpp.html" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for macOS." alt="" coords="3825,255,4043,295"/>
-<area shape="poly" id="edge35_Node000002_Node000028" title=" " alt="" coords="2985,196,3343,214,3577,230,3813,252,3824,253,3824,259,3812,257,3576,235,3343,219,2984,201"/>
-<area shape="rect" id="Node000029" href="$db/d09/system__clock__posix_8cpp.html" title="Implementation of toy::chrono::SystemClock for POSIX." alt="" coords="4067,255,4283,295"/>
-<area shape="poly" id="edge36_Node000002_Node000029" title=" " alt="" coords="2984,194,3439,209,3745,226,4055,252,4067,253,4066,259,4055,257,3745,231,3439,214,2984,199"/>
-<area shape="rect" id="Node000030" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="4308,255,4488,295"/>
-<area shape="poly" id="edge37_Node000002_Node000030" title=" " alt="" coords="2984,192,3209,194,3533,201,3911,219,4105,233,4295,252,4308,254,4307,259,4295,257,4105,239,3910,225,3533,207,3209,199,2984,198"/>
-<area shape="rect" id="Node000031" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemCl..." alt="" coords="4512,255,4716,295"/>
-<area shape="poly" id="edge38_Node000002_Node000031" title=" " alt="" coords="2984,192,3238,193,3612,200,4052,218,4279,233,4501,252,4512,253,4511,259,4500,257,4278,238,4051,223,3612,205,3237,198,2984,197"/>
-<area shape="rect" id="Node000032" href="$d0/db3/clock__source__windows_8cpp.html" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for Windows." alt="" coords="4740,255,4973,295"/>
-<area shape="poly" id="edge39_Node000002_Node000032" title=" " alt="" coords="2984,192,3268,193,3699,199,4207,217,4471,232,4729,252,4740,253,4739,258,4728,257,4470,238,4207,223,3698,204,3268,198,2984,197"/>
-<area shape="rect" id="Node000033" href="$d4/d3a/system__clock__windows_8cpp.html" title="Implementation of toy::chrono::SystemClock for Windows." alt="" coords="4997,255,5236,295"/>
-<area shape="poly" id="edge40_Node000002_Node000033" title=" " alt="" coords="2984,194,3959,212,4551,229,4799,240,4986,252,4997,253,4997,258,4986,257,4798,245,4551,234,3958,217,2984,199"/>
+<area shape="poly" id="edge29_Node000002_Node000022" title=" " alt="" coords="2962,213,2770,265,2769,259,2961,208"/>
+<area shape="rect" id="Node000023" href="$d8/d34/log__backend_8cpp.html" title="Implementation of toy::log::Backend lifecycle, sink, and timestamp&#45;policy accessors." alt="" coords="2827,262,3012,287"/>
+<area shape="poly" id="edge30_Node000002_Node000023" title=" " alt="" coords="2993,217,2935,264,2932,260,2990,213"/>
+<area shape="rect" id="Node000024" href="$d2/d51/log__sink_8cpp.html" title="Out&#45;of&#45;line definitions for toy::log::ISink." alt="" coords="3036,262,3195,287"/>
+<area shape="poly" id="edge31_Node000002_Node000024" title=" " alt="" coords="3043,213,3102,260,3099,264,3040,217"/>
+<area shape="rect" id="Node000025" href="$de/d06/utils_8cpp.html" title="Definitions for string, encoding, and number utilities declared in core/utils.hpp." alt="" coords="3219,262,3351,287"/>
+<area shape="poly" id="edge32_Node000002_Node000025" title=" " alt="" coords="3069,208,3246,259,3245,265,3068,213"/>
+<area shape="rect" id="Node000026" href="$df/de5/assertion__linux_8cpp.html" title="Linux implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3375,255,3559,295"/>
+<area shape="poly" id="edge33_Node000002_Node000026" title=" " alt="" coords="3095,206,3362,252,3375,254,3374,260,3361,257,3095,211"/>
+<area shape="rect" id="Node000027" href="$d4/d42/clock__source__linux_8cpp.html" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for Linux." alt="" coords="3583,255,3791,295"/>
+<area shape="poly" id="edge34_Node000002_Node000027" title=" " alt="" coords="3095,200,3310,221,3572,252,3583,254,3583,259,3571,257,3310,226,3095,205"/>
+<area shape="rect" id="Node000028" href="$d5/d5a/assertion__macos_8cpp.html" title="macOS implementation of the toy::assertion crash handler and stack trace capture." alt="" coords="3815,255,4010,295"/>
+<area shape="poly" id="edge35_Node000002_Node000028" title=" " alt="" coords="3095,196,3406,215,3604,231,3803,252,3815,254,3814,259,3803,257,3603,236,3405,220,3095,201"/>
+<area shape="rect" id="Node000029" href="$d6/d9a/clock__source__macos_8cpp.html" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for macOS." alt="" coords="4034,255,4253,295"/>
+<area shape="poly" id="edge36_Node000002_Node000029" title=" " alt="" coords="3095,195,3493,212,3756,228,4022,252,4034,253,4033,259,4022,257,3756,234,3493,217,3095,200"/>
+<area shape="rect" id="Node000030" href="$db/d09/system__clock__posix_8cpp.html" title="Implementation of toy::chrono::SystemClock for POSIX." alt="" coords="4277,255,4493,295"/>
+<area shape="poly" id="edge37_Node000002_Node000030" title=" " alt="" coords="3095,193,3299,198,3589,207,3924,224,4265,252,4276,253,4276,259,4264,257,3924,230,3589,212,3299,203,3095,199"/>
+<area shape="rect" id="Node000031" href="$d7/d90/assertion__stub_8cpp.html" title="Stub definitions for the assertion callback API declared in core/assertion.hpp." alt="" coords="4517,255,4697,295"/>
+<area shape="poly" id="edge38_Node000002_Node000031" title=" " alt="" coords="3095,192,3333,192,3681,199,4089,217,4299,232,4505,252,4517,254,4517,259,4504,257,4299,238,4089,223,3681,205,3333,198,3095,197"/>
+<area shape="rect" id="Node000032" href="$d4/dbf/clock__source__stub_8cpp.html" title="Stub implementations of toy::chrono::ClockSource, toy::chrono::SteadyClock, and toy::chrono::SystemCl..." alt="" coords="4721,255,4925,295"/>
+<area shape="poly" id="edge39_Node000002_Node000032" title=" " alt="" coords="3095,192,3362,192,3760,198,4230,216,4472,232,4710,252,4721,253,4720,259,4710,257,4472,237,4230,222,3760,203,3362,197,3095,197"/>
+<area shape="rect" id="Node000033" href="$d0/db3/clock__source__windows_8cpp.html" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for Windows." alt="" coords="4949,255,5183,295"/>
+<area shape="poly" id="edge40_Node000002_Node000033" title=" " alt="" coords="3095,194,3996,213,4539,230,4766,240,4938,252,4949,253,4949,258,4938,257,4766,246,4539,235,3996,218,3095,199"/>
+<area shape="rect" id="Node000034" href="$d4/d3a/system__clock__windows_8cpp.html" title="Implementation of toy::chrono::SystemClock for Windows." alt="" coords="5207,255,5445,295"/>
+<area shape="poly" id="edge41_Node000002_Node000034" title=" " alt="" coords="3095,194,4114,211,4737,228,4998,239,5195,252,5207,253,5206,258,5195,257,4998,245,4737,234,4114,216,3095,199"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="636,281,466,286,272,298,106,317,49,330,31,337,20,345,11,357,8,370,11,383,19,395,40,401,92,407,269,417,816,435,1859,453,1859,458,816,440,269,423,91,412,39,406,16,400,6,385,3,370,6,355,16,341,28,332,48,325,105,312,271,293,466,281,636,275"/>
 <area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="30,350,201,390"/>
 <area shape="poly" id="edge4_Node000003_Node000005" title=" " alt="" coords="636,287,440,309,326,326,213,345,181,353,180,347,212,340,325,320,439,304,636,282"/>
@@ -74,5 +76,5 @@
 <area shape="poly" id="edge25_Node000019_Node000004" title=" " alt="" coords="2460,288,2554,315,2592,329,2612,341,2621,356,2624,371,2621,385,2612,399,2581,415,2525,427,2363,444,2177,454,2019,458,2019,453,2177,448,2363,439,2524,421,2579,409,2608,395,2616,383,2619,371,2616,358,2608,345,2589,334,2552,320,2458,293"/>
 <area shape="rect" id="Node000020" href="$db/d3d/pixel__format_8cpp.html" title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format...." alt="" coords="2673,357,2873,383"/>
 <area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="2460,288,2727,355,2726,360,2459,293"/>
-<area shape="poly" id="edge42_Node000034_Node000002" title=" " alt="" coords="2946,146,2917,183,2913,179,2942,143"/>
+<area shape="poly" id="edge43_Node000035_Node000002" title=" " alt="" coords="3057,146,3028,183,3024,179,3052,143"/>
 </map>

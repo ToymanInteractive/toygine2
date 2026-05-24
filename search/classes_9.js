@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['point_0',['Point',['../d3/dce/classtoy_1_1math_1_1_point.html',1,'toy::math']]]
+  ['ostringstream_0',['OStringStream',['../d7/d15/classtoy_1_1_o_string_stream.html',1,'toy']]]
 ];

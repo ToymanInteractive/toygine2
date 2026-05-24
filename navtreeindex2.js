@@ -1,5 +1,6 @@
 var NAVTREEINDEX2 =
 {
+"d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9":[3,0,2,63],
 "d4/da9/namespacetoy.html#a3e935013c7764b31202b25105a86cedd":[3,0,2,55],
 "d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c":[3,0,2,38],
 "d4/da9/namespacetoy.html#a43b66e65ca273e28eb053c19537093c9":[3,0,2,57],
@@ -49,11 +50,11 @@ var NAVTREEINDEX2 =
 "d4/dbf/clock__source__stub_8cpp.html":[6,0,1,3,7,1,1],
 "d4/dc0/constexpr__utils_8hpp.html":[6,0,0,2,19],
 "d4/dc0/constexpr__utils_8hpp_source.html":[6,0,0,2,19],
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html":[2,2,2],
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a15ad2555fb5aa3a237198a30bd183895":[2,2,2,1],
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a67f637e3e6eaa0f0d5138fcb513a30b8":[2,2,2,3],
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a6a83268206a23a908185d0991d6077b1":[2,2,2,2],
-"d4/dc4/classtoy_1_1log_1_1_i_sink.html#aaea92c40a462a53503de0316604c6354":[2,2,2,0],
+"d4/dc4/classtoy_1_1log_1_1_i_sink.html":[2,2,3],
+"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a15ad2555fb5aa3a237198a30bd183895":[2,2,3,1],
+"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a67f637e3e6eaa0f0d5138fcb513a30b8":[2,2,3,3],
+"d4/dc4/classtoy_1_1log_1_1_i_sink.html#a6a83268206a23a908185d0991d6077b1":[2,2,3,2],
+"d4/dc4/classtoy_1_1log_1_1_i_sink.html#aaea92c40a462a53503de0316604c6354":[2,2,3,0],
 "d4/ddd/namespacetoy_1_1platform.html":[3,0,2,13],
 "d4/dee/point_8inl.html":[6,0,0,6,5],
 "d4/dee/point_8inl_source.html":[6,0,0,6,5],
@@ -191,6 +192,8 @@ var NAVTREEINDEX2 =
 "d6/d67/network_8hpp.html":[6,0,0,17],
 "d6/d67/network_8hpp_source.html":[6,0,0,17],
 "d6/d9a/clock__source__macos_8cpp.html":[6,0,1,3,4,1,1],
+"d6/dbb/namespacetoy_1_1application_1_1anonymous__namespace_02core__application_8cpp_03.html":[3,0,2,3,0],
+"d6/dbb/namespacetoy_1_1application_1_1anonymous__namespace_02core__application_8cpp_03.html#ae18477bd7f1327f00e5072c03f350a71":[3,0,2,3,0,0],
 "d6/ddb/callbacks__pool_8inl.html":[6,0,0,2,6],
 "d6/ddb/callbacks__pool_8inl_source.html":[6,0,0,2,6],
 "d6/df8/classtoy_1_1chrono_1_1_steady_clock.html":[2,0,6],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "d7/d15/classtoy_1_1_o_string_stream.html#a2504247e73bdab37a942f3ddf3c9480f":[2,3,2,1,33],
 "d7/d15/classtoy_1_1_o_string_stream.html#a2c6b5f0d70e6d3b0abd4011f7e357c15":[2,3,2,1,5],
 "d7/d15/classtoy_1_1_o_string_stream.html#a2ca679cbf07425915a6a9fe01a63a2b2":[2,3,2,1,13],
-"d7/d15/classtoy_1_1_o_string_stream.html#a2cac1d4257ba27f5a59dc414bcfe1e90":[2,3,2,1,4],
-"d7/d15/classtoy_1_1_o_string_stream.html#a2e558ce0632c4dada10f0afae31a6c50":[2,3,2,1,28],
-"d7/d15/classtoy_1_1_o_string_stream.html#a34b8aed089bfbe268732ef912112cc8f":[2,3,2,1,38],
-"d7/d15/classtoy_1_1_o_string_stream.html#a3a29f25768bb67c014008fc313ed9c43":[2,3,2,1,29]
+"d7/d15/classtoy_1_1_o_string_stream.html#a2cac1d4257ba27f5a59dc414bcfe1e90":[2,3,2,1,4]
 };

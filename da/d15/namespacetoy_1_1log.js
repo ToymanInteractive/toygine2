@@ -1,5 +1,9 @@
 var namespacetoy_1_1log =
 [
+    [ "anonymous_namespace{log_backend.cpp}", "d3/ddb/namespacetoy_1_1log_1_1anonymous__namespace_02log__backend_8cpp_03.html", [
+      [ "activeBackend", "d3/ddb/namespacetoy_1_1log_1_1anonymous__namespace_02log__backend_8cpp_03.html#aca7db634986cef05cff5c26c688cf193", null ]
+    ] ],
+    [ "Backend", "d7/dfa/classtoy_1_1log_1_1_backend.html", "d7/dfa/classtoy_1_1log_1_1_backend" ],
     [ "ISink", "d4/dc4/classtoy_1_1log_1_1_i_sink.html", "d4/dc4/classtoy_1_1log_1_1_i_sink" ],
     [ "Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", "d8/dfc/structtoy_1_1log_1_1_metadata" ],
     [ "Record", "d9/d14/structtoy_1_1log_1_1_record.html", "d9/d14/structtoy_1_1log_1_1_record" ],

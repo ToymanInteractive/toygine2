@@ -1,11 +1,6 @@
 var searchData=
 [
-  ['section_0',['Section',['../db/d6f/classtoy_1_1geometry_1_1_section.html',1,'toy::geometry']]],
-  ['signalinfo_1',['SignalInfo',['../db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html',1,'toy::assertion::anonymous_namespace{assertion_linux.cpp}::SignalInfo'],['../d7/d76/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03_1_1_signal_info.html',1,'toy::assertion::anonymous_namespace{assertion_macos.cpp}::SignalInfo']]],
-  ['socketstatistics_2',['SocketStatistics',['../df/d86/structtoy_1_1network_1_1_socket_statistics.html',1,'toy::network']]],
-  ['staticcallback_3',['StaticCallback',['../d7/d9f/structtoy_1_1_callbacks_pool_1_1_static_callback.html',1,'toy::CallbacksPool']]],
-  ['steadyclock_4',['SteadyClock',['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html',1,'toy::chrono']]],
-  ['stopwatch_5',['Stopwatch',['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html',1,'toy::chrono']]],
-  ['stringfixedstorage_6',['StringFixedStorage',['../d0/d21/classtoy_1_1_string_fixed_storage.html',1,'toy']]],
-  ['systemclock_7',['SystemClock',['../d7/d73/classtoy_1_1chrono_1_1_system_clock.html',1,'toy::chrono']]]
+  ['rawconstructortag_0',['RawConstructorTag',['../dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html',1,'toy::math::fixed']]],
+  ['record_1',['Record',['../d9/d14/structtoy_1_1log_1_1_record.html',1,'toy::log']]],
+  ['reverse_5fiterator_2',['reverse_iterator',['../da/d56/classtoy_1_1array_1_1reverse__iterator.html',1,'toy::array']]]
 ];

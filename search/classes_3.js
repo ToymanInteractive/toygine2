@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['ellipse_0',['Ellipse',['../d9/dd1/classtoy_1_1geometry_1_1_ellipse.html',1,'toy::geometry']]],
-  ['enablebitwiseoperators_1',['EnableBitwiseOperators',['../dc/d6d/classtoy_1_1_enable_bitwise_operators.html',1,'toy']]],
-  ['endpoint_2',['Endpoint',['../d3/d53/classtoy_1_1network_1_1_endpoint.html',1,'toy::network']]]
+  ['divmod10_0',['DivMod10',['../d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html',1,'toy::anonymous_namespace{utils.cpp}']]],
+  ['durationformat_1',['DurationFormat',['../d0/d23/structtoy_1_1chrono_1_1_duration_format.html',1,'toy::chrono']]]
 ];

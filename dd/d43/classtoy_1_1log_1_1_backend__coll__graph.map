@@ -1,0 +1,5 @@
+<map id="toy::log::Backend" name="toy::log::Backend">
+<area shape="rect" id="Node000001" title="Process&#45;wide singleton transport for log records." alt="" coords="5,101,139,127"/>
+<area shape="rect" id="Node000002" href="$d4/dc4/classtoy_1_1log_1_1_i_sink.html" title="Abstract output destination for log records." alt="" coords="17,5,127,31"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="75,45,75,101,69,101,69,45"/>
+</map>

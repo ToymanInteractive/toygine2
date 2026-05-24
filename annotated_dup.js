@@ -40,6 +40,7 @@ var annotated_dup =
         [ "Section", "db/d6f/classtoy_1_1geometry_1_1_section.html", "db/d6f/classtoy_1_1geometry_1_1_section" ]
       ] ],
       [ "log", "da/d15/namespacetoy_1_1log.html", [
+        [ "Backend", "d7/dfa/classtoy_1_1log_1_1_backend.html", "d7/dfa/classtoy_1_1log_1_1_backend" ],
         [ "ISink", "d4/dc4/classtoy_1_1log_1_1_i_sink.html", "d4/dc4/classtoy_1_1log_1_1_i_sink" ],
         [ "Metadata", "d8/dfc/structtoy_1_1log_1_1_metadata.html", "d8/dfc/structtoy_1_1log_1_1_metadata" ],
         [ "Record", "d9/d14/structtoy_1_1log_1_1_record.html", "d9/d14/structtoy_1_1log_1_1_record" ]

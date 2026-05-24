@@ -153,12 +153,12 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Abstract output destination for log records. </p>
-<p>Implemented by each concrete sink. toy::LogBackend holds a pointer to the active sink and calls <a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8" title="Writes record to the output destination.">write()</a> for every flushed <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html" title="toy::log::Record">toy::log::Record</a>. The interface is intentionally minimal: a single <code>noexcept</code> virtual method receiving the full record so the sink can decide what to use (severity, timestamp, file, line, message) without further API growth.</p>
+<p>Implemented by each concrete sink. <a class="el" href="../../d7/dfa/classtoy_1_1log_1_1_backend.html" title="toy::log::Backend">toy::log::Backend</a> holds a pointer to the active sink and calls <a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8" title="Writes record to the output destination.">write()</a> for every flushed <a class="el" href="../../d9/d14/structtoy_1_1log_1_1_record.html" title="toy::log::Record">toy::log::Record</a>. The interface is intentionally minimal: a single <code>noexcept</code> virtual method receiving the full record so the sink can decide what to use (severity, timestamp, file, line, message) without further API growth.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
 <li><b>noexcept write</b>: Sinks must not throw; the log path is entirely exception-free.</li>
-<li><b>Pointer-based</b>: Backend holds <code>ISink*</code> so sinks can be swapped at runtime.</li>
+<li><b>Pointer-based</b>: <a class="el" href="../../d7/dfa/classtoy_1_1log_1_1_backend.html" title="Process-wide singleton transport for log records.">Backend</a> holds <code>ISink*</code> so sinks can be swapped at runtime.</li>
 <li><b>Record-driven</b>: A single argument carries every piece of per-call data; sinks select what they need.</li>
 <li><b>Virtual dispatch</b>: Called from the backend flush path, not the hot encoding path.</li>
 </ul>
@@ -185,10 +185,10 @@ Performance Characteristics</h1>
 Safety Guarantees</h1>
 <ul>
 <li><b>Exception safety</b>: <a class="el" href="#a67f637e3e6eaa0f0d5138fcb513a30b8" title="Writes record to the output destination.">write()</a> is <code>noexcept</code>; destructor defaults to <code>noexcept</code>.</li>
-<li><b>Lifetime</b>: The sink must outlive any toy::LogBackend that references it.</li>
+<li><b>Lifetime</b>: The sink must outlive any <a class="el" href="../../d7/dfa/classtoy_1_1log_1_1_backend.html" title="toy::log::Backend">toy::log::Backend</a> that references it.</li>
 <li><b>Thread safety</b>: Not enforced; concrete sinks must document their own thread guarantees.</li>
 </ul>
-<dl class="section see"><dt>See also</dt><dd>toy::ConsoleSink, toy::MgbaSink, toy::LogBackend </dd></dl>
+<dl class="section see"><dt>See also</dt><dd>toy::ConsoleSink, toy::MgbaSink, <a class="el" href="../../d7/dfa/classtoy_1_1log_1_1_backend.html" title="toy::log::Backend">toy::log::Backend</a> </dd></dl>
 </div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aaea92c40a462a53503de0316604c6354" name="aaea92c40a462a53503de0316604c6354"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aaea92c40a462a53503de0316604c6354">&#9670;&#160;</a></span>ISink()</h2>
