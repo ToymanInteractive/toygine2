@@ -4,7 +4,7 @@ var searchData=
   ['o_5fstring_5fstream_2einl_1',['o_string_stream.inl',['../d9/dcb/o__string__stream_8inl.html',1,'']]],
   ['of_20five_2',['Rule of Zero and Rule of Five',['../df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five',1,'']]],
   ['of_20zero_20and_20rule_20of_20five_3',['Rule of Zero and Rule of Five',['../df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five',1,'']]],
-  ['off_4',['Off',['../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36',1,'toy::log']]],
+  ['off_4',['Off',['../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10ad15305d7a4e34e02489c74a5ef542f36',1,'toy::log']]],
   ['ok_5',['Ok',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445aa60852f204ed8028c1c58808b746d115',1,'toy::platform::ui::Ok'],['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2aa60852f204ed8028c1c58808b746d115',1,'toy::platform::ui::Ok']]],
   ['okcancel_6',['OkCancel',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a4b116999b87115628973f2e30b59fd08',1,'toy::platform::ui']]],
   ['okhelp_7',['OkHelp',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445ace2feb7d8ab6fb9022ec4bf4995be3ab',1,'toy::platform::ui']]],

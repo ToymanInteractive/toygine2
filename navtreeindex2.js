@@ -1,5 +1,14 @@
 var NAVTREEINDEX2 =
 {
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341":[3,0,2,28],
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d":[3,0,2,28,2],
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e":[3,0,2,28,4],
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d":[3,0,2,28,0],
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492":[3,0,2,28,1],
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6":[3,0,2,28,3],
+"d4/da9/namespacetoy.html#a326a560f0c3c0d12d9c7a8642d001e6d":[3,0,2,51],
+"d4/da9/namespacetoy.html#a356a3fceab84ce068ff702d19893708b":[3,0,2,49],
+"d4/da9/namespacetoy.html#a377071f6eeeb1a7746d86c53f7fc5f22":[3,0,2,65],
 "d4/da9/namespacetoy.html#a3b958204f31fa5e70210feb177d307b9":[3,0,2,63],
 "d4/da9/namespacetoy.html#a3e935013c7764b31202b25105a86cedd":[3,0,2,55],
 "d4/da9/namespacetoy.html#a3eeeb1d3b702984ac28fc6e9189a8b8c":[3,0,2,38],
@@ -240,14 +249,5 @@ var NAVTREEINDEX2 =
 "d7/d02/classtoy_1_1array_1_1iterator.html":[3,0,2,15,0],
 "d7/d02/classtoy_1_1array_1_1iterator.html":[5,0,1,9,0],
 "d7/d15/classtoy_1_1_o_string_stream.html":[2,3,2,1],
-"d7/d15/classtoy_1_1_o_string_stream.html#a00db0e12f8878917863f13d501a0fa6e":[2,3,2,1,19],
-"d7/d15/classtoy_1_1_o_string_stream.html#a09efb1530c932913e236f182350bee9c":[2,3,2,1,15],
-"d7/d15/classtoy_1_1_o_string_stream.html#a12eaf7b6d69b4c31f80e763a6cc94e62":[2,3,2,1,44],
-"d7/d15/classtoy_1_1_o_string_stream.html#a1458795ad41d3884e2c8888abda3f20f":[2,3,2,1,1],
-"d7/d15/classtoy_1_1_o_string_stream.html#a19938a05e85f5411b635cad6fcca4476":[2,3,2,1,12],
-"d7/d15/classtoy_1_1_o_string_stream.html#a1a476c7687a7910282d0045c291b0f13":[2,3,2,1,25],
-"d7/d15/classtoy_1_1_o_string_stream.html#a2504247e73bdab37a942f3ddf3c9480f":[2,3,2,1,33],
-"d7/d15/classtoy_1_1_o_string_stream.html#a2c6b5f0d70e6d3b0abd4011f7e357c15":[2,3,2,1,5],
-"d7/d15/classtoy_1_1_o_string_stream.html#a2ca679cbf07425915a6a9fe01a63a2b2":[2,3,2,1,13],
-"d7/d15/classtoy_1_1_o_string_stream.html#a2cac1d4257ba27f5a59dc414bcfe1e90":[2,3,2,1,4]
+"d7/d15/classtoy_1_1_o_string_stream.html#a00db0e12f8878917863f13d501a0fa6e":[2,3,2,1,19]
 };

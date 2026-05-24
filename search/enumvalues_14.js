@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['warn_0',['Warn',['../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17',1,'toy::log']]],
+  ['warn_0',['Warn',['../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10a56525ae64d370c0b448ac0d60710ef17',1,'toy::log']]],
   ['warning_1',['Warning',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'toy::platform::ui']]],
   ['windows_2',['Windows',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aaaea23489ce3aa9b6406ebb28e0cda430',1,'toy']]],
   ['wouldblock_3',['WouldBlock',['../d6/d2c/namespacetoy_1_1network.html#a00dea18c86b981e289de2ab40d78725eae799f8e2bec1c2593f034ec5060229e6',1,'toy::network']]],

@@ -11,7 +11,7 @@ var searchData=
   ['datagram_8',['Datagram',['../d6/d2c/namespacetoy_1_1network.html#a465745810e1e093a3e2aaa44ba340b8ea640931067618ca3bc723805cb196e22f',1,'toy::network']]],
   ['day_9',['day',['../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#af9a9211ab4059e92d519d78ac8a1f999',1,'toy::chrono::CalendarTime']]],
   ['dayofweek_10',['dayOfWeek',['../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#aa48b8e36b45c63d30046ab577c8dbbfa',1,'toy::chrono::CalendarTime']]],
-  ['debug_11',['Debug',['../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba',1,'toy::log']]],
+  ['debug_11',['Debug',['../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10aa603905470e2a5b8c13e96b579ef0dba',1,'toy::log']]],
   ['default_20and_20delete_12',['&lt;span class=&quot;tt&quot;&gt;= default&lt;/span&gt; and &lt;span class=&quot;tt&quot;&gt;= delete&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete',1,'']]],
   ['default_20member_20initialization_13',['Default Member Initialization',['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'']]],
   ['defaulttimestamp_14',['defaultTimestamp',['../d7/dfa/classtoy_1_1log_1_1_backend.html#ab870c871570236f37f2c03cb7307f38a',1,'toy::log::Backend']]],

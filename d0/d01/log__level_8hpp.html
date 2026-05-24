@@ -155,25 +155,48 @@ Namespaces</h2></td></tr>
 <tr class="memitem:toy_3A_3Alog" id="r_toy_3A_3Alog"><td class="memItemLeft">namespace &#160;</td><td class="memItemRight"><a class="el" href="../../da/d15/namespacetoy_1_1log.html">toy::log</a></td></tr>
 <tr class="memdesc:da/d15/namespacetoy_1_1log"><td class="mdescLeft">&#160;</td><td class="mdescRight">Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interface. <br /></td></tr>
 </table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ab48526a24f804ca3bfef6424a7cb0052" id="r_ab48526a24f804ca3bfef6424a7cb0052"><td class="memItemLeft">#define&#160;</td><td class="memItemRight"><a class="el" href="#ab48526a24f804ca3bfef6424a7cb0052">LOG_MIN_LEVEL</a>&#160;&#160;&#160;0</td></tr>
+<tr class="memdesc:ab48526a24f804ca3bfef6424a7cb0052"><td class="mdescLeft">&#160;</td><td class="mdescRight">Compile-time minimum severity (default <code>0</code> = <a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10add4ec0ac4e58f7c32a01244ae91150b1" title="toy::log::Level::Trace">toy::log::Level::Trace</a>).  <br /></td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga955f65710c884cc3393a41d2a3ad5a64" id="r_ga955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t { <br />
-&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Level::Trace</a> = 0
-, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">toy::log::Level::Debug</a> = 1
-, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">toy::log::Level::Info</a> = 2
-, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">toy::log::Level::Warn</a> = 3
+<tr class="memitem:gaae0e0795c58d33af19ffd851ecc13b10" id="r_gaae0e0795c58d33af19ffd851ecc13b10"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="../../de/da7/group___logger.html#gaae0e0795c58d33af19ffd851ecc13b10">toy::log::Level</a> : int8_t { <br />
+&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Level::Trace</a> = 0
+, <a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10aa603905470e2a5b8c13e96b579ef0dba">toy::log::Level::Debug</a> = 1
+, <a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10a4059b0251f66a18cb56f544728796875">toy::log::Level::Info</a> = 2
+, <a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10a56525ae64d370c0b448ac0d60710ef17">toy::log::Level::Warn</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Level::Error</a> = 4
-, <a class="el" href="../../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">toy::log::Level::Off</a> = 5
+&#160;&#160;<a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Level::Error</a> = 4
+, <a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10ad15305d7a4e34e02489c74a5ef542f36">toy::log::Level::Off</a> = 5
 <br />
  }</td></tr>
-<tr class="memdesc:ga955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
+<tr class="memdesc:gaae0e0795c58d33af19ffd851ecc13b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="../../de/da7/group___logger.html#gaae0e0795c58d33af19ffd851ecc13b10">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Severity levels for the logger. </p>
-<p>Defines <a class="el" href="../../de/da7/group___logger.html#ga955f65710c884cc3393a41d2a3ad5a64" title="toy::log::Level">toy::log::Level</a> used to filter log output at compile time via <code>LOG_MIN_LEVEL</code> and at runtime via <a class="el" href="../../d7/dfa/classtoy_1_1log_1_1_backend.html" title="toy::log::Backend">toy::log::Backend</a>.</p>
+<p>Defines <a class="el" href="../../de/da7/group___logger.html#gaae0e0795c58d33af19ffd851ecc13b10" title="toy::log::Level">toy::log::Level</a> used to filter log output at compile time via <code>LOG_MIN_LEVEL</code> and at runtime via <a class="el" href="../../d7/dfa/classtoy_1_1log_1_1_backend.html" title="toy::log::Backend">toy::log::Backend</a>.</p>
 <dl class="section note"><dt>Note</dt><dd>Included by <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a> only; do not include this file directly. </dd></dl>
-</div></div><!-- contents -->
+</div><a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="ab48526a24f804ca3bfef6424a7cb0052" name="ab48526a24f804ca3bfef6424a7cb0052"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab48526a24f804ca3bfef6424a7cb0052">&#9670;&#160;</a></span>LOG_MIN_LEVEL</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOG_MIN_LEVEL&#160;&#160;&#160;0</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Compile-time minimum severity (default <code>0</code> = <a class="el" href="../../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10add4ec0ac4e58f7c32a01244ae91150b1" title="toy::log::Level::Trace">toy::log::Level::Trace</a>). </p>
+<p>Numeric value compared against the underlying integer of <a class="el" href="../../de/da7/group___logger.html#gaae0e0795c58d33af19ffd851ecc13b10" title="toy::log::Level">toy::log::Level</a>. Call sites whose level is less than <code>LOG_MIN_LEVEL</code> are eliminated by the <code>LOG_*</code> macros via <code>if</code> <code>constexpr</code>; the <code>static</code> <code>constexpr</code> <a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a> for those sites is also removed from the binary. Define this macro before including <a class="el" href="../../da/d47/core_8hpp.html" title="Umbrella header for the engine core module.">core.hpp</a> (or via compiler flags) to override the default. </p>
+
+</div>
+</div>
+</div><!-- contents -->
 </div><!-- doc-content -->
 <div id="page-nav" class="page-nav-panel">
 <div id="page-nav-resize-handle"></div>

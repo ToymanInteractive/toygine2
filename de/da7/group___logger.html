@@ -153,23 +153,23 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-enum-members" class="groupheader"><a id="enum-members" name="enum-members"></a>
 Enumerations</h2></td></tr>
-<tr class="memitem:ga955f65710c884cc3393a41d2a3ad5a64" id="r_ga955f65710c884cc3393a41d2a3ad5a64"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#ga955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t { <br />
-&#160;&#160;<a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Level::Trace</a> = 0
-, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba">toy::log::Level::Debug</a> = 1
-, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875">toy::log::Level::Info</a> = 2
-, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17">toy::log::Level::Warn</a> = 3
+<tr class="memitem:gaae0e0795c58d33af19ffd851ecc13b10" id="r_gaae0e0795c58d33af19ffd851ecc13b10"><td class="memItemLeft">enum class &#160;</td><td class="memItemRight"><a class="el" href="#gaae0e0795c58d33af19ffd851ecc13b10">toy::log::Level</a> : int8_t { <br />
+&#160;&#160;<a class="el" href="#ggaae0e0795c58d33af19ffd851ecc13b10add4ec0ac4e58f7c32a01244ae91150b1">toy::log::Level::Trace</a> = 0
+, <a class="el" href="#ggaae0e0795c58d33af19ffd851ecc13b10aa603905470e2a5b8c13e96b579ef0dba">toy::log::Level::Debug</a> = 1
+, <a class="el" href="#ggaae0e0795c58d33af19ffd851ecc13b10a4059b0251f66a18cb56f544728796875">toy::log::Level::Info</a> = 2
+, <a class="el" href="#ggaae0e0795c58d33af19ffd851ecc13b10a56525ae64d370c0b448ac0d60710ef17">toy::log::Level::Warn</a> = 3
 , <br />
-&#160;&#160;<a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Level::Error</a> = 4
-, <a class="el" href="#gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36">toy::log::Level::Off</a> = 5
+&#160;&#160;<a class="el" href="#ggaae0e0795c58d33af19ffd851ecc13b10a902b0d55fddef6f8d651fe1035b7d4bd">toy::log::Level::Error</a> = 4
+, <a class="el" href="#ggaae0e0795c58d33af19ffd851ecc13b10ad15305d7a4e34e02489c74a5ef542f36">toy::log::Level::Off</a> = 5
 <br />
  }</td></tr>
-<tr class="memdesc:ga955f65710c884cc3393a41d2a3ad5a64"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="#ga955f65710c884cc3393a41d2a3ad5a64">More...</a><br /></td></tr>
+<tr class="memdesc:gaae0e0795c58d33af19ffd851ecc13b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Severity level of a log message.  <a href="#gaae0e0795c58d33af19ffd851ecc13b10">More...</a><br /></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Compile-time filtered logging with pluggable sinks. </p>
 </div><a name="doc-enum-members" id="doc-enum-members"></a><h2 id="header-doc-enum-members" class="groupheader">Enumeration Type Documentation</h2>
-<a id="ga955f65710c884cc3393a41d2a3ad5a64" name="ga955f65710c884cc3393a41d2a3ad5a64"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ga955f65710c884cc3393a41d2a3ad5a64">&#9670;&#160;</a></span>Level</h2>
+<a id="gaae0e0795c58d33af19ffd851ecc13b10" name="gaae0e0795c58d33af19ffd851ecc13b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#gaae0e0795c58d33af19ffd851ecc13b10">&#9670;&#160;</a></span>Level</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -178,7 +178,7 @@ Enumerations</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">enum class <a class="el" href="#ga955f65710c884cc3393a41d2a3ad5a64">toy::log::Level</a> : uint8_t</td>
+          <td class="memname">enum class <a class="el" href="#gaae0e0795c58d33af19ffd851ecc13b10">toy::log::Level</a> : int8_t</td>
         </tr>
       </table>
   </td>
@@ -190,19 +190,19 @@ Enumerations</h2></td></tr>
 
 <p>Severity level of a log message. </p>
 <p>Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than <code>LOG_MIN_LEVEL</code>.</p>
-<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>, LOG_MIN_LEVEL </dd></dl>
+<dl class="section see"><dt>See also</dt><dd><a class="el" href="../../d8/dfc/structtoy_1_1log_1_1_metadata.html" title="toy::log::Metadata">toy::log::Metadata</a>, <a class="el" href="../../d0/d01/log__level_8hpp.html#ab48526a24f804ca3bfef6424a7cb0052" title="Compile-time minimum severity (default 0 = toy::log::Level::Trace).">LOG_MIN_LEVEL</a> </dd></dl>
 <table class="fieldtable">
-<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1" name="gga955f65710c884cc3393a41d2a3ad5a64add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"><p>Fine-grained diagnostic information. </p>
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ggaae0e0795c58d33af19ffd851ecc13b10add4ec0ac4e58f7c32a01244ae91150b1" name="ggaae0e0795c58d33af19ffd851ecc13b10add4ec0ac4e58f7c32a01244ae91150b1"></a>Trace&#160;</td><td class="fielddoc"><p>Fine-grained diagnostic information. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba" name="gga955f65710c884cc3393a41d2a3ad5a64aa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc"><p>Coarser diagnostic information useful during development. </p>
+<tr><td class="fieldname"><a id="ggaae0e0795c58d33af19ffd851ecc13b10aa603905470e2a5b8c13e96b579ef0dba" name="ggaae0e0795c58d33af19ffd851ecc13b10aa603905470e2a5b8c13e96b579ef0dba"></a>Debug&#160;</td><td class="fielddoc"><p>Coarser diagnostic information useful during development. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875" name="gga955f65710c884cc3393a41d2a3ad5a64a4059b0251f66a18cb56f544728796875"></a>Info&#160;</td><td class="fielddoc"><p>Normal operational events. </p>
+<tr><td class="fieldname"><a id="ggaae0e0795c58d33af19ffd851ecc13b10a4059b0251f66a18cb56f544728796875" name="ggaae0e0795c58d33af19ffd851ecc13b10a4059b0251f66a18cb56f544728796875"></a>Info&#160;</td><td class="fielddoc"><p>Normal operational events. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17" name="gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17"></a>Warn&#160;</td><td class="fielddoc"><p>Potentially harmful situations that do not prevent execution. </p>
+<tr><td class="fieldname"><a id="ggaae0e0795c58d33af19ffd851ecc13b10a56525ae64d370c0b448ac0d60710ef17" name="ggaae0e0795c58d33af19ffd851ecc13b10a56525ae64d370c0b448ac0d60710ef17"></a>Warn&#160;</td><td class="fielddoc"><p>Potentially harmful situations that do not prevent execution. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd" name="gga955f65710c884cc3393a41d2a3ad5a64a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>Error events that may allow continued execution. </p>
+<tr><td class="fieldname"><a id="ggaae0e0795c58d33af19ffd851ecc13b10a902b0d55fddef6f8d651fe1035b7d4bd" name="ggaae0e0795c58d33af19ffd851ecc13b10a902b0d55fddef6f8d651fe1035b7d4bd"></a>Error&#160;</td><td class="fielddoc"><p>Error events that may allow continued execution. </p>
 </td></tr>
-<tr><td class="fieldname"><a id="gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36" name="gga955f65710c884cc3393a41d2a3ad5a64ad15305d7a4e34e02489c74a5ef542f36"></a>Off&#160;</td><td class="fielddoc"><p>Disables all logging; no messages are emitted. </p>
+<tr><td class="fieldname"><a id="ggaae0e0795c58d33af19ffd851ecc13b10ad15305d7a4e34e02489c74a5ef542f36" name="ggaae0e0795c58d33af19ffd851ecc13b10ad15305d7a4e34e02489c74a5ef542f36"></a>Off&#160;</td><td class="fielddoc"><p>Disables all logging; no messages are emitted. </p>
 </td></tr>
 </table>
 

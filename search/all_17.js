@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['warn_0',['Warn',['../de/da7/group___logger.html#gga955f65710c884cc3393a41d2a3ad5a64a56525ae64d370c0b448ac0d60710ef17',1,'toy::log']]],
+  ['warn_0',['Warn',['../de/da7/group___logger.html#ggaae0e0795c58d33af19ffd851ecc13b10a56525ae64d370c0b448ac0d60710ef17',1,'toy::log']]],
   ['warning_1',['Warning',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa258d6860405ac17c387232bff26a6faa0eaadb4fcb48a0a0ed7bc9868be9fbaa',1,'toy::platform::ui']]],
   ['wchar_5fin_5futf8_5fmax_5fsize_2',['WCHAR_IN_UTF8_MAX_SIZE',['../d9/d39/group___string_text.html#ga2a4051deac87f3522fdd2a2c55d1a79c',1,'toy']]],
   ['wchartoutf8_3',['wcharToUtf8',['../d9/d39/group___string_text.html#ga008aa42596921d995b66340139fd3cfb',1,'toy']]],
