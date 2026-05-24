@@ -94,8 +94,12 @@ public:
     routing or styling, \c record.meta->file / \c record.meta->line for source attribution, \c record.timestamp for time
     prefixing.
 
-    \param record Fully populated log record. Its \c meta pointer must be non-null and reference a \c static
-                  \c constexpr \ref toy::log::Metadata.
+    \param record Fully populated log record.
+
+    \pre \a record.meta must be non-null and references a \c static \c constexpr \ref toy::log::Metadata.
+
+    \note Implementations must consume \a record synchronously. If a sink defers work, it must first copy any data it
+          needs to retain after write() returns.
   */
   virtual void write(const Record & record) noexcept = 0;
 };

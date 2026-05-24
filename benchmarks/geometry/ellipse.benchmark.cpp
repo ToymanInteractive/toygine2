@@ -29,42 +29,26 @@ namespace toy::geometry {
 
 using fixed_type = math::fixed<int32_t, int64_t, 24>;
 
-static void ellipseFloatConstruct(picobench::state & state) noexcept {
-  size_t           result{0};
-  picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(5.0F, 10.0F), math::Vector2(3.0F, 4.0F));
-    result += static_cast<size_t>(e.radiuses.x);
-  }
-  state.set_result(result);
-}
-
-static void ellipseFixedConstruct(picobench::state & state) noexcept {
-  size_t           result{0};
-  picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(fixed_type(5), fixed_type(10)), math::Vector2(fixed_type(3), fixed_type(4)));
-    result += static_cast<size_t>(e.radiuses.x.rawValue());
-  }
-  state.set_result(result);
-}
-
 static void ellipseFloatArea(picobench::state & state) noexcept {
+  Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
-    result += static_cast<size_t>(e.area());
+    e.radiuses.x  = 10.0F + static_cast<float>(i & 1);
+    result       += static_cast<size_t>(e.area());
   }
   state.set_result(result);
 }
 
 static void ellipseFixedArea(picobench::state & state) noexcept {
+  Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(10), fixed_type(5)));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(10), fixed_type(5)));
-    result += static_cast<size_t>(e.area().rawValue());
+    e.radiuses.x  = 10 + (i & 1);
+    result       += static_cast<size_t>(e.area().rawValue());
   }
   state.set_result(result);
 }
@@ -73,7 +57,7 @@ static void ellipseFloatReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(10.0F, 20.0F), math::Vector2(5.0F, 3.0F));
+    Ellipse e(math::Vector2(10.0F, 20.0F), math::Vector2(5.0F + static_cast<float>(i & 1), 3.0F));
     e.reset();
     result += static_cast<size_t>(e.radiuses.x);
   }
@@ -84,7 +68,7 @@ static void ellipseFixedReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(fixed_type(10), fixed_type(20)), math::Vector2(fixed_type(5), fixed_type(3)));
+    Ellipse e(math::Vector2(fixed_type(10), fixed_type(20)), math::Vector2(fixed_type(5 + (i & 1)), fixed_type(3)));
     e.reset();
     result += static_cast<size_t>(e.radiuses.x.rawValue());
   }
@@ -95,9 +79,9 @@ static void ellipseFloatIsReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse<float> e;
+    Ellipse e(math::Vector2(10.0F, 20.0F), math::Vector2(5.0F + static_cast<float>(i & 1), 3.0F));
     e.reset();
-    result += static_cast<size_t>(e.isReset());
+    result += e.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }
@@ -106,93 +90,107 @@ static void ellipseFixedIsReset(picobench::state & state) noexcept {
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse<fixed_type> e;
+    Ellipse e(math::Vector2(fixed_type(10), fixed_type(20)), math::Vector2(fixed_type(5 + (i & 1)), fixed_type(3)));
     e.reset();
-    result += static_cast<size_t>(e.isReset());
+    result += e.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void ellipseFloatIsValid(picobench::state & state) noexcept {
+  Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(1.0F, 1.0F));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(1.0F, 1.0F));
-    result += static_cast<size_t>(e.isValid());
+    e.radiuses.x  = 1.0F + static_cast<float>(i & 1);
+    result       += e.isValid() ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void ellipseFixedIsValid(picobench::state & state) noexcept {
+  Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(1), fixed_type(1)));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(1), fixed_type(1)));
-    result += static_cast<size_t>(e.isValid());
+    e.radiuses.x  = 1 + (i & 1);
+    result       += e.isValid() ? 1 : 0;
   }
   state.set_result(result);
 }
 
 static void ellipseFloatIsContain(picobench::state & state) noexcept {
+  constexpr Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
+
   size_t           result{0};
   picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(0.0F, 0.0F), math::Vector2(10.0F, 5.0F));
-    result += static_cast<size_t>(e.isContain(math::Vector2(5.0F, 2.0F)));
-  }
+  for (int i = 0; i < state.iterations(); ++i)
+    result += static_cast<size_t>(e.isContain(math::Vector2(5.0F + static_cast<float>(i & 1), 2.0F)));
+
   state.set_result(result);
 }
 
 static void ellipseFixedIsContain(picobench::state & state) noexcept {
+  constexpr Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(10), fixed_type(5)));
+
   size_t           result{0};
   picobench::scope scope(state);
-  for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse e(math::Vector2(fixed_type(0), fixed_type(0)), math::Vector2(fixed_type(10), fixed_type(5)));
-    result += static_cast<size_t>(e.isContain(math::Vector2(fixed_type(5), fixed_type(2))));
-  }
+  for (int i = 0; i < state.iterations(); ++i)
+    result += static_cast<size_t>(e.isContain(math::Vector2(fixed_type(5 + (i & 1)), fixed_type(2))));
+
   state.set_result(result);
 }
 
 static void ellipseFloatEqual(picobench::state & state) noexcept {
+  constexpr Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+  Ellipse           b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
-    Ellipse b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
-    result += static_cast<size_t>(a == b);
+    b.radiuses.x  = 3.0F + static_cast<float>(i & 1);
+    result       += static_cast<size_t>(a == b);
   }
   state.set_result(result);
 }
 
 static void ellipseFixedEqual(picobench::state & state) noexcept {
+  constexpr Ellipse a(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
+  Ellipse           b(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse a(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
-    Ellipse b(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
-    result += static_cast<size_t>(a == b);
+    b.radiuses.x  = 3 + (i & 1);
+    result       += static_cast<size_t>(a == b);
   }
   state.set_result(result);
 }
 
 static void ellipseFloatNotEqual(picobench::state & state) noexcept {
+  constexpr Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
+  Ellipse           b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 5.0F));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse a(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 4.0F));
-    Ellipse b(math::Vector2(1.0F, 2.0F), math::Vector2(3.0F, 5.0F));
-    result += static_cast<size_t>(a != b);
+    b.radiuses.x  = 3.0F + static_cast<float>(i & 1);
+    result       += static_cast<size_t>(a != b);
   }
   state.set_result(result);
 }
 
 static void ellipseFixedNotEqual(picobench::state & state) noexcept {
+  constexpr Ellipse a(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
+  Ellipse           b(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(5)));
+
   size_t           result{0};
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
-    Ellipse a(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(4)));
-    Ellipse b(math::Vector2(fixed_type(1), fixed_type(2)), math::Vector2(fixed_type(3), fixed_type(5)));
-    result += static_cast<size_t>(a != b);
+    b.radiuses.x  = 3 + (i & 1);
+    result       += static_cast<size_t>(a != b);
   }
   state.set_result(result);
 }
