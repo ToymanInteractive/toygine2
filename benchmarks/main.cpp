@@ -31,7 +31,6 @@
 #define PICOBENCH_IMPLEMENT
 #include "picobench/picobench.hpp"
 
-void runGeometryBenchmarks(ankerl::nanobench::Bench &) noexcept;
 void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 namespace {
@@ -41,13 +40,6 @@ using benchmark_fn_type = void (*)(ankerl::nanobench::Bench &) noexcept;
 struct BenchmarkEntry {
   const char *      name;
   benchmark_fn_type fn;
-};
-
-constexpr std::array<BenchmarkEntry, 2> c_benchmarks{
-  {
-   {"Geometry module", runGeometryBenchmarks},
-   {"Math module", runMathBenchmarks},
-   }
 };
 
 } // namespace
@@ -62,8 +54,7 @@ int main(int argc, char * argv[]) noexcept {
   auto bench
     = ankerl::nanobench::Bench().title("toygine2").warmup(100).epochs(100).minEpochIterations(1000).relative(true);
 
-  for (const auto & entry : c_benchmarks)
-    entry.fn(bench.unit(entry.name));
+  runMathBenchmarks(bench.unit("Math module"));
 
   if (argc > 1) {
     std::ofstream json(argv[1]);
