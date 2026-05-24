@@ -29,7 +29,7 @@
 
 namespace toy::log {
 
-inline void Backend::setSink(log::ISink * sink) noexcept {
+inline void Backend::setSink(ISink * sink) noexcept {
   _sink = sink;
 }
 

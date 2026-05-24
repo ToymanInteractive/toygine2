@@ -203,7 +203,5 @@ SpacesInLineCommentPrefix:
 SpacesInParens: Never
 SpacesInSquareBrackets: false
 TabWidth: 2
-TableGenBreakInsideDAGArg: DontBreak
 UseTab: Never
-VerilogBreakBetweenInstancePorts: false
 WrapNamespaceBodyWithEmptyLines: Always

@@ -217,7 +217,7 @@ private:
   /// Active sink; \c nullptr drops every pushed record. Owned by the caller; the backend never destroys it.
   ISink * _sink{nullptr};
 
-  /// Active timestamp policy; never \c nullptr (defaults to \ref defaultTimestamp, restored on setTimestampPolicy(nullptr)).
+  /// Active timestamp policy; never \c nullptr (setTimestampPolicy(nullptr) restored on \ref defaultTimestamp).
   timestamp_fn_type _timestampFn;
 };
 
