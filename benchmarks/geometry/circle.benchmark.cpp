@@ -198,8 +198,6 @@ static void circleFixedNotEqual(picobench::state & state) noexcept {
 }
 
 PICOBENCH_SUITE("toy::geometry::Circle");
-PICOBENCH(circleFloatConstruct);
-PICOBENCH(circleFixedConstruct);
 PICOBENCH(circleFloatArea);
 PICOBENCH(circleFixedArea);
 PICOBENCH(circleFloatReset);

@@ -196,8 +196,6 @@ static void ellipseFixedNotEqual(picobench::state & state) noexcept {
 }
 
 PICOBENCH_SUITE("toy::geometry::Ellipse");
-PICOBENCH(ellipseFloatConstruct);
-PICOBENCH(ellipseFixedConstruct);
 PICOBENCH(ellipseFloatArea);
 PICOBENCH(ellipseFixedArea);
 PICOBENCH(ellipseFloatReset);
