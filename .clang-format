@@ -203,5 +203,5 @@ SpacesInLineCommentPrefix:
 SpacesInParens: Never
 SpacesInSquareBrackets: false
 TabWidth: 2
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html#tablegenbreakinsidedagarg
 UseTab: Never
+WrapNamespaceBodyWithEmptyLines: Always

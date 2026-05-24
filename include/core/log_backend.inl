@@ -18,46 +18,46 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   core_application.cpp
-  \brief  Implementations for \ref toy::application::CoreApplication.
+  \file   log_backend.inl
+  \brief  Inline implementation for \ref toy::log::Backend.
+
+  \note Included by core.hpp only; do not include this file directly.
 */
 
-#include "application.hpp"
+#ifndef INCLUDE_CORE_LOG_BACKEND_INL_
+#define INCLUDE_CORE_LOG_BACKEND_INL_
 
-namespace toy::application {
+namespace toy::log {
 
-namespace {
-
-/// Process-wide active application; null when none is registered.
-CoreApplication * activeApplication{nullptr};
-
-} // namespace
-
-CoreApplication::CoreApplication(assertion::AssertionCallback assertionCallback,
-                                 assertion::StackWalkCallback stackWalkCallback) noexcept {
-  assert_message(activeApplication == nullptr, "Only one CoreApplication may exist at a time");
-
-  activeApplication = this;
-
-  initialize(assertionCallback, stackWalkCallback);
+inline void Backend::setSink(ISink * sink) noexcept {
+  _sink = sink;
 }
 
-CoreApplication::~CoreApplication() noexcept {
-  assert_message(activeApplication == this, "CoreApplication destruction does not match construction order");
-
-  deInitialize();
-
-  activeApplication = nullptr;
+inline ISink * Backend::sink() const noexcept {
+  return _sink;
 }
 
-bool CoreApplication::run(int argc, char ** argv) noexcept {
-  setArguments(argc, argv);
-
-  return runInternal();
+inline void Backend::setTimestampPolicy(timestamp_fn_type fn) noexcept {
+  _timestampFn = (fn != nullptr) ? fn : &Backend::defaultTimestamp;
 }
 
-CoreApplication * CoreApplication::instance() noexcept {
-  return activeApplication;
+inline Backend::timestamp_fn_type Backend::timestampPolicy() const noexcept {
+  return _timestampFn;
 }
 
-} // namespace toy::application
+template <typename... Args>
+inline void Backend::push(const Metadata * meta, const Args &... args) noexcept {
+  assert_message(meta != nullptr, "Backend::push: meta must be non-null");
+  if (_sink == nullptr)
+    return;
+
+  Record record;
+  record.meta      = meta;
+  record.timestamp = _timestampFn();
+  toy::vformatTo(record.message, CStringView(meta->format), args...);
+  _sink->write(record);
+}
+
+} // namespace toy::log
+
+#endif // INCLUDE_CORE_LOG_BACKEND_INL_

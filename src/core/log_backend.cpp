@@ -18,46 +18,40 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   core_application.cpp
-  \brief  Implementations for \ref toy::application::CoreApplication.
+  \file   log_backend.cpp
+  \brief  Implementation of \ref toy::log::Backend lifecycle, sink, and timestamp-policy accessors.
 */
 
-#include "application.hpp"
+#include "core.hpp"
 
-namespace toy::application {
+namespace toy::log {
 
 namespace {
 
-/// Process-wide active application; null when none is registered.
-CoreApplication * activeApplication{nullptr};
+/// Process-wide active backend; null when none is registered.
+Backend * activeBackend{nullptr};
 
 } // namespace
 
-CoreApplication::CoreApplication(assertion::AssertionCallback assertionCallback,
-                                 assertion::StackWalkCallback stackWalkCallback) noexcept {
-  assert_message(activeApplication == nullptr, "Only one CoreApplication may exist at a time");
+Backend::Backend() noexcept
+  : _timestampFn{&Backend::defaultTimestamp} {
+  assert_message(activeBackend == nullptr, "Backend: at most one active instance is allowed per process");
 
-  activeApplication = this;
-
-  initialize(assertionCallback, stackWalkCallback);
+  activeBackend = this;
 }
 
-CoreApplication::~CoreApplication() noexcept {
-  assert_message(activeApplication == this, "CoreApplication destruction does not match construction order");
-
-  deInitialize();
-
-  activeApplication = nullptr;
+Backend::~Backend() noexcept {
+  activeBackend = nullptr;
 }
 
-bool CoreApplication::run(int argc, char ** argv) noexcept {
-  setArguments(argc, argv);
+Backend & Backend::instance() noexcept {
+  assert_message(activeBackend != nullptr, "Backend::instance: no active Backend");
 
-  return runInternal();
+  return *activeBackend;
 }
 
-CoreApplication * CoreApplication::instance() noexcept {
-  return activeApplication;
+uint32_t Backend::defaultTimestamp() noexcept {
+  return 0;
 }
 
-} // namespace toy::application
+} // namespace toy::log

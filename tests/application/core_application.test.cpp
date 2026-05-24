@@ -67,6 +67,15 @@ TEST_CASE("app/core_application/object_structure") {
   static_assert(std::has_virtual_destructor_v<CoreApplication>, "CoreApplication must have a virtual destructor");
 }
 
+// Logger backend: CoreApplication owns a log::Backend for the full lifetime.
+TEST_CASE("app/core_application/log_backend_ownership") {
+  // log::Backend::instance() resolves to the backend owned by the active application.
+  TestApp app;
+
+  REQUIRE(log::Backend::instance().sink() == nullptr);
+  REQUIRE(log::Backend::instance().timestampPolicy() == &log::Backend::defaultTimestamp);
+}
+
 // Singleton: instance() tracks the active CoreApplication lifetime.
 TEST_CASE("app/core_application/singleton") {
   // instance() returns nullptr when no application exists.

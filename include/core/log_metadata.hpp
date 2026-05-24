@@ -55,7 +55,7 @@ namespace toy::log {
   #include "core.hpp"
 
   static constexpr toy::log::Metadata meta{"player pos=({}, {})", __FILE__, __LINE__, toy::log::Level::Info};
-  toy::LogBackend::instance().push(&meta, x, y);
+  toy::log::Backend::instance().push(&meta, x, y);
   \endcode
 
   \section performance Performance Characteristics
@@ -69,7 +69,7 @@ namespace toy::log {
   - **Exception safety**: POD aggregate; no exceptions possible.
   - **Thread safety**: Read-only after construction; safe to access from any thread.
 
-  \sa \ref toy::log::Level, \ref toy::LogBackend
+  \sa \ref toy::log::Level, \ref toy::log::Backend
 */
 struct Metadata {
   /// \c {} / \c {N} format pattern passed to toy::vformatTo() on the backend.

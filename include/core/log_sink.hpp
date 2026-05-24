@@ -21,7 +21,7 @@
   \file   log_sink.hpp
   \brief  Abstract sink interface for the logger.
 
-  Defines \ref toy::log::ISink: the polymorphic output destination invoked by \ref toy::LogBackend on every flushed
+  Defines \ref toy::log::ISink: the polymorphic output destination invoked by \ref toy::log::Backend on every flushed
   \ref toy::log::Record. Concrete sinks (console, mGBA, custom) implement this interface.
 
   \note Included by core.hpp only; do not include this file directly.
@@ -39,10 +39,10 @@ namespace toy::log {
 
   \brief Abstract output destination for log records.
 
-  Implemented by each concrete sink. \ref toy::LogBackend holds a pointer to the active sink and calls write() for every
-  flushed \ref toy::log::Record. The interface is intentionally minimal: a single \c noexcept virtual method receiving
-  the full record so the sink can decide what to use (severity, timestamp, file, line, message) without further API
-  growth.
+  Implemented by each concrete sink. \ref toy::log::Backend holds a pointer to the active sink and calls write() for
+  every flushed \ref toy::log::Record. The interface is intentionally minimal: a single \c noexcept virtual method
+  receiving the full record so the sink can decide what to use (severity, timestamp, file, line, message) without
+  further API growth.
 
   \section features Key Features
 
@@ -71,10 +71,10 @@ namespace toy::log {
   \section safety Safety Guarantees
 
   - **Exception safety**: write() is \c noexcept; destructor defaults to \c noexcept.
-  - **Lifetime**: The sink must outlive any \ref toy::LogBackend that references it.
+  - **Lifetime**: The sink must outlive any \ref toy::log::Backend that references it.
   - **Thread safety**: Not enforced; concrete sinks must document their own thread guarantees.
 
-  \sa \ref toy::ConsoleSink, \ref toy::MgbaSink, \ref toy::LogBackend
+  \sa \ref toy::ConsoleSink, \ref toy::MgbaSink, \ref toy::log::Backend
 */
 class ISink {
 public:
