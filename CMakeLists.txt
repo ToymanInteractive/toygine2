@@ -146,6 +146,7 @@ set(HDR_CORE_LIST
     include/core/format_string.hpp
     include/core/log_backend.hpp
     include/core/log_level.hpp
+    include/core/log_macros.hpp
     include/core/log_metadata.hpp
     include/core/log_record.hpp
     include/core/hashes.hpp

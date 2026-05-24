@@ -19,262 +19,403 @@
 //
 /*!
   \file   section.benchmark.cpp
-  \brief  Implementations for section nanobench benchmarks in the geometry module.
+  \brief  Implementation of picobench benchmarks for \ref toy::geometry::Section.
 */
 
-#include "../utils.hpp"
 #include "geometry.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy::geometry {
 
 using fixed_type = math::fixed<int32_t, int64_t, 24>;
 
-// Section benchmarks
-void sectionGeometryBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("Section<int> construct min max", [] {
-    Section s(10, 20);
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<float> construct min max", [] {
-    Section s(10.0F, 20.0F);
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<fixed_type> construct min max", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    doNotOptimize(s);
-  });
-
-  bench.run("Section<int> midpoint", [] {
-    Section s(10, 20);
-
-    auto r = s.midpoint();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> midpoint", [] {
-    Section s(10.0F, 20.0F);
-
-    auto r = s.midpoint();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> midpoint", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    auto r = s.midpoint();
-
-    doNotOptimize(r);
-  });
-
-  bench.run("Section<int> length", [] {
-    Section s(10, 20);
-
-    auto r = s.length();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> length", [] {
-    Section s(10.0F, 20.0F);
-
-    auto r = s.length();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> length", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    auto r = s.length();
-
-    doNotOptimize(r);
-  });
-
-  bench.run("Section<int> reset", [] {
-    Section s(10, 20);
-
-    s.reset();
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<float> reset", [] {
-    Section s(10.0F, 20.0F);
-
-    s.reset();
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<fixed_type> reset", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    s.reset();
-
-    doNotOptimize(s);
-  });
-
-  bench.run("Section<int> expand value", [] {
-    Section s(10, 20);
-
-    s.expand(5);
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<float> expand value", [] {
-    Section s(10.0F, 20.0F);
-
-    s.expand(5.0F);
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<fixed_type> expand value", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    s.expand(fixed_type(5));
-
-    doNotOptimize(s);
-  });
-
-  bench.run("Section<int> expand section", [] {
-    Section other(25, 30);
-    Section s(10, 20);
-
-    s.expand(other);
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<float> expand section", [] {
-    Section other(25.0F, 30.0F);
-    Section s(10.0F, 20.0F);
-
-    s.expand(other);
-
-    doNotOptimize(s);
-  });
-  bench.run("Section<fixed_type> expand section", [] {
-    Section other(fixed_type(25), fixed_type(30));
-    Section s(fixed_type(10), fixed_type(20));
-
-    s.expand(other);
-
-    doNotOptimize(s);
-  });
-
-  bench.run("Section<int> isReset", [] {
-    Section<int> s;
-
-    auto r = s.isReset();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> isReset", [] {
-    Section<float> s;
-
-    auto r = s.isReset();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> isReset", [] {
-    Section<fixed_type> s;
-
-    auto r = s.isReset();
-
-    doNotOptimize(r);
-  });
-
-  bench.run("Section<int> isValid", [] {
-    Section s(10, 20);
-
-    auto r = s.isValid();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> isValid", [] {
-    Section s(10.0F, 20.0F);
-
-    auto r = s.isValid();
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> isValid", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    auto r = s.isValid();
-
-    doNotOptimize(r);
-  });
-
-  bench.run("Section<int> isContains", [] {
-    Section s(10, 20);
-
-    auto r = s.isContains(15);
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> isContains", [] {
-    Section s(10.0F, 20.0F);
-
-    auto r = s.isContains(15.0F);
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> isContains", [] {
-    Section s(fixed_type(10), fixed_type(20));
-
-    auto r = s.isContains(fixed_type(15));
-
-    doNotOptimize(r);
-  });
-
-  bench.run("Section<int> operator==", [] {
-    Section a(10, 20);
-    Section b(10, 20);
-
-    auto r = (a == b);
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> operator==", [] {
-    Section a(10.0F, 20.0F);
-    Section b(10.0F, 20.0F);
-
-    auto r = (a == b);
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> operator==", [] {
-    Section a(fixed_type(10), fixed_type(20));
-    Section b(fixed_type(10), fixed_type(20));
-
-    auto r = (a == b);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("Section<int> operator!=", [] {
-    Section a(10, 20);
-    Section b(15, 25);
-
-    auto r = (a != b);
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<float> operator!=", [] {
-    Section a(10.0F, 20.0F);
-    Section b(15.0F, 25.0F);
-
-    auto r = (a != b);
-
-    doNotOptimize(r);
-  });
-  bench.run("Section<fixed_type> operator!=", [] {
-    Section a(fixed_type(10), fixed_type(20));
-    Section b(fixed_type(15), fixed_type(25));
-
-    auto r = (a != b);
-
-    doNotOptimize(r);
-  });
+static void sectionIntMidpoint(picobench::state & state) noexcept {
+  Section s(10, 20);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = 10 + (i & 1);
+    result  += static_cast<size_t>(s.midpoint());
+  }
+  state.set_result(result);
 }
+
+static void sectionFloatMidpoint(picobench::state & state) noexcept {
+  Section s(10.0F, 20.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = 10.0F + static_cast<float>(i & 1);
+    result  += static_cast<size_t>(s.midpoint());
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedMidpoint(picobench::state & state) noexcept {
+  Section s(fixed_type(10), fixed_type(20));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = fixed_type(10 + (i & 1));
+    result  += static_cast<size_t>(s.midpoint().rawValue());
+  }
+  state.set_result(result);
+}
+
+static void sectionIntLength(picobench::state & state) noexcept {
+  Section s(10, 20);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = 10 + (i & 1);
+    result  += static_cast<size_t>(s.length());
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatLength(picobench::state & state) noexcept {
+  Section s(10.0F, 20.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = 10.0F + static_cast<float>(i & 1);
+    result  += static_cast<size_t>(s.length());
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedLength(picobench::state & state) noexcept {
+  Section s(fixed_type(10), fixed_type(20));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = fixed_type(10 + (i & 1));
+    result  += static_cast<size_t>(s.length().rawValue());
+  }
+  state.set_result(result);
+}
+
+static void sectionIntReset(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(10 + (i & 1), 20);
+    s.reset();
+    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatReset(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(10.0F + static_cast<float>(i & 1), 20.0F);
+    s.reset();
+    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedReset(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(fixed_type(10 + (i & 1)), fixed_type(20));
+    s.reset();
+    result += static_cast<size_t>(s.start.rawValue()) + static_cast<size_t>(s.end.rawValue());
+  }
+  state.set_result(result);
+}
+
+static void sectionIntExpandValue(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(10, 20);
+    s.expand(5 + (i & 1));
+    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatExpandValue(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(10.0F, 20.0F);
+    s.expand(5.0F + static_cast<float>(i & 1));
+    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedExpandValue(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(fixed_type(10), fixed_type(20));
+    s.expand(fixed_type(5 + (i & 1)));
+    result += static_cast<size_t>(s.start.rawValue()) + static_cast<size_t>(s.end.rawValue());
+  }
+  state.set_result(result);
+}
+
+static void sectionIntExpandSection(picobench::state & state) noexcept {
+  constexpr Section other(25, 30);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(10 + (i & 1), 20);
+    s.expand(other);
+    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatExpandSection(picobench::state & state) noexcept {
+  constexpr Section other(25.0F, 30.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(10.0F + static_cast<float>(i & 1), 20.0F);
+    s.expand(other);
+    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedExpandSection(picobench::state & state) noexcept {
+  constexpr Section other(fixed_type(25), fixed_type(30));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section s(fixed_type(10 + (i & 1)), fixed_type(20));
+    s.expand(other);
+    result += static_cast<size_t>(s.start.rawValue()) + static_cast<size_t>(s.end.rawValue());
+  }
+  state.set_result(result);
+}
+
+static void sectionIntIsReset(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section<int> s;
+    s.expand(i & 1);
+    result += s.isReset() ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatIsReset(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section<float> s;
+    s.expand(static_cast<float>(i & 1));
+    result += s.isReset() ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedIsReset(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    Section<fixed_type> s;
+    s.expand(fixed_type(i & 1));
+    result += s.isReset() ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionIntIsValid(picobench::state & state) noexcept {
+  Section s(10, 20);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = 10 + (i & 1);
+    result  += s.isValid() ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatIsValid(picobench::state & state) noexcept {
+  Section s(10.0F, 20.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = 10.0F + static_cast<float>(i & 1);
+    result  += s.isValid() ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedIsValid(picobench::state & state) noexcept {
+  Section s(fixed_type(10), fixed_type(20));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    s.start  = fixed_type(10 + (i & 1));
+    result  += s.isValid() ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionIntIsContains(picobench::state & state) noexcept {
+  constexpr Section s(10, 20);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += s.isContains(15 + (i & 1)) ? 1 : 0;
+
+  state.set_result(result);
+}
+
+static void sectionFloatIsContains(picobench::state & state) noexcept {
+  constexpr Section s(10.0F, 20.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += s.isContains(15.0F + static_cast<float>(i & 1)) ? 1 : 0;
+
+  state.set_result(result);
+}
+
+static void sectionFixedIsContains(picobench::state & state) noexcept {
+  constexpr Section s(fixed_type(10), fixed_type(20));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += s.isContains(fixed_type(15 + (i & 1))) ? 1 : 0;
+
+  state.set_result(result);
+}
+
+static void sectionIntEqual(picobench::state & state) noexcept {
+  constexpr Section a(10, 20);
+  Section           b(10, 20);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b.start  = 10 + (i & 1);
+    result  += (a == b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatEqual(picobench::state & state) noexcept {
+  constexpr Section a(10.0F, 20.0F);
+  Section           b(10.0F, 20.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b.start  = 10.0F + static_cast<float>(i & 1);
+    result  += (a == b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedEqual(picobench::state & state) noexcept {
+  constexpr Section a(fixed_type(10), fixed_type(20));
+  Section           b(fixed_type(10), fixed_type(20));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b.start  = fixed_type(10 + (i & 1));
+    result  += (a == b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionIntNotEqual(picobench::state & state) noexcept {
+  constexpr Section a(10, 20);
+  Section           b(15, 25);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b.start  = 15 + (i & 1);
+    result  += (a != b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFloatNotEqual(picobench::state & state) noexcept {
+  constexpr Section a(10.0F, 20.0F);
+  Section           b(15.0F, 25.0F);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b.start  = 15.0F + static_cast<float>(i & 1);
+    result  += (a != b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void sectionFixedNotEqual(picobench::state & state) noexcept {
+  constexpr Section a(fixed_type(10), fixed_type(20));
+  Section           b(fixed_type(15), fixed_type(25));
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b.start  = fixed_type(15 + (i & 1));
+    result  += (a != b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+PICOBENCH_SUITE("toy::geometry::Section");
+PICOBENCH(sectionIntMidpoint);
+PICOBENCH(sectionFloatMidpoint);
+PICOBENCH(sectionFixedMidpoint);
+PICOBENCH(sectionIntLength);
+PICOBENCH(sectionFloatLength);
+PICOBENCH(sectionFixedLength);
+PICOBENCH(sectionIntReset);
+PICOBENCH(sectionFloatReset);
+PICOBENCH(sectionFixedReset);
+PICOBENCH(sectionIntExpandValue);
+PICOBENCH(sectionFloatExpandValue);
+PICOBENCH(sectionFixedExpandValue);
+PICOBENCH(sectionIntExpandSection);
+PICOBENCH(sectionFloatExpandSection);
+PICOBENCH(sectionFixedExpandSection);
+PICOBENCH(sectionIntIsReset);
+PICOBENCH(sectionFloatIsReset);
+PICOBENCH(sectionFixedIsReset);
+PICOBENCH(sectionIntIsValid);
+PICOBENCH(sectionFloatIsValid);
+PICOBENCH(sectionFixedIsValid);
+PICOBENCH(sectionIntIsContains);
+PICOBENCH(sectionFloatIsContains);
+PICOBENCH(sectionFixedIsContains);
+PICOBENCH(sectionIntEqual);
+PICOBENCH(sectionFloatEqual);
+PICOBENCH(sectionFixedEqual);
+PICOBENCH(sectionIntNotEqual);
+PICOBENCH(sectionFloatNotEqual);
+PICOBENCH(sectionFixedNotEqual);
 
 } // namespace toy::geometry

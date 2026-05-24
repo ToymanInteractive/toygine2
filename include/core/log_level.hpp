@@ -30,6 +30,20 @@
 #ifndef INCLUDE_CORE_LOG_LEVEL_HPP_
 #define INCLUDE_CORE_LOG_LEVEL_HPP_
 
+/*!
+  \def LOG_MIN_LEVEL
+
+  \brief Compile-time minimum severity (default \c 0 = \ref toy::log::Level::Trace).
+
+  Numeric value compared against the underlying integer of \ref toy::log::Level. Call sites whose level is less than
+  \c LOG_MIN_LEVEL are eliminated by the \c LOG_* macros via \c if \c constexpr; the \c static \c constexpr
+  \ref toy::log::Metadata for those sites is also removed from the binary. Define this macro before including core.hpp
+  (or via compiler flags) to override the default.
+*/
+#ifndef LOG_MIN_LEVEL
+#define LOG_MIN_LEVEL 0
+#endif // LOG_MIN_LEVEL
+
 namespace toy::log {
 
 /*!
@@ -44,7 +58,7 @@ namespace toy::log {
 
   \sa \ref toy::log::Metadata, LOG_MIN_LEVEL
 */
-enum class Level : uint8_t {
+enum class Level : int8_t {
   /// Fine-grained diagnostic information.
   Trace = 0,
 

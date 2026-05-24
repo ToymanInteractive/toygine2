@@ -54,7 +54,7 @@ inline void Backend::push(const Metadata * meta, const Args &... args) noexcept 
   Record record;
   record.meta      = meta;
   record.timestamp = _timestampFn();
-  toy::vformatTo(record.message, CStringView(meta->format), args...);
+  vformatTo(record.message, CStringView(meta->format), args...);
   _sink->write(record);
 }
 
