@@ -58,7 +58,7 @@ namespace toy::log {
 
   \sa \ref toy::log::Metadata, LOG_MIN_LEVEL
 */
-enum class Level : uint8_t {
+enum class Level : int8_t {
   /// Fine-grained diagnostic information.
   Trace = 0,
 

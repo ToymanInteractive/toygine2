@@ -61,7 +61,7 @@ namespace toy::log {
   \section performance Performance Characteristics
 
   - **Runtime overhead**: One pointer copy per log call.
-  - **Memory usage**: 24 bytes (two pointers + uint32_t + uint8_t + padding).
+  - **Memory usage**: 24 bytes (two pointers + uint32_t + int8_t + padding).
 
   \section safety Safety Guarantees
 
