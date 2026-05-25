@@ -99,7 +99,7 @@ static void fixedCompareFixed(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     b       = fixed_type(42 + (i & 1));
-    result += ((a <=> b) < 0) ? 1 : 0;
+    result += ((a <=> b) == strong_ordering::equal) ? 1 : 0;
   }
   state.set_result(result);
 }
@@ -111,7 +111,7 @@ static void fixedCompareInt(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     int b   = 42 + (i & 1);
-    result += ((a <=> b) < 0) ? 1 : 0;
+    result += ((a <=> b) == strong_ordering::equal) ? 1 : 0;
   }
   state.set_result(result);
 }
@@ -123,7 +123,7 @@ static void intCompareFixed(picobench::state & state) noexcept {
   picobench::scope scope(state);
   for (int i = 0; i < state.iterations(); ++i) {
     int b   = 42 + (i & 1);
-    result += ((b <=> a) < 0) ? 1 : 0;
+    result += ((b <=> a) == strong_ordering::equal) ? 1 : 0;
   }
   state.set_result(result);
 }
