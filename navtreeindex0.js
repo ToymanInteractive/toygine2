@@ -4,7 +4,7 @@ var NAVTREEINDEX0 =
 "classes.html":[5,1],
 "concepts.html":[4],
 "d0/d01/log__level_8hpp.html":[6,0,0,2,36],
-"d0/d01/log__level_8hpp.html#ab48526a24f804ca3bfef6424a7cb0052":[6,0,0,2,36,0],
+"d0/d01/log__level_8hpp.html#aaba7ea47d8de80bb53fc76918ba7b534":[6,0,0,2,36,0],
 "d0/d01/log__level_8hpp_source.html":[6,0,0,2,36],
 "d0/d21/classtoy_1_1_string_fixed_storage.html":[2,3,1,2],
 "d0/d21/classtoy_1_1_string_fixed_storage.html#a04a6ac50095c17febfa4f5d99e15885c":[2,3,1,2,5],
