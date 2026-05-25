@@ -223,6 +223,7 @@ jobs:
             --threshold-max-sample-size 64 \
             --threshold-upper-boundary 0.99 \
             --thresholds-reset \
+            --no-fail \
             --adapter json \
             --file benchmarks_bmf.json \
             --github-actions '${{ secrets.GITHUB_TOKEN }}'

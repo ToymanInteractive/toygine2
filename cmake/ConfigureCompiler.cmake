@@ -42,11 +42,11 @@ set(GCC_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-
 set(GCC_C_FLAGS_DEBUG            "-Og -g3 -D_DEBUG")
 set(GCC_CXX_FLAGS_DEBUG          "-Og -g3 -D_DEBUG")
 
-set(GCC_C_FLAGS_RELWITHDEBINFO   "-O3 -g2 -D_DEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las")
-set(GCC_CXX_FLAGS_RELWITHDEBINFO "-O3 -g2 -D_DEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las")
+set(GCC_C_FLAGS_RELWITHDEBINFO   "-O3 -g2 -D_DEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las -fira-region=all -fira-hoist-pressure -fira-loop-pressure")
+set(GCC_CXX_FLAGS_RELWITHDEBINFO "-O3 -g2 -D_DEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las -fira-region=all -fira-hoist-pressure -fira-loop-pressure")
 
-set(GCC_C_FLAGS_RELEASE          "-O3 -g0 -DNDEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las")
-set(GCC_CXX_FLAGS_RELEASE        "-O3 -g0 -DNDEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las")
+set(GCC_C_FLAGS_RELEASE          "-O3 -g0 -DNDEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las -fira-region=all -fira-hoist-pressure -fira-loop-pressure")
+set(GCC_CXX_FLAGS_RELEASE        "-O3 -g0 -DNDEBUG -fdevirtualize-at-ltrans -flive-range-shrinkage -fno-keep-static-consts -fmodulo-sched -fsplit-wide-types-early -fgcse-sm -fgcse-las -fira-region=all -fira-hoist-pressure -fira-loop-pressure")
 
 set(CLANG_C_FLAGS   "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes                                                                 -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
 set(CLANG_CXX_FLAGS "-Werror -Weverything -pedantic-errors -Wno-missing-prototypes  -Wno-c++98-compat -Wno-c++98-compat-pedantic -Wno-c++20-compat -Wno-missing-include-dirs -Wno-padded -Wno-poison-system-directories -Wno-covered-switch-default -fshow-column -fshow-source-location -fcaret-diagnostics -fcolor-diagnostics -fdiagnostics-format=clang -fdiagnostics-show-option -fdiagnostics-show-category=id -fdiagnostics-fixit-info -fdiagnostics-print-source-range-info -fdiagnostics-parseable-fixits -fno-rounding-math -fexcess-precision=standard")
