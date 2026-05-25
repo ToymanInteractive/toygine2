@@ -19,83 +19,123 @@
 //
 /*!
   \file   fixed.benchmark.cpp
-  \brief  Implementations for fixed-point nanobench benchmarks in the math module.
+  \brief  Implementation of picobench benchmarks for \ref toy::math::fixed.
 */
 
-#include "../utils.hpp"
 #include "math.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy::math {
 
 using fixed_type = fixed<int32_t, int64_t, 24>;
 
-// fixed benchmarks
-void fixedMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  bench.run("fixed = fixed", [] {
-    fixed_type b(42);
-    fixed_type a(0);
+static void fixedAssignFixed(picobench::state & state) noexcept {
+  fixed_type a(0);
 
-    a = b;
-
-    doNotOptimize(a);
-  });
-  bench.run("fixed = int", [] {
-    fixed_type a(0);
-
-    a = 42;
-
-    doNotOptimize(a);
-  });
-
-  bench.run("fixed == fixed", [] {
-    fixed_type a(42);
-    fixed_type b(42);
-
-    auto r = (a == b);
-
-    doNotOptimize(r);
-  });
-  bench.run("fixed == int", [] {
-    fixed_type f(42);
-    int        i = 42;
-
-    auto r = (f == i);
-
-    doNotOptimize(r);
-  });
-  bench.run("int == fixed", [] {
-    int        i = 42;
-    fixed_type f(42);
-
-    auto r = (i == f);
-
-    doNotOptimize(r);
-  });
-
-  bench.run("fixed <=> fixed", [] {
-    fixed_type a(42);
-    fixed_type b(42);
-
-    auto r = (a <=> b);
-
-    doNotOptimize(r);
-  });
-  bench.run("fixed <=> int", [] {
-    fixed_type f(42);
-    int        i = 42;
-
-    auto r = (f <=> i);
-
-    doNotOptimize(r);
-  });
-  bench.run("int <=> fixed", [] {
-    int        i = 42;
-    fixed_type f(42);
-
-    auto r = (i <=> f);
-
-    doNotOptimize(r);
-  });
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    fixed_type b(42 + (i & 1));
+    a       = b;
+    result += static_cast<size_t>(a.rawValue());
+  }
+  state.set_result(result);
 }
+
+static void fixedAssignInt(picobench::state & state) noexcept {
+  fixed_type a(0);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    a       = 42 + (i & 1);
+    result += static_cast<size_t>(a.rawValue());
+  }
+  state.set_result(result);
+}
+
+static void fixedEqualFixed(picobench::state & state) noexcept {
+  constexpr fixed_type a(42);
+  fixed_type           b(42);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b       = fixed_type(42 + (i & 1));
+    result += (a == b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void fixedEqualInt(picobench::state & state) noexcept {
+  constexpr fixed_type a(42);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    int b   = 42 + (i & 1);
+    result += (a == b) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void intEqualFixed(picobench::state & state) noexcept {
+  constexpr fixed_type a(42);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    int b   = 42 + (i & 1);
+    result += (b == a) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void fixedCompareFixed(picobench::state & state) noexcept {
+  constexpr fixed_type a(42);
+  fixed_type           b(42);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    b       = fixed_type(42 + (i & 1));
+    result += ((a <=> b) < 0) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void fixedCompareInt(picobench::state & state) noexcept {
+  constexpr fixed_type a(42);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    int b   = 42 + (i & 1);
+    result += ((a <=> b) < 0) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+static void intCompareFixed(picobench::state & state) noexcept {
+  constexpr fixed_type a(42);
+
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i) {
+    int b   = 42 + (i & 1);
+    result += ((b <=> a) < 0) ? 1 : 0;
+  }
+  state.set_result(result);
+}
+
+PICOBENCH_SUITE("toy::math::fixed");
+PICOBENCH(fixedAssignFixed);
+PICOBENCH(fixedAssignInt);
+PICOBENCH(fixedEqualFixed);
+PICOBENCH(fixedEqualInt);
+PICOBENCH(intEqualFixed);
+PICOBENCH(fixedCompareFixed);
+PICOBENCH(fixedCompareInt);
+PICOBENCH(intCompareFixed);
 
 } // namespace toy::math

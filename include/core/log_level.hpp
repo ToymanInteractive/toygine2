@@ -21,7 +21,7 @@
   \file   log_level.hpp
   \brief  Severity levels for the logger.
 
-  Defines \ref toy::log::Level used to filter log output at compile time via \c LOG_MIN_LEVEL and at runtime via
+  Defines \ref toy::log::Level used to filter log output at compile time via \c LOG_MAX_LEVEL and at runtime via
   \ref toy::log::Backend.
 
   \note Included by core.hpp only; do not include this file directly.
@@ -31,18 +31,18 @@
 #define INCLUDE_CORE_LOG_LEVEL_HPP_
 
 /*!
-  \def LOG_MIN_LEVEL
+  \def LOG_MAX_LEVEL
 
-  \brief Compile-time minimum severity (default \c 0 = \ref toy::log::Level::Trace).
+  \brief Compile-time maximum verbosity (default \c 50 = \ref toy::log::Level::Trace).
 
-  Numeric value compared against the underlying integer of \ref toy::log::Level. Call sites whose level is less than
-  \c LOG_MIN_LEVEL are eliminated by the \c LOG_* macros via \c if \c constexpr; the \c static \c constexpr
+  Numeric value compared against the underlying integer of \ref toy::log::Level. Call sites whose level is greater than
+  \c LOG_MAX_LEVEL are eliminated by the \c LOG_* macros via \c if \c constexpr; the \c static \c constexpr
   \ref toy::log::Metadata for those sites is also removed from the binary. Define this macro before including core.hpp
   (or via compiler flags) to override the default.
 */
-#ifndef LOG_MIN_LEVEL
-#define LOG_MIN_LEVEL 0
-#endif // LOG_MIN_LEVEL
+#ifndef LOG_MAX_LEVEL
+#define LOG_MAX_LEVEL 50
+#endif // LOG_MAX_LEVEL
 
 namespace toy::log {
 
@@ -53,29 +53,30 @@ namespace toy::log {
 
   \brief Severity level of a log message.
 
-  Numeric ordering enables compile-time filtering: a message is compiled away when its level is less than
-  \c LOG_MIN_LEVEL.
+  Higher numeric value means more detailed output: \ref toy::log::Level::Trace is the most verbose and
+  \ref toy::log::Level::Off disables logging. Numeric ordering enables compile-time filtering: a message is compiled
+  away when its level is greater than \c LOG_MAX_LEVEL.
 
-  \sa \ref toy::log::Metadata, LOG_MIN_LEVEL
+  \sa \ref toy::log::Metadata, LOG_MAX_LEVEL
 */
 enum class Level : int8_t {
-  /// Fine-grained diagnostic information.
-  Trace = 0,
-
-  /// Coarser diagnostic information useful during development.
-  Debug = 1,
-
-  /// Normal operational events.
-  Info = 2,
-
-  /// Potentially harmful situations that do not prevent execution.
-  Warn = 3,
+  /// Disables all logging; no messages are emitted.
+  Off = 0,
 
   /// Error events that may allow continued execution.
-  Error = 4,
+  Error = 10,
 
-  /// Disables all logging; no messages are emitted.
-  Off = 5,
+  /// Potentially harmful situations that do not prevent execution.
+  Warn = 20,
+
+  /// Normal operational events.
+  Info = 30,
+
+  /// Coarser diagnostic information useful during development.
+  Debug = 40,
+
+  /// Fine-grained diagnostic information.
+  Trace = 50,
 };
 
 } // namespace toy::log

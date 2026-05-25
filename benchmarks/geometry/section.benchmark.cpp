@@ -107,7 +107,7 @@ static void sectionIntReset(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     Section s(10 + (i & 1), 20);
     s.reset();
-    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+    result += s.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }
@@ -118,7 +118,7 @@ static void sectionFloatReset(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     Section s(10.0F + static_cast<float>(i & 1), 20.0F);
     s.reset();
-    result += static_cast<size_t>(s.start) + static_cast<size_t>(s.end);
+    result += s.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }
@@ -129,7 +129,7 @@ static void sectionFixedReset(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     Section s(fixed_type(10 + (i & 1)), fixed_type(20));
     s.reset();
-    result += static_cast<size_t>(s.start.rawValue()) + static_cast<size_t>(s.end.rawValue());
+    result += s.isReset() ? 1 : 0;
   }
   state.set_result(result);
 }

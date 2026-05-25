@@ -19,11 +19,11 @@
 //
 /*!
   \file   log_macros_filter.test.cpp
-  \brief  Verifies the \c LOG_MIN_LEVEL compile-time gate by raising it to Warn before including core.hpp.
+  \brief  Verifies the \c LOG_MAX_LEVEL compile-time gate by capping verbosity at Warn before including core.hpp.
 */
 
-// Raise the minimum severity to Warn so LOG_TRACE / LOG_DEBUG / LOG_INFO are eliminated at compile time.
-#define LOG_MIN_LEVEL 3
+// Cap verbosity at Warn so LOG_TRACE / LOG_DEBUG / LOG_INFO are eliminated at compile time.
+#define LOG_MAX_LEVEL 20
 
 #include <vector>
 
@@ -53,8 +53,8 @@ public:
 
 } // namespace
 
-// With LOG_MIN_LEVEL set to Warn the lower-severity macros must not dispatch to the sink.
-TEST_CASE("log/macros/filter_eliminates_lower_levels") {
+// With LOG_MAX_LEVEL set to Warn the more verbose macros must not dispatch to the sink.
+TEST_CASE("log/macros/filter_eliminates_verbose_levels") {
   Backend       backend;
   RecordingSink sink;
   backend.setSink(&sink);
