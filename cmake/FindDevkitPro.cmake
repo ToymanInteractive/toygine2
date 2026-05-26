@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Copyright (c) 2025-2026 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -16,26 +16,64 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-#-------------------------------------------------------------------------------------------
-
-# - FindDevkitPro.cmake
-# Detects devkitPro toolchains and components (GBA, NDS, 3DS, SWITCH)
-# Usage:
-#   find_package(DevkitPro COMPONENTS gba nds 3ds switch)
-#
-# This script will attempt to find devkitPro components but will not fail if they are not found.
-# It will simply report what was found and what was not found.
-#
-# Provides variables:
-#   DEVKITPRO_FOUND - TRUE if devkitPro root was found
-#   DEVKITPRO_ROOT - Root directory of devkitPro installation (if found)
-#
-#   DEVKITPRO_GBA_FOUND - TRUE if GBA libraries were found
-#   DEVKITPRO_NDS_FOUND - TRUE if NDS libraries were found
-#   DEVKITPRO_3DS_FOUND - TRUE if 3DS libraries were found
-#   DEVKITPRO_SWITCH_FOUND - TRUE if SWITCH libraries were found
+#-----------------------------------------------------------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
+
+#[=======================================================================[.rst:
+FindDevkitPro
+-------------
+
+Detect a devkitPro installation and its platform components.
+
+Locates the devkitPro root and, for each requested component, its platform library and headers (Nintendo GBA,
+Nintendo DS, Nintendo 3DS, Nintendo Switch). The module never fails when a component is missing: it reports what was
+found and what was not, leaving the decision to the caller.
+
+The installation root is searched, in order, in the ``DEVKITPRO`` environment
+variable, ``/opt/devkitpro``, then ``C:/devkitPro``.
+
+.. code-block:: cmake
+
+  find_package(DevkitPro COMPONENTS gba nds 3ds switch)
+
+Components
+^^^^^^^^^^
+
+Each requested component is searched independently:
+
+``gba``
+  Game Boy Advance library (``libgba``, header ``gba.h``).
+
+``nds``
+  Nintendo DS ARM9 library (``libnds``, header ``nds.h``).
+
+``3ds``
+  Nintendo 3DS library (``libctru``, header ``3ds.h``).
+
+``switch``
+  Nintendo Switch library (``libnx``, header ``switch.h``).
+
+Result Variables
+^^^^^^^^^^^^^^^^^
+
+This module defines the following variables:
+
+``DEVKITPRO_FOUND``
+  ``TRUE`` if the devkitPro installation root was found.
+
+``DEVKITPRO_ROOT``
+  Root directory of the devkitPro installation.
+
+``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``
+  ``TRUE`` if the corresponding requested component was found. Defined only for components listed in ``COMPONENTS``.
+
+``DEVKITARM``
+  Root of the devkitARM toolchain, set when its compiler is present.
+
+``DEVKITA64``
+  Root of the devkitA64 toolchain, set when its compiler is present.
+#]=======================================================================]
 
 # === Helper macro for library detection ===
 macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)

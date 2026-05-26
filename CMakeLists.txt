@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Copyright (c) 2025-2026 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -16,7 +16,7 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
@@ -41,9 +41,9 @@ set(CMAKE_SUPPRESS_REGENERATION TRUE)
 # Enable projects folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # User-provided options
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 # Setup configuration types
 set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FORCE)
@@ -63,9 +63,9 @@ if (TOP_PROJECT)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
 endif ()
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Compile and linking options
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
@@ -108,7 +108,7 @@ execute_process(
   ${CMAKE_BINARY_DIR}/../compile_commands.json
 )
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_APPLICATION_LIST                         src/application/console_application.cpp     src/application/core_application.cpp)
 set(HDR_APPLICATION_LIST include/application.hpp include/application/console_application.hpp include/application/core_application.hpp include/application/version.hpp)
@@ -119,6 +119,7 @@ set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)
 set(INL_AUDIO_LIST )
 
 set(SRC_CORE_LIST
+    src/core/console_sink.cpp
     src/core/core.cpp
     src/core/hashes.cpp
     src/core/log_backend.cpp
@@ -137,6 +138,7 @@ set(HDR_CORE_LIST
     include/core/chrono_steady_clock.hpp
     include/core/chrono_stopwatch.hpp
     include/core/chrono_system_clock.hpp
+    include/core/console_sink.hpp
     include/core/constexpr_utils.hpp
     include/core/fixed_string.hpp
     include/core/fixed_vector.hpp
@@ -215,7 +217,7 @@ source_group("Network"      FILES ${SRC_NETWORK_LIST}     ${HDR_NETWORK_LIST}   
 source_group("Platform\\UI" FILES ${SRC_PLATFORM_UI_LIST} ${HDR_PLATFORM_UI_LIST} ${INL_PLATFORM_UI_LIST})
 source_group("Render"       FILES ${SRC_RENDER_LIST}      ${HDR_RENDER_LIST}      ${INL_RENDER_LIST})
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 list(APPEND SRC_LIST ${SRC_APPLICATION_LIST} ${SRC_AUDIO_LIST} ${SRC_CORE_LIST} ${SRC_FILESYSTEM_LIST} ${SRC_GAME_LIST} ${SRC_GEOMETRY_LIST} ${SRC_MATH_LIST} ${SRC_NETWORK_LIST} ${SRC_PLATFORM_UI_LIST} ${SRC_RENDER_LIST})
 list(APPEND HDR_LIST ${HDR_APPLICATION_LIST} ${HDR_AUDIO_LIST} ${HDR_CORE_LIST} ${HDR_FILESYSTEM_LIST} ${HDR_GAME_LIST} ${HDR_GEOMETRY_LIST} ${HDR_MATH_LIST} ${HDR_NETWORK_LIST} ${HDR_PLATFORM_UI_LIST} ${HDR_RENDER_LIST} include/toygine2.hpp)
@@ -232,33 +234,33 @@ endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_BUILD_BENCHMARKS)
   add_subdirectory(benchmarks)
 endif ()
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Documentation
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_BUILD_DOCS)
   add_subdirectory(docs)
 endif ()
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Samples
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_BUILD_SAMPLES)
   add_subdirectory(samples)
 endif ()
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Unit tests
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_BUILD_TESTS)
   enable_testing()

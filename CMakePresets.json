@@ -95,9 +95,9 @@
             }
         },
         {
-            "name": "nintendo-gba-ninja-release",
-            "displayName": "Nintendo Game Boy Advance",
-            "description": "ToyGine 2 Nintendo Game Boy Advance",
+            "name": "gba-ninja-release",
+            "displayName": "Nintendo GBA release",
+            "description": "ToyGine 2 Nintendo GBA Ninja",
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
@@ -147,25 +147,30 @@
             }
         },
         {
-            "name": "macos-ninja-debug",
-            "displayName": "macOS Ninja debug",
-            "description": "ToyGine 2 MacOS Ninja (Debug)",
-            "inherits": "macos-ninja-release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
-        },
-        {
             "name": "linux-ninja-debug",
             "displayName": "Linux Ninja debug",
             "description": "ToyGine 2 Linux Ninja (Debug)",
             "inherits": "linux-ninja-release",
             "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "macos-ninja-debug",
+            "displayName": "macOS Ninja debug",
+            "description": "ToyGine 2 MacOS Ninja (Debug)",
+            "inherits": "macos-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "gba-ninja-debug",
+            "displayName": "Nintendo GBA debug",
+            "description": "ToyGine 2 Nintendo GBA Ninja (Debug)",
+            "inherits": "gba-ninja-release",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
             }
         },
         {
@@ -216,8 +221,8 @@
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-gba-ninja-release",
-            "configurePreset": "nintendo-gba-ninja-release",
+            "name": "gba-ninja-release",
+            "configurePreset": "gba-ninja-release",
             "inherits": "default-release"
         },
         {
@@ -236,13 +241,18 @@
             "inherits": "default-release"
         },
         {
+            "name": "linux-ninja-debug",
+            "configurePreset": "linux-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
             "name": "macos-ninja-debug",
             "configurePreset": "macos-ninja-debug",
             "inherits": "default-debug"
         },
         {
-            "name": "linux-ninja-debug",
-            "configurePreset": "linux-ninja-debug",
+            "name": "gba-ninja-debug",
+            "configurePreset": "gba-ninja-debug",
             "inherits": "default-debug"
         },
         {

@@ -79,7 +79,7 @@ jobs:
             os: ubuntu-24.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
             run_test: "false"
-            cmake_preset: nintendo-gba-ninja-release
+            cmake_preset: gba-ninja-release
 
           - name: DevkitPro NDS
             os: ubuntu-24.04

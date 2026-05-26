@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Copyright (c) 2025-2026 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -16,7 +16,7 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
@@ -46,9 +46,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 endif ()
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # CTest support
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 set(CTEST_SUPPORT OFF)
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_MULTITHREADING OFF)
@@ -61,10 +61,10 @@ if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_POSIX_SIGNALS ON)
 endif ()
 
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Remove all of the extra targets
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 
 include(FetchContent)
 include(CTest)

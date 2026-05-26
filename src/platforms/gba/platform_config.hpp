@@ -31,9 +31,12 @@
 #define SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
 
 #include "../../../include/core/platform.hpp"
+
+#if defined(__GBA__)
+
 #include "../common/assertion_macro_gcc_clang.hpp"
 
-#if defined(__DEVKITPRO__)
+//----------------------------------------------------------------------------------------------------------------------
 
 namespace toy {
 
@@ -50,6 +53,23 @@ inline constexpr int64_t c_steadyClockPeriodDenominator = 16'777'216;
 
 } // namespace toy
 
-#endif // defined(__DEVKITPRO__)
+//----------------------------------------------------------------------------------------------------------------------
+
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  int main(int argc, char * argv[]) {                                                                                  \
+    appClassName app;                                                                                                  \
+                                                                                                                       \
+    app.setVersion({.major    = APP_VERSION_MAJOR,                                                                     \
+                    .minor    = APP_VERSION_MINOR,                                                                     \
+                    .patch    = APP_VERSION_PATCH,                                                                     \
+                    .revision = APP_VERSION_REVISION});                                                                \
+                                                                                                                       \
+    return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
+  }
+
+//----------------------------------------------------------------------------------------------------------------------
+
+#endif // defined(__GBA__)
 
 #endif // SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
