@@ -119,7 +119,6 @@ set(HDR_AUDIO_LIST include/audio.hpp include/audio/volume_type.hpp)
 set(INL_AUDIO_LIST )
 
 set(SRC_CORE_LIST
-    src/core/console_sink.cpp
     src/core/core.cpp
     src/core/hashes.cpp
     src/core/log_backend.cpp
@@ -138,7 +137,6 @@ set(HDR_CORE_LIST
     include/core/chrono_steady_clock.hpp
     include/core/chrono_stopwatch.hpp
     include/core/chrono_system_clock.hpp
-    include/core/console_sink.hpp
     include/core/constexpr_utils.hpp
     include/core/fixed_string.hpp
     include/core/fixed_vector.hpp
