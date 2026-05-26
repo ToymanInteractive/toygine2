@@ -1,4 +1,4 @@
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 # Copyright (c) 2025-2026 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
@@ -16,7 +16,7 @@
 # FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 # OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 # DEALINGS IN THE SOFTWARE.
-#-------------------------------------------------------------------------------------------
+#-----------------------------------------------------------------------------------------------------------------------
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4365 /wd4625 /wd4626 /wd5026 /wd5027")
