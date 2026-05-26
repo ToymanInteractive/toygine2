@@ -1,11 +1,9 @@
 <map id="src/platforms/common/assertion_macro_gcc_clang.hpp" name="src/platforms/common/assertion_macro_gcc_clang.hpp">
-<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="347,5,517,60"/>
+<area shape="rect" id="Node000001" title="Debug and Release assertion macro implementations for GCC/Clang platforms." alt="" coords="237,5,406,60"/>
 <area shape="rect" id="Node000002" href="$d5/d82/3ds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo 3DS." alt="" coords="5,108,200,148"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="335,64,170,111,168,105,334,59"/>
-<area shape="rect" id="Node000003" href="$df/db1/gba_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo GBA." alt="" coords="225,108,421,148"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="392,71,346,110,343,106,389,67"/>
-<area shape="rect" id="Node000004" href="$dc/d74/nds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo DS." alt="" coords="445,108,640,148"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="476,67,522,106,519,110,472,71"/>
-<area shape="rect" id="Node000005" href="$db/d83/switch_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Switch." alt="" coords="665,108,821,148"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="531,61,681,105,679,111,529,66"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="248,68,148,110,146,106,246,63"/>
+<area shape="rect" id="Node000003" href="$dc/d74/nds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo DS." alt="" coords="224,108,419,148"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="324,74,324,108,319,108,319,74"/>
+<area shape="rect" id="Node000004" href="$db/d83/switch_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Switch." alt="" coords="443,108,599,148"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="391,63,482,105,480,110,389,68"/>
 </map>
