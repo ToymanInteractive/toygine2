@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   clock_source_linux.cpp
-  \brief  Implementation of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock for Linux.
+  \file   clock_source_posix.cpp
+  \brief  Implementation of \ref toy::chrono::ClockSource and \ref toy::chrono::SteadyClock for POSIX.
 */
 
 #include "core.hpp"
