@@ -34,10 +34,10 @@ set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /Ox /Ob3 /Oi  
 set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
-# 3.11 Options That Control Optimization https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Optimize-Options.html#index-fsched-stalled-insns
+# 3.11 Options That Control Optimization https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Optimize-Options.html#index-fsched-dep-count-heuristic
 
 # Need to performance tests after setup benchmarks
-set(GCC_OPTIMIZATION_FLAGS "-fsched-pressure")
+set(GCC_OPTIMIZATION_FLAGS "-fsched-pressure -fsched-stalled-insns=2")
 
 set(GCC_C_FLAGS   "-std=c17   -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2 -Wbad-function-cast -Wcast-align=strict -Wcast-qual                                           -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5 -Winit-self                                   -Wlogical-op                                          -Wmissing-noreturn -Wmissing-prototypes -Wnested-externs            -Wnormalized=nfc -Wnull-dereference                                         -Wpacked                   -Wredundant-decls                  -Wshadow=local                                     -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn                                                                                -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas                                   -Wvla -Wwrite-strings                                 -fstrict-flex-arrays=2 -gz=zlib")
 set(GCC_CXX_FLAGS "-std=c++23 -Wall -Wextra -Wpedantic -Werror -Walloca -Walloc-zero -Warray-bounds=2 -Wattribute-alias=2                     -Wcast-align=strict -Wcast-qual -Wcatch-value=2 -Wconditionally-supported -Wconversion -Wdate-time -Wdouble-promotion -Wduplicated-branches -Wduplicated-cond -Wextra-semi -Wfatal-errors -Wfloat-equal -Wformat=2 -Wformat-overflow=2 -Wformat-signedness -Wimplicit-fallthrough=5             -Winvalid-constexpr -Winvalid-pch -Wlogical-op -Wmismatched-tags -Wmissing-declarations -Wmissing-noreturn                                       -Wnoexcept -Wnormalized=nfc -Wnull-dereference -Wold-style-cast -Woverloaded-virtual=2 -Wpacked -Wplacement-new=2 -Wredundant-decls -Wredundant-tags -Wshadow=local -Wshift-negative-value -Wsign-promo -Wstrict-flex-arrays -Wstringop-overflow=3 -Wsuggest-attribute=noreturn -Wsuggest-final-methods -Wsuggest-final-types -Wswitch-enum -Wsuggest-override -Wtrampolines -Wundef -Wunused-macros -Wunknown-pragmas -Wuse-after-free=3 -Wuseless-cast -Wvla -Wwrite-strings -Wzero-as-null-pointer-constant -fstrict-flex-arrays=2 -gz=zlib")
@@ -167,7 +167,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 # Compiler User’s Manual          https://releases.llvm.org/17.0.1/tools/clang/docs/UsersManual.html
 # разобраться с sanitize
 
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
@@ -176,6 +176,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(GBA)
+  include(Platform/NintendoGBA)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -204,6 +205,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(NDS)
+  include(Platform/NintendoDS)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -232,6 +234,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(3DS)
+  include(Platform/Nintendo3DS)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -260,6 +263,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(Switch)
+  include(Platform/NintendoSwitch)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 

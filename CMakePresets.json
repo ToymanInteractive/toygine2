@@ -104,7 +104,7 @@
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo Game Boy Advance"
+                "TOYGINE_TARGET_PLATFORM": "Nintendo GBA"
             }
         },
         {

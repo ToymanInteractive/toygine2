@@ -80,7 +80,7 @@ enum class Platform : uint16_t {
   /// Google Android mobile operating system
   Android = 0x4000,
 
-  /// Nintendo Game Boy Advance handheld gaming console
+  /// Nintendo GBA handheld gaming console
   GBA = 0x5000,
 
   /// Nintendo DS dual-screen handheld gaming console

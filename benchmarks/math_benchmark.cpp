@@ -29,7 +29,6 @@
 namespace toy::math {
 
 void utilsMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
-void vector2MathBenchmarks(ankerl::nanobench::Bench &) noexcept;
 
 } // namespace toy::math
 
@@ -37,5 +36,4 @@ using namespace toy::math;
 
 void runMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
   toy::math::utilsMathBenchmarks(bench);
-  toy::math::vector2MathBenchmarks(bench);
 }

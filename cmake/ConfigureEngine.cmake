@@ -49,7 +49,7 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
   # Add devkitPro platforms if found
   if (DEVKITPRO_GBA_FOUND)
-    list(APPEND AVAILABLE_PLATFORMS "Nintendo Game Boy Advance")
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo GBA")
   endif ()
 
   if (DEVKITPRO_NDS_FOUND)

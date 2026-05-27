@@ -24,7 +24,7 @@ set(PLATFORM_LIB_APPLICATION_LIST )
 
 set(PLATFORM_SRC_CORE_LIST
     src/platforms/macos/core/assertion_macos.cpp
-    src/platforms/macos/core/clock_source_macos.cpp
+    src/platforms/posix/core/clock_source_posix.cpp
     src/platforms/posix/core/system_clock_posix.cpp)
 set(PLATFORM_HDR_CORE_LIST )
 set(PLATFORM_LIB_CORE_LIST )
