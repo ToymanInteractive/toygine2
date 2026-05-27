@@ -443,7 +443,7 @@ static void vector2FloatCross(picobench::state & state) noexcept {
   for (int i = 0; i < state.iterations(); ++i) {
     Vector2 a(3.0F + static_cast<float>(i & 1), 4.0F);
     auto    r  = cross(a, b);
-    result    += static_cast<size_t>(r);
+    result    += static_cast<size_t>(r + 8.0F);
   }
   state.set_result(result);
 }
