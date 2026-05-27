@@ -1,6 +1,5 @@
 var NAVTREEINDEX5 =
 {
-"db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2":[3,0,2,6,15],
 "db/d3d/pixel__format_8cpp.html":[6,0,1,4,0],
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html":[3,0,2,4,0,0],
 "db/d43/structtoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03_1_1_signal_info.html":[5,0,1,3,0,0],
@@ -78,8 +77,8 @@ var NAVTREEINDEX5 =
 "dc/dde/concepttoy_1_1geometry_1_1_circle_component.html":[4,0,0,0],
 "dc/dec/concepttoy_1_1geometry_1_1_ellipse_component.html":[3,0,2,9,4],
 "dc/dec/concepttoy_1_1geometry_1_1_ellipse_component.html":[4,0,0,1],
-"dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html":[3,0,2,6,2],
-"dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html#a2e58dca645b49629596f121b001da66e":[3,0,2,6,2,0],
+"dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html":[3,0,2,6,1],
+"dd/d20/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__stub_8cpp_03.html#a2e58dca645b49629596f121b001da66e":[3,0,2,6,1,0],
 "dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html":[3,0,2,11,1,0],
 "dd/d3d/classtoy_1_1math_1_1fixed_1_1_raw_constructor_tag.html":[5,0,1,7,0,0],
 "dd/d5c/classtoy_1_1math_1_1fixed.html":[3,0,2,11,1],
@@ -249,5 +248,6 @@ var NAVTREEINDEX5 =
 "df/d25/classtoy_1_1geometry_1_1_circle.html#aefe8d0c7ad68b0866d2f4627def947a6":[5,0,1,5,0,0],
 "df/d4a/c__string__view_8inl.html":[6,0,0,2,4],
 "df/d4a/c__string__view_8inl_source.html":[6,0,0,2,4],
-"df/d55/group___chrono.html":[2,0]
+"df/d55/group___chrono.html":[2,0],
+"df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff":[2,0,10]
 };

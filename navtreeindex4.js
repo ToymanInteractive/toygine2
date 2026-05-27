@@ -1,8 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92":[5,0,1,15,2],
-"d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b":[3,0,2,21,51],
-"d7/dec/classtoy_1_1_fixed_vector.html#ad1b12283014e9694c538c41a6b4d854b":[5,0,1,15,51],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad2d35c3e377890c5951616c6bb235181":[3,0,2,21,27],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad2d35c3e377890c5951616c6bb235181":[5,0,1,15,27],
 "d7/dec/classtoy_1_1_fixed_vector.html#ad98be7eb41babb07b9bc52d57783ef03":[3,0,2,21,12],
@@ -178,6 +175,8 @@ var NAVTREEINDEX4 =
 "d9/de5/vector2_8hpp_source.html":[6,0,0,6,8],
 "d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html":[3,0,2,9,5],
 "d9/def/concepttoy_1_1geometry_1_1_section_endpoint.html":[4,0,0,2],
+"d9/dfd/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__posix_8cpp_03.html":[3,0,2,6,0],
+"d9/dfd/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__posix_8cpp_03.html#a2bcf721965b3d262d02fb3b708f73652":[3,0,2,6,0,0],
 "da/d08/namespacetoy_1_1geometry.html":[3,0,2,9],
 "da/d08/namespacetoy_1_1geometry.html#a4ff8635c61609197a0cffb6362719e86":[3,0,2,9,9],
 "da/d08/namespacetoy_1_1geometry.html#a534d1db40159e13b7a5a26e6b7cd8fd0":[3,0,2,9,6],
@@ -238,7 +237,7 @@ var NAVTREEINDEX4 =
 "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#aae84a9d7dc4d54a1048ddf0baaf03846":[2,0,7,5],
 "da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#ab910520421a07eecf00eea171254f80f":[2,0,7,0],
 "da/de0/core_8cpp.html":[6,0,1,1,0],
-"db/d09/system__clock__posix_8cpp.html":[6,0,1,3,6,0,0],
+"db/d09/system__clock__posix_8cpp.html":[6,0,1,3,6,0,1],
 "db/d1a/chrono__countdown__timer_8hpp.html":[6,0,0,2,11],
 "db/d1a/chrono__countdown__timer_8hpp_source.html":[6,0,0,2,11],
 "db/d29/windows_2platform__config_8hpp.html":[6,0,1,3,9,2],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "db/d37/volume__type_8hpp.html":[6,0,0,1,0],
 "db/d37/volume__type_8hpp_source.html":[6,0,0,1,0],
 "db/d3c/namespacetoy_1_1chrono.html":[3,0,2,6],
-"db/d3c/namespacetoy_1_1chrono.html#a216344103a3f68241210862eae97e28b":[3,0,2,6,16]
+"db/d3c/namespacetoy_1_1chrono.html#a216344103a3f68241210862eae97e28b":[3,0,2,6,15],
+"db/d3c/namespacetoy_1_1chrono.html#a7fc6999224cefd61148e07395b74d8c2":[3,0,2,6,14]
 };

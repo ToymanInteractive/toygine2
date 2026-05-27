@@ -1,8 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341":[3,0,2,28],
-"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d":[3,0,2,28,2],
-"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e":[3,0,2,28,4],
 "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d":[3,0,2,28,0],
 "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492":[3,0,2,28,1],
 "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6":[3,0,2,28,3],
@@ -166,9 +163,9 @@ var NAVTREEINDEX2 =
 "d5/dda/structtoy_1_1anonymous__namespace_02format_8inl_03_1_1_format_argument.html#aaa88cd9a98cdf25754d509e1baba4837":[5,0,1,0,0,1],
 "d5/ddf/console__application_8hpp.html":[6,0,0,0,0],
 "d5/ddf/console__application_8hpp_source.html":[6,0,0,0,0],
-"d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html":[3,0,2,6,3],
-"d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#a4b5058bda1491f8e5595f3d34713c24b":[3,0,2,6,3,0],
-"d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#ad2295a6ee12b871f32fd2851f1d1cc31":[3,0,2,6,3,1],
+"d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html":[3,0,2,6,2],
+"d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#a4b5058bda1491f8e5595f3d34713c24b":[3,0,2,6,2,0],
+"d5/de7/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__windows_8cpp_03.html#ad2295a6ee12b871f32fd2851f1d1cc31":[3,0,2,6,2,1],
 "d6/d0e/circle_8hpp.html":[6,0,0,5,0],
 "d6/d0e/circle_8hpp_source.html":[6,0,0,5,0],
 "d6/d2c/namespacetoy_1_1network.html":[3,0,2,12],
@@ -200,7 +197,7 @@ var NAVTREEINDEX2 =
 "d6/d4d/message__box__buttons_8hpp_source.html":[6,0,0,8,0,0],
 "d6/d67/network_8hpp.html":[6,0,0,17],
 "d6/d67/network_8hpp_source.html":[6,0,0,17],
-"d6/d9a/clock__source__macos_8cpp.html":[6,0,1,3,4,1,1],
+"d6/d79/clock__source__posix_8cpp.html":[6,0,1,3,6,0,0],
 "d6/dbb/namespacetoy_1_1application_1_1anonymous__namespace_02core__application_8cpp_03.html":[3,0,2,3,0],
 "d6/dbb/namespacetoy_1_1application_1_1anonymous__namespace_02core__application_8cpp_03.html#ae18477bd7f1327f00e5072c03f350a71":[3,0,2,3,0,0],
 "d6/ddb/callbacks__pool_8inl.html":[6,0,0,2,6],
@@ -249,5 +246,8 @@ var NAVTREEINDEX2 =
 "d7/d02/classtoy_1_1array_1_1iterator.html":[3,0,2,15,0],
 "d7/d02/classtoy_1_1array_1_1iterator.html":[5,0,1,9,0],
 "d7/d15/classtoy_1_1_o_string_stream.html":[2,3,2,1],
-"d7/d15/classtoy_1_1_o_string_stream.html#a00db0e12f8878917863f13d501a0fa6e":[2,3,2,1,19]
+"d7/d15/classtoy_1_1_o_string_stream.html#a00db0e12f8878917863f13d501a0fa6e":[2,3,2,1,19],
+"d7/d15/classtoy_1_1_o_string_stream.html#a09efb1530c932913e236f182350bee9c":[2,3,2,1,15],
+"d7/d15/classtoy_1_1_o_string_stream.html#a12eaf7b6d69b4c31f80e763a6cc94e62":[2,3,2,1,44],
+"d7/d15/classtoy_1_1_o_string_stream.html#a1458795ad41d3884e2c8888abda3f20f":[2,3,2,1,1]
 };

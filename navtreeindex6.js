@@ -1,6 +1,5 @@
 var NAVTREEINDEX6 =
 {
-"df/d55/group___chrono.html#ga799792e1caf29eefec74051e954b99ff":[2,0,10],
 "df/d55/group___chrono.html#gad8a95b67fd667a88791612ae92718191":[2,0,9],
 "df/d61/bitwise__enum_8hpp.html":[6,0,0,2,1],
 "df/d61/bitwise__enum_8hpp.html#aeef6a9a97e9b8d6f238e592b2e566abf":[6,0,0,2,1,1],
@@ -125,8 +124,6 @@ var NAVTREEINDEX6 =
 "df/dd0/console__application__windows_8cpp.html":[6,0,1,3,9,0,0],
 "df/dd0/console__application__windows_8cpp.html#aa03dcccedd9ee1ebab74c815e4c46608":[6,0,1,3,9,0,0,1],
 "df/dd0/console__application__windows_8cpp.html#ad955b9ed7b7667f21a0b826d14845050":[6,0,1,3,9,0,0,0],
-"df/dd2/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__macos_8cpp_03.html":[3,0,2,6,1],
-"df/dd2/namespacetoy_1_1chrono_1_1anonymous__namespace_02clock__source__macos_8cpp_03.html#a881dade096baa585b5cd836bdfcbfb05":[3,0,2,6,1,0],
 "df/de5/assertion__linux_8cpp.html":[6,0,1,3,3,1,0],
 "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,2,11,3],
 "df/de5/structtoy_1_1math_1_1is__fixed__point_3_01fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,1,7,2],
@@ -249,5 +246,8 @@ var NAVTREEINDEX6 =
 "namespacemembers_r.html":[3,1,0,13],
 "namespacemembers_s.html":[3,1,0,14],
 "namespacemembers_t.html":[3,1,0,15],
-"namespacemembers_type.html":[3,1,3]
+"namespacemembers_type.html":[3,1,3],
+"namespacemembers_u.html":[3,1,0,16],
+"namespacemembers_v.html":[3,1,0,17],
+"namespacemembers_vars.html":[3,1,2]
 };

@@ -1,5 +1,5 @@
-<map id="src/platforms/macos/core/clock_source_macos.cpp" name="src/platforms/macos/core/clock_source_macos.cpp">
-<area shape="rect" id="Node000001" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for macOS." alt="" coords="3659,5,3877,45"/>
+<map id="src/platforms/posix/core/clock_source_posix.cpp" name="src/platforms/posix/core/clock_source_posix.cpp">
+<area shape="rect" id="Node000001" title="Implementation of toy::chrono::ClockSource and toy::chrono::SteadyClock for POSIX." alt="" coords="3663,5,3873,45"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="3729,93,3807,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3771,46,3771,79,3765,79,3765,46"/>
 <area shape="rect" id="Node000003" title=" " alt="" coords="5,181,91,207"/>
