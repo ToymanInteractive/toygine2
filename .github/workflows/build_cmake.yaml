@@ -19,6 +19,8 @@ jobs:
       contents: read
       packages: read
       pull-requests: write
+      checks: write
+
     strategy:
       fail-fast: false
       matrix:
