@@ -64,7 +64,7 @@ Declare console executable targets shared by engine samples and tests.
   ``LIBRARIES <lib>...``
     Libraries linked ``PRIVATE`` to the target.
 
-  The following options apply only when the target platform is Nintendo Game Boy Advance and are ignored otherwise.
+  The following options apply only when the target platform is Nintendo GBA and are ignored otherwise.
   They are forwarded to ``gba_create_rom`` (``gbafix``), which patches the 192-byte GBA ROM header.
 
   ``GBA_MULTIBOOT``
@@ -150,7 +150,7 @@ function(console_application target)
 
   target_link_libraries(${target} PRIVATE ${ARG_LIBRARIES})
 
-  if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     set(gbaArgs "")
 
     if (ARG_GBA_MULTIBOOT)

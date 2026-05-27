@@ -28,7 +28,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-switch-default")
 
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
 
@@ -96,7 +96,7 @@ file(GLOB_RECURSE TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp
 file(GLOB ROOT_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
 list(REMOVE_ITEM TESTS_SRC ${ROOT_SRC})
 
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   list(APPEND TESTS_SRC gba_filtering_stream_buf.cpp)
 endif ()
 
@@ -118,7 +118,7 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${T
 if (CTEST_SUPPORT)
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 endif ()
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   gba_create_rom(${TOYGINE_LIBRARY_NAME}-units)
 endif ()
 

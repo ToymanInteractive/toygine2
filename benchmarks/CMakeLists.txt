@@ -32,9 +32,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-exit-time-destructors -Wno-extra-semi-stmt -Wno-global-constructors -Wno-missing-variable-declarations -Wno-shadow-field-in-constructor -Wno-sign-conversion -Wno-switch-default -Wno-weak-vtables")
 
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Game Boy Advance")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept -Wno-psabi")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
