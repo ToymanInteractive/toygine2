@@ -1,0 +1,25 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Build GBA Project",
+            "type": "shell",
+            "command": "cmake --preset gba-ninja-debug && cmake --build --preset gba-ninja-debug",
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Stop mGBA Emulation",
+            "type": "shell",
+            "windows": {
+                "command": "taskkill /im mGBA.exe /F"
+            },
+            "osx": {
+                "command": "killall mGBA"
+            }
+        },
+    ]
+}

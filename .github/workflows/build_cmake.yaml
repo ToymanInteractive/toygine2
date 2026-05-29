@@ -52,12 +52,12 @@ jobs:
             cmake_preset: macos-ninja-release
 
           - name: macOS XCode Intel
-            os: macos-15-intel
+            os: macos-26-intel
             run_test: "true"
             cmake_preset: macos-xcode
 
           - name: macOS Ninja Intel
-            os: macos-15-intel
+            os: macos-26-intel
             run_benchmarks: "true"
             bencher_testbed: macos-x64
             run_test: "true"

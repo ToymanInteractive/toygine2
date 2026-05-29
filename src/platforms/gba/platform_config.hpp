@@ -57,7 +57,7 @@ inline constexpr int64_t c_steadyClockPeriodDenominator = 16'777'216;
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  int main(int argc, char * argv[]) {                                                                                  \
+  int main() {                                                                                                         \
     appClassName app;                                                                                                  \
                                                                                                                        \
     app.setVersion({.major    = APP_VERSION_MAJOR,                                                                     \
@@ -65,7 +65,7 @@ inline constexpr int64_t c_steadyClockPeriodDenominator = 16'777'216;
                     .patch    = APP_VERSION_PATCH,                                                                     \
                     .revision = APP_VERSION_REVISION});                                                                \
                                                                                                                        \
-    return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
+    return app.run(0, nullptr) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
   }
 
 //----------------------------------------------------------------------------------------------------------------------
