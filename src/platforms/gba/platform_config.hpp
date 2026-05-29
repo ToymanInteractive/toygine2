@@ -57,7 +57,7 @@ inline constexpr int64_t c_steadyClockPeriodDenominator = 16'777'216;
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  int main() {                                                                                                         \
+  int main() noexcept {                                                                                                \
     appClassName app;                                                                                                  \
                                                                                                                        \
     app.setVersion({.major    = APP_VERSION_MAJOR,                                                                     \

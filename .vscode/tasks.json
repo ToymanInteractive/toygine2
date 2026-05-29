@@ -20,6 +20,6 @@
             "osx": {
                 "command": "killall mGBA"
             }
-        },
+        }
     ]
 }
