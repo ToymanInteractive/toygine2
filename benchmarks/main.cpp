@@ -26,23 +26,8 @@
 #include <fstream>
 #include <iostream>
 
-#include <nanobench.h>
-
 #define PICOBENCH_IMPLEMENT
 #include "picobench/picobench.hpp"
-
-void runMathBenchmarks(ankerl::nanobench::Bench &) noexcept;
-
-namespace {
-
-using benchmark_fn_type = void (*)(ankerl::nanobench::Bench &) noexcept;
-
-struct BenchmarkEntry {
-  const char *      name;
-  benchmark_fn_type fn;
-};
-
-} // namespace
 
 int main(int argc, char * argv[]) noexcept {
   picobench::runner runner;
@@ -50,11 +35,6 @@ int main(int argc, char * argv[]) noexcept {
   runner.run_benchmarks(123);
   auto report = runner.generate_report();
   report.to_text(std::cout);
-
-  auto bench
-    = ankerl::nanobench::Bench().title("toygine2").warmup(100).epochs(100).minEpochIterations(1000).relative(true);
-
-  runMathBenchmarks(bench.unit("Math module"));
 
   if (argc > 1) {
     std::ofstream json(argv[1]);

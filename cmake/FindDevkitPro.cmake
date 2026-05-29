@@ -128,7 +128,7 @@ if (DEVKITPRO_ROOT)
     get_filename_component(DEVKITARM "${DEVKITARM_GCC}" DIRECTORY)
     get_filename_component(DEVKITARM "${DEVKITARM}" DIRECTORY)
 
-    message(STATUS "Found devkitARM: ${DEVKITARM}")
+    message(STATUS "Found devkitARM toolchain: ${DEVKITARM}")
   endif ()
 
   unset(DEVKITARM_GCC)
@@ -142,7 +142,7 @@ if (DEVKITPRO_ROOT)
     get_filename_component(DEVKITA64 "${DEVKITA64_GCC}" DIRECTORY)
     get_filename_component(DEVKITA64 "${DEVKITA64}" DIRECTORY)
 
-    message(STATUS "Found devkitARM: ${DEVKITA64}")
+    message(STATUS "Found devkitPro ARM64 toolchain: ${DEVKITA64}")
   endif ()
 
   unset(DEVKITA64_GCC)
@@ -165,7 +165,7 @@ if (DEVKITPRO_ROOT)
 
 else ()
   set(DEVKITPRO_FOUND FALSE)
-  message(STATUS "No devkitPro found")
+  message(STATUS "No devkitPro toolchain found")
   message(STATUS "  Searched in ${_DEVKITPRO_POSSIBLE_PATHS}")
 endif ()
 

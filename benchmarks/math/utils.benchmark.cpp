@@ -19,48 +19,56 @@
 //
 /*!
   \file   utils.benchmark.cpp
-  \brief  Nanobench benchmarks for \c toy::math angle conversion and related utilities (\c float vs \c fixed).
+  \brief  Implementation of picobench benchmarks for angle conversion utilities in the math module (float vs fixed).
 */
 
-#include "../utils.hpp"
-
 #include "math.hpp"
+#include "picobench/picobench.hpp"
 
 namespace toy::math {
 
 using fixed_type = fixed<int32_t, int64_t, 24>;
 
-// Utils benchmarks
-void utilsMathBenchmarks(ankerl::nanobench::Bench & bench) noexcept {
-  float angleDegFloat = 15.0F;
-  float angleRadFloat = 1.25F;
+static void deg2radFloat(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += static_cast<size_t>(deg2rad(15.0F));
 
-  fixed_type angleDegFixed{15.0F};
-  fixed_type angleRadFixed{1.25F};
-
-  bench.run("deg2rad float", [&] {
-    auto result = deg2rad(angleDegFloat);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("deg2rad fixed", [&] {
-    auto result = deg2rad(angleDegFixed);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("rad2deg float", [&] {
-    auto result = rad2deg(angleRadFloat);
-
-    doNotOptimize(result);
-  });
-
-  bench.run("rad2deg fixed", [&] {
-    auto result = rad2deg(angleRadFixed);
-
-    doNotOptimize(result);
-  });
+  state.set_result(result);
 }
+
+static void deg2radFixed(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += static_cast<size_t>(deg2rad(fixed_type{15.0F}).rawValue());
+
+  state.set_result(result);
+}
+
+static void rad2degFloat(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += static_cast<size_t>(rad2deg(1.25F));
+
+  state.set_result(result);
+}
+
+static void rad2degFixed(picobench::state & state) noexcept {
+  size_t           result{0};
+  picobench::scope scope(state);
+  for (int i = 0; i < state.iterations(); ++i)
+    result += static_cast<size_t>(rad2deg(fixed_type{1.25F}).rawValue());
+
+  state.set_result(result);
+}
+
+PICOBENCH_SUITE("toy::math::utils");
+PICOBENCH(deg2radFloat);
+PICOBENCH(deg2radFixed);
+PICOBENCH(rad2degFloat);
+PICOBENCH(rad2degFixed);
 
 } // namespace toy::math

@@ -44,7 +44,7 @@ static void stackWalkCallback([[maybe_unused]] const char * info) noexcept {}
 
 #include "gba_filtering_stream_buf.hpp"
 
-int main() {
+int main() noexcept {
   irqInit();
   irqEnable(IRQ_VBLANK);
 
@@ -77,7 +77,7 @@ int main() {
 
 #else
 
-int main(int argc, char ** argv) {
+int main(int argc, char ** argv) noexcept {
   toy::assertion::initialize();
 
   toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
