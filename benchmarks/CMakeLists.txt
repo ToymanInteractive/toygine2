@@ -19,34 +19,34 @@
 #-----------------------------------------------------------------------------------------------------------------------
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4365 /wd4625 /wd4626 /wd5026 /wd5027")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4365 /wd4625 /wd4626 /wd5026 /wd5027")
 
   # MSVC x86
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4738")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4738")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-exit-time-destructors -Wno-extra-semi-stmt -Wno-global-constructors -Wno-missing-variable-declarations -Wno-shadow-field-in-constructor -Wno-sign-conversion -Wno-switch-default -Wno-weak-vtables")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-exit-time-destructors -Wno-extra-semi-stmt -Wno-global-constructors -Wno-missing-variable-declarations -Wno-shadow-field-in-constructor -Wno-sign-conversion -Wno-switch-default -Wno-weak-vtables")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept -Wno-psabi")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept -Wno-psabi")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
+#  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast -Wno-noexcept")
 
 endif ()
 
