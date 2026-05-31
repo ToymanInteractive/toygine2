@@ -27,15 +27,15 @@ FindDevkitPro
 Detect a devkitPro installation and its platform components.
 
 Locates the devkitPro root and, for each requested component, its platform library and headers (Nintendo GBA,
-Nintendo DS, Nintendo 3DS, Nintendo Switch). The module never fails when a component is missing: it reports what was
-found and what was not, leaving the decision to the caller.
+Nintendo DS, Nintendo 3DS, Nintendo Switch, Nintendo GameCube, Nintendo Wii). The module never fails when a component is
+missing: it reports what was found and what was not, leaving the decision to the caller.
 
-The installation root is searched, in order, in the ``DEVKITPRO`` environment
-variable, ``/opt/devkitpro``, then ``C:/devkitPro``.
+The installation root is searched, in order, in the ``DEVKITPRO`` environment variable, ``/opt/devkitpro``,
+then ``C:/devkitPro``.
 
 .. code-block:: cmake
 
-  find_package(DevkitPro COMPONENTS gba nds 3ds switch)
+  find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii)
 
 Components
 ^^^^^^^^^^
@@ -54,6 +54,12 @@ Each requested component is searched independently:
 ``switch``
   Nintendo Switch library (``libnx``, header ``switch.h``).
 
+``gamecube``
+  Nintendo GameCube library (``libogc`` from ``lib/cube``, header ``gccore.h``). Built with the devkitPPC toolchain.
+
+``wii``
+  Nintendo Wii library (``libogc`` from ``lib/wii``, header ``gccore.h``). Built with the devkitPPC toolchain.
+
 Result Variables
 ^^^^^^^^^^^^^^^^^
 
@@ -65,18 +71,31 @@ This module defines the following variables:
 ``DEVKITPRO_ROOT``
   Root directory of the devkitPro installation.
 
-``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``
+``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``, ``DEVKITPRO_GAMECUBE_FOUND``, ``DEVKITPRO_WII_FOUND``
   ``TRUE`` if the corresponding requested component was found. Defined only for components listed in ``COMPONENTS``.
+
+``DEVKITA64``
+  Root of the devkitA64 toolchain, set when its compiler is present.
 
 ``DEVKITARM``
   Root of the devkitARM toolchain, set when its compiler is present.
 
-``DEVKITA64``
-  Root of the devkitA64 toolchain, set when its compiler is present.
+``DEVKITPPC``
+  Root of the devkitPPC toolchain, set when its compiler is present.
 #]=======================================================================]
 
 # === Helper macro for library detection ===
+# Usage: _find_devkitpro_lib(NAME HEADER LIBNAME SUBDIR [LIB_VARIANT])
+# Headers are searched in ${SUBDIR}/include. Libraries are searched in ${SUBDIR}/lib, or in
+# ${SUBDIR}/lib/${LIB_VARIANT} when an optional variant is given (e.g. libogc's cube/wii subdirs).
 macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
+  set(_lib_dir ${DEVKITPRO_ROOT}/${SUBDIR}/lib)
+  set(_label ${SUBDIR})
+  if (${ARGC} GREATER 4)
+    set(_lib_dir ${_lib_dir}/${ARGV4})
+    set(_label "${SUBDIR}/lib/${ARGV4}")
+  endif ()
+
   if (DEVKITPRO_FOUND)
     find_path(${NAME}_INCLUDE_DIR
       ${HEADER}
@@ -85,31 +104,33 @@ macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
     )
     find_library(${NAME}_LIBRARY
       NAMES ${LIBNAME}
-      PATHS ${DEVKITPRO_ROOT}/${SUBDIR}/lib
+      PATHS ${_lib_dir}
       NO_DEFAULT_PATH
     )
 
     if (${NAME}_INCLUDE_DIR AND ${NAME}_LIBRARY)
       set(${NAME}_FOUND TRUE)
-      message(STATUS "Found ${SUBDIR}: ${${NAME}_LIBRARY}")
+      message(STATUS "Found ${_label}: ${${NAME}_LIBRARY}")
     else ()
       set(${NAME}_FOUND FALSE)
-      message(STATUS "Not found: ${SUBDIR}")
+      message(STATUS "Not found: ${_label}")
     endif ()
   else ()
     set(${NAME}_FOUND FALSE)
-    message(STATUS "Skipping ${SUBDIR} search (devkitPro not found)")
+    message(STATUS "Skipping ${_label} search (devkitPro not found)")
   endif ()
 
   mark_as_advanced(${NAME}_FOUND)
   unset(${NAME}_INCLUDE_DIR)
   unset(${NAME}_LIBRARY)
+  unset(_label)
+  unset(_lib_dir)
 endmacro()
 
 set(_DEVKITPRO_POSSIBLE_PATHS $ENV{DEVKITPRO} /opt/devkitpro C:/devkitPro)
 
 find_path(DEVKITPRO_ROOT
-  NAMES devkitARM devkitA64
+  NAMES devkitA64 devkitARM devkitPPC
   PATHS ${_DEVKITPRO_POSSIBLE_PATHS}
   NO_DEFAULT_PATH
   DOC "Root directory of devkitPro installation"
@@ -118,6 +139,20 @@ find_path(DEVKITPRO_ROOT
 if (DEVKITPRO_ROOT)
   set(DEVKITPRO_FOUND TRUE)
   message(STATUS "Found devkitPro at: ${DEVKITPRO_ROOT}")
+
+  # === devkitA64 toolchain ===
+  find_program(DEVKITA64_GCC aarch64-none-elf-gcc
+    PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH
+    DOC "Path to devkitPro ARM64 gcc compiler")
+
+  if (DEVKITA64_GCC)
+    get_filename_component(DEVKITA64 "${DEVKITA64_GCC}" DIRECTORY)
+    get_filename_component(DEVKITA64 "${DEVKITA64}" DIRECTORY)
+
+    message(STATUS "Found devkitA64 toolchain: ${DEVKITA64}")
+  endif ()
+
+  unset(DEVKITA64_GCC)
 
   # === devkitARM toolchain ===
   find_program(DEVKITARM_GCC arm-none-eabi-gcc
@@ -133,21 +168,21 @@ if (DEVKITPRO_ROOT)
 
   unset(DEVKITARM_GCC)
 
-  # === devkitA64 toolchain ===
-  find_program(DEVKITA64_GCC aarch64-none-elf-gcc
-    PATHS "${DEVKITPRO_ROOT}/devkitA64/bin" NO_DEFAULT_PATH
-    DOC "Path to devkitPro ARM64 gcc compiler")
+  # === devkitPPC toolchain ===
+  find_program(DEVKITPPC_GCC powerpc-eabi-gcc
+    PATHS "${DEVKITPRO_ROOT}/devkitPPC/bin" NO_DEFAULT_PATH
+    DOC "Path to devkitPro PPC gcc compiler")
 
-  if (DEVKITA64_GCC)
-    get_filename_component(DEVKITA64 "${DEVKITA64_GCC}" DIRECTORY)
-    get_filename_component(DEVKITA64 "${DEVKITA64}" DIRECTORY)
+  if (DEVKITPPC_GCC)
+    get_filename_component(DEVKITPPC "${DEVKITPPC_GCC}" DIRECTORY)
+    get_filename_component(DEVKITPPC "${DEVKITPPC}" DIRECTORY)
 
-    message(STATUS "Found devkitPro ARM64 toolchain: ${DEVKITA64}")
+    message(STATUS "Found devkitPPC toolchain: ${DEVKITPPC}")
   endif ()
 
-  unset(DEVKITA64_GCC)
+  unset(DEVKITPPC_GCC)
 
-  mark_as_advanced(DEVKITARM DEVKITA64)
+  mark_as_advanced(DEVKITARM DEVKITA64 DEVKITPPC)
 
   # === Components ===
   if ("gba" IN_LIST DevkitPro_FIND_COMPONENTS)
@@ -162,10 +197,16 @@ if (DEVKITPRO_ROOT)
   if ("switch" IN_LIST DevkitPro_FIND_COMPONENTS)
     _find_devkitpro_lib(DEVKITPRO_SWITCH switch.h nx libnx)
   endif ()
+  if ("gamecube" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_GAMECUBE gccore.h ogc libogc cube)
+  endif ()
+  if ("wii" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_WII gccore.h ogc libogc wii)
+  endif ()
 
 else ()
   set(DEVKITPRO_FOUND FALSE)
-  message(STATUS "No devkitPro toolchain found")
+  message(STATUS "No devkitPro found")
   message(STATUS "  Searched in ${_DEVKITPRO_POSSIBLE_PATHS}")
 endif ()
 
