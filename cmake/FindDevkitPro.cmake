@@ -169,7 +169,7 @@ if (DEVKITPRO_ROOT)
   unset(DEVKITARM_GCC)
 
   # === devkitPPC toolchain ===
-  find_program(DEVKITPPC_GCC powerpc-none-eabi-gcc
+  find_program(DEVKITPPC_GCC powerpc-eabi-gcc
     PATHS "${DEVKITPRO_ROOT}/devkitPPC/bin" NO_DEFAULT_PATH
     DOC "Path to devkitPro PPC gcc compiler")
 
