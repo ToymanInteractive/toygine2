@@ -20,8 +20,8 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-# Enable C++20 Globally (use C++23 selectively per target)
-set(CMAKE_CXX_STANDARD 20)
+# Enable C++23 Globally
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
