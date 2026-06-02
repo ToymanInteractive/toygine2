@@ -46,7 +46,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Setup configuration types
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "" FORCE)
+set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "")
 
 # Make default 'RelWithDebInfo' build
 if (NOT CMAKE_BUILD_TYPE)
