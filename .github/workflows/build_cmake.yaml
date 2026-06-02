@@ -113,7 +113,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
         with:
+          fetch-depth: 0
           submodules: recursive
+          persist-credentials: false
 
       - name: Prepare APT staging dir
         if: contains(matrix.os, 'ubuntu') && matrix.container == ''
@@ -255,7 +257,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
         with:
+          fetch-depth: 0
           submodules: recursive
+          persist-credentials: false
 
       - name: Prepare APT staging dir
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
@@ -345,9 +349,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6.0.2
         with:
-          # Disabling shallow clones is recommended for improving the relevancy of reporting
           fetch-depth: 0
           submodules: recursive
+          persist-credentials: false
 
       - name: Prepare APT staging dir
         run: mkdir -p "$RUNNER_TEMP/apt-cache"

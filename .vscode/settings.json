@@ -18,6 +18,7 @@
         "endfunction",
         "endmacro",
         "ftoa",
+        "gamecube",
         "metaprogramming",
         "msvc",
         "nanobench",

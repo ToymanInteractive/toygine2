@@ -20,8 +20,8 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-# Enable C++23 Globally
-set(CMAKE_CXX_STANDARD 23)
+# Enable C++20 Globally (use C++23 selectively per target)
+set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
@@ -30,7 +30,7 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
-find_package(DevkitPro COMPONENTS gba nds 3ds switch)
+find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)
@@ -62,6 +62,14 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
   if (DEVKITPRO_SWITCH_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Switch")
+  endif ()
+
+  if (DEVKITPRO_GAMECUBE_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo GameCube")
+  endif ()
+
+  if (DEVKITPRO_WII_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo Wii")
   endif ()
 
   # Report available platforms
