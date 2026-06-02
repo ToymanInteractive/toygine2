@@ -30,7 +30,7 @@ var NAVTREE =
       [ "Minimum OS versions", "index.html#minimum-os-versions", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
-    [ "AGENTS Guidelines for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
+    [ "AI AGENTS rules for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
       [ "Interaction Guidelines", "df/d81/md__a_g_e_n_t_s.html#interaction-guidelines", null ],
       [ "Project Structure", "df/d81/md__a_g_e_n_t_s.html#project-structure", null ],
       [ "C++ game engine style guide", "df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide", null ],

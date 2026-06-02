@@ -29,7 +29,7 @@ var searchData=
   ['render_2ehpp_26',['render.hpp',['../d6/d4b/render_8hpp.html',1,'']]],
   ['rep_27',['rep',['../d3/d1f/classtoy_1_1chrono_1_1_countdown_timer.html#a782677e9d8aed4276d8c31bdedb70499',1,'toy::chrono::CountdownTimer::rep'],['../d6/df8/classtoy_1_1chrono_1_1_steady_clock.html#a7513e0a54741929df3ab3bccce956e72',1,'toy::chrono::SteadyClock::rep'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#a6999de24dca6bf83f38cb487176dbea0',1,'toy::chrono::Stopwatch::rep']]],
   ['replace_28',['replace',['../d3/d7a/classtoy_1_1_fixed_string.html#a8b5f30ac56ba63fafc781f60b202f4be',1,'toy::FixedString::replace(size_t pos, size_t count, const FixedString&lt; allocatedSize &gt; &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a2ab04499e75620da5d7aaa3fcc79c57b',1,'toy::FixedString::replace(size_t pos, size_t count, const stringType &amp;string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a759d69d8c9dd8ff9bbed2d1829da8217',1,'toy::FixedString::replace(size_t pos, size_t count, const char *string) noexcept'],['../d3/d7a/classtoy_1_1_fixed_string.html#a06dad25686c382641b9c1bbc319bd044',1,'toy::FixedString::replace(size_t pos, size_t count, char character, size_t charactersCount=1) noexcept']]],
-  ['repository_29',['AGENTS Guidelines for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['repository_29',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
   ['requirements_30',['Requirements',['../index.html#requirements',1,'']]],
   ['reset_31',['reset',['../d8/dc9/classtoy_1_1_callbacks_pool.html#a2e2431c7651f8c17f41618f7889af770',1,'toy::CallbacksPool::reset()'],['../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html#aabd4d814e38a30c0a99beb53b9324b71',1,'toy::chrono::Stopwatch::reset()'],['../df/d25/classtoy_1_1geometry_1_1_circle.html#a939c8acdddfa45cf5273af6170470020',1,'toy::geometry::Circle::reset()'],['../d9/dd1/classtoy_1_1geometry_1_1_ellipse.html#a5c4e757aefb4771556d38102a2b9fad3',1,'toy::geometry::Ellipse::reset()'],['../db/d6f/classtoy_1_1geometry_1_1_section.html#ad9674e1bc236eacc544d96cc8e7b019a',1,'toy::geometry::Section::reset()']]],
   ['resized_32',['Resized',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aa6c677b8c744b89734e11ea340507a72a22995988de764d7a8cb4165fbff371cb',1,'toy::platform::ui']]],
@@ -47,9 +47,10 @@ var searchData=
   ['rule_20of_20five_44',['Rule of Zero and Rule of Five',['../df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five',1,'']]],
   ['rule_20of_20zero_20and_20rule_20of_20five_45',['Rule of Zero and Rule of Five',['../df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five',1,'']]],
   ['rules_46',['Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'Floating-Point Rules'],['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'Memory and Allocation Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
-  ['run_47',['run',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a0534d34a9d5209a9705f634fcd109739',1,'toy::application::CoreApplication']]],
-  ['runinternal_48',['runInternal',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#aed1b6d6f45a9cea05036823ef6ef6590',1,'toy::application::CoreApplication']]],
-  ['runtime_20parity_49',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['runtime_20testing_50',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
-  ['runtime_20tests_51',['Runtime Tests',['../df/d81/md__a_g_e_n_t_s.html#runtime-tests',1,'']]]
+  ['rules_20for_20this_20repository_47',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['run_48',['run',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#a0534d34a9d5209a9705f634fcd109739',1,'toy::application::CoreApplication']]],
+  ['runinternal_49',['runInternal',['../d7/d1d/classtoy_1_1application_1_1_core_application.html#aed1b6d6f45a9cea05036823ef6ef6590',1,'toy::application::CoreApplication']]],
+  ['runtime_20parity_50',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
+  ['runtime_20testing_51',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
+  ['runtime_20tests_52',['Runtime Tests',['../df/d81/md__a_g_e_n_t_s.html#runtime-tests',1,'']]]
 ];

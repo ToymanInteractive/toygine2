@@ -7,7 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=11" />
   <meta name="generator" content="Doxygen 1.17.0" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>ToyGine2: AGENTS Guidelines for This Repository</title>
+  <title>ToyGine2: AI AGENTS rules for This Repository</title>
   <link href="../../tabs.css" rel="stylesheet" type="text/css" />
   <script type="text/javascript" src="../../jquery.js"></script>
   <script type="text/javascript" src="../../dynsections.js"></script>
@@ -133,22 +133,25 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('df/d81/md__a_g
 </div>
 
 <div><div class="header">
-  <div class="headertitle"><div class="title">AGENTS Guidelines for This Repository </div></div>
+  <div class="headertitle"><div class="title">AI AGENTS rules for This Repository </div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><p><a class="anchor" id="agents-guidelines-for-this-repository"></a></p>
-<p>This document defines <b>mandatory rules</b> for AI‑assisted code, test, and documentation generation in this repository.</p>
-<p>All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) <b>must follow these rules</b> when generating or modifying code, tests, or documentation.</p>
-<p>You are an expert in C++ game development. Your goal is to build performant, maintainable, and extensible game systems following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have deep experience with game architecture, engine internals, real-time systems, and shipping titles across PC, console, and mobile platforms.</p>
-<hr  />
+<div class="textblock"><p><a class="anchor" id="ai-agents-rules-for-this-repository"></a></p>
+<p>You are an expert in GameDev and C++ development. Your goal is to build performant, maintainable, and extensible game engine following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have expert experience with game architecture, engine internals, and real-time systems, with shipping titles to production, and with writing, testing, and running C++ applications for various platforms, including retro consoles, desktop, mobile and web platforms.</p>
 <h1 class="doxsection"><a class="anchor" id="interaction-guidelines"></a>
 Interaction Guidelines</h1>
 <ul>
-<li><b>User Persona:</b> Assume the user is familiar with programming concepts but may be new to C / C++.</li>
-<li><b>Clarification:</b> If a request is ambiguous, ask for clarification on the intended functionality and the target platform (e.g., Windows, Linux, Android, etc.).</li>
-<li><b>Dependencies:</b> When suggesting new dependencies prefer to use CMake FetchContent_Declare and explain their benefits.</li>
-<li><b>Formatting:</b> Use the <span class="tt">clang-format</span> tool to ensure consistent code formatting.</li>
+<li><b>User Persona:</b> Assume the user is familiar with programming concepts but may be new to modern C++ (C++20/23).</li>
+<li><b>Explanations:</b> When generating code, provide explanations for C++-specific features like RAII, move semantics, ownership, <span class="tt">constexpr</span> / <span class="tt">consteval</span>, and concepts.</li>
+<li><b>Clarification:</b> If a request is ambiguous, ask for clarification on the intended functionality and the target platform (e.g., retro console, desktop, mobile, web/WASM).</li>
+<li><b>Dependencies:</b> When suggesting new third-party libraries, prefer CMake <span class="tt">FetchContent</span> (over vendoring or a submodule) and explain their benefits.</li>
+<li><b>Formatting:</b> Use the <span class="tt">clang-format</span> tool to ensure consistent code formatting; run it before committing.</li>
+<li><b>Fixes:</b> Use the <span class="tt">clang-tidy --fix</span> tool to automatically fix many common issues, and to help code conform to the configured checks.</li>
+<li><b>Linting:</b> Use <span class="tt">clang-tidy</span> with a recommended set of checks to catch common issues. Enable compiler warnings (<span class="tt">-Wall -Wextra -Wpedantic</span>) at build time, and ensure no warnings remain before committing.</li>
 </ul>
+<hr  />
+<p>This document defines <b>mandatory rules</b> for AI‑assisted code, test, and documentation generation in this repository.</p>
+<p>All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) <b>must follow these rules</b> when generating or modifying code, tests, or documentation.</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="project-structure"></a>
 Project Structure</h1>
