@@ -176,7 +176,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(GBA)
-  include(Platform/NintendoGBA)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -205,7 +204,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(NDS)
-  include(Platform/NintendoDS)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -234,7 +232,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(3DS)
-  include(Platform/Nintendo3DS)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -263,7 +260,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(Switch)
-  include(Platform/NintendoSwitch)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 

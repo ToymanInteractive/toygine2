@@ -31,7 +31,7 @@
         {
             "name": "linux-ninja-release",
             "displayName": "Linux Ninja release",
-            "description": "ToyGine 2 Linux Ninja",
+            "description": "ToyGine 2 Linux Ninja Release Build",
             "inherits": "base-release",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
@@ -42,7 +42,7 @@
         {
             "name": "macos-ninja-release",
             "displayName": "macOS Ninja release",
-            "description": "ToyGine 2 MacOS Ninja",
+            "description": "ToyGine 2 MacOS Ninja Release Build",
             "inherits": "base-release",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
@@ -53,7 +53,7 @@
         {
             "name": "macos-xcode",
             "displayName": "macOS XCode",
-            "description": "ToyGine 2 MacOS XCode",
+            "description": "ToyGine 2 MacOS XCode Build",
             "inherits": "base-release",
             "generator": "Xcode",
             "cacheVariables": {
@@ -65,7 +65,7 @@
         {
             "name": "windows-msvc",
             "displayName": "Windows x64",
-            "description": "ToyGine 2 Windows MSVC",
+            "description": "ToyGine 2 Windows MSVC Build",
             "inherits": "base-release",
             "generator": "Visual Studio 17 2022",
             "architecture": {
@@ -81,7 +81,7 @@
         {
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
-            "description": "ToyGine 2 Windows MSVC x86",
+            "description": "ToyGine 2 Windows MSVC x86 Build",
             "inherits": "base-release",
             "generator": "Visual Studio 17 2022",
             "architecture": {
@@ -97,20 +97,20 @@
         {
             "name": "gba-ninja-release",
             "displayName": "Nintendo GBA release",
-            "description": "ToyGine 2 Nintendo GBA Ninja",
+            "description": "ToyGine 2 GBA Ninja Release Build",
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "ON",
                 "TOYGINE_BUILD_TESTS": "ON",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo GBA"
             }
         },
         {
-            "name": "nintendo-ds-ninja-release",
-            "displayName": "Nintendo DS",
-            "description": "ToyGine 2 Nintendo DS",
+            "name": "nds-ninja-release",
+            "displayName": "Nintendo DS release",
+            "description": "ToyGine 2 NDS Ninja Release Build",
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
             "cacheVariables": {
@@ -121,9 +121,9 @@
             }
         },
         {
-            "name": "nintendo-3ds-ninja-release",
-            "displayName": "Nintendo 3DS",
-            "description": "ToyGine 2 Nintendo 3DS",
+            "name": "3ds-ninja-release",
+            "displayName": "Nintendo 3DS release",
+            "description": "ToyGine 2 3DS Ninja Release Build",
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
             "cacheVariables": {
@@ -134,9 +134,9 @@
             }
         },
         {
-            "name": "nintendo-switch-ninja-release",
-            "displayName": "Nintendo Switch",
-            "description": "ToyGine 2 Nintendo Switch",
+            "name": "switch-ninja-release",
+            "displayName": "Nintendo Switch release",
+            "description": "ToyGine 2 Switch Ninja Release Build",
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
             "cacheVariables": {
@@ -149,7 +149,7 @@
         {
             "name": "linux-ninja-debug",
             "displayName": "Linux Ninja debug",
-            "description": "ToyGine 2 Linux Ninja (Debug)",
+            "description": "ToyGine 2 Linux Ninja Debug Build",
             "inherits": "linux-ninja-release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -158,7 +158,7 @@
         {
             "name": "macos-ninja-debug",
             "displayName": "macOS Ninja debug",
-            "description": "ToyGine 2 MacOS Ninja (Debug)",
+            "description": "ToyGine 2 MacOS Ninja Debug Build",
             "inherits": "macos-ninja-release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -167,7 +167,7 @@
         {
             "name": "gba-ninja-debug",
             "displayName": "Nintendo GBA debug",
-            "description": "ToyGine 2 Nintendo GBA Ninja (Debug)",
+            "description": "ToyGine 2 GBA Ninja Debug Build",
             "inherits": "gba-ninja-release",
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Debug"
@@ -175,8 +175,8 @@
         },
         {
             "name": "linux-ninja-tests-coverage",
-            "displayName": "Linux Ninja Tests Coverage",
-            "description": "ToyGine 2 Linux Ninja (Test Coverage)",
+            "displayName": "Linux Ninja tests coverage",
+            "description": "ToyGine 2 Linux Ninja Test Coverage",
             "inherits": "linux-ninja-debug",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",

@@ -44,17 +44,17 @@ jobs:
             run_test: "true"
             cmake_preset: macos-xcode
 
+          - name: macOS XCode Intel
+            os: macos-26-intel
+            run_test: "true"
+            cmake_preset: macos-xcode
+
           - name: macOS Ninja arm64
             os: macos-26
             run_benchmarks: "true"
             bencher_testbed: macos-arm64
             run_test: "true"
             cmake_preset: macos-ninja-release
-
-          - name: macOS XCode Intel
-            os: macos-26-intel
-            run_test: "true"
-            cmake_preset: macos-xcode
 
           - name: macOS Ninja Intel
             os: macos-26-intel
@@ -63,13 +63,6 @@ jobs:
             run_test: "true"
             cmake_preset: macos-ninja-release
 
-          - name: Windows MSVC x86
-            os: windows-2025
-            run_benchmarks: "true"
-            bencher_testbed: windows-x86
-            run_test: "true"
-            cmake_preset: windows-msvc-x86
-
           - name: Windows MSVC
             os: windows-2025
             run_benchmarks: "true"
@@ -77,29 +70,36 @@ jobs:
             run_test: "true"
             cmake_preset: windows-msvc
 
-          - name: DevkitPro GBA
+          - name: Windows MSVC x86
+            os: windows-2025
+            run_benchmarks: "true"
+            bencher_testbed: windows-x86
+            run_test: "true"
+            cmake_preset: windows-msvc-x86
+
+          - name: Nintendo GBA
             os: ubuntu-24.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
             run_test: "false"
             cmake_preset: gba-ninja-release
 
-          - name: DevkitPro NDS
+          - name: Nintendo DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
             run_test: "false"
-            cmake_preset: nintendo-ds-ninja-release
+            cmake_preset: nds-ninja-release
 
-          - name: DevkitPro 3DS
+          - name: Nintendo 3DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
             run_test: "false"
-            cmake_preset: nintendo-3ds-ninja-release
+            cmake_preset: 3ds-ninja-release
 
-          - name: DevkitPro Switch
+          - name: Nintendo Switch
             os: ubuntu-24.04
             container: devkitpro/devkita64:20260219
             run_test: "false"
-            cmake_preset: nintendo-switch-ninja-release
+            cmake_preset: switch-ninja-release
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
