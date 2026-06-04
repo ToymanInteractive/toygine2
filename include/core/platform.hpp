@@ -37,7 +37,7 @@ namespace toy {
   \brief Target operating system or platform identifier.
 
   Hex values in distinct ranges (desktop \c 0x1000-\c 0x3000, mobile \c 0x3100-\c 0x4000, consoles
-  \c 0x5000-\c 0x8000) allow compile-time \c if \c constexpr and combination with \ref toy::CpuArchitecture.
+  \c 0x5000-\c 0xA000) allow compile-time \c if \c constexpr and combination with \ref toy::CpuArchitecture.
 
   \section features Key Features
 
