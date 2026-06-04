@@ -101,6 +101,18 @@ jobs:
             run_test: "false"
             cmake_preset: switch-ninja-release
 
+          - name: Nintendo GameCube
+            os: ubuntu-24.04
+            container: devkitpro/devkitppc:20260503
+            run_test: "false"
+            cmake_preset: gamecube-ninja-release
+
+          - name: Nintendo Wii
+            os: ubuntu-24.04
+            container: devkitpro/devkitppc:20260503
+            run_test: "false"
+            cmake_preset: wii-ninja-release
+
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30

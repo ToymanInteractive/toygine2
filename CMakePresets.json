@@ -147,6 +147,32 @@
             }
         },
         {
+            "name": "gamecube-ninja-release",
+            "displayName": "Nintendo GameCube release",
+            "description": "ToyGine 2 GameCube Ninja Release Build",
+            "inherits": "base-release",
+            "toolchainFile": "$env{DEVKITPRO}/cmake/GameCube.cmake",
+            "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_TESTS": "ON",
+                "TOYGINE_TARGET_PLATFORM": "Nintendo GameCube"
+            }
+        },
+        {
+            "name": "wii-ninja-release",
+            "displayName": "Nintendo Wii release",
+            "description": "ToyGine 2 Wii Ninja Release Build",
+            "inherits": "base-release",
+            "toolchainFile": "$env{DEVKITPRO}/cmake/Wii.cmake",
+            "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_TESTS": "ON",
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Wii"
+            }
+        },
+        {
             "name": "linux-ninja-debug",
             "displayName": "Linux Ninja debug",
             "description": "ToyGine 2 Linux Ninja Debug Build",
@@ -238,6 +264,16 @@
         {
             "name": "switch-ninja-release",
             "configurePreset": "switch-ninja-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "gamecube-ninja-release",
+            "configurePreset": "gamecube-ninja-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "wii-ninja-release",
+            "configurePreset": "wii-ninja-release",
             "inherits": "default-release"
         },
         {
