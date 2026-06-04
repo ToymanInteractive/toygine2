@@ -103,13 +103,13 @@ jobs:
 
           - name: Nintendo GameCube
             os: ubuntu-24.04
-            container: devkitpro/devkitppc:20260503
+            container: devkitpro/devkitppc:20260221
             run_test: "false"
             cmake_preset: gamecube-ninja-release
 
           - name: Nintendo Wii
             os: ubuntu-24.04
-            container: devkitpro/devkitppc:20260503
+            container: devkitpro/devkitppc:20260221
             run_test: "false"
             cmake_preset: wii-ninja-release
 
