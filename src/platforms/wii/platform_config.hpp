@@ -37,9 +37,9 @@
 
 namespace toy {
 
-inline constexpr auto currentPlatform = Platform::GameCube;
+inline constexpr auto currentPlatform = Platform::Wii;
 
-inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::PowerPC32;
 
 namespace chrono {
 

@@ -92,10 +92,10 @@ enum class Platform : uint16_t {
   /// Nintendo Switch hybrid gaming console
   Switch = 0x8000,
 
-  /// Nintendo GameCube handheld gaming console
+  /// Nintendo GameCube home gaming console
   GameCube = 0x9000,
 
-  /// Nintendo Wii handheld gaming console
+  /// Nintendo Wii home gaming console
   Wii = 0xA000,
 };
 
@@ -144,6 +144,9 @@ enum class CpuArchitecture : uint16_t {
 
   /// ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64)
   Arm64 = 0x0028,
+
+  /// PowerPC 32-bit instruction set architecture (PowerPC 32-bit)
+  PowerPC32 = 0x0044,
 
   /// Unspecified or unknown architecture
   Unknown = 0x0000,
