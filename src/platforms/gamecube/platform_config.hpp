@@ -1,0 +1,55 @@
+//
+// Copyright (c) 2025-2026 Toyman Interactive
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and / or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following conditions :
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//
+/*!
+  \file   platform_config.hpp
+  \brief  Compile-time platform and CPU bindings for Nintendo GameCube.
+
+  Defines \ref toy::Platform and \ref toy::CpuArchitecture values (\c currentPlatform, \c currentCpuArchitecture) for
+  GameCube toolchains.
+
+  \note Included by GameCube platform translation units; not a public module header.
+*/
+
+#ifndef SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
+#define SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
+
+#include "../../../include/core/platform.hpp"
+#include "../common/assertion_macro_gcc_clang.hpp"
+
+#if defined(__DEVKITPRO__)
+
+namespace toy {
+
+inline constexpr auto currentPlatform = Platform::GameCube;
+
+inline constexpr auto currentCpuArchitecture = CpuArchitecture::Arm64;
+
+namespace chrono {
+
+/// Denominator of the \ref toy::chrono::SteadyClock tick period (nanosecond resolution).
+inline constexpr int64_t c_steadyClockPeriodDenominator = 1'000'000'000;
+
+} // namespace chrono
+
+} // namespace toy
+
+#endif // defined(__DEVKITPRO__)
+
+#endif // SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_

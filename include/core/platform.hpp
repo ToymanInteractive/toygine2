@@ -91,6 +91,12 @@ enum class Platform : uint16_t {
 
   /// Nintendo Switch hybrid gaming console
   Switch = 0x8000,
+
+  /// Nintendo GameCube handheld gaming console
+  Switch = 0x9000,
+
+  /// Nintendo Wii handheld gaming console
+  Switch = 0xA000,
 };
 
 /*!
