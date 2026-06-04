@@ -119,12 +119,8 @@ constexpr OStringStream<BackendType> & OStringStream<BackendType>::operator<<(co
 
   char buffer[17];
 
-  if constexpr (sizeof(value) == 4)
-    utoa(buffer, size(buffer), reinterpret_cast<uintptr_t>(value), 16);
-  else if constexpr (sizeof(value) == 8)
-    utoa(buffer, size(buffer), reinterpret_cast<uintptr_t>(value), 16);
-  else
-    static_assert(sizeof(value) == 4 || sizeof(value) == 8, "Unsupported pointer size");
+  static_assert(sizeof(value) == 4 || sizeof(value) == 8, "Unsupported pointer size");
+  utoa(buffer, size(buffer), reinterpret_cast<uintptr_t>(value), 16);
 
   _string.append("0x");
 
