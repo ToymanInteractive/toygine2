@@ -226,18 +226,18 @@
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-ds-ninja-release",
-            "configurePreset": "nintendo-ds-ninja-release",
+            "name": "nds-ninja-release",
+            "configurePreset": "nds-ninja-release",
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-3ds-ninja-release",
-            "configurePreset": "nintendo-3ds-ninja-release",
+            "name": "3ds-ninja-release",
+            "configurePreset": "3ds-ninja-release",
             "inherits": "default-release"
         },
         {
-            "name": "nintendo-switch-ninja-release",
-            "configurePreset": "nintendo-switch-ninja-release",
+            "name": "switch-ninja-release",
+            "configurePreset": "switch-ninja-release",
             "inherits": "default-release"
         },
         {
