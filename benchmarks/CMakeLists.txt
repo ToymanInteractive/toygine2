@@ -47,11 +47,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-useless-cast")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-noexcept -Wno-useless-cast")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-missing-declarations -Wno-noexcept -Wno-useless-cast")
 
 endif ()
 
