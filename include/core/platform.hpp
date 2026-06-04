@@ -103,8 +103,9 @@ enum class Platform : uint16_t {
   \enum CpuArchitecture
   \brief CPU or instruction-set architecture identifier.
 
-  Hex values in distinct ranges (Intel \c 0x0014-\c 0x0018, ARM \c 0x0024-\c 0x0028) allow compile-time checks and
-  combination with \ref toy::Platform for platform-and-architecture conditional code.
+  Hex values in distinct ranges (Intel \c 0x0014-\c 0x0018, ARM \c 0x0024-\c 0x0028, PowerPC \c 0x0044) allow
+  compile-time checks and combination with \ref toy::Platform for platform-and-architecture conditional code.
+  \ref toy::CpuArchitecture::Unknown (\c 0x0000) denotes an unspecified architecture.
 
   \section features Key Features
 
