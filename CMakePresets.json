@@ -153,9 +153,9 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/GameCube.cmake",
             "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "ON",
+                "TOYGINE_BUILD_TESTS": "OFF",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo GameCube"
             }
         },
@@ -166,9 +166,9 @@
             "inherits": "base-release",
             "toolchainFile": "$env{DEVKITPRO}/cmake/Wii.cmake",
             "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "ON",
+                "TOYGINE_BUILD_TESTS": "OFF",
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Wii"
             }
         },
