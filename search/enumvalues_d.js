@@ -5,6 +5,7 @@ var searchData=
   ['portraitany_2',['PortraitAny',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02ac5e78c85aed303934dd52012cc3bbffb',1,'toy::platform::ui']]],
   ['portraitflipped_3',['PortraitFlipped',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#aab7a6848d6656e7540fb1d6d72116e02a13be439a13712e02008085c7861871f3',1,'toy::platform::ui']]],
   ['positional_4',['positional',['../d7/d66/namespacetoy_1_1anonymous__namespace_02format__pattern_8inl_03.html#ab8ad9fba3dcf7942f6c05538bc6c60c4ae2d45ea19c2efd31814277330dcdb556',1,'toy::anonymous_namespace{format_pattern.inl}']]],
-  ['pvrtc2_5',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
-  ['pvrtc4_6',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
+  ['powerpc32_5',['PowerPC32',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341af862e3847a2d5ca3a67182de9051adb0',1,'toy']]],
+  ['pvrtc2_6',['PVRTC2',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3faa54f5bdd6d55a32997d1352a5c8234a4',1,'toy::render']]],
+  ['pvrtc4_7',['PVRTC4',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa759978c6ff5b5e0ce1720f8dd863e3bf',1,'toy::render']]]
 ];

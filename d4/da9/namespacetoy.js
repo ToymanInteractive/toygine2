@@ -95,6 +95,7 @@ var namespacetoy =
       [ "x64", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492", null ],
       [ "Arm32", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d", null ],
       [ "Arm64", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341ac42c3b5bc3b4234ee7823388012368d6", null ],
+      [ "PowerPC32", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341af862e3847a2d5ca3a67182de9051adb0", null ],
       [ "Unknown", "d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e", null ]
     ] ],
     [ "FormatPatternValidationError", "de/d08/group___format.html#ga47774805e63ecbede7f9cbfa12168c41", [
@@ -114,7 +115,9 @@ var namespacetoy =
       [ "GBA", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d", null ],
       [ "NDS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa762ba5f7878627c28916f73f55646717", null ],
       [ "N3DS", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa91f63b3de0c255c06d76b4a195ed5b15", null ],
-      [ "Switch", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b", null ]
+      [ "Switch", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aabbc155fb2b111bf61c4f5ff892915e6b", null ],
+      [ "GameCube", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1414a3718f679c8ac977936a72f3a673", null ],
+      [ "Wii", "d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa43ff8bb2e8b00bf31fbb6df52df6b328", null ]
     ] ],
     [ "crc16", "d4/da9/namespacetoy.html#aa63c971425cb6819414030806927a68a", null ],
     [ "crc32", "d4/da9/namespacetoy.html#a17983e173fb5e8cf5baaab61a78a402e", null ],

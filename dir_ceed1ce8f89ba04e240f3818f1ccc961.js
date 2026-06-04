@@ -2,6 +2,7 @@ var dir_ceed1ce8f89ba04e240f3818f1ccc961 =
 [
     [ "3ds", "dir_ec42ad78dd6cae3ff203004d8c882467.html", "dir_ec42ad78dd6cae3ff203004d8c882467" ],
     [ "common", "dir_3c172eab3d3eff36a04ebb8e77c44848.html", "dir_3c172eab3d3eff36a04ebb8e77c44848" ],
+    [ "gamecube", "dir_71577dde3ddcf1d7c60e2d25449923f3.html", "dir_71577dde3ddcf1d7c60e2d25449923f3" ],
     [ "gba", "dir_c535a4a48b3b456973d783f9794b23a7.html", "dir_c535a4a48b3b456973d783f9794b23a7" ],
     [ "linux", "dir_85f2f5b017d0e280691879598107c592.html", "dir_85f2f5b017d0e280691879598107c592" ],
     [ "macos", "dir_09678985b484b4db3dfe2991103a0695.html", "dir_09678985b484b4db3dfe2991103a0695" ],
@@ -9,5 +10,6 @@ var dir_ceed1ce8f89ba04e240f3818f1ccc961 =
     [ "posix", "dir_ecf0edda40476ff1d9c29547bdf97a40.html", "dir_ecf0edda40476ff1d9c29547bdf97a40" ],
     [ "stub", "dir_dbd2f83f65a97e35fcbceb75bafbe0f9.html", "dir_dbd2f83f65a97e35fcbceb75bafbe0f9" ],
     [ "switch", "dir_f1cd75b7a609b9cf63cfb1686d016e0b.html", "dir_f1cd75b7a609b9cf63cfb1686d016e0b" ],
+    [ "wii", "dir_260e38cdfbd7032146a6110264900101.html", "dir_260e38cdfbd7032146a6110264900101" ],
     [ "windows", "dir_0a18029368813177489ba7a997da11e8.html", "dir_0a18029368813177489ba7a997da11e8" ]
 ];

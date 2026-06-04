@@ -12,8 +12,8 @@
 <g id="Node000001" class="node">
 <title>Node1</title>
 <g id="a_Node000001"><a xlink:title="Platform and CPU architecture enums with compile&#45;time and runtime detection.">
-<polygon fill="#999999" stroke="#666666" points="2531.39,-338 2389.39,-338 2389.39,-319 2531.39,-319 2531.39,-338"/>
-<text text-anchor="middle" x="2460.39" y="-326" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/platform.hpp</text>
+<polygon fill="#999999" stroke="#666666" points="2608.39,-338 2466.39,-338 2466.39,-319 2608.39,-319 2608.39,-338"/>
+<text text-anchor="middle" x="2537.39" y="-326" font-family="Helvetica,sans-Serif" font-size="10.00">include/core/platform.hpp</text>
 </a>
 </g>
 </g>
@@ -30,8 +30,8 @@
 <g id="edge1_Node000001_Node000002" class="edge">
 <title>Node1&#45;&gt;Node2</title>
 <g id="a_edge1_Node000001_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2378.9,-325.52C2252.64,-321.6 2021.55,-310.7 1996.39,-283 1953.16,-235.43 2067.27,-217.83 2136.6,-211.64"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2378.82,-329.02 2388.92,-325.82 2379.03,-322.02 2378.82,-329.02"/>
+<path fill="none" stroke="#63b8ff" d="M2455.88,-327.66C2296.55,-327.11 1956.11,-321.4 1920.39,-283 1856.9,-214.77 2043.89,-207.26 2136.6,-207.55"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2456.1,-331.16 2466.11,-327.69 2456.12,-324.16 2456.1,-331.16"/>
 </a>
 </g>
 </g>
@@ -39,9 +39,9 @@
 <g id="Node000034" class="node">
 <title>Node34</title>
 <g id="a_Node000034"><a xlink:href="../../d5/d82/3ds_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo 3DS.">
-<polygon fill="white" stroke="#666666" points="2151.39,-283 2005.39,-283 2005.39,-253 2151.39,-253 2151.39,-283"/>
-<text text-anchor="start" x="2013.39" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/3ds/platform</text>
-<text text-anchor="middle" x="2078.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
+<polygon fill="white" stroke="#666666" points="2075.39,-283 1929.39,-283 1929.39,-253 2075.39,-253 2075.39,-283"/>
+<text text-anchor="start" x="1937.39" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/3ds/platform</text>
+<text text-anchor="middle" x="2002.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
 </a>
 </g>
 </g>
@@ -49,18 +49,18 @@
 <g id="edge41_Node000001_Node000034" class="edge">
 <title>Node1&#45;&gt;Node34</title>
 <g id="a_edge41_Node000001_Node000034"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2390.02,-317.51C2329.18,-308.76 2238.91,-295.53 2160.39,-283 2157.53,-282.55 2154.63,-282.08 2151.69,-281.6"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2389.88,-321.02 2400.28,-318.98 2390.88,-314.09 2389.88,-321.02"/>
+<path fill="none" stroke="#63b8ff" d="M2455.97,-321.26C2365.13,-313.89 2213.91,-300.4 2084.39,-283 2081.52,-282.62 2078.61,-282.21 2075.66,-281.78"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2455.95,-324.77 2466.2,-322.08 2456.51,-317.79 2455.95,-324.77"/>
 </a>
 </g>
 </g>
 <!-- Node35 -->
 <g id="Node000035" class="node">
 <title>Node35</title>
-<g id="a_Node000035"><a xlink:href="../../df/db1/gba_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo GBA.">
-<polygon fill="white" stroke="#666666" points="2316.89,-283 2169.89,-283 2169.89,-253 2316.89,-253 2316.89,-283"/>
-<text text-anchor="start" x="2177.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/gba/platform</text>
-<text text-anchor="middle" x="2243.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
+<g id="a_Node000035"><a xlink:href="../../da/d3c/gamecube_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo GameCube.">
+<polygon fill="white" stroke="#666666" points="2228.89,-283 2093.89,-283 2093.89,-253 2228.89,-253 2228.89,-283"/>
+<text text-anchor="start" x="2101.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/gamecube</text>
+<text text-anchor="middle" x="2161.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
 </a>
 </g>
 </g>
@@ -68,18 +68,18 @@
 <g id="edge42_Node000001_Node000035" class="edge">
 <title>Node1&#45;&gt;Node35</title>
 <g id="a_edge42_Node000001_Node000035"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2418.92,-316.32C2383.84,-306.86 2333.38,-293.26 2295.56,-283.06"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2418.27,-319.77 2428.83,-318.99 2420.09,-313.01 2418.27,-319.77"/>
+<path fill="none" stroke="#63b8ff" d="M2465.26,-317.52C2404.42,-308.93 2315.09,-295.92 2237.39,-283 2234.61,-282.54 2231.77,-282.06 2228.91,-281.56"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2465.13,-321.04 2475.52,-318.97 2466.11,-314.11 2465.13,-321.04"/>
 </a>
 </g>
 </g>
 <!-- Node36 -->
 <g id="Node000036" class="node">
 <title>Node36</title>
-<g id="a_Node000036"><a xlink:href="../../dd/d9e/linux_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Linux.">
-<polygon fill="white" stroke="#666666" points="2451.89,-283 2334.89,-283 2334.89,-253 2451.89,-253 2451.89,-283"/>
-<text text-anchor="start" x="2342.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/linux</text>
-<text text-anchor="middle" x="2393.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+<g id="a_Node000036"><a xlink:href="../../df/db1/gba_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo GBA.">
+<polygon fill="white" stroke="#666666" points="2393.89,-283 2246.89,-283 2246.89,-253 2393.89,-253 2393.89,-283"/>
+<text text-anchor="start" x="2254.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/gba/platform</text>
+<text text-anchor="middle" x="2320.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
 </a>
 </g>
 </g>
@@ -87,37 +87,37 @@
 <g id="edge43_Node000001_Node000036" class="edge">
 <title>Node1&#45;&gt;Node36</title>
 <g id="a_edge43_Node000001_Node000036"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2442.9,-312.23C2432.59,-303.23 2419.63,-291.91 2409.55,-283.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2440.66,-314.93 2450.5,-318.87 2445.27,-309.65 2440.66,-314.93"/>
+<path fill="none" stroke="#63b8ff" d="M2495.92,-316.32C2460.84,-306.86 2410.38,-293.26 2372.56,-283.06"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2495.27,-319.77 2505.83,-318.99 2497.09,-313.01 2495.27,-319.77"/>
 </a>
 </g>
 </g>
 <!-- Node37 -->
 <g id="Node000037" class="node">
 <title>Node37</title>
-<g id="a_Node000037"><a xlink:href="../../d8/d80/macos_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for macOS.">
-<polygon fill="white" stroke="#666666" points="2586.89,-283 2469.89,-283 2469.89,-253 2586.89,-253 2586.89,-283"/>
-<text text-anchor="start" x="2477.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
-<text text-anchor="middle" x="2528.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+<g id="a_Node000037"><a xlink:href="../../dd/d9e/linux_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Linux.">
+<polygon fill="white" stroke="#666666" points="2528.89,-283 2411.89,-283 2411.89,-253 2528.89,-253 2528.89,-283"/>
+<text text-anchor="start" x="2419.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/linux</text>
+<text text-anchor="middle" x="2470.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node37 -->
-<g id="edge45_Node000001_Node000037" class="edge">
+<g id="edge44_Node000001_Node000037" class="edge">
 <title>Node1&#45;&gt;Node37</title>
-<g id="a_edge45_Node000001_Node000037"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2478.13,-312.23C2488.6,-303.23 2501.75,-291.91 2511.98,-283.11"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2475.72,-309.69 2470.42,-318.87 2480.28,-315 2475.72,-309.69"/>
+<g id="a_edge44_Node000001_Node000037"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M2519.9,-312.23C2509.59,-303.23 2496.63,-291.91 2486.55,-283.11"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2517.66,-314.93 2527.5,-318.87 2522.27,-309.65 2517.66,-314.93"/>
 </a>
 </g>
 </g>
 <!-- Node38 -->
 <g id="Node000038" class="node">
 <title>Node38</title>
-<g id="a_Node000038"><a xlink:href="../../dc/d74/nds_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo DS.">
-<polygon fill="white" stroke="#666666" points="2751.39,-283 2605.39,-283 2605.39,-253 2751.39,-253 2751.39,-283"/>
-<text text-anchor="start" x="2613.39" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/nds/platform</text>
-<text text-anchor="middle" x="2678.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
+<g id="a_Node000038"><a xlink:href="../../d8/d80/macos_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for macOS.">
+<polygon fill="white" stroke="#666666" points="2663.89,-283 2546.89,-283 2546.89,-253 2663.89,-253 2663.89,-283"/>
+<text text-anchor="start" x="2554.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/macos</text>
+<text text-anchor="middle" x="2605.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
 </a>
 </g>
 </g>
@@ -125,18 +125,18 @@
 <g id="edge46_Node000001_Node000038" class="edge">
 <title>Node1&#45;&gt;Node38</title>
 <g id="a_edge46_Node000001_Node000038"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2502.04,-316.32C2537.29,-306.86 2587.98,-293.26 2625.98,-283.06"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2500.84,-313.02 2492.08,-318.99 2502.65,-319.78 2500.84,-313.02"/>
+<path fill="none" stroke="#63b8ff" d="M2555.13,-312.23C2565.6,-303.23 2578.75,-291.91 2588.98,-283.11"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2552.72,-309.69 2547.42,-318.87 2557.28,-315 2552.72,-309.69"/>
 </a>
 </g>
 </g>
 <!-- Node39 -->
 <g id="Node000039" class="node">
 <title>Node39</title>
-<g id="a_Node000039"><a xlink:href="../../db/d83/switch_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo Switch.">
-<polygon fill="white" stroke="#666666" points="2886.89,-283 2769.89,-283 2769.89,-253 2886.89,-253 2886.89,-283"/>
-<text text-anchor="start" x="2777.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/switch</text>
-<text text-anchor="middle" x="2828.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+<g id="a_Node000039"><a xlink:href="../../dc/d74/nds_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo DS.">
+<polygon fill="white" stroke="#666666" points="2828.39,-283 2682.39,-283 2682.39,-253 2828.39,-253 2828.39,-283"/>
+<text text-anchor="start" x="2690.39" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/nds/platform</text>
+<text text-anchor="middle" x="2755.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
 </a>
 </g>
 </g>
@@ -144,18 +144,18 @@
 <g id="edge47_Node000001_Node000039" class="edge">
 <title>Node1&#45;&gt;Node39</title>
 <g id="a_edge47_Node000001_Node000039"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2535.2,-317.58C2596.01,-309.24 2683.93,-296.53 2760.39,-283 2763.47,-282.45 2766.63,-281.87 2769.82,-281.27"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2534.36,-314.16 2524.93,-318.99 2535.31,-321.1 2534.36,-314.16"/>
+<path fill="none" stroke="#63b8ff" d="M2579.04,-316.32C2614.29,-306.86 2664.98,-293.26 2702.98,-283.06"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2577.84,-313.02 2569.08,-318.99 2579.65,-319.78 2577.84,-313.02"/>
 </a>
 </g>
 </g>
 <!-- Node40 -->
 <g id="Node000040" class="node">
 <title>Node40</title>
-<g id="a_Node000040"><a xlink:href="../../db/d29/windows_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Windows.">
-<polygon fill="white" stroke="#666666" points="3031.89,-283 2904.89,-283 2904.89,-253 3031.89,-253 3031.89,-283"/>
-<text text-anchor="start" x="2912.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/windows</text>
-<text text-anchor="middle" x="2968.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+<g id="a_Node000040"><a xlink:href="../../db/d83/switch_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo Switch.">
+<polygon fill="white" stroke="#666666" points="2963.89,-283 2846.89,-283 2846.89,-253 2963.89,-253 2963.89,-283"/>
+<text text-anchor="start" x="2854.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/switch</text>
+<text text-anchor="middle" x="2905.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
 </a>
 </g>
 </g>
@@ -163,8 +163,46 @@
 <g id="edge48_Node000001_Node000040" class="edge">
 <title>Node1&#45;&gt;Node40</title>
 <g id="a_edge48_Node000001_Node000040"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2541.78,-321.4C2629.56,-314.31 2773.3,-301.21 2896.39,-283 2899.16,-282.59 2901.98,-282.15 2904.84,-281.68"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2541.31,-317.93 2531.62,-322.22 2541.87,-324.91 2541.31,-317.93"/>
+<path fill="none" stroke="#63b8ff" d="M2612.2,-317.58C2673.01,-309.24 2760.93,-296.53 2837.39,-283 2840.47,-282.45 2843.63,-281.87 2846.82,-281.27"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2611.36,-314.16 2601.93,-318.99 2612.31,-321.1 2611.36,-314.16"/>
+</a>
+</g>
+</g>
+<!-- Node41 -->
+<g id="Node000041" class="node">
+<title>Node41</title>
+<g id="a_Node000041"><a xlink:href="../../d1/d95/wii_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Nintendo Wii.">
+<polygon fill="white" stroke="#666666" points="3124.89,-283 2981.89,-283 2981.89,-253 3124.89,-253 3124.89,-283"/>
+<text text-anchor="start" x="2989.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/wii/platform</text>
+<text text-anchor="middle" x="3053.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">_config.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node41 -->
+<g id="edge49_Node000001_Node000041" class="edge">
+<title>Node1&#45;&gt;Node41</title>
+<g id="a_edge49_Node000001_Node000041"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M2618.71,-320.95C2706.44,-313.48 2850.14,-300.05 2973.39,-283 2976.04,-282.63 2978.74,-282.24 2981.47,-281.84"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2618.23,-317.48 2608.56,-321.81 2618.82,-324.45 2618.23,-317.48"/>
+</a>
+</g>
+</g>
+<!-- Node42 -->
+<g id="Node000042" class="node">
+<title>Node42</title>
+<g id="a_Node000042"><a xlink:href="../../db/d29/windows_2platform__config_8hpp.html" target="_top" xlink:title="Compile&#45;time platform and CPU bindings for Windows.">
+<polygon fill="white" stroke="#666666" points="3269.89,-283 3142.89,-283 3142.89,-253 3269.89,-253 3269.89,-283"/>
+<text text-anchor="start" x="3150.89" y="-271" font-family="Helvetica,sans-Serif" font-size="10.00">src/platforms/windows</text>
+<text text-anchor="middle" x="3206.39" y="-260" font-family="Helvetica,sans-Serif" font-size="10.00">/platform_config.hpp</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node42 -->
+<g id="edge50_Node000001_Node000042" class="edge">
+<title>Node1&#45;&gt;Node42</title>
+<g id="a_edge50_Node000001_Node000042"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M2618.57,-324.48C2733.72,-319.51 2950.9,-307.59 3134.39,-283 3137.16,-282.63 3139.99,-282.22 3142.85,-281.77"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2618.27,-320.99 2608.43,-324.91 2618.57,-327.98 2618.27,-320.99"/>
 </a>
 </g>
 </g>
@@ -818,12 +856,12 @@
 </a>
 </g>
 </g>
-<!-- Node36&#45;&gt;Node2 -->
-<g id="edge44_Node000036_Node000002" class="edge">
-<title>Node36&#45;&gt;Node2</title>
-<g id="a_edge44_Node000036_Node000002"><a xlink:title=" ">
-<path fill="none" stroke="#63b8ff" d="M2333.5,-250.16C2294.99,-239.33 2246.58,-225.71 2215.8,-217.05"/>
-<polygon fill="#63b8ff" stroke="#63b8ff" points="2332.99,-253.65 2343.56,-252.99 2334.89,-246.91 2332.99,-253.65"/>
+<!-- Node37&#45;&gt;Node2 -->
+<g id="edge45_Node000037_Node000002" class="edge">
+<title>Node37&#45;&gt;Node2</title>
+<g id="a_edge45_Node000037_Node000002"><a xlink:title=" ">
+<path fill="none" stroke="#63b8ff" d="M2401.88,-252.9C2334.79,-239.11 2268.62,-225.55 2226.99,-217.02"/>
+<polygon fill="#63b8ff" stroke="#63b8ff" points="2401.28,-256.35 2411.78,-254.93 2402.69,-249.49 2401.28,-256.35"/>
 </a>
 </g>
 </g>

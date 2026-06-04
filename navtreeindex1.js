@@ -1,5 +1,7 @@
 var NAVTREEINDEX1 =
 {
+"d3/d7a/classtoy_1_1_fixed_string.html#a1c304eb847c05f3c1105335485a0491e":[2,3,1,1,19],
+"d3/d7a/classtoy_1_1_fixed_string.html#a1d04360b41223ac8f8c400ccbe1c1695":[2,3,1,1,50],
 "d3/d7a/classtoy_1_1_fixed_string.html#a213682f68bd2b2500e5ed15acc068951":[2,3,1,1,20],
 "d3/d7a/classtoy_1_1_fixed_string.html#a2485978245ef94f732a4cadc6607dcd6":[2,3,1,1,68],
 "d3/d7a/classtoy_1_1_fixed_string.html#a2512493e108e9c272f1685e46f6ae8fd":[2,3,1,1,26],
@@ -152,7 +154,7 @@ var NAVTREEINDEX1 =
 "d4/d01/application_8hpp_source.html":[6,0,0,10],
 "d4/d0a/format_8hpp.html":[6,0,0,2,25],
 "d4/d0a/format_8hpp_source.html":[6,0,0,2,25],
-"d4/d3a/system__clock__windows_8cpp.html":[6,0,1,3,9,1,1],
+"d4/d3a/system__clock__windows_8cpp.html":[6,0,1,3,11,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[3,0,1,1],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html":[5,0,0,0],
 "d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a139f367e02a2aee18847150bd54856f9":[3,0,1,1,22],
@@ -247,7 +249,5 @@ var NAVTREEINDEX1 =
 "d4/da9/namespacetoy.html#a2e761e3d7b539dbdf6cfeaaac234eead":[3,0,2,66],
 "d4/da9/namespacetoy.html#a2fef40d514c1a38e96d004926fe183d6":[3,0,2,50],
 "d4/da9/namespacetoy.html#a300e65bc1fbafecbcf63f47317198ec4":[3,0,2,75],
-"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341":[3,0,2,28],
-"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a044fc9e908d0f160ae1a8ac300eb2b3d":[3,0,2,28,2],
-"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a88183b946cc5f0e8c96b2e66e1c74a7e":[3,0,2,28,4]
+"d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341":[3,0,2,28]
 };

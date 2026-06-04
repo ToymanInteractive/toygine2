@@ -1,21 +1,25 @@
 <map id="include/core/platform.hpp" name="include/core/platform.hpp">
-<area shape="rect" id="Node000001" title="Platform and CPU architecture enums with compile&#45;time and runtime detection." alt="" coords="3191,5,3381,31"/>
+<area shape="rect" id="Node000001" title="Platform and CPU architecture enums with compile&#45;time and runtime detection." alt="" coords="3294,5,3483,31"/>
 <area shape="rect" id="Node000002" href="$da/d47/core_8hpp.html" title="Umbrella header for the engine core module." alt="" coords="2855,167,2984,192"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3177,25,3031,31,2872,41,2738,58,2693,68,2669,81,2658,101,2661,118,2678,132,2705,144,2778,162,2854,171,2854,176,2777,167,2704,149,2675,137,2657,120,2652,100,2665,77,2691,63,2737,52,2871,36,3031,25,3177,19"/>
-<area shape="rect" id="Node000034" href="$d5/d82/3ds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo 3DS." alt="" coords="2679,79,2874,119"/>
-<area shape="poly" id="edge41_Node000001_Node000034" title=" " alt="" coords="3192,35,2886,81,2875,83,2874,78,2885,76,3192,30"/>
-<area shape="rect" id="Node000035" href="$df/db1/gba_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo GBA." alt="" coords="2899,79,3095,119"/>
-<area shape="poly" id="edge42_Node000001_Node000035" title=" " alt="" coords="3231,37,3067,81,3065,76,3230,32"/>
-<area shape="rect" id="Node000036" href="$dd/d9e/linux_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Linux." alt="" coords="3119,79,3275,119"/>
-<area shape="poly" id="edge43_Node000001_Node000036" title=" " alt="" coords="3264,42,3220,81,3216,77,3261,38"/>
-<area shape="rect" id="Node000037" href="$d8/d80/macos_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for macOS." alt="" coords="3299,79,3455,119"/>
-<area shape="poly" id="edge45_Node000001_Node000037" title=" " alt="" coords="3311,38,3356,76,3353,81,3308,42"/>
-<area shape="rect" id="Node000038" href="$dc/d74/nds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo DS." alt="" coords="3479,79,3674,119"/>
-<area shape="poly" id="edge46_Node000001_Node000038" title=" " alt="" coords="3342,32,3507,76,3506,81,3341,37"/>
-<area shape="rect" id="Node000039" href="$db/d83/switch_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Switch." alt="" coords="3699,79,3855,119"/>
-<area shape="poly" id="edge47_Node000001_Node000039" title=" " alt="" coords="3386,30,3686,76,3699,78,3698,84,3685,81,3385,35"/>
-<area shape="rect" id="Node000040" href="$db/d29/windows_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Windows." alt="" coords="3879,79,4048,119"/>
-<area shape="poly" id="edge48_Node000001_Node000040" title=" " alt="" coords="3395,25,3613,45,3868,76,3879,78,3878,83,3867,81,3613,50,3394,30"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="3280,22,3085,24,2861,33,2757,40,2668,51,2602,64,2581,72,2568,81,2556,96,2552,109,2553,121,2560,131,2588,148,2632,161,2687,169,2745,174,2854,177,2854,182,2745,179,2686,174,2631,166,2586,153,2556,135,2548,123,2546,109,2551,94,2564,77,2578,67,2601,59,2667,45,2756,35,2861,27,3085,19,3280,16"/>
+<area shape="rect" id="Node000034" href="$d5/d82/3ds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo 3DS." alt="" coords="2578,79,2773,119"/>
+<area shape="poly" id="edge41_Node000001_Node000034" title=" " alt="" coords="3280,30,3052,51,2785,81,2773,83,2773,78,2784,76,3051,45,3280,25"/>
+<area shape="rect" id="Node000035" href="$da/d3c/gamecube_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo GameCube." alt="" coords="2797,79,2977,119"/>
+<area shape="poly" id="edge42_Node000001_Node000035" title=" " alt="" coords="3293,35,2989,81,2978,83,2977,78,2988,76,3292,30"/>
+<area shape="rect" id="Node000036" href="$df/db1/gba_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo GBA." alt="" coords="3001,79,3197,119"/>
+<area shape="poly" id="edge43_Node000001_Node000036" title=" " alt="" coords="3334,37,3169,81,3168,76,3333,32"/>
+<area shape="rect" id="Node000037" href="$dd/d9e/linux_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Linux." alt="" coords="3221,79,3377,119"/>
+<area shape="poly" id="edge44_Node000001_Node000037" title=" " alt="" coords="3367,42,3322,81,3319,77,3363,38"/>
+<area shape="rect" id="Node000038" href="$d8/d80/macos_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for macOS." alt="" coords="3401,79,3557,119"/>
+<area shape="poly" id="edge46_Node000001_Node000038" title=" " alt="" coords="3414,38,3459,76,3456,81,3410,42"/>
+<area shape="rect" id="Node000039" href="$dc/d74/nds_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo DS." alt="" coords="3582,79,3777,119"/>
+<area shape="poly" id="edge47_Node000001_Node000039" title=" " alt="" coords="3445,32,3610,76,3609,81,3443,37"/>
+<area shape="rect" id="Node000040" href="$db/d83/switch_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Switch." alt="" coords="3801,79,3957,119"/>
+<area shape="poly" id="edge48_Node000001_Node000040" title=" " alt="" coords="3489,30,3789,76,3802,78,3801,84,3788,81,3488,35"/>
+<area shape="rect" id="Node000041" href="$d1/d95/wii_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Nintendo Wii." alt="" coords="3981,79,4172,119"/>
+<area shape="poly" id="edge49_Node000001_Node000041" title=" " alt="" coords="3497,25,3716,46,3970,76,3981,78,3980,83,3970,81,3715,51,3497,31"/>
+<area shape="rect" id="Node000042" href="$db/d29/windows_2platform__config_8hpp.html" title="Compile&#45;time platform and CPU bindings for Windows." alt="" coords="4196,79,4365,119"/>
+<area shape="poly" id="edge50_Node000001_Node000042" title=" " alt="" coords="3497,21,3807,39,3996,54,4185,76,4196,78,4195,83,4184,81,3995,60,3806,44,3497,26"/>
 <area shape="rect" id="Node000003" href="$d4/d01/application_8hpp.html" title="Umbrella header for the application module." alt="" coords="650,247,823,273"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="2841,186,823,258,823,253,2841,181"/>
 <area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="1860,431,2019,456"/>
@@ -86,5 +90,5 @@
 <area shape="poly" id="edge25_Node000019_Node000004" title=" " alt="" coords="2460,274,2554,301,2592,314,2612,326,2621,341,2624,356,2621,370,2612,385,2581,400,2525,412,2363,429,2177,439,2019,444,2019,438,2177,434,2363,424,2524,407,2579,395,2608,381,2616,368,2619,356,2616,343,2608,330,2589,319,2552,306,2458,279"/>
 <area shape="rect" id="Node000020" href="$db/d3d/pixel__format_8cpp.html" title="Definitions for pixelFormatName() and pixelFormatFromName() declared in render/pixel_format...." alt="" coords="2673,343,2873,368"/>
 <area shape="poly" id="edge26_Node000019_Node000020" title=" " alt="" coords="2460,273,2727,340,2726,345,2459,279"/>
-<area shape="poly" id="edge44_Node000036_Node000002" title=" " alt="" coords="3117,125,2960,169,2959,164,3116,120"/>
+<area shape="poly" id="edge45_Node000037_Node000002" title=" " alt="" coords="3208,121,2975,169,2974,164,3207,116"/>
 </map>

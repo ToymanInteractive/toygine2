@@ -31,8 +31,8 @@ var NAVTREEINDEX0 =
 "d0/d68/message__box__return_8hpp_source.html":[6,0,0,8,0,2],
 "d0/d74/clear__flags_8hpp.html":[6,0,0,9,0],
 "d0/d74/clear__flags_8hpp_source.html":[6,0,0,9,0],
-"d0/d8a/core__application__linux_8cpp.html":[6,0,1,3,3,0,0],
-"d0/db3/clock__source__windows_8cpp.html":[6,0,1,3,9,1,0],
+"d0/d8a/core__application__linux_8cpp.html":[6,0,1,3,4,0,0],
+"d0/db3/clock__source__windows_8cpp.html":[6,0,1,3,11,1,0],
 "d0/dbb/core__application_8cpp.html":[6,0,1,0,1],
 "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html":[3,0,2,2,0],
 "d0/dd3/structtoy_1_1anonymous__namespace_02utils_8cpp_03_1_1_div_mod10.html":[5,0,1,1,0],
@@ -104,6 +104,8 @@ var NAVTREEINDEX0 =
 "d1/d71/audio_8hpp_source.html":[6,0,0,11],
 "d1/d85/filesystem_8hpp.html":[6,0,0,13],
 "d1/d85/filesystem_8hpp_source.html":[6,0,0,13],
+"d1/d95/wii_2platform__config_8hpp.html":[6,0,1,3,10,0],
+"d1/d95/wii_2platform__config_8hpp_source.html":[6,0,1,3,10,0],
 "d1/dca/concepttoy_1_1math_1_1_point_scalar.html":[3,0,2,11,8],
 "d1/dca/concepttoy_1_1math_1_1_point_scalar.html":[4,0,1,2],
 "d2/d2b/core_2utils_8inl.html":[6,0,0,2,48],
@@ -247,7 +249,5 @@ var NAVTREEINDEX0 =
 "d3/d7a/classtoy_1_1_fixed_string.html#a0e22ed47bb862ef020b23cd685f9ac56":[2,3,1,1,56],
 "d3/d7a/classtoy_1_1_fixed_string.html#a1ad2b4e15e4d0a78c2675c8fdf85e49a":[2,3,1,1,69],
 "d3/d7a/classtoy_1_1_fixed_string.html#a1adeddf0595ab0a0db264c98ac9582cb":[2,3,1,1,81],
-"d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611":[2,3,1,1,6],
-"d3/d7a/classtoy_1_1_fixed_string.html#a1c304eb847c05f3c1105335485a0491e":[2,3,1,1,19],
-"d3/d7a/classtoy_1_1_fixed_string.html#a1d04360b41223ac8f8c400ccbe1c1695":[2,3,1,1,50]
+"d3/d7a/classtoy_1_1_fixed_string.html#a1bc62052d551277ac99f014b6adf6611":[2,3,1,1,6]
 };
