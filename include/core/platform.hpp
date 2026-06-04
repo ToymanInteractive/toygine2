@@ -37,7 +37,7 @@ namespace toy {
   \brief Target operating system or platform identifier.
 
   Hex values in distinct ranges (desktop \c 0x1000-\c 0x3000, mobile \c 0x3100-\c 0x4000, consoles
-  \c 0x5000-\c 0x8000) allow compile-time \c if \c constexpr and combination with \ref toy::CpuArchitecture.
+  \c 0x5000-\c 0xA000) allow compile-time \c if \c constexpr and combination with \ref toy::CpuArchitecture.
 
   \section features Key Features
 
@@ -91,14 +91,21 @@ enum class Platform : uint16_t {
 
   /// Nintendo Switch hybrid gaming console
   Switch = 0x8000,
+
+  /// Nintendo GameCube home gaming console
+  GameCube = 0x9000,
+
+  /// Nintendo Wii home gaming console
+  Wii = 0xA000,
 };
 
 /*!
   \enum CpuArchitecture
   \brief CPU or instruction-set architecture identifier.
 
-  Hex values in distinct ranges (Intel \c 0x0014-\c 0x0018, ARM \c 0x0024-\c 0x0028) allow compile-time checks and
-  combination with \ref toy::Platform for platform-and-architecture conditional code.
+  Hex values in distinct ranges (Intel \c 0x0014-\c 0x0018, ARM \c 0x0024-\c 0x0028, PowerPC \c 0x0044) allow
+  compile-time checks and combination with \ref toy::Platform for platform-and-architecture conditional code.
+  \ref toy::CpuArchitecture::Unknown (\c 0x0000) denotes an unspecified architecture.
 
   \section features Key Features
 
@@ -138,6 +145,9 @@ enum class CpuArchitecture : uint16_t {
 
   /// ARM 64-bit instruction set architecture (ARMv8-A AArch64, ARM64)
   Arm64 = 0x0028,
+
+  /// PowerPC 32-bit instruction set architecture (PowerPC 32-bit)
+  PowerPC32 = 0x0044,
 
   /// Unspecified or unknown architecture
   Unknown = 0x0000,

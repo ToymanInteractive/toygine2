@@ -176,7 +176,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(GBA)
-  include(Platform/NintendoGBA)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -205,7 +204,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(NDS)
-  include(Platform/NintendoDS)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -234,7 +232,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(3DS)
-  include(Platform/Nintendo3DS)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
@@ -263,7 +260,62 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
 
   include(Switch)
-  include(Platform/NintendoSwitch)
+
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+    message(FATAL_ERROR "GCC >= 15.2 required")
+  endif ()
+
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti")
+
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
+
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+
+  if (NOT DEVKITPRO_FOUND)
+    message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif ()
+
+  list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
+
+  include(GameCube)
+
+  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
+    message(FATAL_ERROR "GCC >= 15.2 required")
+  endif ()
+
+  set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti")
+
+  set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}")
+  set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG}")
+
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${GCC_C_FLAGS_RELWITHDEBINFO}")
+  set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${GCC_CXX_FLAGS_RELWITHDEBINFO}")
+
+  set(CMAKE_C_FLAGS_RELEASE          "${GCC_C_FLAGS_RELEASE}")
+  set(CMAKE_CXX_FLAGS_RELEASE        "${GCC_CXX_FLAGS_RELEASE}")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
+
+  if (NOT DEVKITPRO_FOUND)
+    message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif ()
+
+  list(APPEND CMAKE_MODULE_PATH "${DEVKITPRO_ROOT}/cmake")
+
+  include(Wii)
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 

@@ -161,7 +161,7 @@ uint32_t crc32(const void * src, size_t size, uint32_t crc) noexcept {
 
   while (size > 0) {
     --size;
-    crc = _crc32Table[static_cast<size_t>((crc ^ (*data++)) & 0xFF)] ^ (crc >> 8);
+    crc = _crc32Table[(crc ^ (*data++)) & 0xFF] ^ (crc >> 8);
   }
 
   return ~crc;
