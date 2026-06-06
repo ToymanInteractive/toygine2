@@ -59,7 +59,7 @@ Configure, build, and run tests:
 ```sh
 cmake --preset linux-release
 cmake --build --preset linux-release
-ctest --preset linux-debug
+ctest --preset linux-release
 ```
 
 ### Preset naming
@@ -77,7 +77,7 @@ Presets follow `<platform>[-<generator>]-<tier>`.
 
 | Platform          | Presets                                                      | Generator             |
 | ----------------- | ------------------------------------------------------------ | --------------------- |
-| Linux             | `linux-debug`, `linux-release`, `linux-shipping` `           | Ninja                 |
+| Linux             | `linux-debug`, `linux-release`, `linux-shipping`             | Ninja                 |
 | macOS             | `macos-debug`, `macos-release`, `macos-shipping`             | Ninja                 |
 | macOS (Xcode)     | `macos-xcode`                                                | Xcode                 |
 | Windows           | `windows-msvc`, `windows-msvc-x86`                           | Visual Studio 17 2022 |

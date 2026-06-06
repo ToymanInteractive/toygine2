@@ -316,7 +316,7 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-tests-coverage
+          cmake --preset linux-tests-coverage
 
       - name: Collect JUnit
         run: |
