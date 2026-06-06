@@ -113,125 +113,97 @@
             }
         },
         {
-            "name": "linux-ninja-release",
-            "displayName": "Linux Ninja release",
-            "description": "ToyGine 2 Linux Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
+            "name": "with-dev-tools",
+            "hidden": true,
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
+        },
+        {
+            "name": "with-tests-bench",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_TESTS": "ON"
+            }
+        },
+        {
+            "name": "with-tests",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_TESTS": "ON"
+            }
+        },
+        {
+            "name": "linux-ninja-release",
+            "displayName": "Linux Ninja release",
+            "description": "ToyGine 2 Linux Ninja Release Build",
+            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "macos-ninja-release",
             "displayName": "macOS Ninja release",
             "description": "ToyGine 2 MacOS Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "macos-xcode",
             "displayName": "macOS XCode",
             "description": "ToyGine 2 MacOS XCode Build",
-            "inherits": ["platform-macos-xcode", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["platform-macos-xcode", "with-dev-tools", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "windows-msvc",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
-            "inherits": ["platform-windows-x64", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["platform-windows-x64", "with-dev-tools", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
             "description": "ToyGine 2 Windows MSVC x86 Build",
-            "inherits": ["platform-windows-x86", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["platform-windows-x86", "with-dev-tools", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "gba-ninja-release",
             "displayName": "Nintendo GBA release",
             "description": "ToyGine 2 GBA Ninja Release Build",
-            "inherits": ["platform-gba", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["platform-gba", "with-dev-tools", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "nds-ninja-release",
             "displayName": "Nintendo DS release",
             "description": "ToyGine 2 NDS Ninja Release Build",
-            "inherits": ["platform-nds", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["platform-nds", "with-tests-bench", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "3ds-ninja-release",
             "displayName": "Nintendo 3DS release",
             "description": "ToyGine 2 3DS Ninja Release Build",
-            "inherits": ["platform-3ds", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "OFF",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF"
-            }
+            "inherits": ["platform-3ds", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "switch-ninja-release",
             "displayName": "Nintendo Switch release",
             "description": "ToyGine 2 Switch Ninja Release Build",
-            "inherits": ["platform-switch", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "ON"
-            }
+            "inherits": ["platform-switch", "with-tests-bench", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "gamecube-ninja-release",
             "displayName": "Nintendo GameCube release",
             "description": "ToyGine 2 GameCube Ninja Release Build",
-            "inherits": ["platform-gamecube", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "OFF",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF"
-            }
+            "inherits": ["platform-gamecube", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "wii-ninja-release",
             "displayName": "Nintendo Wii release",
             "description": "ToyGine 2 Wii Ninja Release Build",
-            "inherits": ["platform-wii", "type-relwithdebinfo", "base-release"],
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "OFF",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF"
-            }
+            "inherits": ["platform-wii", "type-relwithdebinfo", "base-release"]
         },
         {
             "name": "linux-ninja-debug",
@@ -255,11 +227,7 @@
             "name": "linux-ninja-tests-coverage",
             "displayName": "Linux Ninja tests coverage",
             "description": "ToyGine 2 Linux Ninja Test Coverage",
-            "inherits": "linux-ninja-debug",
-            "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "OFF",
-                "TOYGINE_BUILD_SAMPLES": "OFF"
-            }
+            "inherits": ["with-tests", "linux-ninja-debug"]
         }
     ],
     "buildPresets": [
