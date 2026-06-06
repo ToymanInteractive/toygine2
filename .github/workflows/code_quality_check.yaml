@@ -64,8 +64,8 @@ jobs:
       - if: ${{ matrix.build-mode == 'manual' }}
         shell: bash
         run: |
-          cmake -DTOYGINE_BUILD_DOCS=OFF --preset linux-ninja-debug
-          cmake --build --preset linux-ninja-debug --parallel
+          cmake -DTOYGINE_BUILD_DOCS=OFF --preset linux-debug
+          cmake --build --preset linux-debug --parallel
           echo "CODEQL_CPP_COMPILATION_DATABASE=${{ github.workspace }}/out/build/compile_commands.json" >> $GITHUB_ENV
 
       - name: Perform CodeQL Analysis

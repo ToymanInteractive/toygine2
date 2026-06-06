@@ -45,3 +45,44 @@ ToyGine2 is a modern C++ high‑level engine.
 - CMake 3.31 or newer
 - Doxygen 1.16+ and Graphviz (for documentation)
 - ClangFormat 22
+
+## Building
+
+The project is built with [CMake presets](https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html) (schema v10, CMake 3.31+). List everything available:
+
+```sh
+cmake --list-presets
+```
+
+Configure, build, and run tests:
+
+```sh
+cmake --preset linux-release
+cmake --build --preset linux-release
+ctest --preset linux-release
+```
+
+### Preset naming
+
+Presets follow `<platform>[-<generator>]-<tier>`.
+
+- **Generator:** [Ninja](https://ninja-build.org/) is the default and is omitted from the name. A generator suffix appears only when it differs from the default: `-xcode` (Xcode), `windows-msvc` (Visual Studio).
+- **Tier:**
+  - `debug` — `Debug` build type, developer tools (tests, samples, benchmarks) enabled.
+  - `release` — `RelWithDebInfo` (optimized, with debug info), developer tools enabled.
+  - `shipping` — `Release` (optimized, no debug info), developer tools disabled. Lean distributable build.
+  - `tests-coverage` — Debug build with coverage instrumentation (Linux). Special-purpose preset used by CI/CD for coverage reporting; not intended for local development.
+
+### Platforms
+
+| Platform          | Presets                                                      | Generator             |
+| ----------------- | ------------------------------------------------------------ | --------------------- |
+| Linux             | `linux-debug`, `linux-release`, `linux-shipping`             | Ninja                 |
+| macOS             | `macos-debug`, `macos-release`, `macos-shipping`             | Ninja                 |
+| macOS (Xcode)     | `macos-xcode`                                                | Xcode                 |
+| Windows           | `windows-msvc`, `windows-msvc-x86`                           | Visual Studio 17 2022 |
+| Nintendo consoles | `gba-*`, `nds-*`, `3ds-*`, `switch-*`, `gamecube-*`, `wii-*` | Ninja                 |
+
+Console presets require [devkitPro](https://devkitpro.org/) with the `DEVKITPRO` environment variable set.
+
+Multi-config generators (Xcode, Visual Studio) select the build type at build time, so they have no dedicated `shipping` preset — build the `Release` configuration explicitly, e.g. `cmake --build --preset macos-xcode --config Release`.
