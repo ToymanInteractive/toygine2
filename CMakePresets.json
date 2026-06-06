@@ -20,7 +20,6 @@
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
                 "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
                 "PACKAGE_NAME_SUFFIX": "$env{BUILD_NAME_SUFFIX}",
-                "CMAKE_BUILD_TYPE": "RelWithDebInfo",
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "OFF",
@@ -29,10 +28,24 @@
             }
         },
         {
+            "name": "type-debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "type-relwithdebinfo",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
             "name": "linux-ninja-release",
             "displayName": "Linux Ninja release",
             "description": "ToyGine 2 Linux Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
@@ -43,7 +56,7 @@
             "name": "macos-ninja-release",
             "displayName": "macOS Ninja release",
             "description": "ToyGine 2 MacOS Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
@@ -54,7 +67,7 @@
             "name": "macos-xcode",
             "displayName": "macOS XCode",
             "description": "ToyGine 2 MacOS XCode Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "generator": "Xcode",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
@@ -66,7 +79,7 @@
             "name": "windows-msvc",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "generator": "Visual Studio 17 2022",
             "architecture": {
                 "value": "x64",
@@ -82,7 +95,7 @@
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
             "description": "ToyGine 2 Windows MSVC x86 Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "generator": "Visual Studio 17 2022",
             "architecture": {
                 "value": "Win32",
@@ -98,7 +111,7 @@
             "name": "gba-ninja-release",
             "displayName": "Nintendo GBA release",
             "description": "ToyGine 2 GBA Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
@@ -111,7 +124,7 @@
             "name": "nds-ninja-release",
             "displayName": "Nintendo DS release",
             "description": "ToyGine 2 NDS Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
@@ -124,7 +137,7 @@
             "name": "3ds-ninja-release",
             "displayName": "Nintendo 3DS release",
             "description": "ToyGine 2 3DS Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
@@ -137,7 +150,7 @@
             "name": "switch-ninja-release",
             "displayName": "Nintendo Switch release",
             "description": "ToyGine 2 Switch Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
@@ -150,7 +163,7 @@
             "name": "gamecube-ninja-release",
             "displayName": "Nintendo GameCube release",
             "description": "ToyGine 2 GameCube Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "toolchainFile": "$env{DEVKITPRO}/cmake/GameCube.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
@@ -163,7 +176,7 @@
             "name": "wii-ninja-release",
             "displayName": "Nintendo Wii release",
             "description": "ToyGine 2 Wii Ninja Release Build",
-            "inherits": "base-release",
+            "inherits": ["type-relwithdebinfo", "base-release"],
             "toolchainFile": "$env{DEVKITPRO}/cmake/Wii.cmake",
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
@@ -176,28 +189,19 @@
             "name": "linux-ninja-debug",
             "displayName": "Linux Ninja debug",
             "description": "ToyGine 2 Linux Ninja Debug Build",
-            "inherits": "linux-ninja-release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
+            "inherits": ["type-debug", "linux-ninja-release"]
         },
         {
             "name": "macos-ninja-debug",
             "displayName": "macOS Ninja debug",
             "description": "ToyGine 2 MacOS Ninja Debug Build",
-            "inherits": "macos-ninja-release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
+            "inherits": ["type-debug", "macos-ninja-release"]
         },
         {
             "name": "gba-ninja-debug",
             "displayName": "Nintendo GBA debug",
             "description": "ToyGine 2 GBA Ninja Debug Build",
-            "inherits": "gba-ninja-release",
-            "cacheVariables": {
-                "CMAKE_BUILD_TYPE": "Debug"
-            }
+            "inherits": ["type-debug", "gba-ninja-release"]
         },
         {
             "name": "linux-ninja-tests-coverage",
