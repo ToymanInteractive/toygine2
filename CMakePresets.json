@@ -7,15 +7,10 @@
     },
     "configurePresets": [
         {
-            "name": "release-binary-dir",
-            "hidden": true,
-            "binaryDir": "${sourceDir}/out/build/${presetName}"
-        },
-        {
-            "name": "base-release",
-            "inherits": "release-binary-dir",
+            "name": "base",
             "hidden": true,
             "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
                 "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
@@ -39,6 +34,13 @@
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "type-release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
             }
         },
         {
@@ -143,91 +145,139 @@
             "name": "linux-ninja-release",
             "displayName": "Linux Ninja release",
             "description": "ToyGine 2 Linux Ninja Release Build",
-            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base-release"]
+            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "macos-ninja-release",
             "displayName": "macOS Ninja release",
             "description": "ToyGine 2 MacOS Ninja Release Build",
-            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base-release"]
+            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "macos-xcode",
             "displayName": "macOS XCode",
             "description": "ToyGine 2 MacOS XCode Build",
-            "inherits": ["platform-macos-xcode", "with-dev-tools", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-macos-xcode", "with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "windows-msvc",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
-            "inherits": ["platform-windows-x64", "with-dev-tools", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-windows-x64", "with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
             "description": "ToyGine 2 Windows MSVC x86 Build",
-            "inherits": ["platform-windows-x86", "with-dev-tools", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-windows-x86", "with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "gba-ninja-release",
             "displayName": "Nintendo GBA release",
             "description": "ToyGine 2 GBA Ninja Release Build",
-            "inherits": ["platform-gba", "with-dev-tools", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-gba", "with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "nds-ninja-release",
             "displayName": "Nintendo DS release",
             "description": "ToyGine 2 NDS Ninja Release Build",
-            "inherits": ["platform-nds", "with-tests-bench", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-nds", "with-tests-bench", "type-relwithdebinfo", "base"]
         },
         {
             "name": "3ds-ninja-release",
             "displayName": "Nintendo 3DS release",
             "description": "ToyGine 2 3DS Ninja Release Build",
-            "inherits": ["platform-3ds", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-3ds", "type-relwithdebinfo", "base"]
         },
         {
             "name": "switch-ninja-release",
             "displayName": "Nintendo Switch release",
             "description": "ToyGine 2 Switch Ninja Release Build",
-            "inherits": ["platform-switch", "with-tests-bench", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-switch", "with-tests-bench", "type-relwithdebinfo", "base"]
         },
         {
             "name": "gamecube-ninja-release",
             "displayName": "Nintendo GameCube release",
             "description": "ToyGine 2 GameCube Ninja Release Build",
-            "inherits": ["platform-gamecube", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-gamecube", "type-relwithdebinfo", "base"]
         },
         {
             "name": "wii-ninja-release",
             "displayName": "Nintendo Wii release",
             "description": "ToyGine 2 Wii Ninja Release Build",
-            "inherits": ["platform-wii", "type-relwithdebinfo", "base-release"]
+            "inherits": ["platform-wii", "type-relwithdebinfo", "base"]
         },
         {
             "name": "linux-ninja-debug",
             "displayName": "Linux Ninja debug",
             "description": "ToyGine 2 Linux Ninja Debug Build",
-            "inherits": ["type-debug", "linux-ninja-release"]
+            "inherits": ["with-dev-tools", "type-debug", "base"]
         },
         {
             "name": "macos-ninja-debug",
             "displayName": "macOS Ninja debug",
             "description": "ToyGine 2 MacOS Ninja Debug Build",
-            "inherits": ["type-debug", "macos-ninja-release"]
+            "inherits": ["with-dev-tools", "type-debug", "base"]
         },
         {
             "name": "gba-ninja-debug",
             "displayName": "Nintendo GBA debug",
             "description": "ToyGine 2 GBA Ninja Debug Build",
-            "inherits": ["type-debug", "gba-ninja-release"]
+            "inherits": ["platform-gba", "with-dev-tools", "type-debug", "base"]
         },
         {
             "name": "linux-ninja-tests-coverage",
             "displayName": "Linux Ninja tests coverage",
             "description": "ToyGine 2 Linux Ninja Test Coverage",
-            "inherits": ["with-tests", "linux-ninja-debug"]
+            "inherits": ["with-tests", "type-debug", "base"]
+        },
+        {
+            "name": "linux-ninja-shipping",
+            "displayName": "Linux Ninja shipping",
+            "description": "ToyGine 2 Linux Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["type-release", "base"]
+        },
+        {
+            "name": "macos-ninja-shipping",
+            "displayName": "macOS Ninja shipping",
+            "description": "ToyGine 2 MacOS Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["type-release", "base"]
+        },
+        {
+            "name": "gba-ninja-shipping",
+            "displayName": "Nintendo GBA shipping",
+            "description": "ToyGine 2 GBA Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["platform-gba", "type-release", "base"]
+        },
+        {
+            "name": "nds-ninja-shipping",
+            "displayName": "Nintendo DS shipping",
+            "description": "ToyGine 2 NDS Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["platform-nds", "type-release", "base"]
+        },
+        {
+            "name": "3ds-ninja-shipping",
+            "displayName": "Nintendo 3DS shipping",
+            "description": "ToyGine 2 3DS Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["platform-3ds", "type-release", "base"]
+        },
+        {
+            "name": "switch-ninja-shipping",
+            "displayName": "Nintendo Switch shipping",
+            "description": "ToyGine 2 Switch Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["platform-switch", "type-release", "base"]
+        },
+        {
+            "name": "gamecube-ninja-shipping",
+            "displayName": "Nintendo GameCube shipping",
+            "description": "ToyGine 2 GameCube Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["platform-gamecube", "type-release", "base"]
+        },
+        {
+            "name": "wii-ninja-shipping",
+            "displayName": "Nintendo Wii shipping",
+            "description": "ToyGine 2 Wii Ninja Shipping Build (Release, no debug info)",
+            "inherits": ["platform-wii", "type-release", "base"]
         }
     ],
     "buildPresets": [
@@ -240,6 +290,11 @@
             "name": "default-release",
             "hidden": true,
             "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "default-shipping",
+            "hidden": true,
+            "configuration": "Release"
         },
         {
             "name": "linux-ninja-release",
@@ -315,6 +370,61 @@
             "name": "linux-ninja-tests-coverage",
             "configurePreset": "linux-ninja-tests-coverage",
             "inherits": "linux-ninja-debug"
+        },
+        {
+            "name": "linux-ninja-shipping",
+            "configurePreset": "linux-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "macos-ninja-shipping",
+            "configurePreset": "macos-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "macos-xcode-shipping",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "windows-msvc-shipping",
+            "configurePreset": "windows-msvc",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "windows-msvc-x86-shipping",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "gba-ninja-shipping",
+            "configurePreset": "gba-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "nds-ninja-shipping",
+            "configurePreset": "nds-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "3ds-ninja-shipping",
+            "configurePreset": "3ds-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "switch-ninja-shipping",
+            "configurePreset": "switch-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "gamecube-ninja-shipping",
+            "configurePreset": "gamecube-ninja-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "wii-ninja-shipping",
+            "configurePreset": "wii-ninja-shipping",
+            "inherits": "default-shipping"
         }
     ],
     "testPresets": [
