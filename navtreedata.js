@@ -30,6 +30,10 @@ var NAVTREE =
       [ "Minimum OS versions", "index.html#minimum-os-versions", null ],
       [ "Tools", "index.html#tools", null ]
     ] ],
+    [ "Building", "index.html#building", [
+      [ "Preset naming", "index.html#preset-naming", null ],
+      [ "Platforms", "index.html#platforms", null ]
+    ] ],
     [ "AI AGENTS rules for This Repository", "df/d81/md__a_g_e_n_t_s.html", [
       [ "Interaction Guidelines", "df/d81/md__a_g_e_n_t_s.html#interaction-guidelines", null ],
       [ "Project Structure", "df/d81/md__a_g_e_n_t_s.html#project-structure", null ],
@@ -164,7 +168,7 @@ var NAVTREEINDEX =
 "d7/dec/classtoy_1_1_fixed_vector.html#ac66fdf023303871d1e81d4f32fe1437c",
 "db/d33/string__fixed__storage_8inl.html",
 "df/d25/classtoy_1_1geometry_1_1_circle.html#ae736dc7e617fbe4c73ace9da4a01bbc2",
-"namespacemembers_p.html"
+"namespacemembers_l.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

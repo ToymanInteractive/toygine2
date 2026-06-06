@@ -180,8 +180,47 @@ Tools</h2>
 <ul>
 <li>CMake 3.31 or newer</li>
 <li>Doxygen 1.16+ and Graphviz (for documentation)</li>
-<li>ClangFormat 22 </li>
+<li>ClangFormat 22</li>
 </ul>
+<h1 class="doxsection"><a class="anchor" id="building"></a>
+Building</h1>
+<p>The project is built with <a href="https://cmake.org/cmake/help/latest/manual/cmake-presets.7.html" target="_blank">CMake presets</a> (schema v10, CMake 3.31+). List everything available:</p>
+<div class="fragment"><div class="line">cmake --list-presets</div>
+</div><!-- fragment --><p>Configure, build, and run tests:</p>
+<div class="fragment"><div class="line">cmake --preset linux-release</div>
+<div class="line">cmake --build --preset linux-release</div>
+<div class="line">ctest --preset linux-release</div>
+</div><!-- fragment --><h2 class="doxsection"><a class="anchor" id="preset-naming"></a>
+Preset naming</h2>
+<p>Presets follow <span class="tt">&lt;platform&gt;[-&lt;generator&gt;]-&lt;tier&gt;</span>.</p>
+<ul>
+<li><b>Generator:</b> <a href="https://ninja-build.org/" target="_blank">Ninja</a> is the default and is omitted from the name. A generator suffix appears only when it differs from the default: <span class="tt">-xcode</span> (Xcode), <span class="tt">windows-msvc</span> (Visual Studio).</li>
+<li><b>Tier:</b><ul>
+<li><span class="tt">debug</span> — <span class="tt">Debug</span> build type, developer tools (tests, samples, benchmarks) enabled.</li>
+<li><span class="tt">release</span> — <span class="tt">RelWithDebInfo</span> (optimized, with debug info), developer tools enabled.</li>
+<li><span class="tt">shipping</span> — <span class="tt">Release</span> (optimized, no debug info), developer tools disabled. Lean distributable build.</li>
+<li><span class="tt">tests-coverage</span> — Debug build with coverage instrumentation (Linux). Special-purpose preset used by CI/CD for coverage reporting; not intended for local development.</li>
+</ul>
+</li>
+</ul>
+<h2 class="doxsection"><a class="anchor" id="platforms"></a>
+Platforms</h2>
+<table class="markdownTable">
+<tr class="markdownTableHead">
+<th class="markdownTableHeadNone">Platform  </th><th class="markdownTableHeadNone">Presets  </th><th class="markdownTableHeadNone">Generator  </th></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Linux  </td><td class="markdownTableBodyNone"><span class="tt">linux-debug</span>, <span class="tt">linux-release</span>, <span class="tt">linux-shipping</span>  </td><td class="markdownTableBodyNone">Ninja  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">macOS  </td><td class="markdownTableBodyNone"><span class="tt">macos-debug</span>, <span class="tt">macos-release</span>, <span class="tt">macos-shipping</span>  </td><td class="markdownTableBodyNone">Ninja  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">macOS (Xcode)  </td><td class="markdownTableBodyNone"><span class="tt">macos-xcode</span>  </td><td class="markdownTableBodyNone">Xcode  </td></tr>
+<tr class="markdownTableRowEven">
+<td class="markdownTableBodyNone">Windows  </td><td class="markdownTableBodyNone"><span class="tt">windows-msvc</span>, <span class="tt">windows-msvc-x86</span>  </td><td class="markdownTableBodyNone">Visual Studio 17 2022  </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">Nintendo consoles  </td><td class="markdownTableBodyNone"><span class="tt">gba-*</span>, <span class="tt">nds-*</span>, <span class="tt">3ds-*</span>, <span class="tt">switch-*</span>, <span class="tt">gamecube-*</span>, <span class="tt">wii-*</span>  </td><td class="markdownTableBodyNone">Ninja  </td></tr>
+</table>
+<p>Console presets require <a href="https://devkitpro.org/" target="_blank">devkitPro</a> with the <span class="tt">DEVKITPRO</span> environment variable set.</p>
+<p>Multi-config generators (Xcode, Visual Studio) select the build type at build time, so they have no dedicated <span class="tt">shipping</span> preset — build the <span class="tt">Release</span> configuration explicitly, e.g. <span class="tt">cmake --build --preset macos-xcode --config Release</span>. </p>
 </div></div><!-- PageDoc -->
 <a href="doxygen_crawl.html"></a>
 </div><!-- contents -->
