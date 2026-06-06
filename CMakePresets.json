@@ -42,6 +42,77 @@
             }
         },
         {
+            "name": "platform-macos-xcode",
+            "hidden": true,
+            "generator": "Xcode"
+        },
+        {
+            "name": "platform-windows-x64",
+            "hidden": true,
+            "generator": "Visual Studio 17 2022",
+            "architecture": {
+                "value": "x64",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "platform-windows-x86",
+            "hidden": true,
+            "generator": "Visual Studio 17 2022",
+            "architecture": {
+                "value": "Win32",
+                "strategy": "set"
+            }
+        },
+        {
+            "name": "platform-gba",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo GBA"
+            }
+        },
+        {
+            "name": "platform-nds",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
+            }
+        },
+        {
+            "name": "platform-3ds",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo 3DS"
+            }
+        },
+        {
+            "name": "platform-switch",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
+            }
+        },
+        {
+            "name": "platform-gamecube",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/GameCube.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo GameCube"
+            }
+        },
+        {
+            "name": "platform-wii",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/Wii.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Wii"
+            }
+        },
+        {
             "name": "linux-ninja-release",
             "displayName": "Linux Ninja release",
             "description": "ToyGine 2 Linux Ninja Release Build",
@@ -67,8 +138,7 @@
             "name": "macos-xcode",
             "displayName": "macOS XCode",
             "description": "ToyGine 2 MacOS XCode Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "generator": "Xcode",
+            "inherits": ["platform-macos-xcode", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
@@ -79,12 +149,7 @@
             "name": "windows-msvc",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "generator": "Visual Studio 17 2022",
-            "architecture": {
-                "value": "x64",
-                "strategy": "set"
-            },
+            "inherits": ["platform-windows-x64", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
@@ -95,12 +160,7 @@
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
             "description": "ToyGine 2 Windows MSVC x86 Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "generator": "Visual Studio 17 2022",
-            "architecture": {
-                "value": "Win32",
-                "strategy": "set"
-            },
+            "inherits": ["platform-windows-x86", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
@@ -111,78 +171,66 @@
             "name": "gba-ninja-release",
             "displayName": "Nintendo GBA release",
             "description": "ToyGine 2 GBA Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
+            "inherits": ["platform-gba", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "ON",
-                "TOYGINE_BUILD_TESTS": "ON",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo GBA"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
             "name": "nds-ninja-release",
             "displayName": "Nintendo DS release",
             "description": "ToyGine 2 NDS Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
+            "inherits": ["platform-nds", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "ON",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
             "name": "3ds-ninja-release",
             "displayName": "Nintendo 3DS release",
             "description": "ToyGine 2 3DS Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
+            "inherits": ["platform-3ds", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo 3DS"
+                "TOYGINE_BUILD_TESTS": "OFF"
             }
         },
         {
             "name": "switch-ninja-release",
             "displayName": "Nintendo Switch release",
             "description": "ToyGine 2 Switch Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
+            "inherits": ["platform-switch", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "ON",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "ON",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
+                "TOYGINE_BUILD_TESTS": "ON"
             }
         },
         {
             "name": "gamecube-ninja-release",
             "displayName": "Nintendo GameCube release",
             "description": "ToyGine 2 GameCube Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "toolchainFile": "$env{DEVKITPRO}/cmake/GameCube.cmake",
+            "inherits": ["platform-gamecube", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo GameCube"
+                "TOYGINE_BUILD_TESTS": "OFF"
             }
         },
         {
             "name": "wii-ninja-release",
             "displayName": "Nintendo Wii release",
             "description": "ToyGine 2 Wii Ninja Release Build",
-            "inherits": ["type-relwithdebinfo", "base-release"],
-            "toolchainFile": "$env{DEVKITPRO}/cmake/Wii.cmake",
+            "inherits": ["platform-wii", "type-relwithdebinfo", "base-release"],
             "cacheVariables": {
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF",
-                "TOYGINE_TARGET_PLATFORM": "Nintendo Wii"
+                "TOYGINE_BUILD_TESTS": "OFF"
             }
         },
         {
