@@ -44,9 +44,26 @@
             }
         },
         {
+            "name": "platform-linux",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Linux Desktop"
+            }
+        },
+        {
+            "name": "platform-macos",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "macOS Desktop"
+            }
+        },
+        {
             "name": "platform-macos-xcode",
             "hidden": true,
-            "generator": "Xcode"
+            "generator": "Xcode",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "macOS Desktop"
+            }
         },
         {
             "name": "platform-windows-x64",
@@ -55,6 +72,9 @@
             "architecture": {
                 "value": "x64",
                 "strategy": "set"
+            },
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Windows Desktop"
             }
         },
         {
@@ -64,6 +84,9 @@
             "architecture": {
                 "value": "Win32",
                 "strategy": "set"
+            },
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Windows Desktop"
             }
         },
         {
@@ -115,11 +138,11 @@
             }
         },
         {
-            "name": "with-dev-tools",
+            "name": "with-tests",
             "hidden": true,
             "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "ON",
-                "TOYGINE_BUILD_SAMPLES": "ON",
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
         },
@@ -133,151 +156,310 @@
             }
         },
         {
-            "name": "with-tests",
+            "name": "with-dev-tools",
             "hidden": true,
             "cacheVariables": {
-                "TOYGINE_BUILD_BENCHMARKS": "OFF",
-                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_BENCHMARKS": "ON",
+                "TOYGINE_BUILD_SAMPLES": "ON",
                 "TOYGINE_BUILD_TESTS": "ON"
             }
-        },
-        {
-            "name": "linux-ninja-release",
-            "displayName": "Linux Ninja release",
-            "description": "ToyGine 2 Linux Ninja Release Build",
-            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "macos-ninja-release",
-            "displayName": "macOS Ninja release",
-            "description": "ToyGine 2 MacOS Ninja Release Build",
-            "inherits": ["with-dev-tools", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "macos-xcode",
-            "displayName": "macOS XCode",
-            "description": "ToyGine 2 MacOS XCode Build",
-            "inherits": ["platform-macos-xcode", "with-dev-tools", "type-relwithdebinfo", "base"]
         },
         {
             "name": "windows-msvc",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
-            "inherits": ["platform-windows-x64", "with-dev-tools", "type-relwithdebinfo", "base"]
+            "inherits": [
+                "platform-windows-x64",
+                "with-dev-tools",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
             "description": "ToyGine 2 Windows MSVC x86 Build",
-            "inherits": ["platform-windows-x86", "with-dev-tools", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "gba-ninja-release",
-            "displayName": "Nintendo GBA release",
-            "description": "ToyGine 2 GBA Ninja Release Build",
-            "inherits": ["platform-gba", "with-dev-tools", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "nds-ninja-release",
-            "displayName": "Nintendo DS release",
-            "description": "ToyGine 2 NDS Ninja Release Build",
-            "inherits": ["platform-nds", "with-tests-bench", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "3ds-ninja-release",
-            "displayName": "Nintendo 3DS release",
-            "description": "ToyGine 2 3DS Ninja Release Build",
-            "inherits": ["platform-3ds", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "switch-ninja-release",
-            "displayName": "Nintendo Switch release",
-            "description": "ToyGine 2 Switch Ninja Release Build",
-            "inherits": ["platform-switch", "with-tests-bench", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "gamecube-ninja-release",
-            "displayName": "Nintendo GameCube release",
-            "description": "ToyGine 2 GameCube Ninja Release Build",
-            "inherits": ["platform-gamecube", "type-relwithdebinfo", "base"]
-        },
-        {
-            "name": "wii-ninja-release",
-            "displayName": "Nintendo Wii release",
-            "description": "ToyGine 2 Wii Ninja Release Build",
-            "inherits": ["platform-wii", "type-relwithdebinfo", "base"]
+            "inherits": [
+                "platform-windows-x86",
+                "with-dev-tools",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "linux-ninja-debug",
             "displayName": "Linux Ninja debug",
             "description": "ToyGine 2 Linux Ninja Debug Build",
-            "inherits": ["with-dev-tools", "type-debug", "base"]
+            "inherits": [
+                "platform-linux",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
         },
         {
-            "name": "macos-ninja-debug",
-            "displayName": "macOS Ninja debug",
-            "description": "ToyGine 2 MacOS Ninja Debug Build",
-            "inherits": ["with-dev-tools", "type-debug", "base"]
-        },
-        {
-            "name": "gba-ninja-debug",
-            "displayName": "Nintendo GBA debug",
-            "description": "ToyGine 2 GBA Ninja Debug Build",
-            "inherits": ["platform-gba", "with-dev-tools", "type-debug", "base"]
-        },
-        {
-            "name": "linux-ninja-tests-coverage",
-            "displayName": "Linux Ninja tests coverage",
-            "description": "ToyGine 2 Linux Ninja Test Coverage",
-            "inherits": ["with-tests", "type-debug", "base"]
+            "name": "linux-ninja-release",
+            "displayName": "Linux Ninja release",
+            "description": "ToyGine 2 Linux Ninja Release Build",
+            "inherits": [
+                "platform-linux",
+                "with-dev-tools",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "linux-ninja-shipping",
             "displayName": "Linux Ninja shipping",
             "description": "ToyGine 2 Linux Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["type-release", "base"]
+            "inherits": [
+                "platform-linux",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-xcode",
+            "displayName": "macOS XCode",
+            "description": "ToyGine 2 MacOS XCode Build",
+            "inherits": [
+                "platform-macos-xcode",
+                "with-dev-tools",
+                "type-relwithdebinfo",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-ninja-debug",
+            "displayName": "macOS Ninja debug",
+            "description": "ToyGine 2 MacOS Ninja Debug Build",
+            "inherits": [
+                "platform-macos",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-ninja-release",
+            "displayName": "macOS Ninja release",
+            "description": "ToyGine 2 MacOS Ninja Release Build",
+            "inherits": [
+                "platform-macos",
+                "with-dev-tools",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "macos-ninja-shipping",
             "displayName": "macOS Ninja shipping",
             "description": "ToyGine 2 MacOS Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["type-release", "base"]
+            "inherits": [
+                "platform-macos",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-ninja-debug",
+            "displayName": "Nintendo GBA debug",
+            "description": "ToyGine 2 GBA Ninja Debug Build",
+            "inherits": [
+                "platform-gba",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-ninja-release",
+            "displayName": "Nintendo GBA release",
+            "description": "ToyGine 2 GBA Ninja Release Build",
+            "inherits": [
+                "platform-gba",
+                "with-dev-tools",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "gba-ninja-shipping",
             "displayName": "Nintendo GBA shipping",
             "description": "ToyGine 2 GBA Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["platform-gba", "type-release", "base"]
+            "inherits": [
+                "platform-gba",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "nds-ninja-debug",
+            "displayName": "Nintendo DS debug",
+            "description": "ToyGine 2 DS Ninja Debug Build",
+            "inherits": [
+                "platform-nds",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "nds-ninja-release",
+            "displayName": "Nintendo DS release",
+            "description": "ToyGine 2 NDS Ninja Release Build",
+            "inherits": [
+                "platform-nds",
+                "with-tests-bench",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "nds-ninja-shipping",
             "displayName": "Nintendo DS shipping",
             "description": "ToyGine 2 NDS Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["platform-nds", "type-release", "base"]
+            "inherits": [
+                "platform-nds",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "3ds-ninja-debug",
+            "displayName": "Nintendo 3DS debug",
+            "description": "ToyGine 2 3DS Ninja Debug Build",
+            "inherits": [
+                "platform-3ds",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "3ds-ninja-release",
+            "displayName": "Nintendo 3DS release",
+            "description": "ToyGine 2 3DS Ninja Release Build",
+            "inherits": [
+                "platform-3ds",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "3ds-ninja-shipping",
             "displayName": "Nintendo 3DS shipping",
             "description": "ToyGine 2 3DS Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["platform-3ds", "type-release", "base"]
+            "inherits": [
+                "platform-3ds",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "switch-ninja-debug",
+            "displayName": "Nintendo Switch debug",
+            "description": "ToyGine 2 Switch Ninja Debug Build",
+            "inherits": [
+                "platform-switch",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "switch-ninja-release",
+            "displayName": "Nintendo Switch release",
+            "description": "ToyGine 2 Switch Ninja Release Build",
+            "inherits": [
+                "platform-switch",
+                "with-tests-bench",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "switch-ninja-shipping",
             "displayName": "Nintendo Switch shipping",
             "description": "ToyGine 2 Switch Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["platform-switch", "type-release", "base"]
+            "inherits": [
+                "platform-switch",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "gamecube-ninja-debug",
+            "displayName": "Nintendo GameCube debug",
+            "description": "ToyGine 2 GameCube Ninja Debug Build",
+            "inherits": [
+                "platform-gamecube",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "gamecube-ninja-release",
+            "displayName": "Nintendo GameCube release",
+            "description": "ToyGine 2 GameCube Ninja Release Build",
+            "inherits": [
+                "platform-gamecube",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "gamecube-ninja-shipping",
             "displayName": "Nintendo GameCube shipping",
             "description": "ToyGine 2 GameCube Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["platform-gamecube", "type-release", "base"]
+            "inherits": [
+                "platform-gamecube",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-ninja-debug",
+            "displayName": "Nintendo Wii debug",
+            "description": "ToyGine 2 Wii Ninja Debug Build",
+            "inherits": [
+                "platform-wii",
+                "with-dev-tools",
+                "type-debug",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-ninja-release",
+            "displayName": "Nintendo Wii release",
+            "description": "ToyGine 2 Wii Ninja Release Build",
+            "inherits": [
+                "platform-wii",
+                "type-relwithdebinfo",
+                "base"
+            ]
         },
         {
             "name": "wii-ninja-shipping",
             "displayName": "Nintendo Wii shipping",
             "description": "ToyGine 2 Wii Ninja Shipping Build (Release, no debug info)",
-            "inherits": ["platform-wii", "type-release", "base"]
+            "inherits": [
+                "platform-wii",
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-ninja-tests-coverage",
+            "displayName": "Linux Ninja tests coverage",
+            "description": "ToyGine 2 Linux Ninja Test Coverage",
+            "inherits": [
+                "platform-linux",
+                "with-tests",
+                "type-debug",
+                "base"
+            ]
         }
     ],
     "buildPresets": [
@@ -297,21 +479,6 @@
             "configuration": "Release"
         },
         {
-            "name": "linux-ninja-release",
-            "configurePreset": "linux-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "macos-ninja-release",
-            "configurePreset": "macos-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "macos-xcode",
-            "configurePreset": "macos-xcode",
-            "inherits": "default-release"
-        },
-        {
             "name": "windows-msvc",
             "configurePreset": "windows-msvc",
             "inherits": "default-release"
@@ -322,54 +489,14 @@
             "inherits": "default-release"
         },
         {
-            "name": "gba-ninja-release",
-            "configurePreset": "gba-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "nds-ninja-release",
-            "configurePreset": "nds-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "3ds-ninja-release",
-            "configurePreset": "3ds-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "switch-ninja-release",
-            "configurePreset": "switch-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "gamecube-ninja-release",
-            "configurePreset": "gamecube-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "wii-ninja-release",
-            "configurePreset": "wii-ninja-release",
-            "inherits": "default-release"
-        },
-        {
             "name": "linux-ninja-debug",
             "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
         },
         {
-            "name": "macos-ninja-debug",
-            "configurePreset": "macos-ninja-debug",
-            "inherits": "default-debug"
-        },
-        {
-            "name": "gba-ninja-debug",
-            "configurePreset": "gba-ninja-debug",
-            "inherits": "default-debug"
-        },
-        {
-            "name": "linux-ninja-tests-coverage",
-            "configurePreset": "linux-ninja-tests-coverage",
-            "inherits": "linux-ninja-debug"
+            "name": "linux-ninja-release",
+            "configurePreset": "linux-ninja-release",
+            "inherits": "default-release"
         },
         {
             "name": "linux-ninja-shipping",
@@ -377,24 +504,34 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-ninja-debug",
+            "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "macos-ninja-release",
+            "configurePreset": "macos-ninja-release",
+            "inherits": "default-release"
+        },
+        {
             "name": "macos-ninja-shipping",
             "configurePreset": "macos-ninja-shipping",
             "inherits": "default-shipping"
         },
         {
-            "name": "macos-xcode-shipping",
-            "configurePreset": "macos-xcode",
-            "inherits": "default-shipping"
+            "name": "gba-ninja-debug",
+            "configurePreset": "gba-ninja-debug",
+            "inherits": "default-debug"
         },
         {
-            "name": "windows-msvc-shipping",
-            "configurePreset": "windows-msvc",
-            "inherits": "default-shipping"
-        },
-        {
-            "name": "windows-msvc-x86-shipping",
-            "configurePreset": "windows-msvc-x86",
-            "inherits": "default-shipping"
+            "name": "gba-ninja-release",
+            "configurePreset": "gba-ninja-release",
+            "inherits": "default-release"
         },
         {
             "name": "gba-ninja-shipping",
@@ -402,9 +539,29 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "nds-ninja-debug",
+            "configurePreset": "nds-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "nds-ninja-release",
+            "configurePreset": "nds-ninja-release",
+            "inherits": "default-release"
+        },
+        {
             "name": "nds-ninja-shipping",
             "configurePreset": "nds-ninja-shipping",
             "inherits": "default-shipping"
+        },
+        {
+            "name": "3ds-ninja-debug",
+            "configurePreset": "3ds-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "3ds-ninja-release",
+            "configurePreset": "3ds-ninja-release",
+            "inherits": "default-release"
         },
         {
             "name": "3ds-ninja-shipping",
@@ -412,9 +569,29 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "switch-ninja-debug",
+            "configurePreset": "switch-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "switch-ninja-release",
+            "configurePreset": "switch-ninja-release",
+            "inherits": "default-release"
+        },
+        {
             "name": "switch-ninja-shipping",
             "configurePreset": "switch-ninja-shipping",
             "inherits": "default-shipping"
+        },
+        {
+            "name": "gamecube-ninja-debug",
+            "configurePreset": "gamecube-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "gamecube-ninja-release",
+            "configurePreset": "gamecube-ninja-release",
+            "inherits": "default-release"
         },
         {
             "name": "gamecube-ninja-shipping",
@@ -422,9 +599,24 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "wii-ninja-debug",
+            "configurePreset": "wii-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "wii-ninja-release",
+            "configurePreset": "wii-ninja-release",
+            "inherits": "default-release"
+        },
+        {
             "name": "wii-ninja-shipping",
             "configurePreset": "wii-ninja-shipping",
             "inherits": "default-shipping"
+        },
+        {
+            "name": "linux-ninja-tests-coverage",
+            "configurePreset": "linux-ninja-tests-coverage",
+            "inherits": "linux-ninja-debug"
         }
     ],
     "testPresets": [
