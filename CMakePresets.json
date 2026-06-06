@@ -621,7 +621,7 @@
     ],
     "testPresets": [
         {
-            "name": "default-debug",
+            "name": "default",
             "hidden": true,
             "output": {
                 "shortProgress": true,
@@ -631,37 +631,19 @@
             "execution": {
                 "stopOnFailure": true,
                 "jobs": 0
-            },
+            }
+        },
+        {
+            "name": "default-debug",
+            "hidden": true,
+            "inherits": "default",
             "configuration": "Debug"
         },
         {
             "name": "default-release",
             "hidden": true,
-            "output": {
-                "shortProgress": true,
-                "verbosity": "default",
-                "outputOnFailure": true
-            },
-            "execution": {
-                "stopOnFailure": true,
-                "jobs": 0
-            },
+            "inherits": "default",
             "configuration": "RelWithDebInfo"
-        },
-        {
-            "name": "linux-ninja-release",
-            "configurePreset": "linux-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "macos-ninja-release",
-            "configurePreset": "macos-ninja-release",
-            "inherits": "default-release"
-        },
-        {
-            "name": "macos-xcode",
-            "configurePreset": "macos-xcode",
-            "inherits": "default-release"
         },
         {
             "name": "windows-msvc",
@@ -674,17 +656,29 @@
             "inherits": "default-release"
         },
         {
-            "name": "macos-ninja-debug",
-            "configurePreset": "macos-ninja-debug",
-            "inherits": "default-debug",
-            "execution": {
-                "stopOnFailure": true
-            }
-        },
-        {
             "name": "linux-ninja-debug",
             "configurePreset": "linux-ninja-debug",
             "inherits": "default-debug"
+        },
+        {
+            "name": "linux-ninja-release",
+            "configurePreset": "linux-ninja-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-ninja-debug",
+            "configurePreset": "macos-ninja-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "macos-ninja-release",
+            "configurePreset": "macos-ninja-release",
+            "inherits": "default-release"
         },
         {
             "name": "linux-ninja-tests-coverage",
