@@ -30,14 +30,14 @@ jobs:
             run_benchmarks: "true"
             bencher_testbed: ubuntu-x64
             run_test: "true"
-            cmake_preset: linux-ninja-release
+            cmake_preset: linux-release
 
           - name: Linux Ninja arm64
             os: ubuntu-24.04-arm
             run_benchmarks: "true"
             bencher_testbed: ubuntu-arm64
             run_test: "true"
-            cmake_preset: linux-ninja-release
+            cmake_preset: linux-release
 
           - name: macOS XCode arm64
             os: macos-26
@@ -54,14 +54,14 @@ jobs:
             run_benchmarks: "true"
             bencher_testbed: macos-arm64
             run_test: "true"
-            cmake_preset: macos-ninja-release
+            cmake_preset: macos-release
 
           - name: macOS Ninja Intel
             os: macos-26-intel
             run_benchmarks: "true"
             bencher_testbed: macos-x64
             run_test: "true"
-            cmake_preset: macos-ninja-release
+            cmake_preset: macos-release
 
           - name: Windows MSVC
             os: windows-2025
@@ -81,37 +81,37 @@ jobs:
             os: ubuntu-24.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
             run_test: "false"
-            cmake_preset: gba-ninja-release
+            cmake_preset: gba-release
 
           - name: Nintendo DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
             run_test: "false"
-            cmake_preset: nds-ninja-release
+            cmake_preset: nds-release
 
           - name: Nintendo 3DS
             os: ubuntu-24.04
             container: devkitpro/devkitarm:20260221
             run_test: "false"
-            cmake_preset: 3ds-ninja-release
+            cmake_preset: 3ds-release
 
           - name: Nintendo Switch
             os: ubuntu-24.04
             container: devkitpro/devkita64:20260219
             run_test: "false"
-            cmake_preset: switch-ninja-release
+            cmake_preset: switch-release
 
           - name: Nintendo GameCube
             os: ubuntu-24.04
             container: devkitpro/devkitppc:20260503
             run_test: "false"
-            cmake_preset: gamecube-ninja-release
+            cmake_preset: gamecube-release
 
           - name: Nintendo Wii
             os: ubuntu-24.04
             container: devkitpro/devkitppc:20260503
             run_test: "false"
-            cmake_preset: wii-ninja-release
+            cmake_preset: wii-release
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
@@ -316,29 +316,29 @@ jobs:
 
       - name: Configure
         run: |
-          cmake -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-ninja-tests-coverage
+          cmake -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=ON -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-tests-coverage
 
       - name: Collect JUnit
         run: |
-          cmake --build --preset linux-ninja-tests-coverage
-          ctest --preset linux-ninja-tests-coverage
+          cmake --build --preset linux-tests-coverage
+          ctest --preset linux-tests-coverage
 
       - name: Upload JUnit report to Codecov
         uses: codecov/test-results-action@v1.2.1
         with:
-          files: out/junit/linux-ninja-tests-coverage.xml
+          files: out/junit/linux-tests-coverage.xml
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Collect coverage
         run: |
-          cmake --build --preset linux-ninja-tests-coverage --target unit_tests_coverage
+          cmake --build --preset linux-tests-coverage --target unit_tests_coverage
 
       - name: Upload coverage report to Codecov
         uses: codecov/codecov-action@v6.0.1
         with:
           disable_search: true
-          files: out/build/linux-ninja-tests-coverage/unit_tests_coverage.info
+          files: out/build/linux-tests-coverage/unit_tests_coverage.info
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
@@ -411,12 +411,12 @@ jobs:
 
       - name: Prepare compile_commands.json
         run: |
-          cmake -DTOYGINE_BUILD_SAMPLES=ON -DTOYGINE_BUILD_TESTS=ON --preset linux-ninja-debug
+          cmake -DTOYGINE_BUILD_SAMPLES=ON -DTOYGINE_BUILD_TESTS=ON --preset linux-debug
 
       - uses: SonarSource/sonarqube-scan-action@v8.1.0
         with:
           args: >-
-            -Dsonar.cfamily.compile-commands=out/build/linux-ninja-debug/compile_commands.json
+            -Dsonar.cfamily.compile-commands=out/build/linux-debug/compile_commands.json
             -Dsonar.cfamily.analysisCache.mode=fs
             -Dsonar.cfamily.analysisCache.path=.sonar-cfamily-cache
         env:
