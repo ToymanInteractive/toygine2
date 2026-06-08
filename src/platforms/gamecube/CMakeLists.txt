@@ -18,7 +18,9 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-set(PLATFORM_SRC_APPLICATION_LIST src/platforms/stub/application/core_application_stub.cpp)
+set(PLATFORM_SRC_APPLICATION_LIST
+    src/platforms/common/application/console_application.cpp
+    src/platforms/stub/application/core_application_stub.cpp)
 set(PLATFORM_HDR_APPLICATION_LIST )
 set(PLATFORM_LIB_APPLICATION_LIST )
 

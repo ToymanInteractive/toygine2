@@ -106,17 +106,19 @@ endif ()
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/src/core/core.hpp.in ${CMAKE_CURRENT_SOURCE_DIR}/include/core.hpp @ONLY)
 
-# Enable and copy compile commands file in fixed space for static analysis tools
+# Enable and copy compile commands file in fixed space for static analysis tools. The copy runs at build time
+# because CMake writes compile_commands.json during the generate phase, after this script is processed.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-execute_process(
+add_custom_target(copy_compile_commands ALL
   COMMAND ${CMAKE_COMMAND} -E copy_if_different
-  ${CMAKE_BINARY_DIR}/compile_commands.json
-  ${CMAKE_BINARY_DIR}/../compile_commands.json
-)
+    ${CMAKE_BINARY_DIR}/compile_commands.json
+    ${CMAKE_BINARY_DIR}/../compile_commands.json
+  VERBATIM)
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-set(SRC_APPLICATION_LIST                         src/application/console_application.cpp     src/application/core_application.cpp)
+set(SRC_APPLICATION_LIST
+    src/application/core_application.cpp)
 set(HDR_APPLICATION_LIST include/application.hpp include/application/console_application.hpp include/application/core_application.hpp include/application/version.hpp)
 set(INL_APPLICATION_LIST                                                                     include/application/core_application.inl)
 
