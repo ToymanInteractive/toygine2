@@ -34,7 +34,15 @@ set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/Zi /diagnostics:column  /sdl  /Ox /Ob3 /Oi  
 set(MSVC_C_FLAGS_RELEASE          "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  /Ot /Oy  /GT /GL /DNDEBUG /GF                                    /MT  /GS- /guard:cf- /Gy- /Qpar  /fp:fast    /fp:except- /Gr")
 
-# 3.11 Options That Control Optimization https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Optimize-Options.html#index-fsched-dep-count-heuristic
+# 3.11 Options That Control Optimization        https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Optimize-Options.html
+# 3.12 Program Instrumentation Options          https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Instrumentation-Options.html
+# 3.13 Options Controlling the Preprocessor     https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Preprocessor-Options.html
+# 3.14 Passing Options to the Assembler         https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Assembler-Options.html
+# 3.15 Options for Linking                      https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Link-Options.html
+# 3.16 Options for Directory Search             https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Directory-Options.html
+# 3.17 Options for Code Generation Conventions  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Code-Gen-Options.html
+# 3.19 Machine-Dependent Options                https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Submodel-Options.html
+# 3.19.5 ARM Options                            https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/ARM-Options.html#index-mno-sched-prolog
 
 # Need to performance tests after setup benchmarks
 set(GCC_OPTIMIZATION_FLAGS "-fsched-pressure -fsched-stalled-insns=2")
@@ -183,8 +191,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif ()
 
-  set(CMAKE_C_FLAGS   "-D__GBA__ ${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
-  set(CMAKE_CXX_FLAGS "-D__GBA__ ${GCC_CXX_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti -fno-threadsafe-statics")
+  set(CMAKE_ARCH_FLAGS "-mthumb-interwork")
+
+  set(CMAKE_C_FLAGS   "-D__GBA__ ${GCC_C_FLAGS}   ${CMAKE_ARCH_FLAGS} -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
+  set(CMAKE_CXX_FLAGS "-D__GBA__ ${GCC_CXX_FLAGS} ${CMAKE_ARCH_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti -fno-threadsafe-statics")
 
   set(CMAKE_C_FLAGS_DEBUG            "${GCC_C_FLAGS_DEBUG}   -ggdb3")
   set(CMAKE_CXX_FLAGS_DEBUG          "${GCC_CXX_FLAGS_DEBUG} -ggdb3")
