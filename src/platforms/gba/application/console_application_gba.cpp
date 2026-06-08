@@ -27,6 +27,7 @@
 namespace toy::application {
 
 static bool consoleAssert(const char * message) noexcept {
+  // GBA has no interactive stdin; always continue on assertion failure
   printf("--------------------------------------------\n");
   printf(" Assert Failed!\n");
   printf("--------------------------------------------\n");
