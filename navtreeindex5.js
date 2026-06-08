@@ -1,5 +1,8 @@
 var NAVTREEINDEX5 =
 {
+"db/d29/windows_2platform__config_8hpp.html":[7,0,1,3,11,2],
+"db/d29/windows_2platform__config_8hpp_source.html":[7,0,1,3,11,2],
+"db/d2d/hashes_8cpp.html":[7,0,1,1,1],
 "db/d33/string__fixed__storage_8inl.html":[7,0,0,2,45],
 "db/d33/string__fixed__storage_8inl_source.html":[7,0,0,2,45],
 "db/d37/volume__type_8hpp.html":[7,0,0,1,0],
@@ -49,7 +52,7 @@ var NAVTREEINDEX5 =
 "db/d8a/ellipse_8inl.html":[7,0,0,5,3],
 "db/d8a/ellipse_8inl_source.html":[7,0,0,5,3],
 "db/da8/core__application__stub_8cpp.html":[7,0,1,3,8,0,0],
-"db/db6/console__application_8cpp.html":[7,0,1,0,0],
+"db/db6/console__application_8cpp.html":[7,0,1,3,1,0,0],
 "db/dbb/geometry_8hpp.html":[7,0,0,15],
 "db/dbb/geometry_8hpp_source.html":[7,0,0,15],
 "db/dc2/classnumeric__limits.html":[6,0,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX5 =
 "df/d25/classtoy_1_1geometry_1_1_circle.html#a939c8acdddfa45cf5273af6170470020":[4,0,2,9,0,6],
 "df/d25/classtoy_1_1geometry_1_1_circle.html#a939c8acdddfa45cf5273af6170470020":[6,0,1,5,0,6],
 "df/d25/classtoy_1_1geometry_1_1_circle.html#a9bacf635d774ff9ff6c285c111ce9df0":[4,0,2,9,0,7],
-"df/d25/classtoy_1_1geometry_1_1_circle.html#a9bacf635d774ff9ff6c285c111ce9df0":[6,0,1,5,0,7],
-"df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637":[4,0,2,9,0,1],
-"df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637":[6,0,1,5,0,1],
-"df/d25/classtoy_1_1geometry_1_1_circle.html#ae736dc7e617fbe4c73ace9da4a01bbc2":[4,0,2,9,0,3]
+"df/d25/classtoy_1_1geometry_1_1_circle.html#a9bacf635d774ff9ff6c285c111ce9df0":[6,0,1,5,0,7]
 };

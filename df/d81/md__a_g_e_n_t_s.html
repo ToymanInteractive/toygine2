@@ -168,7 +168,7 @@ Project Structure</h1>
 C++ game engine style guide</h1>
 <ul>
 <li><b>Data-oriented design:</b> Structure code around data flow and memory layout, not class hierarchies. Prefer Struct-of-Arrays, contiguous storage, and cache-friendly access for per-frame data.</li>
-<li><b>Zero-cost abstractions:</b> Abstractions must compile down to hand-written equivalents. Avoid <span class="tt">std::function</span>, virtual dispatch, and type erasure on hot paths unless measured and justified.</li>
+<li><b>Zero-cost abstractions:</b> Abstractions must compile down to hand-written equivalents. Avoid <span class="tt">std::function</span>, virtual dispatch, and type erasure on hot paths unless measured and justified; no exceptions or RTTI.</li>
 <li><b>Composition over inheritance:</b> Build behavior from small, focused components and free functions. Prefer static polymorphism (templates, concepts, CRTP) over runtime polymorphism; deep inheritance is discouraged.</li>
 <li><b>Systems over managers:</b> Prefer small, single-purpose systems that transform component data over monolithic managers that own both state and behavior.</li>
 <li><b>Simulation / presentation split:</b> Keep deterministic simulation state separate from presentation state (renderer, audio, UI). Game logic must not depend on frame rate, render order, or platform API availability.</li>

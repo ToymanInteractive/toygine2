@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07":[6,0,1,15,44],
+"d7/dec/classtoy_1_1_fixed_vector.html#ac66fdf023303871d1e81d4f32fe1437c":[4,0,2,21,0],
 "d7/dec/classtoy_1_1_fixed_vector.html#ac66fdf023303871d1e81d4f32fe1437c":[6,0,1,15,0],
 "d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92":[4,0,2,21,2],
 "d7/dec/classtoy_1_1_fixed_vector.html#ac7b8218dba3672ac58881b354217bf92":[6,0,1,15,2],
@@ -204,6 +206,7 @@ var NAVTREEINDEX4 =
 "da/d47/core_8hpp.html#a94a808adc84ff2a5345e7ecb00661653":[7,0,0,12,1],
 "da/d47/core_8hpp.html#afbb70fd2dfa1856485dbfd775fb527d9":[7,0,0,12,2],
 "da/d47/core_8hpp_source.html":[7,0,0,12],
+"da/d50/console__application__gba_8cpp.html":[7,0,1,3,3,0,0],
 "da/d55/log__backend_8inl.html":[7,0,0,2,35],
 "da/d55/log__backend_8inl_source.html":[7,0,0,2,35],
 "da/d56/classtoy_1_1array_1_1reverse__iterator.html":[4,0,2,15,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "da/de0/core_8cpp.html":[7,0,1,1,0],
 "db/d09/system__clock__posix_8cpp.html":[7,0,1,3,7,0,1],
 "db/d1a/chrono__countdown__timer_8hpp.html":[7,0,0,2,11],
-"db/d1a/chrono__countdown__timer_8hpp_source.html":[7,0,0,2,11],
-"db/d29/windows_2platform__config_8hpp.html":[7,0,1,3,11,2],
-"db/d29/windows_2platform__config_8hpp_source.html":[7,0,1,3,11,2],
-"db/d2d/hashes_8cpp.html":[7,0,1,1,1]
+"db/d1a/chrono__countdown__timer_8hpp_source.html":[7,0,0,2,11]
 };

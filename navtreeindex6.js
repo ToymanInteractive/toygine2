@@ -1,5 +1,8 @@
 var NAVTREEINDEX6 =
 {
+"df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637":[4,0,2,9,0,1],
+"df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637":[6,0,1,5,0,1],
+"df/d25/classtoy_1_1geometry_1_1_circle.html#ae736dc7e617fbe4c73ace9da4a01bbc2":[4,0,2,9,0,3],
 "df/d25/classtoy_1_1geometry_1_1_circle.html#ae736dc7e617fbe4c73ace9da4a01bbc2":[6,0,1,5,0,3],
 "df/d25/classtoy_1_1geometry_1_1_circle.html#aefe8d0c7ad68b0866d2f4627def947a6":[4,0,2,9,0,0],
 "df/d25/classtoy_1_1geometry_1_1_circle.html#aefe8d0c7ad68b0866d2f4627def947a6":[6,0,1,5,0,0],
@@ -126,8 +129,8 @@ var NAVTREEINDEX6 =
 "df/d8d/namespacetoy_1_1render.html#ae44fe0c1053121f38b8544a8684ee4e1ad821e7ccd4d4c25a491ba1a9ea248895":[4,0,2,14,0,3],
 "df/da9/chrono__system__clock_8hpp.html":[7,0,0,2,17],
 "df/da9/chrono__system__clock_8hpp_source.html":[7,0,0,2,17],
-"df/db1/gba_2platform__config_8hpp.html":[7,0,1,3,3,0],
-"df/db1/gba_2platform__config_8hpp_source.html":[7,0,1,3,3,0],
+"df/db1/gba_2platform__config_8hpp.html":[7,0,1,3,3,1],
+"df/db1/gba_2platform__config_8hpp_source.html":[7,0,1,3,3,1],
 "df/dd0/console__application__windows_8cpp.html":[7,0,1,3,11,0,0],
 "df/dd0/console__application__windows_8cpp.html#aa03dcccedd9ee1ebab74c815e4c46608":[7,0,1,3,11,0,0,1],
 "df/dd0/console__application__windows_8cpp.html#ad955b9ed7b7667f21a0b826d14845050":[7,0,1,3,11,0,0,0],
@@ -137,6 +140,7 @@ var NAVTREEINDEX6 =
 "dir_0905a5bd6d6fe3014f1bc7b1fd731555.html":[7,0,0,0],
 "dir_09678985b484b4db3dfe2991103a0695.html":[7,0,1,3,5],
 "dir_0a18029368813177489ba7a997da11e8.html":[7,0,1,3,11],
+"dir_0eca84a0ce353a449c3c4dd25d2c3bb8.html":[7,0,1,3,1,0],
 "dir_169513a5e8dfd029eb46d45e91eaaf0b.html":[7,0,1,3,8,1],
 "dir_260e38cdfbd7032146a6110264900101.html":[7,0,1,3,10],
 "dir_27f271856ab63b456486adf5104d91f4.html":[7,0,1,3,8,0],
@@ -153,6 +157,7 @@ var NAVTREEINDEX6 =
 "dir_888e307260713d892aa290e037d4916e.html":[7,0,1,3,5,1],
 "dir_ac186d3e8926949364e5821f25491cc3.html":[7,0,0,8],
 "dir_ada157988d47c0ed8971be2c0e2fe61c.html":[7,0,0,9],
+"dir_ae9c488c46803b40b06c266a8863c7d3.html":[7,0,1,3,3,0],
 "dir_aebb8dcc11953d78e620bbef0b9e2183.html":[7,0,1,1],
 "dir_bc8feaaf0ea24a5e4382262c22957d88.html":[7,0,1,3,4,0],
 "dir_c2b6813e1132fcff49ef67e5b77a8ccf.html":[7,0,1,3,7,0],
@@ -244,10 +249,5 @@ var NAVTREEINDEX6 =
 "namespacemembers_a.html":[4,1,0,1],
 "namespacemembers_c.html":[4,1,0,2],
 "namespacemembers_d.html":[4,1,0,3],
-"namespacemembers_e.html":[4,1,0,4],
-"namespacemembers_enum.html":[4,1,4],
-"namespacemembers_f.html":[4,1,0,5],
-"namespacemembers_func.html":[4,1,1],
-"namespacemembers_h.html":[4,1,0,6],
-"namespacemembers_i.html":[4,1,0,7]
+"namespacemembers_e.html":[4,1,0,4]
 };
