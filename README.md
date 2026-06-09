@@ -80,7 +80,7 @@ Presets follow `<platform>[-<generator>]-<tier>`.
 | Linux             | `linux-debug`, `linux-release`, `linux-shipping`             | Ninja                 |
 | macOS             | `macos-debug`, `macos-release`, `macos-shipping`             | Ninja                 |
 | macOS (Xcode)     | `macos-xcode`                                                | Xcode                 |
-| Windows           | `windows-msvc`, `windows-msvc-x86`                           | Visual Studio 17 2022 |
+| Windows           | `windows-msvc`, `windows-msvc-x86`                           | Visual Studio 18 2026 |
 | Nintendo consoles | `gba-*`, `nds-*`, `3ds-*`, `switch-*`, `gamecube-*`, `wii-*` | Ninja                 |
 
 Console presets require [devkitPro](https://devkitpro.org/) with the `DEVKITPRO` environment variable set.
