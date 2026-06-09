@@ -19,7 +19,7 @@
 #-----------------------------------------------------------------------------------------------------------------------
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
-  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4365 /wd4625 /wd4626 /wd5026 /wd5027")
+  set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /wd4365 /wd4625 /wd4626 /wd5026 /wd5027 /wd5291")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
