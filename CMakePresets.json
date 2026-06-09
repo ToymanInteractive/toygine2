@@ -68,7 +68,7 @@
         {
             "name": "platform-windows-x64",
             "hidden": true,
-            "generator": "Visual Studio 17 2022",
+            "generator": "Visual Studio 18 2026",
             "architecture": {
                 "value": "x64",
                 "strategy": "set"
@@ -80,7 +80,7 @@
         {
             "name": "platform-windows-x86",
             "hidden": true,
-            "generator": "Visual Studio 17 2022",
+            "generator": "Visual Studio 18 2026",
             "architecture": {
                 "value": "Win32",
                 "strategy": "set"
