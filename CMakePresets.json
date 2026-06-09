@@ -165,6 +165,13 @@
             }
         },
         {
+            "name": "feature-editor",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_EDITOR": "ON"
+            }
+        },
+        {
             "name": "windows-msvc",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
@@ -234,6 +241,7 @@
             "displayName": "macOS debug",
             "description": "ToyGine 2 MacOS Debug Build",
             "inherits": [
+                "feature-editor",
                 "platform-macos",
                 "with-dev-tools",
                 "type-debug",

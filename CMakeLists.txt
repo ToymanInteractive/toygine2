@@ -58,6 +58,7 @@ if (TOP_PROJECT)
 
   option(TOYGINE_BUILD_BENCHMARKS "Set when you want to build engine benchmarks" ON)
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
+  option(TOYGINE_BUILD_EDITOR "Set when you want to build engine editor (desktop only)" ON)
   option(TOYGINE_BUILD_SAMPLES "Set when you want to build engine samples" ON)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
@@ -258,6 +259,29 @@ endif ()
 
 if (TOYGINE_BUILD_DOCS)
   add_subdirectory(docs)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Editor (Qt, desktop only)
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_EDITOR)
+  # The editor is desktop-only and needs Qt 6. When either prerequisite is missing, disable it for this configure run
+  # (a plain, non-cache override so the next configure re-probes once Qt becomes available) instead of failing the build.
+  if (NOT TOYGINE_TARGET_PLATFORM MATCHES "Desktop")
+    message(STATUS "TOYGINE_BUILD_EDITOR: disabled, unsupported on non-desktop platform '${TOYGINE_TARGET_PLATFORM}'")
+    set(TOYGINE_BUILD_EDITOR OFF)
+  else ()
+    find_package(Qt6 QUIET COMPONENTS Core Gui Widgets)
+    if (NOT Qt6_FOUND)
+      message(WARNING "TOYGINE_BUILD_EDITOR: disabled, Qt6 not found. Point CMAKE_PREFIX_PATH or Qt6_DIR at a Qt 6 installation to enable it.")
+      set(TOYGINE_BUILD_EDITOR OFF)
+    endif ()
+  endif ()
+endif ()
+
+if (TOYGINE_BUILD_EDITOR)
+  add_subdirectory(editor)
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
