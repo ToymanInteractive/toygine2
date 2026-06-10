@@ -27,7 +27,7 @@ ToyGine2 is a modern C++ high‑level engine.
 
 | OS      | Toolchain               | Version                          |
 | ------- | ----------------------- | -------------------------------- |
-| Windows | Microsoft Visual Studio | MSVC 2022 17.4 and above         |
+| Windows | Microsoft Visual Studio | MSVC 2026 18.6 and above         |
 | macOS   | Xcode                   | 26.5 and above (Apple Clang 21+) |
 | Linux   | GCC                     | 13.3 and above                   |
 | GBA     | devkitARM               | release 66 (GCC 15.2.0)          |
@@ -80,7 +80,7 @@ Presets follow `<platform>[-<generator>]-<tier>`.
 | Linux             | `linux-debug`, `linux-release`, `linux-shipping`             | Ninja                 |
 | macOS             | `macos-debug`, `macos-release`, `macos-shipping`             | Ninja                 |
 | macOS (Xcode)     | `macos-xcode`                                                | Xcode                 |
-| Windows           | `windows-msvc`, `windows-msvc-x86`                           | Visual Studio 17 2022 |
+| Windows           | `windows-msvc`, `windows-msvc-x86`                           | Visual Studio 18 2026 |
 | Nintendo consoles | `gba-*`, `nds-*`, `3ds-*`, `switch-*`, `gamecube-*`, `wii-*` | Ninja                 |
 
 Console presets require [devkitPro](https://devkitpro.org/) with the `DEVKITPRO` environment variable set.
