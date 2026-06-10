@@ -42,7 +42,7 @@ set(MSVC_CXX_FLAGS_RELEASE        "    /diagnostics:classic /sdl- /Ox /Ob3 /Oi  
 # 3.16 Options for Directory Search             https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Directory-Options.html
 # 3.17 Options for Code Generation Conventions  https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Code-Gen-Options.html
 # 3.19 Machine-Dependent Options                https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/Submodel-Options.html
-# 3.19.5 ARM Options                            https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/ARM-Options.html#index-mgeneral-regs-only-1
+# 3.19.5 ARM Options                            https://gcc.gnu.org/onlinedocs/gcc-13.3.0/gcc/ARM-Options.html#index-mtune-4
 
 # Need to performance tests after setup benchmarks
 set(GCC_OPTIMIZATION_FLAGS "-fsched-pressure -fsched-stalled-insns=2")
@@ -191,7 +191,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     message(FATAL_ERROR "GCC >= 15.2 required")
   endif ()
 
-  set(CMAKE_ARCH_FLAGS "-mthumb-interwork -mfloat-abi=soft")
+  set(CMAKE_ARCH_FLAGS "-march=armv4t -mthumb-interwork -mfloat-abi=soft")
 
   set(CMAKE_C_FLAGS   "-D__GBA__ ${GCC_C_FLAGS}   ${CMAKE_ARCH_FLAGS} -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
   set(CMAKE_CXX_FLAGS "-D__GBA__ ${GCC_CXX_FLAGS} ${CMAKE_ARCH_FLAGS}                                                                   -Wdeprecated-literal-operator -Wdeprecated-variadic-comma-omission -fno-rtti -fno-threadsafe-statics")

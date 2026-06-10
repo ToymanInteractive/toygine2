@@ -48,6 +48,19 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 * **Pinning and overrides:** Pin every dependency to a specific version; force transitive versions only via an explicit, documented override. Bump versions in a dedicated change.
 * **Removing a dependency:** Drop its `FetchContent_Declare` (or `extern/` directory) and all references, then verify the build is clean on all target platforms.
 
+## Code Quality
+
+* **Separation of concerns:** Keep simulation separate from presentation (renderer, audio, UI) and tooling/editor separate from engine runtime. Build behavior from small single-purpose systems and free functions, not monolithic managers. Prefer composition and static polymorphism (templates, concepts, CRTP) over deep inheritance. Confine side effects (I/O, platform calls) to system boundaries.
+* **Naming:** Meaningful, intent-revealing names; no abbreviations except established domain terms (e.g. `rgba`, `aabb`). `PascalCase` types (classes, structs, enums, concepts); `camelCase` functions and variables; `snake_case` namespaces and files; `snake_case` + `_type` aliases. Constants `camelCase` with `c_` at namespace/file scope or leading `_` for private members. Private members get a leading `_`; public and protected do not. STL-like methods follow standard-library names.
+* **Conciseness:** Write the shortest code that stays clear; favor the standard library and value semantics over bespoke machinery; avoid needless abstraction. Code should read on its own without comments, and every construct must earn its place in correctness, performance, or clarity.
+* **Simplicity:** Straightforward over clever. Make invalid states unrepresentable, use `constexpr` where possible, keep APIs compile-time-usable where feasible, and favor compile-time errors over runtime ones. Be explicit: no hidden control flow, ownership, or lifetimes.
+* **Error handling:** No exceptions, no RTTI. Signal failure via return values or `expected`-like types. Assert runtime invariants with `assert_message` and compile-time ones with `static_assert`, both with human-readable messages. Never fail silently.
+* **Functions:** Short and single-purpose; ~40 lines is a soft target, not a limit. Split by responsibility, not length. Prefer pure functions of their inputs. Mark non-throwing functions `noexcept` and value-returning ones `[[nodiscard]]`.
+* **Testability:** Prefer pure functions and value semantics so behavior is checkable with `static_assert` (and DocTest when runtime is unavoidable); verify at compile time whatever can be. Keep platform and I/O behind narrow seams so logic stays deterministic, order-independent, and testable.
+* **Performance:** Correctness first, then performance. Optimize only with justification and measurement, and document non-obvious low-level choices.
+* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, at most one blank line between sections and none opening a block. Run `clang-format` and `clang-tidy --fix`; leave no warnings under `-Wall -Wextra -Wpedantic` before committing.
+* **Logging:** Use the engine macros `LOG_TRACE`, `LOG_DEBUG`, `LOG_INFO`, `LOG_WARN`, `LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
+
 ---
 
 ## Project Context
@@ -61,31 +74,6 @@ This repository contains a C++ game engine targeting:
 
 ---
 
-## General Coding Principles
-
-* Prefer **simplicity and clarity** over cleverness.
-* Avoid unnecessary abstractions and indirection.
-* Code must be understandable from reading the code itself, without relying on comments.
-* Every construct must justify its existence in terms of correctness, performance, or clarity.
-
-* Prefer **pure functions** and **functional-style composition** where practical.
-* Minimize side effects and **isolate them at well-defined system boundaries**.
-* Favor **value semantics** over shared mutable state.
-* Functions should ideally depend only on their inputs and produce observable results explicitly.
-
-* Prefer designs that are **constexpr-friendly** and verifiable at compile time.
-* Make invalid states **unrepresentable** where possible.
-
-* Be explicit rather than implicit.
-* Avoid hidden control flow, implicit ownership, and surprising lifetime semantics.
-* Prefer compile-time errors over runtime failures.
-
-* Design APIs for **correctness first**, then performance.
-* Do not introduce performance optimizations without clear justification and measurement.
-* Low-level or performance-critical code must document the reasoning behind non-obvious choices.
-
----
-
 ## Language and Standard
 
 * C++20 is the baseline language standard.
@@ -93,33 +81,6 @@ This repository contains a C++ game engine targeting:
 * Prefer standard library facilities when feasible.
 * Avoid compiler-specific extensions unless strictly required.
 * Use C++20 concepts for template constraints.
-
----
-
-## Formatting
-
-### Indentation and Spacing
-
-* Use **2 spaces** for indentation (no tabs).
-* Maximum line width: **120 characters**.
-* Trailing whitespace is not allowed.
-
-### Braces
-
-* Use **attached brace style** (opening brace on the same line).
-
-### Pointer and Reference Alignment
-
-* Use **middle alignment** for pointers and references: `type * pointer`, `type & reference`, `const type * constPointer`.
-
-### Binary Operators
-
-* Break **before** binary operators when a line exceeds the column limit.
-
-### Empty Lines
-
-* Maximum **1 empty line** between code sections.
-* No empty lines at the start of blocks.
 
 ---
 
@@ -189,16 +150,6 @@ Organize includes in the following order (separated by blank lines):
   * Dynamic allocation (heap), when required
 
 No hidden allocations.
-
----
-
-## Constexpr-First Design
-
-* Prefer `constexpr` whenever possible.
-* APIs should be usable at compile time if logically feasible.
-* Favor value semantics.
-
-If something can be checked at compile time, it should be.
 
 ---
 
@@ -930,11 +881,3 @@ If a behavior can be verified at compile time,
 it must be verified at compile time.
 
 Runtime tests exist only to cover what compile-time tests cannot.
-
----
-
-## Tools and Automation
-
-* The project uses `.clang-format` for automatic code formatting.
-* Run `clang-format` before committing code.
-* Ensure no compiler warnings remain before committing.
