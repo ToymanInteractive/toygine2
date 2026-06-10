@@ -413,7 +413,7 @@ jobs:
         run: |
           cmake -DTOYGINE_BUILD_SAMPLES=ON -DTOYGINE_BUILD_TESTS=ON --preset linux-debug
 
-      - uses: SonarSource/sonarqube-scan-action@v8.1.0
+      - uses: SonarSource/sonarqube-scan-action@v8.2.0
         with:
           args: >-
             -Dsonar.cfamily.compile-commands=out/build/linux-debug/compile_commands.json
