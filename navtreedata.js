@@ -38,6 +38,7 @@ var NAVTREE =
       [ "Interaction Guidelines", "df/d81/md__a_g_e_n_t_s.html#interaction-guidelines", null ],
       [ "Project Structure", "df/d81/md__a_g_e_n_t_s.html#project-structure", null ],
       [ "C++ game engine style guide", "df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide", null ],
+      [ "Dependency Management", "df/d81/md__a_g_e_n_t_s.html#dependency-management", null ],
       [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
       [ "General Coding Principles", "df/d81/md__a_g_e_n_t_s.html#general-coding-principles", null ],
       [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],
@@ -168,7 +169,7 @@ var NAVTREEINDEX =
 "d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07",
 "db/d29/windows_2platform__config_8hpp.html",
 "df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637",
-"namespacemembers_enum.html"
+"namespacemembers_e.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

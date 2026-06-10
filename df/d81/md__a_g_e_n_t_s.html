@@ -137,6 +137,8 @@ document.addEventListener('DOMContentLoaded',() => { initNavTree('df/d81/md__a_g
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p><a class="anchor" id="ai-agents-rules-for-this-repository"></a></p>
+<p>This document defines <b>mandatory rules</b> for AI‑assisted code, test, and documentation generation in this repository.</p>
+<p>All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) <b>must follow these rules</b> when generating or modifying code, tests, or documentation.</p>
 <p>You are an expert in GameDev and C++ development. Your goal is to build performant, maintainable, and extensible game engine following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have expert experience with game architecture, engine internals, and real-time systems, with shipping titles to production, and with writing, testing, and running C++ applications for various platforms, including retro consoles, desktop, mobile and web platforms.</p>
 <h1 class="doxsection"><a class="anchor" id="interaction-guidelines"></a>
 Interaction Guidelines</h1>
@@ -149,10 +151,6 @@ Interaction Guidelines</h1>
 <li><b>Fixes:</b> Use the <span class="tt">clang-tidy --fix</span> tool to automatically fix many common issues, and to help code conform to the configured checks.</li>
 <li><b>Linting:</b> Use <span class="tt">clang-tidy</span> with a recommended set of checks to catch common issues. Enable compiler warnings (<span class="tt">-Wall -Wextra -Wpedantic</span>) at build time, and ensure no warnings remain before committing.</li>
 </ul>
-<hr  />
-<p>This document defines <b>mandatory rules</b> for AI‑assisted code, test, and documentation generation in this repository.</p>
-<p>All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) <b>must follow these rules</b> when generating or modifying code, tests, or documentation.</p>
-<hr  />
 <h1 class="doxsection"><a class="anchor" id="project-structure"></a>
 Project Structure</h1>
 <p>The project is organized into named modules. Each module follows this layout:</p>
@@ -163,7 +161,6 @@ Project Structure</h1>
 </ul>
 <p><span class="tt">src/platforms/</span> holds platform-specific implementations and per-target <span class="tt">platform_config.hpp</span>; it is not a module.</p>
 <p>Other top-level directories: <span class="tt">cmake/</span> (build scripts), <span class="tt">docs/</span> (documentation), <span class="tt">extern/</span> (vendored deps), <span class="tt">tools/</span> (CI scripts), <span class="tt">.github/</span> (GitHub Actions), <span class="tt">.vscode/</span> (editor settings).</p>
-<hr  />
 <h1 class="doxsection"><a class="anchor" id="c-game-engine-style-guide"></a>
 C++ game engine style guide</h1>
 <ul>
@@ -174,6 +171,17 @@ C++ game engine style guide</h1>
 <li><b>Simulation / presentation split:</b> Keep deterministic simulation state separate from presentation state (renderer, audio, UI). Game logic must not depend on frame rate, render order, or platform API availability.</li>
 <li><b>Explicit resource lifetime:</b> Asset, scene, and subsystem ownership must be explicit. Use RAII at module boundaries; prefer handles or indices over raw pointers for long-lived resources; avoid global singletons for engine services.</li>
 <li><b>SOLID where it helps:</b> Apply SOLID for editor, tooling, and high-level gameplay code. In performance-critical paths, defer to measurement and data-oriented reasoning.</li>
+</ul>
+<h1 class="doxsection"><a class="anchor" id="dependency-management"></a>
+Dependency Management</h1>
+<ul>
+<li><b>Justify before adding:</b> Each dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; when proposing one, state why it is needed and what it costs.</li>
+<li><b>Selecting a dependency:</b> Pick a stable, maintained library with a permissive, non-copyleft license. Favor header-only, self-contained code without exceptions/RTTI, and confirm it builds for every target platform (desktop, mobile, embedded, retro consoles).</li>
+<li><b>Acquisition method:</b> Use CMake <span class="tt">FetchContent</span> by default — reproducible and declared in-tree, with no submodules or global installs. Vendor under <span class="tt">extern/</span> only when <span class="tt">FetchContent</span> is not viable (offline builds, retro-console toolchains, patched sources); record the upstream version and any patches.</li>
+<li><b>Adding a dependency:</b> Declare it in <span class="tt">cmake/</span> via <span class="tt">FetchContent_Declare</span> pinned to an exact tag or commit (never a branch), then expose it through the consuming module. Every dependency must be explicit in the build files; never rely on a transitive one without declaring it.</li>
+<li><b>Build-only dependencies:</b> Gate tooling, test, and benchmark dependencies (DocTest, benchmark harnesses) behind their CMake options so consumers of the library never pull them in.</li>
+<li><b>Pinning and overrides:</b> Pin every dependency to a specific version; force transitive versions only via an explicit, documented override. Bump versions in a dedicated change.</li>
+<li><b>Removing a dependency:</b> Drop its <span class="tt">FetchContent_Declare</span> (or <span class="tt">extern/</span> directory) and all references, then verify the build is clean on all target platforms.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
