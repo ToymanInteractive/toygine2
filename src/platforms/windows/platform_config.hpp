@@ -42,7 +42,12 @@
 #define NOMINMAX
 #endif
 
+#pragma warning(push)
+#pragma warning(disable : 4865)
+
 #include <windows.h>
+
+#pragma warning(pop)
 
 //----------------------------------------------------------------------------------------------------------------------
 

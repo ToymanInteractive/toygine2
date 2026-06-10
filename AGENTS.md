@@ -1,5 +1,9 @@
 # AI AGENTS rules for This Repository
 
+This document defines **mandatory rules** for AI‑assisted code, test, and documentation generation in this repository.
+
+All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) **must follow these rules** when generating or modifying code, tests, or documentation.
+
 You are an expert in GameDev and C++ development. Your goal is to build performant, maintainable, and extensible game engine following modern C++ best practices (C++20 baseline; C++23 selectively where toolchain support allows). You have expert experience with game architecture, engine internals, and real-time systems, with shipping titles to production, and with writing, testing, and running C++ applications for various platforms, including retro consoles, desktop, mobile and web platforms.
 
 ## Interaction Guidelines
@@ -11,14 +15,6 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 * **Formatting:** Use the `clang-format` tool to ensure consistent code formatting; run it before committing.
 * **Fixes:** Use the `clang-tidy --fix` tool to automatically fix many common issues, and to help code conform to the configured checks.
 * **Linting:** Use `clang-tidy` with a recommended set of checks to catch common issues. Enable compiler warnings (`-Wall -Wextra -Wpedantic`) at build time, and ensure no warnings remain before committing.
-
----
-
-This document defines **mandatory rules** for AI‑assisted code, test, and documentation generation in this repository.
-
-All AI tools (Cursor, Copilot, Continue, ChatGPT, etc.) **must follow these rules** when generating or modifying code, tests, or documentation.
-
----
 
 ## Project Structure
 
@@ -32,8 +28,6 @@ The project is organized into named modules. Each module follows this layout:
 
 Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), `extern/` (vendored deps), `tools/` (CI scripts), `.github/` (GitHub Actions), `.vscode/` (editor settings).
 
----
-
 ## C++ game engine style guide
 
 * **Data-oriented design:** Structure code around data flow and memory layout, not class hierarchies. Prefer Struct-of-Arrays, contiguous storage, and cache-friendly access for per-frame data.
@@ -43,6 +37,16 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 * **Simulation / presentation split:** Keep deterministic simulation state separate from presentation state (renderer, audio, UI). Game logic must not depend on frame rate, render order, or platform API availability.
 * **Explicit resource lifetime:** Asset, scene, and subsystem ownership must be explicit. Use RAII at module boundaries; prefer handles or indices over raw pointers for long-lived resources; avoid global singletons for engine services.
 * **SOLID where it helps:** Apply SOLID for editor, tooling, and high-level gameplay code. In performance-critical paths, defer to measurement and data-oriented reasoning.
+
+## Dependency Management
+
+* **Justify before adding:** Each dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; when proposing one, state why it is needed and what it costs.
+* **Selecting a dependency:** Pick a stable, maintained library with a permissive, non-copyleft license. Favor header-only, self-contained code without exceptions/RTTI, and confirm it builds for every target platform (desktop, mobile, embedded, retro consoles).
+* **Acquisition method:** Use CMake `FetchContent` by default — reproducible and declared in-tree, with no submodules or global installs. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, retro-console toolchains, patched sources); record the upstream version and any patches.
+* **Adding a dependency:** Declare it in `cmake/` via `FetchContent_Declare` pinned to an exact tag or commit (never a branch), then expose it through the consuming module. Every dependency must be explicit in the build files; never rely on a transitive one without declaring it.
+* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, benchmark harnesses) behind their CMake options so consumers of the library never pull them in.
+* **Pinning and overrides:** Pin every dependency to a specific version; force transitive versions only via an explicit, documented override. Bump versions in a dedicated change.
+* **Removing a dependency:** Drop its `FetchContent_Declare` (or `extern/` directory) and all references, then verify the build is clean on all target platforms.
 
 ---
 
