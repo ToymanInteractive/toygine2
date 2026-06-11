@@ -20,6 +20,8 @@
 
 cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
+include(VersionMetadata)
+
 #[=======================================================================[.rst:
 ConsoleApplication
 ------------------
@@ -127,22 +129,7 @@ function(console_application target)
     target_compile_definitions(${target} PRIVATE APP_VERSION_PATCH=0)
   endif ()
 
-  find_package(Git)
-  if (GIT_FOUND)
-    execute_process(
-        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
-        OUTPUT_VARIABLE GIT_COMMIT_HASH
-        OUTPUT_STRIP_TRAILING_WHITESPACE
-        ERROR_QUIET
-    )
-  endif ()
-
-  if (GIT_COMMIT_HASH)
-    target_compile_definitions(${target} PRIVATE APP_VERSION_REVISION="${GIT_COMMIT_HASH}")
-  else ()
-    target_compile_definitions(${target} PRIVATE APP_VERSION_REVISION="")
-  endif ()
+  add_git_revision_definition(${target} APP_VERSION_REVISION)
 
   if (MSVC)
     target_link_options(${target} PRIVATE /SUBSYSTEM:CONSOLE)
