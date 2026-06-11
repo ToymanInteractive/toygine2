@@ -10,7 +10,7 @@ var searchData=
   ['class_20struct_20documentation_20order_7',['Class / Struct Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'']]],
   ['class_20without_20compatibility_8',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
   ['code_9',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
-  ['coding_20principles_10',['General Coding Principles',['../df/d81/md__a_g_e_n_t_s.html#general-coding-principles',1,'']]],
+  ['code_20quality_10',['Code Quality',['../df/d81/md__a_g_e_n_t_s.html#code-quality',1,'']]],
   ['comments_20and_20documentation_11',['Comments and Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'']]],
   ['commit_20checklist_12',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],
   ['compatibility_13',['Compatibility',['../d7/d15/classtoy_1_1_o_string_stream.html#compatibility',1,'']]],
@@ -24,11 +24,10 @@ var searchData=
   ['concept_21',['Concept',['../df/d81/md__a_g_e_n_t_s.html#concept',1,'']]],
   ['concept_20documentation_22',['Concept Documentation',['../df/d81/md__a_g_e_n_t_s.html#concept-documentation',1,'']]],
   ['const_20reference_20style_23',['Const Reference Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'']]],
-  ['constexpr_20first_20design_24',['Constexpr-First Design',['../df/d81/md__a_g_e_n_t_s.html#constexpr-first-design',1,'']]],
-  ['constexpr_20runtime_20parity_25',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
-  ['constexpr_20tests_26',['Compile-Time (&lt;span class=&quot;tt&quot;&gt;constexpr&lt;/span&gt;) Tests',['../df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests',1,'']]],
-  ['constructors_27',['Explicit Constructors',['../df/d81/md__a_g_e_n_t_s.html#explicit-constructors',1,'']]],
-  ['context_28',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
-  ['conventions_29',['Naming Conventions',['../df/d81/md__a_g_e_n_t_s.html#naming-conventions',1,'']]],
-  ['cpp_30',['Template: implementation (&lt;span class=&quot;tt&quot;&gt;.cpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-implementation-cpp',1,'']]]
+  ['constexpr_20runtime_20parity_24',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
+  ['constexpr_20tests_25',['Compile-Time (&lt;span class=&quot;tt&quot;&gt;constexpr&lt;/span&gt;) Tests',['../df/d81/md__a_g_e_n_t_s.html#compile-time-constexpr-tests',1,'']]],
+  ['constructors_26',['Explicit Constructors',['../df/d81/md__a_g_e_n_t_s.html#explicit-constructors',1,'']]],
+  ['context_27',['Project Context',['../df/d81/md__a_g_e_n_t_s.html#project-context',1,'']]],
+  ['conventions_28',['Naming Conventions',['../df/d81/md__a_g_e_n_t_s.html#naming-conventions',1,'']]],
+  ['cpp_29',['Template: implementation (&lt;span class=&quot;tt&quot;&gt;.cpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-implementation-cpp',1,'']]]
 ];

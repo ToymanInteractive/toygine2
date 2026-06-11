@@ -2,20 +2,22 @@
 <area shape="rect" id="Node000001" title="Umbrella header for the application module." alt="" coords="813,5,986,31"/>
 <area shape="rect" id="Node000002" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,93,164,119"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="799,24,673,29,518,39,347,56,177,81,119,96,118,91,176,76,347,51,517,34,673,24,799,19"/>
-<area shape="rect" id="Node000003" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="189,86,338,126"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="799,27,591,45,470,61,351,81,321,89,320,83,349,76,470,55,591,40,799,22"/>
-<area shape="rect" id="Node000004" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="363,79,532,133"/>
-<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="805,35,681,55,545,81,533,84,532,79,544,76,680,50,804,30"/>
-<area shape="rect" id="Node000005" href="$da/d50/console__application__gba_8cpp.html" title="GBA implementations of toy::application::ConsoleApplication." alt="" coords="557,86,770,126"/>
-<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="856,38,716,88,714,83,854,33"/>
-<area shape="rect" id="Node000006" href="$d0/d8a/core__application__linux_8cpp.html" title="Linux implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="795,79,1004,133"/>
-<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="902,44,902,79,897,79,897,44"/>
-<area shape="rect" id="Node000007" href="$d8/d89/core__application__macos_8cpp.html" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="1028,79,1237,133"/>
-<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="945,33,1062,76,1061,81,943,38"/>
-<area shape="rect" id="Node000008" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="1261,79,1471,133"/>
-<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="987,30,1250,76,1262,78,1261,84,1250,81,986,35"/>
-<area shape="rect" id="Node000009" href="$df/dd0/console__application__windows_8cpp.html" title="Windows console entry&#45;point argument conversion from UTF&#45;16 to UTF&#45;8." alt="" coords="1495,79,1687,133"/>
-<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="1000,23,1223,42,1354,57,1484,76,1495,78,1494,83,1483,81,1353,62,1222,47,1000,28"/>
-<area shape="rect" id="Node000010" href="$dc/d2d/core__application__windows_8cpp.html" title="Windows implementations of toy::application::CoreApplication via Win32 APIs." alt="" coords="1712,79,1921,133"/>
-<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1000,19,1313,36,1506,52,1700,76,1712,78,1711,83,1699,81,1506,58,1312,41,999,25"/>
+<area shape="rect" id="Node000004" href="$d0/dbb/core__application_8cpp.html" title="Implementations for toy::application::CoreApplication." alt="" coords="189,86,338,126"/>
+<area shape="poly" id="edge3_Node000001_Node000004" title=" " alt="" coords="799,27,592,46,471,61,352,81,322,89,321,83,351,76,470,56,591,40,799,22"/>
+<area shape="rect" id="Node000005" href="$db/db6/console__application_8cpp.html" title="Implementations for toy::application::ConsoleApplication." alt="" coords="363,79,532,133"/>
+<area shape="poly" id="edge4_Node000001_Node000005" title=" " alt="" coords="805,35,681,55,545,81,533,84,532,79,544,76,680,50,804,30"/>
+<area shape="rect" id="Node000006" href="$da/d50/console__application__gba_8cpp.html" title="GBA implementations of toy::application::ConsoleApplication." alt="" coords="557,86,770,126"/>
+<area shape="poly" id="edge5_Node000001_Node000006" title=" " alt="" coords="856,38,716,88,714,83,854,33"/>
+<area shape="rect" id="Node000007" href="$d0/d8a/core__application__linux_8cpp.html" title="Linux implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="795,79,1004,133"/>
+<area shape="poly" id="edge6_Node000001_Node000007" title=" " alt="" coords="902,44,902,79,897,79,897,44"/>
+<area shape="rect" id="Node000008" href="$d8/d89/core__application__macos_8cpp.html" title="macOS implementations of toy::application::CoreApplication via POSIX APIs." alt="" coords="1028,79,1237,133"/>
+<area shape="poly" id="edge7_Node000001_Node000008" title=" " alt="" coords="945,33,1062,76,1061,81,943,38"/>
+<area shape="rect" id="Node000009" href="$db/da8/core__application__stub_8cpp.html" title="Stub implementation of toy::application::CoreApplication::sleep() for platforms without OS sleep supp..." alt="" coords="1261,79,1471,133"/>
+<area shape="poly" id="edge8_Node000001_Node000009" title=" " alt="" coords="987,30,1250,76,1262,78,1261,84,1250,81,986,35"/>
+<area shape="rect" id="Node000010" href="$df/dd0/console__application__windows_8cpp.html" title="Windows console entry&#45;point argument conversion from UTF&#45;16 to UTF&#45;8." alt="" coords="1495,79,1687,133"/>
+<area shape="poly" id="edge9_Node000001_Node000010" title=" " alt="" coords="1000,23,1223,42,1354,57,1484,76,1495,78,1494,83,1483,81,1353,62,1222,47,1000,28"/>
+<area shape="rect" id="Node000011" href="$dc/d2d/core__application__windows_8cpp.html" title="Windows implementations of toy::application::CoreApplication via Win32 APIs." alt="" coords="1712,79,1921,133"/>
+<area shape="poly" id="edge10_Node000001_Node000011" title=" " alt="" coords="1000,19,1313,36,1506,52,1700,76,1712,78,1711,83,1699,81,1506,58,1312,41,999,25"/>
+<area shape="rect" id="Node000003" href="$df/d0a/main_8cpp.html" title="Entry point of the Qt&#45;based ToyGine 2 editor." alt="" coords="11,181,158,207"/>
+<area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="87,133,87,181,82,181,82,133"/>
 </map>

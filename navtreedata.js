@@ -39,16 +39,9 @@ var NAVTREE =
       [ "Project Structure", "df/d81/md__a_g_e_n_t_s.html#project-structure", null ],
       [ "C++ game engine style guide", "df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide", null ],
       [ "Dependency Management", "df/d81/md__a_g_e_n_t_s.html#dependency-management", null ],
+      [ "Code Quality", "df/d81/md__a_g_e_n_t_s.html#code-quality", null ],
       [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
-      [ "General Coding Principles", "df/d81/md__a_g_e_n_t_s.html#general-coding-principles", null ],
       [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],
-      [ "Formatting", "df/d81/md__a_g_e_n_t_s.html#formatting", [
-        [ "Indentation and Spacing", "df/d81/md__a_g_e_n_t_s.html#indentation-and-spacing", null ],
-        [ "Braces", "df/d81/md__a_g_e_n_t_s.html#braces", null ],
-        [ "Pointer and Reference Alignment", "df/d81/md__a_g_e_n_t_s.html#pointer-and-reference-alignment", null ],
-        [ "Binary Operators", "df/d81/md__a_g_e_n_t_s.html#binary-operators", null ],
-        [ "Empty Lines", "df/d81/md__a_g_e_n_t_s.html#empty-lines", null ]
-      ] ],
       [ "Header / Source Organization", "df/d81/md__a_g_e_n_t_s.html#header--source-organization", [
         [ "Module Structure", "df/d81/md__a_g_e_n_t_s.html#module-structure", null ],
         [ "Include Guards", "df/d81/md__a_g_e_n_t_s.html#include-guards", null ],
@@ -60,7 +53,6 @@ var NAVTREE =
         [ "Access Modifiers", "df/d81/md__a_g_e_n_t_s.html#access-modifiers", null ]
       ] ],
       [ "Memory and Allocation Rules", "df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules", null ],
-      [ "Constexpr-First Design", "df/d81/md__a_g_e_n_t_s.html#constexpr-first-design", null ],
       [ "Modern C++ Practices", "df/d81/md__a_g_e_n_t_s.html#modern-c-practices", [
         [ "noexcept", "df/d81/md__a_g_e_n_t_s.html#noexcept", null ],
         [ "<span class=\"tt\">[[nodiscard]]</span>", "df/d81/md__a_g_e_n_t_s.html#nodiscard", null ],
@@ -122,8 +114,7 @@ var NAVTREE =
       [ "Naming Tests", "df/d81/md__a_g_e_n_t_s.html#naming-tests", null ],
       [ "Floating-Point Rules", "df/d81/md__a_g_e_n_t_s.html#floating-point-rules", null ],
       [ "Test Independence", "df/d81/md__a_g_e_n_t_s.html#test-independence", null ],
-      [ "Final Rule", "df/d81/md__a_g_e_n_t_s.html#final-rule", null ],
-      [ "Tools and Automation", "df/d81/md__a_g_e_n_t_s.html#tools-and-automation", null ]
+      [ "Final Rule", "df/d81/md__a_g_e_n_t_s.html#final-rule", null ]
     ] ],
     [ "Topics", "topics.html", "topics" ],
     [ "Namespaces", "namespaces.html", [
@@ -168,8 +159,8 @@ var NAVTREEINDEX =
 "d7/d02/classtoy_1_1array_1_1iterator.html",
 "d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07",
 "db/d29/windows_2platform__config_8hpp.html",
-"df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637",
-"namespacemembers_e.html"
+"df/d25/classtoy_1_1geometry_1_1_circle.html#a9bacf635d774ff9ff6c285c111ce9df0",
+"namespacemembers_h.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';

@@ -183,6 +183,20 @@ Dependency Management</h1>
 <li><b>Pinning and overrides:</b> Pin every dependency to a specific version; force transitive versions only via an explicit, documented override. Bump versions in a dedicated change.</li>
 <li><b>Removing a dependency:</b> Drop its <span class="tt">FetchContent_Declare</span> (or <span class="tt">extern/</span> directory) and all references, then verify the build is clean on all target platforms.</li>
 </ul>
+<h1 class="doxsection"><a class="anchor" id="code-quality"></a>
+Code Quality</h1>
+<ul>
+<li><b>Separation of concerns:</b> Keep simulation separate from presentation (renderer, audio, UI) and tooling/editor separate from engine runtime. Build behavior from small single-purpose systems and free functions, not monolithic managers. Prefer composition and static polymorphism (templates, concepts, CRTP) over deep inheritance. Confine side effects (I/O, platform calls) to system boundaries.</li>
+<li><b>Naming:</b> Meaningful, intent-revealing names; no abbreviations except established domain terms (e.g. <span class="tt">rgba</span>, <span class="tt">aabb</span>). <span class="tt">PascalCase</span> types (classes, structs, enums, concepts); <span class="tt">camelCase</span> functions and variables; <span class="tt">snake_case</span> namespaces and files; <span class="tt">snake_case</span> + <span class="tt">_type</span> aliases. Constants <span class="tt">camelCase</span> with <span class="tt">c_</span> at namespace/file scope or leading <span class="tt">_</span> for private members. Private members get a leading <span class="tt">_</span>; public and protected do not. STL-like methods follow standard-library names.</li>
+<li><b>Conciseness:</b> Write the shortest code that stays clear; favor the standard library and value semantics over bespoke machinery; avoid needless abstraction. Code should read on its own without comments, and every construct must earn its place in correctness, performance, or clarity.</li>
+<li><b>Simplicity:</b> Straightforward over clever. Make invalid states unrepresentable, use <span class="tt">constexpr</span> where possible, keep APIs compile-time-usable where feasible, and favor compile-time errors over runtime ones. Be explicit: no hidden control flow, ownership, or lifetimes.</li>
+<li><b>Error handling:</b> No exceptions, no RTTI. Signal failure via return values or <span class="tt">expected</span>-like types. Assert runtime invariants with <span class="tt"><a class="el" href="../../d1/d5f/assertion__macro__gcc__clang_8hpp.html#a672330c2fecd516f254162cd9611d91a" title="Debug assertion macro with custom message for runtime expression checking.">assert_message</a></span> and compile-time ones with <span class="tt">static_assert</span>, both with human-readable messages. Never fail silently.</li>
+<li><b>Functions:</b> Short and single-purpose; ~40 lines is a soft target, not a limit. Split by responsibility, not length. Prefer pure functions of their inputs. Mark non-throwing functions <span class="tt">noexcept</span> and value-returning ones <span class="tt">[[nodiscard]]</span>.</li>
+<li><b>Testability:</b> Prefer pure functions and value semantics so behavior is checkable with <span class="tt">static_assert</span> (and DocTest when runtime is unavoidable); verify at compile time whatever can be. Keep platform and I/O behind narrow seams so logic stays deterministic, order-independent, and testable.</li>
+<li><b>Performance:</b> Correctness first, then performance. Optimize only with justification and measurement, and document non-obvious low-level choices.</li>
+<li><b>Styling:</b> 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned <span class="tt">type * pointer</span> / <span class="tt">type &amp; reference</span> / <span class="tt">const type * constPointer</span>, break before binary operators, at most one blank line between sections and none opening a block. Run <span class="tt">clang-format</span> and <span class="tt">clang-tidy --fix</span>; leave no warnings under <span class="tt">-Wall -Wextra -Wpedantic</span> before committing.</li>
+<li><b>Logging:</b> Use the engine macros <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#a20f022b1b58ba62e014b624fdd13572c" title="Emits a toy::log::Level::Trace record through the active toy::log::Backend.">LOG_TRACE</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#ac06cfc686322558f590c50eab8622ebd" title="Emits a toy::log::Level::Debug record through the active toy::log::Backend.">LOG_DEBUG</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#ae69d735f8291bd2aff230fe6ffb4d4b3" title="Emits a toy::log::Level::Info record through the active toy::log::Backend.">LOG_INFO</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#adba1363ea408060eab75cb5a48dcb907" title="Emits a toy::log::Level::Warn record through the active toy::log::Backend.">LOG_WARN</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#ae6fc70e87e424e7083c63696b8fb9e78" title="Emits a toy::log::Level::Error record through the active toy::log::Backend.">LOG_ERROR</a></span> (via <span class="tt"><a class="el" href="../../da/d15/namespacetoy_1_1log.html" title="Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interfac...">toy::log</a></span>), never <span class="tt">printf</span>, <span class="tt">std::cout</span>, or <span class="tt">std::print</span>. Levels below <span class="tt"><a class="el" href="../../d0/d01/log__level_8hpp.html#aaba7ea47d8de80bb53fc76918ba7b534" title="Compile-time maximum verbosity (default 50 = toy::log::Level::Trace).">LOG_MAX_LEVEL</a></span> compile out — zero-cost on constrained targets.</li>
+</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
 Project Context</h1>
@@ -194,27 +208,6 @@ Project Context</h1>
 <li>Retro consoles (fixed memory, no OS assumptions)</li>
 </ul>
 <hr  />
-<h1 class="doxsection"><a class="anchor" id="general-coding-principles"></a>
-General Coding Principles</h1>
-<ul>
-<li>Prefer <b>simplicity and clarity</b> over cleverness.</li>
-<li>Avoid unnecessary abstractions and indirection.</li>
-<li>Code must be understandable from reading the code itself, without relying on comments.</li>
-<li>Every construct must justify its existence in terms of correctness, performance, or clarity.</li>
-<li>Prefer <b>pure functions</b> and <b>functional-style composition</b> where practical.</li>
-<li>Minimize side effects and <b>isolate them at well-defined system boundaries</b>.</li>
-<li>Favor <b>value semantics</b> over shared mutable state.</li>
-<li>Functions should ideally depend only on their inputs and produce observable results explicitly.</li>
-<li>Prefer designs that are <b>constexpr-friendly</b> and verifiable at compile time.</li>
-<li>Make invalid states <b>unrepresentable</b> where possible.</li>
-<li>Be explicit rather than implicit.</li>
-<li>Avoid hidden control flow, implicit ownership, and surprising lifetime semantics.</li>
-<li>Prefer compile-time errors over runtime failures.</li>
-<li>Design APIs for <b>correctness first</b>, then performance.</li>
-<li>Do not introduce performance optimizations without clear justification and measurement.</li>
-<li>Low-level or performance-critical code must document the reasoning behind non-obvious choices.</li>
-</ul>
-<hr  />
 <h1 class="doxsection"><a class="anchor" id="language-and-standard"></a>
 Language and Standard</h1>
 <ul>
@@ -223,37 +216,6 @@ Language and Standard</h1>
 <li>Prefer standard library facilities when feasible.</li>
 <li>Avoid compiler-specific extensions unless strictly required.</li>
 <li>Use C++20 concepts for template constraints.</li>
-</ul>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="formatting"></a>
-Formatting</h1>
-<h2 class="doxsection"><a class="anchor" id="indentation-and-spacing"></a>
-Indentation and Spacing</h2>
-<ul>
-<li>Use <b>2 spaces</b> for indentation (no tabs).</li>
-<li>Maximum line width: <b>120 characters</b>.</li>
-<li>Trailing whitespace is not allowed.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="braces"></a>
-Braces</h2>
-<ul>
-<li>Use <b>attached brace style</b> (opening brace on the same line).</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="pointer-and-reference-alignment"></a>
-Pointer and Reference Alignment</h2>
-<ul>
-<li>Use <b>middle alignment</b> for pointers and references: <span class="tt">type * pointer</span>, <span class="tt">type &amp; reference</span>, <span class="tt">const type * constPointer</span>.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="binary-operators"></a>
-Binary Operators</h2>
-<ul>
-<li>Break <b>before</b> binary operators when a line exceeds the column limit.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="empty-lines"></a>
-Empty Lines</h2>
-<ul>
-<li>Maximum <b>1 empty line</b> between code sections.</li>
-<li>No empty lines at the start of blocks.</li>
 </ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="header--source-organization"></a>
@@ -333,15 +295,6 @@ Memory and Allocation Rules</h1>
 </li>
 </ul>
 <p>No hidden allocations.</p>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="constexpr-first-design"></a>
-Constexpr-First Design</h1>
-<ul>
-<li>Prefer <span class="tt">constexpr</span> whenever possible.</li>
-<li>APIs should be usable at compile time if logically feasible.</li>
-<li>Favor value semantics.</li>
-</ul>
-<p>If something can be checked at compile time, it should be.</p>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="modern-c-practices"></a>
 Modern C++ Practices</h1>
@@ -877,15 +830,7 @@ Test Independence</h1>
 <h1 class="doxsection"><a class="anchor" id="final-rule"></a>
 Final Rule</h1>
 <p>If a behavior can be verified at compile time, it must be verified at compile time.</p>
-<p>Runtime tests exist only to cover what compile-time tests cannot.</p>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="tools-and-automation"></a>
-Tools and Automation</h1>
-<ul>
-<li>The project uses <span class="tt">.clang-format</span> for automatic code formatting.</li>
-<li>Run <span class="tt">clang-format</span> before committing code.</li>
-<li>Ensure no compiler warnings remain before committing. </li>
-</ul>
+<p>Runtime tests exist only to cover what compile-time tests cannot. </p>
 </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->

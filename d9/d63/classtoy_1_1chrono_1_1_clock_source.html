@@ -160,7 +160,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>RAII owner of the platform hardware time source. </p>
-<p>Acquires the hardware counter on construction and releases it on destruction. A process-wide singleton: at most one <code><a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="RAII owner of the platform hardware time source.">ClockSource</a></code> may exist at any given time; a debug assertion fires if a second instance is constructed while one is already active. Typically created as a local variable in <code>main()</code> or as a member of an engine root object.</p>
+<p>Acquires the hardware counter on construction and releases it on destruction. A process-wide singleton: at most one <code><a class="el" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html" title="RAII owner of the platform hardware time source.">ClockSource</a></code> may exist at any given time; a debug assertion fires if a second instance is constructed while one is already active. Typically created as a local variable in <code><a class="el" href="../../df/d0a/main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main()</a></code> or as a member of an engine root object.</p>
 <h1 class="doxsection"><a class="anchor" id="features"></a>
 Key Features</h1>
 <ul>
@@ -174,7 +174,7 @@ Key Features</h1>
 Usage Example</h1>
 <div class="fragment"><div class="line"><span class="preprocessor">#include &quot;<a class="code" href="../../da/d47/core_8hpp.html">core.hpp</a>&quot;</span></div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> main() {</div>
+<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="../../df/d0a/main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>() {</div>
 <div class="line">  <a class="code hl_class" href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a> clock; <span class="comment">// hardware acquired</span></div>
 <div class="line">  <a class="code hl_class" href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html">toy::chrono::Stopwatch</a> sw;</div>
 <div class="line">  <span class="comment">// ...</span></div>
@@ -182,6 +182,7 @@ Usage Example</h1>
 <div class="ttc" id="aclasstoy_1_1chrono_1_1_clock_source_html"><div class="ttname"><a href="../../d9/d63/classtoy_1_1chrono_1_1_clock_source.html">toy::chrono::ClockSource</a></div><div class="ttdoc">RAII owner of the platform hardware time source.</div><div class="ttdef"><b>Definition</b> chrono_clock_source.hpp:95</div></div>
 <div class="ttc" id="aclasstoy_1_1chrono_1_1_stopwatch_html"><div class="ttname"><a href="../../da/dd4/classtoy_1_1chrono_1_1_stopwatch.html">toy::chrono::Stopwatch</a></div><div class="ttdoc">Elapsed-time counter anchored to the active toy::chrono::SteadyClock.</div><div class="ttdef"><b>Definition</b> chrono_stopwatch.hpp:84</div></div>
 <div class="ttc" id="acore_8hpp_html"><div class="ttname"><a href="../../da/d47/core_8hpp.html">core.hpp</a></div><div class="ttdoc">Umbrella header for the engine core module.</div></div>
+<div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="../../df/d0a/main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> main.cpp:34</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>
