@@ -42,20 +42,17 @@ Stamp targets with build-time version metadata derived from Git.
     or to an empty string when Git is unavailable or the hash cannot be resolved.
 #]=======================================================================]
 function(add_git_revision_definition target definition)
+  set(GIT_COMMIT_HASH "")
   find_package(Git)
   if (GIT_FOUND)
     execute_process(
         COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
-        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
         OUTPUT_VARIABLE GIT_COMMIT_HASH
         OUTPUT_STRIP_TRAILING_WHITESPACE
         ERROR_QUIET
     )
   endif ()
 
-  if (GIT_COMMIT_HASH)
-    target_compile_definitions(${target} PRIVATE ${definition}="${GIT_COMMIT_HASH}")
-  else ()
-    target_compile_definitions(${target} PRIVATE ${definition}="")
-  endif ()
+  target_compile_definitions(${target} PRIVATE ${definition}="${GIT_COMMIT_HASH}")
 endfunction()
