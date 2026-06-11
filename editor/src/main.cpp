@@ -28,9 +28,8 @@
 #include <QApplication>
 #include <QLabel>
 #include <QMainWindow>
-#include <QObject>
 
-#include "../../include/toygine2.hpp"
+#include <toygine2.hpp>
 
 int main(int argc, char ** argv) {
   constexpr auto version = toy::application::Version{.major    = TOY_EDITOR_VERSION_MAJOR,

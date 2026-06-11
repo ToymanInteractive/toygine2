@@ -18,29 +18,44 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-include(VersionMetadata)
+cmake_minimum_required(VERSION 3.31.0 FATAL_ERROR)
 
-qt_standard_project_setup()
+#[=======================================================================[.rst:
+VersionMetadata
+---------------
 
-set(SRC_LIST src/main.cpp)
-set(HDR_LIST )
-set(INL_LIST )
-set(RES_LIST )
-set(LIB_LIST toygine Qt6::Widgets)
-set(BINARY_NAME toygine_editor)
+Stamp targets with build-time version metadata derived from Git.
 
-source_group("Source Files" FILES ${SRC_LIST} ${INL_LIST})
-source_group("Header Files" FILES ${HDR_LIST})
+.. command:: add_git_revision_definition
 
-# qt_add_executable applies the platform GUI flags (WIN32 / MACOSX_BUNDLE), wires the Qt entry point,
-# and enables automoc on the target.
-qt_add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST} ${RES_LIST})
+  Resolve the short Git commit hash and bake it into a target as a compile definition.
 
-target_compile_definitions(${BINARY_NAME} PRIVATE
-  TOY_EDITOR_VERSION_MAJOR=${PROJECT_VERSION_MAJOR}
-  TOY_EDITOR_VERSION_MINOR=${PROJECT_VERSION_MINOR}
-  TOY_EDITOR_VERSION_PATCH=${PROJECT_VERSION_PATCH})
+  .. code-block:: cmake
 
-add_git_revision_definition(${BINARY_NAME} TOY_EDITOR_VERSION_REVISION)
+    add_git_revision_definition(<target> <definition>)
 
-target_link_libraries(${BINARY_NAME} PRIVATE ${LIB_LIST})
+  ``<target>``
+    Target to receive the definition.
+
+  ``<definition>``
+    Name of the compile definition to set to the quoted short commit hash (for example ``"a1b2c3d"``),
+    or to an empty string when Git is unavailable or the hash cannot be resolved.
+#]=======================================================================]
+function(add_git_revision_definition target definition)
+  find_package(Git)
+  if (GIT_FOUND)
+    execute_process(
+        COMMAND ${GIT_EXECUTABLE} rev-parse --short HEAD
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_COMMIT_HASH
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        ERROR_QUIET
+    )
+  endif ()
+
+  if (GIT_COMMIT_HASH)
+    target_compile_definitions(${target} PRIVATE ${definition}="${GIT_COMMIT_HASH}")
+  else ()
+    target_compile_definitions(${target} PRIVATE ${definition}="")
+  endif ()
+endfunction()
