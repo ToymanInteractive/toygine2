@@ -42,7 +42,7 @@ constexpr auto c_donateUrl        = QLatin1StringView("https://github.com/sponso
 
 } // namespace
 
-MainWindow::MainWindow(const application::Version & version, QWidget * parent)
+MainWindow::MainWindow(const application::Version & version, QWidget * parent) noexcept
   : QMainWindow(parent) {
   setWindowTitle(tr("ToyGine 2 Editor %1.%2.%3 (%4)")
                    .arg(version.major)
@@ -56,14 +56,14 @@ MainWindow::MainWindow(const application::Version & version, QWidget * parent)
   placeholder->setAlignment(Qt::AlignCenter);
   setCentralWidget(placeholder);
 
-  createActions();
-  createMenus();
+  _createActions();
+  _createMenus();
 }
 
-void MainWindow::createActions() {
+void MainWindow::_createActions() noexcept {
   _aboutAction = new QAction(QIcon::fromTheme(QIcon::ThemeIcon::HelpAbout), tr("&About"), this);
   _aboutAction->setMenuRole(QAction::AboutRole);
-  connect(_aboutQtAction, &QAction::triggered, this, [this] {
+  connect(_aboutAction, &QAction::triggered, this, [this] {
     QMessageBox::about(this, tr("About"), tr("My App v1.0\n..."));
   });
 
@@ -99,7 +99,7 @@ void MainWindow::createActions() {
   });
 }
 
-void MainWindow::createMenus() {
+void MainWindow::_createMenus() noexcept {
   menuBar()->clear();
 
   auto * fileMenu = menuBar()->addMenu(tr("&File"));

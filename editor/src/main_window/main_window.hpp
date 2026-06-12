@@ -47,7 +47,7 @@ class MainWindow : public QMainWindow {
 
 public:
   /// Builds the main window, deriving its title from \a version (whose \c revision string must outlive the call).
-  explicit MainWindow(const application::Version & version, QWidget * parent = nullptr);
+  explicit MainWindow(const application::Version & version, QWidget * parent = nullptr) noexcept;
 
   MainWindow(const MainWindow &)             = delete;
   MainWindow(MainWindow &&)                  = delete;
@@ -58,10 +58,10 @@ public:
 
 private:
   /// Creates the window's actions; call before createMenus().
-  void createActions();
+  void _createActions() noexcept;
 
   /// Builds the menu bar from the actions created by createActions().
-  void createMenus();
+  void _createMenus() noexcept;
 
   QAction * _aboutAction{nullptr};
   QAction * _aboutQtAction{nullptr};
