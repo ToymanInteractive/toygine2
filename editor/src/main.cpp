@@ -21,15 +21,15 @@
   \file   main.cpp
   \brief  Entry point of the Qt-based ToyGine 2 editor.
 
-  Bootstraps the Qt application object and shows a placeholder main window. The viewport, docking panels, and the
+  Bootstraps the Qt application object and shows the editor main window. The viewport, docking panels, and the
   engine bridge are added in later phases; this stage only validates the Qt delivery and build wiring.
 */
 
 #include <QApplication>
-#include <QLabel>
-#include <QMainWindow>
 
 #include <toygine2.hpp>
+
+#include "main_window/main_window.hpp"
 
 int main(int argc, char ** argv) {
   constexpr auto version = toy::application::Version{.major    = TOY_EDITOR_VERSION_MAJOR,
@@ -40,18 +40,7 @@ int main(int argc, char ** argv) {
   QApplication app(argc, argv);
   QApplication::setApplicationName(QStringLiteral("ToyGine 2 Editor"));
 
-  QMainWindow window;
-  window.setWindowTitle(QString("ToyGine 2 Editor %1.%2.%3 (%4)")
-                          .arg(version.major)
-                          .arg(version.minor)
-                          .arg(version.patch)
-                          .arg(version.revision.c_str()));
-
-  auto * placeholder = new QLabel(QStringLiteral("Hello, ToyGine 2 Editor"));
-  placeholder->setAlignment(Qt::AlignCenter);
-  window.setCentralWidget(placeholder);
-
-  window.resize(800, 600);
+  toy::editor::MainWindow window{version};
   window.show();
 
   return QApplication::exec();

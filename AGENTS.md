@@ -26,6 +26,8 @@ The project is organized into named modules. Each module follows this layout:
 
 `src/platforms/` holds platform-specific implementations and per-target `platform_config.hpp`; it is not a module.
 
+`editor/` is the Qt6 editor application; it does not follow the module layout. Read [`editor/AGENTS.md`](editor/AGENTS.md) before working there.
+
 Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), `extern/` (vendored deps), `tools/` (CI scripts), `.github/` (GitHub Actions), `.vscode/` (editor settings).
 
 ## C++ game engine style guide

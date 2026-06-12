@@ -1132,6 +1132,7 @@ RECURSIVE              = YES
 
 EXCLUDE                = ./benchmarks/ \
                          ./docs/ \
+                         ./editor/ \
                          ./out/ \
                          ./samples/ \
                          ./tests/ \

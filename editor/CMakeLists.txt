@@ -22,8 +22,8 @@ include(VersionMetadata)
 
 qt_standard_project_setup()
 
-set(SRC_LIST src/main.cpp)
-set(HDR_LIST )
+set(SRC_LIST src/main.cpp src/main_window/main_window.cpp)
+set(HDR_LIST src/main_window/main_window.hpp)
 set(INL_LIST )
 set(RES_LIST )
 set(LIB_LIST toygine Qt6::Widgets)
@@ -35,6 +35,18 @@ source_group("Header Files" FILES ${HDR_LIST})
 # qt_add_executable applies the platform GUI flags (WIN32 / MACOSX_BUNDLE), wires the Qt entry point,
 # and enables automoc on the target.
 qt_add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST} ${RES_LIST})
+
+# moc-generated translation units are outside our control and do not pass the strict -Weverything / -Werror profile
+# (e.g. -Wctad-maybe-unsupported). Disable warnings for the generated mocs_compilation.cpp only; hand-written editor
+# sources stay fully strict.
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+  set_source_files_properties(
+    "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}_autogen/mocs_compilation.cpp"
+    TARGET_DIRECTORY ${BINARY_NAME}
+    PROPERTIES COMPILE_OPTIONS "-w")
+endif()
+
+target_include_directories(${BINARY_NAME} PRIVATE src)
 
 target_compile_definitions(${BINARY_NAME} PRIVATE
   TOY_EDITOR_VERSION_MAJOR=${PROJECT_VERSION_MAJOR}
