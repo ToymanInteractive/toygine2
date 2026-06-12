@@ -228,7 +228,7 @@ Usage Example</h1>
 <div class="line">  <span class="keywordtype">bool</span> <a class="code hl_function" href="#aed1b6d6f45a9cea05036823ef6ef6590">runInternal</a>() noexcept<span class="keyword"> override </span>{ <span class="keywordflow">return</span> <span class="keyword">true</span>; }</div>
 <div class="line">};</div>
 <div class="line"> </div>
-<div class="line"><span class="keywordtype">int</span> <a class="code hl_function" href="../../df/d0a/main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a>(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv) {</div>
+<div class="line"><span class="keywordtype">int</span> main(<span class="keywordtype">int</span> argc, <span class="keywordtype">char</span> ** argv) {</div>
 <div class="line">  MyApp app;</div>
 <div class="line">  <span class="keywordflow">return</span> app.run(argc, argv) ? 0 : 1;</div>
 <div class="line">}</div>
@@ -236,7 +236,6 @@ Usage Example</h1>
 <div class="ttc" id="aclasstoy_1_1application_1_1_core_application_html"><div class="ttname"><a href="../../d7/d1d/classtoy_1_1application_1_1_core_application.html">toy::application::CoreApplication</a></div><div class="ttdoc">Abstract base for platform application lifecycle management.</div><div class="ttdef"><b>Definition</b> core_application.hpp:98</div></div>
 <div class="ttc" id="aclasstoy_1_1application_1_1_core_application_html_ac1afe37972857779cf0b8faeda8ffe21"><div class="ttname"><a href="#ac1afe37972857779cf0b8faeda8ffe21">toy::application::CoreApplication::CoreApplication</a></div><div class="ttdeci">CoreApplication(assertion::AssertionCallback assertionCallback, assertion::StackWalkCallback stackWalkCallback) noexcept</div><div class="ttdoc">Initializes the engine core module and registers this object as the singleton.</div><div class="ttdef"><b>Definition</b> core_application.cpp:36</div></div>
 <div class="ttc" id="aclasstoy_1_1application_1_1_core_application_html_aed1b6d6f45a9cea05036823ef6ef6590"><div class="ttname"><a href="#aed1b6d6f45a9cea05036823ef6ef6590">toy::application::CoreApplication::runInternal</a></div><div class="ttdeci">virtual bool runInternal() noexcept=0</div><div class="ttdoc">Platform-specific run loop; called by run() after arguments are stored.</div></div>
-<div class="ttc" id="amain_8cpp_html_a3c04138a5bfe5d72780bb7e82a18e627"><div class="ttname"><a href="../../df/d0a/main_8cpp.html#a3c04138a5bfe5d72780bb7e82a18e627">main</a></div><div class="ttdeci">int main(int argc, char **argv)</div><div class="ttdef"><b>Definition</b> main.cpp:34</div></div>
 </div><!-- fragment --><h1 class="doxsection"><a class="anchor" id="performance"></a>
 Performance Characteristics</h1>
 <ul>

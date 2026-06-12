@@ -2,14 +2,12 @@
 <area shape="rect" id="Node000001" title="Fixed&#45;point numeric type template and related concepts." alt="" coords="60,5,231,31"/>
 <area shape="rect" id="Node000002" href="$d4/d78/math_8hpp.html" title="Umbrella header for the math module." alt="" coords="78,152,213,177"/>
 <area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="126,42,113,60,104,79,103,99,110,118,135,150,130,153,105,121,97,100,99,78,109,57,122,39"/>
-<area shape="rect" id="Node000006" href="$d3/dad/constants_8hpp.html" title="Mathematical constants for floating&#45;point and toy::math::fixed_point types." alt="" coords="113,79,316,104"/>
-<area shape="poly" id="edge6_Node000001_Node000006" title=" " alt="" coords="168,39,205,77,202,80,164,43"/>
+<area shape="rect" id="Node000005" href="$d3/dad/constants_8hpp.html" title="Mathematical constants for floating&#45;point and toy::math::fixed_point types." alt="" coords="113,79,316,104"/>
+<area shape="poly" id="edge5_Node000001_Node000005" title=" " alt="" coords="168,39,205,77,202,80,164,43"/>
 <area shape="rect" id="Node000003" href="$db/dbb/geometry_8hpp.html" title="Umbrella header for the geometry module." alt="" coords="5,225,168,251"/>
 <area shape="poly" id="edge2_Node000002_Node000003" title=" " alt="" coords="129,190,98,227,94,224,125,186"/>
 <area shape="rect" id="Node000004" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="66,299,225,324"/>
-<area shape="poly" id="edge5_Node000002_Node000004" title=" " alt="" coords="165,187,183,225,184,246,178,267,158,300,153,297,173,265,178,246,177,226,160,190"/>
+<area shape="poly" id="edge4_Node000002_Node000004" title=" " alt="" coords="165,187,183,225,184,246,178,267,158,300,153,297,173,265,178,246,177,226,160,190"/>
 <area shape="poly" id="edge3_Node000003_Node000004" title=" " alt="" coords="107,260,138,297,134,300,103,263"/>
-<area shape="rect" id="Node000005" href="$df/d0a/main_8cpp.html" title="Entry point of the Qt&#45;based ToyGine 2 editor." alt="" coords="72,372,219,397"/>
-<area shape="poly" id="edge4_Node000004_Node000005" title=" " alt="" coords="148,338,148,372,143,372,143,338"/>
-<area shape="poly" id="edge7_Node000006_Node000002" title=" " alt="" coords="196,116,158,154,155,150,192,112"/>
+<area shape="poly" id="edge6_Node000005_Node000002" title=" " alt="" coords="196,116,158,154,155,150,192,112"/>
 </map>

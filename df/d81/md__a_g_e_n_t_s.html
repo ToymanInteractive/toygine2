@@ -160,6 +160,7 @@ Project Structure</h1>
 <li><span class="tt">include/&lt;module&gt;.hpp</span> — single umbrella header per module (some may be generated during configure/build, e.g. from templates); <span class="tt"><a class="el" href="../../d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine.">include/toygine2.hpp</a></span> — root umbrella.</li>
 </ul>
 <p><span class="tt">src/platforms/</span> holds platform-specific implementations and per-target <span class="tt">platform_config.hpp</span>; it is not a module.</p>
+<p><span class="tt">editor/</span> is the Qt6 editor application; it does not follow the module layout. Read <span class="tt">editor/AGENTS.md</span> before working there.</p>
 <p>Other top-level directories: <span class="tt">cmake/</span> (build scripts), <span class="tt">docs/</span> (documentation), <span class="tt">extern/</span> (vendored deps), <span class="tt">tools/</span> (CI scripts), <span class="tt">.github/</span> (GitHub Actions), <span class="tt">.vscode/</span> (editor settings).</p>
 <h1 class="doxsection"><a class="anchor" id="c-game-engine-style-guide"></a>
 C++ game engine style guide</h1>
