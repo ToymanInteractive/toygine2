@@ -6,7 +6,7 @@ Extends and overrides the root `AGENTS.md` for everything under `editor/`. The e
 
 No public API, so the library's `include/` vs `src/` split adds nothing. Each feature is one directory with its `.hpp` and `.cpp` side by side.
 
-```
+```txt
 editor/src/
   main.cpp                  # entry point at the source-tree root
   main_window/
