@@ -143,6 +143,8 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE)
     set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_BUILD_PRESET}")
   endif ()
 
+  set(Coverage_LCOV_ARGS "--ignore-errors inconsistent")
+
   # cmake code coverage module target
   setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS})
 
