@@ -74,10 +74,10 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 * **Explicit constructors:** Mark single-parameter constructors `explicit` unless implicit conversion is intentionally part of the design.
 * **Range-based for:** Prefer range-based for loops when iterating over containers.
 * **`= default` / `= delete`:** Default special members with `= default`; forbid unwanted operations (copy, move) with `= delete`.
-* **Rule of Zero / Five:** Manage no resource → declare none of the five special members; declare or delete any → declare all five explicitly (`= default`, `= delete`, or a body). Never rely on implicit deletion (MSVC `/W4` warns); resource owners (singletons, RAII handles, subsystem owners) must `= delete` all copy/move operations and declare the destructor.
+* **Rule of Zero / Five:** Manage no resource → declare none of the five special members; declare or delete any → declare all five explicitly (`= default`, `= delete`, or a body). Never rely on implicit deletion (MSVC `/W4` warns); resource owners state ownership explicitly — move-only (delete copy, keep/define move) or non-movable (delete both) — and declare the destructor.
 * **`auto`:** Use when the type is obvious from context or overly verbose; avoid when it hides a non-evident type.
 * **Default member initialization:** Use in-class initializers where appropriate; use constructor init lists for non-default values.
-* **Brace initialization:** Prefer `{}` for variables (local, namespace-scope, in-class members); use `= value` for literal `constexpr` / `const` constants and `=` when `{}` would pick the wrong constructor (e.g. `std::vector<int> v(10)` vs `v = {1, 2}`).
+* **Brace initialization:** Prefer `{}` for variables (local, namespace-scope, in-class members); use `= value` for literal `constexpr` / `const` constants and direct initialization when `{}` would pick the wrong overload (e.g. `std::vector<int> v(10)` for ten value-initialized elements instead of `std::vector<int> v{10}`, which makes a single element of value 10).
 
 ---
 
