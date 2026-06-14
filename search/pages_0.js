@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['8_0',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]]
+  ['23_20best_20practices_0',['C++23 Best Practices',['../df/d81/md__a_g_e_n_t_s.html#c23-best-practices',1,'']]]
 ];

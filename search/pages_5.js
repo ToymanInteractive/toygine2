@@ -1,8 +1,13 @@
 var searchData=
 [
-  ['engine_20style_20guide_0',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
-  ['error_20handling_1',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
-  ['example_2',['Usage Example',['../d4/da9/namespacetoy.html#usage',1,'']]],
-  ['explicit_20constructors_3',['Explicit Constructors',['../df/d81/md__a_g_e_n_t_s.html#explicit-constructors',1,'']]],
-  ['extensions_4',['File Extensions',['../df/d81/md__a_g_e_n_t_s.html#file-extensions',1,'']]]
+  ['dependency_20management_0',['Dependency Management',['../df/d81/md__a_g_e_n_t_s.html#dependency-management',1,'']]],
+  ['documentation_1',['Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'Comments and Documentation'],['../df/d81/md__a_g_e_n_t_s.html#concept-documentation',1,'Concept Documentation']]],
+  ['documentation_2',['File documentation (&lt;span class=&quot;tt&quot;&gt;\\file&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#file-documentation-file',1,'']]],
+  ['documentation_20order_3',['Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'Class / Struct Documentation Order'],['../df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order',1,'Method / Function Documentation Order']]],
+  ['documentation_20pre_20commit_20checklist_4',['Documentation Pre-Commit Checklist',['../df/d81/md__a_g_e_n_t_s.html#documentation-pre-commit-checklist',1,'']]],
+  ['documentation_20style_20rules_5',['Documentation Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'']]],
+  ['documentation_20templates_6',['Class Documentation Templates',['../df/d81/md__a_g_e_n_t_s.html#class-documentation-templates',1,'']]],
+  ['documentation_20tone_7',['Documentation Tone',['../df/d81/md__a_g_e_n_t_s.html#documentation-tone',1,'']]],
+  ['doxygen_20block_20style_8',['Doxygen Block Style',['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'']]],
+  ['duplication_9',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]]
 ];

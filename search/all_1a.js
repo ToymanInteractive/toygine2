@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['zero_20and_20rule_20of_20five_0',['Rule of Zero and Rule of Five',['../df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five',1,'']]]
+  ['y_0',['y',['../d3/dce/classtoy_1_1math_1_1_point.html#ac66eace842a226ea3e0284c6c4111ead',1,'toy::math::Point::y'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#afd80ea55a99384c8e879b362bf895913',1,'toy::math::Vector2::y']]],
+  ['year_1',['year',['../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a239a332549dca3ff1e406c34ad16d166',1,'toy::chrono::CalendarTime']]],
+  ['yes_2',['Yes',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2a93cba07454f06a4a960172bbd6e2a435',1,'toy::platform::ui']]],
+  ['yesno_3',['YesNo',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4',1,'toy::platform::ui']]],
+  ['yesnocancel_4',['YesNoCancel',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5',1,'toy::platform::ui']]]
 ];

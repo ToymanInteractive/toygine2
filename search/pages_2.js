@@ -1,8 +1,16 @@
 var searchData=
 [
-  ['based_20assertions_0',['Value-Based Assertions',['../df/d81/md__a_g_e_n_t_s.html#value-based-assertions',1,'']]],
-  ['based_20for_20loops_1',['Range-Based For Loops',['../df/d81/md__a_g_e_n_t_s.html#range-based-for-loops',1,'']]],
-  ['block_20style_2',['Doxygen Block Style',['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'']]],
-  ['brace_20initialization_3',['Brace Initialization',['../df/d81/md__a_g_e_n_t_s.html#brace-initialization',1,'']]],
-  ['building_4',['Building',['../index.html#building',1,'']]]
+  ['access_20modifiers_0',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
+  ['agents_20rules_20for_20this_20repository_1',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['ai_20agents_20rules_20for_20this_20repository_2',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['allocation_20rules_3',['Memory and Allocation Rules',['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'']]],
+  ['and_20allocation_20rules_4',['Memory and Allocation Rules',['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'']]],
+  ['and_20documentation_5',['Comments and Documentation',['../df/d81/md__a_g_e_n_t_s.html#comments-and-documentation',1,'']]],
+  ['and_20duplication_6',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
+  ['and_20standard_7',['Language and Standard',['../df/d81/md__a_g_e_n_t_s.html#language-and-standard',1,'']]],
+  ['and_20structure_8',['Test Length and Structure',['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'']]],
+  ['and_20template_20code_9',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
+  ['assertions_10',['Assertions',['../df/d81/md__a_g_e_n_t_s.html#assertions',1,'Assertions'],['../df/d81/md__a_g_e_n_t_s.html#value-based-assertions',1,'Value-Based Assertions']]],
+  ['assertions_20including_20utf_208_11',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
+  ['assumptions_12',['Test Framework Assumptions',['../df/d81/md__a_g_e_n_t_s.html#test-framework-assumptions',1,'']]]
 ];

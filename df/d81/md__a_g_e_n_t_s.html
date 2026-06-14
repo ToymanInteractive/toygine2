@@ -198,6 +198,23 @@ Code Quality</h1>
 <li><b>Styling:</b> 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned <span class="tt">type * pointer</span> / <span class="tt">type &amp; reference</span> / <span class="tt">const type * constPointer</span>, break before binary operators, at most one blank line between sections and none opening a block. Run <span class="tt">clang-format</span> and <span class="tt">clang-tidy --fix</span>; leave no warnings under <span class="tt">-Wall -Wextra -Wpedantic</span> before committing.</li>
 <li><b>Logging:</b> Use the engine macros <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#a20f022b1b58ba62e014b624fdd13572c" title="Emits a toy::log::Level::Trace record through the active toy::log::Backend.">LOG_TRACE</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#ac06cfc686322558f590c50eab8622ebd" title="Emits a toy::log::Level::Debug record through the active toy::log::Backend.">LOG_DEBUG</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#ae69d735f8291bd2aff230fe6ffb4d4b3" title="Emits a toy::log::Level::Info record through the active toy::log::Backend.">LOG_INFO</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#adba1363ea408060eab75cb5a48dcb907" title="Emits a toy::log::Level::Warn record through the active toy::log::Backend.">LOG_WARN</a></span>, <span class="tt"><a class="el" href="../../d3/dcb/log__macros_8hpp.html#ae6fc70e87e424e7083c63696b8fb9e78" title="Emits a toy::log::Level::Error record through the active toy::log::Backend.">LOG_ERROR</a></span> (via <span class="tt"><a class="el" href="../../da/d15/namespacetoy_1_1log.html" title="Logger building blocks: severity levels, call-site metadata, in-flight records, and the sink interfac...">toy::log</a></span>), never <span class="tt">printf</span>, <span class="tt">std::cout</span>, or <span class="tt">std::print</span>. Levels below <span class="tt"><a class="el" href="../../d0/d01/log__level_8hpp.html#aaba7ea47d8de80bb53fc76918ba7b534" title="Compile-time maximum verbosity (default 50 = toy::log::Level::Trace).">LOG_MAX_LEVEL</a></span> compile out — zero-cost on constrained targets.</li>
 </ul>
+<h1 class="doxsection"><a class="anchor" id="c23-best-practices"></a>
+C++23 Best Practices</h1>
+<ul>
+<li><b>Pointer / Null Safety:</b> Prefer references and values over raw pointers; <span class="tt">std::optional</span> for optional values; avoid unchecked dereferences and raw owning pointers (long-lived resources use handles or indices — see Explicit resource lifetime).</li>
+<li><b>Pattern Matching:</b> Use structured bindings, <span class="tt">if constexpr</span>, and <span class="tt">std::visit</span> over <span class="tt">std::variant</span> for type and case dispatch.</li>
+<li><b>Aggregates and Records:</b> Use aggregate <span class="tt">struct</span>s with designated initializers to group or return related values; reach for <span class="tt">std::tuple</span> / <span class="tt">std::pair</span> only when a named struct is cumbersome.</li>
+<li><b>Switch Statements:</b> Prefer exhaustive <span class="tt">switch</span> over enumerations; omit <span class="tt">default</span> so new enumerators surface as compiler warnings.</li>
+<li><b>Lambdas:</b> Use lambdas for short local callables and capture explicitly; avoid <span class="tt">std::function</span> on hot paths (see Zero-cost abstractions).</li>
+<li><b><span class="tt">using</span> over <span class="tt">typedef</span>:</b> Prefer <span class="tt">using</span> declarations over <span class="tt">typedef</span>.</li>
+<li><b>Explicit constructors:</b> Mark single-parameter constructors <span class="tt">explicit</span> unless implicit conversion is intentionally part of the design.</li>
+<li><b>Range-based for:</b> Prefer range-based for loops when iterating over containers.</li>
+<li><b><span class="tt">= default</span> / <span class="tt">= delete</span>:</b> Default special members with <span class="tt">= default</span>; forbid unwanted operations (copy, move) with <span class="tt">= delete</span>.</li>
+<li><b>Rule of Zero / Five:</b> Manage no resource → declare none of the five special members; declare or delete any → declare all five explicitly (<span class="tt">= default</span>, <span class="tt">= delete</span>, or a body). Never rely on implicit deletion (MSVC <span class="tt">/W4</span> warns); resource owners state ownership explicitly — move-only (delete copy, keep/define move) or non-movable (delete both) — and declare the destructor.</li>
+<li><b><span class="tt">auto</span>:</b> Use when the type is obvious from context or overly verbose; avoid when it hides a non-evident type.</li>
+<li><b>Default member initialization:</b> Use in-class initializers where appropriate; use constructor init lists for non-default values.</li>
+<li><b>Brace initialization:</b> Prefer <span class="tt">{}</span> for variables (local, namespace-scope, in-class members); use <span class="tt">= value</span> for literal <span class="tt">constexpr</span> / <span class="tt">const</span> constants and direct initialization when <span class="tt">{}</span> would pick the wrong overload (e.g. <span class="tt">std::vector&lt;int&gt; v(10)</span> for ten value-initialized elements instead of <span class="tt">std::vector&lt;int&gt; v{10}</span>, which makes a single element of value 10).</li>
+</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="project-context"></a>
 Project Context</h1>
@@ -296,68 +313,6 @@ Memory and Allocation Rules</h1>
 </li>
 </ul>
 <p>No hidden allocations.</p>
-<hr  />
-<h1 class="doxsection"><a class="anchor" id="modern-c-practices"></a>
-Modern C++ Practices</h1>
-<h2 class="doxsection"><a class="anchor" id="noexcept"></a>
-noexcept</h2>
-<ul>
-<li>Mark all functions that do not throw with <span class="tt">noexcept</span>.</li>
-<li>This project does not use exceptions — all operations should be <span class="tt">noexcept</span>.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="nodiscard"></a>
-<span class="tt">[[nodiscard]]</span></h2>
-<ul>
-<li>Apply <span class="tt">[[nodiscard]]</span> to every function or method whose return value should not be ignored (getters, factory functions, pure computations, etc.).</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="using-over-typedef"></a>
-<span class="tt">using</span> over <span class="tt">typedef</span></h2>
-<ul>
-<li>Prefer <span class="tt">using</span> declarations over <span class="tt">typedef</span>.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="explicit-constructors"></a>
-Explicit Constructors</h2>
-<ul>
-<li>Mark single-parameter constructors as <span class="tt">explicit</span> to prevent implicit conversions, unless implicit conversion is intentionally part of the design.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="autotoc_md-default-and--delete"></a>
-<span class="tt">= default</span> and <span class="tt">= delete</span></h2>
-<ul>
-<li>Use <span class="tt">= default</span> for default constructors and destructors when appropriate.</li>
-<li>Use <span class="tt">= delete</span> to explicitly prevent unwanted operations (move, copy, etc.).</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="rule-of-zero-and-rule-of-five"></a>
-Rule of Zero and Rule of Five</h2>
-<ul>
-<li><b>Rule of Zero</b>: if a class does not directly manage a resource, declare none of the five special member functions; let the compiler generate them correctly.</li>
-<li><b>Rule of Five</b>: if a class declares or deletes <b>any</b> of the five special member functions — destructor, copy constructor, copy assignment operator, move constructor, move assignment operator — explicitly declare <b>all five</b> with <span class="tt">= default</span>, <span class="tt">= delete</span>, or a user-provided body.</li>
-<li>Never rely on implicit deletion. Compilers (notably MSVC with <span class="tt">/W4</span>) treat implicitly deleted or implicitly defined copy/move operations as warnings. Declare intent explicitly so the code communicates ownership semantics without requiring the reader to know the implicit rules.</li>
-<li>Classes that manage exclusive resources (singletons, RAII handles, subsystem owners) must <span class="tt">= delete</span> all four copy/move operations and declare the destructor explicitly.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="auto"></a>
-<span class="tt">auto</span></h2>
-<ul>
-<li>Use <span class="tt">auto</span> when the type is obvious from context or overly verbose.</li>
-<li>Avoid <span class="tt">auto</span> when it would reduce readability (e.g. the actual type is not evident from the initializer).</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="range-based-for-loops"></a>
-Range-Based For Loops</h2>
-<ul>
-<li>Prefer range-based for loops when iterating over containers.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="default-member-initialization"></a>
-Default Member Initialization</h2>
-<ul>
-<li>Use default member initializers (in-class) when appropriate.</li>
-<li>Prefer constructor initialization lists for non-default values.</li>
-</ul>
-<h2 class="doxsection"><a class="anchor" id="brace-initialization"></a>
-Brace Initialization</h2>
-<ul>
-<li>Prefer brace initialization <span class="tt">{}</span> over <span class="tt">=</span> for variable declarations: local variables, namespace-scope variables, and in-class member initializers.</li>
-<li>Exception: <span class="tt">constexpr</span> / <span class="tt">const</span> constants with literal values use <span class="tt">= value</span> — this is the established idiom (<span class="tt">constexpr int x = 42</span>), and narrowing is not a concern since the value is known at compile time.</li>
-<li>Exception: use <span class="tt">=</span> when brace initialization would invoke the wrong constructor (e.g. <span class="tt">std::vector&lt;int&gt; v(10)</span> vs <span class="tt">std::vector&lt;int&gt; v = {1, 2}</span>).</li>
-</ul>
 <hr  />
 <h1 class="doxsection"><a class="anchor" id="error-handling"></a>
 Error Handling</h1>

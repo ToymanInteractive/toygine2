@@ -1,7 +1,7 @@
 <map id="include/network.hpp" name="include/network.hpp">
-<area shape="rect" id="Node000001" title="Umbrella header for the network module." alt="" coords="106,5,261,31"/>
-<area shape="rect" id="Node000002" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,79,164,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="158,41,102,81,99,76,155,36"/>
-<area shape="rect" id="Node000003" href="$d3/d80/endpoint_8cpp.html" title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint...." alt="" coords="189,79,375,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,36,267,76,264,81,208,41"/>
+<area shape="rect" id="Node000001" title="Umbrella header for the network module." alt="" coords="105,5,258,33"/>
+<area shape="rect" id="Node000002" href="$d8/d8c/toygine2_8hpp.html" title="Main umbrella header for the engine." alt="" coords="5,81,163,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="155,42,103,83,100,78,150,43"/>
+<area shape="rect" id="Node000003" href="$d3/d80/endpoint_8cpp.html" title="Definitions for the toy::network::Endpoint destructor declared in network/endpoint...." alt="" coords="187,81,373,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="212,40,265,81,260,81,210,45"/>
 </map>

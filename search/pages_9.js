@@ -1,15 +1,8 @@
 var searchData=
 [
-  ['implementation_20cpp_0',['Template: implementation (&lt;span class=&quot;tt&quot;&gt;.cpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-implementation-cpp',1,'']]],
-  ['implementation_20inl_1',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
-  ['include_20guards_2',['Include Guards',['../df/d81/md__a_g_e_n_t_s.html#include-guards',1,'']]],
-  ['include_20order_3',['Include Order',['../df/d81/md__a_g_e_n_t_s.html#include-order',1,'']]],
-  ['including_20utf_208_4',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
-  ['independence_5',['Test Independence',['../df/d81/md__a_g_e_n_t_s.html#test-independence',1,'']]],
-  ['initialization_6',['Initialization',['../df/d81/md__a_g_e_n_t_s.html#brace-initialization',1,'Brace Initialization'],['../df/d81/md__a_g_e_n_t_s.html#default-member-initialization',1,'Default Member Initialization']]],
-  ['inl_7',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
-  ['inl_20files_8',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],
-  ['inline_20and_20template_20code_9',['Inline and Template Code',['../df/d81/md__a_g_e_n_t_s.html#inline-and-template-code',1,'']]],
-  ['inline_20implementation_20inl_10',['Template: inline implementation (&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-inline-implementation-inl',1,'']]],
-  ['interaction_20guidelines_11',['Interaction Guidelines',['../df/d81/md__a_g_e_n_t_s.html#interaction-guidelines',1,'']]]
+  ['handling_0',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
+  ['header_20hpp_1',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]],
+  ['header_20source_20organization_2',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
+  ['headers_3',['Headers',['../df/d81/md__a_g_e_n_t_s.html#headers',1,'']]],
+  ['hpp_4',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]]
 ];

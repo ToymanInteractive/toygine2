@@ -1,9 +1,10 @@
 var searchData=
 [
-  ['naming_0',['STL-Compatible Naming',['../df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming',1,'']]],
-  ['naming_1',['Preset naming',['../index.html#preset-naming',1,'']]],
-  ['naming_20conventions_2',['Naming Conventions',['../df/d81/md__a_g_e_n_t_s.html#naming-conventions',1,'']]],
-  ['naming_20tests_3',['Naming Tests',['../df/d81/md__a_g_e_n_t_s.html#naming-tests',1,'']]],
-  ['nodiscard_4',['&lt;span class=&quot;tt&quot;&gt;[[nodiscard]]&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#nodiscard',1,'']]],
-  ['noexcept_5',['noexcept',['../df/d81/md__a_g_e_n_t_s.html#noexcept',1,'']]]
+  ['management_0',['Dependency Management',['../df/d81/md__a_g_e_n_t_s.html#dependency-management',1,'']]],
+  ['members_1',['Private Members',['../df/d81/md__a_g_e_n_t_s.html#private-members',1,'']]],
+  ['memory_20and_20allocation_20rules_2',['Memory and Allocation Rules',['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'']]],
+  ['method_20function_20documentation_20order_3',['Method / Function Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order',1,'']]],
+  ['minimum_20os_20versions_4',['Minimum OS versions',['../index.html#minimum-os-versions',1,'']]],
+  ['modifiers_5',['Access Modifiers',['../df/d81/md__a_g_e_n_t_s.html#access-modifiers',1,'']]],
+  ['module_20structure_6',['Module Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'']]]
 ];

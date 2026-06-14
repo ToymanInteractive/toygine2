@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['y_0',['y',['../d3/dce/classtoy_1_1math_1_1_point.html#ac66eace842a226ea3e0284c6c4111ead',1,'toy::math::Point::y'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#afd80ea55a99384c8e879b362bf895913',1,'toy::math::Vector2::y']]],
-  ['year_1',['year',['../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a239a332549dca3ff1e406c34ad16d166',1,'toy::chrono::CalendarTime']]],
-  ['yes_2',['Yes',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2a93cba07454f06a4a960172bbd6e2a435',1,'toy::platform::ui']]],
-  ['yesno_3',['YesNo',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445ab65ffbcb4dcfb93ecdc257d6e4ba42c4',1,'toy::platform::ui']]],
-  ['yesnocancel_4',['YesNoCancel',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#a4f41eacedb4fa2744ba9f594b0832445a71fc7b7aece69111c0b6967de4b101c5',1,'toy::platform::ui']]]
+  ['x_0',['x',['../d3/dce/classtoy_1_1math_1_1_point.html#a5b974e35db246293fe092fd51e93484e',1,'toy::math::Point::x'],['../d6/dff/classtoy_1_1math_1_1_vector2.html#a999f72ff14195736f631b8aba1f91d92',1,'toy::math::Vector2::x']]],
+  ['x64_1',['x64',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a9c16d991c79c6330e655aa29ea623492',1,'toy']]],
+  ['x86_2',['x86',['../d4/da9/namespacetoy.html#a3035878faaa5b79577c9d9f218e0b341a8a9da7865483c5fd359f3acef178d26d',1,'toy']]],
+  ['x8r8g8b8_3',['X8R8G8B8',['../df/d8d/namespacetoy_1_1render.html#a9243408ee3ef10922906a4ca5210dc3fa08621a79896977cc5f97853284adc2a9',1,'toy::render']]]
 ];

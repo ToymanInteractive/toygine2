@@ -1,5 +1,5 @@
 <map id="include/application/core_application.hpp" name="include/application/core_application.hpp">
-<area shape="rect" id="Node000001" title="Abstract base class for platform application lifecycle." alt="" coords="5,5,167,45"/>
-<area shape="rect" id="Node000002" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="37,93,135,119"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="89,46,89,79,83,79,83,46"/>
+<area shape="rect" id="Node000001" title="Abstract base class for platform application lifecycle." alt="" coords="5,5,166,50"/>
+<area shape="rect" id="Node000002" href="$d7/dad/version_8hpp.html" title="Application version type and comparison operators." alt="" coords="37,98,134,126"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="87,48,88,83,83,82,84,52"/>
 </map>

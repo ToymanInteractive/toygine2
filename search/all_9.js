@@ -1,21 +1,14 @@
 var searchData=
 [
-  ['handler_0',['handler',['../d2/d3a/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__linux_8cpp_03.html#a5701bf5c4a48a3b7c91569acee081228',1,'toy::assertion::anonymous_namespace{assertion_linux.cpp}::handler()'],['../d8/d45/namespacetoy_1_1assertion_1_1anonymous__namespace_02assertion__macos_8cpp_03.html#a2cf3e06b2668920e8dca4d29798b32f3',1,'toy::assertion::anonymous_namespace{assertion_macos.cpp}::handler()']]],
-  ['handling_1',['Error Handling',['../df/d81/md__a_g_e_n_t_s.html#error-handling',1,'']]],
-  ['has_5fdenorm_2',['has_denorm',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a342fd7ad807189a4fb34b673778d64c6',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5fdenorm_5floss_3',['has_denorm_loss',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#ac890e8e82de6afbad143f30cfa689c92',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5finfinity_4',['has_infinity',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a32c09571e763734c9099762fa29a57e9',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5fquiet_5fnan_5',['has_quiet_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#a2215e103803628f20a023df55cbb6e71',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['has_5fsignaling_5fnan_6',['has_signaling_NaN',['../d4/d44/classstd_1_1numeric__limits_3_01toy_1_1math_1_1fixed_3_01_base_00_01_intermediate_00_01_fraction_00_01_rounding_01_4_01_4.html#af4b93bf26ebc5c9f8d317e444965deb5',1,'std::numeric_limits&lt; toy::math::fixed&lt; Base, Intermediate, Fraction, Rounding &gt; &gt;']]],
-  ['hashes_2ecpp_7',['hashes.cpp',['../db/d2d/hashes_8cpp.html',1,'']]],
-  ['hashes_2ehpp_8',['hashes.hpp',['../dd/d8e/hashes_8hpp.html',1,'']]],
-  ['header_20hpp_9',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]],
-  ['header_20source_20organization_10',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
-  ['headers_11',['Headers',['../df/d81/md__a_g_e_n_t_s.html#headers',1,'']]],
-  ['help_12',['Help',['../d1/d03/namespacetoy_1_1platform_1_1ui.html#acd712dd388168864cc984d43e23e41d2a6a26f548831e6a8c26bfbbd9f6ec61e0',1,'toy::platform::ui']]],
-  ['hidden_13',['Hidden',['../d8/d25/namespacetoy_1_1game.html#ac8a6f36358f3ac99f55a1db9c3827edaa7acdf85c69cc3c5305456a293524386e',1,'toy::game::Hidden'],['../d1/d03/namespacetoy_1_1platform_1_1ui.html#af1575b610ba458b6ebdcb8763c30a9eca7acdf85c69cc3c5305456a293524386e',1,'toy::platform::ui::Hidden']]],
-  ['highestbit_14',['highestBit',['../d4/da9/namespacetoy.html#adb88a3717143c42b9d24c5a8bf553b2d',1,'toy']]],
-  ['hostnameastext_15',['hostnameAsText',['../d3/d53/classtoy_1_1network_1_1_endpoint.html#aeda5592286cef23855e93c8bfdfc28fd',1,'toy::network::Endpoint']]],
-  ['hour_16',['hour',['../d7/dde/structtoy_1_1chrono_1_1_calendar_time.html#a3f17e9f127449885dc0a076ca84413f6',1,'toy::chrono::CalendarTime']]],
-  ['hpp_17',['Template: public header (&lt;span class=&quot;tt&quot;&gt;.hpp&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#template-public-header-hpp',1,'']]]
+  ['game_20engine_20style_20guide_0',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
+  ['game_2ehpp_1',['game.hpp',['../d8/d39/game_8hpp.html',1,'']]],
+  ['gamecube_2',['GameCube',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aa1414a3718f679c8ac977936a72f3a673',1,'toy']]],
+  ['gba_3',['GBA',['../d4/da9/namespacetoy.html#aac9dbb8926274f6a556489c529f4b55aad61abb0698c83433ab6b11ab3d68447d',1,'toy']]],
+  ['general_20test_20principles_4',['General Test Principles',['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'']]],
+  ['geometry_2ehpp_5',['geometry.hpp',['../db/dbb/geometry_8hpp.html',1,'']]],
+  ['get_6',['get',['../dc/d62/classtoy_1_1_format_string.html#aad2ddbdff43aae3fa0d453ec2196a339',1,'toy::FormatString']]],
+  ['guarantees_7',['Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#safety',1,'Safety Guarantees']]],
+  ['guards_8',['Include Guards',['../df/d81/md__a_g_e_n_t_s.html#include-guards',1,'']]],
+  ['guide_9',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
+  ['guidelines_10',['Interaction Guidelines',['../df/d81/md__a_g_e_n_t_s.html#interaction-guidelines',1,'']]]
 ];

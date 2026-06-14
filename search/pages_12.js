@@ -1,19 +1,14 @@
 var searchData=
 [
-  ['safety_20guarantees_0',['Safety Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#safety',1,'Safety Guarantees']]],
-  ['safety_20safety_20guarantees_1',['&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'']]],
-  ['simplified_20class_20without_20compatibility_2',['Simplified Class (without compatibility)',['../df/d81/md__a_g_e_n_t_s.html#simplified-class-without-compatibility',1,'']]],
-  ['source_20organization_3',['Header / Source Organization',['../df/d81/md__a_g_e_n_t_s.html#header--source-organization',1,'']]],
-  ['standard_4',['Language and Standard',['../df/d81/md__a_g_e_n_t_s.html#language-and-standard',1,'']]],
-  ['stl_20compatible_20naming_5',['STL-Compatible Naming',['../df/d81/md__a_g_e_n_t_s.html#stl-compatible-naming',1,'']]],
-  ['string_20length_20assertions_20including_20utf_208_6',['String length assertions (including UTF-8)',['../df/d81/md__a_g_e_n_t_s.html#string-length-assertions-including-utf-8',1,'']]],
-  ['struct_7',['Struct',['../df/d81/md__a_g_e_n_t_s.html#struct',1,'']]],
-  ['struct_20documentation_20order_8',['Class / Struct Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#class--struct-documentation-order',1,'']]],
-  ['structure_9',['Structure',['../df/d81/md__a_g_e_n_t_s.html#module-structure',1,'Module Structure'],['../df/d81/md__a_g_e_n_t_s.html#project-structure',1,'Project Structure'],['../df/d81/md__a_g_e_n_t_s.html#test-length-and-structure',1,'Test Length and Structure']]],
-  ['style_10',['Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'Const Reference Style'],['../df/d81/md__a_g_e_n_t_s.html#doxygen-block-style',1,'Doxygen Block Style']]],
-  ['style_20guide_11',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
-  ['style_20rules_12',['Style Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
-  ['supported_20c_20compilers_13',['Supported C++ compilers',['../index.html#supported-c-compilers',1,'']]],
-  ['supported_20systems_14',['Supported Systems',['../index.html#supported-systems',1,'']]],
-  ['systems_15',['Supported Systems',['../index.html#supported-systems',1,'']]]
+  ['redundancy_20and_20duplication_0',['Redundancy and Duplication',['../df/d81/md__a_g_e_n_t_s.html#redundancy-and-duplication',1,'']]],
+  ['reference_20style_1',['Const Reference Style',['../df/d81/md__a_g_e_n_t_s.html#const-reference-style',1,'']]],
+  ['regular_20class_2',['Regular Class',['../df/d81/md__a_g_e_n_t_s.html#regular-class',1,'']]],
+  ['repository_3',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['requirements_4',['Requirements',['../index.html#requirements',1,'']]],
+  ['rule_5',['Final Rule',['../df/d81/md__a_g_e_n_t_s.html#final-rule',1,'']]],
+  ['rules_6',['Rules',['../df/d81/md__a_g_e_n_t_s.html#documentation-style-rules',1,'Documentation Style Rules'],['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'Floating-Point Rules'],['../df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules',1,'Memory and Allocation Rules'],['../df/d81/md__a_g_e_n_t_s.html#unit-test-style-rules',1,'Unit Test Style Rules']]],
+  ['rules_20for_20this_20repository_7',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['runtime_20parity_8',['Constexpr + Runtime Parity',['../df/d81/md__a_g_e_n_t_s.html#constexpr--runtime-parity',1,'']]],
+  ['runtime_20testing_9',['Compile-Time vs Runtime Testing',['../df/d81/md__a_g_e_n_t_s.html#compile-time-vs-runtime-testing',1,'']]],
+  ['runtime_20tests_10',['Runtime Tests',['../df/d81/md__a_g_e_n_t_s.html#runtime-tests',1,'']]]
 ];

@@ -1,7 +1,7 @@
 <map id="include/math/constants.hpp" name="include/math/constants.hpp">
-<area shape="rect" id="Node000001" title="Mathematical constants for floating&#45;point and toy::math::fixed_point types." alt="" coords="22,5,225,31"/>
-<area shape="rect" id="Node000002" href="$d5/d42/fixed_8hpp.html" title="Fixed&#45;point numeric type template and related concepts." alt="" coords="5,79,87,104"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="113,33,71,71,67,67,109,29"/>
-<area shape="rect" id="Node000003" href="$d3/d21/fixed__std__extension_8hpp.html" title="Standard library extensions for toy::math::fixed: numeric_limits and std::numbers mathematical consta..." alt="" coords="111,79,290,104"/>
-<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="138,29,180,67,176,71,134,33"/>
+<area shape="rect" id="Node000001" title="Mathematical constants for floating&#45;point and toy::math::fixed_point types." alt="" coords="21,5,222,33"/>
+<area shape="rect" id="Node000002" href="$d5/d42/fixed_8hpp.html" title="Fixed&#45;point numeric type template and related concepts." alt="" coords="5,81,86,109"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="110,32,71,72,68,68,105,35"/>
+<area shape="rect" id="Node000003" href="$d3/d21/fixed__std__extension_8hpp.html" title="Standard library extensions for toy::math::fixed: numeric_limits and std::numbers mathematical consta..." alt="" coords="110,81,288,109"/>
+<area shape="poly" id="edge2_Node000001_Node000003" title=" " alt="" coords="136,31,177,70,172,70,134,36"/>
 </map>

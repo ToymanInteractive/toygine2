@@ -1,9 +1,12 @@
 var searchData=
 [
-  ['game_20engine_20style_20guide_0',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
-  ['general_20test_20principles_1',['General Test Principles',['../df/d81/md__a_g_e_n_t_s.html#general-test-principles',1,'']]],
-  ['guarantees_2',['Guarantees',['../df/d81/md__a_g_e_n_t_s.html#section-safety-safety-guarantees',1,'&lt;span class=&quot;tt&quot;&gt;\\section safety Safety Guarantees&lt;/span&gt;'],['../d0/d21/classtoy_1_1_string_fixed_storage.html#safety',1,'Safety Guarantees']]],
-  ['guards_3',['Include Guards',['../df/d81/md__a_g_e_n_t_s.html#include-guards',1,'']]],
-  ['guide_4',['C++ game engine style guide',['../df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide',1,'']]],
-  ['guidelines_5',['Interaction Guidelines',['../df/d81/md__a_g_e_n_t_s.html#interaction-guidelines',1,'']]]
+  ['features_0',['Key Features',['../d5/d12/group___math_functions.html#features',1,'']]],
+  ['file_20documentation_1',['File documentation (&lt;span class=&quot;tt&quot;&gt;\\file&lt;/span&gt;)',['../df/d81/md__a_g_e_n_t_s.html#file-documentation-file',1,'']]],
+  ['file_20extensions_2',['File Extensions',['../df/d81/md__a_g_e_n_t_s.html#file-extensions',1,'']]],
+  ['files_3',['&lt;span class=&quot;tt&quot;&gt;.inl&lt;/span&gt; Files',['../df/d81/md__a_g_e_n_t_s.html#inl-files',1,'']]],
+  ['final_20rule_4',['Final Rule',['../df/d81/md__a_g_e_n_t_s.html#final-rule',1,'']]],
+  ['floating_20point_20rules_5',['Floating-Point Rules',['../df/d81/md__a_g_e_n_t_s.html#floating-point-rules',1,'']]],
+  ['for_20this_20repository_6',['AI AGENTS rules for This Repository',['../df/d81/md__a_g_e_n_t_s.html',1,'']]],
+  ['framework_20assumptions_7',['Test Framework Assumptions',['../df/d81/md__a_g_e_n_t_s.html#test-framework-assumptions',1,'']]],
+  ['function_20documentation_20order_8',['Method / Function Documentation Order',['../df/d81/md__a_g_e_n_t_s.html#method--function-documentation-order',1,'']]]
 ];

@@ -1,5 +1,5 @@
 <map id="toy::chrono::TimePointFormat&lt; Clock, Dur &gt;" name="toy::chrono::TimePointFormat&lt; Clock, Dur &gt;">
-<area shape="rect" id="Node000001" title="Pairs a toy::chrono::TimePoint with a null&#45;terminated display pattern." alt="" coords="5,101,220,141"/>
-<area shape="rect" id="Node000002" href="$d5/d03/classtoy_1_1_c_string_view.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="48,5,177,31"/>
-<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="115,45,115,101,110,101,110,45"/>
+<area shape="rect" id="Node000001" title="Pairs a toy::chrono::TimePoint with a null&#45;terminated display pattern." alt="" coords="5,106,219,151"/>
+<area shape="rect" id="Node000002" href="$d5/d03/classtoy_1_1_c_string_view.html" title="Non&#45;owning string view class for C&#45;style strings." alt="" coords="48,5,176,33"/>
+<area shape="poly" id="edge1_Node000001_Node000002" title=" " alt="" coords="114,47,115,106,109,105,110,51"/>
 </map>

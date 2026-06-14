@@ -40,6 +40,7 @@ var NAVTREE =
       [ "C++ game engine style guide", "df/d81/md__a_g_e_n_t_s.html#c-game-engine-style-guide", null ],
       [ "Dependency Management", "df/d81/md__a_g_e_n_t_s.html#dependency-management", null ],
       [ "Code Quality", "df/d81/md__a_g_e_n_t_s.html#code-quality", null ],
+      [ "C++23 Best Practices", "df/d81/md__a_g_e_n_t_s.html#c23-best-practices", null ],
       [ "Project Context", "df/d81/md__a_g_e_n_t_s.html#project-context", null ],
       [ "Language and Standard", "df/d81/md__a_g_e_n_t_s.html#language-and-standard", null ],
       [ "Header / Source Organization", "df/d81/md__a_g_e_n_t_s.html#header--source-organization", [
@@ -53,18 +54,6 @@ var NAVTREE =
         [ "Access Modifiers", "df/d81/md__a_g_e_n_t_s.html#access-modifiers", null ]
       ] ],
       [ "Memory and Allocation Rules", "df/d81/md__a_g_e_n_t_s.html#memory-and-allocation-rules", null ],
-      [ "Modern C++ Practices", "df/d81/md__a_g_e_n_t_s.html#modern-c-practices", [
-        [ "noexcept", "df/d81/md__a_g_e_n_t_s.html#noexcept", null ],
-        [ "<span class=\"tt\">[[nodiscard]]</span>", "df/d81/md__a_g_e_n_t_s.html#nodiscard", null ],
-        [ "<span class=\"tt\">using</span> over <span class=\"tt\">typedef</span>", "df/d81/md__a_g_e_n_t_s.html#using-over-typedef", null ],
-        [ "Explicit Constructors", "df/d81/md__a_g_e_n_t_s.html#explicit-constructors", null ],
-        [ "<span class=\"tt\">= default</span> and <span class=\"tt\">= delete</span>", "df/d81/md__a_g_e_n_t_s.html#autotoc_md-default-and--delete", null ],
-        [ "Rule of Zero and Rule of Five", "df/d81/md__a_g_e_n_t_s.html#rule-of-zero-and-rule-of-five", null ],
-        [ "<span class=\"tt\">auto</span>", "df/d81/md__a_g_e_n_t_s.html#auto", null ],
-        [ "Range-Based For Loops", "df/d81/md__a_g_e_n_t_s.html#range-based-for-loops", null ],
-        [ "Default Member Initialization", "df/d81/md__a_g_e_n_t_s.html#default-member-initialization", null ],
-        [ "Brace Initialization", "df/d81/md__a_g_e_n_t_s.html#brace-initialization", null ]
-      ] ],
       [ "Error Handling", "df/d81/md__a_g_e_n_t_s.html#error-handling", [
         [ "Assertions", "df/d81/md__a_g_e_n_t_s.html#assertions", null ]
       ] ],
@@ -160,7 +149,7 @@ var NAVTREEINDEX =
 "d7/dec/classtoy_1_1_fixed_vector.html#abd1856c08a6264f956ae6087eb47df07",
 "db/d29/windows_2platform__config_8hpp.html",
 "df/d25/classtoy_1_1geometry_1_1_circle.html#ac53e439af3bdcfcec590cce779bfc637",
-"namespacemembers_o.html"
+"namespacemembers_w.html"
 ];
 
 const SYNCONMSG = 'click to disable panel synchronization';
