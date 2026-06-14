@@ -63,6 +63,22 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 * **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, at most one blank line between sections and none opening a block. Run `clang-format` and `clang-tidy --fix`; leave no warnings under `-Wall -Wextra -Wpedantic` before committing.
 * **Logging:** Use the engine macros `LOG_TRACE`, `LOG_DEBUG`, `LOG_INFO`, `LOG_WARN`, `LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
 
+## C++23 Best Practices
+
+* **Pointer / Null Safety:** Prefer references and values over raw pointers; `std::optional` for optional values; avoid unchecked dereferences and raw owning pointers (long-lived resources use handles or indices — see Explicit resource lifetime).
+* **Pattern Matching:** Use structured bindings, `if constexpr`, and `std::visit` over `std::variant` for type and case dispatch.
+* **Aggregates and Records:** Use aggregate `struct`s with designated initializers to group or return related values; reach for `std::tuple` / `std::pair` only when a named struct is cumbersome.
+* **Switch Statements:** Prefer exhaustive `switch` over enumerations; omit `default` so new enumerators surface as compiler warnings.
+* **Lambdas:** Use lambdas for short local callables and capture explicitly; avoid `std::function` on hot paths (see Zero-cost abstractions).
+* **`using` over `typedef`:** Prefer `using` declarations over `typedef`.
+* **Explicit constructors:** Mark single-parameter constructors `explicit` unless implicit conversion is intentionally part of the design.
+* **Range-based for:** Prefer range-based for loops when iterating over containers.
+* **`= default` / `= delete`:** Default special members with `= default`; forbid unwanted operations (copy, move) with `= delete`.
+* **Rule of Zero / Five:** Manage no resource → declare none of the five special members; declare or delete any → declare all five explicitly (`= default`, `= delete`, or a body). Never rely on implicit deletion (MSVC `/W4` warns); resource owners (singletons, RAII handles, subsystem owners) must `= delete` all copy/move operations and declare the destructor.
+* **`auto`:** Use when the type is obvious from context or overly verbose; avoid when it hides a non-evident type.
+* **Default member initialization:** Use in-class initializers where appropriate; use constructor init lists for non-default values.
+* **Brace initialization:** Prefer `{}` for variables (local, namespace-scope, in-class members); use `= value` for literal `constexpr` / `const` constants and `=` when `{}` would pick the wrong constructor (e.g. `std::vector<int> v(10)` vs `v = {1, 2}`).
+
 ---
 
 ## Project Context
@@ -152,59 +168,6 @@ Organize includes in the following order (separated by blank lines):
   * Dynamic allocation (heap), when required
 
 No hidden allocations.
-
----
-
-## Modern C++ Practices
-
-### noexcept
-
-* Mark all functions that do not throw with `noexcept`.
-* This project does not use exceptions — all operations should be `noexcept`.
-
-### `[[nodiscard]]`
-
-* Apply `[[nodiscard]]` to every function or method whose return value should not be ignored (getters, factory functions, pure computations, etc.).
-
-### `using` over `typedef`
-
-* Prefer `using` declarations over `typedef`.
-
-### Explicit Constructors
-
-* Mark single-parameter constructors as `explicit` to prevent implicit conversions, unless implicit conversion is intentionally part of the design.
-
-### `= default` and `= delete`
-
-* Use `= default` for default constructors and destructors when appropriate.
-* Use `= delete` to explicitly prevent unwanted operations (move, copy, etc.).
-
-### Rule of Zero and Rule of Five
-
-* **Rule of Zero**: if a class does not directly manage a resource, declare none of the five special member functions; let the compiler generate them correctly.
-* **Rule of Five**: if a class declares or deletes **any** of the five special member functions — destructor, copy constructor, copy assignment operator, move constructor, move assignment operator — explicitly declare **all five** with `= default`, `= delete`, or a user-provided body.
-* Never rely on implicit deletion. Compilers (notably MSVC with `/W4`) treat implicitly deleted or implicitly defined copy/move operations as warnings. Declare intent explicitly so the code communicates ownership semantics without requiring the reader to know the implicit rules.
-* Classes that manage exclusive resources (singletons, RAII handles, subsystem owners) must `= delete` all four copy/move operations and declare the destructor explicitly.
-
-### `auto`
-
-* Use `auto` when the type is obvious from context or overly verbose.
-* Avoid `auto` when it would reduce readability (e.g. the actual type is not evident from the initializer).
-
-### Range-Based For Loops
-
-* Prefer range-based for loops when iterating over containers.
-
-### Default Member Initialization
-
-* Use default member initializers (in-class) when appropriate.
-* Prefer constructor initialization lists for non-default values.
-
-### Brace Initialization
-
-* Prefer brace initialization `{}` over `=` for variable declarations: local variables, namespace-scope variables, and in-class member initializers.
-* Exception: `constexpr` / `const` constants with literal values use `= value` — this is the established idiom (`constexpr int x = 42`), and narrowing is not a concern since the value is known at compile time.
-* Exception: use `=` when brace initialization would invoke the wrong constructor (e.g. `std::vector<int> v(10)` vs `std::vector<int> v = {1, 2}`).
 
 ---
 
