@@ -109,8 +109,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 13.3)
-    message(FATAL_ERROR "GCC >= 13.3 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.1)
+    message(FATAL_ERROR "GCC >= 15.1 required")
   endif ()
 
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wvector-operation-performance")
@@ -187,8 +187,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
-    message(FATAL_ERROR "GCC >= 15.2 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16.1)
+    message(FATAL_ERROR "GCC >= 16.1 required")
   endif ()
 
   set(CMAKE_ARCH_FLAGS "-march=armv4t -mtune=arm7tdmi -mthumb-interwork -mfloat-abi=soft")
@@ -217,8 +217,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
-    message(FATAL_ERROR "GCC >= 15.2 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16.1)
+    message(FATAL_ERROR "GCC >= 16.1 required")
   endif ()
 
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
@@ -245,8 +245,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
-    message(FATAL_ERROR "GCC >= 15.2 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16.1)
+    message(FATAL_ERROR "GCC >= 16.1 required")
   endif ()
 
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
@@ -273,8 +273,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
-    message(FATAL_ERROR "GCC >= 15.2 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16.1)
+    message(FATAL_ERROR "GCC >= 16.1 required")
   endif ()
 
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
@@ -301,8 +301,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
-    message(FATAL_ERROR "GCC >= 15.2 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16.1)
+    message(FATAL_ERROR "GCC >= 16.1 required")
   endif ()
 
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")
@@ -329,8 +329,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
-  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 15.2)
-    message(FATAL_ERROR "GCC >= 15.2 required")
+  if (CMAKE_CXX_COMPILER_VERSION VERSION_LESS 16.1)
+    message(FATAL_ERROR "GCC >= 16.1 required")
   endif ()
 
   set(CMAKE_C_FLAGS   "${GCC_C_FLAGS}   -Wzero-as-null-pointer-constant -Wuse-after-free=3 -Wuseless-cast")

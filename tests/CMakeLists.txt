@@ -120,6 +120,19 @@ if (CTEST_SUPPORT)
 endif ()
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   gba_create_rom(${TOYGINE_LIBRARY_NAME}-units)
+
+  # Run the test ROM under mgba-headless when available (provided by the GBA toolchain image).
+  # The ROM ends the run via SWI 0x60 and returns the doctest result through r0; mgba-headless
+  # maps that register to its own exit code, so CTest sees a non-zero status on test failure.
+  find_program(MGBA_HEADLESS_EXECUTABLE NAMES mgba-headless)
+  if (MGBA_HEADLESS_EXECUTABLE)
+    add_test(
+      NAME ${TOYGINE_LIBRARY_NAME}-units
+      COMMAND ${MGBA_HEADLESS_EXECUTABLE} -l 255 -S 0x60 -R r0
+              "$<TARGET_FILE_DIR:${TOYGINE_LIBRARY_NAME}-units>/${TOYGINE_LIBRARY_NAME}-units.gba")
+  else ()
+    message(STATUS "mgba-headless not found; GBA unit tests will not be registered with CTest")
+  endif ()
 endif ()
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE)

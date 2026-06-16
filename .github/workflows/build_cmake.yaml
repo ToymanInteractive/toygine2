@@ -80,7 +80,7 @@ jobs:
           - name: Nintendo GBA
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
-            run_test: "false"
+            run_test: "true"
             cmake_preset: gba-release
 
           - name: Nintendo DS
