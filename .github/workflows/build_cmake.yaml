@@ -220,7 +220,7 @@ jobs:
 
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
-        uses: bencherdev/bencher@v0.6.6
+        uses: bencherdev/bencher@v0.6.7
 
       - name: Upload benchmarks to bencher.dev
         if: matrix.run_benchmarks == 'true' && github.event_name != 'pull_request' && github.ref_name == 'main'
