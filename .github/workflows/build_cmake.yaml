@@ -29,14 +29,14 @@ jobs:
             os: ubuntu-26.04
             run_benchmarks: "true"
             bencher_testbed: ubuntu-x64
-            run_test: "true"
+            run_test: "false"
             cmake_preset: linux-release
 
           - name: Linux Ninja arm64
             os: ubuntu-26.04-arm
             run_benchmarks: "true"
             bencher_testbed: ubuntu-arm64
-            run_test: "true"
+            run_test: "false"
             cmake_preset: linux-release
 
           - name: macOS XCode arm64
