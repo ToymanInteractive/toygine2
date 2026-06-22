@@ -21,7 +21,7 @@ jobs:
           persist-credentials: false
 
       - name: Install bencher CLI
-        uses: bencherdev/bencher@v0.6.7
+        uses: bencherdev/bencher@v0.6.8
 
       - name: Bencher archive PR branch
         env:
