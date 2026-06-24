@@ -79,6 +79,13 @@ Other top-level directories: `cmake/` (build scripts), `docs/` (documentation), 
 * **Default member initialization:** Use in-class initializers where appropriate; use constructor init lists for non-default values.
 * **Brace initialization:** Prefer `{}` for variables (local, namespace-scope, in-class members); use `= value` for literal `constexpr` / `const` constants and direct initialization when `{}` would pick the wrong overload (e.g. `std::vector<int> v(10)` for ten value-initialized elements instead of `std::vector<int> v{10}`, which makes a single element of value 10).
 
+## API Design Principles
+
+For reusable APIs (e.g. a library):
+
+* **User-first:** Design from the caller's perspective; make the API intuitive and easy to use correctly.
+* **Documented:** Document every public API clearly and concisely, with examples.
+
 ---
 
 ## Project Context
@@ -223,7 +230,6 @@ Names must describe **intent**, not implementation details.
 
 * Do not comment obvious code.
 * Comments must explain *why*, not *what*.
-* Public APIs must be documented.
 
 ### Documentation Tone
 

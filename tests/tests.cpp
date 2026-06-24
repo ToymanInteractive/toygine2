@@ -44,6 +44,22 @@ static void stackWalkCallback([[maybe_unused]] const char * info) noexcept {}
 
 #include "gba_filtering_stream_buf.hpp"
 
+/*!
+  \brief Ends the mgba-headless run, propagating \a code as the process exit status.
+
+  Loads \a code into \c r0 and issues SWI \c 0x60, which mgba-headless traps (run with \c -S \c 0x60 \c -R \c r0) to
+  stop emulation and return \c r0 as the process exit code. The immediate sits outside the GBA BIOS SWI range so it
+  never collides with a real BIOS call. On real hardware the SWI is a no-op, so the function falls through to an
+  idle loop.
+
+  \param code Process exit code (doctest result; \c 0 on success).
+*/
+[[noreturn]] static void mGbaExit(int code) noexcept {
+  asm volatile("mov r0, %0\n\tswi 0x60" : : "r"(code) : "r0", "memory");
+
+  for (;;) {}
+}
+
 int main() noexcept {
   irqInit();
   irqEnable(IRQ_VBLANK);
@@ -60,19 +76,12 @@ int main() noexcept {
   doctest::Context context;
   context.setCout(&gbaStream);
 
-  // context.applyCommandLine(argc, argv);
-
   int res = context.run(); // run doctest
 
   toy::assertion::deInitialize();
 
-  // important - query flags (and --exit) rely on the user doing this
-  if (context.shouldExit()) {
-    // propagate the result of the tests
-    return res;
-  }
-
-  return res;
+  // GBA crt0 never returns to the OS; signal mgba-headless to exit and hand back the doctest result.
+  mGbaExit(res);
 }
 
 #else

@@ -80,18 +80,18 @@ jobs:
           - name: Nintendo GBA
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
-            run_test: "false"
+            run_test: "true"
             cmake_preset: gba-release
 
           - name: Nintendo DS
             os: ubuntu-26.04
-            container: devkitpro/devkitarm:20260221
+            container: devkitpro/devkitarm:20260610
             run_test: "false"
             cmake_preset: nds-release
 
           - name: Nintendo 3DS
             os: ubuntu-26.04
-            container: devkitpro/devkitarm:20260221
+            container: devkitpro/devkitarm:20260610
             run_test: "false"
             cmake_preset: 3ds-release
 
