@@ -1,0 +1,11 @@
+*               text=auto
+
+*.c             text
+*.cpp           text
+*.h             text
+*.hpp           text
+*.inl           text
+
+CMakeLists.txt  text
+*.cmake         text
+*.cmake.in      text
