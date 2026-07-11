@@ -47,4 +47,3 @@ jobs:
     needs:
       - dispatcher
     uses: ./.github/workflows/code_style_check.yaml
-    secrets: inherit

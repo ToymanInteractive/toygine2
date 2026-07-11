@@ -27,7 +27,7 @@ set -e -o pipefail
 # Get all modified files in the current branch compared to base branch
 FILES_TO_CHECK=$(git diff --name-only "$(git merge-base origin/main HEAD)"..HEAD \
                                             | (grep -E ".*\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|java|js)$" || true) \
-                                            | (grep -v "^src/thirdparty/.*/.*" || true))
+                                            | (grep -v "^src/thirdparty/" || true))
 
 if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check the formatting."
