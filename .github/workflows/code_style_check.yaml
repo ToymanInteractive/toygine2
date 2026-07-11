@@ -1,0 +1,38 @@
+name: Code style check
+
+on:
+  workflow_call:
+
+permissions: {}
+
+jobs:
+  style:
+    name: Code style check
+    runs-on: ubuntu-slim
+    timeout-minutes: 10
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@v7.0.0
+        with:
+          submodules: recursive
+          fetch-depth: 50
+          persist-credentials: false
+
+      - name: Setup clang-format
+        run: |
+          wget https://apt.llvm.org/llvm.sh
+          chmod +x llvm.sh
+          sudo ./llvm.sh 22
+          sudo apt install -y clang-format-22
+          sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-22 220
+
+      - name: Check code format
+        run: |
+          bash tools/builder/check_code_format.sh
+
+      - name: Check format of markdown files
+        uses: DavidAnson/markdownlint-cli2-action@v23.2.0
+        with:
+          globs: "**/*.md"
