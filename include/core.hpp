@@ -21,8 +21,10 @@
   \file   core.hpp
   \brief  Umbrella header for the engine core module.
 
-  Defines the public core surface: assertions, callbacks pool, chrono, fixed strings and vectors, formatting, general
-  utilities, hashing, logging, output string stream, platform, and string utilities.
+  Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy;
+  additional core headers (assertions, chrono, fixed strings and vectors, formatting, hashing, logging, platform, and
+  string utilities) are re-exported here as they are added. It currently re-exports the fixed-width integer aliases
+  (\ref toy::int8_t through \ref toy::uint64_t) from `<cstdint>`.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -41,28 +43,28 @@
 */
 namespace toy {
 
-/// signed integer type with width of exactly 8 bits and no padding bits
+/// Signed integer type with width of exactly 8 bits and no padding bits
 using std::int8_t;
 
-/// signed integer type with width of exactly 16 bits and no padding bits
+/// Signed integer type with width of exactly 16 bits and no padding bits
 using std::int16_t;
 
-/// signed integer type with width of exactly 32 bits and no padding bits
+/// Signed integer type with width of exactly 32 bits and no padding bits
 using std::int32_t;
 
-/// signed integer type with width of exactly 64 bits and no padding bits
+/// Signed integer type with width of exactly 64 bits and no padding bits
 using std::int64_t;
 
-/// unsigned integer type with width of exactly 8 bits and no padding bits
+/// Unsigned integer type with width of exactly 8 bits and no padding bits
 using std::uint8_t;
 
-/// unsigned integer type with width of exactly 16 bits and no padding bits
+/// Unsigned integer type with width of exactly 16 bits and no padding bits
 using std::uint16_t;
 
-/// unsigned integer type with width of exactly 32 bits and no padding bits
+/// Unsigned integer type with width of exactly 32 bits and no padding bits
 using std::uint32_t;
 
-/// unsigned integer type with width of exactly 64 bits and no padding bits
+/// Unsigned integer type with width of exactly 64 bits and no padding bits
 using std::uint64_t;
 
 } // namespace toy
