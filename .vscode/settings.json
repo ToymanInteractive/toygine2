@@ -121,5 +121,11 @@
         "*.in": "cpp",
         "cstddef": "cpp"
     },
-    "files.encoding": "utf8"
+    "files.encoding": "utf8",
+    "[objective-c]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools"
+    },
+    "[objective-cpp]": {
+        "editor.defaultFormatter": "xaver.clang-format"
+    }
 }

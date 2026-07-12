@@ -1,6 +1,8 @@
 # Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html
 ---
-Language: Cpp
+# No Language key: this section is the default for every language, so one style covers
+# C++ (.cpp/.hpp/.inl) and Objective-C++ (.mm/.m). A `Language: Cpp`-only section makes
+# clang-format reject Objective-C sources with "does not support Objective-C".
 Standard: Latest
 AccessModifierOffset: -2
 AlignAfterOpenBracket: true
