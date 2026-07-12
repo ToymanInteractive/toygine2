@@ -110,7 +110,8 @@ VulkanContext::VulkanContext(void * metalLayer) {
 
     for (uint32_t family = 0; family < familyCount; ++family) {
       VkBool32 present = VK_FALSE;
-      vkGetPhysicalDeviceSurfaceSupportKHR(candidate, family, _surface, &present);
+      vkCheck(vkGetPhysicalDeviceSurfaceSupportKHR(candidate, family, _surface, &present),
+              "vkGetPhysicalDeviceSurfaceSupportKHR failed");
       if ((families[family].queueFlags & VK_QUEUE_GRAPHICS_BIT) != 0 && present == VK_TRUE) {
         _physicalDevice = candidate;
         _queueFamily    = family;
