@@ -45,9 +45,11 @@ void vkCheck(VkResult result, const char * message) {
 // The MoltenVK portability driver must have VK_KHR_portability_subset enabled when it advertises it.
 bool hasPortabilitySubset(VkPhysicalDevice device) {
   uint32_t count = 0;
-  vkEnumerateDeviceExtensionProperties(device, nullptr, &count, nullptr);
+  vkCheck(vkEnumerateDeviceExtensionProperties(device, nullptr, &count, nullptr),
+          "vkEnumerateDeviceExtensionProperties (count) failed");
   std::vector<VkExtensionProperties> extensions(count);
-  vkEnumerateDeviceExtensionProperties(device, nullptr, &count, extensions.data());
+  vkCheck(vkEnumerateDeviceExtensionProperties(device, nullptr, &count, extensions.data()),
+          "vkEnumerateDeviceExtensionProperties failed");
 
   for (const VkExtensionProperties & extension : extensions)
     if (std::strcmp(extension.extensionName, "VK_KHR_portability_subset") == 0)
@@ -97,7 +99,7 @@ VulkanContext::VulkanContext(void * metalLayer) {
     std::abort();
   }
   std::vector<VkPhysicalDevice> devices(deviceCount);
-  vkEnumeratePhysicalDevices(_instance, &deviceCount, devices.data());
+  vkCheck(vkEnumeratePhysicalDevices(_instance, &deviceCount, devices.data()), "vkEnumeratePhysicalDevices failed");
 
   bool found = false;
   for (VkPhysicalDevice candidate : devices) {
