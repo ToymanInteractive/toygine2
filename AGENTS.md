@@ -31,15 +31,25 @@ Non-module directories:
 * `cmake/` — `FetchContent_Declare` deps, toolchain, and platform config; `extern/` — vendored deps when `FetchContent` is not viable (see **Dependency Management**).
 * `docs/` — Doxygen and prose docs; `tools/` — CI/build scripts; `.github/` — Actions; `.vscode/` — editor settings.
 
-## C++ game engine style guide
+## C++ style guide
 
-* **Data-oriented design:** Structure code around data flow and memory layout, not class hierarchies. Prefer Struct-of-Arrays, contiguous storage, and cache-friendly access for per-frame data.
-* **Zero-cost abstractions:** Abstractions must compile down to hand-written equivalents. Avoid `std::function`, virtual dispatch, and type erasure on hot paths unless measured and justified; no exceptions or RTTI.
-* **Composition over inheritance:** Build behavior from small, focused components and free functions. Prefer static polymorphism (templates, concepts, CRTP) over runtime polymorphism; deep inheritance is discouraged.
-* **Systems over managers:** Prefer small, single-purpose systems that transform component data over monolithic managers that own both state and behavior.
-* **Simulation / presentation split:** Keep deterministic simulation state separate from presentation state (renderer, audio, UI). Game logic must not depend on frame rate, render order, or platform API availability.
-* **Explicit resource lifetime:** Asset, scene, and subsystem ownership must be explicit. Use RAII at module boundaries; prefer handles or indices over raw pointers for long-lived resources; avoid global singletons for engine services.
-* **SOLID where it helps:** Apply SOLID for editor, tooling, and high-level gameplay code. In performance-critical paths, defer to measurement and data-oriented reasoning.
+Principles for engine and gameplay code, from architecture down to everyday idioms.
+
+* **Data-oriented design:** Organize around data flow and memory layout, not class hierarchies. Prefer Struct-of-Arrays and contiguous, cache-friendly storage for per-frame data.
+* **Zero-cost abstractions:** Abstractions must compile to hand-written equivalents. Avoid `std::function`, virtual dispatch, and type erasure on hot paths unless measured; no exceptions or RTTI.
+* **Composition over inheritance:** Build behavior from small components and free functions. Prefer static polymorphism (concepts, CRTP) over runtime dispatch; avoid deep inheritance.
+* **Systems over managers:** Prefer small, single-purpose systems that transform component data over monolithic managers owning both state and behavior.
+* **Simulation / presentation split:** Keep deterministic simulation separate from presentation (renderer, audio, UI); never couple game logic to frame rate, render order, or platform APIs.
+* **Explicit resource lifetime:** Make asset, scene, and subsystem ownership explicit. Use RAII at module boundaries, handles or indices over raw pointers for long-lived resources, and no global singletons.
+* **SOLID where it helps:** Apply SOLID to editor, tooling, and high-level gameplay; on hot paths defer to measurement and data-oriented reasoning.
+* **Concise and declarative:** Write concise, modern C++23. Prefer standard algorithms and ranges over hand-rolled loops and pure transforms over step-by-step mutation.
+* **Immutability and value semantics:** Prefer immutable value types over shared mutable state. Make everything `const` and `constexpr` that can be; return new values rather than mutating in place off the hot path.
+* **Make invalid states unrepresentable:** Encode invariants in types — strong enums, `std::variant`, `std::optional` / `expected` — not sentinels, magic numbers, or bare `bool` flags.
+* **Pure functions and narrow seams:** Prefer free, side-effect-free functions; confine I/O and platform calls to system boundaries so logic stays deterministic and testable.
+* **Compile-time first:** Push validation and computation to compile time with `constexpr`, `consteval`, concepts, and `static_assert`, so errors surface in the build, not the game loop.
+* **Explicit over implicit:** No hidden control flow, ownership, or lifetimes. Mark constructors `explicit`, value-returning functions `[[nodiscard]]`, non-throwing functions `noexcept`.
+
+---
 
 ## Dependency Management
 
@@ -53,13 +63,13 @@ Non-module directories:
 
 ## Code Quality
 
-* **Separation of concerns:** Keep simulation separate from presentation (renderer, audio, UI) and tooling/editor separate from engine runtime. Build behavior from small single-purpose systems and free functions, not monolithic managers. Prefer composition and static polymorphism (templates, concepts, CRTP) over deep inheritance. Confine side effects (I/O, platform calls) to system boundaries.
+* **Separation of concerns:** Keep tooling and editor code separate from the engine runtime. The simulation/presentation, systems-vs-managers, composition, and side-effect boundaries are covered under **C++ style guide** above.
 * **Naming:** Meaningful, intent-revealing names; no abbreviations except established domain terms (e.g. `rgba`, `aabb`). `PascalCase` types (classes, structs, enums, concepts); `camelCase` functions and variables; `snake_case` namespaces and files; `snake_case` + `_type` aliases. Constants `camelCase` with `c_` at namespace/file scope or leading `_` for private members. Private members get a leading `_`; public and protected do not. STL-like methods follow standard-library names.
-* **Conciseness:** Write the shortest code that stays clear; favor the standard library and value semantics over bespoke machinery; avoid needless abstraction. Code should read on its own without comments, and every construct must earn its place in correctness, performance, or clarity.
-* **Simplicity:** Straightforward over clever. Make invalid states unrepresentable, use `constexpr` where possible, keep APIs compile-time-usable where feasible, and favor compile-time errors over runtime ones. Be explicit: no hidden control flow, ownership, or lifetimes.
+* **Conciseness:** Code should read on its own without comments; every construct must earn its place in correctness, performance, or clarity, and needless abstraction is avoided.
+* **Simplicity:** Straightforward over clever; prefer the obvious solution.
 * **Error handling:** No exceptions, no RTTI. Signal failure via return values or `expected`-like types. Assert runtime invariants with `assert_message` and compile-time ones with `static_assert`, both with human-readable messages. Never fail silently.
-* **Functions:** Short and single-purpose; ~40 lines is a soft target, not a limit. Split by responsibility, not length. Prefer pure functions of their inputs. Mark non-throwing functions `noexcept` and value-returning ones `[[nodiscard]]`.
-* **Testability:** Prefer pure functions and value semantics so behavior is checkable with `static_assert` (and DocTest when runtime is unavoidable); verify at compile time whatever can be. Keep platform and I/O behind narrow seams so logic stays deterministic, order-independent, and testable.
+* **Functions:** Short and single-purpose; ~40 lines is a soft target, not a limit. Split by responsibility, not length.
+* **Testability:** Verify behavior with `static_assert` wherever it can be, and DocTest only when runtime is unavoidable.
 * **Performance:** Correctness first, then performance. Optimize only with justification and measurement, and document non-obvious low-level choices.
 * **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, at most one blank line between sections and none opening a block. Run `clang-format` and `clang-tidy --fix`; leave no warnings under `-Wall -Wextra -Wpedantic` before committing.
 * **Logging:** Use the engine macros `LOG_TRACE`, `LOG_DEBUG`, `LOG_INFO`, `LOG_WARN`, `LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
