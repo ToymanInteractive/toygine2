@@ -3,7 +3,9 @@ name: Code style check
 on:
   workflow_call:
 
-permissions: {}
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
   style:
@@ -28,9 +30,16 @@ jobs:
           sudo apt install -y clang-format-22
           sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-22 220
 
+      - name: Get changed files
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh pr view "${{ github.event.pull_request.number }}" \
+            --json files --jq '.files[].path' > changed_files.txt
+
       - name: Check code format
         run: |
-          bash tools/builder/check_code_format.sh
+          bash tools/builder/check_code_format.sh changed_files.txt
 
       - name: Check code headers
         run: |

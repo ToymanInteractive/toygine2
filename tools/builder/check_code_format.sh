@@ -27,18 +27,22 @@
 
 set -e -o pipefail
 
-# Base ref to diff against (override with BASE_REF locally or in CI). Must resolve, or we would
-# silently check nothing and pass — fail loudly instead.
-BASE_REF="${BASE_REF:-origin/main}"
-if ! git rev-parse --verify --quiet "${BASE_REF}^{commit}" >/dev/null; then
-  echo "Base ref '${BASE_REF}' not found. In CI, check out with fetch-depth: 0, or set BASE_REF." >&2
-  exit 2
+# Collect candidate files. A newline-separated list may be passed as $1 (e.g. from
+# `gh pr view ... --json files`); otherwise diff against the base ref.
+if [[ -n "${1:-}" ]]; then
+  [[ -f "$1" ]] || { echo "File list '$1' not found." >&2; exit 2; }
+  RAW_FILES=$(<"$1")
+else
+  # BASE_REF must resolve, or we would silently check nothing and pass — fail loudly instead.
+  BASE_REF="${BASE_REF:-origin/main}"
+  git rev-parse --verify --quiet "${BASE_REF}^{commit}" >/dev/null \
+    || { echo "Base ref '${BASE_REF}' not found. In CI, check out with fetch-depth: 0, pass a file list, or set BASE_REF." >&2; exit 2; }
+  RAW_FILES=$(git diff --name-only "$(git merge-base "$BASE_REF" HEAD)"..HEAD)
 fi
 
-# Get all modified files in the current branch compared to base branch
-FILES_TO_CHECK=$(git diff --name-only "$(git merge-base "$BASE_REF" HEAD)"..HEAD \
-                                            | (grep -E ".*\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|mm|m|java|js)$" || true) \
-                                            | (grep -v "^extern/" || true))
+# Keep only C / C++ (and Java / JS) sources, excluding vendored code under extern/.
+FILES_TO_CHECK=$( (grep -E "\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|mm|m|java|js)$" <<< "$RAW_FILES" || true) \
+                | (grep -v "^extern/" || true) )
 
 if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check the formatting."
