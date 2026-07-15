@@ -1,2 +1,5 @@
 CLAUDE.md
 .serena
+
+# Compilers will place build artifacts here
+out/

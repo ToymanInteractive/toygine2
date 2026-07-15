@@ -3,18 +3,21 @@
 #-----------------------------------------------------------------------------------------------------------------------
 # Copyright (c) 2026 Toyman Interactive
 #
-# Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
-# documentation files (the "Software"), to deal in the Software without restriction, including without limitation the
-# rights to use, copy, modify, merge, publish, distribute, sublicense, and / or sell copies of the Software, and to
-# permit persons to whom the Software is furnished to do so, subject to the following conditions :
+# Permission is hereby granted, free of charge, to any person obtaining a copy of this
+# software and associated documentation files (the "Software"), to deal in the Software
+# without restriction, including without limitation the rights to use, copy, modify, merge,
+# publish, distribute, sublicense, and / or sell copies of the Software, and to permit
+# persons to whom the Software is furnished to do so, subject to the following conditions :
 #
-# The above copyright notice and this permission notice shall be included in all copies or substantial portions of
-# the Software.
+# The above copyright notice and this permission notice shall be included in all copies or
+# substantial portions of the Software.
 #
-# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE
-# WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
-# COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
-# OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+# INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+# PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+# FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+# OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+# DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Script to determine whether the source code in the Pull Request is formatted correctly.
@@ -24,10 +27,22 @@
 
 set -e -o pipefail
 
-# Get all modified files in the current branch compared to base branch
-FILES_TO_CHECK=$(git diff --name-only "$(git merge-base origin/main HEAD)"..HEAD \
-                                            | (grep -E ".*\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|mm|m|java|js)$" || true) \
-                                            | (grep -v "^extern/" || true))
+# Collect candidate files. A newline-separated list may be passed as $1 (e.g. from
+# `gh pr view ... --json files`); otherwise diff against the base ref.
+if [[ -n "${1:-}" ]]; then
+  [[ -f "$1" ]] || { echo "File list '$1' not found." >&2; exit 2; }
+  RAW_FILES=$(<"$1")
+else
+  # BASE_REF must resolve, or we would silently check nothing and pass — fail loudly instead.
+  BASE_REF="${BASE_REF:-origin/main}"
+  git rev-parse --verify --quiet "${BASE_REF}^{commit}" >/dev/null \
+    || { echo "Base ref '${BASE_REF}' not found. In CI, check out with fetch-depth: 0, pass a file list, or set BASE_REF." >&2; exit 2; }
+  RAW_FILES=$(git diff --name-only "$(git merge-base "$BASE_REF" HEAD)"..HEAD)
+fi
+
+# Keep only C / C++ (and Java / JS) sources, excluding vendored code under extern/.
+FILES_TO_CHECK=$( (grep -E "\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|mm|m|java|js)$" <<< "$RAW_FILES" || true) \
+                | (grep -v "^extern/" || true) )
 
 if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check the formatting."
