@@ -47,7 +47,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Make invalid states unrepresentable:** Encode invariants in types — strong enums, `std::variant`, `std::optional` / `expected` — not sentinels, magic numbers, or bare `bool` flags.
 * **Pure functions and narrow seams:** Prefer free, side-effect-free functions; confine I/O and platform calls to system boundaries so logic stays deterministic and testable.
 * **Compile-time first:** Push validation and computation to compile time with `constexpr`, `consteval`, concepts, and `static_assert`, so errors surface in the build, not the game loop.
-* **Explicit over implicit:** No hidden control flow, ownership, or lifetimes. Mark constructors `explicit`, value-returning functions `[[nodiscard]]`, non-throwing functions `noexcept`.
+* **Explicit over implicit:** No hidden control flow, ownership, or lifetimes. Make constructors `explicit`; add `[[nodiscard]]` where discarding the result is a bug and `noexcept` only where non-throwing is guaranteed.
 
 ---
 

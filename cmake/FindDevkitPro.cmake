@@ -120,9 +120,7 @@ macro(_find_devkitpro_lib NAME HEADER LIBNAME SUBDIR)
     message(STATUS "Skipping ${_label} search (devkitPro not found)")
   endif ()
 
-  mark_as_advanced(${NAME}_FOUND)
-  unset(${NAME}_INCLUDE_DIR)
-  unset(${NAME}_LIBRARY)
+  mark_as_advanced(${NAME}_INCLUDE_DIR ${NAME}_LIBRARY)
   unset(_label)
   unset(_lib_dir)
 endmacro()
@@ -152,7 +150,7 @@ if (DEVKITPRO_ROOT)
     message(STATUS "Found devkitA64 toolchain: ${DEVKITA64}")
   endif ()
 
-  unset(DEVKITA64_GCC)
+  mark_as_advanced(DEVKITA64_GCC)
 
   # === devkitARM toolchain ===
   find_program(DEVKITARM_GCC arm-none-eabi-gcc
@@ -166,7 +164,7 @@ if (DEVKITPRO_ROOT)
     message(STATUS "Found devkitARM toolchain: ${DEVKITARM}")
   endif ()
 
-  unset(DEVKITARM_GCC)
+  mark_as_advanced(DEVKITARM_GCC)
 
   # === devkitPPC toolchain ===
   find_program(DEVKITPPC_GCC powerpc-eabi-gcc
@@ -180,7 +178,7 @@ if (DEVKITPRO_ROOT)
     message(STATUS "Found devkitPPC toolchain: ${DEVKITPPC}")
   endif ()
 
-  unset(DEVKITPPC_GCC)
+  mark_as_advanced(DEVKITPPC_GCC)
 
   mark_as_advanced(DEVKITARM DEVKITA64 DEVKITPPC)
 
