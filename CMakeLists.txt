@@ -35,7 +35,7 @@ endif ()
 set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
 
-# Disable regeneration of build system files by IDEs
+# Disable automatic re-run of CMake when project files change (drops the ZERO_CHECK target on all generators)
 set(CMAKE_SUPPRESS_REGENERATION TRUE)
 
 # Enable projects folders
