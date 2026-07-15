@@ -43,6 +43,7 @@
 */
 namespace toy {
 
+
 /// Signed integer type with width of exactly 8 bits and no padding bits
 using std::int8_t;
 
