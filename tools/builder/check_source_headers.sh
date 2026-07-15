@@ -27,30 +27,53 @@
 
 set -e -o pipefail
 
+# Collect candidate files. A newline-separated list may be passed as $1 (e.g. from
+# `gh pr view ... --json files`); otherwise diff against the base ref.
+if [[ -n "${1:-}" ]]; then
+  [[ -f "$1" ]] || { echo "File list '$1' not found." >&2; exit 2; }
+  RAW_FILES=$(<"$1")
+else
+  # BASE_REF must resolve, or we would silently check nothing and pass — fail loudly instead.
+  BASE_REF="${BASE_REF:-origin/main}"
+  git rev-parse --verify --quiet "${BASE_REF}^{commit}" >/dev/null \
+    || { echo "Base ref '${BASE_REF}' not found. In CI, check out with fetch-depth: 0, pass a file list, or set BASE_REF." >&2; exit 2; }
+  RAW_FILES=$(git diff --name-only "$(git merge-base "$BASE_REF" HEAD)"..HEAD)
+fi
+
+# Exclude vendored code under extern/; the per-file switch below decides which of the rest are checked.
+FILES_TO_CHECK=$(grep -v "^extern/" <<< "$RAW_FILES" || true)
+
+if [[ -z "$FILES_TO_CHECK" ]]; then
+  echo "There is no source code to check for license headers."
+  exit 0
+fi
+
+echo "Checking license headers for files in branch..."
+echo "$FILES_TO_CHECK"
+
+# License header templates, one per comment style, resolved relative to this script.
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 HEADER_C_LIKE="$SCRIPT_DIR/license/header_c_like.txt"
 HEADER_SCRIPT="$SCRIPT_DIR/license/header_script.txt"
 
-# Pick the license template that matches a file's comment style, or empty when the file is not checked.
-# Slash style: C / C++ / Objective-C sources. Hash style: shell and CMake scripts.
-template_for() {
-  case "$(basename "$1")" in
-    CMakeLists.txt) echo "$HEADER_SCRIPT"; return ;;
-  esac
-  case "${1##*.}" in
-    cpp | cc | c++ | cxx | c | h | hpp | inl | mm | m) echo "$HEADER_C_LIKE" ;;
-    sh | cmake) echo "$HEADER_SCRIPT" ;;
-    *) echo "" ;;
-  esac
-}
+HEADER_ERRORS=0
 
-# Compare a file's leading comment block against a template, allowing any 4-digit year where the template has YYYY.
-# Prints nothing and returns 0 on match; returns 1 otherwise.
-header_matches() {
-  local file="$1" template="$2"
+while IFS= read -r file; do
+  if [ ! -f "$file" ]; then
+    continue  # File may have been deleted
+  fi
 
-  local -a expected=() candidate=()
-  local line
+  # Pick the license template that matches the file's comment style, skipping files we do not check.
+  # Slash style: C / C++ / Objective-C sources. Hash style: shell and CMake scripts.
+  case "$file" in
+    *.cpp | *.cc | *.c++ | *.cxx | *.c | *.h | *.hpp | *.inl | *.mm | *.m) template="$HEADER_C_LIKE" ;;
+    *.sh | *.cmake | */CMakeLists.txt | CMakeLists.txt) template="$HEADER_SCRIPT" ;;
+    *) continue ;;  # Not a source file we check
+  esac
+
+  # Read the expected header (template) and the file's leading comment block into arrays.
+  expected=()
+  candidate=()
   while IFS= read -r line || [ -n "$line" ]; do
     expected+=("$line")
   done < "$template"
@@ -65,82 +88,45 @@ header_matches() {
     { started = 1; print }
   ' "$file")
 
+  # Compare line by line, allowing any 4-digit year where the template has YYYY.
+  header_ok=1
   if [ "${#candidate[@]}" -lt "${#expected[@]}" ]; then
-    return 1
-  fi
-
-  local i expectedLine actualLine prefix suffix middle
-  for i in "${!expected[@]}"; do
-    expectedLine="${expected[$i]}"
-    actualLine="${candidate[$i]}"
-
-    if [[ "$expectedLine" == *YYYY* ]]; then
-      prefix="${expectedLine%%YYYY*}"
-      suffix="${expectedLine##*YYYY}"
-      middle="${actualLine#"$prefix"}"
-      if [[ "$middle" == "$actualLine" ]]; then
-        return 1  # prefix did not match
-      fi
-      middle="${middle%"$suffix"}"
-      if [[ ! "$middle" =~ ^[0-9]{4}$ ]]; then
-        return 1
-      fi
-    elif [[ "$actualLine" != "$expectedLine" ]]; then
-      return 1
-    fi
-  done
-
-  return 0
-}
-
-main() {
-  # Base ref to diff against (override with BASE_REF locally or in CI). Must resolve, or we would
-  # silently check nothing and pass — fail loudly instead.
-  local base_ref="${BASE_REF:-origin/main}"
-  if ! git rev-parse --verify --quiet "${base_ref}^{commit}" >/dev/null; then
-    echo "Base ref '${base_ref}' not found. In CI, check out with fetch-depth: 0, or set BASE_REF." >&2
-    exit 2
-  fi
-
-  # Get all modified files in the current branch compared to the base branch.
-  local files_to_check
-  files_to_check=$(git diff --name-only "$(git merge-base "$base_ref" HEAD)"..HEAD \
-                                              | (grep -v "^extern/" || true))
-
-  if [[ -z "$files_to_check" ]]; then
-    echo "There is no source code to check for license headers."
-    exit 0
-  fi
-
-  echo "Checking license headers for files in branch..."
-
-  local header_errors=0 file template
-  while IFS= read -r file; do
-    if [ ! -f "$file" ]; then
-      continue  # File may have been deleted
-    fi
-
-    template="$(template_for "$file")"
-    if [[ -z "$template" ]]; then
-      continue  # Not a source file we check
-    fi
-
-    if ! header_matches "$file" "$template"; then
-      echo "Missing or incorrect license header: $file"
-      header_errors=$((header_errors + 1))
-    fi
-  done <<< "$files_to_check"
-
-  if [ "$header_errors" -eq 0 ]; then
-    echo "All checked source files have a correct license header."
-    exit 0
+    header_ok=0
   else
-    echo "Found $header_errors file(s) with a missing or incorrect license header!"
-    exit 1
-  fi
-}
+    for i in "${!expected[@]}"; do
+      expectedLine="${expected[$i]}"
+      actualLine="${candidate[$i]}"
 
-# Run the check only when executed directly, so the helpers above can be sourced by tests.
-if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
-  main
+      if [[ "$expectedLine" == *YYYY* ]]; then
+        prefix="${expectedLine%%YYYY*}"
+        suffix="${expectedLine##*YYYY}"
+        middle="${actualLine#"$prefix"}"
+        if [[ "$middle" == "$actualLine" ]]; then
+          header_ok=0  # prefix did not match
+          break
+        fi
+        middle="${middle%"$suffix"}"
+        if [[ ! "$middle" =~ ^[0-9]{4}$ ]]; then
+          header_ok=0
+          break
+        fi
+      elif [[ "$actualLine" != "$expectedLine" ]]; then
+        header_ok=0
+        break
+      fi
+    done
+  fi
+
+  if [ "$header_ok" -eq 0 ]; then
+    echo "Missing or incorrect license header: $file"
+    HEADER_ERRORS=$((HEADER_ERRORS + 1))
+  fi
+done <<< "$FILES_TO_CHECK"
+
+if [ "$HEADER_ERRORS" -eq 0 ]; then
+  echo "All checked source files have a correct license header."
+  exit 0
+else
+  echo "Found $HEADER_ERRORS file(s) with a missing or incorrect license header!"
+  exit 1
 fi
