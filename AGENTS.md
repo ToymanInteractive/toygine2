@@ -49,17 +49,18 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Compile-time first:** Push validation and computation to compile time with `constexpr`, `consteval`, concepts, and `static_assert`, so errors surface in the build, not the game loop.
 * **Explicit over implicit:** No hidden control flow, ownership, or lifetimes. Make constructors `explicit`; add `[[nodiscard]]` where discarding the result is a bug and `noexcept` only where non-throwing is guaranteed.
 
----
-
 ## Dependency Management
 
-* **Justify before adding:** Each dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; when proposing one, state why it is needed and what it costs.
-* **Selecting a dependency:** Pick a stable, maintained library with a permissive, non-copyleft license. Favor header-only, self-contained code without exceptions/RTTI, and confirm it builds for every target platform (desktop, mobile, embedded, retro consoles).
-* **Acquisition method:** Use CMake `FetchContent` by default — reproducible and declared in-tree, with no submodules or global installs. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, retro-console toolchains, patched sources); record the upstream version and any patches.
-* **Adding a dependency:** Declare it in `cmake/` via `FetchContent_Declare` pinned to an exact tag or commit (never a branch), then expose it through the consuming module. Every dependency must be explicit in the build files; never rely on a transitive one without declaring it.
-* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, benchmark harnesses) behind their CMake options so consumers of the library never pull them in.
-* **Pinning and overrides:** Pin every dependency to a specific version; force transitive versions only via an explicit, documented override. Bump versions in a dedicated change.
-* **Removing a dependency:** Drop its `FetchContent_Declare` (or `extern/` directory) and all references, then verify the build is clean on all target platforms.
+* **Justify before adding:** Every dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; state why a new one is needed.
+* **Selection criteria:** Stable, maintained, permissive non-copyleft license (MIT, BSD, zlib, Apache-2.0). Favor header-only code without exceptions/RTTI that builds on every target platform (desktop, mobile, embedded, retro/modern consoles).
+* **Acquisition:** CMake `FetchContent` by default, declared in `cmake/` — no submodules, system-wide installs, or package managers with global state. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, console toolchains, patched sources); record the upstream version and patches.
+* **Declaring:** Pin to an exact tag or commit (never a branch), prefer `GIT_SHALLOW TRUE`; link only through namespaced imported targets (`dep::dep`), never global `include_directories` or raw paths into `_deps/`. Declare every dependency you use explicitly — never rely on a transitive one. `FetchContent_MakeAvailable` order matters when one dependency provides targets for another (e.g. `Vulkan-Headers` before `volk`); comment why.
+* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, picobench) behind their CMake options so engine consumers never pull them in.
+* **Versioning and overrides:** To force a transitive version, declare it before the consumer (first declaration wins) with a comment. Bump versions in a dedicated change; bump lockstep pairs together (e.g. `Vulkan-Headers` + `volk`).
+* **Platform SDKs and toolchains:** Console SDKs (devkitPro, PSPSDK, ...) and compilers come from the environment via toolchain files in `cmake/`, never via `FetchContent`; fail the build with a clear message when one is missing.
+* **Removing:** Drop the declaration (or `extern/` directory) and all references, then verify a clean build on all target platforms.
+
+---
 
 ## Code Quality
 

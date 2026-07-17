@@ -60,12 +60,13 @@ target_compile_definitions(volk PUBLIC VK_USE_PLATFORM_METAL_EXT)
 
 add_executable(editor MACOSX_BUNDLE
   src/main.cpp
+  src/main_menu.mm
   src/window.mm
   src/vulkan_context.cpp
 )
 
-# The window backend is Objective-C++; ARC keeps the Cocoa object lifetimes correct.
-set_source_files_properties(src/window.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+# The window and menu backends are Objective-C++; ARC keeps the Cocoa object lifetimes correct.
+set_source_files_properties(src/main_menu.mm src/window.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
 
 target_link_libraries(editor PRIVATE
   volk::volk
