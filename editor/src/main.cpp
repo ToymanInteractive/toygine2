@@ -25,12 +25,15 @@
 #include <chrono>
 #include <thread>
 
+#include "main_menu.hpp"
 #include "vulkan_context.hpp"
 #include "window.hpp"
 
 int main() {
   toy::editor::Window        window("ToyGine2 Editor", 1280, 720);
   toy::editor::VulkanContext vulkan(window.metalLayer());
+
+  toy::editor::installMainMenu();
 
   while (window.pumpEvents())
     std::this_thread::sleep_for(std::chrono::milliseconds(16));

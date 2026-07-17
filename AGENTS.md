@@ -4,7 +4,7 @@ This document defines **mandatory rules** for AI‑assisted code, test, and docu
 
 All AI tools (Cursor, Copilot, ChatGPT, etc.) **must follow these rules** when generating or modifying code, tests, or documentation.
 
-You are an expert in GameDev and C++ development. Your goal is to build performant, maintainable, and extensible game engine following modern C++ best practices (C++23 baseline). You have expert experience with game architecture, engine internals, and real-time systems, with shipping titles to production, and with writing, testing, and running C++ applications for various platforms, including modern and retro consoles, desktop, mobile and web platforms.
+You are an expert in GameDev and C++ development. Your goal is to build performant, maintainable, and extensible game engine following modern C++ best practices (C++23 baseline). You have expert experience with game architecture, engine internals, and real-time systems, with shipping titles to production, and with writing, testing, and running C++ applications on desktop (Windows, macOS 10.12+, Linux), retro and modern consoles, mobile, embedded and web.
 
 ## Interaction Guidelines
 
@@ -47,19 +47,21 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Make invalid states unrepresentable:** Encode invariants in types — strong enums, `std::variant`, `std::optional` / `expected` — not sentinels, magic numbers, or bare `bool` flags.
 * **Pure functions and narrow seams:** Prefer free, side-effect-free functions; confine I/O and platform calls to system boundaries so logic stays deterministic and testable.
 * **Compile-time first:** Push validation and computation to compile time with `constexpr`, `consteval`, concepts, and `static_assert`, so errors surface in the build, not the game loop.
-* **Explicit over implicit:** No hidden control flow, ownership, or lifetimes. Make constructors `explicit`; add `[[nodiscard]]` where discarding the result is a bug and `noexcept` only where non-throwing is guaranteed.
-
----
+* **Explicit over implicit:** No hidden control flow, ownership, or lifetimes. Make single-parameter constructors `explicit` unless implicit conversion is intended; add `[[nodiscard]]` where discarding the result is a bug and `noexcept` only where non-throwing is guaranteed.
+* **Portability:** No compiler-specific extensions unless strictly required.
 
 ## Dependency Management
 
-* **Justify before adding:** Each dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; when proposing one, state why it is needed and what it costs.
-* **Selecting a dependency:** Pick a stable, maintained library with a permissive, non-copyleft license. Favor header-only, self-contained code without exceptions/RTTI, and confirm it builds for every target platform (desktop, mobile, embedded, retro consoles).
-* **Acquisition method:** Use CMake `FetchContent` by default — reproducible and declared in-tree, with no submodules or global installs. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, retro-console toolchains, patched sources); record the upstream version and any patches.
-* **Adding a dependency:** Declare it in `cmake/` via `FetchContent_Declare` pinned to an exact tag or commit (never a branch), then expose it through the consuming module. Every dependency must be explicit in the build files; never rely on a transitive one without declaring it.
-* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, benchmark harnesses) behind their CMake options so consumers of the library never pull them in.
-* **Pinning and overrides:** Pin every dependency to a specific version; force transitive versions only via an explicit, documented override. Bump versions in a dedicated change.
-* **Removing a dependency:** Drop its `FetchContent_Declare` (or `extern/` directory) and all references, then verify the build is clean on all target platforms.
+* **Justify before adding:** Every dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; state why a new one is needed.
+* **Selection criteria:** Stable, maintained, permissive non-copyleft license (MIT, BSD, zlib, Apache-2.0). Favor header-only code without exceptions/RTTI that builds on every target platform (desktop, mobile, embedded, retro/modern consoles).
+* **Acquisition:** CMake `FetchContent` by default, declared in `cmake/` (standalone apps — `editor/` — declare theirs in their own `CMakeLists.txt`) — no submodules, system-wide installs, or package managers with global state. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, console toolchains, patched sources); record the upstream version and patches.
+* **Declaring:** Pin to an exact tag or commit (never a branch), prefer `GIT_SHALLOW TRUE`; link third-party dependencies only through namespaced CMake targets (`dep::dep`), never global `include_directories` or raw paths into `_deps/`; platform frameworks (`-framework Cocoa`) are linked directly. Declare every dependency you use — never rely on a transitive one. `FetchContent_MakeAvailable` order matters when one dependency provides targets for another (`Vulkan-Headers` before `volk`); comment why.
+* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, picobench) behind their CMake options so engine consumers never pull them in.
+* **Versioning and overrides:** To force a transitive version, declare it before the consumer (first declaration wins) with a comment. Bump versions in a dedicated change; bump lockstep pairs together (e.g. `Vulkan-Headers` + `volk`).
+* **Platform SDKs and toolchains:** Console SDKs (devkitPro, PSPSDK, ...) and compilers come from the environment via toolchain files in `cmake/`, never via `FetchContent`; fail the build with a clear message when one is missing.
+* **Removing:** Drop the declaration (or `extern/` directory) and all references, then verify a clean build on all target platforms.
+
+---
 
 ## Code Quality
 
@@ -67,11 +69,10 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Naming:** Meaningful, intent-revealing names; no abbreviations except established domain terms (e.g. `rgba`, `aabb`). `PascalCase` types (classes, structs, enums, concepts); `camelCase` functions and variables; `snake_case` namespaces and files; `snake_case` + `_type` aliases. Constants `camelCase` with `c_` at namespace/file scope or leading `_` for private members. Private members get a leading `_`; public and protected do not. STL-like methods follow standard-library names.
 * **Conciseness:** Code should read on its own without comments; every construct must earn its place in correctness, performance, or clarity, and needless abstraction is avoided.
 * **Simplicity:** Straightforward over clever; prefer the obvious solution.
-* **Error handling:** No exceptions, no RTTI. Signal failure via return values or `expected`-like types. Assert runtime invariants with `assert_message` and compile-time ones with `static_assert`, both with human-readable messages. Never fail silently.
+* **Error handling:** Signal failure via return values or `expected`-like types. Assert runtime invariants with `assert_message` and compile-time ones with `static_assert`, both with human-readable messages. Never fail silently.
 * **Functions:** Short and single-purpose; ~40 lines is a soft target, not a limit. Split by responsibility, not length.
-* **Testability:** Verify behavior with `static_assert` wherever it can be, and DocTest only when runtime is unavoidable.
 * **Performance:** Correctness first, then performance. Optimize only with justification and measurement, and document non-obvious low-level choices.
-* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, at most one blank line between sections and none opening a block. Run `clang-format` and `clang-tidy --fix`; leave no warnings under `-Wall -Wextra -Wpedantic` before committing.
+* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, at most one blank line between sections and none opening a block.
 * **Logging:** Use the engine macros `LOG_TRACE`, `LOG_DEBUG`, `LOG_INFO`, `LOG_WARN`, `LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
 
 ## C++23 Best Practices
@@ -82,7 +83,6 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Switch Statements:** Prefer exhaustive `switch` over enumerations; omit `default` so new enumerators surface as compiler warnings.
 * **Lambdas:** Use lambdas for short local callables and capture explicitly; avoid `std::function` on hot paths (see Zero-cost abstractions).
 * **`using` over `typedef`:** Prefer `using` declarations over `typedef`.
-* **Explicit constructors:** Mark single-parameter constructors `explicit` unless implicit conversion is intentionally part of the design.
 * **Range-based for:** Prefer range-based for loops when iterating over containers.
 * **`= default` / `= delete`:** Default special members with `= default`; forbid unwanted operations (copy, move) with `= delete`.
 * **Rule of Zero / Five:** Manage no resource → declare none of the five special members; declare or delete any → declare all five explicitly (`= default`, `= delete`, or a body). Never rely on implicit deletion (MSVC `/W4` warns); resource owners state ownership explicitly — move-only (delete copy, keep/define move) or non-movable (delete both) — and declare the destructor.
@@ -92,31 +92,10 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 
 ---
 
-## Project Context
-
-This repository contains a C++ game engine targeting:
-
-* Desktop platforms (macOS 10.12+, Windows, Linux)
-* Mobile platforms
-* Embedded and constrained systems
-* Retro consoles (fixed memory, no OS assumptions)
-
----
-
-## Language and Standard
-
-* C++23 is the baseline language standard.
-* Prefer standard library facilities when feasible.
-* Avoid compiler-specific extensions unless strictly required.
-* Use concepts for template constraints.
-
----
-
 ## Header / Source Organization
 
 ### Module Structure
 
-* Users of the library must include **only** the module header and must not depend on internal headers.
 * Internal headers are considered implementation details and are not part of the public API.
 * Umbrella headers may be precompiled.
 
@@ -183,12 +162,7 @@ No hidden allocations.
 
 ## Error Handling
 
-* Prefer explicit error handling.
-* Avoid exceptions unless explicitly allowed.
-* Prefer:
-  * Return values
-  * `expected`-like patterns
-  * Compile-time validation
+Failure signaling (no exceptions/RTTI, return values, `expected`-like types, compile-time validation) is defined under **C++ style guide** and **Code Quality** above; the rules below cover assertion messages.
 
 ### Assertions
 
@@ -706,13 +680,6 @@ The goal is to keep tests:
 * Deterministic
 * Non-redundant
 * Suitable for constrained and embedded platforms
-
----
-
-## Test Framework Assumptions
-
-* DocTest-style tests are assumed.
-* Compile-time verification (`static_assert`) is preferred whenever possible.
 
 ---
 
