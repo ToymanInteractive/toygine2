@@ -72,7 +72,11 @@ using std::uint64_t;
 
 // (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
 
-// https://en.cppreference.com/w/cpp/container/array.html
+/*!
+  \brief Fixed-size array container with a compile-time constant number of elements; alias for std::array.
+
+  \sa https://en.cppreference.com/w/cpp/container/array.html
+*/
 using std::array;
 
 } // namespace toy
