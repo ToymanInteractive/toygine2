@@ -30,6 +30,7 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
+find_package(ClownMDSDK)
 find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
@@ -45,6 +46,11 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
     set(AVAILABLE_PLATFORMS "macOS Desktop")
 
+  endif ()
+
+  # Add ClownMDSDK platform if found
+  if (CLOWNMDSDK_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Sega MD")
   endif ()
 
   # Add devkitPro platforms if found

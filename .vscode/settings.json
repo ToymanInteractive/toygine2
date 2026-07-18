@@ -2,6 +2,17 @@
     "clang-format.fallbackStyle": "Google",
     "cSpell.language": "en,ru",
     "cSpell.words": [
+        "devkit",
+        "devkitA64",
+        "devkitARM",
+        "devkitPPC",
+        "devkitPro",
+        "gamecube",
+        "libctru",
+        "libgba",
+        "libnds",
+        "libnx",
+        "libogc",
         "toygine",
         "toyman"
     ],
