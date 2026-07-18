@@ -24,7 +24,7 @@
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy;
   additional core headers (assertions, chrono, fixed strings and vectors, formatting, hashing, logging, platform, and
   string utilities) are re-exported here as they are added. It currently re-exports the fixed-width integer aliases
-  (\ref toy::int8_t through \ref toy::uint64_t) from `<cstdint>`.
+  (\ref toy::int8_t through \ref toy::uint64_t) from `<cstdint>` and  `std::array`.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -74,6 +74,7 @@ using std::uint64_t;
 
 // https://en.cppreference.com/w/cpp/container/array.html
 using std::array;
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_HPP_
