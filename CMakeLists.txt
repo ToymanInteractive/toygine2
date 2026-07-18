@@ -71,3 +71,30 @@ endif ()
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 
 include(ConfigureEngine)
+include(ConfigureCompiler)
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+set(SRC_CORE_LIST
+    src/core/utils.cpp)
+set(HDR_CORE_LIST )
+set(INL_CORE_LIST )
+
+source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+list(APPEND SRC_LIST ${SRC_CORE_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} include/toygine.hpp)
+list(APPEND INL_LIST ${INL_CORE_LIST})
+set(LIB_LIST ${LIB_LIST})
+
+add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
+
+target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+
+if (PREPROCESSOR_DEFINITIONS)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
+endif ()
+
+target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})

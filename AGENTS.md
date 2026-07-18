@@ -61,19 +61,18 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Platform SDKs and toolchains:** Console SDKs (devkitPro, PSPSDK, ...) and compilers come from the environment via toolchain files in `cmake/`, never via `FetchContent`; fail the build with a clear message when one is missing.
 * **Removing:** Drop the declaration (or `extern/` directory) and all references, then verify a clean build on all target platforms.
 
----
-
 ## Code Quality
 
-* **Separation of concerns:** Keep tooling and editor code separate from the engine runtime. The simulation/presentation, systems-vs-managers, composition, and side-effect boundaries are covered under **C++ style guide** above.
-* **Naming:** Meaningful, intent-revealing names; no abbreviations except established domain terms (e.g. `rgba`, `aabb`). `PascalCase` types (classes, structs, enums, concepts); `camelCase` functions and variables; `snake_case` namespaces and files; `snake_case` + `_type` aliases. Constants `camelCase` with `c_` at namespace/file scope or leading `_` for private members. Private members get a leading `_`; public and protected do not. STL-like methods follow standard-library names.
-* **Conciseness:** Code should read on its own without comments; every construct must earn its place in correctness, performance, or clarity, and needless abstraction is avoided.
+* **Naming:** Intent-revealing, no abbreviations except domain terms (`rgba`, `aabb`). `PascalCase` for types and template parameters (descriptive, no single-letter names outside trivial scopes); `camelCase` for functions and variables; `snake_case` for namespaces and files; `snake_case` + `_type` for aliases. Constants: `camelCase` with `c_` (namespace/file/`static`) or leading `_` (`private` only, never namespace/file); a function-local `const`/`constexpr` may drop the prefix. Private members lead with `_`; public and protected never do. STL-like methods use standard-library names, others `camelCase`. Const references as `const T &`, not `T const &`.
+* **Conciseness:** Code should read without comments; every construct earns its place in correctness, performance, or clarity — avoid needless abstraction.
 * **Simplicity:** Straightforward over clever; prefer the obvious solution.
-* **Error handling:** Signal failure via return values or `expected`-like types. Assert runtime invariants with `assert_message` and compile-time ones with `static_assert`, both with human-readable messages. Never fail silently.
-* **Functions:** Short and single-purpose; ~40 lines is a soft target, not a limit. Split by responsibility, not length.
-* **Performance:** Correctness first, then performance. Optimize only with justification and measurement, and document non-obvious low-level choices.
-* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, at most one blank line between sections and none opening a block.
-* **Logging:** Use the engine macros `LOG_TRACE`, `LOG_DEBUG`, `LOG_INFO`, `LOG_WARN`, `LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
+* **Error handling:** Signal failure via return values or `expected`-like types; assert invariants with `assert_message` (runtime) and `static_assert` (compile-time), both with human-readable messages. Never fail silently.
+* **Functions:** Short and single-purpose; ~40 lines is a soft target. Split by responsibility, not length.
+* **Performance:** Correctness first; optimize only with justification and measurement, and document non-obvious low-level choices.
+* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block.
+* **Logging:** Use engine macros `LOG_TRACE`/`LOG_DEBUG`/`LOG_INFO`/`LOG_WARN`/`LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
+
+---
 
 ## C++23 Best Practices
 
@@ -170,36 +169,6 @@ Failure signaling (no exceptions/RTTI, return values, `expected`-like types, com
 * Always use the two-argument form with a human-readable message so that failure output is understandable without reading the code.
 * For `assert_message(condition, "message")`: the string literal must describe what was expected or why the condition must hold.
 * For `static_assert(condition, "message")`: use the same format; the string literal must explain the invariant in human terms (e.g. `static_assert(length == expected, "length must match the literal's UTF-8 byte count")`).
-
----
-
-## Naming Conventions
-
-* Types (classes, structs, enums, concepts): **`PascalCase`**
-* Functions and variables: **`camelCase`**
-* Constants (`constexpr` / `const`): **`camelCase`** with **`c_`** (namespace, file `static`, or non-`private` members, e.g. `c_maxLabelLength`) or **`_`** (only `private` members, e.g. `_tileSize`; never at namespace/file scope). Inside a function, local `const` / `constexpr` may omit the prefix.
-* Template parameters: **`PascalCase`**; use descriptive names and avoid single-letter names unless the meaning is obvious and the scope is trivial
-* Type aliases: **`snake_case`** with **`_type`** suffix (e.g. `value_type`, `size_type`, `const_reference`)
-* Namespaces: **`snake_case`**
-
-Names must describe **intent**, not implementation details.
-
-### STL-Compatible Naming
-
-* When a class provides an STL-like interface (iterators, `push_back`, `find_first_of`, etc.), follow the standard library naming conventions for those methods.
-* Non-STL-compatible methods use `camelCase` as usual.
-
-### Private Members
-
-* All private data members and private member functions **must** start with a leading underscore (`_`).
-* This rule applies only to private members; protected and public members must **not** use a leading underscore.
-* The leading underscore is part of the naming convention and must be preserved consistently.
-
-### Const Reference Style
-
-* When passing parameters by const reference, use the form **`const T &`** (const on the left of the type).
-* Do not use `T const &`; keep const-reference style uniform across the codebase.
-* Example: `const Foo & arg`, `const int & value`.
 
 ---
 

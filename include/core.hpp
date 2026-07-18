@@ -32,6 +32,7 @@
 #ifndef INCLUDE_CORE_HPP_
 #define INCLUDE_CORE_HPP_
 
+#include <array>
 #include <cstdint>
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -67,6 +68,12 @@ using std::uint32_t;
 /// Unsigned integer type with width of exactly 64 bits and no padding bits
 using std::uint64_t;
 
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
+
+// https://en.cppreference.com/w/cpp/container/array.html
+using std::array;
 } // namespace toy
 
 #endif // INCLUDE_CORE_HPP_
