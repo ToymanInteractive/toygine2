@@ -46,6 +46,6 @@ jobs:
           bash tools/builder/check_source_headers.sh changed_files.txt
 
       - name: Check format of markdown files
-        uses: DavidAnson/markdownlint-cli2-action@v24.0.0
+        uses: DavidAnson/markdownlint-cli2-action@v24.1.0
         with:
           globs: "**/*.md"
