@@ -72,22 +72,32 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block.
 * **Logging:** Use engine macros `LOG_TRACE`/`LOG_DEBUG`/`LOG_INFO`/`LOG_WARN`/`LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
 
----
-
 ## C++23 Best Practices
 
-* **Pointer / Null Safety:** Prefer references and values over raw pointers; `std::optional` for optional values; avoid unchecked dereferences and raw owning pointers (long-lived resources use handles or indices — see Explicit resource lifetime).
-* **Pattern Matching:** Use structured bindings, `if constexpr`, and `std::visit` over `std::variant` for type and case dispatch.
-* **Aggregates and Records:** Use aggregate `struct`s with designated initializers to group or return related values; reach for `std::tuple` / `std::pair` only when a named struct is cumbersome.
-* **Switch Statements:** Prefer exhaustive `switch` over enumerations; omit `default` so new enumerators surface as compiler warnings.
-* **Lambdas:** Use lambdas for short local callables and capture explicitly; avoid `std::function` on hot paths (see Zero-cost abstractions).
-* **`using` over `typedef`:** Prefer `using` declarations over `typedef`.
-* **Range-based for:** Prefer range-based for loops when iterating over containers.
-* **`= default` / `= delete`:** Default special members with `= default`; forbid unwanted operations (copy, move) with `= delete`.
-* **Rule of Zero / Five:** Manage no resource → declare none of the five special members; declare or delete any → declare all five explicitly (`= default`, `= delete`, or a body). Never rely on implicit deletion (MSVC `/W4` warns); resource owners state ownership explicitly — move-only (delete copy, keep/define move) or non-movable (delete both) — and declare the destructor.
-* **`auto`:** Use when the type is obvious from context or overly verbose; avoid when it hides a non-evident type.
-* **Default member initialization:** Use in-class initializers where appropriate; use constructor init lists for non-default values.
-* **Brace initialization:** Prefer `{}` for variables (local, namespace-scope, in-class members); use `= value` for literal `constexpr` / `const` constants and direct initialization when `{}` would pick the wrong overload (e.g. `std::vector<int> v(10)` for ten value-initialized elements instead of `std::vector<int> v{10}`, which makes a single element of value 10).
+* **Pointer / Null Safety:** References and values over raw pointers, `std::optional` for optional values; no unchecked dereferences or raw owning pointers (see Explicit resource lifetime).
+* **Pattern Matching:** Dispatch with structured bindings, `if constexpr`, and `std::visit` over `std::variant`.
+* **Aggregates and Records:** Group or return related values as aggregate `struct`s with designated initializers; `std::tuple` / `std::pair` only when a named struct is cumbersome.
+* **Switch Statements:** Exhaustive `switch` over enumerations, no `default` — new enumerators then surface as warnings.
+* **Lambdas:** Short local callables, captured explicitly; no `std::function` on hot paths (see Zero-cost abstractions).
+* **Modern spellings:** `using` over `typedef`; range-based for over index loops; `auto` when the type is obvious or verbose, never when it hides a non-evident type.
+* **`= default` / `= delete`:** Default special members explicitly; delete unwanted copy or move.
+* **Rule of Zero / Five:** Own no resource → declare none of the five; declare or delete one → declare all five (`= default`, `= delete`, or a body), never relying on implicit deletion (MSVC `/W4` warns). Owners state ownership — move-only or non-movable — and declare the destructor.
+* **Initialization:** In-class initializers for defaults, constructor init lists for non-default values; `{}` for variables, `= value` for literal `constexpr` / `const` constants, `()` where `{}` picks the wrong overload (`std::vector<int> v(10)` — ten elements, not one of value 10).
+* **Views over pointer pairs:** `std::span` / `std::string_view` (`std::mdspan` for multidimensional data) instead of pointer + length; they carry the extent and stay `constexpr`-friendly. Take views as parameters, never store them — a view must not outlive its storage.
+* **Monadic error flow:** Chain fallible steps with `[[nodiscard]]` `std::expected` and `and_then` / `transform` / `or_else` / `value_or` instead of nested `if` checks — see **Error Handling**.
+* **Deducing `this`:** An explicit object parameter (`auto && at(this Self && self, size_t index)`) collapses `const` / non-`const` overload pairs and replaces CRTP in mixins.
+* **Enum interop:** `std::to_underlying` instead of casts; bit flags as scoped enums with the engine's bitwise-operator macro, never raw integers.
+* **Bit-level operations:** `std::bit_cast`, `std::byteswap`, `std::rotl` / `std::rotr`, `std::popcount`, `std::countl_zero` — `constexpr` and portable — instead of `memcpy` punning, unions, or intrinsics.
+* **Compile-time branching:** `if consteval` over `std::is_constant_evaluated()`; both branches must be observably identical.
+* **Operator conveniences:** `static operator()` / `static operator[]` for stateless callables; multidimensional `operator[](x, y)` over `operator()(x, y)` for grids, matrices, and tile maps.
+* **Ranges and views:** `std::views` (`zip`, `enumerate`, `chunk`, `stride`, `filter`) over manual index bookkeeping — lazy and allocation-free, but materialize into contiguous storage before repeated hot-path iteration.
+* **Flat containers:** `std::flat_map` / `std::flat_set` over node-based `std::map` / `std::set` — contiguous, no per-node allocation; check each target's standard library first.
+* **Optimizer hints:** `[[likely]]` / `[[unlikely]]` only on measured branches; `std::unreachable()` and `[[assume]]` only where `assert_message` checks the same invariant in debug — violating them is undefined behavior.
+* **Concurrency primitives:** Parallel work goes through the engine job system; `std::jthread` with `std::stop_token` for long-lived tooling threads only; coroutines only with measured or elided frame allocation; `std::atomic` always with an explicit memory order.
+* **Formatting:** `std::format` for tooling, load time, and error paths; runtime diagnostics use the engine log macros (see **Logging**) — never `std::print` or iostreams.
+* **Concepts over SFINAE:** Constrain templates with concepts and `requires`, never `std::enable_if` or tag dispatch; prefer standard concepts (`std::integral`, `std::ranges::contiguous_range`) and constrained `auto` parameters — failures must read as unmet requirements (see **Concept Documentation**).
+* **Diagnostics context:** A defaulted `std::source_location` parameter instead of `__FILE__` / `__LINE__` in assertion and logging helpers — survives inlining, `constexpr`-evaluable, keeps the helper a function (see **Assertions**).
+* **Portability of new features:** `import std;` is unavailable on console and embedded toolchains — include headers; guard non-universal library features with their `__cpp_lib_*` macro and provide a fallback.
 
 ---
 
@@ -161,7 +171,7 @@ No hidden allocations.
 
 ## Error Handling
 
-Failure signaling (no exceptions/RTTI, return values, `expected`-like types, compile-time validation) is defined under **C++ style guide** and **Code Quality** above; the rules below cover assertion messages.
+Failure signaling (no exceptions/RTTI, return values, `expected`-like types, compile-time validation) is defined under **C++ style guide**, **Code Quality**, and **C++23 Best Practices** above; the rules below cover assertion messages.
 
 ### Assertions
 

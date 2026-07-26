@@ -1,0 +1,27 @@
+{
+    "version": 1,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 19,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "base",
+            "generator": "Ninja",
+            "binaryDir": "${sourceDir}/out/build/${presetName}",
+            "cacheVariables": {
+                "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
+                "PACKAGE_NAME_SUFFIX": "$env{BUILD_NAME_SUFFIX}",
+                "TOYGINE_BUILD_BENCHMARKS": "OFF",
+                "TOYGINE_BUILD_DOCS": "OFF",
+                "TOYGINE_BUILD_EDITOR": "OFF",
+                "TOYGINE_BUILD_SAMPLES": "OFF",
+                "TOYGINE_BUILD_TESTS": "OFF",
+                "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
+                "ENABLE_PCH": "OFF"
+            }
+        }
+    ]
+}
