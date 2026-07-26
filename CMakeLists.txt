@@ -73,6 +73,19 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(ConfigureEngine)
 include(ConfigureCompiler)
 
+# Enable and copy compile commands file in fixed space for static analysis tools. The copy runs at build time
+# because CMake writes compile_commands.json during the generate phase, after this script is processed.
+# Multi-config IDE generators (Xcode, Visual Studio) do not export compile_commands.json, so skip the copy there.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+get_property(TOYGINE_MULTI_CONFIG_GENERATOR GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
+if (NOT TOYGINE_MULTI_CONFIG_GENERATOR)
+  add_custom_target(copy_compile_commands ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+      ${CMAKE_BINARY_DIR}/compile_commands.json
+      ${CMAKE_BINARY_DIR}/../compile_commands.json
+    VERBATIM)
+endif ()
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST
@@ -98,3 +111,11 @@ if (PREPROCESSOR_DEFINITIONS)
 endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Documentation
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_DOCS)
+  add_subdirectory(docs)
+endif ()
