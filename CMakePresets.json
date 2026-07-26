@@ -22,6 +22,27 @@
                 "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
                 "ENABLE_PCH": "OFF"
             }
+        },
+        {
+            "name": "type-debug",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
+        },
+        {
+            "name": "type-relwithdebinfo",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+            }
+        },
+        {
+            "name": "type-release",
+            "hidden": true,
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Release"
+            }
         }
     ]
 }

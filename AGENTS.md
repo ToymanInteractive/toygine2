@@ -12,7 +12,6 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 * **Explanations:** Explain the C++ features code relies on (RAII, move semantics, `constexpr`/`consteval`, concepts, rule of zero/five) and flag any hidden cost (allocation, virtual dispatch, exceptions).
 * **Clarification:** When ambiguous, ask about intent, target platform (retro/modern console, desktop, mobile, web/WASM), and hot-path vs. cold/tooling path — they trade off differently.
 * **Platform Awareness:** State toolchain assumptions (compiler, C++ standard, fixed vs. dynamic memory). Never assume an OS, heap, exceptions, or RTTI; retro and embedded targets may lack all four.
-* **Simulation / Presentation:** Keep deterministic simulation separate from presentation (renderer, audio, UI); never couple game logic to frame rate, render order, or platform APIs.
 * **Dependencies:** Justify a new library's cost (build time, size, portability) and prefer CMake `FetchContent` — see **Dependency Management**.
 * **Formatting:** Run `clang-format` before committing.
 * **Fixes:** Use `clang-tidy --fix` to auto-correct common issues and conform to the configured checks.
@@ -98,6 +97,30 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Concepts over SFINAE:** Constrain templates with concepts and `requires`, never `std::enable_if` or tag dispatch; prefer standard concepts (`std::integral`, `std::ranges::contiguous_range`) and constrained `auto` parameters — failures must read as unmet requirements (see **Concept Documentation**).
 * **Diagnostics context:** A defaulted `std::source_location` parameter instead of `__FILE__` / `__LINE__` in assertion and logging helpers — survives inlining, `constexpr`-evaluable, keeps the helper a function (see **Assertions**).
 * **Portability of new features:** `import std;` is unavailable on console and embedded toolchains — include headers; guard non-universal library features with their `__cpp_lib_*` macro and provide a fallback.
+
+## Game Engine Development Best Practices
+
+Runtime architecture of the engine: the frame, the data, and the platform. Language-level rules live under **C++ style guide** and **C++23 Best Practices**.
+
+* **Frame loop and time:** Fixed-timestep simulation driven by an accumulator; cap the frame delta and substep count and drop the surplus, so a slow frame cannot spiral into catch-up. Presentation interpolates between the last two states; simulation time, wall-clock time, and time scale stay distinct — never derive gameplay from a variable delta or frame count.
+* **Determinism:** Same inputs and seed must yield the same simulation on every run and target — the basis for replays, rollback netcode, and reproducible bugs. Use fixed-point where float divergence across targets matters; never depend on unordered-container order, pointer values, or uninitialized memory.
+* **Explicit update phases:** Systems run in named phases (input → simulation → animation → physics resolve → extraction → render submit). Order is declared data, not an artifact of construction or registration order.
+* **Component storage:** Contiguous homogeneous arrays keyed by entity handle, iterated whole per system. Add and remove through deferred command buffers applied at a phase boundary, so nothing mutates the storage it iterates.
+* **Handles with generations:** Handles pack index plus generation, so a stale one is a detected error, not a dangling dereference into a recycled slot (see Explicit resource lifetime).
+* **Frame allocators:** Per-frame data from a bump arena reset at the frame boundary, long-lived data from fixed pools. No heap allocation, blocking I/O, syscalls, or locks inside the frame loop (see **Memory and Allocation Rules**).
+* **Fixed capacity limits:** Entity, draw-call, particle, voice, and job counts are capped at compile time or by configuration; exceeding a cap is a diagnosed error, never silent growth or a reallocation spike.
+* **Job system:** Pure tasks over disjoint ranges with dependencies as a graph — no per-job allocation, no blocking waits inside a job, no shared mutable state without an explicitly ordered atomic or a phase barrier (see Concurrency primitives).
+* **Renderer boundary:** Graphics APIs sit behind a thin RHI; passes record command buffers from an immutable snapshot extracted from the simulation. No gameplay type reaches a backend header, and no backend type reaches gameplay.
+* **Asset pipeline:** Bake offline into a target-ready binary form; the runtime loads and uses, never parses text or converts formats. Each format carries magic and version, and the loader checks version, sizes, offsets, and alignment before use — cheap validation only.
+* **Resource loading:** Loads are asynchronous and return handles immediately. A missing or failed asset yields a visible placeholder plus `LOG_ERROR` — never a crash, never a silent skip.
+* **Binary data portability:** Fix the serialized byte order and convert with `std::byteswap` on load; never `reinterpret_cast` a struct over a file buffer — retro and console targets differ in endianness and enforce alignment (see Bit-level operations).
+* **Platform abstraction:** Platform code lives in `src/platforms/` behind an interface the build selects per target; no `#ifdef` platform branches in engine or gameplay code — the seam is a file, not a macro (see **Project Structure**).
+* **Input:** The platform layer buffers raw events into one immutable snapshot per tick. Gameplay reads the snapshot and never polls a platform API, so replays and headless tests can feed recorded input.
+* **Audio:** The mixer callback is real-time — no locks, allocation, I/O, or logging. Use one lock-free SPSC queue per producer, drained by the mixer, plus preallocated voice pools; streaming decode runs on a worker.
+* **Math conventions:** Fix one convention — handedness, row- vs column-major, radians, up axis, unit scale — document it at the module boundary, and convert only at external API edges.
+* **Budgets and profiling:** Each system states a per-frame budget in milliseconds and bytes and carries scoped profiler markers; optimize measured frame time against it, never a guess (see Performance under **Code Quality**).
+* **Data-driven tuning:** Tunables live in data, not literals; hot reload is a dev-build feature.
+* **Dev-only tooling:** Overlays, gizmos, validation layers, and console commands sit behind build flags and compile out of shipping builds.
 
 ---
 
