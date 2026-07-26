@@ -122,6 +122,24 @@ Runtime architecture of the engine: the frame, the data, and the platform. Langu
 * **Data-driven tuning:** Tunables live in data, not literals; hot reload is a dev-build feature.
 * **Dev-only tooling:** Overlays, gizmos, validation layers, and console commands sit behind build flags and compile out of shipping builds.
 
+## API Design Principles
+
+The engine is consumed as a library — by gameplay code, samples, the editor, and its own future versions. A public header is a contract. Language rules live under **C++ style guide** and **C++23 Best Practices**; what a header may expose, under **Header / Source Organization**.
+
+* **Design from the call site:** Write the sample or test first and shape the API around it. Correct use must be the shortest thing to write; misuse the types can express fails to compile, the rest is a documented `\pre` with `assert_message` (see Make invalid states unrepresentable).
+* **Minimal surface:** Expose the smallest set of types and functions that solves the problem, preferring non-member non-friend functions; keep helpers internal. Adding later is cheap, removing breaks consumers.
+* **The signature is the contract:** Ownership, mutability, optionality, and lifetime read from the declaration alone — value, `const T &`, `std::span`, `std::optional`, or a handle (see Explicit resource lifetime). No parameter's meaning depends on another's value.
+* **Strong types at the boundary:** Scoped enums, named aggregates, and unit-bearing types over `bool`, `int`, or bare floats — `setFilter(TextureFilter::Linear)`, not `setFilter(true)`.
+* **Explicit context, no globals:** Dependencies arrive as parameters or a context object; two instances must coexist in one process (editor, tests, headless tools).
+* **Allocation and failure are visible:** Whoever allocates says so in the signature — caller storage, explicit capacity, or a named pool; fallible calls return `[[nodiscard]] std::expected` (see **Memory and Allocation Rules** and **Error Handling**).
+* **Batch-oriented entry points:** Take ranges or spans and process a system per call; per-entity calls across a module boundary defeat contiguous storage and the job system.
+* **Two layers, not one:** The hot-path API stays explicit and allocation-free; convenience wrappers for tooling sit on top of it, never inside it.
+* **Consistency and orthogonality:** One argument order, naming, unit, and error convention across modules, fixed at the module boundary (see Math conventions).
+* **Compile-time contracts:** State requirements as concepts and `static_assert` messages, so misuse reads as an unmet requirement, not a template instantiation dump.
+* **Stability and deprecation:** Evolve additively; `[[deprecated("use X instead")]]` with a named replacement before removal. Serialized enumerator values are contract — never renumbered or reused; serialized data carries a versioned schema, never a raw struct layout (see Binary data portability).
+* **Cheap to include:** Every consumer pays a public header's build cost — minimal includes and forward declarations. A `.inl` arrives through the barrel too — moving weight there organizes it, not removes it (see **Headers**).
+* **Documented and demonstrated:** A Doxygen block per **Comments and Documentation** on every public symbol, plus a compilable example under `samples/` — the sample is the API's ergonomics test.
+
 ---
 
 ## Header / Source Organization
@@ -262,7 +280,7 @@ Every header file (`.hpp` and `.inl`) must start with a `\file` block after the 
 */
 ```
 
-(If the module does not use a barrel name `module.hpp`, replace the second sentence with the actual barrel or public header that includes this `.inl`.)
+(If the module's barrel is not `module.hpp`, name the actual barrel or public header that includes this header in the `\note` line.)
 
 #### Template: implementation (`.cpp`)
 
