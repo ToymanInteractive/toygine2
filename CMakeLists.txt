@@ -75,10 +75,9 @@ include(ConfigureCompiler)
 
 # Enable and copy compile commands file in fixed space for static analysis tools. The copy runs at build time
 # because CMake writes compile_commands.json during the generate phase, after this script is processed.
-# Multi-config IDE generators (Xcode, Visual Studio) do not export compile_commands.json, so skip the copy there.
+# Only Makefile and Ninja generators export compile_commands.json; Xcode and Visual Studio ignore the variable.
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
-get_property(TOYGINE_MULTI_CONFIG_GENERATOR GLOBAL PROPERTY GENERATOR_IS_MULTI_CONFIG)
-if (NOT TOYGINE_MULTI_CONFIG_GENERATOR)
+if (CMAKE_GENERATOR MATCHES "Makefiles|Ninja")
   add_custom_target(copy_compile_commands ALL
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
       ${CMAKE_BINARY_DIR}/compile_commands.json

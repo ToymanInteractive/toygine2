@@ -18,7 +18,10 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-find_package(Doxygen REQUIRED COMPONENTS dot)
+find_package(Doxygen 1.17.0 REQUIRED COMPONENTS dot)
+
+get_target_property(DOXYGEN_DOT_LOCATION Doxygen::dot IMPORTED_LOCATION)
+get_filename_component(DOXYGEN_DOT_DIR "${DOXYGEN_DOT_LOCATION}" DIRECTORY)
 
 include(FetchContent)
 
