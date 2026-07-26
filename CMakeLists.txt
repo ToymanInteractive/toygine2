@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.10.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.19.0 FATAL_ERROR)
 
 project(ToyGine2 LANGUAGES C CXX VERSION 26.6.0 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
 
@@ -73,6 +73,18 @@ list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(ConfigureEngine)
 include(ConfigureCompiler)
 
+# Enable and copy compile commands file in fixed space for static analysis tools. The copy runs at build time
+# because CMake writes compile_commands.json during the generate phase, after this script is processed.
+# Only Makefile and Ninja generators export compile_commands.json; Xcode and Visual Studio ignore the variable.
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
+if (CMAKE_GENERATOR MATCHES "Makefiles|Ninja")
+  add_custom_target(copy_compile_commands ALL
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+      ${CMAKE_BINARY_DIR}/compile_commands.json
+      ${CMAKE_BINARY_DIR}/../compile_commands.json
+    VERBATIM)
+endif ()
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST
@@ -98,3 +110,11 @@ if (PREPROCESSOR_DEFINITIONS)
 endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Documentation
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_DOCS)
+  add_subdirectory(docs)
+endif ()

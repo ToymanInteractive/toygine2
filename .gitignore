@@ -1,5 +1,11 @@
 CLAUDE.md
 .serena
 
+# Related to documentation
+docs/html/
+docs/xml/
+docs/Doxyfile_awesome_css
+doxygen.log
+
 # Compilers will place build artifacts here
 out/
