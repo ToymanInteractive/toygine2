@@ -140,6 +140,23 @@ The engine is consumed as a library — by gameplay code, samples, the editor, a
 * **Cheap to include:** Every consumer pays a public header's build cost — minimal includes and forward declarations. A `.inl` arrives through the barrel too — moving weight there organizes it, not removes it (see **Headers**).
 * **Documented and demonstrated:** A Doxygen block per **Comments and Documentation** on every public symbol, plus a compilable example under `samples/` — the sample is the API's ergonomics test.
 
+## Engine Architecture
+
+Static structure: layers, modules, and where dependencies may point. Directory layout lives under **Project Structure**, frame-time behavior under **Game Engine Development Best Practices**.
+
+* **One-way layers:** platform → core (types, memory, containers, log, math) → services (jobs, file, asset, input, audio, RHI) → systems (scene, renderer, physics, animation) → gameplay → tools. A layer sees only those below it; an upward include is a design error, not a forward-declaration problem.
+* **Acyclic modules:** each module declares its dependencies in CMake and links only those. Break a cycle by moving the shared type down a layer or inverting it behind an interface — never a mutual include or a shared "utils" bucket.
+* **Enforced by the build:** dependency direction is CMake target visibility — `PRIVATE` by default, `PUBLIC` only for what a public header exposes — so violations fail the build, not review.
+* **Engine is a library:** no `main`, window, or argument parsing. The application (sample, editor, test runner, headless tool) owns entry, the window, and the frame loop, and drives engine systems.
+* **Composition root:** subsystems are built once at startup in one place, wired by explicit parameters or a context aggregate, and shut down in reverse order; failed init returns `std::expected`, never a half-built subsystem (see Explicit context, no globals).
+* **Data flow over control flow:** systems communicate through component storage, immutable snapshots, and queues drained at a phase boundary — never by calling into each other or via callbacks fired inside another system's update.
+* **Events as data:** typed, fixed-capacity queues produced in one phase and consumed in the next; no global observer registry, no `std::function` subscriber lists (see Zero-cost abstractions).
+* **Virtual seams where they earn it:** runtime polymorphism only at slow, replaceable boundaries — RHI backend, log sink, asset source, platform — crossed once per batch or frame; everything else resolves statically (see Platform abstraction).
+* **Feature modules:** a feature owning its own types and systems becomes a module across all four trees, not a subfolder inside another module; single-user helpers stay internal.
+* **Optional subsystems:** renderer, audio, editor support, and dev tooling are CMake options; a headless configuration must build and run the simulation with them off — what keeps tests and the asset pipeline viable (see Determinism).
+* **Configuration flows down:** each subsystem takes capacities, budgets, paths, and backend choice as an aggregate at init, never reading globals, environment, or files from inside (see Data-driven tuning).
+* **Tools share runtime code:** baker, importers, and editor link the same engine modules instead of reimplementing formats, math, or serialization; tool-only code sits behind build flags or in `editor/` (see Dev-only tooling).
+
 ---
 
 ## Header / Source Organization

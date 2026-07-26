@@ -151,6 +151,34 @@
             "cacheVariables": {
                 "TOYGINE_TARGET_PLATFORM": "Nintendo Wii"
             }
+        },
+        {
+            "name": "with-benchmarks",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_BENCHMARKS": "ON"
+            }
+        },
+        {
+            "name": "with-editor",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_EDITOR": "ON"
+            }
+        },
+        {
+            "name": "with-samples",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_SAMPLES": "ON"
+            }
+        },
+        {
+            "name": "with-tests",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_BUILD_TESTS": "ON"
+            }
         }
     ]
 }
