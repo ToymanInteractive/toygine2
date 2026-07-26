@@ -43,6 +43,114 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
             }
+        },
+        {
+            "name": "platform-windows-x64",
+            "hidden": true,
+            "generator": "Visual Studio 18 2026",
+            "architecture": {
+                "value": "x64",
+                "strategy": "set"
+            },
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Windows Desktop"
+            }
+        },
+        {
+            "name": "platform-windows-x86",
+            "hidden": true,
+            "generator": "Visual Studio 18 2026",
+            "architecture": {
+                "value": "Win32",
+                "strategy": "set"
+            },
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Windows Desktop"
+            }
+        },
+        {
+            "name": "platform-macos",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "macOS Desktop"
+            }
+        },
+        {
+            "name": "platform-macos-xcode",
+            "hidden": true,
+            "generator": "Xcode",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "macOS Desktop"
+            }
+        },
+        {
+            "name": "platform-linux",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Linux Desktop"
+            }
+        },
+        {
+            "name": "platform-md",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Sega Mega Drive/Genesis"
+            }
+        },
+        {
+            "name": "platform-gba",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/GBA.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo GBA"
+            }
+        },
+        {
+            "name": "platform-nds",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/NDS.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo DS"
+            }
+        },
+        {
+            "name": "platform-3ds",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/3DS.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo 3DS"
+            }
+        },
+        {
+            "name": "platform-switch",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/Switch.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Switch"
+            }
+        },
+        {
+            "name": "platform-n64",
+            "hidden": true,
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo 64"
+            }
+        },
+        {
+            "name": "platform-gamecube",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/GameCube.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo GameCube"
+            }
+        },
+        {
+            "name": "platform-wii",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/Wii.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Wii"
+            }
         }
     ]
 }
