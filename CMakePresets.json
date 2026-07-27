@@ -196,6 +196,16 @@
             ]
         },
         {
+            "name": "windows-msvc-shipping",
+            "displayName": "Windows x64 shipping",
+            "description": "ToyGine 2 Windows MSVC Shipping Build (Release, no debug info)",
+            "inherits": [
+                "base",
+                "type-shipping",
+                "platform-windows-x64"
+            ]
+        },
+        {
             "name": "windows-msvc-x86",
             "displayName": "Windows x86",
             "description": "ToyGine 2 Windows MSVC x86 Build",
@@ -210,6 +220,16 @@
             ]
         },
         {
+            "name": "windows-msvc-x86-shipping",
+            "displayName": "Windows x86 shipping",
+            "description": "ToyGine 2 Windows MSVC x86 Shipping Build (Release, no debug info)",
+            "inherits": [
+                "base",
+                "type-shipping",
+                "platform-windows-x86"
+            ]
+        },
+        {
             "name": "macos-xcode",
             "displayName": "macOS XCode",
             "description": "ToyGine 2 MacOS XCode Build",
@@ -221,6 +241,16 @@
                 "with-editor",
                 "with-samples",
                 "with-tests"
+            ]
+        },
+        {
+            "name": "macos-xcode-shipping",
+            "displayName": "macOS XCode shipping",
+            "description": "ToyGine 2 MacOS XCode Shipping Build (Release, no debug info)",
+            "inherits": [
+                "base",
+                "type-shipping",
+                "platform-macos-xcode"
             ]
         },
         {
