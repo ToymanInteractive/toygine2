@@ -13,9 +13,7 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 * **Clarification:** When ambiguous, ask about intent, target platform (retro/modern console, desktop, mobile, web/WASM), and hot-path vs. cold/tooling path — they trade off differently.
 * **Platform Awareness:** State toolchain assumptions (compiler, C++ standard, fixed vs. dynamic memory). Never assume an OS, heap, exceptions, or RTTI; retro and embedded targets may lack all four.
 * **Dependencies:** Justify a new library's cost (build time, size, portability) and prefer CMake `FetchContent` — see **Dependency Management**.
-* **Formatting:** Run `clang-format` before committing.
-* **Fixes:** Use `clang-tidy --fix` to auto-correct common issues and conform to the configured checks.
-* **Linting:** Run `clang-tidy`, build with `-Wall -Wextra -Wpedantic`, and leave no warnings before committing.
+* **Tooling:** Format, lint, and build warning-free before committing — see **Lint Rules**.
 * **Testing:** Prefer compile-time `static_assert`; use DocTest-style runtime tests only for runtime-dependent behavior — see **Unit Test Style Rules**.
 
 ## Project Structure
@@ -68,7 +66,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Error handling:** Signal failure via return values or `expected`-like types; assert invariants with `assert_message` (runtime) and `static_assert` (compile-time), both with human-readable messages. Never fail silently.
 * **Functions:** Short and single-purpose; ~40 lines is a soft target. Split by responsibility, not length.
 * **Performance:** Correctness first; optimize only with justification and measurement, and document non-obvious low-level choices.
-* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block.
+* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block — enforced by `.clang-format` (see **Lint Rules**).
 * **Logging:** Use engine macros `LOG_TRACE`/`LOG_DEBUG`/`LOG_INFO`/`LOG_WARN`/`LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
 
 ## C++23 Best Practices
@@ -156,6 +154,22 @@ Static structure: layers, modules, and where dependencies may point. Directory l
 * **Optional subsystems:** renderer, audio, editor support, and dev tooling are CMake options; a headless configuration must build and run the simulation with them off — what keeps tests and the asset pipeline viable (see Determinism).
 * **Configuration flows down:** each subsystem takes capacities, budgets, paths, and backend choice as an aggregate at init, never reading globals, environment, or files from inside (see Data-driven tuning).
 * **Tools share runtime code:** baker, importers, and editor link the same engine modules instead of reimplementing formats, math, or serialization; tool-only code sits behind build flags or in `editor/` (see Dev-only tooling).
+
+## Lint Rules
+
+Style and correctness are enforced by tools, not by review. Configs live at the repo root and CI runs the same checks on changed files; a change is ready when all of them pass clean.
+
+* **Formatting:** `.clang-format` is the sole authority on layout — run it before committing, never hand-format against it. `// clang-format off` only where alignment carries meaning, with a comment saying why.
+* **Static analysis:** checks and options live in `.clang-tidy`; run it over the compile database before committing and review whatever `--fix` changed. Suppress with `// NOLINTNEXTLINE(check)` plus a reason — never a bare `// NOLINT`, never file-wide.
+* **Warnings:** build at the toolchain's warning level and leave none; CI treats them as errors. Fix the code, not the diagnostic — `[[maybe_unused]]` for a deliberately unused parameter.
+* **Language subset:** exceptions and RTTI are off in the build, so `throw`, `dynamic_cast`, and `typeid` fail to compile rather than fail review (see **Zero-cost abstractions**).
+* **Sanitizers:** desktop debug and CI runs enable address, undefined-behavior, and thread sanitizers; a report fails the run like a failed assertion. Console targets have none — hence the same tests on desktop.
+* **Every toolchain:** warnings stay clean on all target compilers in CI, not just the local one — console GCC diagnoses alignment and narrowing that Clang accepts, and vice versa (see **Portability**).
+* **License headers:** every source file starts with the block from `tools/builder/license`, verified in CI; the `\file` block follows it (see **File documentation**).
+* **Docs build:** Doxygen must finish with no warnings — a broken `\ref`, a missing `\param`, or an undocumented public symbol is a lint failure.
+* **Markdown:** `markdownlint-cli2` over `**/*.md`.
+* **Out of scope:** `extern/` and `_deps/` are never formatted, linted, or auto-fixed; a vendored change is a recorded patch (see **Dependency Management**).
+* **Sweeps land alone:** a reformat or `--fix` run is its own commit, never mixed into a feature diff.
 
 ---
 
@@ -391,11 +405,6 @@ Always follow this order:
 
 * `\note`: one line per note. Split complex notes into multiple `\note` tags.
 * `\warning`: use only for critical information (lifetime, ownership, misuse).
-
-### Constants and References in Text
-
-* Wrap constants and literal values with `\c` (`\c true`, `\c 0`, `\c npos`).
-* Reference parameter names with `\a` (`\a string`, `\a count`).
 
 ### See-Also Tags
 
@@ -777,7 +786,7 @@ Avoid:
 
 ## Redundancy and Duplication
 
-* Do not generate multiple tests for the same behavior.
+* Do not write two tests for the same behavior — if two assert the same contract, keep one.
 * Avoid copy-paste test cases with minor variations.
 
 Prefer:
@@ -785,8 +794,6 @@ Prefer:
 * Parameterized tests
 * Small helper functions
 * Reusing a single test to cover multiple invariants
-
-If two tests assert the same contract, keep only one.
 
 ---
 
