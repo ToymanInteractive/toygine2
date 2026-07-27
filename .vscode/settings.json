@@ -2,6 +2,8 @@
     "clang-format.fallbackStyle": "Google",
     "cSpell.language": "en,ru",
     "cSpell.words": [
+        "consteval",
+        "constexpr",
         "devkit",
         "devkitA64",
         "devkitARM",
@@ -13,6 +15,8 @@
         "libnds",
         "libnx",
         "libogc",
+        "nodiscard",
+        "picobench",
         "toygine",
         "toyman"
     ],

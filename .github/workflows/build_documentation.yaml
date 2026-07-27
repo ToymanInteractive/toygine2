@@ -3,18 +3,20 @@ name: Generate Doxygen Docs
 on:
   push:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 permissions:
   contents: read
 
 jobs:
   build:
     runs-on: ubuntu-26.04
-    permissions:
-      contents: write
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v7.0.0
+        uses: actions/checkout@v7.0.1
         with:
           fetch-depth: 0
           submodules: recursive
@@ -24,7 +26,7 @@ jobs:
         run: |
           sudo apt-get update -y
           sudo apt-get install -y graphviz
-          curl -L https://github.com/doxygen/doxygen/releases/download/Release_1_17_0/doxygen-1.17.0.linux.bin.tar.gz -o doxygen.tar.gz || { echo "Failed to download Doxygen"; exit 1; }
+          curl --fail -L https://github.com/doxygen/doxygen/releases/download/Release_1_17_0/doxygen-1.17.0.linux.bin.tar.gz -o doxygen.tar.gz || { echo "Failed to download Doxygen"; exit 1; }
           tar -xzf doxygen.tar.gz || { echo "Failed to extract Doxygen"; exit 1; }
           cd doxygen-*
           sudo cp bin/doxygen /usr/local/bin/ || { echo "Failed to install Doxygen"; exit 1; }
