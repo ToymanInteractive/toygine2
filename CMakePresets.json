@@ -95,7 +95,7 @@
             "name": "platform-md",
             "hidden": true,
             "cacheVariables": {
-                "TOYGINE_TARGET_PLATFORM": "Sega Mega Drive/Genesis"
+                "TOYGINE_TARGET_PLATFORM": "Sega MD"
             }
         },
         {
