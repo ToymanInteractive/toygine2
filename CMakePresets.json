@@ -1,26 +1,27 @@
 {
-    "version": 1,
+    "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
-        "minor": 19,
+        "minor": 21,
         "patch": 0
     },
     "configurePresets": [
         {
             "name": "base",
+            "hidden": true,
             "generator": "Ninja",
             "binaryDir": "${sourceDir}/out/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_INSTALL_PREFIX": "${sourceDir}/out/install/${presetName}",
+                "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
+                "ENABLE_PCH": "OFF",
                 "PACKAGE_FILE_NAME": "$env{BUILD_FILE_NAME}",
                 "PACKAGE_NAME_SUFFIX": "$env{BUILD_NAME_SUFFIX}",
                 "TOYGINE_BUILD_BENCHMARKS": "OFF",
                 "TOYGINE_BUILD_DOCS": "OFF",
                 "TOYGINE_BUILD_EDITOR": "OFF",
                 "TOYGINE_BUILD_SAMPLES": "OFF",
-                "TOYGINE_BUILD_TESTS": "OFF",
-                "ENABLE_PUBLIC_RELEASE": "$env{ENABLE_PUBLIC_RELEASE}",
-                "ENABLE_PCH": "OFF"
+                "TOYGINE_BUILD_TESTS": "OFF"
             }
         },
         {
@@ -31,14 +32,14 @@
             }
         },
         {
-            "name": "type-relwithdebinfo",
+            "name": "type-release",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
         },
         {
-            "name": "type-release",
+            "name": "type-shipping",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -94,7 +95,7 @@
             "name": "platform-md",
             "hidden": true,
             "cacheVariables": {
-                "TOYGINE_TARGET_PLATFORM": "Sega Mega Drive/Genesis"
+                "TOYGINE_TARGET_PLATFORM": "Sega MD"
             }
         },
         {
@@ -179,6 +180,442 @@
             "cacheVariables": {
                 "TOYGINE_BUILD_TESTS": "ON"
             }
+        },
+        {
+            "name": "windows-msvc",
+            "displayName": "Windows x64",
+            "description": "ToyGine 2 Windows MSVC Build",
+            "inherits": [
+                "type-release",
+                "platform-windows-x64",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-shipping",
+            "displayName": "Windows x64 shipping",
+            "description": "ToyGine 2 Windows MSVC Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-windows-x64",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-x86",
+            "displayName": "Windows x86",
+            "description": "ToyGine 2 Windows MSVC x86 Build",
+            "inherits": [
+                "type-release",
+                "platform-windows-x86",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-x86-shipping",
+            "displayName": "Windows x86 shipping",
+            "description": "ToyGine 2 Windows MSVC x86 Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-windows-x86",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-xcode",
+            "displayName": "macOS XCode",
+            "description": "ToyGine 2 MacOS XCode Build",
+            "inherits": [
+                "type-release",
+                "platform-macos-xcode",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-xcode-shipping",
+            "displayName": "macOS XCode shipping",
+            "description": "ToyGine 2 MacOS XCode Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-macos-xcode",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-debug",
+            "displayName": "macOS debug",
+            "description": "ToyGine 2 MacOS Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-macos",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-release",
+            "displayName": "macOS release",
+            "description": "ToyGine 2 MacOS Release Build",
+            "inherits": [
+                "type-release",
+                "platform-macos",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-shipping",
+            "displayName": "macOS shipping",
+            "description": "ToyGine 2 MacOS Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-macos",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-debug",
+            "displayName": "Linux debug",
+            "description": "ToyGine 2 Linux Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-linux",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-release",
+            "displayName": "Linux release",
+            "description": "ToyGine 2 Linux Release Build",
+            "inherits": [
+                "type-release",
+                "platform-linux",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-shipping",
+            "displayName": "Linux shipping",
+            "description": "ToyGine 2 Linux Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-linux",
+                "base"
+            ]
+        },
+        {
+            "name": "md-debug",
+            "displayName": "Sega MegaDrive debug",
+            "description": "ToyGine 2 Sega MegaDrive Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-md",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "md-release",
+            "displayName": "Sega MegaDrive release",
+            "description": "ToyGine 2 Sega MegaDrive Release Build",
+            "inherits": [
+                "type-release",
+                "platform-md",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "md-shipping",
+            "displayName": "Sega MegaDrive shipping",
+            "description": "ToyGine 2 Sega MegaDrive Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-md",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-debug",
+            "displayName": "Nintendo GBA debug",
+            "description": "ToyGine 2 Nintendo GBA Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-gba",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-release",
+            "displayName": "Nintendo GBA release",
+            "description": "ToyGine 2 Nintendo GBA Release Build",
+            "inherits": [
+                "type-release",
+                "platform-gba",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-shipping",
+            "displayName": "Nintendo GBA shipping",
+            "description": "ToyGine 2 Nintendo GBA Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-gba",
+                "base"
+            ]
+        },
+        {
+            "name": "nds-debug",
+            "displayName": "Nintendo DS debug",
+            "description": "ToyGine 2 Nintendo DS Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-nds",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "nds-release",
+            "displayName": "Nintendo DS release",
+            "description": "ToyGine 2 Nintendo DS Release Build",
+            "inherits": [
+                "type-release",
+                "platform-nds",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "nds-shipping",
+            "displayName": "Nintendo DS shipping",
+            "description": "ToyGine 2 Nintendo DS Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-nds",
+                "base"
+            ]
+        },
+        {
+            "name": "3ds-debug",
+            "displayName": "Nintendo 3DS debug",
+            "description": "ToyGine 2 Nintendo 3DS Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-3ds",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "3ds-release",
+            "displayName": "Nintendo 3DS release",
+            "description": "ToyGine 2 Nintendo 3DS Release Build",
+            "inherits": [
+                "type-release",
+                "platform-3ds",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "3ds-shipping",
+            "displayName": "Nintendo 3DS shipping",
+            "description": "ToyGine 2 Nintendo 3DS Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-3ds",
+                "base"
+            ]
+        },
+        {
+            "name": "switch-debug",
+            "displayName": "Nintendo Switch debug",
+            "description": "ToyGine 2 Nintendo Switch Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-switch",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "switch-release",
+            "displayName": "Nintendo Switch release",
+            "description": "ToyGine 2 Nintendo Switch Release Build",
+            "inherits": [
+                "type-release",
+                "platform-switch",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "switch-shipping",
+            "displayName": "Nintendo Switch shipping",
+            "description": "ToyGine 2 Nintendo Switch Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-switch",
+                "base"
+            ]
+        },
+        {
+            "name": "n64-debug",
+            "displayName": "Nintendo 64 debug",
+            "description": "ToyGine 2 Nintendo 64 Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-n64",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "n64-release",
+            "displayName": "Nintendo 64 release",
+            "description": "ToyGine 2 Nintendo 64 Release Build",
+            "inherits": [
+                "type-release",
+                "platform-n64",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "n64-shipping",
+            "displayName": "Nintendo 64 shipping",
+            "description": "ToyGine 2 Nintendo 64 Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-n64",
+                "base"
+            ]
+        },
+        {
+            "name": "gamecube-debug",
+            "displayName": "Nintendo GameCube debug",
+            "description": "ToyGine 2 Nintendo GameCube Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-gamecube",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "gamecube-release",
+            "displayName": "Nintendo GameCube release",
+            "description": "ToyGine 2 Nintendo GameCube Release Build",
+            "inherits": [
+                "type-release",
+                "platform-gamecube",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "gamecube-shipping",
+            "displayName": "Nintendo GameCube shipping",
+            "description": "ToyGine 2 Nintendo GameCube Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-gamecube",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-debug",
+            "displayName": "Nintendo Wii debug",
+            "description": "ToyGine 2 Nintendo Wii Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-wii",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-release",
+            "displayName": "Nintendo Wii release",
+            "description": "ToyGine 2 Nintendo Wii Release Build",
+            "inherits": [
+                "type-release",
+                "platform-wii",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-shipping",
+            "displayName": "Nintendo Wii shipping",
+            "description": "ToyGine 2 Nintendo Wii Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-wii",
+                "base"
+            ]
         }
     ]
 }

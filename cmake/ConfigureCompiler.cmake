@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.19.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.21.0 FATAL_ERROR)
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
@@ -77,6 +77,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   endif ()
 
   message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
+
+  # No toolchain file is wired up for this target yet, so configuring would silently fall back to the host compiler.
+  message(FATAL_ERROR "Nintendo 64 toolchain is not integrated yet. The n64-* presets cannot be configured.")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
