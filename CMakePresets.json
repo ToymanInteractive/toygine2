@@ -32,14 +32,14 @@
             }
         },
         {
-            "name": "type-relwithdebinfo",
+            "name": "type-release",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "RelWithDebInfo"
             }
         },
         {
-            "name": "type-release",
+            "name": "type-shipping",
             "hidden": true,
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "Release"
@@ -187,7 +187,7 @@
             "description": "ToyGine 2 Windows MSVC Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-windows-x64",
                 "with-benchmarks",
                 "with-editor",
@@ -201,7 +201,7 @@
             "description": "ToyGine 2 Windows MSVC x86 Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-windows-x86",
                 "with-benchmarks",
                 "with-editor",
@@ -215,7 +215,7 @@
             "description": "ToyGine 2 MacOS XCode Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-macos-xcode",
                 "with-benchmarks",
                 "with-editor",
@@ -243,7 +243,7 @@
             "description": "ToyGine 2 MacOS Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-macos",
                 "with-benchmarks",
                 "with-editor",
@@ -257,7 +257,7 @@
             "description": "ToyGine 2 MacOS Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-macos"
             ]
         },
@@ -281,7 +281,7 @@
             "description": "ToyGine 2 Linux Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-linux",
                 "with-benchmarks",
                 "with-editor",
@@ -295,7 +295,7 @@
             "description": "ToyGine 2 Linux Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-linux"
             ]
         },
@@ -318,7 +318,7 @@
             "description": "ToyGine 2 Sega MegaDrive Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-md",
                 "with-benchmarks",
                 "with-samples",
@@ -331,7 +331,7 @@
             "description": "ToyGine 2 Sega MegaDrive Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-md"
             ]
         },
@@ -354,7 +354,7 @@
             "description": "ToyGine 2 Nintendo GBA Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-gba",
                 "with-benchmarks",
                 "with-samples",
@@ -367,7 +367,7 @@
             "description": "ToyGine 2 Nintendo GBA Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-gba"
             ]
         },
@@ -390,7 +390,7 @@
             "description": "ToyGine 2 Nintendo DS Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-nds",
                 "with-benchmarks",
                 "with-samples",
@@ -403,7 +403,7 @@
             "description": "ToyGine 2 Nintendo DS Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-nds"
             ]
         },
@@ -426,7 +426,7 @@
             "description": "ToyGine 2 Nintendo 3DS Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-3ds",
                 "with-benchmarks",
                 "with-samples",
@@ -439,7 +439,7 @@
             "description": "ToyGine 2 Nintendo 3DS Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-3ds"
             ]
         },
@@ -462,7 +462,7 @@
             "description": "ToyGine 2 Nintendo Switch Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-switch",
                 "with-benchmarks",
                 "with-samples",
@@ -475,7 +475,7 @@
             "description": "ToyGine 2 Nintendo Switch Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-switch"
             ]
         },
@@ -498,7 +498,7 @@
             "description": "ToyGine 2 Nintendo 64 Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-n64",
                 "with-benchmarks",
                 "with-samples",
@@ -511,7 +511,7 @@
             "description": "ToyGine 2 Nintendo 64 Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-n64"
             ]
         },
@@ -534,7 +534,7 @@
             "description": "ToyGine 2 Nintendo GameCube Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-gamecube",
                 "with-benchmarks",
                 "with-samples",
@@ -547,7 +547,7 @@
             "description": "ToyGine 2 Nintendo GameCube Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-gamecube"
             ]
         },
@@ -570,7 +570,7 @@
             "description": "ToyGine 2 Nintendo Wii Release Build",
             "inherits": [
                 "base",
-                "type-relwithdebinfo",
+                "type-release",
                 "platform-wii",
                 "with-benchmarks",
                 "with-samples",
@@ -583,7 +583,7 @@
             "description": "ToyGine 2 Nintendo Wii Shipping Build (Release, no debug info)",
             "inherits": [
                 "base",
-                "type-release",
+                "type-shipping",
                 "platform-wii"
             ]
         }
