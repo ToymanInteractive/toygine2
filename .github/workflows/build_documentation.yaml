@@ -1,0 +1,38 @@
+name: Generate Doxygen Docs
+
+on:
+  push:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-26.04
+    permissions:
+      contents: write
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.0
+        with:
+          fetch-depth: 0
+          submodules: recursive
+          persist-credentials: false
+
+      - name: Install Doxygen
+        run: |
+          sudo apt-get update -y
+          sudo apt-get install -y graphviz
+          curl -L https://github.com/doxygen/doxygen/releases/download/Release_1_17_0/doxygen-1.17.0.linux.bin.tar.gz -o doxygen.tar.gz || { echo "Failed to download Doxygen"; exit 1; }
+          tar -xzf doxygen.tar.gz || { echo "Failed to extract Doxygen"; exit 1; }
+          cd doxygen-*
+          sudo cp bin/doxygen /usr/local/bin/ || { echo "Failed to install Doxygen"; exit 1; }
+          cd ..
+          rm -rf doxygen-* doxygen.tar.gz
+          doxygen --version
+
+      - name: Generate Docs
+        run: |
+          cmake -DTOYGINE_BUILD_BENCHMARKS=OFF -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_EDITOR=OFF -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=OFF --preset linux-debug
+          cmake --build --preset linux-debug --target docs
