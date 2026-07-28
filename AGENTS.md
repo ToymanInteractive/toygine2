@@ -173,7 +173,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. What goes inside a test — style, naming, compile-time vs runtime — lives under **Unit Test Style Rules** and the sections following it.
+Building, running, and splitting tests across targets. How a test is shaped is **Testing Best practices** below; style and naming, **Unit Test Style Rules** and the sections following it.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -186,6 +186,24 @@ Building, running, and splitting tests across targets. What goes inside a test �
 * **Benchmarks:** picobench, at `benchmarks/<module>/<name>.benchmark.cpp`, gated by `TOYGINE_BUILD_BENCHMARKS`. Measures a system against its declared per-frame budget (see Budgets and profiling); not a correctness test, never gates a merge.
 * **Cross-target verification:** Runtime tests execute on desktop, where sanitizers exist (see Sanitizers). Console and embedded targets are verified by compiling the test translation units — compile-time tests fire there, runtime ones do not.
 * **Coverage:** `TOYGINE_TESTS_ENABLE_COVERAGE` instruments a test build; reports go to Codecov per `codecov.yml`. Coverage is a signal, never a target — tests written to raise it are the redundancy the style rules forbid (see **Redundancy and Duplication**).
+
+### Testing Best practices
+
+What a case may depend on and which seam it drives; placement, gating, and CI mechanics are the bullets above.
+
+* **Arrange-Act-Assert:** Three visible steps, one behavioral aspect per case (Given-When-Then reads the same). Split by aspect, not by method — a case asserting unrelated contracts fails without naming which broke.
+* **Readable without scrolling:** Minimal arrangement, no monolithic cases, no nested `SUBCASE` trees. When setup outgrows the assertions, the API needs a narrower seam or the fixture a helper — never absorb it into the test (see Design from the call site).
+* **Independent by construction:** No case depends on execution order, another case's residue, or global mutable state; each runs alone, the suite in any order (see Explicit context, no globals).
+* **Unit level:** Value types, containers, math, allocators, handles, codecs — everything reachable without a running engine, where `static_assert` does most of the work (see **Compile-Time vs Runtime Testing**).
+* **System level:** Fabricate component storage, drive one system over an explicit tick count, assert the resulting data — never call sequences; a system's contract is the data it produces (see Component storage, Data flow over control flow).
+* **Integration level:** Composition root, init, load a baked asset, tick, shut down in reverse — asserts wiring, not arithmetic. Keep few: the slowest, and the first to rot (see Composition root).
+* **Fakes over mocks:** Mocking frameworks need RTTI, exceptions, and a heap. Hand-write fakes at the engine's virtual seams (null RHI backend, in-memory asset source, capturing log sink); a static seam takes a stub type argument (see Virtual seams where they earn it).
+* **Golden data:** Compare baked output and replayed state byte-for-byte against a golden stored beside the test. Regenerating one is a reviewed commit with a stated cause, never a side effect of a failing run (see Determinism fixtures, Asset pipeline).
+* **Allocation accounting:** Where a rule forbids allocation — frame loop, mixer callback, job body — assert it with a counting allocator; a stray `new` then fails a test, not a profiling session (see **Memory and Allocation Rules**).
+* **Budget guards stay out:** Wall-clock thresholds belong to benchmarks; a timing assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
+* **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
+* **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic; both are worse bugs than the test (see Determinism).
+* **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](editor/AGENTS.md).
 
 ---
 
@@ -285,8 +303,6 @@ All documentation must be:
 * **Technical** — precise, uses correct terminology.
 * **No marketing language** — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.
 
-Each item in the `\section features Key Features` list uses **bold emphasis** for the feature name.
-
 ### Doxygen Block Style
 
 * Use `/*! ... */` for multi-line documentation blocks. Start `/*!` on its own line; align `*/` with `/*!`.
@@ -297,8 +313,7 @@ Each item in the `\section features Key Features` list uses **bold emphasis** fo
 
 ## Documentation Style Rules
 
-* Use simple, direct language.
-* Avoid verbosity.
+* Use simple, direct language — concision, neutrality, and terminology are **Documentation Tone**.
 * Prefer bullet points over prose where appropriate.
 * Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.
 * For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
@@ -388,10 +403,8 @@ Always follow this order:
 * Use `\concept ConceptName` so Doxygen treats the block as concept documentation.
 * `\brief` — one-line description of when the concept is satisfied (e.g. "Concept satisfied when \a T is an instantiation of \ref toy::namespace::Type").
 * Add a short paragraph explaining purpose and typical use (e.g. constraining template parameters, analogy to standard concepts).
-* Use `\section requirements Requirements` with a bullet list of conditions that must hold. Prefer this over repeating the same information in `\tparam`.
-* Do **not** use `\tparam` for concept template parameters when the requirements are already fully described in `\section requirements`; the requirements section is the single source of truth and avoids duplication.
-* Use `\ref` with full namespace qualification when referencing types or concepts in the description (e.g. `\ref toy::math::fixed`).
-* `\sa` — link to related types or concepts that use or are used with this concept; apply the same `\ref`/plain-text rules as elsewhere (see **See-Also Tags**).
+* Use `\section requirements Requirements` with a bullet list of conditions that must hold; it is the single source of truth for the template parameters, so omit `\tparam` when it already describes them fully (see **Template Parameters**).
+* `\sa` — link to related types or concepts that use or are used with this concept (see **See-Also Tags**).
 * Optional `\section usage Usage Example` with a short `\code` block for concepts that benefit from an example (e.g. `static_assert(ConceptName<T>);`).
 
 ### Parameter Documentation
@@ -428,30 +441,25 @@ Always follow this order:
 * Add a blank line immediately before the `\sa` tag in documentation blocks.
 * Link between: method and its operator equivalent, const/non-const overloads, method synonyms (`size()` / `length()`), related classes.
 * 2-3 references maximum per entity.
-* **Non-function symbols must use `\ref` with full namespace qualification** (e.g. `\sa \ref toy::CStringView`, `\sa \ref toy::math::Vector2`, `\sa \ref toy::log::ISink`). Do not rely on Doxygen auto-linking to resolve an unqualified name.
-* **Functions, methods, and operators remain plain text** and never use `\ref`. Qualify with the full namespace when the referenced symbol lives outside the current class or namespace (e.g. `\sa toy::format()`); unqualified method names (`\sa size()`, `\sa operator==()`) are allowed only when the target is a member of the surrounding class.
-* **Standard-library symbols** (`\sa std::string`, `\sa std::fwrite`) and external URLs (`\sa https://…`) stay as plain text without `\ref`.
-* **Macros** (`\sa LOG_MIN_LEVEL`, `\sa ENABLE_BITWISE_OPERATORS`, `\sa assert_message`) stay as plain text; `\ref` is reserved for types, enums, namespaces, and concepts.
+* `\ref` applies as everywhere else — see **Cross-References**. Specific to `\sa`: an unqualified method name (`\sa size()`, `\sa operator==()`) is allowed only when the target is a member of the surrounding class; otherwise qualify it (`\sa toy::format()`).
 
 ### Cross-References
 
-* When referencing types, classes, or other non-function symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag with full namespace qualification.
+* When referencing types, classes, or other non-function symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag with full namespace qualification — `\ref toy::math::Vector2`, never `\ref Vector2`. Do not rely on Doxygen auto-linking to resolve an unqualified name.
 * Use `\ref` **only** for non-function symbols (classes, types, enums, namespaces, concepts):
   * Class/struct names: `\ref toy::ClassName`
   * Type aliases: `\ref toy::TypeAlias`
   * Enum values: `\ref toy::EnumName::Value`
   * Namespaces: `\ref toy::namespaceName`
   * Concepts: `\ref toy::ConceptName`
-* **Do not use `\ref` for functions or methods**. Reference functions and methods using plain text:
+* **Do not use `\ref` for functions or methods** anywhere, `\sa` included (see **See-Also Tags**). Reference functions and methods using plain text:
   * `toy::functionName()` (not `\ref toy::functionName()`)
   * `methodName()` (not `\ref methodName()`)
-* **Always** include full namespace qualification: `\ref toy::math::Vector2` instead of `\ref Vector2`.
 
 **Exceptions**:
 
-* Do not use `\ref` for standard library types (`std::string`, `std::vector`, etc.).
-* Do not use `\ref` for functions or methods anywhere (this includes references inside `\sa` — see **See-Also Tags**).
-* Do not use `\ref` for macros and preprocessor identifiers.
+* Do not use `\ref` for standard library symbols (`std::string`, `std::vector`, `std::fwrite`) or for external URLs.
+* Do not use `\ref` for macros and preprocessor identifiers (`LOG_MIN_LEVEL`, `ENABLE_BITWISE_OPERATORS`, `assert_message`).
 * **Barrel include policy** (`.inl` and internal `.hpp` `\file` blocks): the line `\note Included by <barrel>.hpp only; do not include this file directly.` must use the real barrel filename as **plain text** (or `\c <barrel>.hpp` if monospace helps). **Do not** write `\ref core.hpp` (or similar) there—the filename is not a documented symbol; `\ref` is reserved for types, enums, namespaces, and concepts as above.
 
 ### Class Sections Detail
@@ -745,25 +753,6 @@ The goal is to keep tests:
 
 ---
 
-## General Test Principles
-
-* Tests must be minimal and focused.
-* One test = one behavioral aspect.
-* Prefer clarity over coverage inflation.
-* Avoid large, monolithic test cases.
-
----
-
-## Test Length and Structure
-
-* Tests must be readable without scrolling.
-* Avoid excessive setup.
-* Avoid deeply nested sections.
-
-If setup becomes complex, refactor the API or extract helpers.
-
----
-
 ## Compile-Time vs Runtime Testing
 
 ### Compile-Time (`constexpr`) Tests
@@ -865,12 +854,3 @@ When both runtime assertions (\c REQUIRE or similar) and compile-time assertions
 * If unavoidable:
   * Account for platform limitations
   * Avoid fragile equality checks
-
----
-
-## Test Independence
-
-* Tests must not depend on:
-  * Execution order
-  * Global mutable state
-* Each test must be independently executable.
