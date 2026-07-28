@@ -2,7 +2,7 @@
     "version": 3,
     "cmakeMinimumRequired": {
         "major": 3,
-        "minor": 21,
+        "minor": 27,
         "patch": 0
     },
     "configurePresets": [
@@ -633,6 +633,186 @@
             "name": "default-shipping",
             "hidden": true,
             "configuration": "Release"
+        },
+        {
+            "name": "windows-msvc",
+            "configurePreset": "windows-msvc",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-shipping",
+            "configurePreset": "windows-msvc-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "windows-msvc-x86",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-x86-shipping",
+            "configurePreset": "windows-msvc-x86-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-xcode-shipping",
+            "configurePreset": "macos-xcode-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "macos-debug",
+            "configurePreset": "macos-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "macos-release",
+            "configurePreset": "macos-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-shipping",
+            "configurePreset": "macos-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "linux-shipping",
+            "configurePreset": "linux-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "md-debug",
+            "configurePreset": "md-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "md-release",
+            "configurePreset": "md-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "md-shipping",
+            "configurePreset": "md-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "gba-debug",
+            "configurePreset": "gba-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "gba-release",
+            "configurePreset": "gba-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "gba-shipping",
+            "configurePreset": "gba-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "nds-debug",
+            "configurePreset": "nds-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "nds-release",
+            "configurePreset": "nds-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "nds-shipping",
+            "configurePreset": "nds-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "3ds-debug",
+            "configurePreset": "3ds-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "3ds-release",
+            "configurePreset": "3ds-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "3ds-shipping",
+            "configurePreset": "3ds-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "switch-debug",
+            "configurePreset": "switch-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "switch-release",
+            "configurePreset": "switch-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "switch-shipping",
+            "configurePreset": "switch-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "n64-debug",
+            "configurePreset": "n64-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "n64-release",
+            "configurePreset": "n64-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "n64-shipping",
+            "configurePreset": "n64-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "gamecube-debug",
+            "configurePreset": "gamecube-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "gamecube-release",
+            "configurePreset": "gamecube-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "gamecube-shipping",
+            "configurePreset": "gamecube-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "wii-debug",
+            "configurePreset": "wii-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "wii-release",
+            "configurePreset": "wii-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "wii-shipping",
+            "configurePreset": "wii-shipping",
+            "inherits": "default-shipping"
         }
     ]
 }

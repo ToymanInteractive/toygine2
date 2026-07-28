@@ -18,7 +18,7 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.21.0 FATAL_ERROR)
+cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 project(ToyGine2 LANGUAGES C CXX VERSION 26.6.0 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
 
@@ -46,7 +46,7 @@ set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Setup configuration types
-set(CMAKE_CONFIGURATION_TYPES "Debug;Release;RelWithDebInfo" CACHE STRING "")
+set(CMAKE_CONFIGURATION_TYPES "Debug;RelWithDebInfo;Release" CACHE STRING "")
 
 # Make default 'RelWithDebInfo' build
 if (NOT CMAKE_BUILD_TYPE)

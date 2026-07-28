@@ -11,3 +11,7 @@ ToyGine2 is a modern C++ high‑level engine for Retro-Style games.
 [![Sonar Duplicated Lines (%)](https://img.shields.io/sonar/duplicated_lines_density/ToymanInteractive_toygine2?logo=sonarqubecloud&logoColor=fff&label=Duplicated%20Lines&server=https%3A%2F%2Fsonarcloud.io)](https://sonarcloud.io/dashboard?id=ToymanInteractive_toygine2)
 [![Code Coverage](https://img.shields.io/codecov/c/github/ToymanInteractive/toygine2?logo=codecov&logoColor=fff&flag=units&label=Code%20Coverage)](https://app.codecov.io/gh/ToymanInteractive/toygine2?flags%5B0%5D=units)
 ![CodeRabbit Pull Request Reviews](https://img.shields.io/coderabbit/prs/github/ToymanInteractive/toygine2?logo=coderabbit&logoColor=fff&label=CodeRabbit%20Reviews)
+
+## Requirements
+
+`ToyGine2` requires a C++23-compliant compiler. The following tools and compilers are supported
