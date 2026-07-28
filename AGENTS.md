@@ -173,7 +173,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. How a test is shaped is **Testing Best practices** below; style and naming, **Unit Test Style Rules** and the sections following it.
+Building, running, and splitting tests across targets. How a test is shaped is **Testing Best Practices** below; style and naming, **Unit Test Style Rules** and the sections following it.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -187,7 +187,7 @@ Building, running, and splitting tests across targets. How a test is shaped is *
 * **Cross-target verification:** Runtime tests execute on desktop, where sanitizers exist (see Sanitizers). Console and embedded targets are verified by compiling the test translation units — compile-time tests fire there, runtime ones do not.
 * **Coverage:** `TOYGINE_TESTS_ENABLE_COVERAGE` instruments a test build; reports go to Codecov per `codecov.yml`. Coverage is a signal, never a target — tests written to raise it are the redundancy the style rules forbid (see **Redundancy and Duplication**).
 
-### Testing Best practices
+### Testing Best Practices
 
 What a case may depend on and which seam it drives; placement, gating, and CI mechanics are the bullets above.
 
