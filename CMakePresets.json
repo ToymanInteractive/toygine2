@@ -617,5 +617,22 @@
                 "base"
             ]
         }
+    ],
+    "buildPresets": [
+        {
+            "name": "default-debug",
+            "hidden": true,
+            "configuration": "Debug"
+        },
+        {
+            "name": "default-release",
+            "hidden": true,
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "default-shipping",
+            "hidden": true,
+            "configuration": "Release"
+        }
     ]
 }

@@ -15,8 +15,10 @@ jobs:
     defaults:
       run:
         shell: bash
+
     steps:
-      - uses: actions/checkout@v7.0.1
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
         with:
           submodules: recursive
           fetch-depth: 50

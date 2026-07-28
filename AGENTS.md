@@ -18,7 +18,7 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 
 ## Project Structure
 
-A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl`), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`; root umbrella `include/toygine2.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers (see **Header / Source Organization**).
+A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl`), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers (see **Header / Source Organization**).
 
 Non-module directories:
 
@@ -91,7 +91,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Flat containers:** `std::flat_map` / `std::flat_set` over node-based `std::map` / `std::set` — contiguous, no per-node allocation; check each target's standard library first.
 * **Optimizer hints:** `[[likely]]` / `[[unlikely]]` only on measured branches; `std::unreachable()` and `[[assume]]` only where `assert_message` checks the same invariant in debug — violating them is undefined behavior.
 * **Concurrency primitives:** Parallel work goes through the engine job system; `std::jthread` with `std::stop_token` for long-lived tooling threads only; coroutines only with measured or elided frame allocation; `std::atomic` always with an explicit memory order — `seq_cst` by default, weaker only with a comment.
-* **Formatting:** `std::format` for tooling, load time, and error paths; runtime diagnostics use the engine log macros (see **Logging**) — never `std::print` or iostreams.
+* **Formatting:** `std::format` for tooling, load time, and error paths; runtime diagnostics use the engine log macros (see Logging) — never `std::print` or iostreams.
 * **Concepts over SFINAE:** Constrain templates with concepts and `requires`, never `std::enable_if` or tag dispatch; prefer standard concepts (`std::integral`, `std::ranges::contiguous_range`) and constrained `auto` parameters — failures must read as unmet requirements (see **Concept Documentation**).
 * **Diagnostics context:** A defaulted `std::source_location` parameter instead of `__FILE__` / `__LINE__` in assertion and logging helpers — survives inlining, `constexpr`-evaluable, keeps the helper a function (see **Assertions**).
 * **Portability of new features:** `import std;` is unavailable on console and embedded toolchains — include headers; guard non-universal library features with their `__cpp_lib_*` macro and provide a fallback.
@@ -162,14 +162,30 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 * **Formatting:** `.clang-format` is the sole authority on layout — run it before committing, never hand-format against it. `// clang-format off` only where alignment carries meaning, with a comment saying why.
 * **Static analysis:** checks and options live in `.clang-tidy`; run it over the compile database before committing and review whatever `--fix` changed. Suppress with `// NOLINTNEXTLINE(check)` plus a reason — never a bare `// NOLINT`, never file-wide.
 * **Warnings:** build at the toolchain's warning level and leave none; CI treats them as errors. Fix the code, not the diagnostic — `[[maybe_unused]]` for a deliberately unused parameter.
-* **Language subset:** exceptions and RTTI are off in the build, so `throw`, `dynamic_cast`, and `typeid` fail to compile rather than fail review (see **Zero-cost abstractions**).
+* **Language subset:** exceptions and RTTI are off in the build, so `throw`, `dynamic_cast`, and `typeid` fail to compile rather than fail review (see Zero-cost abstractions).
 * **Sanitizers:** desktop debug and CI runs enable address, undefined-behavior, and thread sanitizers; a report fails the run like a failed assertion. Console targets have none — hence the same tests on desktop.
-* **Every toolchain:** warnings stay clean on all target compilers in CI, not just the local one — console GCC diagnoses alignment and narrowing that Clang accepts, and vice versa (see **Portability**).
+* **Every toolchain:** warnings stay clean on all target compilers in CI, not just the local one — console GCC diagnoses alignment and narrowing that Clang accepts, and vice versa (see Portability under **C++ style guide**).
 * **License headers:** every source file starts with the block from `tools/builder/license`, verified in CI; the `\file` block follows it (see **File documentation**).
 * **Docs build:** Doxygen must finish with no warnings — a broken `\ref`, a missing `\param`, or an undocumented public symbol is a lint failure.
 * **Markdown:** `markdownlint-cli2` over `**/*.md`.
 * **Out of scope:** `extern/` and `_deps/` are never formatted, linted, or auto-fixed; a vendored change is a recorded patch (see **Dependency Management**).
 * **Sweeps land alone:** a reformat or `--fix` run is its own commit, never mixed into a feature diff.
+
+## Testing
+
+Building, running, and splitting tests across targets. What goes inside a test — style, naming, compile-time vs runtime — lives under **Unit Test Style Rules** and the sections following it.
+
+* **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
+* **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
+* **Compile-time tests:** `static_assert` blocks live in the same `.test.cpp` and need no runner — a violation is a build failure. They are the default; runtime tests cover only what they cannot reach (see **Compile-Time vs Runtime Testing**).
+* **Test seams, not test hooks:** Test through the public API only. Needing `friend`, an `#ifdef TESTING` branch, or a widened access modifier is a design problem — narrow the dependency instead (see Pure functions and narrow seams, Explicit context, no globals).
+* **Headless by construction:** Simulation tests run with renderer, audio, and editor support off (see Optional subsystems). A system that cannot run headless is coupled to presentation and must be split (see Simulation / presentation split).
+* **Determinism fixtures:** Replay a recorded input snapshot against a fixed seed and compare state to a stored golden — both determinism guard and regression test for the systems it drives (see Determinism, Input).
+* **Frame-loop independence:** Drive simulation tests by explicit tick counts and fixed deltas, never wall-clock time or a real frame loop; a test that sleeps or reads the clock is non-deterministic by construction (see Frame loop and time).
+* **Assertions:** DocTest `REQUIRE` when failure makes the rest of the case meaningless, `CHECK` when independent expectations should all report; `static_assert` with a human-readable message for compile-time invariants (see **Assertions**).
+* **Benchmarks:** picobench, at `benchmarks/<module>/<name>.benchmark.cpp`, gated by `TOYGINE_BUILD_BENCHMARKS`. Measures a system against its declared per-frame budget (see Budgets and profiling); not a correctness test, never gates a merge.
+* **Cross-target verification:** Runtime tests execute on desktop, where sanitizers exist (see Sanitizers). Console and embedded targets are verified by compiling the test translation units — compile-time tests fire there, runtime ones do not.
+* **Coverage:** `TOYGINE_TESTS_ENABLE_COVERAGE` instruments a test build; reports go to Codecov per `codecov.yml`. Coverage is a signal, never a target — tests written to raise it are the redundancy the style rules forbid (see **Redundancy and Duplication**).
 
 ---
 
@@ -858,12 +874,3 @@ When both runtime assertions (\c REQUIRE or similar) and compile-time assertions
   * Execution order
   * Global mutable state
 * Each test must be independently executable.
-
----
-
-## Final Rule
-
-If a behavior can be verified at compile time,
-it must be verified at compile time.
-
-Runtime tests exist only to cover what compile-time tests cannot.
