@@ -173,7 +173,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. How a test is shaped is **Testing Best Practices** below; its style, naming, and assertion rules run from **Unit Test Style Rules** to **Floating-Point Rules**.
+Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Unit Test Style Rules** through **Floating-Point Rules**.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -313,7 +313,7 @@ All documentation must be:
 
 ## Documentation Style Rules
 
-* Use simple, direct language — concision, neutrality, and terminology are **Documentation Tone**.
+* Use simple, direct language; concision, neutrality, and terminology follow **Documentation Tone**.
 * Prefer bullet points over prose where appropriate.
 * Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.
 * For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
