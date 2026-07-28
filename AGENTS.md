@@ -173,7 +173,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. How a test is shaped is **Testing Best Practices** below; style and naming, **Unit Test Style Rules** and the sections following it.
+Building, running, and splitting tests across targets. How a test is shaped is **Testing Best Practices** below; its style, naming, and assertion rules run from **Unit Test Style Rules** to **Floating-Point Rules**.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -404,6 +404,7 @@ Always follow this order:
 * `\brief` — one-line description of when the concept is satisfied (e.g. "Concept satisfied when \a T is an instantiation of \ref toy::namespace::Type").
 * Add a short paragraph explaining purpose and typical use (e.g. constraining template parameters, analogy to standard concepts).
 * Use `\section requirements Requirements` with a bullet list of conditions that must hold; it is the single source of truth for the template parameters, so omit `\tparam` when it already describes them fully (see **Template Parameters**).
+* Never use Doxygen's `\requirement` command here — it registers the label `requirements` and collides with `\section requirements`, which fails the docs build (see Docs build).
 * `\sa` — link to related types or concepts that use or are used with this concept (see **See-Also Tags**).
 * Optional `\section usage Usage Example` with a short `\code` block for concepts that benefit from an example (e.g. `static_assert(ConceptName<T>);`).
 
