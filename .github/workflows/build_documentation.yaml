@@ -8,7 +8,7 @@ concurrency:
   cancel-in-progress: true
 
 permissions:
-  contents: read
+  contents: write
 
 jobs:
   build:
@@ -38,3 +38,13 @@ jobs:
         run: |
           cmake -DTOYGINE_BUILD_BENCHMARKS=OFF -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_EDITOR=OFF -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=OFF --preset linux-debug
           cmake --build --preset linux-debug --target docs
+
+      - name: Package XML
+        run: tar -czf docs-xml.tar.gz -C docs/xml .
+
+      - name: Publish as release asset
+        uses: softprops/action-gh-release@v3.0.2
+        with:
+          tag_name: docs-${{ github.run_number }}
+          draft: true
+          files: docs-xml.tar.gz
