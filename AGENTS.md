@@ -261,6 +261,10 @@ Organize includes in the following order (separated by blank lines):
 * Order: `public`, then `protected`, then `private`.
 * Access modifier labels are indented at the same level as the class keyword (offset −2 from class body).
 
+## Documentation
+
+Doxygen is the only documentation system here: this section covers what a block says and how it is worded, **Comments and Documentation** its syntax and tone, **Documentation Style Rules** its tags, **Class Documentation Templates** its ready-made blocks.
+
 ---
 
 ## Memory and Allocation Rules
