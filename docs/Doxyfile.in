@@ -3022,7 +3022,7 @@ MERMAID_CONFIG_FILE    =
 # Does not require mmdc but only works for HTML output).
 # The default value is: AUTO.
 
-MERMAID_RENDER_MODE    = AUTO
+MERMAID_RENDER_MODE    = CLI
 
 # The MERMAID_JS_URL tag specifies the URL to load mermaid.js from when using
 # client-side rendering (MERMAID_RENDER_MODE is CLIENT_SIDE or AUTO). The
