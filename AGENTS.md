@@ -207,7 +207,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 
 ## Documentation
 
-Doxygen is the only documentation system here: this section covers what a block says and how it is worded, **Comments and Documentation** its syntax and tone, **Documentation Style Rules** its tags, **Class Documentation Templates** its ready-made blocks.
+Doxygen is the only documentation system here: this section covers what a block must say, where it goes, and how it is worded; **Comments and Documentation** fixes its syntax and tone, **Documentation Style Rules** its tags, **Class Documentation Templates** its ready-made blocks.
 
 ### Documentation Philosophy
 
