@@ -205,6 +205,23 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic; both are worse bugs than the test (see Determinism).
 * **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](editor/AGENTS.md).
 
+## Documentation
+
+Doxygen is the only documentation system here: this section covers what a block says and how it is worded, **Comments and Documentation** its syntax and tone, **Documentation Style Rules** its tags, **Class Documentation Templates** its ready-made blocks.
+
+### Documentation Philosophy
+
+* **Document the contract, not the implementation:** State what a caller may rely on — ownership, lifetime, allocation, units, failure — so the block survives a rewrite of the body; one retelling the algorithm rots on the first refactor.
+* **Comment intent, not mechanics:** Comments inside a function say why, the code says what (see Conciseness under **Code Quality**).
+* **Write for the reader who is looking:** Put the answer where the question cost you time — the header of the type involved, not a commit message.
+* **One term per concept:** Reuse the identifier's own vocabulary across headers, samples, and prose; a `Handle` is never a "reference" or an "id" (see Naming under **Code Quality**).
+* **Documentation is code:** Behavior and its block change in the same commit; the docs build fails CI like a compiler warning (see Docs build under **Lint Rules**).
+* **Say it once, then link:** A fact lives in the one block closest to what it constrains, every other mention being a `\ref` or `\sa` — duplicates drift apart and leave the reader guessing which the code obeys (see **See-Also Tags**, **Cross-References**).
+* **Never document what you have not verified:** Read a `\pre`, a complexity, a thread-safety or determinism claim out of the code, never off the name — an invented guarantee is worse than a missing one, because callers build on it.
+* **Stale is worse than absent:** A block contradicting the code misleads; a missing one costs only a reading of the signature. Delete a wrong claim you cannot fix in the same commit.
+* **Match the block to the symbol's weight:** A trivial accessor earns a one-line `///`, a type owning a resource, a capacity, or a unit convention the full template — effort goes where a caller can get it wrong (see **Class Documentation Templates**).
+* **Document the boundary, not the interior:** A block belongs in the public header, where a consumer meets the symbol; internal reasoning reaches neither the consumer nor the generated site (see **Comment Placement**).
+
 ---
 
 ## Header / Source Organization
