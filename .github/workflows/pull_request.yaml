@@ -48,3 +48,13 @@ jobs:
     needs:
       - dispatcher
     uses: ./.github/workflows/code_style_check.yaml
+
+  quality:
+    name: Code quality check
+    needs:
+      - dispatcher
+    uses: ./.github/workflows/code_quality_check.yaml
+    permissions:
+      contents: read
+      security-events: write
+    secrets: inherit
