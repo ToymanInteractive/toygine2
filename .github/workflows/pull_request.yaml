@@ -53,4 +53,8 @@ jobs:
     name: Code quality check
     needs:
       - dispatcher
+    permissions:
+      contents: read
+      pull-requests: read
+      security-events: write
     uses: ./.github/workflows/code_quality_check.yaml
