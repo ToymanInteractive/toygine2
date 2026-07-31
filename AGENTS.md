@@ -235,6 +235,7 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **Enumerators and aggregate members** take a trailing `///<`, which documents what precedes it on the line and never opens one; the enum or struct still carries a block above it.
 * **Macros:** a block directly above the `#define`; `\def` only where it cannot sit there (a macro is never a `\ref` target — see **Cross-References**).
 * **One block per namespace:** the `\namespace` description lives in the module barrel (`core.hpp` carries `\namespace toy`); Doxygen merges duplicates silently, so a second one elsewhere is invisible until it wins.
+
 ---
 
 ## Header / Source Organization
