@@ -1,20 +1,16 @@
-name: Generate Doxygen Docs
+name: Check code documentation
 
 on:
-  pull_request:
-    branches:
-      - main
-
-concurrency:
-  group: ${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: true
+  workflow_call:
 
 permissions:
   contents: read
 
 jobs:
-  build:
+  documentation:
+    name: Check code documentation
     runs-on: ubuntu-26.04
+    timeout-minutes: 10
 
     steps:
       - name: Checkout

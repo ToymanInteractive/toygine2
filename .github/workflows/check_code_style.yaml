@@ -1,4 +1,4 @@
-name: Code style check
+name: Check code style
 
 on:
   workflow_call:
@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   style:
-    name: Code style check
+    name: Check code style
     runs-on: ubuntu-slim
     timeout-minutes: 10
     defaults:

@@ -165,7 +165,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 * **Language subset:** exceptions and RTTI are off in the build, so `throw`, `dynamic_cast`, and `typeid` fail to compile rather than fail review (see Zero-cost abstractions).
 * **Sanitizers:** desktop debug and CI runs enable address, undefined-behavior, and thread sanitizers; a report fails the run like a failed assertion. Console targets have none — hence the same tests on desktop.
 * **Every toolchain:** warnings stay clean on all target compilers in CI, not just the local one — console GCC diagnoses alignment and narrowing that Clang accepts, and vice versa (see Portability under **C++ style guide**).
-* **License headers:** every source file starts with the block from `tools/builder/license`, verified in CI; the `\file` block follows it (see **File documentation**).
+* **License headers:** every source file starts with the block from `tools/builder/license`, verified in CI; what follows it is **Comment Placement**.
 * **Docs build:** Doxygen must finish with no warnings — a broken `\ref`, a missing `\param`, or an undocumented public symbol is a lint failure.
 * **Markdown:** `markdownlint-cli2` over `**/*.md`.
 * **Out of scope:** `extern/` and `_deps/` are never formatted, linted, or auto-fixed; a vendored change is a recorded patch (see **Dependency Management**).
@@ -221,6 +221,20 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **Stale is worse than absent:** A block contradicting the code misleads; a missing one costs only a reading of the signature. Delete a wrong claim that cannot be fixed in the same commit.
 * **Match the block to the symbol's weight:** A trivial accessor earns a one-line `///`, a type owning a resource, a capacity, or a unit convention the full template — effort goes where a caller can get it wrong (see **Class Documentation Templates**).
 * **Document the boundary, not the interior:** A block belongs in the public header, where a consumer meets the symbol; internal reasoning reaches neither the consumer nor the generated site (see **Comment Placement**).
+
+### Comment Placement
+
+* **Immediately before the declaration**, above attributes and the template head — `[[nodiscard]]`, `[[deprecated]]`, and `template <...>` sit between the block and the symbol.
+* **Nothing in between:** no blank line, separator, or preprocessor branch — a detached block documents the wrong symbol or none, and an undocumented public symbol fails the docs build (see Docs build under **Lint Rules**).
+* **`\file` opens the file:** after the license header, before the include guard — the one block documenting no symbol (see **File documentation (`\file`)**, License headers under **Lint Rules**).
+* **One block per symbol:** on the declaration in the header; a second on the definition in a `.cpp` or `.inl` competes with it, so notes there stay ordinary `//` comments. A symbol first declared in a `.cpp` — internal linkage — carries its own.
+* **Never on a forward declaration:** the block belongs where the type is defined (see **Headers**).
+* **Inside the class body:** above the member, at member indentation; access-modifier labels carry none (see **Access Modifiers**).
+* **Pairs get one block:** getter/setter or `const` / non-`const` overloads — document one, point to the other with `\sa` (see **See-Also Tags**).
+* **Overloads that differ get their own:** one shared contract, one block; a different precondition, cost, or failure mode earns its own — that difference is what a reader came for.
+* **Enumerators and aggregate members** take a trailing `///<`, which documents what precedes it on the line and never opens one; the enum or struct still carries a block above it.
+* **Macros:** a block directly above the `#define`; `\def` only where it cannot sit there (a macro is never a `\ref` target — see **Cross-References**).
+* **One block per namespace:** the `\namespace` description lives in the module barrel (`core.hpp` carries `\namespace toy`); Doxygen merges duplicates silently, so a second one elsewhere is invisible until it wins.
 
 ---
 

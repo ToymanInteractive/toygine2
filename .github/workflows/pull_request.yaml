@@ -43,18 +43,38 @@ jobs:
                 }
             }
 
-  style:
-    name: Code style check
+  documentation:
+    name: Check code documentation
     needs:
       - dispatcher
-    uses: ./.github/workflows/code_style_check.yaml
+    uses: ./.github/workflows/check_code_documentation.yaml
 
   quality:
-    name: Code quality check
+    name: Check code quality
     needs:
       - dispatcher
     permissions:
       contents: read
       pull-requests: read
       security-events: write
-    uses: ./.github/workflows/code_quality_check.yaml
+    uses: ./.github/workflows/check_code_quality.yaml
+
+  style:
+    name: Check code style
+    needs:
+      - dispatcher
+    uses: ./.github/workflows/check_code_style.yaml
+
+  build:
+    name: Build with CMake
+    needs:
+      - documentation
+      - quality
+      - style
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+      checks: write
+    uses: ./.github/workflows/build_cmake.yaml
+    secrets: inherit
