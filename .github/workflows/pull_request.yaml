@@ -64,3 +64,17 @@ jobs:
     needs:
       - dispatcher
     uses: ./.github/workflows/check_code_style.yaml
+
+  build:
+    name: Build with CMake
+    needs:
+      - documentation
+      - quality
+      - style
+    permissions:
+      contents: read
+      packages: read
+      pull-requests: write
+      checks: write
+    uses: ./.github/workflows/build_cmake.yaml
+    secrets: inherit
