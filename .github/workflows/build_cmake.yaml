@@ -2,13 +2,6 @@ name: CMake
 
 on:
   workflow_call:
-    secrets:
-      SONAR_TOKEN:
-        required: true
-      CODECOV_TOKEN:
-        required: true
-      BENCHER_API_TOKEN:
-        required: true
 
 permissions:
   contents: read
