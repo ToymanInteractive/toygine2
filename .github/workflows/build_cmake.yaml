@@ -70,12 +70,6 @@ jobs:
             run_test: "true"
             cmake_preset: linux-release
 
-          - name: Sega MD
-            os: ubuntu-26.04
-            container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
-            run_test: "false"
-            cmake_preset: md-release
-
           - name: Nintendo GBA
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
