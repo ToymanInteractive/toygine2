@@ -260,7 +260,7 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 * **Special and default values:** what a sentinel means — `\ref npos`, an empty `std::optional`, a bare `\c false` — and which behavior a parameter's default selects (see **Return Value Documentation**, **Parameter Documentation**).
 * **Type requirements:** the concept a constrained template parameter satisfies and what it guarantees the caller — a `requires` clause is contract, not implementation (see **Template Parameters**, **Concept Documentation**).
 * **Real-time and thread safety:** whether the call is legal from the mixer callback, a job body, or the frame loop, and which phase may issue it (see Job system, Audio).
-* **Determinism:** whether the result is identical across runs and targets — replay, rollback, and golden data need this stated, not inferred (see Determinism).
+* **Determinism:** whether the result is identical across runs and targets — replay, rollback, and golden data need this stated, not inferred (see Determinism under **Game Engine Development Best Practices**).
 * **Units and conventions:** radians or degrees, handedness, byte order, coordinate space, time base — at the module boundary, again on any function departing from it (see Math conventions).
 * **Platform availability:** targets where the symbol is absent, degraded, or compiled out by a build option (see Optional subsystems).
 * **How it is reached:** the barrel a consumer includes, spelled in the `\section usage` example; an internal header or `.inl` says it arrives through that barrel and is never included directly (see Barrel include policy under **Cross-References**).
@@ -458,7 +458,7 @@ What each `\section` contains is **Class Sections Detail**; how its bullets are 
 
 * Use `\concept ConceptName` so Doxygen treats the block as concept documentation.
 * `\brief` — one-line description of when the concept is satisfied (e.g. "Concept satisfied when \a T is an instantiation of \ref toy::namespace::Type").
-* Add a short paragraph explaining purpose and typical use (e.g. constraining template parameters, analogy to standard concepts).
+* Add a short paragraph on purpose and typical use (e.g. constraining template parameters, analogy to standard concepts) — none when the `\brief` suffices.
 * Use `\section requirements Requirements` with a bullet list of conditions that must hold; it is the single source of truth for the template parameters, so omit `\tparam` when it already describes them fully.
 * Never use Doxygen's `\requirement` command here — it registers the label `requirements` and collides with `\section requirements`, which fails the docs build (see Docs build).
 * `\sa` — link to related types or concepts that use or are used with this concept (see **See-Also Tags**).
@@ -542,7 +542,7 @@ What each `\section` contains is **Class Sections Detail**; how its bullets are 
 
 * Specific guarantees: contracts, bounds safety, type safety, allocation behavior.
 * Which invariants `assert_message` checks in debug, and what a violation does in a shipping build.
-* **Exception safety** is a fixed entry — all operations are `noexcept` (see Failure under **What to Document**).
+* **Exception safety** is a fixed entry — no operation throws, exceptions being off in the build; name operations as `noexcept` only where the declaration carries the specifier (see Failure under **What to Document**, Language subset under **Lint Rules**).
 
 #### `\section compatibility Compatibility` (optional)
 
@@ -591,7 +591,7 @@ The class block below is the base form; a template class, a struct, and a concep
 
   * **Contracts**: Description of debug-mode checks
   * **Bounds safety**: Description
-  * **Exception safety**: All operations are noexcept
+  * **Exception safety**: No operation throws; exceptions are off in the build
 
   \note Additional note, if necessary.
 
@@ -616,8 +616,8 @@ The class block, with these deltas:
   constexpr auto obj2 = toy::ClassName<Type, 32>("data");
   ```
 
-* `\section performance` states memory as fixed at compile time, no heap allocation; `\section safety` carries **Type safety**: uses C++23 concepts.
-* `\section compatibility` where the parameters constrain use — C++ standard, cross-platform support, embedded suitability (no dynamic allocation).
+* `\section performance` states the type's actual memory model — fixed at compile time and heap-free only where that is the contract; `\section safety` carries **Type safety**: uses C++23 concepts.
+* `\section compatibility` where the parameters constrain use — C++ standard, cross-platform support, embedded suitability where the type allocates nothing dynamically.
 * `\warning` after `\note` where a parameter choice can be got wrong (see **Notes and Warnings**).
 
 ### Struct
@@ -632,7 +632,7 @@ The class block, with these deltas:
   constexpr auto obj2 = toy::namespace::StructName{1, 2};
   ```
 
-* `\section performance` states **Access** alongside **Construction**; `\section safety` reads **Type safety**, **Exception safety**, **Memory safety**: no dynamic allocation.
+* `\section performance` states **Access** alongside **Construction**; `\section safety` reads **Type safety**, **Exception safety**, and a **Memory safety** entry stating the type's actual allocation model (see Allocation under **What to Document**).
 
 ### Concept
 
@@ -662,7 +662,7 @@ concept ConceptName = /* ... */;
 
 Each line is a pointer to the rule that defines it — check the block against the section, not against this list.
 
-* Type block: `\class` / `\struct`, `\brief`, detailed description, and the sections in order — **Class / Struct Documentation Order**, **Class Sections Detail**.
+* Type block: `\class` / `\struct`, `\brief`, a detailed description where the `\brief` does not suffice, and the sections in order — **Class / Struct Documentation Order**, **Class Sections Detail**.
 * Member blocks: tags present and in order, none omitted — **Method / Function Documentation Order**, **Documentation Style Rules**.
 * Contracts placed correctly: constraints in `\pre`, state changes in `\post` — **Preconditions and Postconditions**.
 * Beyond-signature facts stated where they apply: ownership, allocation, failure, determinism, units, invalidation — **What to Document**.
@@ -708,7 +708,7 @@ The goal is tests that stay short, deterministic, non-redundant, and buildable o
 * Use runtime tests only when:
   * Behavior depends on runtime state
   * `constexpr` evaluation is not possible
-* Runtime tests must be deterministic — no randomness, no wall-clock or time-based behavior, no platform-dependent assumptions (see Frame-loop independence and A flaky test is a defect under **Testing Best Practices**).
+* Runtime tests must be deterministic — no randomness, no wall-clock or time-based behavior, no platform-dependent assumptions (see Frame-loop independence under **Testing**, A flaky test is a defect under **Testing Best Practices**).
 
 ---
 
