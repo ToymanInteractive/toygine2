@@ -249,6 +249,26 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **No abbreviations** beyond the domain terms the code uses (see Naming under **Code Quality**).
 * **Examples compile:** a `\section usage` block builds as written, lifted from a sample or a test, never from memory (see Documented and demonstrated under **API Design Principles**).
 
+### What to Document
+
+Every public symbol carries a block (see Documented and demonstrated), every header a `\file` block (see **File documentation (`\file`)**). Beyond purpose and usage, state what the signature cannot:
+
+* **Ownership and lifetime:** who owns the resource, how long a handle stays valid, what a stale one does (see Explicit resource lifetime, Handles with generations).
+* **Allocation:** whether the call allocates, from which pool or caller storage, against which fixed capacity (see **Memory and Allocation Rules**).
+* **Failure:** the error values a returned `std::expected` carries, the `\pre` an `assert_message` enforces in debug, what a violation does in a shipping build. Exceptions are off — never document throwing (see **Error Handling**).
+* **State change:** what the object holds after a mutating call; every such method carries a `\post`, and its absence claims nothing observable changed (see **Preconditions and Postconditions**).
+* **Special and default values:** what a sentinel means — `\ref npos`, an empty `std::optional`, a bare `\c false` — and which behavior a parameter's default selects (see **Return Value Documentation**, **Parameter Documentation**).
+* **Type requirements:** the concept a constrained template parameter satisfies and what it guarantees the caller — a `requires` clause is contract, not implementation (see **Template Parameters**, **Concept Documentation**).
+* **Real-time and thread safety:** whether the call is legal from the mixer callback, a job body, or the frame loop, and which phase may issue it (see Job system, Audio).
+* **Determinism:** whether the result is identical across runs and targets — replay, rollback, and golden data need this stated, not inferred (see Determinism).
+* **Units and conventions:** radians or degrees, handedness, byte order, coordinate space, time base — at the module boundary, again on any function departing from it (see Math conventions).
+* **Platform availability:** targets where the symbol is absent, degraded, or compiled out by a build option (see Optional subsystems).
+* **How it is reached:** the barrel a consumer includes, spelled in the `\section usage` example; an internal header or `.inl` says it arrives through that barrel and is never included directly (see Barrel include policy under **Cross-References**).
+* **Invalidation:** which operations invalidate an outstanding handle, index, iterator, or `std::span` into the object's storage and which keep them valid — a caller holding a view across a mutating call has no other way to know (see Views over pointer pairs).
+* **Compile-time use:** whether the symbol works in a constant expression, and which paths force runtime evaluation — `constexpr` states intent, not reachability (see Compile-time first).
+* **Stability:** what a `[[deprecated]]` symbol is replaced by, and which values are frozen contract — a serialized enumerator or schema version does not read off the declaration (see Stability and deprecation under **API Design Principles**).
+* **Non-obvious cost:** a complexity, a fixed byte footprint, or a low-level trick earns a sentence saying why; a trivial accessor earns none (see Performance under **Code Quality**).
+
 ---
 
 ## Header / Source Organization
@@ -281,22 +301,18 @@ Organize includes in the following order (separated by blank lines):
 
 * Public headers must be self-contained.
 * Public headers must not rely on include order.
-* Minimize includes; prefer forward declarations in public headers.
+* Minimize includes; prefer forward declarations in public headers (see Cheap to include under **API Design Principles**).
 * Internal headers may include other internal headers freely.
-
-### Inline and Template Code
-
-* All inline and template implementations must be placed in `.inl` files.
-* Do not place non-trivial inline implementations directly in public headers.
 
 ### `.inl` Files
 
+* All inline and template implementations live in `.inl` files; never place a non-trivial inline body directly in a public header.
 * `.inl` files are part of the module interface but not part of the public API.
 * `.inl` files may contain:
   * Template implementations
   * `constexpr` and inline function definitions
   * Inline operator implementations
-* `.inl` files must not be included directly by users.
+* `.inl` files must not be included directly by users; the corresponding header includes them, and the `\file` block says so (see Barrel include policy under **Cross-References**).
 * `.inl` files must not introduce new public symbols that are not declared in the corresponding header.
 * Each `.inl` file must be included by exactly one public header.
 
@@ -310,12 +326,11 @@ Organize includes in the following order (separated by blank lines):
 ## Memory and Allocation Rules
 
 * Avoid dynamic allocation by default.
-* Any heap allocation must be explicit and justified.
+* Any heap allocation must be explicit and justified — no hidden allocations; the signature says who allocates and the block says from where (see Allocation and failure are visible under **API Design Principles**, Allocation under **What to Document**).
 * Support both:
   * Fixed-capacity (stack or static storage)
   * Dynamic allocation (heap), when required
-
-No hidden allocations.
+* Where a rule forbids allocation — frame loop, mixer callback, job body — a counting allocator proves it in a test (see Frame allocators, Allocation accounting under **Testing Best Practices**).
 
 ---
 
@@ -334,9 +349,7 @@ Failure signaling (no exceptions/RTTI, return values, `expected`-like types, com
 
 ## Comments and Documentation
 
-* Do not comment obvious code.
-* Comments must explain *why*, not *what*.
-* Public APIs must be documented.
+What a block must say and how it is worded belongs to **Documentation**; the rules below fix its tone and its syntax.
 
 ### Documentation Tone
 
@@ -350,26 +363,27 @@ All documentation must be:
 ### Doxygen Block Style
 
 * Use `/*! ... */` for multi-line documentation blocks. Start `/*!` on its own line; align `*/` with `/*!`.
-* Use `///` for single-line documentation, always placed before the declaration.
+* Use `///` for single-line documentation — for symbols whose whole contract fits one sentence (see Match the block to the symbol's weight under **Documentation Philosophy**).
 * Use 2 spaces for indentation inside documentation blocks.
+* Never use `//!` or `/**`; a bare `//` comment is an implementation note, invisible to Doxygen, and never a substitute for a block.
+* Placement of every form follows **Comment Placement**.
 
 ---
 
 ## Documentation Style Rules
 
-* Use simple, direct language; concision, neutrality, and terminology follow **Documentation Tone**.
-* Prefer bullet points over prose where appropriate.
-* Document: purpose, constraints, usage expectations, compile-time vs runtime behavior.
+Prose-level guidance — what to cover and how to word it — lives under **Documentation**; the rules below govern individual Doxygen tags.
+
 * For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
 
 ### File documentation (`\file`)
 
-Every header file (`.hpp` and `.inl`) must start with a `\file` block after the license header. Translation units (`.cpp`) should include a `\file` block when they provide non-trivial implementations or when navigation clarity is needed.
+Every header file (`.hpp` and `.inl`) carries a `\file` block; a translation unit (`.cpp`) carries one when it provides a non-trivial implementation or when navigation clarity is needed. Where the block sits is **Comment Placement**.
 
 * **`\file`** — file name only, as it appears under `include/` or `src/` (e.g. `window_show_state.hpp`), not a full path.
-* **`\brief`** — one line: what this file *is* (role of the translation unit), not a repetition of the file name as a title.
+* **`\brief`** — one line: what this file *is*, the role of the translation unit (see Do not restate the signature under **Writing Style**).
 * **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
-* **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add the **`\note Included by …`** line exactly as in the template below (second paragraph): barrel name as **plain text** (e.g. `core.hpp`), **not** `\ref`—see **Cross-References** exceptions.
+* **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add the **`\note Included by …`** line exactly as in the template below, spelling the barrel per Barrel include policy under **Cross-References**.
 * **`.cpp`** — keep the `\brief` short:  “Implementation of …” or “Definitions for …” with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
 
 #### Template: public header (`.hpp`)
@@ -385,8 +399,6 @@ Every header file (`.hpp` and `.inl`) must start with a `\file` block after the 
   \note Included by module.hpp only; do not include this file directly.
 */
 ```
-
-(If the module's barrel is not `module.hpp`, name the actual barrel or public header that includes this header in the `\note` line.)
 
 #### Template: implementation (`.cpp`)
 
@@ -408,14 +420,12 @@ Every header file (`.hpp` and `.inl`) must start with a `\file` block after the 
 */
 ```
 
-(If the module does not use a barrel name `module.hpp`, replace the second sentence with the actual barrel or public header that includes this `.inl`.)
-
 ### Method / Function Documentation Order
 
 Always follow this order:
 
-1. `\brief` — one-line description
-2. Detailed description (1-2 sentences, if needed)
+1. `\brief` — one-line summary
+2. Detailed description — optional; length and wording per **Writing Style**
 3. `\tparam` — template parameters (if applicable)
 4. `\param` — parameters (aligned)
 5. `\return` — return value
@@ -430,24 +440,26 @@ Always follow this order:
 Always follow this order:
 
 1. `\class` or `\struct`
-2. `\brief` — one-line description
-3. Detailed description (2-4 sentences, does not duplicate `\brief`)
+2. `\brief` — one-line summary
+3. Detailed description — optional; length and wording per **Writing Style**
 4. `\tparam` — template parameters (if applicable)
-5. `\section features Key Features` — bullet list with **bold** feature names
+5. `\section features Key Features`
 6. `\section usage Usage Example` — code block
-7. `\section performance Performance Characteristics` — Big-O complexity, plain text
-8. `\section safety Safety Guarantees` — safety information, plain text
-9. `\section compatibility Compatibility` — platform/standard (plain text, optional)
+7. `\section performance Performance Characteristics` — Big-O complexity
+8. `\section safety Safety Guarantees`
+9. `\section compatibility Compatibility` — platform/standard (optional)
 10. `\note` — notes
 11. `\warning` — warnings (if needed)
 12. `\sa` — related classes/types
+
+What each `\section` contains is **Class Sections Detail**; how its bullets are marked up is **Writing Style**.
 
 ### Concept Documentation
 
 * Use `\concept ConceptName` so Doxygen treats the block as concept documentation.
 * `\brief` — one-line description of when the concept is satisfied (e.g. "Concept satisfied when \a T is an instantiation of \ref toy::namespace::Type").
 * Add a short paragraph explaining purpose and typical use (e.g. constraining template parameters, analogy to standard concepts).
-* Use `\section requirements Requirements` with a bullet list of conditions that must hold; it is the single source of truth for the template parameters, so omit `\tparam` when it already describes them fully (see **Template Parameters**).
+* Use `\section requirements Requirements` with a bullet list of conditions that must hold; it is the single source of truth for the template parameters, so omit `\tparam` when it already describes them fully.
 * Never use Doxygen's `\requirement` command here — it registers the label `requirements` and collides with `\section requirements`, which fails the docs build (see Docs build).
 * `\sa` — link to related types or concepts that use or are used with this concept (see **See-Also Tags**).
 * Optional `\section usage Usage Example` with a short `\code` block for concepts that benefit from an example (e.g. `static_assert(ConceptName<T>);`).
@@ -472,8 +484,9 @@ Always follow this order:
 ### Template Parameters
 
 * Always document template parameters with `\tparam` for classes, structs, and function templates.
-* For **concepts**, prefer `\section requirements` and omit `\tparam` when the conditions fully describe the template parameters (see **Concept Documentation**).
 * Include type constraints and valid value ranges.
+* Name the concept a constrained parameter must satisfy; a `requires` clause is part of the contract, not an implementation detail.
+* Concepts themselves are the one exception to the first rule — see **Concept Documentation**.
 
 ### Notes and Warnings
 
@@ -511,37 +524,38 @@ Always follow this order:
 
 #### `\section features Key Features`
 
-* 4-8 items. Each item: **bold name** + description.
-* Most important features first.
+* 4-8 items, most important first.
+* Each item names one capability a caller can act on, not a restatement of a member list.
 
 #### `\section usage Usage Example`
 
-* Practical, compilable example with `\code ... \endcode`.
-* Includes `#include` directive.
+* Opens with the `#include` a consumer actually writes — the module barrel or the root umbrella, never an internal header (see **Module Structure**).
+* Shows the common call sequence end to end, not an isolated line; construction, the operation, and what the caller does with the result.
+* Where the example comes from and that it compiles follow Examples compile under **Writing Style**.
 
 #### `\section performance Performance Characteristics`
 
 * Big-O complexity for key operations.
 * Memory usage if relevant.
-* Plain text with **bold operation names**.
 
 #### `\section safety Safety Guarantees`
 
-* Specific guarantees: contracts, bounds safety, type safety, exception safety.
-* Debug-mode checks and exception policy.
-* Plain text with **bold category names**.
+* Specific guarantees: contracts, bounds safety, type safety, allocation behavior.
+* Which invariants `assert_message` checks in debug, and what a violation does in a shipping build.
+* **Exception safety** is a fixed entry — all operations are `noexcept` (see Failure under **What to Document**).
 
 #### `\section compatibility Compatibility` (optional)
 
 * Only for classes with special requirements.
 * C++ standard, STL integration, cross-platform, embedded suitability.
-* Plain text with **bold category names**.
 
 ---
 
 ## Class Documentation Templates
 
-### Regular Class
+The class block below is the base form; a template class, a struct, and a concept are stated as deltas from it, not as copies. Tag order is fixed by **Class / Struct Documentation Order**, section content by **Class Sections Detail**.
+
+### Class
 
 ```cpp
 /*!
@@ -588,6 +602,38 @@ class ClassName {
 };
 ```
 
+Add `\section compatibility` only where the type has a special requirement (see **`\section compatibility Compatibility`**). For value types — math, handles, fixed-capacity containers — the features usually read **Constexpr support**, **Type safety**, **Exception safety**, and one naming what the type is optimized for.
+
+### Template Class
+
+The class block, with these deltas:
+
+* `\tparam` per template parameter, between the detailed description and `\section features`, naming the concept a constrained parameter satisfies (see **Template Parameters**).
+* `\section usage` instantiates explicitly and shows the constant-expression form:
+
+  ```cpp
+  toy::ClassName<Type, Size> obj(arg1);
+  constexpr auto obj2 = toy::ClassName<Type, 32>("data");
+  ```
+
+* `\section performance` states memory as fixed at compile time, no heap allocation; `\section safety` carries **Type safety**: uses C++23 concepts.
+* `\section compatibility` where the parameters constrain use — C++ standard, cross-platform support, embedded suitability (no dynamic allocation).
+* `\warning` after `\note` where a parameter choice can be got wrong (see **Notes and Warnings**).
+
+### Struct
+
+The class block, with these deltas:
+
+* `\struct` instead of `\class`; the detailed description covers purpose and data format.
+* `\section usage` constructs by aggregate initialization, at runtime and in a constant expression:
+
+  ```cpp
+  toy::namespace::StructName obj{value1, value2};
+  constexpr auto obj2 = toy::namespace::StructName{1, 2};
+  ```
+
+* `\section performance` states **Access** alongside **Construction**; `\section safety` reads **Type safety**, **Exception safety**, **Memory safety**: no dynamic allocation.
+
 ### Concept
 
 ```cpp
@@ -610,171 +656,20 @@ template <typename T>
 concept ConceptName = /* ... */;
 ```
 
-### Template Class
-
-```cpp
-/*!
-  \class ClassName
-  \brief Brief one-line description of the template class.
-
-  Detailed description of purpose and intended usage.
-
-  \tparam Param1 Description. Constraints and valid values.
-  \tparam Param2 Description, if any.
-
-  \section features Key Features
-
-  * **Feature 1**: Description
-  * **Feature 2**: Description
-  * **Feature 3**: Description
-  * **Feature 4**: Description
-
-  \section usage Usage Example
-
-  \code
-  #include "path/to/class.hpp"
-
-  toy::ClassName<Type, Size> obj(arg1);
-  constexpr auto obj2 = toy::ClassName<Type, 32>("data");
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(n) where n is...
-  * **Memory usage**: Fixed at compile time, no heap allocation
-
-  \section safety Safety Guarantees
-
-  * **Contracts**: Description
-  * **Type safety**: Uses C++23 concepts
-  * **Exception safety**: All operations are noexcept
-
-  \section compatibility Compatibility
-
-  * **C++ standard**: C++23 or later
-  * **Cross-platform**: Supported on all target platforms
-  * **Embedded systems**: Suitable (no dynamic allocation)
-
-  \note Additional note, if necessary.
-
-  \warning Important warning, if necessary.
-
-  \sa \ref toy::namespace::RelatedClass
-*/
-template <typename Param1, size_t Param2>
-class ClassName {
-  // ...
-};
-```
-
-### Struct
-
-```cpp
-/*!
-  \struct StructName
-  \brief Brief one-line description of the struct.
-
-  Detailed description of purpose and data format.
-
-  \section features Key Features
-
-  * **Feature 1**: Description
-  * **Feature 2**: Description
-  * **Feature 3**: Description
-  * **Feature 4**: Description
-
-  \section usage Usage Example
-
-  \code
-  #include "path/to/struct.hpp"
-
-  toy::namespace::StructName obj{value1, value2};
-  constexpr auto obj2 = toy::namespace::StructName{1, 2};
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(1) constant time
-  * **Access**: O(1) constant time
-  * **Memory usage**: X bytes
-
-  \section safety Safety Guarantees
-
-  * **Type safety**: Description
-  * **Exception safety**: All operations are noexcept
-  * **Memory safety**: No dynamic allocation
-
-  \note Additional note, if necessary.
-
-  \sa \ref toy::namespace::RelatedType
-*/
-struct StructName {
-  // ...
-};
-```
-
-### Simplified Class (without compatibility)
-
-```cpp
-/*!
-  \class ClassName
-  \brief Brief one-line description.
-
-  Detailed description. 2-4 sentences.
-
-  \section features Key Features
-
-  * **Constexpr support**: Most operations are constexpr
-  * **Exception safety**: All operations are noexcept
-  * **Optimized**: Designed for [specific application]
-  * **Type safety**: Strong typing with clear [semantics]
-
-  \section usage Usage Example
-
-  \code
-  #include "path/to/class.hpp"
-
-  toy::namespace::ClassName obj(value1, value2);
-  obj.method();
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(1) constant time
-  * **Arithmetic**: O(1) constant time
-  * **Memory usage**: X bytes
-
-  \section safety Safety Guarantees
-
-  * **Contracts**: Description of debug-mode checks
-  * **Type safety**: Strong typing prevents [what it prevents]
-  * **Exception safety**: All operations are noexcept
-
-  \note Additional note, if necessary.
-
-  \sa \ref toy::namespace::RelatedClass
-*/
-class ClassName {
-  // ...
-};
-```
+`\section requirements` replaces `\tparam` where it already describes the parameters in full; the rest of the rules are **Concept Documentation**.
 
 ### Documentation Pre-Commit Checklist
 
-* `\class` / `\struct` is present
-* `\brief` is filled (one line)
-* Detailed description is present (2-4 sentences)
-* `\section features` contains 4+ items with **bold** names
-* `\section usage` contains a compilable code example
-* `\section performance` is filled with Big-O complexity
-* `\section safety` is filled with specific guarantees
-* `\section compatibility` is added if needed
-* All methods have `\brief`, `\param` (aligned), `\return`, `\tparam`
-* Constraints in `\pre`, not in `\param`
-* State-changing methods have `\post`
-* Constants wrapped with `\c`; parameter names referenced with `\a`
-* `\sa` links related entities
-* No marketing language
+Each line is a pointer to the rule that defines it — check the block against the section, not against this list.
+
+* Type block: `\class` / `\struct`, `\brief`, detailed description, and the sections in order — **Class / Struct Documentation Order**, **Class Sections Detail**.
+* Member blocks: tags present and in order, none omitted — **Method / Function Documentation Order**, **Documentation Style Rules**.
+* Contracts placed correctly: constraints in `\pre`, state changes in `\post` — **Preconditions and Postconditions**.
+* Beyond-signature facts stated where they apply: ownership, allocation, failure, determinism, units, invalidation — **What to Document**.
+* Markup: `\c` for literals, `\a` for parameters, `\ref` only for non-function symbols — Mark up by kind under **Writing Style**, **Parameter Documentation**, **Cross-References**.
+* Wording: concise, neutral, technical, no marketing language — **Documentation Tone**, **Writing Style**.
+* `\file` block present in every `.hpp` and `.inl` — **File documentation (`\file`)**.
+* Docs build passes with no warnings — the checklist's only mechanical gate (see Docs build under **Lint Rules**).
 
 ---
 
@@ -789,12 +684,7 @@ These rules define how unit tests must be written or generated by AI tools in th
 * **Order**: When both `REQUIRE` and `static_assert` are used for the same behavior, write `REQUIRE` first, then `static_assert` — see **Constexpr + Runtime Parity**.
 * **Compile-time preference**: Use `static_assert` wherever the behavior can be verified at compile time — see **Compile-Time vs Runtime Testing**.
 
-The goal is to keep tests:
-
-* Short
-* Deterministic
-* Non-redundant
-* Suitable for constrained and embedded platforms
+The goal is tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets; what a case may depend on and which seam it drives is **Testing Best Practices**.
 
 ---
 
@@ -803,19 +693,13 @@ The goal is to keep tests:
 ### Compile-Time (`constexpr`) Tests
 
 * Prefer compile-time verification whenever possible.
-* Use:
-  * `static_assert` — **always with the two-argument form** and a human-readable message (see **Assertions** under Error Handling).
+* Use `static_assert` — **always with the two-argument form** and a human-readable message (see **Assertions** under Error Handling).
 * Test:
   * Type traits
   * `constexpr` constructors
   * `constexpr` operators
   * Compile-time invariants
-
-Compile-time tests are preferred for:
-
-* Containers
-* Math types
-* Value semantics
+* Value types, containers, and math are where compile-time tests do most of the work (see Unit level under **Testing Best Practices**).
 
 ---
 
@@ -824,13 +708,7 @@ Compile-time tests are preferred for:
 * Use runtime tests only when:
   * Behavior depends on runtime state
   * `constexpr` evaluation is not possible
-* Runtime tests must be deterministic.
-
-Avoid:
-
-* Randomness
-* Time-based behavior
-* Platform-dependent assumptions
+* Runtime tests must be deterministic — no randomness, no wall-clock or time-based behavior, no platform-dependent assumptions (see Frame-loop independence and A flaky test is a defect under **Testing Best Practices**).
 
 ---
 
@@ -849,8 +727,8 @@ Prefer:
 
 ## Value-Based Assertions
 
-* Prefer value comparisons over implementation details.
-* Do not test private or internal state unless explicitly intended.
+* Assert observable values, not implementation details, so the failure report prints what was produced (see Diagnose on failure under **Testing Best Practices**).
+* Do not test private or internal state unless explicitly intended — needing it points at a missing seam, not a missing accessor (see Test seams, not test hooks).
 
 Tests must survive refactoring without semantic changes.
 
@@ -869,15 +747,9 @@ When asserting that a string’s `size()` or `length()` equals the byte length o
 
 ## Constexpr + Runtime Parity
 
-When applicable:
+Where a behavior is reachable both ways, verify it at compile time and at runtime; the observable result must be identical.
 
-* Verify the same behavior at:
-  * Compile time
-  * Runtime
-
-The observable result must be identical.
-
-When both runtime assertions (\c REQUIRE or similar) and compile-time assertions (\c static_assert) are used for the same behavior, **write runtime assertions first, then \c static_assert**. The compile-time check is the closing verification.
+When both runtime assertions (`REQUIRE` or similar) and compile-time assertions (`static_assert`) cover the same behavior, **write the runtime assertion first, then the `static_assert`**. The compile-time check is the closing verification.
 
 ---
 

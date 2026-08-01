@@ -68,6 +68,12 @@ jobs:
             run_test: "true"
             cmake_preset: linux-release
 
+          - name: Sega Mega Drive
+            os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
+            run_test: "false"
+            cmake_preset: md-release
+
           - name: Nintendo GBA
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
@@ -122,3 +128,13 @@ jobs:
       - name: Prepare APT staging dir
         if: contains(matrix.os, 'ubuntu') && matrix.container == ''
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
+
+      - name: APT cache restore
+        if: contains(matrix.os, 'ubuntu') && matrix.container == ''
+        id: buildaptcache
+        uses: actions/cache/restore@v6.1.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
+          restore-keys: |
+            build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
