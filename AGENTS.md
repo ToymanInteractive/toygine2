@@ -236,6 +236,19 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **Macros:** a block directly above the `#define`; `\def` only where it cannot sit there (a macro is never a `\ref` target — see **Cross-References**).
 * **One block per namespace:** the `\namespace` description lives in the module barrel (`core.hpp` carries `\namespace toy`); Doxygen merges duplicates silently, so a second one elsewhere is invisible until it wins.
 
+### Writing Style
+
+* **Bullets over paragraphs** for independent facts; concision, neutrality, and terminology follow **Documentation Tone**.
+* **One-sentence `\brief`, then a blank line:** it must read alone in an index. The detailed description never repeats it — 1-2 sentences on a function, 2-4 on a type, none when the `\brief` suffices.
+* **No filler openings:** not "This function …", "A class that …", "Used to …" — start with the verb or the noun.
+* **Doxygen commands over raw markup:** Markdown sparingly, never HTML — the XML output feeds the documentation site. Which command marks what is **Documentation Style Rules**.
+* **Mark up by kind, not by emphasis:** `\a` parameters, `\c` literals, `\ref` non-function symbols, plain `toy::function()` for functions (see **Parameter Documentation**, **Cross-References**). **Bold** only for the lead term of a `\section` bullet; section bodies are plain text.
+* **Present tense, active voice:** "Returns the element count", not "Will return" or "The count is returned"; a `\param` is a noun phrase, not a sentence about the caller.
+* **Do not restate the signature:** a block says what the declaration cannot. Never open a `\brief` with the symbol's name — in a `\file` block, with the file name the `\file` tag already carries — nor spell out a visible type.
+* **One fact per tag:** one line per `\note`, `\warning` only for what breaks a caller, 2-3 `\sa` links at most (see **Notes and Warnings**, **See-Also Tags**).
+* **No abbreviations** beyond the domain terms the code uses (see Naming under **Code Quality**).
+* **Examples compile:** a `\section usage` block builds as written, lifted from a sample or a test, never from memory (see Documented and demonstrated under **API Design Principles**).
+
 ---
 
 ## Header / Source Organization

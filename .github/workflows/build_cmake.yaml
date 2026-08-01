@@ -11,8 +11,6 @@ jobs:
     permissions:
       contents: read
       packages: read
-      pull-requests: write
-      checks: write
 
     strategy:
       fail-fast: false
@@ -120,3 +118,7 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+
+      - name: Prepare APT staging dir
+        if: contains(matrix.os, 'ubuntu') && matrix.container == ''
+        run: mkdir -p "$RUNNER_TEMP/apt-cache"
