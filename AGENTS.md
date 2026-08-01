@@ -244,7 +244,7 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **Doxygen commands over raw markup:** Markdown sparingly, never HTML — the XML output feeds the documentation site. Which command marks what is **Documentation Style Rules**.
 * **Mark up by kind, not by emphasis:** `\a` parameters, `\c` literals, `\ref` non-function symbols, plain `toy::function()` for functions (see **Parameter Documentation**, **Cross-References**). **Bold** only for the lead term of a `\section` bullet; section bodies are plain text.
 * **Present tense, active voice:** "Returns the element count", not "Will return" or "The count is returned"; a `\param` is a noun phrase, not a sentence about the caller.
-* **Do not restate the signature:** a block says what the declaration cannot. Never open a `\brief` with the symbol's name — nor a `\file` block with the file name — nor spell out a visible type.
+* **Do not restate the signature:** a block says what the declaration cannot. Never open a `\brief` with the symbol's name — in a `\file` block, with the file name the `\file` tag already carries — nor spell out a visible type.
 * **One fact per tag:** one line per `\note`, `\warning` only for what breaks a caller, 2-3 `\sa` links at most (see **Notes and Warnings**, **See-Also Tags**).
 * **No abbreviations** beyond the domain terms the code uses (see Naming under **Code Quality**).
 * **Examples compile:** a `\section usage` block builds as written, lifted from a sample or a test, never from memory (see Documented and demonstrated under **API Design Principles**).
