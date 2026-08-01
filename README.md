@@ -15,3 +15,9 @@ ToyGine2 is a modern C++ high‑level engine for Retro-Style games.
 ## Requirements
 
 `ToyGine2` requires a C++23-compliant compiler. The following tools and compilers are supported
+
+### Tools
+
+- CMake 3.27 or newer
+- Doxygen 1.17+ and Graphviz (for documentation)
+- ClangFormat 22.1
