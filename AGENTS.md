@@ -18,7 +18,7 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 
 ## Project Structure
 
-A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl`), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers (see **Header / Source Organization**).
+A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl` inline and template bodies), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`, precompilable; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers — implementation details outside the public API (see **API Design Principles**).
 
 Non-module directories:
 
@@ -60,13 +60,13 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 
 ## Code Quality
 
-* **Naming:** Intent-revealing, no abbreviations except domain terms (`rgba`, `aabb`). `PascalCase` for types and template parameters (descriptive, no single-letter names outside trivial scopes); `camelCase` for functions and variables; `snake_case` for namespaces and files; `snake_case` + `_type` for aliases. Constants: `camelCase` with `c_` (namespace/file/`static`) or leading `_` (`private` only, never namespace/file); a function-local `const`/`constexpr` may drop the prefix. Private members lead with `_`; public and protected never do. STL-like methods use standard-library names, others `camelCase`. Const references as `const T &`, not `T const &`.
+* **Naming:** Intent-revealing, no abbreviations except domain terms (`rgba`, `aabb`). `PascalCase` for types and template parameters (descriptive, no single-letter names outside trivial scopes); `camelCase` for functions and variables; `snake_case` for namespaces and files; `snake_case` + `_type` for aliases. Constants: `camelCase` with `c_` (namespace/file/`static`) or leading `_` (`private` only, never namespace/file); a function-local `const`/`constexpr` may drop the prefix. Private members lead with `_`; public and protected never do. STL-like methods use standard-library names, others `camelCase`. Const references as `const T &`, not `T const &`. Include guards uppercase from the full file path (`INCLUDE_CORE_FIXED_STRING_HPP_`).
 * **Conciseness:** Code should read without comments; every construct earns its place in correctness, performance, or clarity — avoid needless abstraction.
 * **Simplicity:** Straightforward over clever; prefer the obvious solution.
 * **Error handling:** Signal failure via return values or `expected`-like types; assert invariants with `assert_message` (runtime) and `static_assert` (compile-time), both with human-readable messages. Never fail silently.
 * **Functions:** Short and single-purpose; ~40 lines is a soft target. Split by responsibility, not length.
 * **Performance:** Correctness first; optimize only with justification and measurement, and document non-obvious low-level choices.
-* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block — enforced by `.clang-format` (see **Lint Rules**).
+* **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block, access-modifier labels offset −2 from the class body — enforced by `.clang-format` (see **Lint Rules**); declare them `public`, `protected`, `private`.
 * **Logging:** Use engine macros `LOG_TRACE`/`LOG_DEBUG`/`LOG_INFO`/`LOG_WARN`/`LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
 
 ## C++23 Best Practices
@@ -122,7 +122,7 @@ Runtime architecture of the engine: the frame, the data, and the platform. Langu
 
 ## API Design Principles
 
-The engine is consumed as a library — by gameplay code, samples, the editor, and its own future versions. A public header is a contract. Language rules live under **C++ style guide** and **C++23 Best Practices**; what a header may expose, under **Header / Source Organization**.
+The engine is consumed as a library — by gameplay code, samples, the editor, and its own future versions. A public header is a contract. Language rules live under **C++ style guide** and **C++23 Best Practices**; where the files themselves live, under **Project Structure**.
 
 * **Design from the call site:** Write the sample or test first and shape the API around it. Correct use must be the shortest thing to write; misuse the types can express fails to compile, the rest is a documented `\pre` with `assert_message` (see Make invalid states unrepresentable).
 * **Minimal surface:** Expose the smallest set of types and functions that solves the problem, preferring non-member non-friend functions; keep helpers internal. Adding later is cheap, removing breaks consumers.
@@ -135,7 +135,9 @@ The engine is consumed as a library — by gameplay code, samples, the editor, a
 * **Consistency and orthogonality:** One argument order, naming, unit, and error convention across modules, fixed at the module boundary (see Math conventions).
 * **Compile-time contracts:** State requirements as concepts and `static_assert` messages, so misuse reads as an unmet requirement, not a template instantiation dump.
 * **Stability and deprecation:** Evolve additively; `[[deprecated("use X instead")]]` with a named replacement before removal. Serialized enumerator values are contract — never renumbered or reused; serialized data carries a versioned schema, never a raw struct layout (see Binary data portability).
-* **Cheap to include:** Every consumer pays a public header's build cost — minimal includes and forward declarations. A `.inl` arrives through the barrel too — moving weight there organizes it, not removes it (see **Headers**).
+* **Cheap to include:** Every consumer pays a public header's build cost — minimal includes and forward declarations. A `.inl` arrives through the barrel too — moving weight there organizes it, not removes it.
+* **Self-contained headers:** A public header compiles on its own, independent of include order; internal headers include each other freely.
+* **Bodies in `.inl`:** Template, `constexpr`, and inline definitions live in a `.inl`, never as a non-trivial body in the public header. A `.inl` is module interface, not public API: it adds no symbol the header lacks, exactly one header includes it, and consumers never do (see Barrel include policy under **Cross-References**).
 * **Documented and demonstrated:** A Doxygen block per **Comments and Documentation** on every public symbol, plus a compilable example under `samples/` — the sample is the API's ergonomics test.
 
 ## Engine Architecture
@@ -160,6 +162,7 @@ Static structure: layers, modules, and where dependencies may point. Directory l
 Style and correctness are enforced by tools, not by review. Configs live at the repo root and CI runs the same checks on changed files; a change is ready when all of them pass clean.
 
 * **Formatting:** `.clang-format` is the sole authority on layout — run it before committing, never hand-format against it. `// clang-format off` only where alignment carries meaning, with a comment saying why.
+* **Include order:** `.clang-format` regroups into blank-line-separated blocks — corresponding header (in a `.cpp`), standard library `<...>`, third-party, project `"..."`.
 * **Static analysis:** checks and options live in `.clang-tidy`; run it over the compile database before committing and review whatever `--fix` changed. Suppress with `// NOLINTNEXTLINE(check)` plus a reason — never a bare `// NOLINT`, never file-wide.
 * **Warnings:** build at the toolchain's warning level and leave none; CI treats them as errors. Fix the code, not the diagnostic — `[[maybe_unused]]` for a deliberately unused parameter.
 * **Language subset:** exceptions and RTTI are off in the build, so `throw`, `dynamic_cast`, and `typeid` fail to compile rather than fail review (see Zero-cost abstractions).
@@ -228,8 +231,8 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **Nothing in between:** no blank line, separator, or preprocessor branch — a detached block documents the wrong symbol or none, and an undocumented public symbol fails the docs build (see Docs build under **Lint Rules**).
 * **`\file` opens the file:** after the license header, before the include guard — the one block documenting no symbol (see **File documentation (`\file`)**, License headers under **Lint Rules**).
 * **One block per symbol:** on the declaration in the header; a second on the definition in a `.cpp` or `.inl` competes with it, so notes there stay ordinary `//` comments. A symbol first declared in a `.cpp` — internal linkage — carries its own.
-* **Never on a forward declaration:** the block belongs where the type is defined (see **Headers**).
-* **Inside the class body:** above the member, at member indentation; access-modifier labels carry none (see **Access Modifiers**).
+* **Never on a forward declaration:** the block belongs where the type is defined (see Cheap to include under **API Design Principles**).
+* **Inside the class body:** above the member, at member indentation; access-modifier labels carry none (see Styling under **Code Quality**).
 * **Pairs get one block:** getter/setter or `const` / non-`const` overloads — document one, point to the other with `\sa` (see **See-Also Tags**).
 * **Overloads that differ get their own:** one shared contract, one block; a different precondition, cost, or failure mode earns its own — that difference is what a reader came for.
 * **Enumerators and aggregate members** take a trailing `///<`, which documents what precedes it on the line and never opens one; the enum or struct still carries a block above it.
@@ -268,58 +271,6 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 * **Compile-time use:** whether the symbol works in a constant expression, and which paths force runtime evaluation — `constexpr` states intent, not reachability (see Compile-time first).
 * **Stability:** what a `[[deprecated]]` symbol is replaced by, and which values are frozen contract — a serialized enumerator or schema version does not read off the declaration (see Stability and deprecation under **API Design Principles**).
 * **Non-obvious cost:** a complexity, a fixed byte footprint, or a low-level trick earns a sentence saying why; a trivial accessor earns none (see Performance under **Code Quality**).
-
----
-
-## Header / Source Organization
-
-### Module Structure
-
-* Internal headers are considered implementation details and are not part of the public API.
-* Umbrella headers may be precompiled.
-
-### Include Guards
-
-* Use **uppercase** include guards derived from the full file path (e.g. `INCLUDE_CORE_FIXED_STRING_HPP_`).
-
-### File Extensions
-
-* Header files: `.hpp`
-* Source files: `.cpp`
-* Template / inline implementation files: `.inl`
-
-### Include Order
-
-Organize includes in the following order (separated by blank lines):
-
-1. Corresponding header (for `.cpp` files)
-2. Standard library headers (`<...>`)
-3. Third-party headers
-4. Project headers (`"..."`)
-
-### Headers
-
-* Public headers must be self-contained.
-* Public headers must not rely on include order.
-* Minimize includes; prefer forward declarations in public headers (see Cheap to include under **API Design Principles**).
-* Internal headers may include other internal headers freely.
-
-### `.inl` Files
-
-* All inline and template implementations live in `.inl` files; never place a non-trivial inline body directly in a public header.
-* `.inl` files are part of the module interface but not part of the public API.
-* `.inl` files may contain:
-  * Template implementations
-  * `constexpr` and inline function definitions
-  * Inline operator implementations
-* `.inl` files must not be included directly by users; the corresponding header includes them, and the `\file` block says so (see Barrel include policy under **Cross-References**).
-* `.inl` files must not introduce new public symbols that are not declared in the corresponding header.
-* Each `.inl` file must be included by exactly one public header.
-
-### Access Modifiers
-
-* Order: `public`, then `protected`, then `private`.
-* Access modifier labels are indented at the same level as the class keyword (offset −2 from class body).
 
 ---
 
@@ -529,7 +480,7 @@ What each `\section` contains is **Class Sections Detail**; how its bullets are 
 
 #### `\section usage Usage Example`
 
-* Opens with the `#include` a consumer actually writes — the module barrel or the root umbrella, never an internal header (see **Module Structure**).
+* Opens with the `#include` a consumer actually writes — the module barrel or the root umbrella, never an internal header (see **Project Structure**).
 * Shows the common call sequence end to end, not an isolated line; construction, the operation, and what the caller does with the result.
 * Where the example comes from and that it compiles follow Examples compile under **Writing Style**.
 
