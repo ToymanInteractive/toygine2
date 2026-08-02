@@ -94,7 +94,7 @@
         {
             "name": "platform-md",
             "hidden": true,
-            "toolchainFile": "$env{CLOWNMDSDK_ROOT}/toolchain.cmake",
+            "toolchainFile": "$env{CLOWNMDSDK}/toolchain.cmake",
             "cacheVariables": {
                 "TOYGINE_TARGET_PLATFORM": "Sega MD"
             }
