@@ -12,6 +12,7 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 * **Explanations:** Explain the C++ features code relies on (RAII, move semantics, `constexpr`/`consteval`, concepts, rule of zero/five) and flag any hidden cost (allocation, virtual dispatch, exceptions).
 * **Clarification:** When ambiguous, ask about intent, target platform (retro/modern console, desktop, mobile, web/WASM), and hot-path vs. cold/tooling path — they trade off differently.
 * **Platform Awareness:** State toolchain assumptions (compiler, C++ standard, fixed vs. dynamic memory). Never assume an OS, heap, exceptions, or RTTI; retro and embedded targets may lack all four.
+* **Allocation:** Ask before adding heap allocation on a hot path or in a fixed-capacity type; name its pool and capacity — see Allocation policy.
 * **Dependencies:** Justify a new library's cost (build time, size, portability) and prefer CMake `FetchContent` — see **Dependency Management**.
 * **Tooling:** Format, lint, and build warning-free before committing — see **Lint Rules**.
 * **Testing:** Prefer compile-time `static_assert`; use DocTest-style runtime tests only for runtime-dependent behavior — see **Unit Test Style Rules**.
@@ -38,6 +39,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Systems over managers:** Prefer small, single-purpose systems that transform component data over monolithic managers owning both state and behavior.
 * **Simulation / presentation split:** Keep deterministic simulation separate from presentation (renderer, audio, UI); never couple game logic to frame rate, render order, or platform APIs.
 * **Explicit resource lifetime:** Make asset, scene, and subsystem ownership explicit. Use RAII at module boundaries, handles or indices over raw pointers for long-lived resources, and no global singletons.
+* **Allocation policy:** No dynamic allocation by default; every heap allocation explicit and justified, never hidden. Types offer fixed-capacity (stack or static) storage alongside heap where required, and a counting allocator proves allocation-free paths in tests (see Allocation and failure are visible under **API Design Principles**, Allocation accounting under **Testing Best Practices**).
 * **SOLID where it helps:** Apply SOLID to editor, tooling, and high-level gameplay; on hot paths defer to measurement and data-oriented reasoning.
 * **Concise and declarative:** Write concise, modern C++23. Prefer standard algorithms and ranges over hand-rolled loops and pure transforms over step-by-step mutation.
 * **Immutability and value semantics:** Prefer immutable value types over shared mutable state. Make everything `const` and `constexpr` that can be; return new values rather than mutating in place off the hot path.
@@ -105,7 +107,7 @@ Runtime architecture of the engine: the frame, the data, and the platform. Langu
 * **Explicit update phases:** Systems run in named phases (input → simulation → animation → physics resolve → extraction → render submit). Order is declared data, not an artifact of construction or registration order.
 * **Component storage:** Contiguous homogeneous arrays keyed by entity handle, iterated whole per system. Add and remove through deferred command buffers applied at a phase boundary, so nothing mutates the storage it iterates.
 * **Handles with generations:** Handles pack index plus generation, so a stale one is a detected error, not a dangling dereference into a recycled slot (see Explicit resource lifetime).
-* **Frame allocators:** Per-frame data from a bump arena reset at the frame boundary, long-lived data from fixed pools. No heap allocation, blocking I/O, syscalls, or locks inside the frame loop (see **Memory and Allocation Rules**).
+* **Frame allocators:** Per-frame data from a bump arena reset at the frame boundary, long-lived data from fixed pools. No heap allocation, blocking I/O, syscalls, or locks inside the frame loop (see Allocation policy).
 * **Fixed capacity limits:** Entity, draw-call, particle, voice, and job counts are capped at compile time or by configuration; exceeding a cap is a diagnosed error, never silent growth or a reallocation spike.
 * **Job system:** Pure tasks over disjoint ranges with dependencies as a graph — no per-job allocation, no blocking waits inside a job, no shared mutable state without an explicitly ordered atomic or a phase barrier (see Concurrency primitives).
 * **Renderer boundary:** Graphics APIs sit behind a thin RHI; passes record command buffers from an immutable snapshot extracted from the simulation. No gameplay type reaches a backend header, and no backend type reaches gameplay.
@@ -129,7 +131,7 @@ The engine is consumed as a library — by gameplay code, samples, the editor, a
 * **The signature is the contract:** Ownership, mutability, optionality, and lifetime read from the declaration alone — value, `const T &`, `std::span`, `std::optional`, or a handle (see Explicit resource lifetime). No parameter's meaning depends on another's value.
 * **Strong types at the boundary:** Scoped enums, named aggregates, and unit-bearing types over `bool`, `int`, or bare floats — `setFilter(TextureFilter::Linear)`, not `setFilter(true)`.
 * **Explicit context, no globals:** Dependencies arrive as parameters or a context object; two instances must coexist in one process (editor, tests, headless tools).
-* **Allocation and failure are visible:** Whoever allocates says so in the signature — caller storage, explicit capacity, or a named pool; fallible calls return `[[nodiscard]] std::expected` (see **Memory and Allocation Rules** and **Error Handling**).
+* **Allocation and failure are visible:** Whoever allocates says so in the signature — caller storage, explicit capacity, or a named pool; fallible calls return `[[nodiscard]] std::expected` (see Allocation policy and **Error Handling**).
 * **Batch-oriented entry points:** Take ranges or spans and process a system per call; per-entity calls across a module boundary defeat contiguous storage and the job system.
 * **Two layers, not one:** The hot-path API stays explicit and allocation-free; convenience wrappers for tooling sit on top of it, never inside it.
 * **Consistency and orthogonality:** One argument order, naming, unit, and error convention across modules, fixed at the module boundary (see Math conventions).
@@ -200,9 +202,9 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Unit level:** Value types, containers, math, allocators, handles, codecs — everything reachable without a running engine, where `static_assert` does most of the work (see **Compile-Time vs Runtime Testing**).
 * **System level:** Fabricate component storage, drive one system over an explicit tick count, assert the resulting data — never call sequences; a system's contract is the data it produces (see Component storage, Data flow over control flow).
 * **Integration level:** Composition root, init, load a baked asset, tick, shut down in reverse — asserts wiring, not arithmetic. Keep few: the slowest, and the first to rot (see Composition root).
-* **Fakes over mocks:** Exceptions and RTTI off, no hidden allocation — the mocking frameworks do not fit this build (see Language subset, **Memory and Allocation Rules**). Hand-write fakes at the engine's virtual seams (null RHI backend, in-memory asset source, capturing log sink); a static seam takes a stub type argument (see Virtual seams where they earn it).
+* **Fakes over mocks:** Exceptions and RTTI off, no hidden allocation — the mocking frameworks do not fit this build (see Language subset, Allocation policy). Hand-write fakes at the engine's virtual seams (null RHI backend, in-memory asset source, capturing log sink); a static seam takes a stub type argument (see Virtual seams where they earn it).
 * **Golden data:** Compare baked output and replayed state byte-for-byte against a golden stored beside the test. Regenerating one is a reviewed commit with a stated cause, never a side effect of a failing run (see Determinism fixtures, Asset pipeline).
-* **Allocation accounting:** Where a rule forbids allocation — frame loop, mixer callback, job body — assert it with a counting allocator; a stray `new` then fails a test, not a profiling session (see **Memory and Allocation Rules**).
+* **Allocation accounting:** Where a rule forbids allocation — frame loop, mixer callback, job body — assert it with a counting allocator; a stray `new` then fails a test, not a profiling session (see Frame allocators).
 * **Budget guards stay out:** Wall-clock thresholds belong to benchmarks; a timing assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
 * **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
 * **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic; both are worse bugs than the test (see Determinism).
@@ -257,7 +259,7 @@ Doxygen is the only documentation system here: this section covers what a block 
 Every public symbol carries a block (see Documented and demonstrated), every header a `\file` block (see **File documentation (`\file`)**). Beyond purpose and usage, state what the signature cannot:
 
 * **Ownership and lifetime:** who owns the resource, how long a handle stays valid, what a stale one does (see Explicit resource lifetime, Handles with generations).
-* **Allocation:** whether the call allocates, from which pool or caller storage, against which fixed capacity (see **Memory and Allocation Rules**).
+* **Allocation:** whether the call allocates, from which pool or caller storage, against which fixed capacity (see Allocation policy).
 * **Failure:** the error values a returned `std::expected` carries, the `\pre` an `assert_message` enforces in debug, what a violation does in a shipping build. Exceptions are off — never document throwing (see **Error Handling**).
 * **State change:** what the object holds after a mutating call; every such method carries a `\post`, and its absence claims nothing observable changed (see **Preconditions and Postconditions**).
 * **Special and default values:** what a sentinel means — `\ref npos`, an empty `std::optional`, a bare `\c false` — and which behavior a parameter's default selects (see **Return Value Documentation**, **Parameter Documentation**).
@@ -271,17 +273,6 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 * **Compile-time use:** whether the symbol works in a constant expression, and which paths force runtime evaluation — `constexpr` states intent, not reachability (see Compile-time first).
 * **Stability:** what a `[[deprecated]]` symbol is replaced by, and which values are frozen contract — a serialized enumerator or schema version does not read off the declaration (see Stability and deprecation under **API Design Principles**).
 * **Non-obvious cost:** a complexity, a fixed byte footprint, or a low-level trick earns a sentence saying why; a trivial accessor earns none (see Performance under **Code Quality**).
-
----
-
-## Memory and Allocation Rules
-
-* Avoid dynamic allocation by default.
-* Any heap allocation must be explicit and justified — no hidden allocations; the signature says who allocates and the block says from where (see Allocation and failure are visible under **API Design Principles**, Allocation under **What to Document**).
-* Support both:
-  * Fixed-capacity (stack or static storage)
-  * Dynamic allocation (heap), when required
-* Where a rule forbids allocation — frame loop, mixer callback, job body — a counting allocator proves it in a test (see Frame allocators, Allocation accounting under **Testing Best Practices**).
 
 ---
 
