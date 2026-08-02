@@ -160,8 +160,6 @@ jobs:
               sudo xcode-select -s /Applications/Xcode_26.6.0.app
             elif [ -d "/Applications/Xcode_26.5.0.app" ]; then
               sudo xcode-select -s /Applications/Xcode_26.5.0.app
-            elif [ -d "/Applications/Xcode_26.4.1.app" ]; then
-              sudo xcode-select -s /Applications/Xcode_26.4.1.app
             fi
           elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
             set -euo pipefail
