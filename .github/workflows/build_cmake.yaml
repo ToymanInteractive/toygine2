@@ -138,3 +138,52 @@ jobs:
           key: build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
           restore-keys: |
             build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
+
+      - name: Prepare CI
+        if: ${{ matrix.container == '' }}
+        run: |
+          if [[ "${{ matrix.os }}" =~ "windows" ]]; then
+            MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
+            echo "MSVC_INSTALL_PATH = $MSVC_INSTALL_PATH"
+
+            echo "Installed toolset versions:"
+            ls -vr "$MSVC_INSTALL_PATH/VC/Tools/MSVC"
+
+            TOOLS_DIR=$(ls -vr "$MSVC_INSTALL_PATH/VC/Tools/MSVC/" | head -1)
+            echo "TOOLS_DIR = $TOOLS_DIR"
+
+            DUMPBIN_PATH="$MSVC_INSTALL_PATH/VC/Tools/MSVC/$TOOLS_DIR/bin/Hostx64/x64/dumpbin.exe"
+            echo "DUMPBIN_PATH = $DUMPBIN_PATH"
+          elif [[ "${{ matrix.os }}" =~ "macos" ]]; then
+            # Prefer the desired version if it exists, otherwise keep the default.
+            if [ -d "/Applications/Xcode_26.6.0.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_26.6.0.app
+            elif [ -d "/Applications/Xcode_26.5.0.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_26.5.0.app
+            elif [ -d "/Applications/Xcode_26.4.1.app" ]; then
+              sudo xcode-select -s /Applications/Xcode_26.4.1.app
+            fi
+          elif [[ "${{ matrix.os }}" =~ "ubuntu" ]]; then
+            set -euo pipefail
+            export DEBIAN_FRONTEND=noninteractive
+
+            APT_CACHE="${APT_CACHE:-${RUNNER_TEMP:-/tmp}/apt-cache}"
+            sudo mkdir -p "$APT_CACHE"
+
+            sudo apt -yq -o Acquire::Retries=3 update
+            sudo apt -yq install eatmydata
+
+            sudo eatmydata apt -yq --no-install-recommends \
+              -o Dir::Cache::archives="$APT_CACHE" \
+              -o APT::Keep-Downloaded-Packages=true \
+              -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
+              install \
+              gcc-16 g++-16
+
+            sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-16 100
+            sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-16 100
+
+            sudo rm -f  "$APT_CACHE/lock" || true
+            sudo rm -rf "$APT_CACHE/partial" || true
+            sudo chown -R "$USER:$USER" "$APT_CACHE"
+          fi
