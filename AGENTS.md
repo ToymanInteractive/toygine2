@@ -71,6 +71,12 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Styling:** 2-space indent (no tabs), 120-column max, no trailing whitespace, attached braces, middle-aligned `type * pointer` / `type & reference` / `const type * constPointer`, break before binary operators, ≤1 blank line between sections and none opening a block, access-modifier labels offset −2 from the class body — enforced by `.clang-format` (see **Lint Rules**); declare them `public`, `protected`, `private`.
 * **Logging:** Use engine macros `LOG_TRACE`/`LOG_DEBUG`/`LOG_INFO`/`LOG_WARN`/`LOG_ERROR` (via `toy::log`), never `printf`, `std::cout`, or `std::print`. Levels below `LOG_MAX_LEVEL` compile out — zero-cost on constrained targets.
 
+### Assertions
+
+* **Form:** `assert_message` over plain `assert`, always two-argument — the message must make a failure readable without opening the source.
+* **Runtime message:** what was expected, or why the condition must hold.
+* **Compile-time message:** the same for `static_assert`, stating the invariant in human terms — `static_assert(length == expected, "length must match the literal's UTF-8 byte count")`.
+
 ## C++23 Best Practices
 
 * **Pointer / Null Safety:** References and values over raw pointers, `std::optional` for optional values; no unchecked dereferences or raw owning pointers (see Explicit resource lifetime).
@@ -83,7 +89,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Rule of Zero / Five:** Own no resource → declare none of the five; declare or delete one → declare all five (`= default`, `= delete`, or a body), never relying on implicit deletion. Owners state ownership — move-only or non-movable — and declare the destructor. Exceptions: aggregates and trivially copyable data declare none (declaring any costs designated initializers and trivial copyability); polymorphic bases suppress copy and move behind a public virtual or protected non-virtual destructor.
 * **Initialization:** In-class initializers for defaults, constructor init lists for non-default values; `{}` for variables, `= value` for literal `constexpr` / `const` constants, `()` where `{}` picks the wrong overload (`std::vector<int> v(10)` — ten elements, not one of value 10).
 * **Views over pointer pairs:** `std::span` / `std::string_view` (`std::mdspan` for multidimensional data) instead of pointer + length; they carry the extent and stay `constexpr`-friendly. Take views as parameters; store one only over storage that outlives it by construction (static-duration data or the object's own buffer), never over caller-supplied data — long-lived resources use handles, see Explicit resource lifetime.
-* **Monadic error flow:** Chain fallible steps with `[[nodiscard]]` `std::expected` and `and_then` / `transform` / `or_else` instead of nested `if` checks; `value_or` only where discarding the error is deliberate — see **Error Handling**.
+* **Monadic error flow:** Chain fallible steps with `[[nodiscard]]` `std::expected` and `and_then` / `transform` / `or_else` instead of nested `if` checks; `value_or` only where discarding the error is deliberate — see Error handling under **Code Quality**.
 * **Deducing `this`:** An explicit object parameter (`auto && at(this auto && self, size_t index)`) collapses `const` / non-`const` overload pairs and replaces CRTP in mixins.
 * **Enum interop:** `std::to_underlying` instead of casts; bit flags as scoped enums with the engine's bitwise-operator macro, never raw integers.
 * **Bit-level operations:** `std::bit_cast`, `std::byteswap`, `std::rotl` / `std::rotr`, `std::popcount`, `std::countl_zero` — `constexpr` and portable — instead of `memcpy` punning, unions, or intrinsics.
@@ -131,7 +137,7 @@ The engine is consumed as a library — by gameplay code, samples, the editor, a
 * **The signature is the contract:** Ownership, mutability, optionality, and lifetime read from the declaration alone — value, `const T &`, `std::span`, `std::optional`, or a handle (see Explicit resource lifetime). No parameter's meaning depends on another's value.
 * **Strong types at the boundary:** Scoped enums, named aggregates, and unit-bearing types over `bool`, `int`, or bare floats — `setFilter(TextureFilter::Linear)`, not `setFilter(true)`.
 * **Explicit context, no globals:** Dependencies arrive as parameters or a context object; two instances must coexist in one process (editor, tests, headless tools).
-* **Allocation and failure are visible:** Whoever allocates says so in the signature — caller storage, explicit capacity, or a named pool; fallible calls return `[[nodiscard]] std::expected` (see Allocation policy and **Error Handling**).
+* **Allocation and failure are visible:** Whoever allocates says so in the signature — caller storage, explicit capacity, or a named pool; fallible calls return `[[nodiscard]] std::expected` (see Allocation policy and Error handling under **Code Quality**).
 * **Batch-oriented entry points:** Take ranges or spans and process a system per call; per-entity calls across a module boundary defeat contiguous storage and the job system.
 * **Two layers, not one:** The hot-path API stays explicit and allocation-free; convenience wrappers for tooling sit on top of it, never inside it.
 * **Consistency and orthogonality:** One argument order, naming, unit, and error convention across modules, fixed at the module boundary (see Math conventions).
@@ -260,7 +266,7 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 
 * **Ownership and lifetime:** who owns the resource, how long a handle stays valid, what a stale one does (see Explicit resource lifetime, Handles with generations).
 * **Allocation:** whether the call allocates, from which pool or caller storage, against which fixed capacity (see Allocation policy).
-* **Failure:** the error values a returned `std::expected` carries, the `\pre` an `assert_message` enforces in debug, what a violation does in a shipping build. Exceptions are off — never document throwing (see **Error Handling**).
+* **Failure:** the error values a returned `std::expected` carries, the `\pre` an `assert_message` enforces in debug, what a violation does in a shipping build. Exceptions are off — never document throwing (see Error handling under **Code Quality**).
 * **State change:** what the object holds after a mutating call; every such method carries a `\post`, and its absence claims nothing observable changed (see **Preconditions and Postconditions**).
 * **Special and default values:** what a sentinel means — `\ref npos`, an empty `std::optional`, a bare `\c false` — and which behavior a parameter's default selects (see **Return Value Documentation**, **Parameter Documentation**).
 * **Type requirements:** the concept a constrained template parameter satisfies and what it guarantees the caller — a `requires` clause is contract, not implementation (see **Template Parameters**, **Concept Documentation**).
@@ -273,19 +279,6 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 * **Compile-time use:** whether the symbol works in a constant expression, and which paths force runtime evaluation — `constexpr` states intent, not reachability (see Compile-time first).
 * **Stability:** what a `[[deprecated]]` symbol is replaced by, and which values are frozen contract — a serialized enumerator or schema version does not read off the declaration (see Stability and deprecation under **API Design Principles**).
 * **Non-obvious cost:** a complexity, a fixed byte footprint, or a low-level trick earns a sentence saying why; a trivial accessor earns none (see Performance under **Code Quality**).
-
----
-
-## Error Handling
-
-Failure signaling (no exceptions/RTTI, return values, `expected`-like types, compile-time validation) is defined under **C++ style guide**, **Code Quality**, and **C++23 Best Practices** above; the rules below cover assertion messages.
-
-### Assertions
-
-* Prefer `assert_message` over plain `assert` when asserting invariants.
-* Always use the two-argument form with a human-readable message so that failure output is understandable without reading the code.
-* For `assert_message(condition, "message")`: the string literal must describe what was expected or why the condition must hold.
-* For `static_assert(condition, "message")`: use the same format; the string literal must explain the invariant in human terms (e.g. `static_assert(length == expected, "length must match the literal's UTF-8 byte count")`).
 
 ---
 
@@ -621,7 +614,7 @@ These rules define how unit tests must be written or generated by AI tools in th
 
 **When writing or reviewing unit tests**, ensure all of the following are applied (details in the sections below):
 
-* **Assertions**: Every `static_assert` has a human-readable message — see **Assertions** (under Error Handling).
+* **Assertions**: Every `static_assert` has a human-readable message — see **Assertions** under **Code Quality**.
 * **Naming**: A human-readable comment immediately before each `TEST_CASE` and each `SUBCASE` — see **Naming Tests**.
 * **Order**: When both `REQUIRE` and `static_assert` are used for the same behavior, write `REQUIRE` first, then `static_assert` — see **Constexpr + Runtime Parity**.
 * **Compile-time preference**: Use `static_assert` wherever the behavior can be verified at compile time — see **Compile-Time vs Runtime Testing**.
@@ -635,7 +628,7 @@ The goal is tests that stay short, deterministic, non-redundant, and buildable o
 ### Compile-Time (`constexpr`) Tests
 
 * Prefer compile-time verification whenever possible.
-* Use `static_assert` — **always with the two-argument form** and a human-readable message (see **Assertions** under Error Handling).
+* Use `static_assert` — **always with the two-argument form** and a human-readable message (see **Assertions** under **Code Quality**).
 * Test:
   * Type traits
   * `constexpr` constructors
