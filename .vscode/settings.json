@@ -10,6 +10,7 @@
         "devkitARM",
         "devkitPPC",
         "devkitPro",
+        "doctest",
         "gamecube",
         "libctru",
         "libgba",
