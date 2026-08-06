@@ -59,7 +59,5 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
 
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-  if (CTEST_SUPPORT)
-    doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
-  endif ()
+  doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 endif ()
