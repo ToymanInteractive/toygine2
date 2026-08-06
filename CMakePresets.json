@@ -815,5 +815,67 @@
             "configurePreset": "wii-shipping",
             "inherits": "default-shipping"
         }
+    ],
+    "testPresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "output": {
+                "shortProgress": true,
+                "verbosity": "default",
+                "outputOnFailure": true
+            },
+            "execution": {
+                "stopOnFailure": true,
+                "jobs": 0
+            }
+        },
+        {
+            "name": "default-debug",
+            "hidden": true,
+            "inherits": "default",
+            "configuration": "Debug"
+        },
+        {
+            "name": "default-release",
+            "hidden": true,
+            "inherits": "default",
+            "configuration": "RelWithDebInfo"
+        },
+        {
+            "name": "windows-msvc",
+            "configurePreset": "windows-msvc",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-x86",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": "default-release"
+        },
+        {
+            "name": "macos-debug",
+            "configurePreset": "macos-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "macos-release",
+            "configurePreset": "macos-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "linux-debug",
+            "configurePreset": "linux-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-release",
+            "inherits": "default-release"
+        }
     ]
 }

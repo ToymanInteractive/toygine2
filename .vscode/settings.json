@@ -4,11 +4,13 @@
     "cSpell.words": [
         "consteval",
         "constexpr",
+        "CTEST",
         "devkit",
         "devkitA64",
         "devkitARM",
         "devkitPPC",
         "devkitPro",
+        "doctest",
         "gamecube",
         "libctru",
         "libgba",

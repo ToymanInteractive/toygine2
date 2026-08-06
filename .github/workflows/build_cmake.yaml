@@ -207,3 +207,9 @@ jobs:
           fi
           cmake $BENCHMARKS_ARG --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
+
+      - name: Unit testing
+        run: |
+          if [ "${{ matrix.run_test }}" = "true" ]; then
+            ctest --preset ${{ matrix.cmake_preset }}
+          fi

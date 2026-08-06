@@ -118,3 +118,12 @@ target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 if (TOYGINE_BUILD_DOCS)
   add_subdirectory(docs)
 endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Unit tests
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif ()

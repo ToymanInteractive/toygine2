@@ -146,7 +146,7 @@ The engine is consumed as a library — by gameplay code, samples, the editor, a
 * **Cheap to include:** Every consumer pays a public header's build cost — minimal includes and forward declarations. A `.inl` arrives through the barrel too — moving weight there organizes it, not removes it.
 * **Self-contained headers:** A public header compiles on its own, independent of include order; internal headers include each other freely.
 * **Bodies in `.inl`:** Template, `constexpr`, and inline definitions live in a `.inl`, never as a non-trivial body in the public header. A `.inl` is module interface, not public API: it adds no symbol the header lacks, exactly one header includes it, and consumers never do (see Barrel include policy under **Cross-References**).
-* **Documented and demonstrated:** A Doxygen block per **Comments and Documentation** on every public symbol, plus a compilable example under `samples/` — the sample is the API's ergonomics test.
+* **Documented and demonstrated:** A Doxygen block per **Documentation** on every public symbol, plus a compilable example under `samples/` — the sample is the API's ergonomics test.
 
 ## Engine Architecture
 
@@ -218,7 +218,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 
 ## Documentation
 
-Doxygen is the only documentation system here: this section covers what a block must say, where it goes, and how it is worded; **Comments and Documentation** fixes its syntax and tone, **Documentation Style Rules** its tags, **Class Documentation Templates** its ready-made blocks.
+Doxygen is the only documentation system here: this section covers what a block says, where it goes, and how it's written; **Documentation Style Rules** fixes its tags, **Class Documentation Templates** its ready-made blocks.
 
 ### Documentation Philosophy
 
@@ -246,6 +246,23 @@ Doxygen is the only documentation system here: this section covers what a block 
 * **Enumerators and aggregate members** take a trailing `///<`, which documents what precedes it on the line and never opens one; the enum or struct still carries a block above it.
 * **Macros:** a block directly above the `#define`; `\def` only where it cannot sit there (a macro is never a `\ref` target — see **Cross-References**).
 * **One block per namespace:** the `\namespace` description lives in the module barrel (`core.hpp` carries `\namespace toy`); Doxygen merges duplicates silently, so a second one elsewhere is invisible until it wins.
+
+### Doxygen Block Style
+
+* Use `/*! ... */` for multi-line documentation blocks. Start `/*!` on its own line; align `*/` with `/*!`.
+* Use `///` for single-line documentation — for symbols whose whole contract fits one sentence (see Match the block to the symbol's weight under **Documentation Philosophy**).
+* Use 2 spaces for indentation inside documentation blocks.
+* Never use `//!` or `/**`; a bare `//` comment is an implementation note, invisible to Doxygen, and never a substitute for a block.
+* Placement of every form follows **Comment Placement**.
+
+### Documentation Tone
+
+All documentation must be:
+
+* **Concise** — no filler words or redundant phrasing.
+* **Neutral** — factual descriptions, no subjective claims.
+* **Technical** — precise, uses correct terminology.
+* **No marketing language** — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.
 
 ### Writing Style
 
@@ -279,29 +296,6 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 * **Compile-time use:** whether the symbol works in a constant expression, and which paths force runtime evaluation — `constexpr` states intent, not reachability (see Compile-time first).
 * **Stability:** what a `[[deprecated]]` symbol is replaced by, and which values are frozen contract — a serialized enumerator or schema version does not read off the declaration (see Stability and deprecation under **API Design Principles**).
 * **Non-obvious cost:** a complexity, a fixed byte footprint, or a low-level trick earns a sentence saying why; a trivial accessor earns none (see Performance under **Code Quality**).
-
----
-
-## Comments and Documentation
-
-What a block must say and how it is worded belongs to **Documentation**; the rules below fix its tone and its syntax.
-
-### Documentation Tone
-
-All documentation must be:
-
-* **Concise** — no filler words or redundant phrasing.
-* **Neutral** — factual descriptions, no subjective claims.
-* **Technical** — precise, uses correct terminology.
-* **No marketing language** — avoid "lightweight", "blazing-fast", "powerful", "cutting-edge", etc.
-
-### Doxygen Block Style
-
-* Use `/*! ... */` for multi-line documentation blocks. Start `/*!` on its own line; align `*/` with `/*!`.
-* Use `///` for single-line documentation — for symbols whose whole contract fits one sentence (see Match the block to the symbol's weight under **Documentation Philosophy**).
-* Use 2 spaces for indentation inside documentation blocks.
-* Never use `//!` or `/**`; a bare `//` comment is an implementation note, invisible to Doxygen, and never a substitute for a block.
-* Placement of every form follows **Comment Placement**.
 
 ---
 
