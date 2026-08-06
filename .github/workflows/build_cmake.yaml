@@ -210,9 +210,6 @@ jobs:
 
       - name: Unit testing
         run: |
-          BENCHMARKS_ARG=""
-          if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
-            BENCHMARKS_ARG="-DBENCHMARKS_OUTPUT_FILE=$GITHUB_WORKSPACE/benchmarks_bmf.json"
+          if [ "${{ matrix.run_test }}" = "true" ]; then
+            ctest --preset ${{ matrix.cmake_preset }}
           fi
-          cmake $BENCHMARKS_ARG --preset ${{ matrix.cmake_preset }}
-          cmake --build --preset ${{ matrix.cmake_preset }}
