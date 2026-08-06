@@ -4,6 +4,7 @@
     "cSpell.words": [
         "consteval",
         "constexpr",
+        "CTEST",
         "devkit",
         "devkitA64",
         "devkitARM",
