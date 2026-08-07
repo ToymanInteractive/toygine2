@@ -70,6 +70,18 @@
             }
         },
         {
+            "name": "platform-windows-arm64",
+            "hidden": true,
+            "generator": "Visual Studio 18 2026",
+            "architecture": {
+                "value": "ARM64",
+                "strategy": "set"
+            },
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Windows Desktop"
+            }
+        },
+        {
             "name": "platform-macos",
             "hidden": true,
             "cacheVariables": {
@@ -183,7 +195,7 @@
             }
         },
         {
-            "name": "windows-msvc",
+            "name": "windows-msvc-x64",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
             "inherits": [
@@ -197,7 +209,7 @@
             ]
         },
         {
-            "name": "windows-msvc-shipping",
+            "name": "windows-msvc-x64-shipping",
             "displayName": "Windows x64 shipping",
             "description": "ToyGine 2 Windows MSVC Shipping Build (Release, no debug info)",
             "inherits": [
@@ -227,6 +239,30 @@
             "inherits": [
                 "type-shipping",
                 "platform-windows-x86",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-arm64",
+            "displayName": "Windows arm64",
+            "description": "ToyGine 2 Windows MSVC arm64 Build",
+            "inherits": [
+                "type-release",
+                "platform-windows-arm64",
+                "with-benchmarks",
+                "with-editor",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-arm64-shipping",
+            "displayName": "Windows arm64 shipping",
+            "description": "ToyGine 2 Windows MSVC arm64 Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-windows-arm64",
                 "base"
             ]
         },
@@ -636,13 +672,13 @@
             "configuration": "Release"
         },
         {
-            "name": "windows-msvc",
-            "configurePreset": "windows-msvc",
+            "name": "windows-msvc-x64",
+            "configurePreset": "windows-msvc-x64",
             "inherits": "default-release"
         },
         {
-            "name": "windows-msvc-shipping",
-            "configurePreset": "windows-msvc-shipping",
+            "name": "windows-msvc-x64-shipping",
+            "configurePreset": "windows-msvc-x64-shipping",
             "inherits": "default-shipping"
         },
         {
@@ -653,6 +689,16 @@
         {
             "name": "windows-msvc-x86-shipping",
             "configurePreset": "windows-msvc-x86-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "windows-msvc-arm64",
+            "configurePreset": "windows-msvc-arm64",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-arm64-shipping",
+            "configurePreset": "windows-msvc-arm64-shipping",
             "inherits": "default-shipping"
         },
         {
@@ -827,7 +873,8 @@
             },
             "execution": {
                 "stopOnFailure": true,
-                "jobs": 0
+                "jobs": 4,
+                "noTestsAction": "error"
             }
         },
         {
@@ -843,13 +890,18 @@
             "configuration": "RelWithDebInfo"
         },
         {
-            "name": "windows-msvc",
-            "configurePreset": "windows-msvc",
+            "name": "windows-msvc-x64",
+            "configurePreset": "windows-msvc-x64",
             "inherits": "default-release"
         },
         {
             "name": "windows-msvc-x86",
             "configurePreset": "windows-msvc-x86",
+            "inherits": "default-release"
+        },
+        {
+            "name": "windows-msvc-arm64",
+            "configurePreset": "windows-msvc-arm64",
             "inherits": "default-release"
         },
         {
