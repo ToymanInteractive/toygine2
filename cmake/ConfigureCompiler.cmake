@@ -42,31 +42,42 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS_DEBUG            "")
     set(CMAKE_CXX_FLAGS_DEBUG          "")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/favor:blend")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/favor:blend")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
 
     set(CMAKE_C_FLAGS_RELEASE          "/favor:blend")
     set(CMAKE_CXX_FLAGS_RELEASE        "/favor:blend")
 
 
-    set(CMAKE_STATIC_LINKER_FLAGS      "")
-    set(CMAKE_EXE_LINKER_FLAGS         "")
+    set(CMAKE_STATIC_LINKER_FLAGS                 "")
+    set(CMAKE_EXE_LINKER_FLAGS                    "")
 
     set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
-    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "/DEBUG:FULL                    /INCREMENTAL")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "/DEBUG:FULL /INCREMENTAL")
 
     set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
     set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "/DEBUG:FULL /INCREMENTAL:NO")
 
     set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/DEBUG:NONE                    /INCREMENTAL:NO")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/DEBUG:NONE /INCREMENTAL:NO")
 
     if (CMAKE_VS_PLATFORM_NAME MATCHES "x64")
 
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO              "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /dynamicdeopt:sync")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO            "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /dynamicdeopt:sync")
+      set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /dynamicdeopt:sync /favor:blend")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /dynamicdeopt:sync /favor:blend")
 
-      set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}    /DYNAMICDEOPT:SYNC")
+      set(CMAKE_C_FLAGS_RELEASE                 "${CMAKE_C_FLAGS_RELEASE}                             /favor:blend")
+      set(CMAKE_CXX_FLAGS_RELEASE               "${CMAKE_CXX_FLAGS_RELEASE}                           /favor:blend")
+
+      set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}    /DYNAMICDEOPT:SYNC")
+
+    elseif (CMAKE_VS_PLATFORM_NAME MATCHES "x86")
+
+      set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${CMAKE_C_FLAGS_RELWITHDEBINFO}    /favor:blend")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}  /favor:blend")
+
+      set(CMAKE_C_FLAGS_RELEASE                 "${CMAKE_C_FLAGS_RELEASE}           /favor:blend")
+      set(CMAKE_CXX_FLAGS_RELEASE               "${CMAKE_CXX_FLAGS_RELEASE}         /favor:blend")
 
     elseif (CMAKE_VS_PLATFORM_NAME MATCHES "ARM64")
 
