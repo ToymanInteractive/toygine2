@@ -38,11 +38,6 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
-/*!
-  \namespace toy
-
-  \brief Root namespace containing all engine modules.
-*/
 namespace toy {
 
 using std::size_t;
