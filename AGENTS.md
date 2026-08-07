@@ -377,6 +377,121 @@ Always follow this order:
 
 What each `\section` contains is **Class Sections Detail**; how its bullets are marked up is **Writing Style**.
 
+### Class Documentation Templates
+
+The class block below is the base form; a template class, a struct, and a concept are stated as deltas from it, not as copies. Tag order is fixed by **Class / Struct Documentation Order**, section content by **Class Sections Detail**.
+
+#### Class
+
+```cpp
+/*!
+  \class ClassName
+  \brief Brief one-line description of the class.
+
+  Detailed description of purpose, scope, and intended usage.
+  2-4 sentences. Do not duplicate \brief.
+
+  \section features Key Features
+
+  * **Feature 1**: Description
+  * **Feature 2**: Description
+  * **Feature 3**: Description
+  * **Feature 4**: Description
+
+  \section usage Usage Example
+
+  \code
+  #include "path/to/class.hpp"
+
+  toy::namespace::ClassName obj(arg1, arg2);
+  auto result = obj.method();
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **Assignment**: O(1) constant time
+  * **Memory usage**: X bytes
+
+  \section safety Safety Guarantees
+
+  * **Contracts**: Description of debug-mode checks
+  * **Bounds safety**: Description
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \note Additional note, if necessary.
+
+  \sa \ref toy::namespace::RelatedClass
+*/
+class ClassName {
+  // ...
+};
+```
+
+Add `\section compatibility` only where the type has a special requirement (see **`\section compatibility Compatibility`**). For value types — math, handles, fixed-capacity containers — the features usually read **Constexpr support**, **Type safety**, **Exception safety**, and one naming what the type is optimized for.
+
+#### Template Class
+
+The class block, with these deltas:
+
+* `\tparam` per template parameter, between the detailed description and `\section features`, naming the concept a constrained parameter satisfies (see **Template Parameters**).
+* `\section usage` instantiates explicitly and shows the constant-expression form:
+
+  ```cpp
+  toy::ClassName<Type, Size> obj(arg1);
+  constexpr auto obj2 = toy::ClassName<Type, 32>("data");
+  ```
+
+* `\section performance` states the type's actual memory model — fixed at compile time and heap-free only where that is the contract; `\section safety` carries **Type safety**: uses C++23 concepts.
+* `\section compatibility` where the parameters constrain use — C++ standard, cross-platform support, embedded suitability where the type allocates nothing dynamically.
+* `\warning` after `\note` where a parameter choice can be got wrong (see **Notes and Warnings**).
+
+#### Struct
+
+The class block, with these deltas:
+
+* `\struct` instead of `\class`; the detailed description covers purpose and data format.
+* `\section usage` constructs by aggregate initialization, at runtime and in a constant expression:
+
+  ```cpp
+  toy::namespace::StructName obj{value1, value2};
+  constexpr auto obj2 = toy::namespace::StructName{1, 2};
+  ```
+
+* `\section performance` states **Access** alongside **Construction**; `\section safety` reads **Type safety**, **Exception safety**, and a **Memory safety** entry stating the type's actual allocation model (see Allocation under **What to Document**).
+
+#### Concept
+
+```cpp
+/*!
+  \concept ConceptName
+  \brief Concept satisfied when [condition on template argument(s)].
+
+  [Optional paragraph: purpose and typical use, e.g. constraining templates or analogy to std concept.]
+
+  \section requirements Requirements
+
+  [Type/expression] satisfies ConceptName if and only if:
+  * [Condition 1.]
+  * [Condition 2.]
+  * [Condition 3.]
+
+  \sa \ref toy::namespace::RelatedType
+*/
+template <typename T>
+concept ConceptName = /* ... */;
+```
+
+`\section requirements` replaces `\tparam` where it already describes the parameters in full; the rest of the rules are **Concept Documentation**.
+
+#### Class Sections Detail
+
+* **`\section features Key Features`** — 4-8 items, most important first; each names one capability a caller can act on, not a member list restated.
+* **`\section usage Usage Example`** — the `#include` a consumer actually writes (module barrel or root umbrella, never an internal header — see **Project Structure**), then the call sequence end to end: construction, the operation, what the caller does with the result. Provenance and compilability follow Examples compile under **Writing Style**.
+* **`\section performance Performance Characteristics`** — Big-O complexity for key operations, memory usage where it matters.
+* **`\section safety Safety Guarantees`** — contracts, bounds safety, type safety, allocation behavior; which invariants `assert_message` checks in debug and what a violation does in a shipping build. **Exception safety** is a fixed entry: no operation throws, exceptions being off in the build; name an operation `noexcept` only where the declaration carries the specifier (see Failure under **What to Document**, Language subset under **Lint Rules**).
+* **`\section compatibility Compatibility`** (optional) — only where the type has a special requirement: C++ standard, STL integration, cross-platform reach, embedded suitability.
+
 ### Concept Documentation
 
 * Use `\concept ConceptName` so Doxygen treats the block as concept documentation.
@@ -442,123 +557,6 @@ What each `\section` contains is **Class Sections Detail**; how its bullets are 
 * Do not use `\ref` for standard library symbols (`std::string`, `std::vector`, `std::fwrite`) or for external URLs.
 * Do not use `\ref` for macros and preprocessor identifiers (`LOG_MIN_LEVEL`, `ENABLE_BITWISE_OPERATORS`, `assert_message`).
 * **Barrel include policy** (`.inl` and internal `.hpp` `\file` blocks): the line `\note Included by <barrel>.hpp only; do not include this file directly.` must use the real barrel filename as **plain text** (or `\c <barrel>.hpp` if monospace helps). **Do not** write `\ref core.hpp` (or similar) there—the filename is not a documented symbol; `\ref` is reserved for types, enums, namespaces, and concepts as above.
-
----
-
-## Class Documentation Templates
-
-The class block below is the base form; a template class, a struct, and a concept are stated as deltas from it, not as copies. Tag order is fixed by **Class / Struct Documentation Order**, section content by **Class Sections Detail**.
-
-### Class
-
-```cpp
-/*!
-  \class ClassName
-  \brief Brief one-line description of the class.
-
-  Detailed description of purpose, scope, and intended usage.
-  2-4 sentences. Do not duplicate \brief.
-
-  \section features Key Features
-
-  * **Feature 1**: Description
-  * **Feature 2**: Description
-  * **Feature 3**: Description
-  * **Feature 4**: Description
-
-  \section usage Usage Example
-
-  \code
-  #include "path/to/class.hpp"
-
-  toy::namespace::ClassName obj(arg1, arg2);
-  auto result = obj.method();
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(1) constant time
-  * **Assignment**: O(1) constant time
-  * **Memory usage**: X bytes
-
-  \section safety Safety Guarantees
-
-  * **Contracts**: Description of debug-mode checks
-  * **Bounds safety**: Description
-  * **Exception safety**: No operation throws; exceptions are off in the build
-
-  \note Additional note, if necessary.
-
-  \sa \ref toy::namespace::RelatedClass
-*/
-class ClassName {
-  // ...
-};
-```
-
-Add `\section compatibility` only where the type has a special requirement (see **`\section compatibility Compatibility`**). For value types — math, handles, fixed-capacity containers — the features usually read **Constexpr support**, **Type safety**, **Exception safety**, and one naming what the type is optimized for.
-
-### Template Class
-
-The class block, with these deltas:
-
-* `\tparam` per template parameter, between the detailed description and `\section features`, naming the concept a constrained parameter satisfies (see **Template Parameters**).
-* `\section usage` instantiates explicitly and shows the constant-expression form:
-
-  ```cpp
-  toy::ClassName<Type, Size> obj(arg1);
-  constexpr auto obj2 = toy::ClassName<Type, 32>("data");
-  ```
-
-* `\section performance` states the type's actual memory model — fixed at compile time and heap-free only where that is the contract; `\section safety` carries **Type safety**: uses C++23 concepts.
-* `\section compatibility` where the parameters constrain use — C++ standard, cross-platform support, embedded suitability where the type allocates nothing dynamically.
-* `\warning` after `\note` where a parameter choice can be got wrong (see **Notes and Warnings**).
-
-### Struct
-
-The class block, with these deltas:
-
-* `\struct` instead of `\class`; the detailed description covers purpose and data format.
-* `\section usage` constructs by aggregate initialization, at runtime and in a constant expression:
-
-  ```cpp
-  toy::namespace::StructName obj{value1, value2};
-  constexpr auto obj2 = toy::namespace::StructName{1, 2};
-  ```
-
-* `\section performance` states **Access** alongside **Construction**; `\section safety` reads **Type safety**, **Exception safety**, and a **Memory safety** entry stating the type's actual allocation model (see Allocation under **What to Document**).
-
-### Concept
-
-```cpp
-/*!
-  \concept ConceptName
-  \brief Concept satisfied when [condition on template argument(s)].
-
-  [Optional paragraph: purpose and typical use, e.g. constraining templates or analogy to std concept.]
-
-  \section requirements Requirements
-
-  [Type/expression] satisfies ConceptName if and only if:
-  * [Condition 1.]
-  * [Condition 2.]
-  * [Condition 3.]
-
-  \sa \ref toy::namespace::RelatedType
-*/
-template <typename T>
-concept ConceptName = /* ... */;
-```
-
-`\section requirements` replaces `\tparam` where it already describes the parameters in full; the rest of the rules are **Concept Documentation**.
-
-### Class Sections Detail
-
-* **`\section features Key Features`** — 4-8 items, most important first; each names one capability a caller can act on, not a member list restated.
-* **`\section usage Usage Example`** — the `#include` a consumer actually writes (module barrel or root umbrella, never an internal header — see **Project Structure**), then the call sequence end to end: construction, the operation, what the caller does with the result. Provenance and compilability follow Examples compile under **Writing Style**.
-* **`\section performance Performance Characteristics`** — Big-O complexity for key operations, memory usage where it matters.
-* **`\section safety Safety Guarantees`** — contracts, bounds safety, type safety, allocation behavior; which invariants `assert_message` checks in debug and what a violation does in a shipping build. **Exception safety** is a fixed entry: no operation throws, exceptions being off in the build; name an operation `noexcept` only where the declaration carries the specifier (see Failure under **What to Document**, Language subset under **Lint Rules**).
-* **`\section compatibility Compatibility`** (optional) — only where the type has a special requirement: C++ standard, STL integration, cross-platform reach, embedded suitability.
 
 ### Documentation Pre-Commit Checklist
 
