@@ -22,66 +22,62 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-# MSVC Compiler Options
-# https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-# last option is /dynamicdeopt
-
-set(MSVC_C_FLAGS   "")
-set(MSVC_CXX_FLAGS "")
-
-set(MSVC_C_FLAGS_DEBUG            "")
-set(MSVC_CXX_FLAGS_DEBUG          "")
-
-set(MSVC_C_FLAGS_RELWITHDEBINFO   "/dynamicdeopt:sync")
-set(MSVC_CXX_FLAGS_RELWITHDEBINFO "/dynamicdeopt:sync")
-
-set(MSVC_C_FLAGS_RELEASE          "")
-set(MSVC_CXX_FLAGS_RELEASE        "")
-
-# MSVC Linker Options
-# https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
-
-set(MSVC_STATIC_LINKER_FLAGS "")
-set(MSVC_EXE_LINKER_FLAGS    "")
-
-set(MSVC_STATIC_LINKER_FLAGS_DEBUG          "")
-set(MSVC_EXE_LINKER_FLAGS_DEBUG             "/DEBUG:FULL                    /INCREMENTAL")
-
-set(MSVC_STATIC_LINKER_FLAGS_RELWITHDEBINFO "            /DYNAMICDEOPT:SYNC")
-set(MSVC_EXE_LINKER_FLAGS_RELWITHDEBINFO    "/DEBUG:FULL /DYNAMICDEOPT:SYNC /INCREMENTAL:NO")
-
-set(MSVC_STATIC_LINKER_FLAGS_RELEASE        "")
-set(MSVC_EXE_LINKER_FLAGS_RELEASE           "/DEBUG:NONE                    /INCREMENTAL:NO")
-
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
+
+  # MSVC Compiler Options
+  # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
+  # last option is /dynamicdeopt
+
+  # MSVC Linker Options
+  # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
+
+
     message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
 
-    set(CMAKE_C_FLAGS                  "${MSVC_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS                "${MSVC_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS                  "")
+    set(CMAKE_CXX_FLAGS                "")
 
-    set(CMAKE_C_FLAGS_DEBUG            "${MSVC_C_FLAGS_DEBUG}")
-    set(CMAKE_CXX_FLAGS_DEBUG          "${MSVC_CXX_FLAGS_DEBUG}")
+    set(CMAKE_C_FLAGS_DEBUG            "")
+    set(CMAKE_CXX_FLAGS_DEBUG          "")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${MSVC_C_FLAGS_RELWITHDEBINFO}")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${MSVC_CXX_FLAGS_RELWITHDEBINFO}")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
 
-    set(CMAKE_C_FLAGS_RELEASE          "${MSVC_C_FLAGS_RELEASE}")
-    set(CMAKE_CXX_FLAGS_RELEASE        "${MSVC_CXX_FLAGS_RELEASE}")
+    set(CMAKE_C_FLAGS_RELEASE          "")
+    set(CMAKE_CXX_FLAGS_RELEASE        "")
 
 
-    set(CMAKE_STATIC_LINKER_FLAGS      "${MSVC_STATIC_LINKER_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS         "${MSVC_EXE_LINKER_FLAGS}")
+    set(CMAKE_STATIC_LINKER_FLAGS      "")
+    set(CMAKE_EXE_LINKER_FLAGS         "")
 
-    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "${MSVC_STATIC_LINKER_FLAGS_DEBUG}")
-    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "${MSVC_EXE_LINKER_FLAGS_DEBUG}")
+    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "/DEBUG:FULL                    /INCREMENTAL")
 
-    set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "${MSVC_STATIC_LINKER_FLAGS_RELWITHDEBINFO}")
-    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "${MSVC_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
+    set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
+    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "/DEBUG:FULL /INCREMENTAL:NO")
 
-    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         "${MSVC_STATIC_LINKER_FLAGS_RELEASE}")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "${MSVC_EXE_LINKER_FLAGS_RELEASE}")
+    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/DEBUG:NONE                    /INCREMENTAL:NO")
+
+    if (CMAKE_VS_PLATFORM_NAME MATCHES "x64")
+
+      set(CMAKE_C_FLAGS_RELWITHDEBINFO              "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /dynamicdeopt:sync")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO            "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /dynamicdeopt:sync")
+
+      set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "${CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO} /DYNAMICDEOPT:SYNC")
+      set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}    /DYNAMICDEOPT:SYNC")
+
+    elseif (CMAKE_VS_PLATFORM_NAME MATCHES "ARM64")
+
+      set(CMAKE_C_FLAGS_RELWITHDEBINFO   "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /dynamicdeopt:sync")
+      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /dynamicdeopt:sync")
+
+      set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "${CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO} /DYNAMICDEOPT:SYNC")
+      set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}    /DYNAMICDEOPT:SYNC")
+
+    endif ()
 
   endif ()
 
