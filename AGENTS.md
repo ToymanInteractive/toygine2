@@ -401,7 +401,7 @@ The class block below is the base form; a template class and a struct are stated
   \section usage Usage Example
 
   \code
-  #include "path/to/class.hpp"
+  #include "module.hpp"
 
   toy::namespace::ClassName obj(arg1, arg2);
   auto result = obj.method();
