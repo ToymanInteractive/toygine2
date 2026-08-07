@@ -218,7 +218,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 
 ## Documentation
 
-Doxygen is the only documentation system here: this section covers what a block says, where it goes, how it's written, and which tag carries each fact; **Class Documentation Templates** holds its ready-made blocks.
+Doxygen is the only documentation system here: this section covers what a block says, where it goes, how it's written, and which tag carries each fact, down to the ready-made blocks under **Class Documentation Templates** and the closing **Documentation Pre-Commit Checklist**.
 
 ### Documentation Philosophy
 
@@ -379,7 +379,7 @@ What each `\section` contains is **Class Sections Detail**; how its bullets are 
 
 ### Class Documentation Templates
 
-The class block below is the base form; a template class, a struct, and a concept are stated as deltas from it, not as copies. Tag order is fixed by **Class / Struct Documentation Order**, section content by **Class Sections Detail**.
+The class block below is the base form; a template class and a struct are stated as deltas from it, not as copies. A concept carries its own block, where `\section requirements` replaces `\tparam`. Tag order is fixed by **Class / Struct Documentation Order**, section content by **Class Sections Detail**.
 
 #### Class
 

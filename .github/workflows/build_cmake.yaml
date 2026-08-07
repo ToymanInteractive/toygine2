@@ -204,7 +204,7 @@ jobs:
         if: ${{ contains(matrix.cmake_preset, 'msvc') }}
         uses: TheMrMilchmann/setup-msvc-dev@v4.1.0
         with:
-          arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
+          arch: ${{ contains(matrix.cmake_preset, 'arm64') && 'arm64' || contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
       - name: Build
         run: |
