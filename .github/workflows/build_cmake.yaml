@@ -16,19 +16,26 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: Windows MSVC
-            os: windows-2025
+          - name: Windows MSVC x64
+            os: windows-2025-vs2026
             run_benchmarks: "true"
             bencher_testbed: windows-x64
             run_test: "true"
-            cmake_preset: windows-msvc
+            cmake_preset: windows-msvc-x64
 
           - name: Windows MSVC x86
-            os: windows-2025
+            os: windows-2025-vs2026
             run_benchmarks: "true"
             bencher_testbed: windows-x86
             run_test: "true"
             cmake_preset: windows-msvc-x86
+
+          - name: Windows MSVC Arm64
+            os: windows-11-vs2026-arm
+            run_benchmarks: "true"
+            bencher_testbed: windows-arm64
+            run_test: "true"
+            cmake_preset: windows-msvc-arm64
 
           - name: macOS XCode arm64
             os: macos-26
@@ -197,7 +204,7 @@ jobs:
         if: ${{ contains(matrix.cmake_preset, 'msvc') }}
         uses: TheMrMilchmann/setup-msvc-dev@v4.1.0
         with:
-          arch: ${{ contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
+          arch: ${{ contains(matrix.cmake_preset, 'arm64') && 'arm64' || contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
       - name: Build
         run: |
@@ -227,3 +234,6 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+
+      - name: Prepare APT staging dir
+        run: mkdir -p "$RUNNER_TEMP/apt-cache"

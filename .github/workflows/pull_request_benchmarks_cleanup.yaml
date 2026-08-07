@@ -18,10 +18,10 @@ jobs:
 
       - name: Bencher archive PR branch
         env:
-          BENCHER_API_TOKEN: ${{ secrets.BENCHER_API_TOKEN }}
+          BENCHER_API_KEY: ${{ secrets.BENCHER_API_KEY }}
           PR_HEAD_REF: ${{ github.head_ref }}
         run: |
           bencher archive \
           --project toygine2 \
-          --key "$BENCHER_API_TOKEN" \
+          --key "$BENCHER_API_KEY" \
           --branch "$PR_HEAD_REF"
