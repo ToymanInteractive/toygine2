@@ -269,7 +269,7 @@ All documentation must be:
 * **Bullets over paragraphs** for independent facts; concision, neutrality, and terminology follow **Documentation Tone**.
 * **One-sentence `\brief`, then a blank line:** it must read alone in an index. The detailed description never repeats it — 1-2 sentences on a function, 2-4 on a type, none when the `\brief` suffices.
 * **No filler openings:** not "This function …", "A class that …", "Used to …" — start with the verb or the noun.
-* **Doxygen commands over raw markup:** Markdown sparingly, never HTML — the XML output feeds the documentation site. Which command marks what follows **Parameter Documentation** and **Cross-References**.
+* **Doxygen commands over raw markup:** Markdown sparingly, never HTML — the XML output feeds the documentation site. Which command marks what is fixed by **Parameter Documentation** and **Cross-References**.
 * **Mark up by kind, not by emphasis:** `\a` parameters, `\c` literals, `\ref` non-function symbols, plain `toy::function()` for functions (see **Parameter Documentation**, **Cross-References**). **Bold** only for the lead term of a `\section` bullet; section bodies are plain text.
 * **Present tense, active voice:** "Returns the element count", not "Will return" or "The count is returned"; a `\param` is a noun phrase, not a sentence about the caller.
 * **Do not restate the signature:** a block says what the declaration cannot. Never open a `\brief` with the symbol's name — in a `\file` block, with the file name the `\file` tag already carries — nor spell out a visible type.
@@ -565,6 +565,7 @@ concept ConceptName = /* ... */;
 Each line is a pointer to the rule that defines it — check the block against the section, not against this list.
 
 * Type block: `\class` / `\struct`, `\brief`, a detailed description where the `\brief` does not suffice, and the sections in order — **Class / Struct Documentation Order**, **Class Sections Detail**.
+* Concept block: `\concept`, `\brief`, and `\section requirements` where it replaces `\tparam` — **Concept Documentation**.
 * Member blocks: tags present and in order, none omitted — **Method / Function Documentation Order**.
 * Contracts placed correctly: constraints in `\pre`, state changes in `\post` — **Preconditions and Postconditions**.
 * Beyond-signature facts stated where they apply: ownership, allocation, failure, determinism, units, invalidation — **What to Document**.
