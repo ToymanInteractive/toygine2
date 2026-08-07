@@ -237,3 +237,12 @@ jobs:
 
       - name: Prepare APT staging dir
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
+
+      - name: APT cache restore
+        id: unittestaptcache
+        uses: actions/cache/restore@v6.1.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: unit-tests-apt
+          restore-keys: |
+            unit-tests-apt
