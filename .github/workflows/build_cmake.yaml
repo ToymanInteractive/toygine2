@@ -213,3 +213,17 @@ jobs:
           if [ "${{ matrix.run_test }}" = "true" ]; then
             ctest --preset ${{ matrix.cmake_preset }}
           fi
+
+  unit-tests:
+    name: Collect unit tests
+    runs-on: ubuntu-26.04
+    timeout-minutes: 30
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7.0.1
+        with:
+          submodules: recursive
+          persist-credentials: false

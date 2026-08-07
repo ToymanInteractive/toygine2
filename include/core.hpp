@@ -23,8 +23,8 @@
 
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy;
   additional core headers (assertions, chrono, fixed strings and vectors, formatting, hashing, logging, platform, and
-  string utilities) are re-exported here as they are added. It currently re-exports the fixed-width integer aliases
-  (toy::int8_t through toy::uint64_t) from `<cstdint>` and  `std::array`.
+  string utilities) are re-exported here as they are added. It currently re-exports toy::size_t, the fixed-width
+  integer aliases (toy::int8_t through toy::uint64_t) from `<cstdint>`, and `std::array`.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -33,6 +33,7 @@
 #define INCLUDE_CORE_HPP_
 
 #include <array>
+#include <cstddef>
 #include <cstdint>
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -43,6 +44,9 @@
   \brief Root namespace containing all engine modules.
 */
 namespace toy {
+
+/// Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
+using std::size_t;
 
 /// Signed integer type with width of exactly 8 bits and no padding bits
 using std::int8_t;
