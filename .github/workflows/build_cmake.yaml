@@ -16,7 +16,7 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - name: Windows MSVC
+          - name: Windows MSVC x64
             os: windows-2025-vs2026
             run_benchmarks: "true"
             bencher_testbed: windows-x64
