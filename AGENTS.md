@@ -218,7 +218,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 
 ## Documentation
 
-Doxygen is the only documentation system here: this section covers what a block says, where it goes, and how it's written; **Documentation Style Rules** fixes its tags, **Class Documentation Templates** its ready-made blocks.
+Doxygen is the only documentation system here: this section covers what a block says, where it goes, how it's written, and which tag carries each fact; **Class Documentation Templates** holds its ready-made blocks.
 
 ### Documentation Philosophy
 
@@ -269,7 +269,7 @@ All documentation must be:
 * **Bullets over paragraphs** for independent facts; concision, neutrality, and terminology follow **Documentation Tone**.
 * **One-sentence `\brief`, then a blank line:** it must read alone in an index. The detailed description never repeats it — 1-2 sentences on a function, 2-4 on a type, none when the `\brief` suffices.
 * **No filler openings:** not "This function …", "A class that …", "Used to …" — start with the verb or the noun.
-* **Doxygen commands over raw markup:** Markdown sparingly, never HTML — the XML output feeds the documentation site. Which command marks what is **Documentation Style Rules**.
+* **Doxygen commands over raw markup:** Markdown sparingly, never HTML — the XML output feeds the documentation site. Which command marks what follows **Parameter Documentation** and **Cross-References**.
 * **Mark up by kind, not by emphasis:** `\a` parameters, `\c` literals, `\ref` non-function symbols, plain `toy::function()` for functions (see **Parameter Documentation**, **Cross-References**). **Bold** only for the lead term of a `\section` bullet; section bodies are plain text.
 * **Present tense, active voice:** "Returns the element count", not "Will return" or "The count is returned"; a `\param` is a noun phrase, not a sentence about the caller.
 * **Do not restate the signature:** a block says what the declaration cannot. Never open a `\brief` with the symbol's name — in a `\file` block, with the file name the `\file` tag already carries — nor spell out a visible type.
@@ -296,14 +296,6 @@ Every public symbol carries a block (see Documented and demonstrated), every hea
 * **Compile-time use:** whether the symbol works in a constant expression, and which paths force runtime evaluation — `constexpr` states intent, not reachability (see Compile-time first).
 * **Stability:** what a `[[deprecated]]` symbol is replaced by, and which values are frozen contract — a serialized enumerator or schema version does not read off the declaration (see Stability and deprecation under **API Design Principles**).
 * **Non-obvious cost:** a complexity, a fixed byte footprint, or a low-level trick earns a sentence saying why; a trivial accessor earns none (see Performance under **Code Quality**).
-
----
-
-## Documentation Style Rules
-
-Prose-level guidance — what to cover and how to word it — lives under **Documentation**; the rules below govern individual Doxygen tags.
-
-* For every documented function, constructor, or operator: include a `\param` for each parameter and a `\return` for the return value (if any). Do not omit `\param` for functions that take arguments.
 
 ### File documentation (`\file`)
 
@@ -350,6 +342,8 @@ Every header file (`.hpp` and `.inl`) carries a `\file` block; a translation uni
 ```
 
 ### Method / Function Documentation Order
+
+Every function, constructor, and operator block carries a `\param` per parameter and a `\return` where one is returned.
 
 Always follow this order:
 
@@ -448,35 +442,6 @@ What each `\section` contains is **Class Sections Detail**; how its bullets are 
 * Do not use `\ref` for standard library symbols (`std::string`, `std::vector`, `std::fwrite`) or for external URLs.
 * Do not use `\ref` for macros and preprocessor identifiers (`LOG_MIN_LEVEL`, `ENABLE_BITWISE_OPERATORS`, `assert_message`).
 * **Barrel include policy** (`.inl` and internal `.hpp` `\file` blocks): the line `\note Included by <barrel>.hpp only; do not include this file directly.` must use the real barrel filename as **plain text** (or `\c <barrel>.hpp` if monospace helps). **Do not** write `\ref core.hpp` (or similar) there—the filename is not a documented symbol; `\ref` is reserved for types, enums, namespaces, and concepts as above.
-
-### Class Sections Detail
-
-#### `\section features Key Features`
-
-* 4-8 items, most important first.
-* Each item names one capability a caller can act on, not a restatement of a member list.
-
-#### `\section usage Usage Example`
-
-* Opens with the `#include` a consumer actually writes — the module barrel or the root umbrella, never an internal header (see **Project Structure**).
-* Shows the common call sequence end to end, not an isolated line; construction, the operation, and what the caller does with the result.
-* Where the example comes from and that it compiles follow Examples compile under **Writing Style**.
-
-#### `\section performance Performance Characteristics`
-
-* Big-O complexity for key operations.
-* Memory usage if relevant.
-
-#### `\section safety Safety Guarantees`
-
-* Specific guarantees: contracts, bounds safety, type safety, allocation behavior.
-* Which invariants `assert_message` checks in debug, and what a violation does in a shipping build.
-* **Exception safety** is a fixed entry — no operation throws, exceptions being off in the build; name operations as `noexcept` only where the declaration carries the specifier (see Failure under **What to Document**, Language subset under **Lint Rules**).
-
-#### `\section compatibility Compatibility` (optional)
-
-* Only for classes with special requirements.
-* C++ standard, STL integration, cross-platform, embedded suitability.
 
 ---
 
@@ -587,12 +552,20 @@ concept ConceptName = /* ... */;
 
 `\section requirements` replaces `\tparam` where it already describes the parameters in full; the rest of the rules are **Concept Documentation**.
 
+### Class Sections Detail
+
+* **`\section features Key Features`** — 4-8 items, most important first; each names one capability a caller can act on, not a member list restated.
+* **`\section usage Usage Example`** — the `#include` a consumer actually writes (module barrel or root umbrella, never an internal header — see **Project Structure**), then the call sequence end to end: construction, the operation, what the caller does with the result. Provenance and compilability follow Examples compile under **Writing Style**.
+* **`\section performance Performance Characteristics`** — Big-O complexity for key operations, memory usage where it matters.
+* **`\section safety Safety Guarantees`** — contracts, bounds safety, type safety, allocation behavior; which invariants `assert_message` checks in debug and what a violation does in a shipping build. **Exception safety** is a fixed entry: no operation throws, exceptions being off in the build; name an operation `noexcept` only where the declaration carries the specifier (see Failure under **What to Document**, Language subset under **Lint Rules**).
+* **`\section compatibility Compatibility`** (optional) — only where the type has a special requirement: C++ standard, STL integration, cross-platform reach, embedded suitability.
+
 ### Documentation Pre-Commit Checklist
 
 Each line is a pointer to the rule that defines it — check the block against the section, not against this list.
 
 * Type block: `\class` / `\struct`, `\brief`, a detailed description where the `\brief` does not suffice, and the sections in order — **Class / Struct Documentation Order**, **Class Sections Detail**.
-* Member blocks: tags present and in order, none omitted — **Method / Function Documentation Order**, **Documentation Style Rules**.
+* Member blocks: tags present and in order, none omitted — **Method / Function Documentation Order**.
 * Contracts placed correctly: constraints in `\pre`, state changes in `\post` — **Preconditions and Postconditions**.
 * Beyond-signature facts stated where they apply: ownership, allocation, failure, determinism, units, invalidation — **What to Document**.
 * Markup: `\c` for literals, `\a` for parameters, `\ref` only for non-function symbols — Mark up by kind under **Writing Style**, **Parameter Documentation**, **Cross-References**.
