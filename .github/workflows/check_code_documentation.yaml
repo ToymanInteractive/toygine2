@@ -35,7 +35,3 @@ jobs:
         run: |
           cmake -DTOYGINE_BUILD_BENCHMARKS=OFF -DTOYGINE_BUILD_DOCS=ON -DTOYGINE_BUILD_EDITOR=OFF -DTOYGINE_BUILD_SAMPLES=OFF -DTOYGINE_BUILD_TESTS=OFF --preset linux-debug
           cmake --build --preset linux-debug --target docs
-
-      - name: Show Doxygen warnings
-        if: failure()
-        run: cat doxygen.log

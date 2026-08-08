@@ -38,8 +38,14 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
+/*!
+  \namespace toy
+
+  \brief Root namespace containing all engine modules.
+*/
 namespace toy {
 
+/// Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
 using std::size_t;
 
 /// Signed integer type with width of exactly 8 bits and no padding bits
