@@ -38,6 +38,11 @@
 
 //----------------------------------------------------------------------------------------------------------------------
 
+/*!
+  \namespace toy
+
+  \brief Root namespace containing all engine modules.
+*/
 namespace toy {
 
 /// Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
