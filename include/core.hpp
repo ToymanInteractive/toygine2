@@ -85,4 +85,8 @@ using std::array;
 
 } // namespace toy
 
+//--------------------------------------------------------------------------------------------------------------------
+
+#include "core/assertion.hpp"
+
 #endif // INCLUDE_CORE_HPP_
