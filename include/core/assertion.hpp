@@ -49,8 +49,9 @@
 
   namespace {
 
-  bool reportAssertion(const char * assertionString) {
+  bool reportAssertion(const char * assertionString) noexcept {
     std::fputs(assertionString, stderr);
+
     return false; // failure not handled here - let the caller stop
   }
 
