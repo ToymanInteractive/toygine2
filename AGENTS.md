@@ -15,7 +15,7 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 * **Allocation:** Ask before adding heap allocation on a hot path or in a fixed-capacity type; name its pool and capacity — see Allocation policy.
 * **Dependencies:** Justify a new library's cost (build time, size, portability) and prefer CMake `FetchContent` — see **Dependency Management**.
 * **Tooling:** Format, lint, and build warning-free before committing — see **Lint Rules**.
-* **Testing:** Prefer compile-time `static_assert`; use DocTest-style runtime tests only for runtime-dependent behavior — see **Unit Test Style Rules**.
+* **Testing:** Prefer compile-time `static_assert`; use DocTest-style runtime tests only for runtime-dependent behavior — see **Testing**.
 
 ## Project Structure
 
@@ -184,11 +184,11 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Unit Test Style Rules** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
+Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Value-Based Assertions** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
-* **Compile-time tests:** `static_assert` blocks live in the same `.test.cpp` and need no runner — a violation is a build failure. They are the default; runtime tests cover only what they cannot reach (see **Compile-Time vs Runtime Testing**).
+* **Compile-time tests:** `static_assert` blocks live in the same `.test.cpp` and need no runner — a violation is a build failure. They are the default; runtime tests cover only what they cannot reach (see Compile-time coverage under **Testing Best Practices**).
 * **Test seams, not test hooks:** Test through the public API only. Needing `friend`, an `#ifdef TESTING` branch, or a widened access modifier is a design problem — narrow the dependency instead (see Pure functions and narrow seams, Explicit context, no globals).
 * **Headless by construction:** Simulation tests run with renderer, audio, and editor support off (see Optional subsystems). A system that cannot run headless is coupled to presentation and must be split (see Simulation / presentation split).
 * **Determinism fixtures:** Replay a recorded input snapshot against a fixed seed and compare state to a stored golden — both determinism guard and regression test for the systems it drives (see Determinism, Input).
@@ -196,7 +196,7 @@ Building, running, and splitting tests across targets. Test shape follows **Test
 * **Assertions:** DocTest `REQUIRE` when failure makes the rest of the case meaningless, `CHECK` when independent expectations should all report; `static_assert` with a human-readable message for compile-time invariants (see **Assertions**).
 * **Benchmarks:** picobench, at `benchmarks/<module>/<name>.benchmark.cpp`, gated by `TOYGINE_BUILD_BENCHMARKS`. Measures a system against its declared per-frame budget (see Budgets and profiling); not a correctness test, never gates a merge.
 * **Cross-target verification:** Runtime tests execute on desktop, where sanitizers exist (see Sanitizers). Console and embedded targets are verified by compiling the test translation units — compile-time tests fire there, runtime ones do not.
-* **Coverage:** `TOYGINE_TESTS_ENABLE_COVERAGE` instruments a test build; reports go to Codecov per `codecov.yml`. Coverage is a signal, never a target — tests written to raise it are the redundancy the style rules forbid (see **Redundancy and Duplication**).
+* **Coverage:** `TOYGINE_TESTS_ENABLE_COVERAGE` instruments a test build; reports go to Codecov per `codecov.yml`. Coverage is a signal, never a target — tests written to raise it are the redundancy the style rules forbid (see One contract, one case under **Testing Best Practices**).
 
 ### Testing Best Practices
 
@@ -205,7 +205,9 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Arrange-Act-Assert:** Three visible steps, one behavioral aspect per case (Given-When-Then reads the same). Split by aspect, not by method — a case asserting unrelated contracts fails without naming which broke.
 * **Readable without scrolling:** Minimal arrangement, no monolithic cases, no nested `SUBCASE` trees. When setup outgrows the assertions, the API needs a narrower seam or the fixture a helper — never absorb it into the test (see Design from the call site).
 * **Independent by construction:** No case depends on execution order, another case's residue, or global mutable state; each runs alone, the suite in any order (see Explicit context, no globals).
-* **Unit level:** Value types, containers, math, allocators, handles, codecs — everything reachable without a running engine, where `static_assert` does most of the work (see **Compile-Time vs Runtime Testing**).
+* **One contract, one case:** Two cases asserting the same contract collapse into one, a copy-paste variant becomes a parameterized case or a helper, and invariants of one contract share a single case.
+* **Compile-time coverage:** Type traits, `constexpr` constructors and operators, and compile-time invariants go through two-argument `static_assert` (see **Assertions** under **Code Quality**); a runtime case covers only what constant evaluation cannot reach.
+* **Unit level:** Value types, containers, math, allocators, handles, codecs — everything reachable without a running engine, where `static_assert` does most of the work.
 * **System level:** Fabricate component storage, drive one system over an explicit tick count, assert the resulting data — never call sequences; a system's contract is the data it produces (see Component storage, Data flow over control flow).
 * **Integration level:** Composition root, init, load a baked asset, tick, shut down in reverse — asserts wiring, not arithmetic. Keep few: the slowest, and the first to rot (see Composition root).
 * **Fakes over mocks:** Exceptions and RTTI off, no hidden allocation — the mocking frameworks do not fit this build (see Language subset, Allocation policy). Hand-write fakes at the engine's virtual seams (null RHI backend, in-memory asset source, capturing log sink); a static seam takes a stub type argument (see Virtual seams where they earn it).
@@ -213,7 +215,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Allocation accounting:** Where a rule forbids allocation — frame loop, mixer callback, job body — assert it with a counting allocator; a stray `new` then fails a test, not a profiling session (see Frame allocators).
 * **Budget guards stay out:** Wall-clock thresholds belong to benchmarks; a timing assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
 * **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
-* **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic; both are worse bugs than the test (see Determinism).
+* **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic, both worse bugs than the test. Seed anything random explicitly; an unseeded failure is unreproducible (see Determinism).
 * **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](editor/AGENTS.md).
 
 ## Documentation
@@ -571,49 +573,6 @@ Each line is a pointer to the rule that defines it — check the block against t
 * Wording: concise, neutral, technical, no marketing language — **Documentation Tone**, **Writing Style**.
 * `\file` block present in every `.hpp` and `.inl` — **File documentation (`\file`)**.
 * Docs build passes with no warnings — the checklist's only mechanical gate (see Docs build under **Lint Rules**).
-
----
-
-## Unit Test Style Rules
-
-How a test is written: style, naming, and assertions, through **Floating-Point Rules**. What a case may depend on and which seam it drives is **Testing Best Practices**.
-
----
-
-## Compile-Time vs Runtime Testing
-
-### Compile-Time (`constexpr`) Tests
-
-* Prefer compile-time verification whenever possible.
-* Use `static_assert` — **always with the two-argument form** and a human-readable message (see **Assertions** under **Code Quality**).
-* Test:
-  * Type traits
-  * `constexpr` constructors
-  * `constexpr` operators
-  * Compile-time invariants
-* Value types, containers, and math are where compile-time tests do most of the work (see Unit level under **Testing Best Practices**).
-
----
-
-### Runtime Tests
-
-* Use runtime tests only when:
-  * Behavior depends on runtime state
-  * `constexpr` evaluation is not possible
-* Runtime tests must be deterministic — no randomness, no wall-clock or time-based behavior, no platform-dependent assumptions (see Frame-loop independence under **Testing**, A flaky test is a defect under **Testing Best Practices**).
-
----
-
-## Redundancy and Duplication
-
-* Do not write two tests for the same behavior — if two assert the same contract, keep one.
-* Avoid copy-paste test cases with minor variations.
-
-Prefer:
-
-* Parameterized tests
-* Small helper functions
-* Reusing a single test to cover multiple invariants
 
 ---
 
