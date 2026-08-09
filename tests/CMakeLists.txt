@@ -98,7 +98,8 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     # cmake code coverage module target
     # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
-                                   EXECUTABLE_ARGS --output-on-failure --no-tests=error -j 0
+                                   # tests run serially: parallel cases of one binary race over the same .gcda files
+                                   EXECUTABLE_ARGS --output-on-failure --no-tests=error
                                    DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
                                    LCOV_ARGS "--ignore-errors" "inconsistent")
 
