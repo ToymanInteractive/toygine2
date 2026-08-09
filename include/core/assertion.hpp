@@ -37,8 +37,8 @@
   \brief Assertion failure reporting and the handlers that receive it.
 
   The application decides what a failed check does. setCallbacks() registers a handler that receives the failure
-  description and answers whether execution continues, plus a second handler that receives stack frames. Registration
-  is valid between initialize() and deInitialize(). With no handler registered, a failed check reports nothing.
+  description and answers whether execution continues, plus a second handler that receives stack frames. Registration is
+  valid between initialize() and deInitialize(). With no handler registered, a failed check reports nothing.
 
   Typical wiring, from the composition root:
 

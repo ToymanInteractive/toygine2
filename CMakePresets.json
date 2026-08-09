@@ -873,7 +873,8 @@
             },
             "execution": {
                 "stopOnFailure": true,
-                "jobs": 0
+                "jobs": 0,
+                "noTestsAction": "error"
             }
         },
         {

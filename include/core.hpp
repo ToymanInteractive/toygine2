@@ -21,10 +21,9 @@
   \file   core.hpp
   \brief  Umbrella header for the engine core module.
 
-  Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy;
-  additional core headers (assertions, chrono, fixed strings and vectors, formatting, hashing, logging, platform, and
-  string utilities) are re-exported here as they are added. It currently re-exports toy::size_t, the fixed-width
-  integer aliases (toy::int8_t through toy::uint64_t) from `<cstdint>`, and `std::array`.
+  Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy:
+  assertion reporting and the opt-in bitwise operators for flag enumerations. From the standard library it re-exports
+  toy::size_t, the fixed-width integers toy::int8_t through toy::uint64_t, toy::to_underlying, and \ref toy::array.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -35,6 +34,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <utility>
 
 //----------------------------------------------------------------------------------------------------------------------
 
@@ -74,6 +74,17 @@ using std::uint64_t;
 
 //--------------------------------------------------------------------------------------------------------------------
 
+// (lvl 1)               Utility library https://en.cppreference.com/cpp/utility
+
+/*!
+  \brief Value of an enumerator in the underlying type of its enumeration; alias for std::to_underlying.
+
+  \sa https://en.cppreference.com/cpp/utility/to_underlying
+*/
+using std::to_underlying;
+
+//--------------------------------------------------------------------------------------------------------------------
+
 // (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
 
 /*!
@@ -88,5 +99,10 @@ using std::array;
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/assertion.hpp"
+#include "core/bitwise_enum.hpp"
+
+//--------------------------------------------------------------------------------------------------------------------
+
+#include "core/bitwise_enum.inl"
 
 #endif // INCLUDE_CORE_HPP_

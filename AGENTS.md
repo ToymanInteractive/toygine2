@@ -184,7 +184,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Value-Based Assertions** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
+Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **String length assertions** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -214,6 +214,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Golden data:** Compare baked output and replayed state byte-for-byte against a golden stored beside the test. Regenerating one is a reviewed commit with a stated cause, never a side effect of a failing run (see Determinism fixtures, Asset pipeline).
 * **Allocation accounting:** Where a rule forbids allocation — frame loop, mixer callback, job body — assert it with a counting allocator; a stray `new` then fails a test, not a profiling session (see Frame allocators).
 * **Budget guards stay out:** Wall-clock thresholds belong to benchmarks; a timing assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
+* **Assert the observable contract:** Bind a case to what the public API returns, never to internal state or a layout the type may change; a refactor that preserves behavior leaves the test untouched (see Test seams, not test hooks).
 * **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
 * **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic, both worse bugs than the test. Seed anything random explicitly; an unseeded failure is unreproducible (see Determinism).
 * **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](editor/AGENTS.md).
@@ -573,15 +574,6 @@ Each line is a pointer to the rule that defines it — check the block against t
 * Wording: concise, neutral, technical, no marketing language — **Documentation Tone**, **Writing Style**.
 * `\file` block present in every `.hpp` and `.inl` — **File documentation (`\file`)**.
 * Docs build passes with no warnings — the checklist's only mechanical gate (see Docs build under **Lint Rules**).
-
----
-
-## Value-Based Assertions
-
-* Assert observable values, not implementation details, so the failure report prints what was produced (see Diagnose on failure under **Testing Best Practices**).
-* Do not test private or internal state unless explicitly intended — needing it points at a missing seam, not a missing accessor (see Test seams, not test hooks).
-
-Tests must survive refactoring without semantic changes.
 
 ---
 
