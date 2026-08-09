@@ -116,19 +116,11 @@ public:
   out of the overload set, where the template would otherwise beat the built-in operator and quietly change the result
   type.
 
-  \section requirements Requirements
+  \section bitwise_enum_requirements Requirements
 
   A type satisfies BitwiseEnum if and only if:
   * It is a scoped enumeration, as reported by \c std::is_scoped_enum_v.
   * A specialization of \ref toy::EnableBitwiseOperators sets its \c enable to \c true.
-
-  \section usage Usage Example
-
-  \code
-  #include "core.hpp"
-
-  static_assert(toy::BitwiseEnum<toy::MyFlags>, "MyFlags must carry the bitwise operators");
-  \endcode
 
   \sa \ref toy::EnableBitwiseOperators
 */
