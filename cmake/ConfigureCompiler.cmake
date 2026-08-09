@@ -28,7 +28,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /O1
+  # last option is /O2
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -42,11 +42,11 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS_DEBUG            "")
     set(CMAKE_CXX_FLAGS_DEBUG          "")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/O1")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O1")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/O2")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/O2")
 
-    set(CMAKE_C_FLAGS_RELEASE          "/O1")
-    set(CMAKE_CXX_FLAGS_RELEASE        "/O1")
+    set(CMAKE_C_FLAGS_RELEASE          "/O2")
+    set(CMAKE_CXX_FLAGS_RELEASE        "/O2")
 
 
     set(CMAKE_STATIC_LINKER_FLAGS                 "")
