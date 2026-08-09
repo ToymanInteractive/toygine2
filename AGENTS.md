@@ -184,7 +184,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Constexpr + Runtime Parity** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
+Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Naming Tests** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -206,7 +206,8 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Readable without scrolling:** Minimal arrangement, no monolithic cases, no nested `SUBCASE` trees. When setup outgrows the assertions, the API needs a narrower seam or the fixture a helper — never absorb it into the test (see Design from the call site).
 * **Independent by construction:** No case depends on execution order, another case's residue, or global mutable state; each runs alone, the suite in any order (see Explicit context, no globals).
 * **One contract, one case:** Two cases asserting the same contract collapse into one, a copy-paste variant becomes a parameterized case or a helper, and invariants of one contract share a single case.
-* **Compile-time coverage:** Type traits, `constexpr` constructors and operators, and compile-time invariants go through two-argument `static_assert` (see **Assertions** under **Code Quality**); a runtime case covers only what constant evaluation cannot reach.
+* **Compile-time coverage:** Type traits, `constexpr` constructors and operators, and compile-time invariants go through two-argument `static_assert` (see **Assertions** under **Code Quality**); a runtime case adds what constant evaluation cannot reach.
+* **Constexpr / runtime parity:** A behavior reachable both ways is asserted both ways and must produce the identical observable result; the runtime `CHECK` / `REQUIRE` comes first, the `static_assert` after it as the closing verification.
 * **Unit level:** Value types, containers, math, allocators, handles, codecs — everything reachable without a running engine, where `static_assert` does most of the work.
 * **System level:** Fabricate component storage, drive one system over an explicit tick count, assert the resulting data — never call sequences; a system's contract is the data it produces (see Component storage, Data flow over control flow).
 * **Integration level:** Composition root, init, load a baked asset, tick, shut down in reverse — asserts wiring, not arithmetic. Keep few: the slowest, and the first to rot (see Composition root).
@@ -575,14 +576,6 @@ Each line is a pointer to the rule that defines it — check the block against t
 * Wording: concise, neutral, technical, no marketing language — **Documentation Tone**, **Writing Style**.
 * `\file` block present in every `.hpp` and `.inl` — **File documentation (`\file`)**.
 * Docs build passes with no warnings — the checklist's only mechanical gate (see Docs build under **Lint Rules**).
-
----
-
-## Constexpr + Runtime Parity
-
-Where a behavior is reachable both ways, verify it at compile time and at runtime; the observable result must be identical.
-
-When both runtime assertions (`REQUIRE` or similar) and compile-time assertions (`static_assert`) cover the same behavior, **write the runtime assertion first, then the `static_assert`**. The compile-time check is the closing verification.
 
 ---
 

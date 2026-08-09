@@ -287,3 +287,8 @@ jobs:
       - name: Configure
         run: |
           cmake -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-debug
+
+      - name: Collect JUnit
+        run: |
+          cmake --build --preset linux-debug
+          ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/linux-debug.xml" --preset linux-debug
