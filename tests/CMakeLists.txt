@@ -22,8 +22,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
 
-    set(MSVC_C_FLAGS   "${MSVC_C_FLAGS}   /EHsc")
-    set(MSVC_CXX_FLAGS "${MSVC_CXX_FLAGS} /EHsc")
+    set(CMAKE_C_FLAGS   "${CMAKE_C_FLAGS}   /EHsc")
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} /EHsc")
 
   endif ()
 
