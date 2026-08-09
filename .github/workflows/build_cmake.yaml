@@ -283,3 +283,7 @@ jobs:
         with:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.unittestaptcache.outputs.cache-primary-key }}
+
+      - name: Configure
+        run: |
+          cmake -DTOYGINE_TESTS_ENABLE_COVERAGE=ON --preset linux-debug

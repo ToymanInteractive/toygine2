@@ -71,4 +71,37 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
+
+  # CodeCoverage aborts on anything but a gcov-compatible toolchain, so keep the option a no-op elsewhere (MSVC)
+  set(TOYGINE_COMPILER_SUPPORT_COVERAGE OFF)
+  if (CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|(Apple)?[Cc]lang)$")
+    set(TOYGINE_COMPILER_SUPPORT_COVERAGE ON)
+  endif ()
+
+  if (TOYGINE_TESTS_ENABLE_COVERAGE AND NOT TOYGINE_COMPILER_SUPPORT_COVERAGE)
+    message(WARNING "TOYGINE_TESTS_ENABLE_COVERAGE ignored: ${CMAKE_CXX_COMPILER_ID} has no gcov-compatible coverage")
+  endif ()
+
+  if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
+    # include the cmake code coverage module
+    include(CodeCoverage)
+
+    # Update the default compiler flags to enable coverage
+    # The directory-scope flags also reach the link line, which is what pulls in the gcov runtime under Clang
+    append_coverage_compiler_flags()
+    append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
+    append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
+
+    # exclude /test and /external directories from coverage analysis
+    set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_SOURCE_DIR}/external/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
+
+    # cmake code coverage module target
+    # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
+    setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
+                                   # tests run serially: parallel cases of one binary race over the same .gcda files
+                                   EXECUTABLE_ARGS --output-on-failure --no-tests=error
+                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
+                                   LCOV_ARGS "--ignore-errors" "inconsistent")
+
+  endif ()
 endif ()
