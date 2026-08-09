@@ -72,3 +72,29 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 endif ()
+
+if (TOYGINE_TESTS_ENABLE_COVERAGE)
+  # include the cmake code coverage module
+  include(CodeCoverage)
+
+  # Update the default compiler flags to enable coverage
+  append_coverage_compiler_flags()
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
+  append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
+
+  # exclude /test and /ext directories from coverage analysis
+  set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
+
+  set(COVERAGE_EXECUTABLE_ARGS "")
+
+  # Determine which preset to use for testing
+  if (DEFINED CMAKE_TEST_PRESET_NAME)
+    set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_TEST_PRESET_NAME}")
+  elseif (DEFINED CMAKE_BUILD_PRESET)
+    set(COVERAGE_EXECUTABLE_ARGS "${COVERAGE_EXECUTABLE_ARGS} --preset ${CMAKE_BUILD_PRESET}")
+  endif ()
+
+  # cmake code coverage module target
+  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest EXECUTABLE_ARGS ${COVERAGE_EXECUTABLE_ARGS} LCOV_ARGS "--ignore-errors" "inconsistent")
+
+endif ()

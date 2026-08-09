@@ -184,7 +184,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **String length assertions** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
+Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Constexpr + Runtime Parity** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -216,6 +216,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Budget guards stay out:** Wall-clock thresholds belong to benchmarks; a timing assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
 * **Assert the observable contract:** Bind a case to what the public API returns, never to internal state or a layout the type may change; a refactor that preserves behavior leaves the test untouched (see Test seams, not test hooks).
 * **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
+* **Expected values derive from the source:** Check a `size()` against `std::char_traits<char>::length("...")` on the same literal (needs `<string>`), never a hand-counted constant — the literal stays the single source of truth, multi-byte UTF-8 included.
 * **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic, both worse bugs than the test. Seed anything random explicitly; an unseeded failure is unreproducible (see Determinism).
 * **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](editor/AGENTS.md).
 
@@ -574,17 +575,6 @@ Each line is a pointer to the rule that defines it — check the block against t
 * Wording: concise, neutral, technical, no marketing language — **Documentation Tone**, **Writing Style**.
 * `\file` block present in every `.hpp` and `.inl` — **File documentation (`\file`)**.
 * Docs build passes with no warnings — the checklist's only mechanical gate (see Docs build under **Lint Rules**).
-
----
-
-## String length assertions (including UTF-8)
-
-When asserting that a string’s `size()` or `length()` equals the byte length of a string literal (especially UTF-8 or other multi-byte encodings), do not use hardcoded numeric constants.
-
-* Use a compile-time length from the same literal: `std::char_traits<char>::length("...")`.
-* Example: `REQUIRE(str.size() == std::char_traits<char>::length("Привет мир"))` instead of `REQUIRE(str.size() == 19)`.
-* This keeps tests robust (no manual byte counting, source encoding is the single source of truth) and readable (the literal shows the expected content).
-* Include `<string>` when using `std::char_traits`.
 
 ---
 
