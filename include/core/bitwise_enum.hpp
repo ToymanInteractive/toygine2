@@ -254,20 +254,22 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
 /*!
   \def ENABLE_BITWISE_OPERATORS
-  \brief Opts the scoped enumeration \a T into the bitwise operators of this header.
+  \brief Opts a scoped enumeration into the bitwise operators of this header.
 
   Expands to a \c static_assert rejecting anything but a scoped enumeration, followed by a full specialization of
   \ref toy::EnableBitwiseOperators, qualified with namespace \ref toy, whose \c enable is \c true. The expansion carries
   its own semicolons, so the invocation needs no terminator.
 
-  \param T Scoped enumeration to opt in, spelled with its namespace qualification.
+  \param ... Scoped enumeration to opt in, spelled with its namespace qualification. Taken variadically so a nested
+             template argument list keeps the commas the preprocessor would otherwise read as argument separators, as in
+             \c ENABLE_BITWISE_OPERATORS(toy::Flags<int, long>::Type).
 
-  \pre \a T names a complete \c enum class. An unscoped enumeration or a non-enumeration type fails the \c static_assert
-       at the invocation, before any operator is instantiated.
-  \pre The invocation stands at global namespace scope, outside \ref toy, after the definition of \a T.
-  \pre No other specialization of \ref toy::EnableBitwiseOperators for \a T precedes it.
+  \pre The argument names one complete \c enum class. An unscoped enumeration or a non-enumeration type fails the
+       \c static_assert at the invocation, before any operator is instantiated.
+  \pre The invocation stands at global namespace scope, outside \ref toy, after the definition of the enumeration.
+  \pre No other specialization of \ref toy::EnableBitwiseOperators for that enumeration precedes it.
 
-  \note Put the invocation in the header that defines \a T, right below it. Combining flags of \a T where the
+  \note Put the invocation in the header that defines the enumeration, right below it. Combining its flags where the
         specialization is not visible either fails to compile or, across translation units that disagree, is ill-formed
         with no diagnostic required.
 
@@ -276,10 +278,11 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
   \sa \ref toy::EnableBitwiseOperators, \ref toy::BitwiseEnum
 */
-#define ENABLE_BITWISE_OPERATORS(T)                                                                                    \
-  static_assert(std::is_scoped_enum_v<T>, "ENABLE_BITWISE_OPERATORS requires a scoped enumeration (enum class)");      \
+#define ENABLE_BITWISE_OPERATORS(...)                                                                                  \
+  static_assert(std::is_scoped_enum_v<__VA_ARGS__>,                                                                    \
+                "ENABLE_BITWISE_OPERATORS requires a scoped enumeration (enum class)");                                \
   template <>                                                                                                          \
-  struct toy::EnableBitwiseOperators<T> {                                                                              \
+  struct toy::EnableBitwiseOperators<__VA_ARGS__> {                                                                    \
     static constexpr bool enable = true;                                                                               \
   };
 

@@ -41,9 +41,20 @@ enum class UnregisteredFlags : uint8_t {
   A    = 1,
 };
 
+// Nested enum reached through a template argument list, so its spelling carries a comma into the macro.
+template <typename First, typename Second>
+struct TemplatedHolder {
+  enum class Flags : uint8_t {
+    None = 0,
+    A    = 1,
+    B    = 2,
+  };
+};
+
 } // namespace toy
 
 ENABLE_BITWISE_OPERATORS(toy::TestFlags)
+ENABLE_BITWISE_OPERATORS(toy::TemplatedHolder<int, long>::Flags)
 
 namespace toy {
 
@@ -86,6 +97,18 @@ TEST_CASE("enable_bitwise_operators/trait") {
     static_assert(!BitwiseEnum<UnregisteredFlags>, "an enum without the opt-in must not satisfy BitwiseEnum");
     static_assert(!HasBitwiseOperators<UnregisteredFlags>, "operator| must be unavailable without the opt-in");
   }
+}
+
+// ENABLE_BITWISE_OPERATORS takes its argument variadically, so a template argument list survives the preprocessor.
+TEST_CASE("enable_bitwise_operators/opt_in_through_template_argument_list") {
+  using flags_type = TemplatedHolder<int, long>::Flags;
+
+  REQUIRE(EnableBitwiseOperators<flags_type>::enable == true);
+  REQUIRE(toy::to_underlying(flags_type::A | flags_type::B) == 3);
+
+  static_assert(BitwiseEnum<flags_type>, "an enum spelled with a template argument list must satisfy BitwiseEnum");
+  static_assert(toy::to_underlying(flags_type::A | flags_type::B) == 3,
+                "flags_type::A | flags_type::B must equal 3 through the macro-generated specialization");
 }
 
 // Bitwise OR.
