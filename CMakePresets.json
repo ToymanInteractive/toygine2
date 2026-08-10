@@ -387,7 +387,6 @@
                 "type-release",
                 "platform-md",
                 "with-benchmarks",
-                "with-samples",
                 "with-tests",
                 "base"
             ]
