@@ -293,10 +293,9 @@ jobs:
           cmake --build --preset linux-debug
           ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/linux-debug.xml" --preset linux-debug
 
-      - name: Upload JUnit report
-        if: always()
-        uses: actions/upload-artifact@v7.0.1
+      - name: Upload JUnit report to Codecov
+        uses: codecov/test-results-action@v1.2.1
         with:
-          name: junit-linux-debug
-          path: ${{ github.workspace }}/out/junit/linux-debug.xml
-          if-no-files-found: ignore
+          files: "$GITHUB_WORKSPACE/out/junit/linux-debug.xml"
+          flags: units
+          token: ${{ secrets.CODECOV_TOKEN }}

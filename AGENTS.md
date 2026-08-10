@@ -184,7 +184,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below; style, naming, and assertion rules follow **Naming Tests** through **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
+Building, running, and splitting tests across targets. Test shape follows **Testing Best Practices** below, case names **Naming Tests**, and float comparisons **Floating-Point Rules** — tests that stay short, deterministic, non-redundant, and buildable on constrained and embedded targets.
 
 * **Running tests:** Configure with a preset enabling `TOYGINE_BUILD_TESTS` (feature preset `with-tests`, folded into the named `<platform>-<type>` presets), build, then run CTest with `--output-on-failure`. CI never invokes a test binary directly — CTest owns discovery, timeouts, and reporting.
 * **Unit tests:** DocTest, one file per public type at `tests/<module>/<name>.test.cpp`, linked against the module under test and nothing else (see **Project Structure**). `TOYGINE_BUILD_TESTS` gates the dependency so consumers never pull it in (see Build-only dependencies).
@@ -203,7 +203,7 @@ Building, running, and splitting tests across targets. Test shape follows **Test
 What a case may depend on and which seam it drives; placement, gating, and CI mechanics are the bullets above.
 
 * **Arrange-Act-Assert:** Three visible steps, one behavioral aspect per case (Given-When-Then reads the same). Split by aspect, not by method — a case asserting unrelated contracts fails without naming which broke.
-* **Readable without scrolling:** Minimal arrangement, no monolithic cases, no nested `SUBCASE` trees. When setup outgrows the assertions, the API needs a narrower seam or the fixture a helper — never absorb it into the test (see Design from the call site).
+* **Readable without scrolling:** Minimal arrangement, no monolithic cases, no nested `SUBCASE` trees, no lone `SUBCASE` in a `TEST_CASE`. When setup outgrows the assertions, the API needs a narrower seam or the fixture a helper — never absorb it into the test (see Design from the call site).
 * **Independent by construction:** No case depends on execution order, another case's residue, or global mutable state; each runs alone, the suite in any order (see Explicit context, no globals).
 * **One contract, one case:** Two cases asserting the same contract collapse into one, a copy-paste variant becomes a parameterized case or a helper, and invariants of one contract share a single case.
 * **Compile-time coverage:** Type traits, `constexpr` constructors and operators, and compile-time invariants go through two-argument `static_assert` (see **Assertions** under **Code Quality**); a runtime case adds what constant evaluation cannot reach.
@@ -220,6 +220,22 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Expected values derive from the source:** Check a `size()` against `std::char_traits<char>::length("...")` on the same literal (needs `<string>`), never a hand-counted constant — the literal stays the single source of truth, multi-byte UTF-8 included.
 * **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic, both worse bugs than the test. Seed anything random explicitly; an unseeded failure is unreproducible (see Determinism).
 * **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](editor/AGENTS.md).
+
+### Naming Tests
+
+* Test names must describe behavior, not implementation.
+* Avoid redundant prefixes.
+* Avoid repeating the tested type name unless necessary.
+* `TEST_CASE` names must follow `<namespace>/<class>/<case>[_<variant>]`, where `<namespace>` is the class namespace stripped of the leading `toy::` prefix (e.g. `toy::log` → `log`, `toy::game::strategy` → `game::strategy`). If the class lives directly in `toy::`, the namespace segment is omitted entirely (e.g. `toy::Engine` → `engine/...`). Nested namespaces retain their structure after stripping `toy::` (e.g. `toy::chrono::Stopwatch` → `chrono/stop_watch/...`).
+* `TEST_CASE` names use `lowercase_snake_case`.
+* Human-readable descriptions go in a comment immediately before `TEST_CASE` or `SUBCASE`.
+
+### Floating-Point Rules
+
+* Avoid floating-point tests unless explicitly required.
+* If unavoidable:
+  * Account for platform limitations
+  * Avoid fragile equality checks
 
 ## Documentation
 
@@ -576,24 +592,3 @@ Each line is a pointer to the rule that defines it — check the block against t
 * Wording: concise, neutral, technical, no marketing language — **Documentation Tone**, **Writing Style**.
 * `\file` block present in every `.hpp` and `.inl` — **File documentation (`\file`)**.
 * Docs build passes with no warnings — the checklist's only mechanical gate (see Docs build under **Lint Rules**).
-
----
-
-## Naming Tests
-
-* Test names must describe behavior, not implementation.
-* Avoid redundant prefixes.
-* Avoid repeating the tested type name unless necessary.
-* `TEST_CASE` names must follow `<namespace>/<class>/<case>[_<variant>]`, where `<namespace>` is the class namespace stripped of the leading `toy::` prefix (e.g. `toy::log` → `log`, `toy::game::strategy` → `game::strategy`). If the class lives directly in `toy::`, the namespace segment is omitted entirely (e.g. `toy::Engine` → `engine/...`). Nested namespaces retain their structure after stripping `toy::` (e.g. `toy::chrono::Stopwatch` → `chrono/stop_watch/...`).
-* `TEST_CASE` names use `lowercase_snake_case`.
-* Human-readable descriptions go in a comment immediately before `TEST_CASE` or `SUBCASE`.
-* Avoid a single `SUBCASE` inside a `TEST_CASE`.
-
----
-
-## Floating-Point Rules
-
-* Avoid floating-point tests unless explicitly required.
-* If unavoidable:
-  * Account for platform limitations
-  * Avoid fragile equality checks
