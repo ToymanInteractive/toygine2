@@ -22,8 +22,6 @@
   \brief
 */
 
-#include <iostream>
-
 #include "toygine.hpp"
 
 int main(int argc, char * argv[]) noexcept {
