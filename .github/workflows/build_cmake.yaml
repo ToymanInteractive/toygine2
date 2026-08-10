@@ -291,11 +291,11 @@ jobs:
       - name: Collect JUnit
         run: |
           cmake --build --preset linux-debug
-          ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/linux-debug.xml" --preset linux-debug
+          ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/junit.xml" --preset linux-debug
 
       - name: Upload JUnit report to Codecov
         uses: codecov/test-results-action@v1.2.1
         with:
-          files: "$GITHUB_WORKSPACE/out/junit/linux-debug.xml"
+          files: "$GITHUB_WORKSPACE/out/junit/junit.xml"
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}

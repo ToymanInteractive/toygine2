@@ -14,7 +14,19 @@ permissions:
   packages: read
 
 jobs:
+  quality:
+    name: Check code quality
+    permissions:
+      contents: read
+      pull-requests: read
+      security-events: write
+    uses: ./.github/workflows/check_code_quality.yaml
+
   build:
     name: Build using CMake
+    permissions:
+      contents: read
+      packages: read
+      checks: write
     uses: ./.github/workflows/build_cmake.yaml
     secrets: inherit
