@@ -185,8 +185,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Tests and benchmarks have their own rules — read [`tests/AGENTS.md`](tests/AGENTS.md) first. It covers running and gating
-tests, test shape, `TEST_CASE` naming, and floating-point comparisons.
+Tests and benchmarks have their own rules — read [`tests/AGENTS.md`](tests/AGENTS.md) first. It covers running and gating tests, test shape, `TEST_CASE` naming, and floating-point comparisons.
 
 ## Documentation
 
