@@ -15,7 +15,7 @@ You are an expert in GameDev and C++ development. Your goal is to build performa
 * **Allocation:** Ask before adding heap allocation on a hot path or in a fixed-capacity type; name its pool and capacity — see Allocation policy.
 * **Dependencies:** Justify a new library's cost (build time, size, portability) and prefer CMake `FetchContent` — see **Dependency Management**.
 * **Tooling:** Format, lint, and build warning-free before committing — see **Lint Rules**.
-* **Testing:** Prefer compile-time `static_assert`; use DocTest-style runtime tests only for runtime-dependent behavior — see [`tests/AGENTS.md`](tests/AGENTS.md).
+* **Testing:** Prefer compile-time `static_assert`; add a DocTest runtime case for what constant evaluation cannot reach, and for the runtime half of a constexpr / runtime parity check — see [`tests/AGENTS.md`](tests/AGENTS.md).
 
 ## Project Structure
 
