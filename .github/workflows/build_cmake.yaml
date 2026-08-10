@@ -305,4 +305,4 @@ jobs:
 
       - name: Collect coverage
         run: |
-          cmake --build --preset linux-tests-coverage --target unit_tests_coverage
+          cmake --build --preset linux-debug --target unit_tests_coverage
