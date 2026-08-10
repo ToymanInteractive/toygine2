@@ -39,14 +39,14 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS                  "")
     set(CMAKE_CXX_FLAGS                "")
 
-    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-")
-    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-")
+    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy-")
+    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy-")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy-")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy-")
 
-    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot")
-    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot")
+    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy")
+    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy")
 
 
     set(CMAKE_STATIC_LINKER_FLAGS                 "")
