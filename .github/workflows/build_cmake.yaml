@@ -302,3 +302,7 @@ jobs:
           disable_search: true
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
+
+      - name: Collect coverage
+        run: |
+          cmake --build --preset linux-tests-coverage --target unit_tests_coverage
