@@ -225,9 +225,9 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 
 * Test names must describe behavior, not implementation.
 * Avoid redundant prefixes.
-* Avoid repeating the tested type name unless necessary.
+* Avoid repeating the tested type name in the `<case>` segment — the `<class>` segment already carries it.
 * `TEST_CASE` names must follow `<namespace>/<class>/<case>[_<variant>]`, where `<namespace>` is the class namespace stripped of the leading `toy::` prefix (e.g. `toy::log` → `log`, `toy::game::strategy` → `game::strategy`). If the class lives directly in `toy::`, the namespace segment is omitted entirely (e.g. `toy::Engine` → `engine/...`). Nested namespaces retain their structure after stripping `toy::` (e.g. `toy::chrono::Stopwatch` → `chrono/stop_watch/...`).
-* `TEST_CASE` names use `lowercase_snake_case`.
+* Every slash-separated segment of a `TEST_CASE` name uses `lowercase_snake_case`.
 * Human-readable descriptions go in a comment immediately before `TEST_CASE` or `SUBCASE`.
 
 ### Floating-Point Rules

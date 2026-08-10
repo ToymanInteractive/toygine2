@@ -294,8 +294,11 @@ jobs:
           ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/junit.xml" --preset linux-debug
 
       - name: Upload JUnit report to Codecov
-        uses: codecov/test-results-action@v1.2.1
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7.0.0
         with:
-          files: "$GITHUB_WORKSPACE/out/junit/junit.xml"
+          report_type: test_results
+          files: ${{ github.workspace }}/out/junit/junit.xml
+          disable_search: true
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
