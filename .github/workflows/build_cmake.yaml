@@ -306,3 +306,11 @@ jobs:
       - name: Collect coverage
         run: |
           cmake --build --preset linux-debug --target unit_tests_coverage
+
+      - name: Upload coverage report to Codecov
+        uses: codecov/codecov-action@v7.0.0
+        with:
+          disable_search: true
+          files: out/build/linux-tests-coverage/unit_tests_coverage.info
+          flags: units
+          token: ${{ secrets.CODECOV_TOKEN }}
