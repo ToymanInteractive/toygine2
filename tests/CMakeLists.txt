@@ -92,8 +92,9 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
     append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
 
-    # exclude /test and /external directories from coverage analysis
-    set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_SOURCE_DIR}/external/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
+    # exclude tests, the build tree (fetched dependencies live there) and system headers from coverage analysis
+    # lcov 2.x fails on a pattern that matches nothing, so every entry here must name a directory that exists
+    set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
 
     # cmake code coverage module target
     # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
