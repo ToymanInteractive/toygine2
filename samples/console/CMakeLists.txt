@@ -18,6 +18,6 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-add_executable(console console_sample_app.cpp)
+add_executable(console_sample_app console_sample_app.cpp)
 
-target_link_libraries(console PRIVATE toygine)
+target_link_libraries(console_sample_app PRIVATE toygine)

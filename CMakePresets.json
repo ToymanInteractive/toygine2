@@ -929,5 +929,17 @@
             "configurePreset": "linux-release",
             "inherits": "default-release"
         }
+    ],
+    "packagePresets": [
+        {
+            "name": "default",
+            "generators": [
+                "ZIP"
+            ],
+            "packageDirectory": "${sourceDir}/out/package/${presetName}",
+            "output": {
+                "verbose": false
+            }
+        }
     ]
 }
