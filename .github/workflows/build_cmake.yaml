@@ -291,12 +291,14 @@ jobs:
       - name: Collect JUnit
         run: |
           cmake --build --preset linux-debug
-          ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/linux-debug.xml" --preset linux-debug
+          ctest --progress --verbose --output-on-failure --output-junit "$GITHUB_WORKSPACE/out/junit/junit.xml" --preset linux-debug
 
-      - name: Upload JUnit report
-        if: always()
-        uses: actions/upload-artifact@v7.0.1
+      - name: Upload JUnit report to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/codecov-action@v7.0.0
         with:
-          name: junit-linux-debug
-          path: ${{ github.workspace }}/out/junit/linux-debug.xml
-          if-no-files-found: ignore
+          report_type: test_results
+          files: ${{ github.workspace }}/out/junit/junit.xml
+          disable_search: true
+          flags: units
+          token: ${{ secrets.CODECOV_TOKEN }}
