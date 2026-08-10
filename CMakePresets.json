@@ -933,6 +933,7 @@
     "packagePresets": [
         {
             "name": "default",
+            "hidden": true,
             "generators": [
                 "ZIP"
             ],
