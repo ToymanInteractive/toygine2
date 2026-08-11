@@ -28,13 +28,10 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /Oy
+  # last option is /arch
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
-
-
-    message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
 
     set(CMAKE_C_FLAGS                  "")
     set(CMAKE_CXX_FLAGS                "")
@@ -63,21 +60,27 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
 
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /dynamicdeopt:sync /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /dynamicdeopt:sync /favor:blend")
+      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2")
+      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2")
 
-      set(CMAKE_C_FLAGS_RELEASE                 "${CMAKE_C_FLAGS_RELEASE}                             /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELEASE               "${CMAKE_CXX_FLAGS_RELEASE}                           /favor:blend")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /dynamicdeopt:sync /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /dynamicdeopt:sync /favor:blend")
 
-      set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} /DYNAMICDEOPT:SYNC")
+      string(APPEND CMAKE_C_FLAGS_RELEASE                 "                    /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE               "                    /favor:blend")
+
+      string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO " /DYNAMICDEOPT:SYNC")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
 
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${CMAKE_C_FLAGS_RELWITHDEBINFO}    /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}  /favor:blend")
+      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2")
+      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2")
 
-      set(CMAKE_C_FLAGS_RELEASE                 "${CMAKE_C_FLAGS_RELEASE}           /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELEASE               "${CMAKE_CXX_FLAGS_RELEASE}         /favor:blend")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          "                    /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        "                    /favor:blend")
+
+      string(APPEND CMAKE_C_FLAGS_RELEASE                 "                    /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE               "                    /favor:blend")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
 
@@ -87,15 +90,11 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
   endif ()
-
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -103,15 +102,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
     message(FATAL_ERROR "ClownMDSDK not found. Install ClownMDSDK and ensure CLOWNMDSDK is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
-
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
@@ -119,23 +114,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
-
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
@@ -148,21 +137,48 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
 
 endif ()
+
+message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+# Report the compiler and linker option variables, per configuration
+if (CMAKE_CONFIGURATION_TYPES)
+  set(REPORTED_CONFIGS ${CMAKE_CONFIGURATION_TYPES})
+elseif (CMAKE_BUILD_TYPE)
+  set(REPORTED_CONFIGS ${CMAKE_BUILD_TYPE})
+else ()
+  set(REPORTED_CONFIGS "")
+endif ()
+
+foreach (FLAGS_VARIABLE IN ITEMS
+  CMAKE_C_FLAGS
+  CMAKE_CXX_FLAGS
+  CMAKE_STATIC_LINKER_FLAGS
+  CMAKE_SHARED_LINKER_FLAGS
+  CMAKE_MODULE_LINKER_FLAGS
+  CMAKE_EXE_LINKER_FLAGS)
+
+  message(STATUS "${FLAGS_VARIABLE}: ${${FLAGS_VARIABLE}}")
+
+  foreach (REPORTED_CONFIG IN LISTS REPORTED_CONFIGS)
+    string(TOUPPER ${REPORTED_CONFIG} REPORTED_CONFIG_UPPER)
+    message(STATUS "${FLAGS_VARIABLE}_${REPORTED_CONFIG_UPPER}: ${${FLAGS_VARIABLE}_${REPORTED_CONFIG_UPPER}}")
+  endforeach ()
+
+endforeach ()
+
+unset(REPORTED_CONFIG_UPPER)
+unset(REPORTED_CONFIGS)
 
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})

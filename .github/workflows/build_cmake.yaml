@@ -336,3 +336,6 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
+
+      - name: Prepare APT staging dir
+        run: mkdir -p "$RUNNER_TEMP/apt-cache"

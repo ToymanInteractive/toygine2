@@ -940,6 +940,22 @@
             "output": {
                 "verbose": false
             }
+        },
+        {
+            "name": "default-release",
+            "hidden": true,
+            "inherits": "default",
+            "configurations": [
+                "RelWithDebInfo"
+            ]
+        },
+        {
+            "name": "default-shipping",
+            "hidden": true,
+            "inherits": "default",
+            "configurations": [
+                "Release"
+            ]
         }
     ]
 }
