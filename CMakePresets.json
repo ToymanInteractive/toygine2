@@ -1,5 +1,5 @@
 {
-    "version": 3,
+    "version": 6,
     "cmakeMinimumRequired": {
         "major": 3,
         "minor": 27,
@@ -387,7 +387,6 @@
                 "type-release",
                 "platform-md",
                 "with-benchmarks",
-                "with-samples",
                 "with-tests",
                 "base"
             ]
@@ -928,6 +927,19 @@
             "name": "linux-release",
             "configurePreset": "linux-release",
             "inherits": "default-release"
+        }
+    ],
+    "packagePresets": [
+        {
+            "name": "default",
+            "hidden": true,
+            "generators": [
+                "ZIP"
+            ],
+            "packageDirectory": "${sourceDir}/out/package/${presetName}",
+            "output": {
+                "verbose": false
+            }
         }
     ]
 }
