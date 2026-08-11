@@ -28,7 +28,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /Oy
+  # last option is /arch
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -63,21 +63,27 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
 
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${CMAKE_C_FLAGS_RELWITHDEBINFO}   /dynamicdeopt:sync /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${CMAKE_CXX_FLAGS_RELWITHDEBINFO} /dynamicdeopt:sync /favor:blend")
+      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2")
+      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2")
 
-      set(CMAKE_C_FLAGS_RELEASE                 "${CMAKE_C_FLAGS_RELEASE}                             /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELEASE               "${CMAKE_CXX_FLAGS_RELEASE}                           /favor:blend")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /dynamicdeopt:sync /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /dynamicdeopt:sync /favor:blend")
 
-      set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "${CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO} /DYNAMICDEOPT:SYNC")
+      string(APPEND CMAKE_C_FLAGS_RELEASE                 "                    /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE               "                    /favor:blend")
+
+      string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO " /DYNAMICDEOPT:SYNC")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
 
-      set(CMAKE_C_FLAGS_RELWITHDEBINFO          "${CMAKE_C_FLAGS_RELWITHDEBINFO}    /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELWITHDEBINFO        "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}  /favor:blend")
+      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2")
+      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2")
 
-      set(CMAKE_C_FLAGS_RELEASE                 "${CMAKE_C_FLAGS_RELEASE}           /favor:blend")
-      set(CMAKE_CXX_FLAGS_RELEASE               "${CMAKE_CXX_FLAGS_RELEASE}         /favor:blend")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          "                    /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        "                    /favor:blend")
+
+      string(APPEND CMAKE_C_FLAGS_RELEASE                 "                    /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE               "                    /favor:blend")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
 
