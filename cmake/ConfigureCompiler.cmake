@@ -33,9 +33,6 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
-
-    message(STATUS "Compiler: MSVC, version: " ${MSVC_VERSION})
-
     set(CMAKE_C_FLAGS                  "")
     set(CMAKE_CXX_FLAGS                "")
 
