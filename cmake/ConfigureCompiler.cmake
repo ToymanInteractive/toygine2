@@ -93,15 +93,11 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
   endif ()
-
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -109,15 +105,11 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
     message(FATAL_ERROR "ClownMDSDK not found. Install ClownMDSDK and ensure CLOWNMDSDK is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
-
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
@@ -125,23 +117,17 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
-
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
@@ -154,21 +140,48 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
-  message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
-
 else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
 
 endif ()
+
+message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
+
+# Report the compiler and linker option variables, per configuration
+if (CMAKE_CONFIGURATION_TYPES)
+  set(REPORTED_CONFIGS ${CMAKE_CONFIGURATION_TYPES})
+elseif (CMAKE_BUILD_TYPE)
+  set(REPORTED_CONFIGS ${CMAKE_BUILD_TYPE})
+else ()
+  set(REPORTED_CONFIGS "")
+endif ()
+
+foreach (FLAGS_VARIABLE IN ITEMS
+  CMAKE_C_FLAGS
+  CMAKE_CXX_FLAGS
+  CMAKE_STATIC_LINKER_FLAGS
+  CMAKE_SHARED_LINKER_FLAGS
+  CMAKE_MODULE_LINKER_FLAGS
+  CMAKE_EXE_LINKER_FLAGS)
+
+  message(STATUS "${FLAGS_VARIABLE}: ${${FLAGS_VARIABLE}}")
+
+  foreach (REPORTED_CONFIG IN LISTS REPORTED_CONFIGS)
+    string(TOUPPER ${REPORTED_CONFIG} REPORTED_CONFIG_UPPER)
+    message(STATUS "${FLAGS_VARIABLE}_${REPORTED_CONFIG_UPPER}: ${${FLAGS_VARIABLE}_${REPORTED_CONFIG_UPPER}}")
+  endforeach ()
+
+endforeach ()
+
+unset(REPORTED_CONFIG_UPPER)
+unset(REPORTED_CONFIGS)
 
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
