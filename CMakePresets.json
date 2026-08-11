@@ -931,7 +931,7 @@
     ],
     "packagePresets": [
         {
-            "name": "default",
+            "name": "base",
             "hidden": true,
             "generators": [
                 "ZIP"
@@ -942,19 +942,113 @@
             }
         },
         {
-            "name": "default-release",
+            "name": "type-release",
             "hidden": true,
-            "inherits": "default",
             "configurations": [
                 "RelWithDebInfo"
             ]
         },
         {
-            "name": "default-shipping",
+            "name": "type-shipping",
             "hidden": true,
-            "inherits": "default",
             "configurations": [
                 "Release"
+            ]
+        },
+        {
+            "name": "windows-msvc-x64",
+            "configurePreset": "windows-msvc-x64",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-x64-shipping",
+            "configurePreset": "windows-msvc-x64-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-x86",
+            "configurePreset": "windows-msvc-x86",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-x86-shipping",
+            "configurePreset": "windows-msvc-x86-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-arm64",
+            "configurePreset": "windows-msvc-arm64",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "windows-msvc-arm64-shipping",
+            "configurePreset": "windows-msvc-arm64-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-xcode",
+            "configurePreset": "macos-xcode",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-xcode-shipping",
+            "configurePreset": "macos-xcode-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-release",
+            "configurePreset": "macos-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "macos-shipping",
+            "configurePreset": "macos-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-release",
+            "configurePreset": "linux-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-shipping",
+            "configurePreset": "linux-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
             ]
         }
     ]
