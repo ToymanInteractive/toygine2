@@ -138,7 +138,7 @@ jobs:
 
       - name: APT cache restore
         if: contains(matrix.os, 'ubuntu') && matrix.container == ''
-        id: buildaptcache
+        id: build-apt-cache
         uses: actions/cache/restore@v6.1.0
         with:
           path: ${{ runner.temp }}/apt-cache
@@ -198,11 +198,11 @@ jobs:
           fi
 
       - name: APT cache save
-        if: contains(matrix.os, 'ubuntu') && matrix.container == '' && steps.buildaptcache.outputs.cache-hit != 'true'
+        if: contains(matrix.os, 'ubuntu') && matrix.container == '' && steps.build-apt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6.1.0
         with:
           path: ${{ runner.temp }}/apt-cache
-          key: ${{ steps.buildaptcache.outputs.cache-primary-key }}
+          key: ${{ steps.build-apt-cache.outputs.cache-primary-key }}
 
       - name: Setup MSVC developer command prompt
         if: ${{ contains(matrix.cmake_preset, 'msvc') }}
@@ -243,7 +243,7 @@ jobs:
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
 
       - name: APT cache restore
-        id: unittestaptcache
+        id: unit-test-apt-cache
         uses: actions/cache/restore@v6.1.0
         with:
           path: ${{ runner.temp }}/apt-cache
@@ -278,11 +278,11 @@ jobs:
           sudo chown -R "$USER:$USER" "$APT_CACHE"
 
       - name: APT cache save
-        if: steps.unittestaptcache.outputs.cache-hit != 'true'
+        if: steps.unit-test-apt-cache.outputs.cache-hit != 'true'
         uses: actions/cache/save@v6.1.0
         with:
           path: ${{ runner.temp }}/apt-cache
-          key: ${{ steps.unittestaptcache.outputs.cache-primary-key }}
+          key: ${{ steps.unit-test-apt-cache.outputs.cache-primary-key }}
 
       - name: Configure
         run: |
@@ -339,3 +339,12 @@ jobs:
 
       - name: Prepare APT staging dir
         run: mkdir -p "$RUNNER_TEMP/apt-cache"
+
+      - name: APT cache restore
+        id: sonar-cloud-apt-cache
+        uses: actions/cache/restore@v6.1.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: sonar-cloud-apt
+          restore-keys: |
+            sonar-cloud-apt
