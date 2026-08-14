@@ -28,7 +28,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /EHsc
+  # last option is /forceInterlockedFunctions
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -83,6 +83,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_CXX_FLAGS_RELEASE               "                    /favor:blend")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
+
+      string(APPEND CMAKE_C_FLAGS   " /forceInterlockedFunctions")
+      string(APPEND CMAKE_CXX_FLAGS " /forceInterlockedFunctions")
 
     endif ()
 
