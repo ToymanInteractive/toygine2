@@ -21,3 +21,5 @@
 add_executable(console_sample_app console_sample_app.cpp)
 
 target_link_libraries(console_sample_app PRIVATE toygine)
+
+install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)
