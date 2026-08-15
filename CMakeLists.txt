@@ -169,9 +169,9 @@ endif ()
 # Packaging
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Packs whatever the build installed: the library, its headers and the license. The 'runtime' component arrives with the
-# sample install rules. include(CPack) must stay last, after every install() rule, otherwise the component list it
-# captures is incomplete.
+# Packs what the build installed, one archive per component group. Group 'runtime' is everything a consumer needs: the
+# library, its headers, the license and the sample executables. include(CPack) must stay last, after every install()
+# rule, otherwise the component list it captures is incomplete.
 if (TOP_PROJECT)
   set(CPACK_GENERATOR "ZIP")
   set(CPACK_PACKAGE_NAME "${PROJECT_NAME}${PACKAGE_NAME_SUFFIX}")
@@ -181,11 +181,17 @@ if (TOP_PROJECT)
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "ToyGine 2 static library, headers and samples")
   set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
   # Component install mode is what filters the archive down to CPACK_COMPONENTS_ALL: without it CPack packs every
-  # install() rule in the build, including those the FetchContent dependencies declare for themselves. Grouping puts
-  # the components back into a single archive instead of one per component.
-  set(CPACK_COMPONENTS_ALL headers library license)
+  # install() rule in the build, including those the FetchContent dependencies declare for themselves.
+  set(CPACK_COMPONENTS_ALL headers library license samples)
   set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
-  set(CPACK_COMPONENTS_GROUPING ALL_COMPONENTS_IN_ONE)
+  set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
+
+  # One group today, so one archive. The symbols step adds a 'debug' group holding a 'symbols' component; the group is
+  # named 'debug' so it never collides with that component name.
+  set(CPACK_COMPONENT_HEADERS_GROUP runtime)
+  set(CPACK_COMPONENT_LIBRARY_GROUP runtime)
+  set(CPACK_COMPONENT_LICENSE_GROUP runtime)
+  set(CPACK_COMPONENT_SAMPLES_GROUP runtime)
 
   # Component mode reads this one instead of CPACK_INCLUDE_TOPLEVEL_DIRECTORY, and defaults it off: unpacking would
   # spill include/, lib/ and LICENSE into the current directory.
@@ -202,6 +208,10 @@ if (TOP_PROJECT)
   endif ()
 
   set(CPACK_PACKAGE_FILE_NAME "${_base_name}")
+
+  # In ONE_PER_GROUP mode the archive name comes from this per-group variable, not from CPACK_PACKAGE_FILE_NAME, which
+  # only names the directory inside every archive.
+  set(CPACK_ARCHIVE_RUNTIME_FILE_NAME "${_base_name}")
 
   include(CPack)
 endif ()

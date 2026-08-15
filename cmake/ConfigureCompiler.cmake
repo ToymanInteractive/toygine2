@@ -28,7 +28,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /fp
+  # last option is /fpcvt
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -60,8 +60,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
 
-      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2")
-      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2")
+      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2 /fpcvt:IA")
+      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2 /fpcvt:IA")
 
       string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /dynamicdeopt:sync /favor:blend")
       string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /dynamicdeopt:sync /favor:blend")
@@ -73,8 +73,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
 
-      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2")
-      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2")
+      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2 /fpcvt:IA")
+      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2 /fpcvt:IA")
 
       string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          "                    /favor:blend")
       string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        "                    /favor:blend")

@@ -384,3 +384,7 @@ jobs:
         with:
           path: ${{ runner.temp }}/apt-cache
           key: ${{ steps.sonar-cloud-apt-cache.outputs.cache-primary-key }}
+
+      - name: Prepare compile_commands.json
+        run: |
+          cmake --preset linux-debug
