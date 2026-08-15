@@ -114,6 +114,27 @@ endif ()
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
+# Installation
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Only a top-level build installs. The engine exports no CMake package yet, so these rules exist to feed CPack (see
+# Packaging below); a parent project embedding toygine keeps its own install layout untouched.
+if (TOP_PROJECT)
+  install(TARGETS ${TOYGINE_LIBRARY_NAME}
+    ARCHIVE DESTINATION lib
+    COMPONENT library)
+
+  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    DESTINATION include
+    COMPONENT headers
+    FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
+
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
+    DESTINATION .
+    COMPONENT license)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -144,4 +165,45 @@ endif ()
 if (TOYGINE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Packaging
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Packs whatever the build installed: the library, its headers and the license. The 'runtime' component arrives with the
+# sample install rules. include(CPack) must stay last, after every install() rule, otherwise the component list it
+# captures is incomplete.
+if (TOP_PROJECT)
+  set(CPACK_GENERATOR "ZIP")
+  set(CPACK_PACKAGE_NAME "${PROJECT_NAME}${PACKAGE_NAME_SUFFIX}")
+  set(CPACK_PACKAGE_VENDOR "Toyman Interactive")
+  set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+  set(CPACK_PACKAGE_HOMEPAGE_URL ${PROJECT_HOMEPAGE_URL})
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "ToyGine 2 static library, headers and samples")
+  set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+  # Component install mode is what filters the archive down to CPACK_COMPONENTS_ALL: without it CPack packs every
+  # install() rule in the build, including those the FetchContent dependencies declare for themselves. Grouping puts
+  # the components back into a single archive instead of one per component.
+  set(CPACK_COMPONENTS_ALL headers library license)
+  set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
+  set(CPACK_COMPONENTS_GROUPING ALL_COMPONENTS_IN_ONE)
+
+  # Component mode reads this one instead of CPACK_INCLUDE_TOPLEVEL_DIRECTORY, and defaults it off: unpacking would
+  # spill include/, lib/ and LICENSE into the current directory.
+  set(CPACK_COMPONENT_INCLUDE_TOPLEVEL_DIRECTORY ON)
+  set(CPACK_VERBATIM_VARIABLES ON)
+
+  # PACKAGE_FILE_NAME arrives from CI through the preset ($env{BUILD_FILE_NAME}) and carries the configuration and the
+  # commit, for example 'linux-x64-a131ded'. Project name and version are prepended here because CI cannot read them
+  # out of project(). Local builds get a descriptive name instead.
+  if (PACKAGE_FILE_NAME)
+    set(_base_name "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${PACKAGE_FILE_NAME}")
+  else ()
+    set(_base_name "${CPACK_PACKAGE_NAME}-${PROJECT_VERSION}-${CMAKE_SYSTEM_NAME}-${CMAKE_SYSTEM_PROCESSOR}")
+  endif ()
+
+  set(CPACK_PACKAGE_FILE_NAME "${_base_name}")
+
+  include(CPack)
 endif ()

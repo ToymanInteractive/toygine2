@@ -28,7 +28,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /forceInterlockedFunctions
+  # last option is /fp
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -36,14 +36,14 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS                  "/EHsc")
     set(CMAKE_CXX_FLAGS                "/EHsc")
 
-    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy-")
-    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy-")
+    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except")
+    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy-")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy-")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except")
 
-    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy")
-    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy")
+    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-")
+    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-")
 
 
     set(CMAKE_STATIC_LINKER_FLAGS                 "")

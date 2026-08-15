@@ -377,3 +377,10 @@ jobs:
           sudo rm -f  "$APT_CACHE/lock" || true
           sudo rm -rf "$APT_CACHE/partial" || true
           sudo chown -R "$USER:$USER" "$APT_CACHE"
+
+      - name: APT cache save
+        if: steps.sonar-cloud-apt-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6.1.0
+        with:
+          path: ${{ runner.temp }}/apt-cache
+          key: ${{ steps.sonar-cloud-apt-cache.outputs.cache-primary-key }}
