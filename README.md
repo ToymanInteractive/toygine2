@@ -19,5 +19,5 @@ ToyGine2 is a modern C++ high‑level engine for Retro-Style games.
 ### Tools
 
 - CMake 3.27 or newer
-- Doxygen 1.17+ and Graphviz (for documentation)
+- Doxygen 1.18+ and Graphviz (for documentation)
 - ClangFormat 22.1 or newer
