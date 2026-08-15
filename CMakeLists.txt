@@ -114,27 +114,6 @@ endif ()
 target_link_libraries(${TOYGINE_LIBRARY_NAME} ${LIB_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Installation
-#-----------------------------------------------------------------------------------------------------------------------
-
-# Only a top-level build installs. The engine exports no CMake package yet, so these rules exist to feed CPack (see
-# Packaging below); a parent project embedding toygine keeps its own install layout untouched.
-if (TOP_PROJECT)
-  install(TARGETS ${TOYGINE_LIBRARY_NAME}
-    ARCHIVE DESTINATION lib
-    COMPONENT library)
-
-  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
-    DESTINATION include
-    COMPONENT headers
-    FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
-
-  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
-    DESTINATION .
-    COMPONENT license)
-endif ()
-
-#-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -165,6 +144,25 @@ endif ()
 if (TOYGINE_BUILD_TESTS)
   enable_testing()
   add_subdirectory(tests)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Installation
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Only a top-level build installs. The engine exports no CMake package yet, so these rules exist to feed CPack (see
+# Packaging below); a parent project embedding toygine keeps its own install layout untouched.
+if (TOP_PROJECT)
+  install(TARGETS ${TOYGINE_LIBRARY_NAME} ARCHIVE DESTINATION lib COMPONENT library)
+
+  install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
+    DESTINATION include
+    COMPONENT headers
+    FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
+
+  install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
+    DESTINATION .
+    COMPONENT license)
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
