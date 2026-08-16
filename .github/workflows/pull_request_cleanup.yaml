@@ -40,14 +40,23 @@ jobs:
         env:
           GH_TOKEN: ${{ github.token }}
           GH_REPO: ${{ github.repository }}
+          PR_NUMBER: ${{ github.event.pull_request.number }}
           HEAD_REF: ${{ github.event.pull_request.head.ref }}
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           # Artifact names carry no PR number, so the runs of the PR head branch are what identifies them. A branch name
           # alone is ambiguous across forks, hence the head_repository filter. --paginate is what keeps a long-lived
           # branch from hiding its older runs behind the 100-item page limit.
+          #
+          # The pull_requests filter narrows this further: one head branch can serve pull requests against several base
+          # branches, and the runs of a pull request that is still open have to survive. GitHub drops that association
+          # once a pull request closes, and runs of a fork never carry one, so an empty list passes the filter as well.
           runs=$(gh api --paginate "repos/$GH_REPO/actions/runs?event=pull_request&branch=$HEAD_REF&per_page=100" \
-            --jq ".workflow_runs[] | select(.head_repository.full_name == \"$HEAD_REPO\") | .id")
+            --jq '.workflow_runs[]
+              | select(.head_repository.full_name == env.HEAD_REPO)
+              | select(((.pull_requests // []) | length) == 0
+                  or any(.pull_requests[]; .number == (env.PR_NUMBER | tonumber)))
+              | .id')
 
           # Delete them (best effort)
           set +e
