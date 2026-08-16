@@ -21,52 +21,61 @@ jobs:
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: windows-msvc-x64
+            artifact_id: windows-x64
 
           - name: Windows MSVC x86
             os: windows-2025-vs2026
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: windows-msvc-x86
+            artifact_id: windows-x86
 
           - name: Windows MSVC Arm64
             os: windows-11-vs2026-arm
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: windows-msvc-arm64
+            artifact_id: windows-arm64
 
           - name: macOS XCode arm64
             os: macos-26
             run_test: "true"
             cmake_preset: macos-xcode
+            artifact_id: macos-xcode-arm64
 
           - name: macOS XCode Intel
             os: macos-26-intel
             run_test: "true"
             cmake_preset: macos-xcode
+            artifact_id: macos-xcode-x64
 
           - name: macOS Ninja arm64
             os: macos-26
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: macos-release
+            artifact_id: macos-ninja-arm64
 
           - name: macOS Ninja Intel
             os: macos-26-intel
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: macos-release
+            artifact_id: macos-ninja-x64
 
           - name: Linux Ninja x64
             os: ubuntu-26.04
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-release
+            artifact_id: linux-x64
 
           - name: Linux Ninja arm64
             os: ubuntu-26.04-arm
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-release
+            artifact_id: linux-arm64
 
           - name: Sega Mega Drive
             os: ubuntu-26.04
@@ -204,10 +213,10 @@ jobs:
           arch: ${{ contains(matrix.cmake_preset, 'arm64') && 'arm64' || contains(matrix.cmake_preset, 'x86') && 'x86' || 'x64' }}
 
       - name: Prepare artifact name
-        if: ${{ github.event_name == 'pull_request' }}
+        if: ${{ matrix.artifact_id != '' && github.event_name == 'pull_request' }}
         env:
           HEAD_SHA: ${{ github.event.pull_request.head.sha }}
-          ARTIFACT_ID: ${{ matrix.cmake_preset }}
+          ARTIFACT_ID: ${{ matrix.artifact_id }}
         run: |
           set -euo pipefail
           echo "BUILD_FILE_NAME=${ARTIFACT_ID}-${HEAD_SHA:0:7}" >> "$GITHUB_ENV"
@@ -220,6 +229,21 @@ jobs:
           fi
           cmake $BENCHMARKS_ARG --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
+
+      - name: Package
+        if: ${{ matrix.artifact_id != '' && github.event_name == 'pull_request' }}
+        run: |
+          set -euo pipefail
+          cpack --preset ${{ matrix.cmake_preset }}
+
+      - name: Upload runtime artifact
+        if: ${{ matrix.artifact_id != '' && github.event_name == 'pull_request' }}
+        uses: actions/upload-artifact@v7.0.1
+        with:
+          name: ${{ matrix.artifact_id }}
+          path: ${{ github.workspace }}/out/package/${{ matrix.cmake_preset }}/*.zip
+          retention-days: 7
+          if-no-files-found: error
 
       - name: Unit testing
         run: |
