@@ -33,8 +33,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
-    set(CMAKE_C_FLAGS                  "/EHsc")
-    set(CMAKE_CXX_FLAGS                "/EHsc")
+    set(CMAKE_C_FLAGS                  "/EHsc /GA")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except")
