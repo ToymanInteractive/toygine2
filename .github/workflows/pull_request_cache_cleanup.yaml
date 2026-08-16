@@ -29,3 +29,33 @@ jobs:
           set -e
 
           echo "Done."
+
+  artifacts-cleanup:
+    name: Cleanup artifacts
+    runs-on: ubuntu-slim
+    permissions:
+      actions: write
+    steps:
+      - name: Delete artifacts for closed PR
+        env:
+          GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
+          HEAD_REF: ${{ github.event.pull_request.head.ref }}
+          HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
+        run: |
+          # Artifact names carry no PR number, so the runs of the PR head branch are what identifies them. A branch name
+          # alone is ambiguous across forks, hence the head_repository filter. --paginate is what keeps a long-lived
+          # branch from hiding its older runs behind the 100-item page limit.
+          runs=$(gh api --paginate "repos/$GH_REPO/actions/runs?event=pull_request&branch=$HEAD_REF&per_page=100" \
+            --jq ".workflow_runs[] | select(.head_repository.full_name == \"$HEAD_REPO\") | .id")
+
+          # Delete them (best effort)
+          set +e
+          for run in $runs; do
+            for id in $(gh api "repos/$GH_REPO/actions/runs/$run/artifacts" --jq '.artifacts[].id'); do
+              gh api -X DELETE "repos/$GH_REPO/actions/artifacts/$id"
+            done
+          done
+          set -e
+
+          echo "Done."
