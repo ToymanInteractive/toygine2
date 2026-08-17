@@ -20,7 +20,7 @@
 
 cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
-project(ToyGine2 LANGUAGES C CXX VERSION 26.16.0 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
+project(ToyGine2 LANGUAGES C CXX VERSION 26.17.0 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
 
 set(TOYGINE_LIBRARY_NAME toygine)
 set(TOYGINE_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
