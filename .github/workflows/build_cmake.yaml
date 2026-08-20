@@ -240,10 +240,10 @@ jobs:
         if: ${{ matrix.artifact_id != '' && github.event_name == 'pull_request' }}
         uses: actions/upload-artifact@v7.0.1
         with:
-          name: ${{ matrix.artifact_id }}
           path: ${{ github.workspace }}/out/package/${{ matrix.cmake_preset }}/*.zip
           retention-days: 7
           if-no-files-found: error
+          archive: false
 
       - name: Unit testing
         run: |
