@@ -63,13 +63,13 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS   " /arch:SSE2 /fpcvt:IA")
       string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2 /fpcvt:IA")
 
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /dynamicdeopt:sync /favor:blend")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /dynamicdeopt:sync /favor:blend")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /favor:blend")
 
-      string(APPEND CMAKE_C_FLAGS_RELEASE                 "                    /favor:blend")
-      string(APPEND CMAKE_CXX_FLAGS_RELEASE               "                    /favor:blend")
+      string(APPEND CMAKE_C_FLAGS_RELEASE                 " /favor:blend")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE               " /favor:blend")
 
-      string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO " /DYNAMICDEOPT:SYNC")
+      string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
 
