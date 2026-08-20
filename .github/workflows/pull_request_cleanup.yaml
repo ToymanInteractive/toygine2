@@ -45,13 +45,15 @@ jobs:
           HEAD_REPO: ${{ github.event.pull_request.head.repo.full_name }}
         run: |
           # Artifact names carry no PR number, so the runs of the PR head branch are what identifies them. A branch name
-          # alone is ambiguous across forks, hence the head_repository filter. --paginate is what keeps a long-lived
-          # branch from hiding its older runs behind the 100-item page limit.
+          # alone is ambiguous across forks, hence the head_repository filter. Query values go through -f, because a
+          # branch name may contain & or = and would otherwise add parameters of its own. Both requests paginate, so
+          # neither a long-lived branch nor a wide build matrix hides entries behind a page limit.
           #
           # The pull_requests filter narrows this further: one head branch can serve pull requests against several base
           # branches, and the runs of a pull request that is still open have to survive. GitHub drops that association
           # once a pull request closes, and runs of a fork never carry one, so an empty list passes the filter as well.
-          runs=$(gh api --paginate "repos/$GH_REPO/actions/runs?event=pull_request&branch=$HEAD_REF&per_page=100" \
+          runs=$(gh api --paginate -X GET "repos/$GH_REPO/actions/runs" \
+            -f event=pull_request -f branch="$HEAD_REF" -f per_page=100 \
             --jq '.workflow_runs[]
               | select(.head_repository.full_name == env.HEAD_REPO)
               | select(((.pull_requests // []) | length) == 0
@@ -61,7 +63,8 @@ jobs:
           # Delete them (best effort)
           set +e
           for run in $runs; do
-            for id in $(gh api "repos/$GH_REPO/actions/runs/$run/artifacts" --jq '.artifacts[].id'); do
+            for id in $(gh api --paginate -X GET "repos/$GH_REPO/actions/runs/$run/artifacts" \
+              -f per_page=100 --jq '.artifacts[].id'); do
               gh api -X DELETE "repos/$GH_REPO/actions/artifacts/$id"
             done
           done
