@@ -65,7 +65,36 @@ int main() {
 
 #endif // __NDS__
 
-#if !defined(__GBA__) && !defined(__NDS__)
+#ifdef __3DS__
+
+#include <cstdio>
+
+// clang-format off
+#include <3ds.h>
+// clang-format on
+
+int main() {
+  gfxInitDefault();
+
+  consoleInit(GFX_BOTTOM, NULL);
+
+  printf("Hello world from Console sample app");
+
+  // Main loop
+  while (aptMainLoop()) {
+    gfxFlushBuffers();
+    gfxSwapBuffers();
+
+    gspWaitForVBlank();
+  }
+
+  gfxExit();
+  return 0;
+}
+
+#endif // __3DS__
+
+#if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__)
 
 #include <iostream>
 
