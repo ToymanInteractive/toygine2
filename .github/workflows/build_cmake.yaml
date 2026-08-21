@@ -95,6 +95,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.nds.toolchain:latest
             run_test: "false"
             cmake_preset: nds-release
+            artifact_id: nds
 
           - name: Nintendo 3DS
             os: ubuntu-26.04

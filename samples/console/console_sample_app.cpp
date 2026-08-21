@@ -46,7 +46,26 @@ int main() {
 
 #endif // __GBA__
 
-#if !defined(__GBA__)
+#ifdef __NDS__
+
+#include <cstdio>
+
+#include <nds.h>
+
+int main() {
+  consoleDemoInit();
+
+  printf("Hello world from Console sample app");
+
+  while (pmMainLoop())
+    swiWaitForVBlank();
+
+  return 0;
+}
+
+#endif // __NDS__
+
+#if !defined(__GBA__) && !defined(__NDS__)
 
 #include <iostream>
 

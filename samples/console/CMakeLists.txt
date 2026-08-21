@@ -28,6 +28,12 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.gba" DESTINATION bin COMPONENT samples)
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+
+  nds_create_rom(console_sample_app)
+
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.nds" DESTINATION bin COMPONENT samples)
+
 else ()
 
   install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)
