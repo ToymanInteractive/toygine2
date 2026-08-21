@@ -24,6 +24,8 @@
 
 #ifdef __GBA__
 
+#include <cstdio>
+
 #include <gba_console.h>
 #include <gba_interrupt.h>
 #include <gba_systemcalls.h>
