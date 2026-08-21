@@ -26,7 +26,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   gba_create_rom(console_sample_app)
 
-  install(FILES console_sample_app.gba DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.gba" DESTINATION bin COMPONENT samples)
 
 else ()
 
