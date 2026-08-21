@@ -1066,6 +1066,22 @@
                 "type-shipping",
                 "base"
             ]
+        },
+        {
+            "name": "nds-release",
+            "configurePreset": "nds-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "nds-shipping",
+            "configurePreset": "nds-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
         }
     ]
 }
