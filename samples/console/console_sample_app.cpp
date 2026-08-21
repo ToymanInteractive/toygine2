@@ -34,7 +34,7 @@ int main() {
 
   consoleDemoInit();
 
-  iprintf("\x1b[0;7HHello world from Console sample app");
+  printf("Hello world from Console sample app");
 
   while (1)
     VBlankIntrWait();
