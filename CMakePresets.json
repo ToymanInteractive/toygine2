@@ -1050,6 +1050,22 @@
                 "type-shipping",
                 "base"
             ]
+        },
+        {
+            "name": "gba-release",
+            "configurePreset": "gba-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-shipping",
+            "configurePreset": "gba-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
         }
     ]
 }
