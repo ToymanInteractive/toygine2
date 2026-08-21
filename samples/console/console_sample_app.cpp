@@ -22,6 +22,32 @@
   \brief
 */
 
+#ifdef __GBA__
+
+#include <cstdio>
+
+#include <gba_console.h>
+#include <gba_interrupt.h>
+#include <gba_systemcalls.h>
+
+int main() {
+  irqInit();
+  irqEnable(IRQ_VBLANK);
+
+  consoleDemoInit();
+
+  printf("Hello world from Console sample app");
+
+  while (1)
+    VBlankIntrWait();
+
+  return 0;
+}
+
+#endif // __GBA__
+
+#if !defined(__GBA__)
+
 #include <iostream>
 
 #include "toygine.hpp"
@@ -31,3 +57,5 @@ int main(int argc, char * argv[]) noexcept {
 
   return EXIT_SUCCESS;
 }
+
+#endif // __GBA__

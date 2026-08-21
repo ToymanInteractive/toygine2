@@ -88,6 +88,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.gba.toolchain:latest
             run_test: "false"
             cmake_preset: gba-release
+            artifact_id: gba
 
           - name: Nintendo DS
             os: ubuntu-26.04
