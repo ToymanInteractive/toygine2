@@ -22,4 +22,12 @@ add_executable(console_sample_app console_sample_app.cpp)
 
 target_link_libraries(console_sample_app PRIVATE toygine)
 
-install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+
+  gba_create_rom(console_sample_app)
+
+else ()
+
+  install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)
+
+endif ()
