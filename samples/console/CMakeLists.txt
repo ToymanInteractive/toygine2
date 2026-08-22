@@ -46,6 +46,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.nro" DESTINATION bin COMPONENT samples)
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+
+  ogc_create_dol(console_sample_app)
+
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.dol" DESTINATION bin COMPONENT samples)
+
 else ()
 
   install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)

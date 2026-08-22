@@ -116,6 +116,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.gc.toolchain:latest
             run_test: "false"
             cmake_preset: gamecube-release
+            artifact_id: gamecube
 
           - name: Nintendo Wii
             os: ubuntu-26.04
