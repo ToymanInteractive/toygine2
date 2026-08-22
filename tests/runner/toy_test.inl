@@ -90,7 +90,7 @@ constexpr int compareNames(const char * lhs, const char * rhs) noexcept {
   return left > right ? 1 : 0;
 }
 
-constexpr size_t appendText(char * buffer, size_t capacity, size_t offset, const char * text) noexcept {
+constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_t offset, const char * text) noexcept {
   while (*text != '\0' && offset < capacity) {
     buffer[offset] = *text;
     ++offset;
@@ -100,13 +100,13 @@ constexpr size_t appendText(char * buffer, size_t capacity, size_t offset, const
   return offset;
 }
 
-constexpr size_t appendInteger(char * buffer, size_t capacity, size_t offset, long long value) noexcept {
+constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset, long long value) noexcept {
   // Taking the magnitude in unsigned arithmetic keeps the most negative value representable.
   unsigned long long magnitude = value < 0 ? 0ULL - static_cast<unsigned long long>(value)
                                            : static_cast<unsigned long long>(value);
 
   std::array<char, 20> digits     = {};
-  size_t               digitCount = 0;
+  std::size_t          digitCount = 0;
 
   do {
     digits[digitCount] = static_cast<char>('0' + static_cast<char>(magnitude % 10ULL));

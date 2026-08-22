@@ -38,7 +38,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   ctr_create_3dsx(console_sample_app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.ctr" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.3dsx" DESTINATION bin COMPONENT samples)
 
 else ()
 

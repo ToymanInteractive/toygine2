@@ -21,13 +21,14 @@
   \file   toy_test.hpp
   \brief  Test macros and runner declarations shared by the doctest and built-in test runners.
 
-  Defines \ref toy::test::Approx and the runner's allocation-free name and number helpers. Included by every
-  test translation unit instead of doctest, so one source builds under both runners.
+  Defines \ref toy::test::Approx and the runner's allocation-free name and number helpers. Grows into the shim every
+  test translation unit includes in place of doctest; today it carries the pieces that depend on neither runner.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 #define INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 
+#include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -87,8 +88,6 @@ namespace toy::test {
 
   \note The default tolerance is the same constant for every \a T, deliberately: DocTest uses that one value
         regardless of type, and matching it keeps a test's verdict identical under both runners.
-
-  \sa \ref toy::test::Context
 */
 template <std::floating_point T>
 class Approx final {
@@ -180,7 +179,8 @@ template <std::floating_point T>
 
   \note No terminating zero is written; the caller tracks the length.
 */
-[[nodiscard]] constexpr size_t appendText(char * buffer, size_t capacity, size_t offset, const char * text) noexcept;
+[[nodiscard]] constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_t offset,
+                                               const char * text) noexcept;
 
 /*!
   \brief Writes a signed decimal representation into a buffer, stopping at its capacity.
@@ -196,7 +196,8 @@ template <std::floating_point T>
 
   \note The magnitude is taken in unsigned arithmetic, so the most negative value formats correctly.
 */
-[[nodiscard]] constexpr size_t appendInteger(char * buffer, size_t capacity, size_t offset, long long value) noexcept;
+[[nodiscard]] constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset,
+                                                  long long value) noexcept;
 
 } // namespace detail
 

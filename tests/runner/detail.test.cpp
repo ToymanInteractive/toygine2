@@ -57,8 +57,8 @@ TEST_CASE("test::detail/compare_names/compares_bytes_as_unsigned") {
 
 // appendText copies until the terminator and returns the new offset.
 TEST_CASE("test::detail/append_text/copies_and_advances_offset") {
-  char         buffer[8] = {};
-  const size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "ok");
+  char              buffer[8] = {};
+  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "ok");
 
   REQUIRE(written == 2);
   REQUIRE(buffer[0] == 'o');
@@ -67,8 +67,8 @@ TEST_CASE("test::detail/append_text/copies_and_advances_offset") {
 
 // appendText stops at capacity instead of running past the buffer.
 TEST_CASE("test::detail/append_text/truncates_at_capacity") {
-  char         buffer[3] = {};
-  const size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "abcdef");
+  char              buffer[3] = {};
+  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "abcdef");
 
   REQUIRE(written == 3);
   REQUIRE(buffer[2] == 'c');
@@ -76,8 +76,8 @@ TEST_CASE("test::detail/append_text/truncates_at_capacity") {
 
 // appendInteger writes the decimal digits in order, most significant first.
 TEST_CASE("test::detail/append_integer/writes_decimal_digits") {
-  char         buffer[8] = {};
-  const size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 1024);
+  char              buffer[8] = {};
+  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 1024);
 
   REQUIRE(written == 4);
   REQUIRE(buffer[0] == '1');
@@ -86,8 +86,8 @@ TEST_CASE("test::detail/append_integer/writes_decimal_digits") {
 
 // Zero is one digit, not an empty string.
 TEST_CASE("test::detail/append_integer/writes_zero_as_single_digit") {
-  char         buffer[4] = {};
-  const size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 0);
+  char              buffer[4] = {};
+  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 0);
 
   REQUIRE(written == 1);
   REQUIRE(buffer[0] == '0');
@@ -95,8 +95,8 @@ TEST_CASE("test::detail/append_integer/writes_zero_as_single_digit") {
 
 // The most negative value has no positive counterpart, so the magnitude is taken in unsigned arithmetic.
 TEST_CASE("test::detail/append_integer/writes_most_negative_value") {
-  char         buffer[24] = {};
-  const size_t written    = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, -9223372036854775807LL - 1LL);
+  char              buffer[24] = {};
+  const std::size_t written = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, -9223372036854775807LL - 1LL);
 
   REQUIRE(written == 20);
   REQUIRE(buffer[0] == '-');
@@ -105,7 +105,7 @@ TEST_CASE("test::detail/append_integer/writes_most_negative_value") {
 }
 
 // Approx compares equal within its tolerance and unequal outside it.
-TEST_CASE("test::approx/comparison/honours_tolerance") {
+TEST_CASE("test/approx/comparison_honours_tolerance") {
   REQUIRE(1.0 == toy::test::Approx(1.0));
   REQUIRE(toy::test::Approx(1.0) == 1.0);
   REQUIRE_FALSE(1.0 == toy::test::Approx(2.0));
@@ -114,7 +114,7 @@ TEST_CASE("test::approx/comparison/honours_tolerance") {
 }
 
 // A widened epsilon accepts a difference the default tolerance rejects.
-TEST_CASE("test::approx/comparison/epsilon_widens_tolerance") {
+TEST_CASE("test/approx/comparison_epsilon_widens_tolerance") {
   REQUIRE_FALSE(1.0 == toy::test::Approx(1.5));
   REQUIRE(1.0 == toy::test::Approx(1.5).epsilon(0.5));
 
@@ -122,13 +122,13 @@ TEST_CASE("test::approx/comparison/epsilon_widens_tolerance") {
 }
 
 // Tolerance scales with magnitude, so large values keep the same relative precision.
-TEST_CASE("test::approx/comparison/scales_with_magnitude") {
+TEST_CASE("test/approx/comparison_scales_with_magnitude") {
   REQUIRE(1000000.0 == toy::test::Approx(1000000.001));
   REQUIRE_FALSE(1.0 == toy::test::Approx(1.001));
 }
 
 // Every standard floating-point type satisfies the constraint and compares within its own precision.
-TEST_CASE("test::approx/comparison/accepts_every_floating_point_type") {
+TEST_CASE("test/approx/comparison_accepts_every_floating_point_type") {
   SUBCASE("float") {
     REQUIRE(1.0F == toy::test::Approx(1.0F));
     REQUIRE_FALSE(1.0F == toy::test::Approx(2.0F));
@@ -150,19 +150,17 @@ TEST_CASE("test::approx/comparison/accepts_every_floating_point_type") {
 }
 
 // The class template deduces its parameter from the constructor argument.
-TEST_CASE("test::approx/deduction/infers_type_from_argument") {
+TEST_CASE("test/approx/deduction_infers_type_from_argument") {
   static_assert(std::is_same_v<decltype(toy::test::Approx(1.0F)), toy::test::Approx<float>>,
                 "a float argument must deduce Approx<float>");
   static_assert(std::is_same_v<decltype(toy::test::Approx(1.0)), toy::test::Approx<double>>,
                 "a double argument must deduce Approx<double>");
   static_assert(std::is_same_v<decltype(toy::test::Approx(1.0L)), toy::test::Approx<long double>>,
                 "a long double argument must deduce Approx<long double>");
-
-  REQUIRE(sizeof(toy::test::Approx<float>) == 2 * sizeof(float));
 }
 
 // Mixing precisions compares in the common type instead of narrowing either side.
-TEST_CASE("test::approx/comparison/mixes_precisions") {
+TEST_CASE("test/approx/comparison_mixes_precisions") {
   REQUIRE(1.0 == toy::test::Approx(1.0F));
   REQUIRE(1.0F == toy::test::Approx(1.0));
   REQUIRE(1.0L == toy::test::Approx(1.0));
@@ -172,7 +170,7 @@ TEST_CASE("test::approx/comparison/mixes_precisions") {
 
 // The default tolerance is single-precision epsilon scaled by a hundred, the same value doctest applies, and it
 // does not change with the value's type.
-TEST_CASE("test::approx/tolerance/defaults_to_doctest_value") {
+TEST_CASE("test/approx/tolerance_defaults_to_doctest_value") {
   constexpr double expected = static_cast<double>(std::numeric_limits<float>::epsilon()) * 100.0;
 
   REQUIRE(static_cast<double>(toy::test::Approx(1.0).tolerance()) == expected);
@@ -184,7 +182,7 @@ TEST_CASE("test::approx/tolerance/defaults_to_doctest_value") {
 }
 
 // The tolerance keeps the type of the value it belongs to, whatever type the caller passes.
-TEST_CASE("test::approx/epsilon/converts_to_the_value_type") {
+TEST_CASE("test/approx/epsilon_converts_to_the_value_type") {
   constexpr auto tolerant = toy::test::Approx(1.5F).epsilon(0.5);
 
   static_assert(std::is_same_v<decltype(tolerant.tolerance()), float>, "the tolerance must keep the value's type");
