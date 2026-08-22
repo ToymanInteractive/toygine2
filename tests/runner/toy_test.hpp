@@ -321,6 +321,9 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 */
 class Context final {
 public:
+  /// Depth of the info stack; messages beyond it are dropped.
+  static constexpr std::size_t c_maxInfoDepth = 8;
+
   /*!
     \brief Builds a context reporting failures through \a reporter.
 
@@ -355,7 +358,7 @@ public:
 
     \return \a passed, so a caller can return early on failure.
 
-    \post On failure the case is marked and the reporter has been invoked exactly once.
+    \post On failure the case is marked. If the reporter is non-null, it is invoked exactly once.
 
     \sa caseFailed()
   */
@@ -414,14 +417,14 @@ public:
   [[nodiscard]] const char * subcaseName() const noexcept;
 
 private:
-  failure_reporter_type    _reporter;
-  const char *             _caseName;
-  const char *             _subcaseName;
-  std::size_t              _passedCount;
-  std::size_t              _failedCount;
-  std::size_t              _infoDepth;
-  bool                     _caseFailed;
-  std::array<InfoEntry, 8> _infoStack;
+  failure_reporter_type                 _reporter;
+  const char *                          _caseName;
+  const char *                          _subcaseName;
+  std::size_t                           _passedCount;
+  std::size_t                           _failedCount;
+  std::size_t                           _infoDepth;
+  bool                                  _caseFailed;
+  std::array<InfoEntry, c_maxInfoDepth> _infoStack;
 };
 
 } // namespace toy::test

@@ -23,10 +23,16 @@
 */
 
 #include <cstddef>
+#include <type_traits>
 
 #include <doctest/doctest.h>
 
 #include "toy_test.hpp"
+
+static_assert(!std::is_copy_constructible_v<toy::test::Context>, "Context must not be copy constructible");
+static_assert(!std::is_copy_assignable_v<toy::test::Context>, "Context must not be copy assignable");
+static_assert(!std::is_move_constructible_v<toy::test::Context>, "Context must not be move constructible");
+static_assert(!std::is_move_assignable_v<toy::test::Context>, "Context must not be move assignable");
 
 namespace {
 
@@ -100,7 +106,12 @@ TEST_CASE("test/context/failure_reaches_reporter") {
 
   context.record(false, "str.size() == 4", "tests/core/fixed_string.test.cpp", 88);
 
+  // Without a call the captured pointers stay null, which makes every comparison below meaningless.
   REQUIRE(g_captured.callCount == 1);
+  REQUIRE(g_captured.caseName != nullptr);
+  REQUIRE(g_captured.expression != nullptr);
+  REQUIRE(g_captured.file != nullptr);
+
   REQUIRE(toy::test::detail::compareNames(g_captured.caseName, "core/fixed_string/append") == 0);
   REQUIRE(toy::test::detail::compareNames(g_captured.expression, "str.size() == 4") == 0);
   REQUIRE(toy::test::detail::compareNames(g_captured.file, "tests/core/fixed_string.test.cpp") == 0);
@@ -117,6 +128,8 @@ TEST_CASE("test/context/info_reaches_reporter") {
   context.record(false, "value == 0", "file.cpp", 7);
 
   REQUIRE(g_captured.infoCount == 1);
+  REQUIRE(g_captured.firstInfo != nullptr);
+
   REQUIRE(toy::test::detail::compareNames(g_captured.firstInfo, "index") == 0);
   REQUIRE(g_captured.firstValue == 3);
 }
@@ -141,7 +154,9 @@ TEST_CASE("test/context/info_without_value") {
   context.beginCase("some/case");
   context.pushInfo("after reload");
 
+  // infoAt() requires an index below infoCount(), so the count gates the read.
   REQUIRE(context.infoCount() == 1);
+
   REQUIRE(context.infoAt(0).hasValue == false);
 }
 
@@ -151,12 +166,12 @@ TEST_CASE("test/context/info_stack_overflow_stays_balanced") {
   toy::test::Context context{&captureFailure};
   context.beginCase("some/case");
 
-  for (std::size_t index = 0; index < 12; ++index)
+  for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth + 4; ++index)
     context.pushInfo("entry", static_cast<long long>(index));
 
-  REQUIRE(context.infoCount() == 8);
+  REQUIRE(context.infoCount() == toy::test::Context::c_maxInfoDepth);
 
-  for (std::size_t index = 0; index < 12; ++index)
+  for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth + 4; ++index)
     context.popInfo();
 
   REQUIRE(context.infoCount() == 0);
@@ -173,6 +188,9 @@ TEST_CASE("test/context/begin_case_clears_verdict_and_keeps_totals") {
 
   REQUIRE(context.caseFailed() == false);
   REQUIRE(context.failedCount() == 1);
-  REQUIRE(toy::test::detail::compareNames(context.caseName(), "second/case") == 0);
   REQUIRE(context.subcaseName() == nullptr);
+
+  REQUIRE(context.caseName() != nullptr);
+
+  REQUIRE(toy::test::detail::compareNames(context.caseName(), "second/case") == 0);
 }

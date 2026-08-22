@@ -166,14 +166,14 @@ inline bool Context::record(bool passed, const char * expression, const char * f
 }
 
 inline void Context::pushInfo(const char * text) noexcept {
-  if (_infoDepth < _infoStack.size())
+  if (_infoDepth < c_maxInfoDepth)
     _infoStack[_infoDepth] = InfoEntry{text, 0, false};
 
   ++_infoDepth;
 }
 
 inline void Context::pushInfo(const char * text, long long value) noexcept {
-  if (_infoDepth < _infoStack.size())
+  if (_infoDepth < c_maxInfoDepth)
     _infoStack[_infoDepth] = InfoEntry{text, value, true};
 
   ++_infoDepth;
@@ -199,7 +199,7 @@ inline bool Context::caseFailed() const noexcept {
 inline std::size_t Context::infoCount() const noexcept {
   // The depth counter keeps growing past the fixed stack so that pushes and pops stay balanced; what is
   // readable is capped at the stack itself.
-  return _infoDepth < _infoStack.size() ? _infoDepth : _infoStack.size();
+  return _infoDepth < c_maxInfoDepth ? _infoDepth : c_maxInfoDepth;
 }
 
 inline const InfoEntry & Context::infoAt(std::size_t index) const noexcept {
