@@ -10,7 +10,7 @@ permissions:
 jobs:
   style:
     name: Check code style
-    runs-on: ubuntu-slim
+    runs-on: ubuntu-26.04
     timeout-minutes: 10
     defaults:
       run:
