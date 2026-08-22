@@ -82,7 +82,8 @@ namespace toy::test {
   \section compatibility Compatibility
 
   Requires C++20 concepts. Allocates nothing and includes no hosted header, so it builds on every console and
-  embedded target the engine supports.
+  embedded target the engine supports. Verdicts match DocTest on every value \c double represents; comparison
+  happens in the operands' own precision rather than in \c double, which DocTest always uses.
 
   \note A comparison involving NaN is false, matching the behaviour of the built-in operator.
 
@@ -128,10 +129,13 @@ private:
 
   \return \c true when the difference is strictly below <tt>tolerance * (1 + max(|lhs|, |rhs|))</tt>.
 
-  \note The formula and its strict inequality reproduce DocTest 2.5.3, so a test keeps its verdict under both runners.
-        DocTest's adjustable scale factor is fixed at one here; no test configures it.
+  \note The formula and its strict inequality reproduce DocTest 2.5.3. DocTest's adjustable scale factor is fixed
+        at one here; no test configures it.
 
   \note Both operands are widened to their common type before comparison, so mixing precisions loses nothing.
+        DocTest instead narrows everything to \c double. The two agree on every value \c double represents,
+        because the gap between the precisions stays orders of magnitude below the tolerance; they can disagree
+        on a <tt>long double</tt> beyond the range of \c double, where narrowing yields infinity.
 
   \note The form with the plain value on the left resolves through the reversed candidate C++20 synthesizes,
         so no second operator is declared.

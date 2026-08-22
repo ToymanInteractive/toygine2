@@ -197,9 +197,15 @@ TEST_CASE("test/approx/epsilon_converts_to_the_value_type") {
 TEST_CASE("test/approx/comparison_matches_the_doctest_formula") {
   // doctest 2.5.3: fabs(lhs - value) < epsilon * (scale + max(fabs(lhs), fabs(value))), with scale fixed at one.
   constexpr auto doctestEquals = [](double lhs, double value, double epsilon) {
-    const double difference = toy::test::detail::absoluteValue(lhs - value);
-    const double left       = toy::test::detail::absoluteValue(lhs);
-    const double right      = toy::test::detail::absoluteValue(value);
+    // The magnitude is taken locally rather than through the runner's helper: an oracle sharing code with the
+    // code under test agrees with it even when both are wrong.
+    const auto magnitude = [](double input) constexpr {
+      return input < 0.0 ? -input : input;
+    };
+
+    const double difference = magnitude(lhs - value);
+    const double left       = magnitude(lhs);
+    const double right      = magnitude(value);
 
     return difference < epsilon * (1.0 + (left > right ? left : right));
   };
