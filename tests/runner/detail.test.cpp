@@ -234,4 +234,15 @@ TEST_CASE("test/approx/comparison_matches_the_doctest_formula") {
     REQUIRE(doctestEquals(1.0, 1.0, epsilon) == true);
     REQUIRE(1.0 == toy::test::Approx(1.0));
   }
+
+  // A zero tolerance collapses the threshold to zero, and a strict inequality rejects a difference of zero with
+  // it. DocTest 2.5.3 behaves the same way, so the surprise is part of the contract rather than a defect: reading
+  // it as one invites replacing the strict comparison and breaking the agreement between the two runners.
+  SUBCASE("a zero tolerance rejects even an exact match") {
+    REQUIRE(doctestEquals(1.0, 1.0, 0.0) == false);
+    REQUIRE_FALSE(1.0 == toy::test::Approx(1.0).epsilon(0.0));
+
+    static_assert(!(1.0 == toy::test::Approx(1.0).epsilon(0.0)),
+                  "a zero tolerance must reject an exact match, as it does under doctest");
+  }
 }
