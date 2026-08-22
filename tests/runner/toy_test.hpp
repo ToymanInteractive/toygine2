@@ -208,6 +208,222 @@ template <std::floating_point T>
 
 } // namespace detail
 
+/*!
+  \struct FailureRecord
+  \brief One failed assertion, as handed to a failure reporter.
+
+  Carries only what the reporter cannot recover on its own. The info stack travels separately, through the
+  \ref toy::test::Context passed alongside.
+
+  \section usage Usage Example
+
+  \code
+  void report(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept;
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **Access**: O(1) constant time
+  * **Memory usage**: 4 pointers plus one int
+
+  \section safety Safety Guarantees
+
+  * **Type safety**: aggregate of pointers to string literals and one line number
+  * **Memory safety**: no ownership; every pointer refers to a string literal that outlives the run
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \sa \ref toy::test::Context
+*/
+struct FailureRecord final {
+  const char * caseName;    ///< Name of the running case.
+  const char * subcaseName; ///< Name of the running subcase, or \c nullptr outside one.
+  const char * expression;  ///< Source text of the failed expression.
+  const char * file;        ///< Source file holding the assertion.
+  int          line;        ///< Source line holding the assertion.
+};
+
+/*!
+  \struct InfoEntry
+  \brief One message on the context's info stack.
+
+  \section usage Usage Example
+
+  \code
+  const toy::test::InfoEntry & entry = context.infoAt(0);
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **Access**: O(1) constant time
+  * **Memory usage**: one pointer, one 64-bit integer and one flag
+
+  \section safety Safety Guarantees
+
+  * **Type safety**: \ref hasValue states whether \ref value carries meaning
+  * **Memory safety**: no ownership; \ref text refers to a string literal
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \sa \ref toy::test::Context
+*/
+struct InfoEntry final {
+  const char * text;     ///< Message text.
+  long long    value;    ///< Companion value, meaningful when \ref hasValue is \c true.
+  bool         hasValue; ///< Whether \ref value carries a number.
+};
+
+class Context;
+
+/// Function invoked for every failed assertion; see \ref toy::test::Context.
+using failure_reporter_type = void (*)(const Context & context, const FailureRecord & failure) noexcept;
+
+/*!
+  \class Context
+  \brief Per-run state of the built-in test runner.
+
+  Counts assertions, tracks the verdict of the running case and forwards every failure to the reporter given at
+  construction. Printing lives in the reporter, so the context stays testable without any output.
+
+  \section features Key Features
+
+  * **Allocation-free**: fixed-size info stack, no container and no heap
+  * **Explicit context**: no global state, so two runners can coexist in one process
+  * **Reporter seam**: failures leave through a function pointer, not a virtual call
+  * **Per-case verdict**: totals span the run while caseFailed() covers the running case
+
+  \section usage Usage Example
+
+  \code
+  #include "toy_test.hpp"
+
+  toy::test::Context context{&reportFailure};
+  context.beginCase("core/fixed_string/append");
+  context.record(str.size() == 4, "str.size() == 4", __FILE__, __LINE__);
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **record()**: O(1) constant time
+  * **Memory usage**: 8 info entries plus counters, about 200 bytes
+
+  \section safety Safety Guarantees
+
+  * **Contracts**: infoAt() requires an index below infoCount()
+  * **Bounds safety**: pushInfo() past the depth drops the surplus and keeps push and pop balanced
+  * **Memory safety**: no dynamic allocation
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \note Every stored pointer refers to a string literal, so the context owns nothing.
+
+  \sa \ref toy::test::FailureRecord
+*/
+class Context final {
+public:
+  /*!
+    \brief Builds a context reporting failures through \a reporter.
+
+    \param reporter  Function invoked for every failed assertion; \c nullptr silences reporting.
+
+    \post Counters are zero and no case is running.
+  */
+  explicit Context(failure_reporter_type reporter) noexcept;
+
+  ~Context() noexcept                  = default;
+  Context(const Context &)             = delete;
+  Context & operator=(const Context &) = delete;
+  Context(Context &&)                  = delete;
+  Context & operator=(Context &&)      = delete;
+
+  /*!
+    \brief Starts a case and clears the per-case verdict.
+
+    \param name  Case name; must outlive the run.
+
+    \post caseFailed() is \c false, caseName() returns \a name, totals are unchanged.
+  */
+  void beginCase(const char * name) noexcept;
+
+  /*!
+    \brief Records one assertion result.
+
+    \param passed      Outcome of the asserted expression.
+    \param expression  Source text of the expression.
+    \param file        Source file holding the assertion.
+    \param line        Source line holding the assertion.
+
+    \return \a passed, so a caller can return early on failure.
+
+    \post On failure the case is marked and the reporter has been invoked exactly once.
+
+    \sa caseFailed()
+  */
+  bool record(bool passed, const char * expression, const char * file, int line) noexcept;
+
+  /*!
+    \brief Pushes a message onto the info stack.
+
+    \param text  Message text; must outlive the entry.
+
+    \post infoCount() grows by one unless the depth is already reached.
+
+    \sa popInfo()
+  */
+  void pushInfo(const char * text) noexcept;
+
+  /// Pushes a message carrying a number; see pushInfo().
+  void pushInfo(const char * text, long long value) noexcept;
+
+  /*!
+    \brief Pops the most recent message.
+
+    \post infoCount() shrinks by one unless the stack is empty.
+
+    \sa pushInfo()
+  */
+  void popInfo() noexcept;
+
+  /// Returns the number of assertions that passed during the run.
+  [[nodiscard]] std::size_t passedCount() const noexcept;
+
+  /// Returns the number of assertions that failed during the run.
+  [[nodiscard]] std::size_t failedCount() const noexcept;
+
+  /// Returns whether the running case has already failed an assertion.
+  [[nodiscard]] bool caseFailed() const noexcept;
+
+  /// Returns the number of messages currently on the info stack.
+  [[nodiscard]] std::size_t infoCount() const noexcept;
+
+  /*!
+    \brief Returns the message at \a index.
+
+    \param index  Position on the stack, oldest first.
+
+    \return Entry stored at \a index.
+
+    \pre \a index is below infoCount().
+  */
+  [[nodiscard]] const InfoEntry & infoAt(std::size_t index) const noexcept;
+
+  /// Returns the name of the running case, or \c nullptr before the first beginCase().
+  [[nodiscard]] const char * caseName() const noexcept;
+
+  /// Returns the name of the running subcase, or \c nullptr outside one.
+  [[nodiscard]] const char * subcaseName() const noexcept;
+
+private:
+  failure_reporter_type    _reporter;
+  const char *             _caseName;
+  const char *             _subcaseName;
+  std::size_t              _passedCount;
+  std::size_t              _failedCount;
+  std::size_t              _infoDepth;
+  bool                     _caseFailed;
+  std::array<InfoEntry, 8> _infoStack;
+};
+
 } // namespace toy::test
 
 #include "toy_test.inl"

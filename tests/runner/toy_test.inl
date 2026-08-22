@@ -130,4 +130,88 @@ constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::si
 
 } // namespace detail
 
+inline Context::Context(failure_reporter_type reporter) noexcept
+  : _reporter{reporter}
+  , _caseName{nullptr}
+  , _subcaseName{nullptr}
+  , _passedCount{0}
+  , _failedCount{0}
+  , _infoDepth{0}
+  , _caseFailed{false}
+  , _infoStack{} {}
+
+inline void Context::beginCase(const char * name) noexcept {
+  _caseName    = name;
+  _subcaseName = nullptr;
+  _caseFailed  = false;
+  _infoDepth   = 0;
+}
+
+inline bool Context::record(bool passed, const char * expression, const char * file, int line) noexcept {
+  if (passed) {
+    ++_passedCount;
+
+    return true;
+  }
+
+  ++_failedCount;
+  _caseFailed = true;
+
+  if (_reporter != nullptr) {
+    const FailureRecord failure{_caseName, _subcaseName, expression, file, line};
+    _reporter(*this, failure);
+  }
+
+  return false;
+}
+
+inline void Context::pushInfo(const char * text) noexcept {
+  if (_infoDepth < _infoStack.size())
+    _infoStack[_infoDepth] = InfoEntry{text, 0, false};
+
+  ++_infoDepth;
+}
+
+inline void Context::pushInfo(const char * text, long long value) noexcept {
+  if (_infoDepth < _infoStack.size())
+    _infoStack[_infoDepth] = InfoEntry{text, value, true};
+
+  ++_infoDepth;
+}
+
+inline void Context::popInfo() noexcept {
+  if (_infoDepth > 0)
+    --_infoDepth;
+}
+
+inline std::size_t Context::passedCount() const noexcept {
+  return _passedCount;
+}
+
+inline std::size_t Context::failedCount() const noexcept {
+  return _failedCount;
+}
+
+inline bool Context::caseFailed() const noexcept {
+  return _caseFailed;
+}
+
+inline std::size_t Context::infoCount() const noexcept {
+  // The depth counter keeps growing past the fixed stack so that pushes and pops stay balanced; what is
+  // readable is capped at the stack itself.
+  return _infoDepth < _infoStack.size() ? _infoDepth : _infoStack.size();
+}
+
+inline const InfoEntry & Context::infoAt(std::size_t index) const noexcept {
+  return _infoStack[index];
+}
+
+inline const char * Context::caseName() const noexcept {
+  return _caseName;
+}
+
+inline const char * Context::subcaseName() const noexcept {
+  return _subcaseName;
+}
+
 } // namespace toy::test
