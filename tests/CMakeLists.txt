@@ -54,12 +54,9 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
 
   list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
-  # Collect all test .cpp files from subdirectories (core/, network/, render/, etc.).
-  file(GLOB_RECURSE TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
-
-  # Root-level .cpp are excluded so TESTS_SRC contains only module test files
-  file(GLOB ROOT_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp")
-  list(REMOVE_ITEM TESTS_SRC ${ROOT_SRC})
+  # Only files named *.test.cpp are test translation units. The runner's own implementation, its sinks and the
+  # self-test binaries carry their own main() and belong to other targets, so the pattern keeps them out.
+  file(GLOB_RECURSE TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
 
   list(APPEND TESTS_SRC tests.cpp)
 
@@ -69,6 +66,7 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
 
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+  target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 
