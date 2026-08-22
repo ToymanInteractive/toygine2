@@ -190,3 +190,48 @@ TEST_CASE("test/approx/epsilon_converts_to_the_value_type") {
 
   REQUIRE(1.0F == tolerant);
 }
+
+// The comparison reproduces doctest's formula, including its strict inequality. A difference of one and a half
+// epsilons around one is the cheapest point that separates the two candidate formulas: doctest's threshold there
+// is two epsilons, while a threshold of one epsilon would reject it.
+TEST_CASE("test/approx/comparison_matches_the_doctest_formula") {
+  // doctest 2.5.3: fabs(lhs - value) < epsilon * (scale + max(fabs(lhs), fabs(value))), with scale fixed at one.
+  constexpr auto doctestEquals = [](double lhs, double value, double epsilon) {
+    const double difference = toy::test::detail::absoluteValue(lhs - value);
+    const double left       = toy::test::detail::absoluteValue(lhs);
+    const double right      = toy::test::detail::absoluteValue(value);
+
+    return difference < epsilon * (1.0 + (left > right ? left : right));
+  };
+
+  constexpr double epsilon = static_cast<double>(std::numeric_limits<float>::epsilon()) * 100.0;
+
+  SUBCASE("one and a half epsilons around one are within tolerance") {
+    constexpr double value = 1.0 + 1.5 * epsilon;
+
+    REQUIRE(doctestEquals(1.0, value, epsilon) == true);
+    REQUIRE(1.0 == toy::test::Approx(value));
+
+    static_assert(1.0 == toy::test::Approx(1.0 + 1.5 * epsilon),
+                  "a difference of one and a half epsilons must stay within doctest's threshold of two");
+  }
+
+  SUBCASE("two and a half epsilons around one are outside tolerance") {
+    constexpr double value = 1.0 + 2.5 * epsilon;
+
+    REQUIRE(doctestEquals(1.0, value, epsilon) == false);
+    REQUIRE_FALSE(1.0 == toy::test::Approx(value));
+  }
+
+  SUBCASE("the added one carries values below unit magnitude") {
+    constexpr double value = 0.5 + 1.2 * epsilon;
+
+    REQUIRE(doctestEquals(0.5, value, epsilon) == true);
+    REQUIRE(0.5 == toy::test::Approx(value));
+  }
+
+  SUBCASE("an exact match compares equal under a strict inequality") {
+    REQUIRE(doctestEquals(1.0, 1.0, epsilon) == true);
+    REQUIRE(1.0 == toy::test::Approx(1.0));
+  }
+}

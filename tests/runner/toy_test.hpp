@@ -126,7 +126,10 @@ private:
   \param  lhs  Tolerant value.
   \param  rhs  Plain value.
 
-  \return \c true when the difference falls within the tolerance of \a lhs.
+  \return \c true when the difference is strictly below <tt>tolerance * (1 + max(|lhs|, |rhs|))</tt>.
+
+  \note The formula and its strict inequality reproduce DocTest 2.5.3, so a test keeps its verdict under both runners.
+        DocTest's adjustable scale factor is fixed at one here; no test configures it.
 
   \note Both operands are widened to their common type before comparison, so mixing precisions loses nothing.
 

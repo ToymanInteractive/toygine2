@@ -61,11 +61,11 @@ constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept {
   const common_type left       = detail::absoluteValue(actual);
   const common_type right      = detail::absoluteValue(expected);
   const common_type larger     = left > right ? left : right;
-  const common_type scale      = larger < common_type{1} ? common_type{1} : larger;
 
-  // Scaling by the larger operand keeps one epsilon usable across magnitudes; the floor of one keeps
-  // values near zero from demanding exact equality.
-  return difference <= static_cast<common_type>(lhs.tolerance()) * scale;
+  // Reproduces doctest 2.5.3 exactly, down to the strict comparison: difference < epsilon * (1 + larger).
+  // The added one keeps values near zero from demanding exact equality, and the larger operand carries the
+  // scaling across magnitudes. Any departure here makes one test disagree with itself under the two runners.
+  return difference < static_cast<common_type>(lhs.tolerance()) * (common_type{1} + larger);
 }
 
 namespace detail {
