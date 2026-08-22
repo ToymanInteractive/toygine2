@@ -1098,6 +1098,22 @@
                 "type-shipping",
                 "base"
             ]
+        },
+        {
+            "name": "switch-release",
+            "configurePreset": "switch-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "switch-shipping",
+            "configurePreset": "switch-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
         }
     ]
 }

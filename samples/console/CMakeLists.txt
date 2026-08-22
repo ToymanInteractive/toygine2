@@ -40,6 +40,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.3dsx" DESTINATION bin COMPONENT samples)
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+
+  nx_create_nro(console_sample_app)
+
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.nro" DESTINATION bin COMPONENT samples)
+
 else ()
 
   install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)

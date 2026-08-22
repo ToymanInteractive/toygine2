@@ -109,6 +109,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.switch.toolchain:latest
             run_test: "false"
             cmake_preset: switch-release
+            artifact_id: switch
 
           - name: Nintendo GameCube
             os: ubuntu-26.04

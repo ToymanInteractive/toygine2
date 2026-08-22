@@ -94,7 +94,40 @@ int main() {
 
 #endif // __3DS__
 
-#if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__)
+#ifdef __SWITCH__
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <switch.h>
+
+int main() {
+  consoleInit(NULL);
+
+  padConfigureInput(1, HidNpadStyleSet_NpadStandard);
+
+  PadState pad;
+  padInitializeDefault(&pad);
+
+  printf("Hello world from Console sample app");
+
+  while (appletMainLoop()) {
+    padUpdate(&pad);
+
+    u64 kDown = padGetButtonsDown(&pad);
+    if (kDown & HidNpadButton_Plus)
+      break;
+
+    consoleUpdate(NULL);
+  }
+
+  consoleExit(NULL);
+  return 0;
+}
+
+#endif // __SWITCH__
+
+#if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__)
 
 #include <iostream>
 
