@@ -102,6 +102,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.3ds.toolchain:latest
             run_test: "false"
             cmake_preset: 3ds-release
+            artifact_id: 3ds
 
           - name: Nintendo Switch
             os: ubuntu-26.04

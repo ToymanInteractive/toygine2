@@ -1082,6 +1082,22 @@
                 "type-shipping",
                 "base"
             ]
+        },
+        {
+            "name": "3ds-release",
+            "configurePreset": "3ds-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "3ds-shipping",
+            "configurePreset": "3ds-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
         }
     ]
 }
