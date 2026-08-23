@@ -275,8 +275,20 @@ struct InfoEntry final {
 
 class Context;
 
-/// Function invoked for every failed assertion; see \ref toy::test::Context.
-using failure_reporter_type = void (*)(const Context & context, const FailureRecord & failure) noexcept;
+/*!
+  \brief Function invoked for every failed assertion.
+
+  \param context       Context that recorded the failure.
+  \param failure       The failed assertion.
+  \param reporterData  Pointer handed to the context at construction; \c nullptr when none was given.
+
+  \note A reporter is a plain function pointer, so anything it must remember between calls — a case number, a header
+        already printed, a captured record — arrives through \a reporterData rather than through storage of its own.
+
+  \sa \ref toy::test::Context
+*/
+using failure_reporter_type = void (*)(const Context & context, const FailureRecord & failure,
+                                       void * reporterData) noexcept;
 
 /*!
   \class Context
@@ -289,7 +301,7 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 
   * **Allocation-free**: fixed-size info stack, no container and no heap
   * **Explicit context**: no global state, so two runners can coexist in one process
-  * **Reporter seam**: failures leave through a function pointer, not a virtual call
+  * **Reporter seam**: failures leave through a function pointer carrying caller-owned data, not a virtual call
   * **Per-case verdict**: totals span the run while caseFailed() covers the running case
 
   \section usage Usage Example
@@ -327,11 +339,13 @@ public:
   /*!
     \brief Builds a context reporting failures through \a reporter.
 
-    \param reporter  Function invoked for every failed assertion; \c nullptr silences reporting.
+    \param reporter      Function invoked for every failed assertion; \c nullptr silences reporting.
+    \param reporterData  Storage handed back to \a reporter on every call (default: \c nullptr); owned by the caller,
+                         which must outlive the context.
 
     \post Counters are zero and no case is running.
   */
-  explicit Context(failure_reporter_type reporter) noexcept;
+  explicit Context(failure_reporter_type reporter, void * reporterData = nullptr) noexcept;
 
   ~Context() noexcept                  = default;
   Context(const Context &)             = delete;
@@ -459,6 +473,7 @@ public:
 
 private:
   failure_reporter_type                 _reporter;
+  void *                                _reporterData;
   const char *                          _caseName;
   const char *                          _subcaseName;
   std::size_t                           _passedCount;

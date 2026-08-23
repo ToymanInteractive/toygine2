@@ -130,8 +130,9 @@ constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::si
 
 } // namespace detail
 
-inline Context::Context(failure_reporter_type reporter) noexcept
+inline Context::Context(failure_reporter_type reporter, void * reporterData) noexcept
   : _reporter{reporter}
+  , _reporterData{reporterData}
   , _caseName{nullptr}
   , _subcaseName{nullptr}
   , _passedCount{0}
@@ -168,7 +169,7 @@ inline bool Context::record(bool passed, const char * expression, const char * f
   _caseFailed = true;
 
   if (_reporter != nullptr)
-    _reporter(*this, FailureRecord{_caseName, _subcaseName, expression, file, line});
+    _reporter(*this, FailureRecord{_caseName, _subcaseName, expression, file, line}, _reporterData);
 
   return false;
 }

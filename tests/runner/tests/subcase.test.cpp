@@ -70,13 +70,11 @@ void bodyFailingInTheFirstOfTwo(toy::test::Context & context) {
   }
 }
 
-// A reporter is a bare function pointer as well, and the context it receives is const, so the record it inspects can
-// only leave through storage outside the call. The one case reading this clears it before the run.
-const char * g_capturedSubcaseName = nullptr;
-
-void captureSubcaseName(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept {
+// Writes the failing subcase's name into storage the reading case owns.
+void captureSubcaseName(const toy::test::Context & context, const toy::test::FailureRecord & failure,
+                        void * reporterData) noexcept {
   static_cast<void>(context);
-  g_capturedSubcaseName = failure.subcaseName;
+  *static_cast<const char **>(reporterData) = failure.subcaseName;
 }
 
 } // namespace
@@ -161,13 +159,13 @@ TEST_CASE("test::detail/subcase_guard/nested_entry_is_diagnosed") {
 
 // The running subcase name reaches the failure record, so a report names the failing branch.
 TEST_CASE("test::detail/subcase_guard/failure_carries_the_subcase_name") {
-  g_capturedSubcaseName = nullptr;
-  toy::test::Context context{&captureSubcaseName};
+  const char *       capturedSubcaseName = nullptr;
+  toy::test::Context context{&captureSubcaseName, &capturedSubcaseName};
 
   toy::test::runCase(context, "some/case", &bodyFailingInsideSubcase);
 
-  REQUIRE(g_capturedSubcaseName != nullptr);
-  REQUIRE(toy::test::detail::compareNames(g_capturedSubcaseName, "the_subcase") == 0);
+  REQUIRE(capturedSubcaseName != nullptr);
+  REQUIRE(toy::test::detail::compareNames(capturedSubcaseName, "the_subcase") == 0);
 }
 
 // Leaving a subcase clears the name, so a later failure outside one carries no stale branch.
