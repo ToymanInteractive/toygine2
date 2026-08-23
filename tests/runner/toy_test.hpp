@@ -41,11 +41,11 @@ namespace toy::test {
   \class Approx
   \brief Floating-point value carrying a comparison tolerance.
 
-  Compares equal to a floating-point value whose difference falls within a tolerance that scales with magnitude,
-  so the same epsilon works for small and large values.
+  Compares equal to a floating-point value whose difference falls within a tolerance that scales with magnitude, so the
+  same epsilon works for small and large values.
 
-  \tparam T  Floating-point type of the compared value; satisfies \c std::floating_point, so \c float,
-             \c double and <tt>long double</tt> are accepted.
+  \tparam T  Floating-point type of the compared value; satisfies \c std::floating_point, so \c float, \c double and
+             <tt>long double</tt> are accepted.
 
   \section features Key Features
 
@@ -81,14 +81,14 @@ namespace toy::test {
 
   \section compatibility Compatibility
 
-  Requires C++20 concepts. Allocates nothing and includes no hosted header, so it builds on every console and
-  embedded target the engine supports. Verdicts match DocTest on every value \c double represents; comparison
-  happens in the operands' own precision rather than in \c double, which DocTest always uses.
+  Requires C++20 concepts. Allocates nothing and includes no hosted header, so it builds on every console and embedded
+  target the engine supports. Verdicts match DocTest on every value \c double represents; comparison happens in the
+  operands' own precision rather than in \c double, which DocTest always uses.
 
   \note A comparison involving NaN is false, matching the behaviour of the built-in operator.
 
-  \note The default tolerance is the same constant for every \a T, deliberately: DocTest uses that one value
-        regardless of type, and matching it keeps a test's verdict identical under both runners.
+  \note The default tolerance is the same constant for every \a T, deliberately: DocTest uses that one value regardless
+        of type, and matching it keeps a test's verdict identical under both runners.
 */
 template <std::floating_point T>
 class Approx final {
@@ -129,16 +129,16 @@ private:
 
   \return \c true when the difference is strictly below <tt>tolerance * (1 + max(|lhs|, |rhs|))</tt>.
 
-  \note The formula and its strict inequality reproduce DocTest 2.5.3. DocTest's adjustable scale factor is fixed
-        at one here; no test configures it.
+  \note The formula and its strict inequality reproduce DocTest 2.5.3. DocTest's adjustable scale factor is fixed at one
+        here; no test configures it.
 
-  \note Both operands are widened to their common type before comparison, so mixing precisions loses nothing.
-        DocTest instead narrows everything to \c double. The two agree on every value \c double represents,
-        because the gap between the precisions stays orders of magnitude below the tolerance; they can disagree
-        on a <tt>long double</tt> beyond the range of \c double, where narrowing yields infinity.
+  \note Both operands are widened to their common type before comparison, so mixing precisions loses nothing. DocTest
+        instead narrows everything to \c double. The two agree on every value \c double represents, because the gap
+        between the precisions stays orders of magnitude below the tolerance; they can disagree on a
+        <tt>long double</tt> beyond the range of \c double, where narrowing yields infinity.
 
-  \note The form with the plain value on the left resolves through the reversed candidate C++20 synthesizes,
-        so no second operator is declared.
+  \note The form with the plain value on the left resolves through the reversed candidate C++20 synthesizes, so no
+        second operator is declared.
 
   \sa toy::test::Approx
 */
@@ -275,8 +275,20 @@ struct InfoEntry final {
 
 class Context;
 
-/// Function invoked for every failed assertion; see \ref toy::test::Context.
-using failure_reporter_type = void (*)(const Context & context, const FailureRecord & failure) noexcept;
+/*!
+  \brief Function invoked for every failed assertion.
+
+  \param context       Context that recorded the failure.
+  \param failure       The failed assertion.
+  \param reporterData  Pointer handed to the context at construction; \c nullptr when none was given.
+
+  \note A reporter is a plain function pointer, so anything it must remember between calls — a case number, a header
+        already printed, a captured record — arrives through \a reporterData rather than through storage of its own.
+
+  \sa \ref toy::test::Context
+*/
+using failure_reporter_type = void (*)(const Context & context, const FailureRecord & failure,
+                                       void * reporterData) noexcept;
 
 /*!
   \class Context
@@ -289,7 +301,7 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 
   * **Allocation-free**: fixed-size info stack, no container and no heap
   * **Explicit context**: no global state, so two runners can coexist in one process
-  * **Reporter seam**: failures leave through a function pointer, not a virtual call
+  * **Reporter seam**: failures leave through a function pointer carrying caller-owned data, not a virtual call
   * **Per-case verdict**: totals span the run while caseFailed() covers the running case
 
   \section usage Usage Example
@@ -327,11 +339,13 @@ public:
   /*!
     \brief Builds a context reporting failures through \a reporter.
 
-    \param reporter  Function invoked for every failed assertion; \c nullptr silences reporting.
+    \param reporter      Function invoked for every failed assertion; \c nullptr silences reporting.
+    \param reporterData  Storage handed back to \a reporter on every call (default: \c nullptr); owned by the caller,
+                         which must outlive the context.
 
     \post Counters are zero and no case is running.
   */
-  explicit Context(failure_reporter_type reporter) noexcept;
+  explicit Context(failure_reporter_type reporter, void * reporterData = nullptr) noexcept;
 
   ~Context() noexcept                  = default;
   Context(const Context &)             = delete;
@@ -387,6 +401,47 @@ public:
   */
   void popInfo() noexcept;
 
+  /*!
+    \brief Starts one run of the running case.
+
+    \param targetSubcase  Index of the subcase this run enters.
+
+    \post The seen-subcase counter is zero and the info stack is empty; the case verdict and the totals are unchanged.
+
+    \sa toy::test::runCase()
+  */
+  void beginRun(std::size_t targetSubcase) noexcept;
+
+  /*!
+    \brief Enters a subcase if this run targets it.
+
+    \param name  Subcase name; must outlive the run.
+
+    \return \c true when this run targets the subcase and the body must execute.
+
+    \post On a nested entry the nested flag is raised and \c false is returned.
+
+    \note Called by \ref toy::test::detail::SubcaseGuard, not from a test body.
+
+    \sa leaveSubcase()
+  */
+  bool enterSubcase(const char * name) noexcept;
+
+  /*!
+    \brief Leaves the entered subcase.
+
+    \post subcaseName() returns \c nullptr.
+
+    \sa enterSubcase()
+  */
+  void leaveSubcase() noexcept;
+
+  /// Returns how many subcases the case has revealed so far across its runs.
+  [[nodiscard]] std::size_t subcaseCount() const noexcept;
+
+  /// Returns whether a subcase was entered from inside another subcase, which the rules forbid.
+  [[nodiscard]] bool nestedSubcaseDetected() const noexcept;
+
   /// Returns the number of assertions that passed during the run.
   [[nodiscard]] std::size_t passedCount() const noexcept;
 
@@ -418,14 +473,103 @@ public:
 
 private:
   failure_reporter_type                 _reporter;
+  void *                                _reporterData;
   const char *                          _caseName;
   const char *                          _subcaseName;
   std::size_t                           _passedCount;
   std::size_t                           _failedCount;
   std::size_t                           _infoDepth;
   bool                                  _caseFailed;
+  std::size_t                           _targetSubcase;
+  std::size_t                           _seenSubcases;
+  std::size_t                           _subcaseCount;
+  bool                                  _insideSubcase;
+  bool                                  _nestedSubcase;
   std::array<InfoEntry, c_maxInfoDepth> _infoStack;
 };
+
+/// Body of a test case, as produced by the TEST_CASE macro.
+using case_body_type = void (*)(Context & context);
+
+/*!
+  \brief Runs one case, repeating the body once per subcase it declares.
+
+  \param context  Run state; receives the counters and the failures.
+  \param name     Case name; must outlive the run.
+  \param body     Case body.
+
+  \post The body has executed once for a case without subcases, or once per subcase otherwise.
+
+  \note A case whose body returns early through a failed \c REQUIRE may reveal fewer subcases on that run; the case is
+        already failed, so the shortfall changes no verdict.
+
+  \sa \ref toy::test::Context
+*/
+void runCase(Context & context, const char * name, case_body_type body) noexcept;
+
+namespace detail {
+
+/*!
+  \class SubcaseGuard
+  \brief Scope object entering one subcase of the running case.
+
+  Constructed by the \c SUBCASE macro; entered() reports whether the current run targets this subcase.
+
+  \section features Key Features
+
+  * **Allocation-free**: two members, no state beyond the context
+  * **Non-copyable**: the scope owns the entered subcase
+  * **Nesting diagnosed**: entering from inside a subcase raises the context's nested flag
+
+  \section usage Usage Example
+
+  \code
+  const toy::test::detail::SubcaseGuard guard{context, "branch"};
+  if (guard.entered()) {
+    // subcase body
+  }
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **Destruction**: O(1) constant time
+  * **Memory usage**: one pointer and one flag
+
+  \section safety Safety Guarantees
+
+  * **Contracts**: none; a nested entry is reported, not asserted
+  * **Memory safety**: no ownership of the name, which must outlive the run
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \sa \ref toy::test::Context
+*/
+class SubcaseGuard final {
+public:
+  /*!
+    \brief Enters the subcase named \a name when the current run targets it.
+
+    \param context  Run state.
+    \param name     Subcase name; must outlive the run.
+  */
+  SubcaseGuard(Context & context, const char * name) noexcept;
+
+  ~SubcaseGuard() noexcept;
+
+  SubcaseGuard(const SubcaseGuard &)             = delete;
+  SubcaseGuard & operator=(const SubcaseGuard &) = delete;
+  SubcaseGuard(SubcaseGuard &&)                  = delete;
+  SubcaseGuard & operator=(SubcaseGuard &&)      = delete;
+
+  /// Returns whether the current run entered this subcase.
+  [[nodiscard]] bool entered() const noexcept;
+
+private:
+  Context * _context;
+  bool      _entered;
+};
+
+} // namespace detail
 
 } // namespace toy::test
 

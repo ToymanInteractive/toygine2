@@ -1114,6 +1114,22 @@
                 "type-shipping",
                 "base"
             ]
+        },
+        {
+            "name": "gamecube-release",
+            "configurePreset": "gamecube-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "gamecube-shipping",
+            "configurePreset": "gamecube-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
         }
     ]
 }

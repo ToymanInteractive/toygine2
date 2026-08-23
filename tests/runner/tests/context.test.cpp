@@ -47,32 +47,28 @@ struct CapturedFailure final {
   std::size_t  callCount  = 0;
 };
 
-CapturedFailure g_captured;
+// The capture lives in the case that reads it and arrives here through the context's reporter data, so no state
+// outlives a case or travels between two of them.
+void captureFailure(const toy::test::Context & context, const toy::test::FailureRecord & failure,
+                    void * reporterData) noexcept {
+  CapturedFailure & captured = *static_cast<CapturedFailure *>(reporterData);
 
-void captureFailure(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept {
-  g_captured.caseName   = failure.caseName;
-  g_captured.expression = failure.expression;
-  g_captured.file       = failure.file;
-  g_captured.line       = failure.line;
-  g_captured.infoCount  = context.infoCount();
-  g_captured.firstInfo  = context.infoCount() > 0 ? context.infoAt(0).text : nullptr;
-  g_captured.firstValue = context.infoCount() > 0 ? context.infoAt(0).value : 0;
-  ++g_captured.callCount;
-}
-
-// Fresh capture plus a context wired to it; every case starts from this to stay order-independent.
-CapturedFailure & resetCapture() {
-  g_captured = CapturedFailure{};
-
-  return g_captured;
+  captured.caseName   = failure.caseName;
+  captured.expression = failure.expression;
+  captured.file       = failure.file;
+  captured.line       = failure.line;
+  captured.infoCount  = context.infoCount();
+  captured.firstInfo  = context.infoCount() > 0 ? context.infoAt(0).text : nullptr;
+  captured.firstValue = context.infoCount() > 0 ? context.infoAt(0).value : 0;
+  ++captured.callCount;
 }
 
 } // namespace
 
 // A passing assertion counts as passed, returns true and leaves the case clean.
 TEST_CASE("test/context/record_passing_assertion") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
 
   const bool result = context.record(true, "1 == 1", "file.cpp", 10);
@@ -81,13 +77,13 @@ TEST_CASE("test/context/record_passing_assertion") {
   REQUIRE(context.passedCount() == 1);
   REQUIRE(context.failedCount() == 0);
   REQUIRE(context.caseFailed() == false);
-  REQUIRE(g_captured.callCount == 0);
+  REQUIRE(captured.callCount == 0);
 }
 
 // A failing assertion counts as failed, returns false and marks the case.
 TEST_CASE("test/context/record_failing_assertion") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
 
   const bool result = context.record(false, "1 == 2", "file.cpp", 42);
@@ -100,57 +96,57 @@ TEST_CASE("test/context/record_failing_assertion") {
 
 // The reporter receives the case name and the assertion's own source location.
 TEST_CASE("test/context/failure_reaches_reporter") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("core/fixed_string/append");
 
   context.record(false, "str.size() == 4", "tests/core/fixed_string.test.cpp", 88);
 
   // Without a call the captured pointers stay null, which makes every comparison below meaningless.
-  REQUIRE(g_captured.callCount == 1);
-  REQUIRE(g_captured.caseName != nullptr);
-  REQUIRE(g_captured.expression != nullptr);
-  REQUIRE(g_captured.file != nullptr);
+  REQUIRE(captured.callCount == 1);
+  REQUIRE(captured.caseName != nullptr);
+  REQUIRE(captured.expression != nullptr);
+  REQUIRE(captured.file != nullptr);
 
-  REQUIRE(toy::test::detail::compareNames(g_captured.caseName, "core/fixed_string/append") == 0);
-  REQUIRE(toy::test::detail::compareNames(g_captured.expression, "str.size() == 4") == 0);
-  REQUIRE(toy::test::detail::compareNames(g_captured.file, "tests/core/fixed_string.test.cpp") == 0);
-  REQUIRE(g_captured.line == 88);
+  REQUIRE(toy::test::detail::compareNames(captured.caseName, "core/fixed_string/append") == 0);
+  REQUIRE(toy::test::detail::compareNames(captured.expression, "str.size() == 4") == 0);
+  REQUIRE(toy::test::detail::compareNames(captured.file, "tests/core/fixed_string.test.cpp") == 0);
+  REQUIRE(captured.line == 88);
 }
 
 // Info entries pushed before a failure reach the reporter through the context.
 TEST_CASE("test/context/info_reaches_reporter") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
   context.pushInfo("index", 3);
 
   context.record(false, "value == 0", "file.cpp", 7);
 
-  REQUIRE(g_captured.infoCount == 1);
-  REQUIRE(g_captured.firstInfo != nullptr);
+  REQUIRE(captured.infoCount == 1);
+  REQUIRE(captured.firstInfo != nullptr);
 
-  REQUIRE(toy::test::detail::compareNames(g_captured.firstInfo, "index") == 0);
-  REQUIRE(g_captured.firstValue == 3);
+  REQUIRE(toy::test::detail::compareNames(captured.firstInfo, "index") == 0);
+  REQUIRE(captured.firstValue == 3);
 }
 
 // Popping removes the entry, so a later failure carries no stale context.
 TEST_CASE("test/context/pop_info_removes_entry") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
   context.pushInfo("index", 3);
   context.popInfo();
 
   context.record(false, "value == 0", "file.cpp", 7);
 
-  REQUIRE(g_captured.infoCount == 0);
+  REQUIRE(captured.infoCount == 0);
 }
 
 // A message without a value reports hasValue false, so the reporter can omit the number.
 TEST_CASE("test/context/info_without_value") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
   context.pushInfo("after reload");
 
@@ -162,8 +158,8 @@ TEST_CASE("test/context/info_without_value") {
 
 // Pushing past the fixed depth drops the surplus but keeps push and pop balanced.
 TEST_CASE("test/context/info_stack_overflow_stays_balanced") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
 
   for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth + 4; ++index)
@@ -179,8 +175,8 @@ TEST_CASE("test/context/info_stack_overflow_stays_balanced") {
 
 // beginCase clears the per-case verdict but keeps the totals, which span the whole run.
 TEST_CASE("test/context/begin_case_clears_verdict_and_keeps_totals") {
-  resetCapture();
-  toy::test::Context context{&captureFailure};
+  CapturedFailure    captured;
+  toy::test::Context context{&captureFailure, &captured};
   context.beginCase("first/case");
   context.record(false, "1 == 2", "file.cpp", 1);
 

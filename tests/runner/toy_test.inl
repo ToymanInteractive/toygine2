@@ -130,21 +130,32 @@ constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::si
 
 } // namespace detail
 
-inline Context::Context(failure_reporter_type reporter) noexcept
+inline Context::Context(failure_reporter_type reporter, void * reporterData) noexcept
   : _reporter{reporter}
+  , _reporterData{reporterData}
   , _caseName{nullptr}
   , _subcaseName{nullptr}
   , _passedCount{0}
   , _failedCount{0}
   , _infoDepth{0}
   , _caseFailed{false}
+  , _targetSubcase{0}
+  , _seenSubcases{0}
+  , _subcaseCount{0}
+  , _insideSubcase{false}
+  , _nestedSubcase{false}
   , _infoStack{} {}
 
 inline void Context::beginCase(const char * name) noexcept {
-  _caseName    = name;
-  _subcaseName = nullptr;
-  _caseFailed  = false;
-  _infoDepth   = 0;
+  _caseName      = name;
+  _subcaseName   = nullptr;
+  _caseFailed    = false;
+  _infoDepth     = 0;
+  _targetSubcase = 0;
+  _seenSubcases  = 0;
+  _subcaseCount  = 0;
+  _insideSubcase = false;
+  _nestedSubcase = false;
 }
 
 inline bool Context::record(bool passed, const char * expression, const char * file, int line) noexcept {
@@ -157,10 +168,8 @@ inline bool Context::record(bool passed, const char * expression, const char * f
   ++_failedCount;
   _caseFailed = true;
 
-  if (_reporter != nullptr) {
-    const FailureRecord failure{_caseName, _subcaseName, expression, file, line};
-    _reporter(*this, failure);
-  }
+  if (_reporter != nullptr)
+    _reporter(*this, FailureRecord{_caseName, _subcaseName, expression, file, line}, _reporterData);
 
   return false;
 }
@@ -197,9 +206,9 @@ inline bool Context::caseFailed() const noexcept {
 }
 
 inline std::size_t Context::infoCount() const noexcept {
-  // The depth counter keeps growing past the fixed stack so that pushes and pops stay balanced; what is
-  // readable is capped at the stack itself.
-  return _infoDepth < c_maxInfoDepth ? _infoDepth : c_maxInfoDepth;
+  // The depth counter keeps growing past the fixed stack so that pushes and pops stay balanced;
+  // what is readable is capped at the stack itself.
+  return std::min(_infoDepth, c_maxInfoDepth);
 }
 
 inline const InfoEntry & Context::infoAt(std::size_t index) const noexcept {
@@ -213,5 +222,77 @@ inline const char * Context::caseName() const noexcept {
 inline const char * Context::subcaseName() const noexcept {
   return _subcaseName;
 }
+
+inline void Context::beginRun(std::size_t targetSubcase) noexcept {
+  _targetSubcase = targetSubcase;
+  _seenSubcases  = 0;
+  _infoDepth     = 0;
+  _subcaseName   = nullptr;
+  _insideSubcase = false;
+}
+
+inline bool Context::enterSubcase(const char * name) noexcept {
+  if (_insideSubcase) {
+    _nestedSubcase = true;
+
+    return false;
+  }
+
+  const auto index = _seenSubcases;
+  ++_seenSubcases;
+
+  if (index >= _subcaseCount)
+    _subcaseCount = index + 1;
+
+  if (index != _targetSubcase)
+    return false;
+
+  _insideSubcase = true;
+  _subcaseName   = name;
+
+  return true;
+}
+
+inline void Context::leaveSubcase() noexcept {
+  _insideSubcase = false;
+  _subcaseName   = nullptr;
+}
+
+inline std::size_t Context::subcaseCount() const noexcept {
+  return _subcaseCount;
+}
+
+inline bool Context::nestedSubcaseDetected() const noexcept {
+  return _nestedSubcase;
+}
+
+inline void runCase(Context & context, const char * name, case_body_type body) noexcept {
+  context.beginCase(name);
+
+  std::size_t targetSubcase = 0;
+
+  do {
+    context.beginRun(targetSubcase);
+    body(context);
+    ++targetSubcase;
+  } while (targetSubcase < context.subcaseCount());
+}
+
+namespace detail {
+
+inline SubcaseGuard::SubcaseGuard(Context & context, const char * name) noexcept
+  : _context{&context}
+  , _entered{context.enterSubcase(name)} {}
+
+inline SubcaseGuard::~SubcaseGuard() noexcept {
+  if (_entered)
+    _context->leaveSubcase();
+}
+
+inline bool SubcaseGuard::entered() const noexcept {
+  return _entered;
+}
+
+} // namespace detail
 
 } // namespace toy::test
