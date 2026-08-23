@@ -22,6 +22,9 @@
   \brief  Unit tests for \ref toy::test::detail::SubcaseGuard and the runner's repeated-run loop.
 */
 
+#include <array>
+#include <cstddef>
+
 #include <doctest/doctest.h>
 
 #include "toy_test.hpp"
@@ -33,34 +36,6 @@ namespace {
 // entered subcase.
 void bodyWithoutSubcases(toy::test::Context & context) {
   context.record(true, "the body ran", "file.cpp", 1);
-}
-
-// Three sibling subcases, written the way the SUBCASE macro will expand in task 5. Each records whether the name the
-// context reports is its own, so a run entering the wrong branch fails instead of passing unnoticed.
-void bodyWithThreeSubcases(toy::test::Context & context) {
-  context.record(true, "the body ran", "file.cpp", 1);
-
-  {
-    const toy::test::detail::SubcaseGuard guard{context, "first"};
-    if (guard.entered()) {
-      context.record(toy::test::detail::compareNames(context.subcaseName(), "first") == 0, "first is running",
-                     "file.cpp", 2);
-    }
-  }
-  {
-    const toy::test::detail::SubcaseGuard guard{context, "second"};
-    if (guard.entered()) {
-      context.record(toy::test::detail::compareNames(context.subcaseName(), "second") == 0, "second is running",
-                     "file.cpp", 3);
-    }
-  }
-  {
-    const toy::test::detail::SubcaseGuard guard{context, "third"};
-    if (guard.entered()) {
-      context.record(toy::test::detail::compareNames(context.subcaseName(), "third") == 0, "third is running",
-                     "file.cpp", 4);
-    }
-  }
 }
 
 // A subcase inside a subcase, which the rules forbid and the guard must diagnose.
@@ -116,15 +91,45 @@ TEST_CASE("test/context/case_without_subcases_runs_once") {
   REQUIRE(context.subcaseCount() == 0);
 }
 
-// Three subcases produce three runs, and every run enters the single subcase it targets.
+// Three subcases produce three runs, and each run enters a different one, in declaration order. The repeated-run loop
+// is spelled out here rather than driven through runCase(), so the name the guard admits on every run lands in storage
+// local to the case; a run entering the wrong branch then names it instead of vanishing into a total.
 TEST_CASE("test::detail/subcase_guard/each_subcase_runs_exactly_once") {
   toy::test::Context context{nullptr};
+  context.beginCase("some/case");
 
-  toy::test::runCase(context, "some/case", &bodyWithThreeSubcases);
+  // One slot per run, holding the subcase that run entered. The empty string stands for a run that entered none, and
+  // keeps a comparison below from dereferencing a null pointer.
+  std::array<const char *, 4> entered{"", "", "", ""};
+  std::size_t                 runCount = 0;
 
+  do {
+    context.beginRun(runCount);
+
+    {
+      const toy::test::detail::SubcaseGuard guard{context, "first"};
+      if (guard.entered())
+        entered[runCount] = context.subcaseName();
+    }
+    {
+      const toy::test::detail::SubcaseGuard guard{context, "second"};
+      if (guard.entered())
+        entered[runCount] = context.subcaseName();
+    }
+    {
+      const toy::test::detail::SubcaseGuard guard{context, "third"};
+      if (guard.entered())
+        entered[runCount] = context.subcaseName();
+    }
+
+    ++runCount;
+  } while (runCount < context.subcaseCount() && runCount < entered.size());
+
+  REQUIRE(runCount == 3);
   REQUIRE(context.subcaseCount() == 3);
-  REQUIRE(context.passedCount() == 6);
-  REQUIRE(context.failedCount() == 0);
+  REQUIRE(toy::test::detail::compareNames(entered[0], "first") == 0);
+  REQUIRE(toy::test::detail::compareNames(entered[1], "second") == 0);
+  REQUIRE(toy::test::detail::compareNames(entered[2], "third") == 0);
 }
 
 // Entering a subcase from inside a subcase is diagnosed, and the inner one is not entered or counted.

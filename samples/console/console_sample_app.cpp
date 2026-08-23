@@ -149,7 +149,7 @@ int main() {
   if (rmode->viTVMode & VI_NON_INTERLACE)
     VIDEO_WaitVSync();
 
-  printf("\nKwik Snax Redux!\n");
+  printf("Hello world from Console sample app");
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
