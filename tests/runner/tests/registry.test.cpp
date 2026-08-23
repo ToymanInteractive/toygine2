@@ -22,8 +22,6 @@
   \brief  Unit tests for \ref toy::test::CaseRegistrar and the runner's name-sorted case registry.
 */
 
-#include <cstddef>
-
 #include <doctest/doctest.h>
 
 #include "toy_test.hpp"
@@ -34,58 +32,50 @@ void emptyBody(toy::test::Context & context) {
   static_cast<void>(context);
 }
 
-// Walks the list and reports whether names appear in non-descending order.
-bool isSorted(const toy::test::CaseRegistrar * head) noexcept {
-  for (const toy::test::CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
-    if (toy::test::detail::compareNames(node->name(), node->next()->name()) > 0)
-      return false;
-
-  return true;
-}
-
-std::size_t listLength(const toy::test::CaseRegistrar * head) noexcept {
-  std::size_t length = 0;
-
-  for (const toy::test::CaseRegistrar * node = head; node != nullptr; node = node->next())
-    ++length;
-
-  return length;
-}
+// A registrar stores the pointers it is handed rather than copying the text, so a case's identity in the list is the
+// literal's address. Comparing addresses asserts that contract and keeps the assertions independent of the name
+// comparison the insertion sort itself runs on.
+constexpr const char * c_alpha = "alpha";
+constexpr const char * c_bravo = "bravo";
+constexpr const char * c_mike  = "mike";
+constexpr const char * c_zulu  = "zulu";
 
 } // namespace
 
-// Registration order does not survive: the list comes out sorted by name.
+// Registration order does not survive: the list comes out sorted by name. The three register out of order in both
+// directions, so neither a plain prepend nor a plain append reproduces the expected sequence.
 TEST_CASE("test/case_registrar/insertion_keeps_list_sorted") {
   toy::test::CaseRegistrar * head = nullptr;
 
-  toy::test::CaseRegistrar third{head, "zulu", "z.cpp", 3, &emptyBody};
-  toy::test::CaseRegistrar second{head, "mike", "m.cpp", 2, &emptyBody};
-  toy::test::CaseRegistrar first{head, "alpha", "a.cpp", 1, &emptyBody};
+  toy::test::CaseRegistrar second{head, c_mike, "m.cpp", 2, &emptyBody};
+  toy::test::CaseRegistrar third{head, c_zulu, "z.cpp", 3, &emptyBody};
+  toy::test::CaseRegistrar first{head, c_alpha, "a.cpp", 1, &emptyBody};
 
-  REQUIRE(listLength(head) == 3);
-  REQUIRE(isSorted(head) == true);
-  REQUIRE(toy::test::detail::compareNames(head->name(), "alpha") == 0);
+  REQUIRE(head->name() == c_alpha);
+  REQUIRE(head->next()->name() == c_mike);
+  REQUIRE(head->next()->next()->name() == c_zulu);
+  REQUIRE(head->next()->next()->next() == nullptr);
 }
 
 // Inserting in alphabetical order gives the same result as inserting in reverse.
 TEST_CASE("test/case_registrar/order_is_independent_of_registration_order") {
   toy::test::CaseRegistrar * ascending = nullptr;
 
-  toy::test::CaseRegistrar a1{ascending, "alpha", "a.cpp", 1, &emptyBody};
-  toy::test::CaseRegistrar a2{ascending, "mike", "m.cpp", 2, &emptyBody};
-  toy::test::CaseRegistrar a3{ascending, "zulu", "z.cpp", 3, &emptyBody};
+  toy::test::CaseRegistrar a1{ascending, c_alpha, "a.cpp", 1, &emptyBody};
+  toy::test::CaseRegistrar a2{ascending, c_mike, "m.cpp", 2, &emptyBody};
+  toy::test::CaseRegistrar a3{ascending, c_zulu, "z.cpp", 3, &emptyBody};
 
   toy::test::CaseRegistrar * descending = nullptr;
 
-  toy::test::CaseRegistrar d1{descending, "zulu", "z.cpp", 3, &emptyBody};
-  toy::test::CaseRegistrar d2{descending, "mike", "m.cpp", 2, &emptyBody};
-  toy::test::CaseRegistrar d3{descending, "alpha", "a.cpp", 1, &emptyBody};
+  toy::test::CaseRegistrar d1{descending, c_zulu, "z.cpp", 3, &emptyBody};
+  toy::test::CaseRegistrar d2{descending, c_mike, "m.cpp", 2, &emptyBody};
+  toy::test::CaseRegistrar d3{descending, c_alpha, "a.cpp", 1, &emptyBody};
 
   const toy::test::CaseRegistrar * left  = ascending;
   const toy::test::CaseRegistrar * right = descending;
 
   while (left != nullptr && right != nullptr) {
-    REQUIRE(toy::test::detail::compareNames(left->name(), right->name()) == 0);
+    REQUIRE(left->name() == right->name());
     left  = left->next();
     right = right->next();
   }
@@ -96,12 +86,15 @@ TEST_CASE("test/case_registrar/order_is_independent_of_registration_order") {
 
 // Every field survives registration, so a report can name the source location.
 TEST_CASE("test/case_registrar/preserves_registered_fields") {
+  constexpr const char * c_caseName = "core/utils/trim";
+  constexpr const char * c_fileName = "tests/core/utils.test.cpp";
+
   toy::test::CaseRegistrar * head = nullptr;
 
-  toy::test::CaseRegistrar node{head, "core/utils/trim", "tests/core/utils.test.cpp", 42, &emptyBody};
+  toy::test::CaseRegistrar node{head, c_caseName, c_fileName, 42, &emptyBody};
 
-  REQUIRE(toy::test::detail::compareNames(node.name(), "core/utils/trim") == 0);
-  REQUIRE(toy::test::detail::compareNames(node.file(), "tests/core/utils.test.cpp") == 0);
+  REQUIRE(node.name() == c_caseName);
+  REQUIRE(node.file() == c_fileName);
   REQUIRE(node.line() == 42);
   REQUIRE(node.body() == &emptyBody);
 }
@@ -110,22 +103,23 @@ TEST_CASE("test/case_registrar/preserves_registered_fields") {
 TEST_CASE("test/case_registrar/duplicate_name_is_found") {
   toy::test::CaseRegistrar * head = nullptr;
 
-  toy::test::CaseRegistrar first{head, "alpha", "a.cpp", 1, &emptyBody};
-  toy::test::CaseRegistrar second{head, "alpha", "b.cpp", 2, &emptyBody};
-  toy::test::CaseRegistrar third{head, "bravo", "c.cpp", 3, &emptyBody};
+  toy::test::CaseRegistrar first{head, c_alpha, "a.cpp", 1, &emptyBody};
+  toy::test::CaseRegistrar second{head, c_alpha, "b.cpp", 2, &emptyBody};
+  toy::test::CaseRegistrar third{head, c_bravo, "c.cpp", 3, &emptyBody};
 
   const toy::test::CaseRegistrar * duplicate = toy::test::detail::findDuplicateName(head);
 
   REQUIRE(duplicate != nullptr);
-  REQUIRE(toy::test::detail::compareNames(duplicate->name(), "alpha") == 0);
+  REQUIRE(duplicate->name() == c_alpha);
+  REQUIRE(duplicate->next()->name() == c_alpha);
 }
 
 // Distinct names report no duplicate.
 TEST_CASE("test/case_registrar/distinct_names_report_no_duplicate") {
   toy::test::CaseRegistrar * head = nullptr;
 
-  toy::test::CaseRegistrar first{head, "alpha", "a.cpp", 1, &emptyBody};
-  toy::test::CaseRegistrar second{head, "bravo", "b.cpp", 2, &emptyBody};
+  toy::test::CaseRegistrar first{head, c_alpha, "a.cpp", 1, &emptyBody};
+  toy::test::CaseRegistrar second{head, c_bravo, "b.cpp", 2, &emptyBody};
 
   REQUIRE(toy::test::detail::findDuplicateName(head) == nullptr);
 }
@@ -136,7 +130,7 @@ TEST_CASE("test/case_registrar/empty_and_single_registry_report_no_duplicate") {
 
   toy::test::CaseRegistrar * head = nullptr;
 
-  toy::test::CaseRegistrar only{head, "alpha", "a.cpp", 1, &emptyBody};
+  toy::test::CaseRegistrar only{head, c_alpha, "a.cpp", 1, &emptyBody};
 
   REQUIRE(toy::test::detail::findDuplicateName(head) == nullptr);
 }
