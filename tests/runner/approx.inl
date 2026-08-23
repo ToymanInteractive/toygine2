@@ -34,7 +34,7 @@ constexpr Approx<T>::Approx(T value) noexcept
   , _epsilon{static_cast<T>(std::numeric_limits<float>::epsilon() * 100.0)} {}
 
 template <std::floating_point T>
-template <std::floating_point U>
+template <ApproxOperand U>
 constexpr Approx<T> Approx<T>::epsilon(U value) const noexcept {
   Approx result{_value};
   result._epsilon = static_cast<T>(value);
@@ -52,7 +52,7 @@ constexpr T Approx<T>::tolerance() const noexcept {
   return _epsilon;
 }
 
-template <std::floating_point T, std::floating_point U>
+template <std::floating_point T, ApproxOperand U>
 constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept {
   // Widening both operands first keeps a mixed-precision comparison from narrowing either side.
   using common_type = std::common_type_t<T, U>;

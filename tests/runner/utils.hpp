@@ -25,7 +25,8 @@
   toy::test::detail::appendInteger(): what \c <cmath>, \c <cstring> and \c <charconv> would provide, written so the
   runner builds on targets whose standard library ships none of them.
 
-  \note Included by toy_test.hpp only; do not include this file directly.
+  \note Reached through toy_test.hpp, and included by the runner's own headers; a test translation unit must not include
+        this file directly.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_UTILS_HPP_

@@ -37,6 +37,23 @@
 namespace toy::test {
 
 /*!
+  \concept ApproxOperand
+  \brief Concept satisfied when \a T is a value a tolerant comparison accepts.
+
+  Reproduces the constraint DocTest 2.5.3 places on its own Approx, so a test body comparing an integer against a
+  tolerance compiles identically under both runners.
+
+  \section requirements Requirements
+
+  \a T satisfies ApproxOperand if and only if:
+  * A \c double is constructible from \a T.
+
+  \sa \ref toy::test::Approx
+*/
+template <typename T>
+concept ApproxOperand = std::constructible_from<double, T>;
+
+/*!
   \class Approx
   \brief Floating-point value carrying a comparison tolerance.
 
@@ -97,14 +114,14 @@ public:
   /*!
     \brief Returns a copy carrying the given tolerance.
 
-    \tparam U     Floating-point type of the tolerance; converted to \a T.
+    \tparam U     Type of the tolerance; satisfies \ref toy::test::ApproxOperand and is converted to \a T.
     \param  value Relative tolerance; scaled by the larger operand during comparison.
 
     \return Copy of this value with \a value as its tolerance.
 
     \sa tolerance()
   */
-  template <std::floating_point U>
+  template <ApproxOperand U>
   [[nodiscard]] constexpr Approx epsilon(U value) const noexcept;
 
   /// Returns the compared value.
@@ -119,10 +136,22 @@ private:
 };
 
 /*!
+  \brief Deduces \ref toy::test::Approx<double> from an argument that is not floating-point.
+
+  \tparam T  Argument type; satisfies \ref toy::test::ApproxOperand without being floating-point.
+
+  \note DocTest's Approx always holds a \c double, so an integral argument widens to it rather than instantiating the
+        template over an integral type, where a relative tolerance could not be represented.
+*/
+template <ApproxOperand T>
+  requires(!std::floating_point<T>)
+Approx(T) -> Approx<double>;
+
+/*!
   \brief Compares a tolerant value against a plain one.
 
   \tparam T    Floating-point type of the tolerant value.
-  \tparam U    Floating-point type of the plain value.
+  \tparam U    Type of the plain value; satisfies \ref toy::test::ApproxOperand, so an integer is accepted.
   \param  lhs  Tolerant value.
   \param  rhs  Plain value.
 
@@ -141,7 +170,7 @@ private:
 
   \sa toy::test::Approx
 */
-template <std::floating_point T, std::floating_point U>
+template <std::floating_point T, ApproxOperand U>
 [[nodiscard]] constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept;
 
 } // namespace toy::test
