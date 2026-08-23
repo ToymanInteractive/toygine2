@@ -1130,6 +1130,22 @@
                 "type-shipping",
                 "base"
             ]
+        },
+        {
+            "name": "wii-release",
+            "configurePreset": "wii-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-shipping",
+            "configurePreset": "wii-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
         }
     ]
 }
