@@ -21,257 +21,23 @@
   \file   toy_test.hpp
   \brief  Test macros and runner declarations shared by the doctest and built-in test runners.
 
-  Defines \ref toy::test::Approx and the runner's allocation-free name and number helpers. Grows into the shim every
-  test translation unit includes in place of doctest; today it carries the pieces that depend on neither runner.
+  Defines \ref toy::test::Context, \ref toy::test::CaseRegistrar and \ref toy::test::detail::SubcaseGuard, and pulls
+  in the records, the tolerant comparison and the allocation-free helpers they rest on. Grows into the shim every test
+  translation unit includes in place of doctest; today it carries the pieces that depend on neither runner.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 #define INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 
 #include <array>
-#include <concepts>
 #include <cstddef>
-#include <cstdint>
-#include <limits>
-#include <type_traits>
+
+#include "approx.hpp"
+#include "failure_record.hpp"
+#include "info_entry.hpp"
+#include "utils.hpp"
 
 namespace toy::test {
-
-/*!
-  \class Approx
-  \brief Floating-point value carrying a comparison tolerance.
-
-  Compares equal to a floating-point value whose difference falls within a tolerance that scales with magnitude, so the
-  same epsilon works for small and large values.
-
-  \tparam T  Floating-point type of the compared value; satisfies \c std::floating_point, so \c float, \c double and
-             <tt>long double</tt> are accepted.
-
-  \section features Key Features
-
-  * **Constexpr support**: every operation is usable in a constant expression
-  * **Relative tolerance**: the epsilon scales with the larger operand
-  * **Mixed precision**: comparison against any floating-point type happens in their common type
-  * **Freestanding**: no dependency on \c <cmath> or any hosted header
-
-  \section usage Usage Example
-
-  \code
-  #include "toy_test.hpp"
-
-  REQUIRE(computeRatio() == toy::test::Approx(0.5));
-  REQUIRE(measureShort() == toy::test::Approx(1.0F).epsilon(0.01F));
-
-  toy::test::Approx<long double> wide{1.0L};
-  constexpr auto tolerant = toy::test::Approx<double>(1.0).epsilon(0.5);
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(1) constant time
-  * **Comparison**: O(1) constant time
-  * **Memory usage**: two objects of type \a T
-
-  \section safety Safety Guarantees
-
-  * **Contracts**: none; every finite value of type \a T is a valid argument
-  * **Type safety**: uses C++23 concepts; a non-floating-point argument fails the constraint
-  * **Memory safety**: no dynamic allocation
-  * **Exception safety**: No operation throws; exceptions are off in the build
-
-  \section compatibility Compatibility
-
-  Requires C++20 concepts. Allocates nothing and includes no hosted header, so it builds on every console and embedded
-  target the engine supports. Verdicts match DocTest on every value \c double represents; comparison happens in the
-  operands' own precision rather than in \c double, which DocTest always uses.
-
-  \note A comparison involving NaN is false, matching the behaviour of the built-in operator.
-
-  \note The default tolerance is the same constant for every \a T, deliberately: DocTest uses that one value regardless
-        of type, and matching it keeps a test's verdict identical under both runners.
-*/
-template <std::floating_point T>
-class Approx final {
-public:
-  explicit constexpr Approx(T value) noexcept;
-
-  /*!
-    \brief Returns a copy carrying the given tolerance.
-
-    \tparam U     Floating-point type of the tolerance; converted to \a T.
-    \param  value Relative tolerance; scaled by the larger operand during comparison.
-
-    \return Copy of this value with \a value as its tolerance.
-
-    \sa tolerance()
-  */
-  template <std::floating_point U>
-  [[nodiscard]] constexpr Approx epsilon(U value) const noexcept;
-
-  /// Returns the compared value.
-  [[nodiscard]] constexpr T value() const noexcept;
-
-  /// Returns the relative tolerance; see epsilon().
-  [[nodiscard]] constexpr T tolerance() const noexcept;
-
-private:
-  T _value;
-  T _epsilon;
-};
-
-/*!
-  \brief Compares a tolerant value against a plain one.
-
-  \tparam T    Floating-point type of the tolerant value.
-  \tparam U    Floating-point type of the plain value.
-  \param  lhs  Tolerant value.
-  \param  rhs  Plain value.
-
-  \return \c true when the difference is strictly below <tt>tolerance * (1 + max(|lhs|, |rhs|))</tt>.
-
-  \note The formula and its strict inequality reproduce DocTest 2.5.3. DocTest's adjustable scale factor is fixed at one
-        here; no test configures it.
-
-  \note Both operands are widened to their common type before comparison, so mixing precisions loses nothing. DocTest
-        instead narrows everything to \c double. The two agree on every value \c double represents, because the gap
-        between the precisions stays orders of magnitude below the tolerance; they can disagree on a
-        <tt>long double</tt> beyond the range of \c double, where narrowing yields infinity.
-
-  \note The form with the plain value on the left resolves through the reversed candidate C++20 synthesizes, so no
-        second operator is declared.
-
-  \sa toy::test::Approx
-*/
-template <std::floating_point T, std::floating_point U>
-[[nodiscard]] constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept;
-
-namespace detail {
-
-/*!
-  \brief Returns the magnitude of a floating-point value.
-
-  \tparam T      Floating-point type of the value.
-  \param  value  Value to take the magnitude of.
-
-  \return \a value without its sign.
-
-  \note Exists because \c <cmath> is a hosted header and the runner must build freestanding.
-*/
-template <std::floating_point T>
-[[nodiscard]] constexpr T absoluteValue(T value) noexcept;
-
-/*!
-  \brief Orders two null-terminated names by their first differing byte.
-
-  \param lhs  Left name.
-  \param rhs  Right name.
-
-  \return \c -1 when \a lhs orders first, \c 1 when \a rhs orders first, \c 0 when the names are equal.
-
-  \note Bytes compare as unsigned, so the order is total on targets where \c char is signed.
-*/
-[[nodiscard]] constexpr int compareNames(const char * lhs, const char * rhs) noexcept;
-
-/*!
-  \brief Copies text into a buffer, stopping at its capacity.
-
-  \param buffer    Destination buffer.
-  \param capacity  Size of \a buffer in bytes.
-  \param offset    Position to write from.
-  \param text      Null-terminated source text.
-
-  \return Offset past the last byte written; equals \a capacity when the text was truncated.
-
-  \pre \a offset does not exceed \a capacity.
-
-  \note No terminating zero is written; the caller tracks the length.
-*/
-[[nodiscard]] constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_t offset,
-                                               const char * text) noexcept;
-
-/*!
-  \brief Writes a signed decimal representation into a buffer, stopping at its capacity.
-
-  \param buffer    Destination buffer.
-  \param capacity  Size of \a buffer in bytes.
-  \param offset    Position to write from.
-  \param value     Value to format.
-
-  \return Offset past the last byte written; equals \a capacity when the digits were truncated.
-
-  \pre \a offset does not exceed \a capacity.
-
-  \note The magnitude is taken in unsigned arithmetic, so the most negative value formats correctly.
-*/
-[[nodiscard]] constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset,
-                                                  long long value) noexcept;
-
-} // namespace detail
-
-/*!
-  \struct FailureRecord
-  \brief One failed assertion, as handed to a failure reporter.
-
-  Carries only what the reporter cannot recover on its own. The info stack travels separately, through the
-  \ref toy::test::Context passed alongside.
-
-  \section usage Usage Example
-
-  \code
-  void report(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept;
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(1) constant time
-  * **Access**: O(1) constant time
-  * **Memory usage**: 4 pointers plus one int
-
-  \section safety Safety Guarantees
-
-  * **Type safety**: aggregate of pointers to string literals and one line number
-  * **Memory safety**: no ownership; every pointer refers to a string literal that outlives the run
-  * **Exception safety**: No operation throws; exceptions are off in the build
-
-  \sa \ref toy::test::Context
-*/
-struct FailureRecord final {
-  const char * caseName;    ///< Name of the running case.
-  const char * subcaseName; ///< Name of the running subcase, or \c nullptr outside one.
-  const char * expression;  ///< Source text of the failed expression.
-  const char * file;        ///< Source file holding the assertion.
-  int          line;        ///< Source line holding the assertion.
-};
-
-/*!
-  \struct InfoEntry
-  \brief One message on the context's info stack.
-
-  \section usage Usage Example
-
-  \code
-  const toy::test::InfoEntry & entry = context.infoAt(0);
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(1) constant time
-  * **Access**: O(1) constant time
-  * **Memory usage**: one pointer, one 64-bit integer and one flag
-
-  \section safety Safety Guarantees
-
-  * **Type safety**: \ref hasValue states whether \ref value carries meaning
-  * **Memory safety**: no ownership; \ref text refers to a string literal
-  * **Exception safety**: No operation throws; exceptions are off in the build
-
-  \sa \ref toy::test::Context
-*/
-struct InfoEntry final {
-  const char * text;     ///< Message text.
-  long long    value;    ///< Companion value, meaningful when \ref hasValue is \c true.
-  bool         hasValue; ///< Whether \ref value carries a number.
-};
 
 class Context;
 
@@ -507,7 +273,111 @@ using case_body_type = void (*)(Context & context);
 */
 void runCase(Context & context, const char * name, case_body_type body) noexcept;
 
+/*!
+  \class CaseRegistrar
+  \brief Static registration node linking one test case into a name-sorted list.
+
+  Constructed as a static object by the \c TEST_CASE macro. Insertion keeps the list ordered by name, so the run order
+  depends only on case names and not on the order of static initialization across translation units, which the standard
+  leaves unspecified.
+
+  \section features Key Features
+
+  * **Allocation-free**: the node is the static object itself, so the registry has no capacity limit
+  * **Deterministic order**: insertion sorts by name at registration time
+  * **Explicit list head**: the list is a parameter, so a test can build an isolated registry
+  * **Non-copyable**: a node belongs to exactly one list
+
+  \section usage Usage Example
+
+  \code
+  static void body(toy::test::Context & context);
+  static toy::test::CaseRegistrar registrar{toy::test::detail::caseListHead, "core/utils/trim", __FILE__, __LINE__,
+                                            &body};
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(n) comparisons against the registered cases, so O(n^2) for the whole registry
+  * **Traversal**: O(1) per node
+  * **Memory usage**: 4 pointers plus one int, about 20 bytes on a 32-bit target
+
+  \section safety Safety Guarantees
+
+  * **Contracts**: none; every name is accepted, and duplicates are reported by findDuplicateName()
+  * **Memory safety**: no ownership; the name and file pointers refer to string literals
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \note Registration happens before \c main, so a node must have static storage duration in production use.
+
+  \note A later registration writes the link of an earlier node, so a node must not be \c const.
+
+  \sa \ref toy::test::Context
+*/
+class CaseRegistrar final {
+public:
+  /*!
+    \brief Registers a case into the list rooted at \a head, keeping it sorted by name.
+
+    \param head  List head; updated when the new node sorts first.
+    \param name  Case name; must outlive the run.
+    \param file  Source file declaring the case.
+    \param line  Source line declaring the case.
+    \param body  Case body.
+
+    \post The node is linked into \a head and the list stays ordered by name.
+  */
+  CaseRegistrar(CaseRegistrar *& head, const char * name, const char * file, int line, case_body_type body) noexcept;
+
+  ~CaseRegistrar() noexcept                        = default;
+  CaseRegistrar(const CaseRegistrar &)             = delete;
+  CaseRegistrar & operator=(const CaseRegistrar &) = delete;
+  CaseRegistrar(CaseRegistrar &&)                  = delete;
+  CaseRegistrar & operator=(CaseRegistrar &&)      = delete;
+
+  /// Returns the case name.
+  [[nodiscard]] const char * name() const noexcept;
+
+  /// Returns the source file declaring the case.
+  [[nodiscard]] const char * file() const noexcept;
+
+  /// Returns the source line declaring the case.
+  [[nodiscard]] int line() const noexcept;
+
+  /// Returns the case body.
+  [[nodiscard]] case_body_type body() const noexcept;
+
+  /// Returns the next node in name order, or \c nullptr at the end of the list.
+  [[nodiscard]] const CaseRegistrar * next() const noexcept;
+
+private:
+  const char *    _name;
+  const char *    _file;
+  int             _line;
+  case_body_type  _body;
+  CaseRegistrar * _next;
+};
+
 namespace detail {
+
+/*!
+  \brief Head of the registry every \c TEST_CASE registers into.
+
+  Initialized with a constant, so it is set before any dynamic initialization runs and no registrar can observe it
+  uninitialized.
+*/
+inline CaseRegistrar * caseListHead = nullptr;
+
+/*!
+  \brief Finds the first case whose name repeats.
+
+  \param head  List head; may be \c nullptr.
+
+  \return First node whose name equals its successor's, or \c nullptr when every name is unique.
+
+  \note Relies on the list being sorted, which puts equal names next to each other.
+*/
+[[nodiscard]] const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept;
 
 /*!
   \class SubcaseGuard

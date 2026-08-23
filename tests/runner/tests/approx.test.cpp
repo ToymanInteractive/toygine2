@@ -18,144 +18,16 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   detail.test.cpp
-  \brief  Unit tests for \ref toy::test::Approx and the runner's name and number helpers.
+  \file   approx.test.cpp
+  \brief  Unit tests for \ref toy::test::Approx, its deduction guides and its tolerant comparison.
 */
 
-#include <array>
-#include <cstddef>
 #include <limits>
 #include <type_traits>
 
 #include <doctest/doctest.h>
 
 #include "toy_test.hpp"
-
-namespace {
-
-// The append helpers write through a pointer, which a constant expression cannot hand them directly.
-// Wrapping the buffer in a return value gives every static_assert below one constexpr call to inspect.
-template <std::size_t Capacity>
-struct AppendResult final {
-  std::array<char, Capacity> buffer;
-  std::size_t                written;
-};
-
-template <std::size_t Capacity>
-[[nodiscard]] constexpr AppendResult<Capacity> appendTextInto(const char * text) noexcept {
-  AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendText(result.buffer.data(), Capacity, 0, text);
-
-  return result;
-}
-
-template <std::size_t Capacity>
-[[nodiscard]] constexpr AppendResult<Capacity> appendIntegerInto(long long value) noexcept {
-  AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendInteger(result.buffer.data(), Capacity, 0, value);
-
-  return result;
-}
-
-} // namespace
-
-// compareNames orders by the first differing byte and reports equality as zero.
-TEST_CASE("test::detail/compare_names/orders_lexicographically") {
-  REQUIRE(toy::test::detail::compareNames("abc", "abd") < 0);
-  REQUIRE(toy::test::detail::compareNames("abd", "abc") > 0);
-  REQUIRE(toy::test::detail::compareNames("abc", "abc") == 0);
-
-  static_assert(toy::test::detail::compareNames("abc", "abd") < 0, "abc must order before abd");
-  static_assert(toy::test::detail::compareNames("abc", "abc") == 0, "equal names must compare equal");
-}
-
-// A prefix orders before the longer name that contains it.
-TEST_CASE("test::detail/compare_names/prefix_orders_first") {
-  REQUIRE(toy::test::detail::compareNames("core", "core/utils") < 0);
-  REQUIRE(toy::test::detail::compareNames("core/utils", "core") > 0);
-
-  static_assert(toy::test::detail::compareNames("core", "core/utils") < 0,
-                "a prefix must order before the longer name");
-}
-
-// Bytes above 127 compare as unsigned, so ordering stays total on every target.
-TEST_CASE("test::detail/compare_names/compares_bytes_as_unsigned") {
-  REQUIRE(toy::test::detail::compareNames("\x{7f}", "\x{80}") < 0);
-
-  static_assert(toy::test::detail::compareNames("\x{7f}", "\x{80}") < 0, "byte 0x80 must order after byte 0x7f");
-}
-
-// appendText copies until the terminator and returns the new offset.
-TEST_CASE("test::detail/append_text/copies_and_advances_offset") {
-  char              buffer[8] = {};
-  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "ok");
-
-  REQUIRE(written == 2);
-  REQUIRE(buffer[0] == 'o');
-  REQUIRE(buffer[1] == 'k');
-
-  constexpr auto copied = appendTextInto<8>("ok");
-  static_assert(copied.written == 2, "appendText must return the offset past the two bytes it wrote");
-  static_assert(copied.buffer[0] == 'o', "the first byte of the text must land at the offset");
-  static_assert(copied.buffer[1] == 'k', "the second byte of the text must follow the first");
-}
-
-// appendText stops at capacity instead of running past the buffer.
-TEST_CASE("test::detail/append_text/truncates_at_capacity") {
-  char              buffer[3] = {};
-  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "abcdef");
-
-  REQUIRE(written == 3);
-  REQUIRE(buffer[2] == 'c');
-
-  constexpr auto truncated = appendTextInto<3>("abcdef");
-  static_assert(truncated.written == 3, "a truncated append must return the capacity");
-  static_assert(truncated.buffer[2] == 'c', "the last byte that fits must be the third of the text");
-}
-
-// appendInteger writes the decimal digits in order, most significant first.
-TEST_CASE("test::detail/append_integer/writes_decimal_digits") {
-  char              buffer[8] = {};
-  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 1024);
-
-  REQUIRE(written == 4);
-  REQUIRE(buffer[0] == '1');
-  REQUIRE(buffer[3] == '4');
-
-  constexpr auto formatted = appendIntegerInto<8>(1024);
-  static_assert(formatted.written == 4, "1024 must format as four digits");
-  static_assert(formatted.buffer[0] == '1', "the most significant digit must come first");
-  static_assert(formatted.buffer[3] == '4', "the least significant digit must come last");
-}
-
-// Zero is one digit, not an empty string.
-TEST_CASE("test::detail/append_integer/writes_zero_as_single_digit") {
-  char              buffer[4] = {};
-  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 0);
-
-  REQUIRE(written == 1);
-  REQUIRE(buffer[0] == '0');
-
-  constexpr auto zero = appendIntegerInto<4>(0);
-  static_assert(zero.written == 1, "zero must format as one digit");
-  static_assert(zero.buffer[0] == '0', "zero must format as the digit zero");
-}
-
-// The most negative value has no positive counterpart, so the magnitude is taken in unsigned arithmetic.
-TEST_CASE("test::detail/append_integer/writes_most_negative_value") {
-  char              buffer[24] = {};
-  const std::size_t written = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, -9223372036854775807LL - 1LL);
-
-  REQUIRE(written == 20);
-  REQUIRE(buffer[0] == '-');
-  REQUIRE(buffer[1] == '9');
-  REQUIRE(buffer[19] == '8');
-
-  constexpr auto mostNegative = appendIntegerInto<24>(-9223372036854775807LL - 1LL);
-  static_assert(mostNegative.written == 20, "the most negative value must format as a sign and nineteen digits");
-  static_assert(mostNegative.buffer[0] == '-', "a negative value must open with a sign");
-  static_assert(mostNegative.buffer[19] == '8', "the magnitude must survive the unsigned negation");
-}
 
 // Approx compares equal within its tolerance and unequal outside it.
 TEST_CASE("test/approx/comparison_honours_tolerance") {
@@ -210,6 +82,27 @@ TEST_CASE("test/approx/deduction_infers_type_from_argument") {
                 "a double argument must deduce Approx<double>");
   static_assert(std::is_same_v<decltype(toy::test::Approx(1.0L)), toy::test::Approx<long double>>,
                 "a long double argument must deduce Approx<long double>");
+}
+
+// An integral argument deduces Approx<double>, which is the only type doctest's Approx ever holds.
+TEST_CASE("test/approx/deduction_widens_an_integral_argument") {
+  static_assert(std::is_same_v<decltype(toy::test::Approx(1)), toy::test::Approx<double>>,
+                "an int argument must deduce Approx<double>");
+  static_assert(std::is_same_v<decltype(toy::test::Approx(1U)), toy::test::Approx<double>>,
+                "an unsigned argument must deduce Approx<double>");
+}
+
+// An integral operand compares like doctest, which accepts anything a double is constructible from.
+TEST_CASE("test/approx/comparison_accepts_an_integral_operand") {
+  REQUIRE(1 == toy::test::Approx(1.0));
+  REQUIRE(toy::test::Approx(1.0) == 1);
+  REQUIRE_FALSE(2 == toy::test::Approx(1.0));
+
+  REQUIRE(1 == toy::test::Approx(1));
+  REQUIRE(1.0 == toy::test::Approx(1).epsilon(1));
+
+  static_assert(1 == toy::test::Approx(1.0), "an int must compare equal to the same value");
+  static_assert(1 == toy::test::Approx(1), "an int argument and an int operand must compare equal");
 }
 
 // Mixing precisions compares in the common type instead of narrowing either side.
