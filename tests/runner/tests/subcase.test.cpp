@@ -95,41 +95,56 @@ TEST_CASE("test/context/case_without_subcases_runs_once") {
 // is spelled out here rather than driven through runCase(), so the name the guard admits on every run lands in storage
 // local to the case; a run entering the wrong branch then names it instead of vanishing into a total.
 TEST_CASE("test::detail/subcase_guard/each_subcase_runs_exactly_once") {
+  // What one run admitted: the subcase it entered and how many it entered. The count keeps a second entry from hiding
+  // behind the first, and the empty name stands for a run that entered none, which keeps a comparison below from
+  // dereferencing a null pointer.
+  struct RunRecord final {
+    const char * name  = "";
+    std::size_t  count = 0;
+  };
+
   toy::test::Context context{nullptr};
   context.beginCase("some/case");
 
-  // One slot per run, holding the subcase that run entered. The empty string stands for a run that entered none, and
-  // keeps a comparison below from dereferencing a null pointer.
-  std::array<const char *, 4> entered{"", "", "", ""};
-  std::size_t                 runCount = 0;
+  std::array<RunRecord, 4> runs{};
+  std::size_t              runCount = 0;
 
   do {
     context.beginRun(runCount);
 
     {
       const toy::test::detail::SubcaseGuard guard{context, "first"};
-      if (guard.entered())
-        entered[runCount] = context.subcaseName();
+      if (guard.entered()) {
+        runs[runCount].name = context.subcaseName();
+        ++runs[runCount].count;
+      }
     }
     {
       const toy::test::detail::SubcaseGuard guard{context, "second"};
-      if (guard.entered())
-        entered[runCount] = context.subcaseName();
+      if (guard.entered()) {
+        runs[runCount].name = context.subcaseName();
+        ++runs[runCount].count;
+      }
     }
     {
       const toy::test::detail::SubcaseGuard guard{context, "third"};
-      if (guard.entered())
-        entered[runCount] = context.subcaseName();
+      if (guard.entered()) {
+        runs[runCount].name = context.subcaseName();
+        ++runs[runCount].count;
+      }
     }
 
     ++runCount;
-  } while (runCount < context.subcaseCount() && runCount < entered.size());
+  } while (runCount < context.subcaseCount() && runCount < runs.size());
 
   REQUIRE(runCount == 3);
   REQUIRE(context.subcaseCount() == 3);
-  REQUIRE(toy::test::detail::compareNames(entered[0], "first") == 0);
-  REQUIRE(toy::test::detail::compareNames(entered[1], "second") == 0);
-  REQUIRE(toy::test::detail::compareNames(entered[2], "third") == 0);
+  REQUIRE(runs[0].count == 1);
+  REQUIRE(runs[1].count == 1);
+  REQUIRE(runs[2].count == 1);
+  REQUIRE(toy::test::detail::compareNames(runs[0].name, "first") == 0);
+  REQUIRE(toy::test::detail::compareNames(runs[1].name, "second") == 0);
+  REQUIRE(toy::test::detail::compareNames(runs[2].name, "third") == 0);
 }
 
 // Entering a subcase from inside a subcase is diagnosed, and the inner one is not entered or counted.
