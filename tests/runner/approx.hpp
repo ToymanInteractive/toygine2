@@ -40,18 +40,23 @@ namespace toy::test {
   \concept ApproxOperand
   \brief Concept satisfied when \a T is a value a tolerant comparison accepts.
 
-  Reproduces the constraint DocTest 2.5.3 places on its own Approx, so a test body comparing an integer against a
-  tolerance compiles identically under both runners.
+  Covers every arithmetic type, so a test body comparing an integer against a tolerance compiles identically under both
+  runners.
 
   \section requirements Requirements
 
   \a T satisfies ApproxOperand if and only if:
-  * A \c double is constructible from \a T.
+  * \a T converts implicitly to \c double.
+
+  \note DocTest 2.5.3 asks only that a \c double be constructible from \a T, which also admits an explicit conversion
+        operator. Comparison here happens in the common type of the operands, and \c std::common_type_t has no member
+        for a type that converts only explicitly, so the stricter requirement turns an instantiation failure into an
+        unmet constraint. The two constraints agree on every arithmetic type.
 
   \sa \ref toy::test::Approx
 */
 template <typename T>
-concept ApproxOperand = std::constructible_from<double, T>;
+concept ApproxOperand = std::convertible_to<T, double>;
 
 /*!
   \class Approx
