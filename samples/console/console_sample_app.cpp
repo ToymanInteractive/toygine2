@@ -127,7 +127,7 @@ int main() {
 
 #endif // __SWITCH__
 
-#ifdef __GAMECUBE__
+#ifdef __gamecube__
 
 #include <cstdio>
 
@@ -157,9 +157,9 @@ int main() {
   return 0;
 }
 
-#endif // __GAMECUBE__
+#endif // __gamecube__
 
-#if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__) && !defined(__GAMECUBE__)
+#if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__) && !defined(__gamecube__)
 
 #include <iostream>
 

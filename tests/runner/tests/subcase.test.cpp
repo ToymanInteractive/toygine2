@@ -89,6 +89,26 @@ void bodyFailingInsideSubcase(toy::test::Context & context) {
     context.record(false, "false", "file.cpp", 5);
 }
 
+// Two sibling subcases where only the first fails, so a later clean run follows the failing one.
+void bodyFailingInTheFirstOfTwo(toy::test::Context & context) {
+  ++g_runCount;
+
+  {
+    const toy::test::detail::SubcaseGuard guard{context, "first"};
+    if (guard.entered()) {
+      ++g_enterCount[0];
+      context.record(false, "false", "file.cpp", 7);
+    }
+  }
+  {
+    const toy::test::detail::SubcaseGuard guard{context, "second"};
+    if (guard.entered()) {
+      ++g_enterCount[1];
+      context.record(true, "true", "file.cpp", 12);
+    }
+  }
+}
+
 const char * g_capturedSubcaseName = nullptr;
 
 void captureSubcaseName(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept {
@@ -162,13 +182,17 @@ TEST_CASE("test/run_case/subcase_name_clears_on_exit") {
   REQUIRE(context.subcaseName() == nullptr);
 }
 
-// A failing case keeps its verdict across runs; one bad subcase condemns the case.
+// A failing case keeps its verdict across runs; one bad subcase condemns the case even when a later run passes.
 TEST_CASE("test/run_case/verdict_survives_across_runs") {
   resetCounters();
   toy::test::Context context{nullptr};
 
-  toy::test::runCase(context, "some/case", &bodyFailingInsideSubcase);
+  toy::test::runCase(context, "some/case", &bodyFailingInTheFirstOfTwo);
 
+  REQUIRE(g_runCount == 2);
+  REQUIRE(g_enterCount[0] == 1);
+  REQUIRE(g_enterCount[1] == 1);
   REQUIRE(context.caseFailed() == true);
   REQUIRE(context.failedCount() == 1);
+  REQUIRE(context.passedCount() == 1);
 }
