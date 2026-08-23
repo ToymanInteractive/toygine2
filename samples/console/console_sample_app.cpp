@@ -161,6 +161,8 @@ int main() {
 
 #ifdef __wii__
 
+#include <cstdio>
+
 #include <gccore.h>
 
 int main() {

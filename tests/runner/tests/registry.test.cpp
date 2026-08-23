@@ -51,10 +51,22 @@ TEST_CASE("test/case_registrar/insertion_keeps_list_sorted") {
   toy::test::CaseRegistrar third{head, c_zulu, "z.cpp", 3, &emptyBody};
   toy::test::CaseRegistrar first{head, c_alpha, "a.cpp", 1, &emptyBody};
 
-  REQUIRE(head->name() == c_alpha);
-  REQUIRE(head->next()->name() == c_mike);
-  REQUIRE(head->next()->next()->name() == c_zulu);
-  REQUIRE(head->next()->next()->next() == nullptr);
+  // Walking with a cursor keeps a broken link a reported failure: dereferencing a chain would crash the case instead,
+  // and the built-in runner has no signal handler to name the case on a console target.
+  const toy::test::CaseRegistrar * node = head;
+
+  REQUIRE(node != nullptr);
+  REQUIRE(node->name() == c_alpha);
+
+  node = node->next();
+  REQUIRE(node != nullptr);
+  REQUIRE(node->name() == c_mike);
+
+  node = node->next();
+  REQUIRE(node != nullptr);
+  REQUIRE(node->name() == c_zulu);
+
+  REQUIRE(node->next() == nullptr);
 }
 
 // Inserting in alphabetical order gives the same result as inserting in reverse.
@@ -111,6 +123,7 @@ TEST_CASE("test/case_registrar/duplicate_name_is_found") {
 
   REQUIRE(duplicate != nullptr);
   REQUIRE(duplicate->name() == c_alpha);
+  REQUIRE(duplicate->next() != nullptr);
   REQUIRE(duplicate->next()->name() == c_alpha);
 }
 
