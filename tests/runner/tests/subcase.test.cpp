@@ -22,93 +22,81 @@
   \brief  Unit tests for \ref toy::test::detail::SubcaseGuard and the runner's repeated-run loop.
 */
 
-#include <cstddef>
-
 #include <doctest/doctest.h>
 
 #include "toy_test.hpp"
 
 namespace {
 
-std::size_t                g_runCount       = 0;
-std::array<std::size_t, 3> g_enterCount     = {0, 0, 0};
-std::size_t                g_outerBodyCount = 0;
-
-void resetCounters() noexcept {
-  g_runCount       = 0;
-  g_outerBodyCount = 0;
-
-  for (std::size_t index = 0; index < 3; ++index)
-    g_enterCount[index] = 0;
-}
-
-// A body without any subcase: the loop must call it exactly once.
+// A case body reaches the runner as a bare function pointer, so it carries no state of its own. Every count a case
+// below asserts therefore travels through the context that case owns: one recorded assertion per run, one more per
+// entered subcase.
 void bodyWithoutSubcases(toy::test::Context & context) {
-  static_cast<void>(context);
-  ++g_runCount;
+  context.record(true, "the body ran", "file.cpp", 1);
 }
 
-// Three sibling subcases, written the way the SUBCASE macro will expand in task 5.
+// Three sibling subcases, written the way the SUBCASE macro will expand in task 5. Each records whether the name the
+// context reports is its own, so a run entering the wrong branch fails instead of passing unnoticed.
 void bodyWithThreeSubcases(toy::test::Context & context) {
-  ++g_runCount;
+  context.record(true, "the body ran", "file.cpp", 1);
 
   {
     const toy::test::detail::SubcaseGuard guard{context, "first"};
-    if (guard.entered())
-      ++g_enterCount[0];
+    if (guard.entered()) {
+      context.record(toy::test::detail::compareNames(context.subcaseName(), "first") == 0, "first is running",
+                     "file.cpp", 2);
+    }
   }
   {
     const toy::test::detail::SubcaseGuard guard{context, "second"};
-    if (guard.entered())
-      ++g_enterCount[1];
+    if (guard.entered()) {
+      context.record(toy::test::detail::compareNames(context.subcaseName(), "second") == 0, "second is running",
+                     "file.cpp", 3);
+    }
   }
   {
     const toy::test::detail::SubcaseGuard guard{context, "third"};
-    if (guard.entered())
-      ++g_enterCount[2];
+    if (guard.entered()) {
+      context.record(toy::test::detail::compareNames(context.subcaseName(), "third") == 0, "third is running",
+                     "file.cpp", 4);
+    }
   }
 }
 
 // A subcase inside a subcase, which the rules forbid and the guard must diagnose.
 void bodyWithNestedSubcase(toy::test::Context & context) {
-  ++g_runCount;
-
   const toy::test::detail::SubcaseGuard outer{context, "outer"};
   if (outer.entered()) {
-    ++g_outerBodyCount;
+    context.record(true, "outer is running", "file.cpp", 1);
 
     const toy::test::detail::SubcaseGuard inner{context, "inner"};
-    static_cast<void>(inner);
+    context.record(!inner.entered(), "a nested subcase must not be entered", "file.cpp", 2);
   }
 }
 
-// Records the subcase name visible at the moment of a failed assertion.
+// Fails inside its only subcase, so the failure record carries a subcase name.
 void bodyFailingInsideSubcase(toy::test::Context & context) {
   const toy::test::detail::SubcaseGuard guard{context, "the_subcase"};
   if (guard.entered())
     context.record(false, "false", "file.cpp", 5);
 }
 
-// Two sibling subcases where only the first fails, so a later clean run follows the failing one.
+// Two sibling subcases where only the first fails, so a clean run follows the failing one.
 void bodyFailingInTheFirstOfTwo(toy::test::Context & context) {
-  ++g_runCount;
-
   {
     const toy::test::detail::SubcaseGuard guard{context, "first"};
-    if (guard.entered()) {
-      ++g_enterCount[0];
+    if (guard.entered())
       context.record(false, "false", "file.cpp", 7);
-    }
   }
   {
     const toy::test::detail::SubcaseGuard guard{context, "second"};
-    if (guard.entered()) {
-      ++g_enterCount[1];
+    if (guard.entered())
       context.record(true, "true", "file.cpp", 12);
-    }
   }
 }
 
+// A reporter is a bare function pointer as well, and the context it receives is const, so the record it inspects can
+// only leave through storage outside the call. The one case reading this clears it before the run.
 const char * g_capturedSubcaseName = nullptr;
 
 void captureSubcaseName(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept {
@@ -118,45 +106,41 @@ void captureSubcaseName(const toy::test::Context & context, const toy::test::Fai
 
 } // namespace
 
-// A case without subcases runs once.
-TEST_CASE("test/run_case/case_without_subcases_runs_once") {
-  resetCounters();
+// A case without subcases runs once, because the loop is a do-while over a count that stays zero.
+TEST_CASE("test/context/case_without_subcases_runs_once") {
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "some/case", &bodyWithoutSubcases);
 
-  REQUIRE(g_runCount == 1);
+  REQUIRE(context.passedCount() == 1);
   REQUIRE(context.subcaseCount() == 0);
 }
 
-// Three subcases produce three runs, and each subcase body executes exactly once.
-TEST_CASE("test/run_case/each_subcase_runs_exactly_once") {
-  resetCounters();
+// Three subcases produce three runs, and every run enters the single subcase it targets.
+TEST_CASE("test::detail/subcase_guard/each_subcase_runs_exactly_once") {
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "some/case", &bodyWithThreeSubcases);
 
-  REQUIRE(g_runCount == 3);
   REQUIRE(context.subcaseCount() == 3);
-  REQUIRE(g_enterCount[0] == 1);
-  REQUIRE(g_enterCount[1] == 1);
-  REQUIRE(g_enterCount[2] == 1);
+  REQUIRE(context.passedCount() == 6);
+  REQUIRE(context.failedCount() == 0);
 }
 
-// Entering a subcase from inside a subcase is diagnosed and the inner one is not entered.
-TEST_CASE("test/run_case/nested_subcase_is_diagnosed") {
-  resetCounters();
+// Entering a subcase from inside a subcase is diagnosed, and the inner one is not entered or counted.
+TEST_CASE("test::detail/subcase_guard/nested_entry_is_diagnosed") {
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "some/case", &bodyWithNestedSubcase);
 
   REQUIRE(context.nestedSubcaseDetected() == true);
-  REQUIRE(g_outerBodyCount == 1);
+  REQUIRE(context.subcaseCount() == 1);
+  REQUIRE(context.passedCount() == 2);
+  REQUIRE(context.failedCount() == 0);
 }
 
 // The running subcase name reaches the failure record, so a report names the failing branch.
-TEST_CASE("test/run_case/failure_carries_subcase_name") {
-  resetCounters();
+TEST_CASE("test::detail/subcase_guard/failure_carries_the_subcase_name") {
   g_capturedSubcaseName = nullptr;
   toy::test::Context context{&captureSubcaseName};
 
@@ -167,8 +151,7 @@ TEST_CASE("test/run_case/failure_carries_subcase_name") {
 }
 
 // Leaving a subcase clears the name, so a later failure outside one carries no stale branch.
-TEST_CASE("test/run_case/subcase_name_clears_on_exit") {
-  resetCounters();
+TEST_CASE("test/context/subcase_name_clears_on_exit") {
   toy::test::Context context{nullptr};
   context.beginCase("some/case");
   context.beginRun(0);
@@ -183,15 +166,12 @@ TEST_CASE("test/run_case/subcase_name_clears_on_exit") {
 }
 
 // A failing case keeps its verdict across runs; one bad subcase condemns the case even when a later run passes.
-TEST_CASE("test/run_case/verdict_survives_across_runs") {
-  resetCounters();
+TEST_CASE("test/context/verdict_survives_across_runs") {
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "some/case", &bodyFailingInTheFirstOfTwo);
 
-  REQUIRE(g_runCount == 2);
-  REQUIRE(g_enterCount[0] == 1);
-  REQUIRE(g_enterCount[1] == 1);
+  REQUIRE(context.subcaseCount() == 2);
   REQUIRE(context.caseFailed() == true);
   REQUIRE(context.failedCount() == 1);
   REQUIRE(context.passedCount() == 1);
