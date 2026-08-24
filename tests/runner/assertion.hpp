@@ -31,6 +31,12 @@
 #ifndef INCLUDE_TESTS_RUNNER_ASSERTION_HPP_
 #define INCLUDE_TESTS_RUNNER_ASSERTION_HPP_
 
+// MSVC declares __debugbreak() here. Every other toolchain uses a compiler builtin and needs no header, which is what
+// keeps the runner buildable where no hosted header exists.
+#if defined(_MSC_VER) && !defined(__clang__)
+#include <intrin.h>
+#endif // defined(_MSC_VER) && !defined(__clang__)
+
 namespace toy::test::detail {
 
 /*!
@@ -44,9 +50,10 @@ namespace toy::test::detail {
   \note Both arguments are passed for a debugger to read at the frame and are otherwise unused: the runner has no
         output of its own, and the hosted headers that would give it one are unavailable on its targets.
 
-  \warning Execution does not continue past the call under GCC and Clang, which trap; MSVC breaks into the debugger.
+  \warning Execution never continues past the call: the process stops on a trap instruction, or on a breakpoint a
+           debugger cannot resume past.
 */
-void assertionFailed(const char * expression, const char * message) noexcept;
+[[noreturn]] void assertionFailed(const char * expression, const char * message) noexcept;
 
 } // namespace toy::test::detail
 
