@@ -146,6 +146,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+
+  if (NOT DEVKITPRO_FOUND)
+    message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif ()
+
 else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
