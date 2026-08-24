@@ -35,7 +35,7 @@ then ``C:/devkitPro``.
 
 .. code-block:: cmake
 
-  find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wiiu)
+  find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wii-u)
 
 Components
 ^^^^^^^^^^
@@ -60,7 +60,7 @@ Each requested component is searched independently:
 ``wii``
   Nintendo Wii library (``libogc`` from ``lib/wii``, header ``gccore.h``). Built with the devkitPPC toolchain.
 
-``wiiu``
+``wii-u``
   Nintendo Wii U library (``wut``, header ``wut.h``). Built with the devkitPPC toolchain.
 
 Result Variables
@@ -204,7 +204,7 @@ if (DEVKITPRO_ROOT)
   if ("wii" IN_LIST DevkitPro_FIND_COMPONENTS)
     _find_devkitpro_lib(DEVKITPRO_WII gccore.h ogc libogc wii)
   endif ()
-  if ("wiiu" IN_LIST DevkitPro_FIND_COMPONENTS)
+  if ("wii-u" IN_LIST DevkitPro_FIND_COMPONENTS)
     _find_devkitpro_lib(DEVKITPRO_WII_U wut.h wut wut)
   endif ()
 

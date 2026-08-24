@@ -47,6 +47,8 @@ constexpr int compareNames(const char * lhs, const char * rhs) noexcept {
 }
 
 constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_t offset, const char * text) noexcept {
+  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+
   while (*text != '\0' && offset < capacity) {
     buffer[offset] = *text;
     ++offset;
@@ -57,6 +59,8 @@ constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_
 }
 
 constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset, long long value) noexcept {
+  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+
   // Taking the magnitude in unsigned arithmetic keeps the most negative value representable.
   unsigned long long magnitude = value < 0 ? 0ULL - static_cast<unsigned long long>(value)
                                            : static_cast<unsigned long long>(value);

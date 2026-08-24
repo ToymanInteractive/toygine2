@@ -34,6 +34,7 @@
 #include <array>
 #include <cstddef>
 
+#include "assertion.hpp"
 #include "failure_record.hpp"
 #include "info_entry.hpp"
 
@@ -88,7 +89,7 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 
   \section safety Safety Guarantees
 
-  * **Contracts**: infoAt() requires an index below infoCount()
+  * **Contracts**: infoAt() checks its index against infoCount() in a debug build
   * **Bounds safety**: pushInfo() past the depth drops the surplus and keeps push and pop balanced
   * **Memory safety**: no dynamic allocation
   * **Exception safety**: No operation throws; exceptions are off in the build

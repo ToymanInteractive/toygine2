@@ -108,6 +108,8 @@ inline std::size_t Context::infoCount() const noexcept {
 }
 
 inline const InfoEntry & Context::infoAt(std::size_t index) const noexcept {
+  TOY_TEST_ASSERT(index < infoCount(), "index must be below the number of readable info entries");
+
   return _infoStack[index];
 }
 
