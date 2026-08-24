@@ -31,7 +31,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 find_package(ClownMDSDK)
-find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii)
+find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wiiu)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)

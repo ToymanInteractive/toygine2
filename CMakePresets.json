@@ -167,6 +167,14 @@
             }
         },
         {
+            "name": "platform-wii-u",
+            "hidden": true,
+            "toolchainFile": "$env{DEVKITPRO}/cmake/WiiU.cmake",
+            "cacheVariables": {
+                "TOYGINE_TARGET_PLATFORM": "Nintendo Wii U"
+            }
+        },
+        {
             "name": "with-benchmarks",
             "hidden": true,
             "cacheVariables": {
@@ -652,6 +660,42 @@
                 "platform-wii",
                 "base"
             ]
+        },
+        {
+            "name": "wii-u-debug",
+            "displayName": "Nintendo Wii U debug",
+            "description": "ToyGine 2 Nintendo Wii U Debug Build",
+            "inherits": [
+                "type-debug",
+                "platform-wii-u",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-u-release",
+            "displayName": "Nintendo Wii U release",
+            "description": "ToyGine 2 Nintendo Wii U Release Build",
+            "inherits": [
+                "type-release",
+                "platform-wii-u",
+                "with-benchmarks",
+                "with-samples",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-u-shipping",
+            "displayName": "Nintendo Wii U shipping",
+            "description": "ToyGine 2 Nintendo Wii U Shipping Build (Release, no debug info)",
+            "inherits": [
+                "type-shipping",
+                "platform-wii-u",
+                "base"
+            ]
         }
     ],
     "buildPresets": [
@@ -858,6 +902,21 @@
         {
             "name": "wii-shipping",
             "configurePreset": "wii-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "wii-u-debug",
+            "configurePreset": "wii-u-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "wii-u-release",
+            "configurePreset": "wii-u-release",
+            "inherits": "default-release"
+        },
+        {
+            "name": "wii-u-shipping",
+            "configurePreset": "wii-u-shipping",
             "inherits": "default-shipping"
         }
     ],
@@ -1142,6 +1201,22 @@
         {
             "name": "wii-shipping",
             "configurePreset": "wii-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-u-release",
+            "configurePreset": "wii-u-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "wii-u-shipping",
+            "configurePreset": "wii-u-shipping",
             "inherits": [
                 "type-shipping",
                 "base"
