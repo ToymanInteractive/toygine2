@@ -78,6 +78,10 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Wii")
   endif ()
 
+  if (DEVKITPRO_WII_U_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo Wii U")
+  endif ()
+
   # Report available platforms
   message(STATUS "Available platforms: ${AVAILABLE_PLATFORMS}")
 

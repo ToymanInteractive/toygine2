@@ -74,7 +74,7 @@ This module defines the following variables:
 ``DEVKITPRO_ROOT``
   Root directory of the devkitPro installation.
 
-``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``, ``DEVKITPRO_GAMECUBE_FOUND``, ``DEVKITPRO_WII_FOUND``, ``DEVKITPRO_WIIU_FOUND``
+``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``, ``DEVKITPRO_GAMECUBE_FOUND``, ``DEVKITPRO_WII_FOUND``, ``DEVKITPRO_WII_U_FOUND``
   ``TRUE`` if the corresponding requested component was found. Defined only for components listed in ``COMPONENTS``.
 
 ``DEVKITA64``
@@ -205,7 +205,7 @@ if (DEVKITPRO_ROOT)
     _find_devkitpro_lib(DEVKITPRO_WII gccore.h ogc libogc wii)
   endif ()
   if ("wiiu" IN_LIST DevkitPro_FIND_COMPONENTS)
-    _find_devkitpro_lib(DEVKITPRO_WIIU wut.h wut wut)
+    _find_devkitpro_lib(DEVKITPRO_WII_U wut.h wut wut)
   endif ()
 
 else ()
