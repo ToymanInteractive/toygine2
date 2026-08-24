@@ -24,7 +24,7 @@
   Defines \ref toy::test::InfoEntry: the text a test attaches to a failure, with an optional companion number. Stored
   by \ref toy::test::Context and read back by a reporter.
 
-  \note Included by toy_test.hpp only; do not include this file directly.
+  \note Included by context.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_INFO_ENTRY_HPP_

@@ -24,7 +24,7 @@
   Defines \ref toy::test::FailureRecord: what a reporter cannot recover on its own. Built by
   \ref toy::test::Context on every failing assertion.
 
-  \note Included by toy_test.hpp only; do not include this file directly.
+  \note Included by context.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_FAILURE_RECORD_HPP_
