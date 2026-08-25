@@ -30,14 +30,11 @@
 
 namespace {
 
+// Which branch ran is the one thing the context cannot report: it counts subcases and assertions, never names them.
+// Everything else a case below asserts travels through the context that case owns.
 std::size_t g_subcaseHits[3] = {0, 0, 0};
-std::size_t g_afterRequire   = 0;
-std::size_t g_afterCheck     = 0;
 
-void resetCounters() noexcept {
-  g_afterRequire = 0;
-  g_afterCheck   = 0;
-
+void resetSubcaseHits() noexcept {
   for (std::size_t index = 0; index < 3; ++index)
     g_subcaseHits[index] = 0;
 }
@@ -55,14 +52,15 @@ void bodyWithSubcases(toy::test::Context & toyTestContext) {
   }
 }
 
+// The passing assertion is the witness: it is recorded only if the body reaches the line after the failing one.
 void bodyWithFailingRequire(toy::test::Context & toyTestContext) {
   TOY_TEST_REQUIRE(1 == 2);
-  ++g_afterRequire;
+  TOY_TEST_CHECK(1 == 1);
 }
 
 void bodyWithFailingCheck(toy::test::Context & toyTestContext) {
   TOY_TEST_CHECK(1 == 2);
-  ++g_afterCheck;
+  TOY_TEST_CHECK(1 == 1);
 }
 
 void bodyWithInfo(toy::test::Context & toyTestContext) {
@@ -119,7 +117,7 @@ TEST_CASE("test/macros/case_macro_registers_the_case") {
 
 // The subcase macro produces one run per branch, and each branch executes once.
 TEST_CASE("test/macros/subcase_expands_to_one_run_per_branch") {
-  resetCounters();
+  resetSubcaseHits();
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "generated/case", &bodyWithSubcases);
@@ -130,31 +128,28 @@ TEST_CASE("test/macros/subcase_expands_to_one_run_per_branch") {
   REQUIRE(g_subcaseHits[2] == 1);
 }
 
-// A failed require returns from the body, so nothing after it runs.
+// A failed require returns from the body, so the assertion after it is never recorded.
 TEST_CASE("test/macros/failing_require_stops_the_body") {
-  resetCounters();
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "generated/case", &bodyWithFailingRequire);
 
   REQUIRE(context.failedCount() == 1);
-  REQUIRE(g_afterRequire == 0);
+  REQUIRE(context.passedCount() == 0);
 }
 
-// A failed check records the failure and lets the body continue.
+// A failed check records the failure and lets the body continue to the assertion after it.
 TEST_CASE("test/macros/failing_check_continues_the_body") {
-  resetCounters();
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "generated/case", &bodyWithFailingCheck);
 
   REQUIRE(context.failedCount() == 1);
-  REQUIRE(g_afterCheck == 1);
+  REQUIRE(context.passedCount() == 1);
 }
 
 // An info message reaches the reporter and is gone once the scope ends.
 TEST_CASE("test/macros/info_is_visible_during_failure_only") {
-  resetCounters();
   CapturedInfo       captured;
   toy::test::Context context{&captureInfo, &captured};
 
@@ -168,7 +163,6 @@ TEST_CASE("test/macros/info_is_visible_during_failure_only") {
 
 // The negated forms and Approx pass through the macro layer.
 TEST_CASE("test/macros/negated_forms_and_approx") {
-  resetCounters();
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "generated/case", &bodyWithNegations);
