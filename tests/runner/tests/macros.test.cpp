@@ -22,6 +22,7 @@
   \brief  Unit tests for the built-in runner's case, subcase, assertion and info macros.
 */
 
+#include <array>
 #include <cstddef>
 
 #include <doctest/doctest.h>
@@ -30,28 +31,8 @@
 
 namespace {
 
-// Which branch ran is the one thing the context cannot report: it counts subcases and assertions, never names them.
-// Everything else a case below asserts travels through the context that case owns.
-std::size_t g_subcaseHits[3] = {0, 0, 0};
-
-void resetSubcaseHits() noexcept {
-  for (std::size_t index = 0; index < 3; ++index)
-    g_subcaseHits[index] = 0;
-}
-
 // Bodies use the internal macro names, because the short ones belong to doctest inside this binary.
-void bodyWithSubcases(toy::test::Context & toyTestContext) {
-  TOY_TEST_SUBCASE("one") {
-    ++g_subcaseHits[0];
-  }
-  TOY_TEST_SUBCASE("two") {
-    ++g_subcaseHits[1];
-  }
-  TOY_TEST_SUBCASE("three") {
-    ++g_subcaseHits[2];
-  }
-}
-
+//
 // The passing assertion is the witness: it is recorded only if the body reaches the line after the failing one.
 void bodyWithFailingRequire(toy::test::Context & toyTestContext) {
   TOY_TEST_REQUIRE(1 == 2);
@@ -115,17 +96,42 @@ TEST_CASE("test/macros/case_macro_registers_the_case") {
   CHECK(registered->line() == c_registeredCaseLine);
 }
 
-// The subcase macro produces one run per branch, and each branch executes once.
+// The subcase macro produces one run per branch, and each branch executes once. The run loop is spelled out here
+// rather than delegated to toy::test::runCase(), because a body it accepts is a bare function pointer and could
+// report which branch ran only through state outside the case.
 TEST_CASE("test/macros/subcase_expands_to_one_run_per_branch") {
-  resetSubcaseHits();
-  toy::test::Context context{nullptr};
+  // The macros reach the run state through a name they choose themselves, so the case declares the context under it.
+  toy::test::Context toyTestContext{nullptr};
+  toyTestContext.beginCase("generated/case");
 
-  toy::test::runCase(context, "generated/case", &bodyWithSubcases);
+  // One more run than the case declares subcases, so a loop that fails to terminate is a failed expectation below
+  // rather than a hung test.
+  constexpr std::size_t c_maxRuns = 4;
 
-  REQUIRE(context.subcaseCount() == 3);
-  REQUIRE(g_subcaseHits[0] == 1);
-  REQUIRE(g_subcaseHits[1] == 1);
-  REQUIRE(g_subcaseHits[2] == 1);
+  std::array<std::size_t, 3> hits{};
+  std::size_t                runCount = 0;
+
+  do {
+    toyTestContext.beginRun(runCount);
+
+    TOY_TEST_SUBCASE("one") {
+      ++hits[0];
+    }
+    TOY_TEST_SUBCASE("two") {
+      ++hits[1];
+    }
+    TOY_TEST_SUBCASE("three") {
+      ++hits[2];
+    }
+
+    ++runCount;
+  } while (runCount < toyTestContext.subcaseCount() && runCount < c_maxRuns);
+
+  REQUIRE(runCount == 3);
+  REQUIRE(toyTestContext.subcaseCount() == 3);
+  REQUIRE(hits[0] == 1);
+  REQUIRE(hits[1] == 1);
+  REQUIRE(hits[2] == 1);
 }
 
 // A failed require returns from the body, so the assertion after it is never recorded.
