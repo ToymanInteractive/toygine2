@@ -111,10 +111,18 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
+  if (NOT DEVKITPRO_GBA_FOUND)
+    message(FATAL_ERROR "Nintendo GBA support not found. Install the devkitPro libgba package.")
+  endif ()
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif ()
+
+  if (NOT DEVKITPRO_NDS_FOUND)
+    message(FATAL_ERROR "Nintendo DS support not found. Install the devkitPro libnds package.")
   endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
@@ -123,10 +131,18 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
+  if (NOT DEVKITPRO_3DS_FOUND)
+    message(FATAL_ERROR "Nintendo 3DS support not found. Install the devkitPro libctru package.")
+  endif ()
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif ()
+
+  if (NOT DEVKITPRO_SWITCH_FOUND)
+    message(FATAL_ERROR "Nintendo Switch support not found. Install the devkitPro libnx package.")
   endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
@@ -140,16 +156,28 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
+  if (NOT DEVKITPRO_GAMECUBE_FOUND)
+    message(FATAL_ERROR "Nintendo GameCube support not found. Install the devkitPro libogc package.")
+  endif ()
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
   endif ()
 
+  if (NOT DEVKITPRO_WII_FOUND)
+    message(FATAL_ERROR "Nintendo Wii support not found. Install the devkitPro libogc package.")
+  endif ()
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 
   if (NOT DEVKITPRO_FOUND)
     message(FATAL_ERROR "devkitPro not found. Install devkitPro and ensure DEVKITPRO is set.")
+  endif ()
+
+  if (NOT DEVKITPRO_WII_U_FOUND)
+    message(FATAL_ERROR "Nintendo Wii U support not found. Install the devkitPro wut package.")
   endif ()
 
 else ()
