@@ -136,9 +136,124 @@ private:
   bool      _entered;
 };
 
+/*!
+  \class InfoGuard
+  \brief Scope object pushing one message onto the context's info stack.
+
+  Constructed by the info macro; the message is printed only when an assertion inside the scope fails.
+
+  \section features Key Features
+
+  * **Allocation-free**: the message is a pointer to a literal, and the stack has a fixed depth
+  * **Scope-bound**: the entry disappears when the scope ends
+  * **Non-copyable**: the scope owns the pushed entry
+
+  \section usage Usage Example
+
+  \code
+  INFO("index", index);
+  CHECK(values[index] == 0);
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **Destruction**: O(1) constant time
+  * **Memory usage**: one pointer
+
+  \section safety Safety Guarantees
+
+  * **Contracts**: none; a push past the fixed depth is dropped, not asserted
+  * **Memory safety**: no ownership of the text, which must outlive the scope
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \sa \ref toy::test::Context
+*/
+class InfoGuard final {
+public:
+  /// Pushes a message without a companion value; see toy::test::Context::pushInfo().
+  InfoGuard(Context & context, const char * text) noexcept;
+
+  /// Pushes a message carrying a number; see toy::test::Context::pushInfo().
+  InfoGuard(Context & context, const char * text, long long value) noexcept;
+
+  ~InfoGuard() noexcept;
+
+  InfoGuard(const InfoGuard &)             = delete;
+  InfoGuard & operator=(const InfoGuard &) = delete;
+  InfoGuard(InfoGuard &&)                  = delete;
+  InfoGuard & operator=(InfoGuard &&)      = delete;
+
+private:
+  Context * _context;
+};
+
 } // namespace detail
 
 } // namespace toy::test
+
+// Two levels of indirection are what makes __COUNTER__ expand before it is pasted.
+#define TOY_TEST_CONCAT_INNER(lhs, rhs) lhs##rhs
+#define TOY_TEST_CONCAT(lhs, rhs)       TOY_TEST_CONCAT_INNER(lhs, rhs)
+#define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __COUNTER__)
+
+// The registrar is not const: a later registration writes the link of an earlier node, see toy::test::CaseRegistrar.
+#define TOY_TEST_CASE_IMPL(caseName, bodyName, registrarName)                                                          \
+  static void                       bodyName(::toy::test::Context & toyTestContext);                                   \
+  static ::toy::test::CaseRegistrar registrarName{::toy::test::detail::caseListHead, caseName, __FILE__, __LINE__,     \
+                                                  &bodyName};                                                          \
+  static void                       bodyName(::toy::test::Context & toyTestContext)
+
+#define TOY_TEST_SUBCASE_IMPL(subcaseName, guardName)                                                                  \
+  if (const ::toy::test::detail::SubcaseGuard guardName{toyTestContext, subcaseName}; guardName.entered())
+
+#define TOY_TEST_INFO_IMPL(guardName, ...)                                                                             \
+  const ::toy::test::detail::InfoGuard guardName {                                                                     \
+    toyTestContext, __VA_ARGS__                                                                                        \
+  }
+
+/// Declares and registers a test case; see \ref toy::test::CaseRegistrar.
+#define TOY_TEST_CASE(caseName) TOY_TEST_CASE_IMPL(caseName, TOY_TEST_UNIQUE(toyTestBody), TOY_TEST_UNIQUE(toyTestReg))
+
+/// Opens one branch of the running case; see \ref toy::test::detail::SubcaseGuard.
+#define TOY_TEST_SUBCASE(subcaseName) TOY_TEST_SUBCASE_IMPL(subcaseName, TOY_TEST_UNIQUE(toyTestSubcase))
+
+/// Pushes a message shown only if an assertion in this scope fails; see \ref toy::test::detail::InfoGuard.
+#define TOY_TEST_INFO(...) TOY_TEST_INFO_IMPL(TOY_TEST_UNIQUE(toyTestInfo), __VA_ARGS__)
+
+/// Records an assertion and returns from the case body when it fails.
+#define TOY_TEST_REQUIRE(expression)                                                                                   \
+  do {                                                                                                                 \
+    if (!toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__)) {                      \
+      return;                                                                                                          \
+    }                                                                                                                  \
+  } while (false)
+
+/// Records an assertion and continues regardless of the outcome.
+#define TOY_TEST_CHECK(expression)                                                                                     \
+  static_cast<void>(toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__))
+
+/// Negated form of the returning assertion.
+#define TOY_TEST_REQUIRE_FALSE(expression) TOY_TEST_REQUIRE(!(expression))
+
+/// Negated form of the continuing assertion.
+#define TOY_TEST_CHECK_FALSE(expression) TOY_TEST_CHECK(!(expression))
+
+#if defined(TOYGINE_TESTS_USE_DOCTEST)
+
+#include <doctest/doctest.h>
+
+#else
+
+#define TEST_CASE(caseName)       TOY_TEST_CASE(caseName)
+#define SUBCASE(subcaseName)      TOY_TEST_SUBCASE(subcaseName)
+#define REQUIRE(expression)       TOY_TEST_REQUIRE(expression)
+#define REQUIRE_FALSE(expression) TOY_TEST_REQUIRE_FALSE(expression)
+#define CHECK(expression)         TOY_TEST_CHECK(expression)
+#define CHECK_FALSE(expression)   TOY_TEST_CHECK_FALSE(expression)
+#define INFO(...)                 TOY_TEST_INFO(__VA_ARGS__)
+
+#endif // TOYGINE_TESTS_USE_DOCTEST
 
 #include "toy_test.inl"
 

@@ -62,6 +62,20 @@ inline bool SubcaseGuard::entered() const noexcept {
   return _entered;
 }
 
+inline InfoGuard::InfoGuard(Context & context, const char * text) noexcept
+  : _context{&context} {
+  context.pushInfo(text);
+}
+
+inline InfoGuard::InfoGuard(Context & context, const char * text, long long value) noexcept
+  : _context{&context} {
+  context.pushInfo(text, value);
+}
+
+inline InfoGuard::~InfoGuard() noexcept {
+  _context->popInfo();
+}
+
 } // namespace detail
 
 } // namespace toy::test
