@@ -21,9 +21,10 @@
   \file   toy_test.hpp
   \brief  Test macros and runner declarations shared by the doctest and built-in test runners.
 
-  Defines \ref toy::test::CaseRegistrar and \ref toy::test::detail::SubcaseGuard, and pulls in the run state, the
-  tolerant comparison and the allocation-free helpers they rest on. Grows into the shim every test translation unit
-  includes in place of doctest; today it carries the pieces that depend on neither runner.
+  Defines the case registry \ref toy::test::detail::caseListHead, \ref toy::test::detail::SubcaseGuard and the case
+  loop, and pulls in the registration node, the run state, the tolerant comparison and the allocation-free helpers they
+  rest on. Grows into the shim every test translation unit includes in place of doctest; today it carries the pieces
+  that depend on neither runner.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
@@ -32,13 +33,11 @@
 #include <cstddef>
 
 #include "approx.hpp"
+#include "case_registrar.hpp"
 #include "context.hpp"
 #include "utils.hpp"
 
 namespace toy::test {
-
-/// Body of a test case, as produced by the TEST_CASE macro.
-using case_body_type = void (*)(Context & context);
 
 /*!
   \brief Runs one case, repeating the body once per subcase it declares.
@@ -55,91 +54,6 @@ using case_body_type = void (*)(Context & context);
   \sa \ref toy::test::Context
 */
 void runCase(Context & context, const char * name, case_body_type body) noexcept;
-
-/*!
-  \class CaseRegistrar
-  \brief Static registration node linking one test case into a name-sorted list.
-
-  Constructed as a static object by the \c TEST_CASE macro. Insertion keeps the list ordered by name, so the run order
-  depends only on case names and not on the order of static initialization across translation units, which the standard
-  leaves unspecified.
-
-  \section features Key Features
-
-  * **Allocation-free**: the node is the static object itself, so the registry has no capacity limit
-  * **Deterministic order**: insertion sorts by name at registration time
-  * **Explicit list head**: the list is a parameter, so a test can build an isolated registry
-  * **Non-copyable**: a node belongs to exactly one list
-
-  \section usage Usage Example
-
-  \code
-  static void body(toy::test::Context & context);
-  static toy::test::CaseRegistrar registrar{toy::test::detail::caseListHead, "core/utils/trim", __FILE__, __LINE__,
-                                            &body};
-  \endcode
-
-  \section performance Performance Characteristics
-
-  * **Construction**: O(n) comparisons against the registered cases, so O(n^2) for the whole registry
-  * **Traversal**: O(1) per node
-  * **Memory usage**: 4 pointers plus one int, about 20 bytes on a 32-bit target
-
-  \section safety Safety Guarantees
-
-  * **Contracts**: none; every name is accepted, and duplicates are reported by findDuplicateName()
-  * **Memory safety**: no ownership; the name and file pointers refer to string literals
-  * **Exception safety**: No operation throws; exceptions are off in the build
-
-  \note Registration happens before \c main, so a node must have static storage duration in production use.
-
-  \note A later registration writes the link of an earlier node, so a node must not be \c const.
-
-  \sa \ref toy::test::Context
-*/
-class CaseRegistrar final {
-public:
-  /*!
-    \brief Registers a case into the list rooted at \a head, keeping it sorted by name.
-
-    \param head  List head; updated when the new node sorts first.
-    \param name  Case name; must outlive the run.
-    \param file  Source file declaring the case.
-    \param line  Source line declaring the case.
-    \param body  Case body.
-
-    \post The node is linked into \a head and the list stays ordered by name.
-  */
-  CaseRegistrar(CaseRegistrar *& head, const char * name, const char * file, int line, case_body_type body) noexcept;
-
-  ~CaseRegistrar() noexcept                        = default;
-  CaseRegistrar(const CaseRegistrar &)             = delete;
-  CaseRegistrar & operator=(const CaseRegistrar &) = delete;
-  CaseRegistrar(CaseRegistrar &&)                  = delete;
-  CaseRegistrar & operator=(CaseRegistrar &&)      = delete;
-
-  /// Returns the case name.
-  [[nodiscard]] const char * name() const noexcept;
-
-  /// Returns the source file declaring the case.
-  [[nodiscard]] const char * file() const noexcept;
-
-  /// Returns the source line declaring the case.
-  [[nodiscard]] int line() const noexcept;
-
-  /// Returns the case body.
-  [[nodiscard]] case_body_type body() const noexcept;
-
-  /// Returns the next node in name order, or \c nullptr at the end of the list.
-  [[nodiscard]] const CaseRegistrar * next() const noexcept;
-
-private:
-  const char *    _name;
-  const char *    _file;
-  int             _line;
-  case_body_type  _body;
-  CaseRegistrar * _next;
-};
 
 namespace detail {
 
@@ -222,9 +136,132 @@ private:
   bool      _entered;
 };
 
+/*!
+  \class InfoGuard
+  \brief Scope object pushing one message onto the context's info stack.
+
+  Constructed by the info macro; the message is printed only when an assertion inside the scope fails.
+
+  \section features Key Features
+
+  * **Allocation-free**: the message is a pointer to a literal, and the stack has a fixed depth
+  * **Scope-bound**: the entry disappears when the scope ends
+  * **Non-copyable**: the scope owns the pushed entry
+
+  \section usage Usage Example
+
+  \code
+  INFO("index", index);
+  CHECK(values[index] == 0);
+  \endcode
+
+  \section performance Performance Characteristics
+
+  * **Construction**: O(1) constant time
+  * **Destruction**: O(1) constant time
+  * **Memory usage**: one pointer
+
+  \section safety Safety Guarantees
+
+  * **Contracts**: none; a push past the fixed depth is dropped, not asserted
+  * **Memory safety**: no ownership of the text, which must outlive the scope
+  * **Exception safety**: No operation throws; exceptions are off in the build
+
+  \sa \ref toy::test::Context
+*/
+class InfoGuard final {
+public:
+  /// Pushes a message without a companion value; see toy::test::Context::pushInfo().
+  InfoGuard(Context & context, const char * text) noexcept;
+
+  /// Pushes a message carrying a number; see toy::test::Context::pushInfo().
+  InfoGuard(Context & context, const char * text, long long value) noexcept;
+
+  ~InfoGuard() noexcept;
+
+  InfoGuard(const InfoGuard &)             = delete;
+  InfoGuard & operator=(const InfoGuard &) = delete;
+  InfoGuard(InfoGuard &&)                  = delete;
+  InfoGuard & operator=(InfoGuard &&)      = delete;
+
+private:
+  Context * _context;
+};
+
 } // namespace detail
 
 } // namespace toy::test
+
+// Two levels of indirection are what makes __COUNTER__ expand before it is pasted.
+#define TOY_TEST_CONCAT_INNER(lhs, rhs) lhs##rhs
+#define TOY_TEST_CONCAT(lhs, rhs)       TOY_TEST_CONCAT_INNER(lhs, rhs)
+#define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __COUNTER__)
+
+// The registrar is not const: a later registration writes the link of an earlier node, see toy::test::CaseRegistrar.
+#define TOY_TEST_CASE_IMPL(caseName, bodyName, registrarName)                                                          \
+  static void                       bodyName(::toy::test::Context & toyTestContext);                                   \
+  static ::toy::test::CaseRegistrar registrarName{::toy::test::detail::caseListHead, caseName, __FILE__, __LINE__,     \
+                                                  &bodyName};                                                          \
+  static void                       bodyName(::toy::test::Context & toyTestContext)
+
+#define TOY_TEST_SUBCASE_IMPL(subcaseName, guardName)                                                                  \
+  if (const ::toy::test::detail::SubcaseGuard guardName{toyTestContext, subcaseName}; guardName.entered())
+
+#define TOY_TEST_INFO_IMPL(guardName, ...)                                                                             \
+  const ::toy::test::detail::InfoGuard guardName {                                                                     \
+    toyTestContext, __VA_ARGS__                                                                                        \
+  }
+
+/// Declares and registers a test case; see \ref toy::test::CaseRegistrar.
+#define TOY_TEST_CASE(caseName) TOY_TEST_CASE_IMPL(caseName, TOY_TEST_UNIQUE(toyTestBody), TOY_TEST_UNIQUE(toyTestReg))
+
+/// Opens one branch of the running case; see \ref toy::test::detail::SubcaseGuard.
+#define TOY_TEST_SUBCASE(subcaseName) TOY_TEST_SUBCASE_IMPL(subcaseName, TOY_TEST_UNIQUE(toyTestSubcase))
+
+/*!
+  \def TOY_TEST_INFO
+  \brief Pushes a message shown only if an assertion in this scope fails.
+
+  Takes a string literal, optionally followed by one integer value; see \ref toy::test::detail::InfoGuard.
+
+  \warning Narrower than doctest's \c INFO, which takes any number of streamable arguments: a call with two strings,
+           or with three arguments, compiles under doctest and fails to compile under the built-in runner.
+*/
+#define TOY_TEST_INFO(...) TOY_TEST_INFO_IMPL(TOY_TEST_UNIQUE(toyTestInfo), __VA_ARGS__)
+
+/// Records an assertion and returns from the case body when it fails.
+#define TOY_TEST_REQUIRE(expression)                                                                                   \
+  do {                                                                                                                 \
+    if (!toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__)) {                      \
+      return;                                                                                                          \
+    }                                                                                                                  \
+  } while (false)
+
+/// Records an assertion and continues regardless of the outcome.
+#define TOY_TEST_CHECK(expression)                                                                                     \
+  static_cast<void>(toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__))
+
+/// Negated form of the returning assertion.
+#define TOY_TEST_REQUIRE_FALSE(expression) TOY_TEST_REQUIRE(!(expression))
+
+/// Negated form of the continuing assertion.
+#define TOY_TEST_CHECK_FALSE(expression) TOY_TEST_CHECK(!(expression))
+
+#if defined(TOYGINE_TESTS_USE_DOCTEST)
+
+#include <doctest/doctest.h>
+
+#else
+
+#define TEST_CASE(caseName)       TOY_TEST_CASE(caseName)
+#define SUBCASE(subcaseName)      TOY_TEST_SUBCASE(subcaseName)
+#define REQUIRE(expression)       TOY_TEST_REQUIRE(expression)
+#define REQUIRE_FALSE(expression) TOY_TEST_REQUIRE_FALSE(expression)
+#define CHECK(expression)         TOY_TEST_CHECK(expression)
+#define CHECK_FALSE(expression)   TOY_TEST_CHECK_FALSE(expression)
+#define INFO(...)                 TOY_TEST_INFO(__VA_ARGS__)
+
+#endif // TOYGINE_TESTS_USE_DOCTEST
 
 #include "toy_test.inl"
 

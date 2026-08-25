@@ -27,7 +27,8 @@
 
 #include <doctest/doctest.h>
 
-#include "toy_test.hpp"
+#include "context.hpp"
+#include "utils.hpp"
 
 static_assert(!std::is_copy_constructible_v<toy::test::Context>, "Context must not be copy constructible");
 static_assert(!std::is_copy_assignable_v<toy::test::Context>, "Context must not be copy assignable");

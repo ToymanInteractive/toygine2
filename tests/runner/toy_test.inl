@@ -19,8 +19,8 @@
 //
 /*!
   \file   toy_test.inl
-  \brief  Inline implementations for \ref toy::test::CaseRegistrar, \ref toy::test::detail::SubcaseGuard and the
-          case loop.
+  \brief  Inline implementations for the case loop, the registry's duplicate-name scan and
+          \ref toy::test::detail::SubcaseGuard.
 
   \note Included by toy_test.hpp only; do not include this file directly.
 */
@@ -41,6 +41,14 @@ inline void runCase(Context & context, const char * name, case_body_type body) n
 
 namespace detail {
 
+inline const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept {
+  for (const CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
+    if (compareNames(node->name(), node->next()->name()) == 0)
+      return node;
+
+  return nullptr;
+}
+
 inline SubcaseGuard::SubcaseGuard(Context & context, const char * name) noexcept
   : _context{&context}
   , _entered{context.enterSubcase(name)} {}
@@ -54,53 +62,18 @@ inline bool SubcaseGuard::entered() const noexcept {
   return _entered;
 }
 
-} // namespace detail
-
-inline CaseRegistrar::CaseRegistrar(CaseRegistrar *& head, const char * name, const char * file, int line,
-                                    case_body_type body) noexcept
-  : _name{name}
-  , _file{file}
-  , _line{line}
-  , _body{body}
-  , _next{nullptr} {
-  // Insertion sort at registration time: O(n) per node, but it makes the run order depend on names alone.
-  CaseRegistrar ** link = &head;
-
-  while (*link != nullptr && detail::compareNames((*link)->_name, name) < 0)
-    link = &(*link)->_next;
-
-  _next = *link;
-  *link = this;
+inline InfoGuard::InfoGuard(Context & context, const char * text) noexcept
+  : _context{&context} {
+  context.pushInfo(text);
 }
 
-inline const char * CaseRegistrar::name() const noexcept {
-  return _name;
+inline InfoGuard::InfoGuard(Context & context, const char * text, long long value) noexcept
+  : _context{&context} {
+  context.pushInfo(text, value);
 }
 
-inline const char * CaseRegistrar::file() const noexcept {
-  return _file;
-}
-
-inline int CaseRegistrar::line() const noexcept {
-  return _line;
-}
-
-inline case_body_type CaseRegistrar::body() const noexcept {
-  return _body;
-}
-
-inline const CaseRegistrar * CaseRegistrar::next() const noexcept {
-  return _next;
-}
-
-namespace detail {
-
-inline const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept {
-  for (const CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
-    if (compareNames(node->name(), node->next()->name()) == 0)
-      return node;
-
-  return nullptr;
+inline InfoGuard::~InfoGuard() noexcept {
+  _context->popInfo();
 }
 
 } // namespace detail

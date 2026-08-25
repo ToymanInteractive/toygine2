@@ -63,7 +63,8 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   include(doctest)
 
   add_executable(${TOYGINE_LIBRARY_NAME}-units ${TESTS_SRC})
-  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+                                                                  TOYGINE_TESTS_USE_DOCTEST)
 
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)

@@ -24,7 +24,8 @@
   Defines \ref toy::test::Approx: a value carrying a relative tolerance, compared through a free \c operator==. Used
   wherever a test asserts a floating-point result, under either runner.
 
-  \note Included by toy_test.hpp only; do not include this file directly.
+  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
+        for this type.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_APPROX_HPP_

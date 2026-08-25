@@ -108,6 +108,7 @@ EmptyLineBeforeAccessModifier: LogicalBlock
 EnumTrailingComma: Insert
 FixNamespaceComments: true
 IncludeBlocks: Regroup
+IncludeIsMainRegex: "^$"
 IncludeCategories:
   - Regex: "^<[^.]+>$"
     Priority: 1
