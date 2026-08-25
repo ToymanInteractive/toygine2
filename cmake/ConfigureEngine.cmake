@@ -31,7 +31,7 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
 find_package(ClownMDSDK)
-find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii)
+find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wii-u)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)
@@ -76,6 +76,10 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
   if (DEVKITPRO_WII_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Wii")
+  endif ()
+
+  if (DEVKITPRO_WII_U_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo Wii U")
   endif ()
 
   # Report available platforms

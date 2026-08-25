@@ -27,15 +27,15 @@ FindDevkitPro
 Detect a devkitPro installation and its platform components.
 
 Locates the devkitPro root and, for each requested component, its platform library and headers (Nintendo GBA,
-Nintendo DS, Nintendo 3DS, Nintendo Switch, Nintendo GameCube, Nintendo Wii). The module never fails when a component is
-missing: it reports what was found and what was not, leaving the decision to the caller.
+Nintendo DS, Nintendo 3DS, Nintendo Switch, Nintendo GameCube, Nintendo Wii, Nintendo Wii U). The module never fails
+when a component is missing: it reports what was found and what was not, leaving the decision to the caller.
 
 The installation root is searched, in order, in the ``DEVKITPRO`` environment variable, ``/opt/devkitpro``,
 then ``C:/devkitPro``.
 
 .. code-block:: cmake
 
-  find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii)
+  find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wii-u)
 
 Components
 ^^^^^^^^^^
@@ -60,6 +60,9 @@ Each requested component is searched independently:
 ``wii``
   Nintendo Wii library (``libogc`` from ``lib/wii``, header ``gccore.h``). Built with the devkitPPC toolchain.
 
+``wii-u``
+  Nintendo Wii U library (``wut``, header ``wut.h``). Built with the devkitPPC toolchain.
+
 Result Variables
 ^^^^^^^^^^^^^^^^^
 
@@ -71,7 +74,7 @@ This module defines the following variables:
 ``DEVKITPRO_ROOT``
   Root directory of the devkitPro installation.
 
-``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``, ``DEVKITPRO_GAMECUBE_FOUND``, ``DEVKITPRO_WII_FOUND``
+``DEVKITPRO_GBA_FOUND``, ``DEVKITPRO_NDS_FOUND``, ``DEVKITPRO_3DS_FOUND``, ``DEVKITPRO_SWITCH_FOUND``, ``DEVKITPRO_GAMECUBE_FOUND``, ``DEVKITPRO_WII_FOUND``, ``DEVKITPRO_WII_U_FOUND``
   ``TRUE`` if the corresponding requested component was found. Defined only for components listed in ``COMPONENTS``.
 
 ``DEVKITA64``
@@ -200,6 +203,9 @@ if (DEVKITPRO_ROOT)
   endif ()
   if ("wii" IN_LIST DevkitPro_FIND_COMPONENTS)
     _find_devkitpro_lib(DEVKITPRO_WII gccore.h ogc libogc wii)
+  endif ()
+  if ("wii-u" IN_LIST DevkitPro_FIND_COMPONENTS)
+    _find_devkitpro_lib(DEVKITPRO_WII_U wut.h wut wut)
   endif ()
 
 else ()

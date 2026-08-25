@@ -125,6 +125,12 @@ jobs:
             cmake_preset: wii-release
             artifact_id: wii
 
+          - name: Nintendo Wii U
+            os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.wiiu.toolchain:latest
+            run_test: "false"
+            cmake_preset: wii-u-release
+
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
     timeout-minutes: 30

@@ -36,6 +36,8 @@
 #include <concepts>
 #include <cstddef>
 
+#include "assertion.hpp"
+
 namespace toy::test::detail {
 
 /*!
