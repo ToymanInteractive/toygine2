@@ -171,7 +171,7 @@ Static structure: layers, modules, and where dependencies may point. Directory l
 Style and correctness are enforced by tools, not by review. Configs live at the repo root and CI runs the same checks on changed files; a change is ready when all of them pass clean.
 
 * **Formatting:** `.clang-format` is the sole authority on layout — run it before committing, never hand-format against it. `// clang-format off` only where alignment carries meaning, with a comment saying why.
-* **Include order:** `.clang-format` regroups into blank-line-separated blocks — corresponding header (in a `.cpp`), standard library `<...>`, third-party, project `"..."`.
+* **Include order:** `.clang-format` regroups into blank-line-separated blocks — standard library `<...>`, third-party, project `"..."`.
 * **Static analysis:** checks and options live in `.clang-tidy`; run it over the compile database before committing and review whatever `--fix` changed. Suppress with `// NOLINTNEXTLINE(check)` plus a reason — never a bare `// NOLINT`, never file-wide.
 * **Warnings:** build at the toolchain's warning level and leave none; CI treats them as errors. Fix the code, not the diagnostic — `[[maybe_unused]]` for a deliberately unused parameter.
 * **Language subset:** exceptions and RTTI are off in the build, so `throw`, `dynamic_cast`, and `typeid` fail to compile rather than fail review (see Zero-cost abstractions).

@@ -22,12 +22,12 @@
   \brief  Implementation of \ref toy::editor::VulkanContext.
 */
 
-#include "vulkan_context.hpp"
-
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
+
+#include "vulkan_context.hpp"
 
 namespace toy::editor {
 

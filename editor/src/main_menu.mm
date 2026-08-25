@@ -26,9 +26,9 @@
   a responder handles them. Compiled with ARC (see CMakeLists.txt).
 */
 
-#include "main_menu.hpp"
-
 #import <Cocoa/Cocoa.h>
+
+#include "main_menu.hpp"
 
 namespace toy::editor {
 

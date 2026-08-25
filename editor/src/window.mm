@@ -25,10 +25,10 @@
   CAMetalLayer, and pumps native events cooperatively. Compiled with ARC (see CMakeLists.txt).
 */
 
-#include "window.hpp"
-
 #import <Cocoa/Cocoa.h>
 #import <QuartzCore/CAMetalLayer.h>
+
+#include "window.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
