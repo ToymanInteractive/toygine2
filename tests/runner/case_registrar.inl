@@ -16,52 +16,49 @@
 // FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
-//
 /*!
-  \file   toy_test.inl
-  \brief  Inline implementations for the case loop, the registry's duplicate-name scan and
-          \ref toy::test::detail::SubcaseGuard.
+  \file   case_registrar.inl
+  \brief  Inline implementations for \ref toy::test::CaseRegistrar: registration and accessors.
 
-  \note Included by toy_test.hpp only; do not include this file directly.
+  \note Included by case_registrar.hpp only; do not include this file directly.
 */
 
 namespace toy::test {
 
-inline void runCase(Context & context, const char * name, case_body_type body) noexcept {
-  context.beginCase(name);
+inline CaseRegistrar::CaseRegistrar(CaseRegistrar *& head, const char * name, const char * file, int line,
+                                    case_body_type body) noexcept
+  : _name{name}
+  , _file{file}
+  , _line{line}
+  , _body{body} {
+  // Insertion sort at registration time: O(n) per node, but it makes the run order depend on names alone.
+  CaseRegistrar ** link = &head;
 
-  std::size_t targetSubcase = 0;
+  while (*link != nullptr && detail::compareNames((*link)->_name, name) < 0)
+    link = &(*link)->_next;
 
-  do {
-    context.beginRun(targetSubcase);
-    body(context);
-    ++targetSubcase;
-  } while (targetSubcase < context.subcaseCount());
+  _next = *link;
+  *link = this;
 }
 
-namespace detail {
-
-inline const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept {
-  for (const CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
-    if (compareNames(node->name(), node->next()->name()) == 0)
-      return node;
-
-  return nullptr;
+inline const char * CaseRegistrar::name() const noexcept {
+  return _name;
 }
 
-inline SubcaseGuard::SubcaseGuard(Context & context, const char * name) noexcept
-  : _context{&context}
-  , _entered{context.enterSubcase(name)} {}
-
-inline SubcaseGuard::~SubcaseGuard() noexcept {
-  if (_entered)
-    _context->leaveSubcase();
+inline const char * CaseRegistrar::file() const noexcept {
+  return _file;
 }
 
-inline bool SubcaseGuard::entered() const noexcept {
-  return _entered;
+inline int CaseRegistrar::line() const noexcept {
+  return _line;
 }
 
-} // namespace detail
+inline case_body_type CaseRegistrar::body() const noexcept {
+  return _body;
+}
+
+inline const CaseRegistrar * CaseRegistrar::next() const noexcept {
+  return _next;
+}
 
 } // namespace toy::test

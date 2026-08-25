@@ -27,7 +27,7 @@
 
 #include <doctest/doctest.h>
 
-#include "toy_test.hpp"
+#include "approx.hpp"
 
 // Approx compares equal within its tolerance and unequal outside it.
 TEST_CASE("test/approx/comparison_honours_tolerance") {
