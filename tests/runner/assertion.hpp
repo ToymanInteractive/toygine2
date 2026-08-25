@@ -24,8 +24,8 @@
   Defines the \c TOY_TEST_ASSERT macro and toy::test::detail::assertionFailed(): what a violated precondition does
   inside the runner. Written without \c <cassert> so the runner keeps building on targets that ship no hosted headers.
 
-  \note Reached through toy_test.hpp, and included by the runner's own headers; a test translation unit must not include
-        this file directly.
+  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
+        for this type.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_ASSERTION_HPP_

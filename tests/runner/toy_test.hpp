@@ -218,7 +218,15 @@ private:
 /// Opens one branch of the running case; see \ref toy::test::detail::SubcaseGuard.
 #define TOY_TEST_SUBCASE(subcaseName) TOY_TEST_SUBCASE_IMPL(subcaseName, TOY_TEST_UNIQUE(toyTestSubcase))
 
-/// Pushes a message shown only if an assertion in this scope fails; see \ref toy::test::detail::InfoGuard.
+/*!
+  \def TOY_TEST_INFO
+  \brief Pushes a message shown only if an assertion in this scope fails.
+
+  Takes a string literal, optionally followed by one integer value; see \ref toy::test::detail::InfoGuard.
+
+  \warning Narrower than doctest's \c INFO, which takes any number of streamable arguments: a call with two strings,
+           or with three arguments, compiles under doctest and fails to compile under the built-in runner.
+*/
 #define TOY_TEST_INFO(...) TOY_TEST_INFO_IMPL(TOY_TEST_UNIQUE(toyTestInfo), __VA_ARGS__)
 
 /// Records an assertion and returns from the case body when it fails.

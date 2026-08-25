@@ -24,8 +24,8 @@
   Defines \ref toy::test::CaseRegistrar and \ref toy::test::case_body_type: what the \c TEST_CASE macro constructs as a
   static object, and what the runner's \c main walks to execute the cases.
 
-  \note Reached through toy_test.hpp, and included by the runner's own headers; a test translation unit must not include
-        this file directly.
+  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
+        for this type.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_HPP_

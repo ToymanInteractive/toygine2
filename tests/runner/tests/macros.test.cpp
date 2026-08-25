@@ -96,6 +96,9 @@ void captureInfo(const toy::test::Context & context, const toy::test::FailureRec
 
 } // namespace
 
+// The expected line is captured directly above the declaration, so an edit to the body cannot shift it.
+constexpr int c_registeredCaseLine = __LINE__ + 3;
+
 // A case declared through the macro lands in the registry with its name and source location.
 TOY_TEST_CASE("generated/registered/through_macro") {
   TOY_TEST_CHECK(1 == 1);
@@ -103,13 +106,15 @@ TOY_TEST_CASE("generated/registered/through_macro") {
 
 // The registry holds the case the macro above declared.
 TEST_CASE("test/macros/case_macro_registers_the_case") {
-  bool found = false;
+  const toy::test::CaseRegistrar * registered = nullptr;
 
   for (const toy::test::CaseRegistrar * node = toy::test::detail::caseListHead; node != nullptr; node = node->next())
     if (toy::test::detail::compareNames(node->name(), "generated/registered/through_macro") == 0)
-      found = true;
+      registered = node;
 
-  REQUIRE(found == true);
+  REQUIRE(registered != nullptr);
+  CHECK(toy::test::detail::compareNames(registered->file(), __FILE__) == 0);
+  CHECK(registered->line() == c_registeredCaseLine);
 }
 
 // The subcase macro produces one run per branch, and each branch executes once.
