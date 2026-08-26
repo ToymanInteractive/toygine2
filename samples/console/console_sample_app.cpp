@@ -191,8 +191,38 @@ int main() {
 
 #endif // __wii__
 
+#ifdef __WIIU__
+
+#include <coreinit/thread.h>
+#include <coreinit/time.h>
+#include <whb/log.h>
+#include <whb/log_console.h>
+#include <whb/proc.h>
+
+int main(int argc, char ** argv) {
+  WHBProcInit();
+  WHBLogConsoleInit();
+  WHBLogPrintf("Hello world from Console sample app");
+
+  while (WHBProcIsRunning()) {
+    WHBLogConsoleDraw();
+    OSSleepTicks(OSMillisecondsToTicks(100));
+  }
+
+  WHBLogPrintf("Exiting... good bye.");
+  WHBLogConsoleDraw();
+  OSSleepTicks(OSMillisecondsToTicks(1000));
+
+  WHBLogConsoleFree();
+  WHBProcShutdown();
+
+  return 0;
+}
+
+#endif // __WIIU__
+
 #if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__) && !defined(__gamecube__)      \
-  && !defined(__wii__)
+  && !defined(__wii__) && !defined(__WIIU__)
 
 #include <iostream>
 

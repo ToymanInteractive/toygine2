@@ -130,6 +130,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.wiiu.toolchain:latest
             run_test: "false"
             cmake_preset: wii-u-release
+            artifact_id: wii-u
 
     name: ${{ matrix.name }}
     runs-on: ${{ matrix.os }}
