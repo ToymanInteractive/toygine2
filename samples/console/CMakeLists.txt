@@ -58,6 +58,12 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.dol" DESTINATION bin COMPONENT samples)
 
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+
+  wut_create_rpx(console_sample_app)
+
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.rpx" DESTINATION bin COMPONENT samples)
+
 else ()
 
   install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)
