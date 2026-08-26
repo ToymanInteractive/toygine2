@@ -22,6 +22,22 @@
   \brief
 */
 
+#ifdef __MEGA_DRIVE__
+
+#include <clownmdsdk.h>
+
+void _EntryPoint() {
+  // Do initialisation here.
+
+  ClownMDSDK::MainCPU::Debug::PrintLine("Hello world from Console sample app");
+
+  for (;;) {
+    // Run main-loop logic here.
+  }
+}
+
+#endif // __MEGA_DRIVE__
+
 #ifdef __GBA__
 
 #include <cstdio>
@@ -221,8 +237,8 @@ int main(int argc, char ** argv) {
 
 #endif // __WIIU__
 
-#if !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__) && !defined(__gamecube__)      \
-  && !defined(__wii__) && !defined(__WIIU__)
+#if !defined(__MEGA_DRIVE__) && !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__)    \
+  && !defined(__gamecube__) && !defined(__wii__) && !defined(__WIIU__)
 
 #include <iostream>
 

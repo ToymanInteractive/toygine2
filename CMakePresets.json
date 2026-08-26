@@ -383,7 +383,6 @@
                 "platform-md",
                 "with-benchmarks",
                 "with-samples",
-                "with-tests",
                 "base"
             ]
         },
@@ -395,7 +394,6 @@
                 "type-release",
                 "platform-md",
                 "with-benchmarks",
-                "with-tests",
                 "base"
             ]
         },
