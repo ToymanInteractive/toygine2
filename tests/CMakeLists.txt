@@ -70,6 +70,14 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 
+  # The runner's own translation units: its entry point and the platform sink. Nothing links them until task 7 builds
+  # the tests with them, so compiling them as objects is what keeps a broken entry point from surviving until then.
+  # Task 8 moves the sink's platform choice out of this desktop-only guard.
+  add_library(${TOYGINE_LIBRARY_NAME}-runner OBJECT
+      ${CMAKE_CURRENT_SOURCE_DIR}/runner/toy_test.cpp
+      ${CMAKE_CURRENT_SOURCE_DIR}/runner/sink_desktop.cpp)
+  target_include_directories(${TOYGINE_LIBRARY_NAME}-runner PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
+
   # CodeCoverage aborts on anything but a gcov-compatible toolchain, so keep the option a no-op elsewhere (MSVC)
   set(TOYGINE_COMPILER_SUPPORT_COVERAGE OFF)
   if (CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|(Apple)?[Cc]lang)$")
