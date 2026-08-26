@@ -1109,6 +1109,22 @@
             ]
         },
         {
+            "name": "md-release",
+            "configurePreset": "md-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "md-shipping",
+            "configurePreset": "md-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
             "name": "gba-release",
             "configurePreset": "gba-release",
             "inherits": [
