@@ -63,8 +63,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS   " /arch:SSE2 /fpcvt:IA")
       string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2 /fpcvt:IA")
 
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /favor:blend /Gv")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /favor:blend /Gv")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /favor:blend /Gv /homeparams")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /favor:blend /Gv /homeparams")
 
       string(APPEND CMAKE_C_FLAGS_RELEASE                 " /favor:blend /Gv")
       string(APPEND CMAKE_CXX_FLAGS_RELEASE               " /favor:blend /Gv")
