@@ -41,7 +41,11 @@ inline void ReportWriter::addInteger(long long value) noexcept {
 }
 
 inline void ReportWriter::flush() noexcept {
-  addText("\n");
+  if (_length == c_lineCapacity)
+    --_length;
+
+  _buffer[_length] = '\n';
+  ++_length;
 
   _write(_buffer, _length, _writerData);
 

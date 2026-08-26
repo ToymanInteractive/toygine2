@@ -64,7 +64,7 @@ namespace detail {
   * **Allocation-free**: one fixed buffer, no container and no heap
   * **Freestanding**: formats integers and text without \c <cstdio> or \c <charconv>
   * **Verdict once**: writeVerdict() prints the entry for a case at most once
-  * **Truncating**: a line past the buffer is cut, never overflowed
+  * **Truncating**: a line past the buffer is cut and still terminated, never overflowed
 
   \section usage Usage Example
 
@@ -139,7 +139,10 @@ public:
   /*!
     \brief Terminates the line and hands it to the writer.
 
-    \post The line buffer is empty; the writer has been called exactly once.
+    \post The line buffer is empty; the writer has been called exactly once with a line ending in a newline.
+
+    \note A line filled to the capacity loses its last byte to the terminator, so every line the writer receives ends
+          in a newline whatever was appended to it.
   */
   void flush() noexcept;
 

@@ -23,6 +23,7 @@
 */
 
 #include <cstddef>
+#include <cstring>
 
 #include <doctest/doctest.h>
 
@@ -87,7 +88,23 @@ void bodyFailsInsideSubcase(toy::test::Context & toyTestContext) {
   }
 }
 
+// Compares exactly the bytes the writer handed over, then requires the expected text to end there too: a report that
+// merely starts with the expected text is not the expected report. Comparing to the terminator instead would ignore
+// the captured length and pass a report whose writer miscounted it.
+[[nodiscard]] bool reportMatches(const CapturedReport & captured, const char * expected) noexcept {
+  return std::strncmp(captured.text, expected, captured.length) == 0 && expected[captured.length] == '\0';
+}
+
 } // namespace
+
+// Puts both texts into the failure message, because a comparison folded into a bool reports only that they differ,
+// and the whole point of comparing the report in full is to see where it went wrong.
+#define REQUIRE_REPORT(captured, expected)                                                                             \
+  do {                                                                                                                 \
+    INFO("actual:\n" << (captured).text);                                                                              \
+    INFO("expected:\n" << (expected));                                                                                 \
+    REQUIRE(reportMatches((captured), (expected)));                                                                    \
+  } while (false)
 
 // A run without a failure prints one entry per case, the plan line, the summary, and reports success.
 TEST_CASE("test/write_report/passing_run_prints_an_entry_per_case") {
@@ -101,12 +118,11 @@ TEST_CASE("test/write_report/passing_run_prints_an_entry_per_case") {
   const int code = toy::test::writeReport(&captureWrite, &captured, head);
 
   REQUIRE(code == 0);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "ok 1 - sample/a/first\n"
-                                                         "ok 2 - sample/b/second\n"
-                                                         "1..2\n"
-                                                         "TOYTEST SUMMARY passed=2 failed=0\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "ok 1 - sample/a/first\n"
+                           "ok 2 - sample/b/second\n"
+                           "1..2\n"
+                           "TOYTEST SUMMARY passed=2 failed=0\n");
 }
 
 // Two failures in one case share a single header and each print their own location block.
@@ -120,17 +136,16 @@ TEST_CASE("test/write_report/failures_share_one_case_header") {
   const int code = toy::test::writeReport(&captureWrite, &captured, head);
 
   REQUIRE(code == 1);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "not ok 1 - sample/fails\n"
-                                                         "  file: first.cpp\n"
-                                                         "  line: 11\n"
-                                                         "  expr: 1 == 2\n"
-                                                         "  file: second.cpp\n"
-                                                         "  line: 22\n"
-                                                         "  expr: 2 == 3\n"
-                                                         "1..1\n"
-                                                         "TOYTEST SUMMARY passed=0 failed=2\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "not ok 1 - sample/fails\n"
+                           "  file: first.cpp\n"
+                           "  line: 11\n"
+                           "  expr: 1 == 2\n"
+                           "  file: second.cpp\n"
+                           "  line: 22\n"
+                           "  expr: 2 == 3\n"
+                           "1..1\n"
+                           "TOYTEST SUMMARY passed=0 failed=2\n");
 }
 
 // Three branches give three runs of the body, so the summary counts three passing assertions under one entry.
@@ -144,11 +159,10 @@ TEST_CASE("test/write_report/subcases_run_once_each_under_one_entry") {
   const int code = toy::test::writeReport(&captureWrite, &captured, head);
 
   REQUIRE(code == 0);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "ok 1 - sample/subcases\n"
-                                                         "1..1\n"
-                                                         "TOYTEST SUMMARY passed=3 failed=0\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "ok 1 - sample/subcases\n"
+                           "1..1\n"
+                           "TOYTEST SUMMARY passed=3 failed=0\n");
 }
 
 // A nested subcase condemns its case even though no assertion failed, and the run reports failure.
@@ -162,12 +176,11 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
   const int code = toy::test::writeReport(&captureWrite, &captured, head);
 
   REQUIRE(code == 1);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "not ok 1 - sample/nested\n"
-                                                         "  error: nested subcase\n"
-                                                         "1..1\n"
-                                                         "TOYTEST SUMMARY passed=0 failed=0\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "not ok 1 - sample/nested\n"
+                           "  error: nested subcase\n"
+                           "1..1\n"
+                           "TOYTEST SUMMARY passed=0 failed=0\n");
 }
 
 // The subcase and the info entries live at the moment of the failure, so both reach the block under it.
@@ -181,16 +194,15 @@ TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
   const int code = toy::test::writeReport(&captureWrite, &captured, head);
 
   REQUIRE(code == 1);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "not ok 1 - sample/info\n"
-                                                         "  file: info.cpp\n"
-                                                         "  line: 33\n"
-                                                         "  expr: values[index] == 0\n"
-                                                         "  subcase: branch\n"
-                                                         "  info: index: 7\n"
-                                                         "1..1\n"
-                                                         "TOYTEST SUMMARY passed=0 failed=1\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "not ok 1 - sample/info\n"
+                           "  file: info.cpp\n"
+                           "  line: 33\n"
+                           "  expr: values[index] == 0\n"
+                           "  subcase: branch\n"
+                           "  info: index: 7\n"
+                           "1..1\n"
+                           "TOYTEST SUMMARY passed=0 failed=1\n");
 }
 
 // A repeated case name aborts the run before any body executes and reports the reserved code.
@@ -205,9 +217,8 @@ TEST_CASE("test/write_report/duplicate_name_aborts_before_the_first_case") {
   const int code = toy::test::writeReport(&captureWrite, &captured, head);
 
   REQUIRE(code == 2);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "TOYTEST ERROR duplicate case name: sample/duplicate\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "TOYTEST ERROR duplicate case name: sample/duplicate\n");
 }
 
 // An empty registry is a run of no cases, not an error.
@@ -217,8 +228,32 @@ TEST_CASE("test/write_report/empty_registry_reports_an_empty_plan") {
   const int code = toy::test::writeReport(&captureWrite, &captured, nullptr);
 
   REQUIRE(code == 0);
-  REQUIRE(toy::test::detail::compareNames(captured.text, "TOYTEST 1\n"
-                                                         "1..0\n"
-                                                         "TOYTEST SUMMARY passed=0 failed=0\n")
-          == 0);
+  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+                           "1..0\n"
+                           "TOYTEST SUMMARY passed=0 failed=0\n");
+}
+
+// A line filling the buffer gives up its last byte to the newline, because two lines run together are unreadable
+// while a truncated one is not.
+TEST_CASE("test::detail/report_writer/full_line_keeps_its_newline") {
+  constexpr std::size_t overlongLength = toy::test::detail::ReportWriter::c_lineCapacity * 2;
+
+  char overlong[overlongLength + 1] = {};
+
+  for (std::size_t index = 0; index < overlongLength; ++index)
+    overlong[index] = 'x';
+
+  CapturedReport                  captured;
+  toy::test::detail::ReportWriter writer{&captureWrite, &captured};
+
+  writer.addText(overlong);
+  writer.flush();
+
+  // The second line is what a missing terminator would swallow into the first.
+  writer.addText("next");
+  writer.flush();
+
+  REQUIRE(captured.length == toy::test::detail::ReportWriter::c_lineCapacity + 5);
+  REQUIRE(captured.text[toy::test::detail::ReportWriter::c_lineCapacity - 1] == '\n');
+  REQUIRE(captured.text[toy::test::detail::ReportWriter::c_lineCapacity - 2] == 'x');
 }
