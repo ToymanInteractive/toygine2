@@ -18,20 +18,29 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   tests.cpp
-  \brief  Test runner entry point: doctest \c main, assertion hooks, and optional GBA console routing.
+  \file   desktop.cpp
+  \brief  Platform layer for Windows, Linux and macOS: standard output, the process exit code, and the entry point.
 */
 
-#define DOCTEST_CONFIG_IMPLEMENT
+#include <cstddef>
+#include <cstdio>
+#include <cstdlib>
 
-#include <doctest/doctest.h>
+#include "report.hpp"
 
-#include "core.hpp"
+namespace {
 
-int main(int argc, char ** argv) noexcept {
-  doctest::Context context;
+// The report's writer seam carries caller data stdout has no use for.
+void writeToStdout(const char * text, std::size_t length, [[maybe_unused]] void * writerData) noexcept {
+  std::fwrite(text, 1, length, stdout);
+}
 
-  context.applyCommandLine(argc, argv);
+} // namespace
 
-  return context.run(); // run doctest
+int main() {
+  const int code = ::toy::test::writeReport(&writeToStdout, nullptr, ::toy::test::detail::caseListHead);
+
+  std::fflush(stdout);
+
+  std::exit(code);
 }

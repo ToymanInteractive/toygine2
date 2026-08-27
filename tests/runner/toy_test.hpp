@@ -55,28 +55,6 @@ namespace toy::test {
 */
 void runCase(Context & context, const char * name, case_body_type body) noexcept;
 
-/*!
-  \brief Writes raw bytes to the platform's diagnostic channel.
-
-  \param text    Bytes to write; not null-terminated.
-  \param length  Number of bytes.
-
-  \note Defined per platform in one sink translation unit chosen by the build; the runner never branches on the target
-        itself.
-*/
-void platformWrite(const char * text, std::size_t length) noexcept;
-
-/*!
-  \brief Ends the run with the given code.
-
-  \param code  \c 0 when every assertion passed, \c 1 on any failure or a nested subcase, \c 2 on a duplicate
-               case name.
-
-  \note On consoles there is no process to exit, so the sink stores the code where a debugger reads it and then parks
-        the CPU.
-*/
-[[noreturn]] void platformExit(int code) noexcept;
-
 namespace detail {
 
 /*!

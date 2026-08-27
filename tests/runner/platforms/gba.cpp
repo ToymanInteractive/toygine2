@@ -18,25 +18,45 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   sink_desktop.cpp
-  \brief  Output and exit for Windows, Linux and macOS: standard output and the process exit code.
+  \file   gba.cpp
+  \brief  Platform layer for Nintendo GBA: console output and the entry point.
 */
 
+#include <algorithm>
+#include <cstddef>
 #include <cstdio>
-#include <cstdlib>
 
-#include "toy_test.hpp"
+#include <gba_console.h>
+#include <gba_interrupt.h>
+#include <gba_systemcalls.h>
 
-namespace toy::test {
+#include "report.hpp"
 
-void platformWrite(const char * text, std::size_t length) noexcept {
-  std::fwrite(text, 1, length, stdout);
+namespace {
+
+// Columns of the console consoleDemoInit() sets up: the 240-pixel screen over the 8-pixel tiles it draws with.
+constexpr std::size_t c_consoleWidth = 30;
+
+// The report's writer seam carries caller data stdout has no use for. A line wider than one row is cut to it:
+// printing the tail would cost further rows and push the summary off the top of the screen.
+void writeToStdout(const char * text, std::size_t length, [[maybe_unused]] void * writerData) noexcept {
+  const auto count = std::min(length, c_consoleWidth);
+
+  printf("%.*s", static_cast<int>(count), text);
 }
 
-void platformExit(int code) noexcept {
-  std::fflush(stdout);
+} // namespace
 
-  std::exit(code);
+int main() {
+  irqInit();
+  irqEnable(IRQ_VBLANK);
+
+  consoleDemoInit();
+
+  const int code = ::toy::test::writeReport(&writeToStdout, nullptr, ::toy::test::detail::caseListHead);
+
+  while (1)
+    VBlankIntrWait();
+
+  return 0;
 }
-
-} // namespace toy::test
