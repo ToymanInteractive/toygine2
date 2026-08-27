@@ -33,10 +33,11 @@ endif ()
 # CTest support
 #-----------------------------------------------------------------------------------------------------------------------
 
-set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
+set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-set(TOYGINE_CTEST_SUPPORT_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
-if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_CTEST_SUPPORT_PLATFORMS)
+# Whether the built binaries can be executed by CTest on the build host.
+set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
+if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
 endif ()
 
@@ -49,10 +50,29 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 # Test translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# The runner's own translation units: its entry point and the platform sink.
-set(TOYGINE_RUNNER_SRC
-    ${CMAKE_CURRENT_SOURCE_DIR}/runner/toy_test.cpp
-    ${CMAKE_CURRENT_SOURCE_DIR}/runner/sink_desktop.cpp)
+# The runner's platform layer: output, exit, and the entry point. A file, not a macro, so the runner itself carries
+# no target branches.
+if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gba.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/nds.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/3ds.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/switch.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gamecube.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/wii.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/wii_u.cpp)
+else ()
+  message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
+endif ()
 
 # Tests of engine modules. Both runners build them, so a drift between the two splits the verdict or fails the build.
 file(GLOB_RECURSE TOYGINE_MODULE_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
@@ -65,10 +85,33 @@ file(GLOB TOYGINE_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_S
 # Tests built with the runner written for consoles
 #-----------------------------------------------------------------------------------------------------------------------
 
-add_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
+# Sega MD has no plain executable: the cartridge linker script and its startup stub are what give the binary an entry.
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  add_cartridge_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
+else ()
+  add_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
+endif ()
+
 target_include_directories(${TOYGINE_LIBRARY_NAME}-units-builtin
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-units-builtin PRIVATE ${TOYGINE_LIBRARY_NAME})
+
+# The ELF alone is not something the console can load; the ROM is what the next spec hands to an emulator.
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+  gba_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+  nds_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+  ctr_create_3dsx(${TOYGINE_LIBRARY_NAME}-units-builtin)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+  nx_create_nro(${TOYGINE_LIBRARY_NAME}-units-builtin)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+  ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
+  ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+  wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
+endif ()
 
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   include(FetchContent)
@@ -84,7 +127,7 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   add_executable(${TOYGINE_LIBRARY_NAME}-units
       ${TOYGINE_MODULE_TESTS_SRC}
       ${TOYGINE_RUNNER_TESTS_SRC}
-      tests.cpp)
+      ctest_main.cpp)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS
                                                                   TOYGINE_TESTS_USE_DOCTEST)
 
