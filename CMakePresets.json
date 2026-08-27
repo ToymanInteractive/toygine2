@@ -394,6 +394,7 @@
                 "type-release",
                 "platform-md",
                 "with-benchmarks",
+                "with-samples",
                 "base"
             ]
         },
