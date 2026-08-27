@@ -22,9 +22,8 @@
   \brief  Unit tests for \ref toy::EnableBitwiseOperators and scoped-enum bitwise operators.
 */
 
-#include <doctest/doctest.h>
-
 #include "core.hpp"
+#include "toy_test.hpp"
 
 namespace toy {
 
