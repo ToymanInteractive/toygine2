@@ -49,20 +49,17 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 # Test translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# The runner's own translation units: its entry point and the platform sink. Task 8 replaces the desktop sink named
-# here with the one the target platform provides.
+# The runner's own translation units: its entry point and the platform sink.
 set(TOYGINE_RUNNER_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/runner/toy_test.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/runner/sink_desktop.cpp)
 
-# Tests of engine modules. They build under both runners, which is what makes a semantic drift between the two
-# visible as a failing build or a differing verdict.
-file(GLOB_RECURSE TOYGINE_MODULE_TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
-list(FILTER TOYGINE_MODULE_TESTS_SRC EXCLUDE REGEX "/runner/")
+# Tests of engine modules. Both runners build them, so a drift between the two splits the verdict or fails the build.
+file(GLOB_RECURSE TOYGINE_MODULE_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
+list(FILTER TOYGINE_MODULE_TESTS_SRC EXCLUDE REGEX "^runner/")
 
-# Tests of the runner itself. They are written against doctest and inspect the runner's internals, so they build
-# under doctest only.
-file(GLOB TOYGINE_RUNNER_TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/runner/tests/*.test.cpp")
+# Tests of the runner itself. Written against doctest and inspecting its internals, so only doctest builds them.
+file(GLOB TOYGINE_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/runner/tests/*.test.cpp")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Tests built with the runner written for consoles
@@ -128,7 +125,7 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                    # tests run serially: parallel cases of one binary race over the same .gcda files
                                    EXECUTABLE_ARGS --output-on-failure --no-tests=error
-                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
+                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units ${TOYGINE_LIBRARY_NAME}-units-builtin
                                    LCOV_ARGS "--ignore-errors" "inconsistent")
 
   endif ()
