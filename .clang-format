@@ -1,4 +1,5 @@
-# Documentation: https://releases.llvm.org/22.1.0/tools/clang/docs/ClangFormatStyleOptions.html
+# Documentation: https://releases.llvm.org/23.1.0/tools/clang/docs/ClangFormatStyleOptions.html
+# Release Notes: https://releases.llvm.org/23.1.0/tools/clang/docs/ReleaseNotes.html#clang-format
 ---
 # No Language key: this section is the default for every language, so one style covers
 # C++ (.cpp/.hpp/.inl) and Objective-C++ (.mm/.m). A `Language: Cpp`-only section makes
@@ -12,6 +13,7 @@ AlignConsecutiveAssignments:
   AcrossEmptyLines: false
   AcrossComments: true
   AlignCompound: true
+  EnumAssignments: true
   PadOperators: true
 AlignConsecutiveBitFields:
   Enabled: true
@@ -64,10 +66,9 @@ AllowShortIfStatementsOnASingleLine: Never
 AllowShortLambdasOnASingleLine: Empty
 AllowShortLoopsOnASingleLine: false
 AllowShortNamespacesOnASingleLine: false
+AllowShortRecordOnASingleLine: EmptyAndAttached
 AlwaysBreakBeforeMultilineStrings: false
-BinPackArguments: true
 BinPackLongBracedList: true
-BinPackParameters: BinPack
 BitFieldColonSpacing: Both
 BracedInitializerIndentWidth: 2
 BreakAdjacentStringLiterals: true
@@ -89,10 +90,13 @@ BreakBeforeCloseBracketLoop: true
 BreakBeforeCloseBracketSwitch: true
 BreakBeforeConceptDeclarations: Always
 BreakBeforeInlineASMColon: OnlyMultiline
+BreakBeforeReturnType: None
 BreakBeforeTemplateCloser: true
 BreakBeforeTernaryOperators: true
-BreakBinaryOperations: Never
+BreakBinaryOperations:
+  Default: Never
 BreakConstructorInitializers: BeforeComma
+BreakFunctionDeclarationParameters: false
 BreakFunctionDefinitionParameters: false
 BreakInheritanceList: BeforeComma
 BreakStringLiterals: false
@@ -150,10 +154,15 @@ NumericLiteralCase:
 ObjCBinPackProtocolList: Always
 ObjCBlockIndentWidth: 2
 ObjCBreakBeforeNestedBlockParam: false
+ObjCSpaceAfterMethodDeclarationPrefix: true
 ObjCSpaceAfterProperty: true
 ObjCSpaceBeforeProtocolList: true
 PPIndentWidth: 2
+PackArguments:
+  BinPack: BinPack
 PackConstructorInitializers: BinPack
+PackParameters:
+  BinPack: BinPack
 PenaltyBreakAssignment: 19937
 PenaltyBreakBeforeFirstCallParameter: 19937
 PenaltyBreakBeforeMemberAccess: 19937
