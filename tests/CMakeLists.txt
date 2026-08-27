@@ -45,6 +45,31 @@ endif ()
 set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 #-----------------------------------------------------------------------------------------------------------------------
 
+#-----------------------------------------------------------------------------------------------------------------------
+# Test translation units
+#-----------------------------------------------------------------------------------------------------------------------
+
+# The runner's own translation units: its entry point and the platform sink.
+set(TOYGINE_RUNNER_SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/runner/toy_test.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/runner/sink_desktop.cpp)
+
+# Tests of engine modules. Both runners build them, so a drift between the two splits the verdict or fails the build.
+file(GLOB_RECURSE TOYGINE_MODULE_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
+list(FILTER TOYGINE_MODULE_TESTS_SRC EXCLUDE REGEX "^runner/")
+
+# Tests of the runner itself. Written against doctest and inspecting its internals, so only doctest builds them.
+file(GLOB TOYGINE_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/runner/tests/*.test.cpp")
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Tests built with the runner written for consoles
+#-----------------------------------------------------------------------------------------------------------------------
+
+add_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
+target_include_directories(${TOYGINE_LIBRARY_NAME}-units-builtin
+    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-units-builtin PRIVATE ${TOYGINE_LIBRARY_NAME})
+
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   include(FetchContent)
   include(CTest)
@@ -54,29 +79,22 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
 
   list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
-  # Only files named *.test.cpp are test translation units. The runner's own implementation, its sinks and the
-  # self-test binaries carry their own main() and belong to other targets, so the pattern keeps them out.
-  file(GLOB_RECURSE TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
-
-  list(APPEND TESTS_SRC tests.cpp)
-
   include(doctest)
 
-  add_executable(${TOYGINE_LIBRARY_NAME}-units ${TESTS_SRC})
-  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS TOYGINE_TESTS_USE_DOCTEST)
+  add_executable(${TOYGINE_LIBRARY_NAME}-units
+      ${TOYGINE_MODULE_TESTS_SRC}
+      ${TOYGINE_RUNNER_TESTS_SRC}
+      tests.cpp)
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS
+                                                                  TOYGINE_TESTS_USE_DOCTEST)
 
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 
-  # The runner's own translation units: its entry point and the platform sink. Nothing links them until task 7 builds
-  # the tests with them, so compiling them as objects is what keeps a broken entry point from surviving until then.
-  # Task 8 moves the sink's platform choice out of this desktop-only guard.
-  add_library(${TOYGINE_LIBRARY_NAME}-runner OBJECT
-      ${CMAKE_CURRENT_SOURCE_DIR}/runner/toy_test.cpp
-      ${CMAKE_CURRENT_SOURCE_DIR}/runner/sink_desktop.cpp)
-  target_include_directories(${TOYGINE_LIBRARY_NAME}-runner PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
+  # Exit code 0 is the whole contract: every module test must reach the same verdict under both runners.
+  add_test(NAME units-builtin COMMAND ${TOYGINE_LIBRARY_NAME}-units-builtin)
 
   # CodeCoverage aborts on anything but a gcov-compatible toolchain, so keep the option a no-op elsewhere (MSVC)
   set(TOYGINE_COMPILER_SUPPORT_COVERAGE OFF)
@@ -107,7 +125,7 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                    # tests run serially: parallel cases of one binary race over the same .gcda files
                                    EXECUTABLE_ARGS --output-on-failure --no-tests=error
-                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
+                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units ${TOYGINE_LIBRARY_NAME}-units-builtin
                                    LCOV_ARGS "--ignore-errors" "inconsistent")
 
   endif ()

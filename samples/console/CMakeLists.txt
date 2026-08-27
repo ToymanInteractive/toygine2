@@ -18,11 +18,19 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-add_executable(console_sample_app console_sample_app.cpp)
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  add_cartridge_executable(console_sample_app console_sample_app.cpp)
+else()
+  add_executable(console_sample_app console_sample_app.cpp)
+endif()
 
 target_link_libraries(console_sample_app PRIVATE toygine)
 
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.bin" DESTINATION bin COMPONENT samples)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   gba_create_rom(console_sample_app)
 

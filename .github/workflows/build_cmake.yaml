@@ -82,6 +82,7 @@ jobs:
             container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
             run_test: "false"
             cmake_preset: md-release
+            artifact_id: md
 
           - name: Nintendo GBA
             os: ubuntu-26.04

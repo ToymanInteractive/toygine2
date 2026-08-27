@@ -383,7 +383,6 @@
                 "platform-md",
                 "with-benchmarks",
                 "with-samples",
-                "with-tests",
                 "base"
             ]
         },
@@ -395,7 +394,7 @@
                 "type-release",
                 "platform-md",
                 "with-benchmarks",
-                "with-tests",
+                "with-samples",
                 "base"
             ]
         },
@@ -1105,6 +1104,22 @@
         {
             "name": "linux-shipping",
             "configurePreset": "linux-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "md-release",
+            "configurePreset": "md-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "md-shipping",
+            "configurePreset": "md-shipping",
             "inherits": [
                 "type-shipping",
                 "base"
