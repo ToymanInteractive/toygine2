@@ -101,6 +101,7 @@ using std::array;
 
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
+#include "core/string_like.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 

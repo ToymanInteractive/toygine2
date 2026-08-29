@@ -28,22 +28,22 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   # MSVC Compiler Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /volatile:iso
+  # last option is /D
 
   # MSVC Linker Options
   # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
-    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso")
+    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE")
 
-    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1")
-    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1")
+    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG")
 
-    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy")
-    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy")
+    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /DNDEBUG")
 
 
     set(CMAKE_STATIC_LINKER_FLAGS                 "")
