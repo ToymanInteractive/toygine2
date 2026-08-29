@@ -29,7 +29,7 @@ set -e -o pipefail
 
 # The runner passes its context as a parameter the macros name. A test naming it by hand is bypassing the
 # guard that keeps REQUIRE out of helper functions.
-CONTEXT_USES=$(grep -rln 'toyTestContext' tests/ --include='*.test.cpp' | grep -v '^tests/runner/' || true)
+CONTEXT_USES=$(grep -rlw 'toyTestContext' tests/ --include='*.test.cpp' | grep -v '^tests/runner/' || true)
 
 if [ -z "$CONTEXT_USES" ]; then
   echo "All test files leave the runner's context parameter to the macros."
