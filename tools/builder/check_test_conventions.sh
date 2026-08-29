@@ -27,9 +27,23 @@
 
 set -e -o pipefail
 
-# The runner passes its context as a parameter the macros name. A test naming it by hand is bypassing the
-# guard that keeps REQUIRE out of helper functions.
-CONTEXT_USES=$(grep -rlw 'toyTestContext' tests/ --include='*.test.cpp' | grep -v '^tests/runner/' || true)
+# BSD grep reports a missing path with the same 1 it uses for no match, so the scan cannot tell a wrong directory
+# from a clean tree.
+if [ ! -d tests ]; then
+  echo "tests/ not found: run this script from the project root directory."
+  exit 2
+fi
+
+# Only the macros name this parameter, so a test naming it by hand has taken the context into a helper, where a
+# failed REQUIRE returns from the helper instead of ending the case. The shim's own tests do it by design.
+SCAN_STATUS=0
+CONTEXT_USES=$(grep -rlw 'toyTestContext' tests/ --include='*.test.cpp' --exclude-dir=runner) || SCAN_STATUS=$?
+
+# 1 means nothing matched; anything higher means the scan failed and cannot count as a clean tree.
+if [ "$SCAN_STATUS" -gt 1 ]; then
+  echo "Cannot scan tests/ for the runner's context parameter: grep exited with $SCAN_STATUS."
+  exit "$SCAN_STATUS"
+fi
 
 if [ -z "$CONTEXT_USES" ]; then
   echo "All test files leave the runner's context parameter to the macros."
