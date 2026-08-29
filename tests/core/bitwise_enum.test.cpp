@@ -103,7 +103,7 @@ TEST_CASE("enable_bitwise_operators/opt_in_through_template_argument_list") {
   using flags_type = TemplatedHolder<int, long>::Flags;
 
   REQUIRE(EnableBitwiseOperators<flags_type>::enable == true);
-  REQUIRE(toy::to_underlying(flags_type::A | flags_type::B) == 4);
+  REQUIRE(toy::to_underlying(flags_type::A | flags_type::B) == 3);
 
   static_assert(BitwiseEnum<flags_type>, "an enum spelled with a template argument list must satisfy BitwiseEnum");
   static_assert(toy::to_underlying(flags_type::A | flags_type::B) == 3,
