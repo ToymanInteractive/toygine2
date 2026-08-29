@@ -31,7 +31,7 @@
 namespace {
 
 // The report's writer seam carries caller data stdout has no use for.
-void writeLine(const char * text, std::size_t length, [[maybe_unused]] void * writerData) noexcept {
+void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   std::fwrite(text, 1, length, stdout);
 }
 
