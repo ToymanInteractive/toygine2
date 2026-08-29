@@ -39,9 +39,11 @@ struct CapturedReport final {
   std::size_t length                  = 0;
 };
 
-// The capture lives in the case that reads it and arrives through the writer data, so no state outlives a case.
-void captureWrite(const char * text, std::size_t length, void * writerData) noexcept {
-  CapturedReport & captured = *static_cast<CapturedReport *>(writerData);
+// The capture lives in the case that reads it and arrives through the writer data, so no state outlives a case. The
+// seam carries the address of the capture rather than the capture itself: what it promises to leave alone is the
+// pointer, while the buffer behind it is the destination this writer exists to fill.
+void captureWrite(const char * text, std::size_t length, const void * writerData) noexcept {
+  CapturedReport & captured = **static_cast<CapturedReport * const *>(writerData);
 
   for (std::size_t index = 0; index < length && captured.length + 1 < c_captureCapacity; ++index) {
     captured.text[captured.length] = text[index];
@@ -113,9 +115,10 @@ TEST_CASE("test/write_report/passing_run_prints_an_entry_per_case") {
   toy::test::CaseRegistrar second{head, "sample/b/second", "b.cpp", 2, &bodyPasses};
   toy::test::CaseRegistrar first{head, "sample/a/first", "a.cpp", 1, &bodyPasses};
 
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, head);
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 0);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -131,9 +134,10 @@ TEST_CASE("test/write_report/failures_share_one_case_header") {
 
   toy::test::CaseRegistrar only{head, "sample/fails", "a.cpp", 1, &bodyFailsTwice};
 
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, head);
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -154,9 +158,10 @@ TEST_CASE("test/write_report/subcases_run_once_each_under_one_entry") {
 
   toy::test::CaseRegistrar only{head, "sample/subcases", "a.cpp", 1, &bodyRunsThreeSubcases};
 
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, head);
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 0);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -171,9 +176,10 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
 
   toy::test::CaseRegistrar only{head, "sample/nested", "a.cpp", 1, &bodyNestsSubcases};
 
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, head);
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -189,9 +195,10 @@ TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
 
   toy::test::CaseRegistrar only{head, "sample/info", "a.cpp", 1, &bodyFailsInsideSubcase};
 
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, head);
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -212,9 +219,10 @@ TEST_CASE("test/write_report/duplicate_name_aborts_before_the_first_case") {
   toy::test::CaseRegistrar first{head, "sample/duplicate", "a.cpp", 1, &bodyPasses};
   toy::test::CaseRegistrar second{head, "sample/duplicate", "b.cpp", 2, &bodyPasses};
 
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, head);
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 2);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -223,9 +231,10 @@ TEST_CASE("test/write_report/duplicate_name_aborts_before_the_first_case") {
 
 // An empty registry is a run of no cases, not an error.
 TEST_CASE("test/write_report/empty_registry_reports_an_empty_plan") {
-  CapturedReport captured;
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  const int code = toy::test::writeReport(&captureWrite, &captured, nullptr);
+  const int code = toy::test::writeReport(&captureWrite, &destination, nullptr);
 
   REQUIRE(code == 0);
   REQUIRE_REPORT(captured, "TOYTEST 1\n"
@@ -244,7 +253,8 @@ TEST_CASE("test::detail/report_writer/full_line_keeps_its_newline") {
     overlong[index] = 'x';
 
   CapturedReport                  captured;
-  toy::test::detail::ReportWriter writer{&captureWrite, &captured};
+  CapturedReport *                destination = &captured;
+  toy::test::detail::ReportWriter writer{&captureWrite, &destination};
 
   writer.addText(overlong);
   writer.flush();
