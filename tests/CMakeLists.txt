@@ -35,7 +35,8 @@ endif ()
 
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-# Whether the built binaries can be executed by CTest on the build host.
+# Whether the build host runs the test binaries itself, which is also what the DocTest half of the build needs.
+# A console target reaches CTest through an emulator instead, registered below.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -111,6 +112,25 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
   ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
   wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
+endif ()
+
+# The ROM reaches CTest through the emulator the toolchain image ships, so the console target reports the way every
+# other one does instead of being launched by hand from CI.
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+  find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
+
+  if (TOYGINE_MGBA_HEADLESS)
+    # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level. DKP_FILE is where gba_create_rom
+    # records the ROM it wrote, which is not the target file the ELF leaves behind.
+    add_test(NAME units-builtin
+             COMMAND ${TOYGINE_MGBA_HEADLESS} -S 3 -R r0 -l 15
+                     $<TARGET_PROPERTY:${TOYGINE_LIBRARY_NAME}-units-builtin,DKP_FILE>)
+
+    # A ROM that never reaches SWI 3 would otherwise run until the job's own timeout.
+    set_tests_properties(units-builtin PROPERTIES TIMEOUT 60)
+  else ()
+    message(STATUS "mgba-headless not found: the test ROM is built but no CTest test runs it")
+  endif ()
 endif ()
 
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)

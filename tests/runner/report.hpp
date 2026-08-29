@@ -48,7 +48,7 @@ namespace toy::test {
 
   \sa \ref toy::test::detail::ReportWriter
 */
-using write_function_type = void (*)(const char * text, std::size_t length, void * writerData) noexcept;
+using write_function_type = void (*)(const char * text, std::size_t length, const void * writerData) noexcept;
 
 namespace detail {
 
@@ -106,7 +106,7 @@ public:
 
     \post The line buffer is empty and no case is running.
   */
-  ReportWriter(write_function_type write, void * writerData) noexcept;
+  ReportWriter(write_function_type write, const void * writerData) noexcept;
 
   ~ReportWriter() noexcept                       = default;
   ReportWriter(const ReportWriter &)             = delete;
@@ -172,7 +172,7 @@ public:
 
 private:
   write_function_type _write;
-  void *              _writerData;
+  const void *        _writerData;
   const char *        _caseName{nullptr};
   std::size_t         _caseNumber{0};
   bool                _caseReported{false};
@@ -215,7 +215,7 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
 
   \sa \ref toy::test::write_function_type
 */
-[[nodiscard]] int writeReport(write_function_type write, void * writerData, const CaseRegistrar * head) noexcept;
+[[nodiscard]] int writeReport(write_function_type write, const void * writerData, const CaseRegistrar * head) noexcept;
 
 } // namespace toy::test
 

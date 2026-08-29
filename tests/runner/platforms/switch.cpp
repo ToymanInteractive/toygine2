@@ -38,7 +38,7 @@ constexpr std::size_t c_consoleWidth = 80;
 
 // The report's writer seam carries caller data stdout has no use for. A line wider than one row is cut to it:
 // printing the tail would cost further rows and push the summary off the top of the screen.
-void writeToStdout(const char * text, std::size_t length, [[maybe_unused]] void * writerData) noexcept {
+void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   const auto count = std::min(length, c_consoleWidth);
 
   printf("%.*s", static_cast<int>(count), text);
@@ -54,7 +54,7 @@ int main() {
   PadState pad;
   padInitializeDefault(&pad);
 
-  const int code = ::toy::test::writeReport(&writeToStdout, nullptr, ::toy::test::detail::caseListHead);
+  const int code = ::toy::test::writeReport(&writeLine, nullptr, ::toy::test::detail::caseListHead);
 
   // The report holds the screen until Plus is pressed: the applet closes on its own otherwise, taking the last
   // lines with it.

@@ -28,7 +28,7 @@ namespace toy::test {
 
 namespace detail {
 
-inline ReportWriter::ReportWriter(write_function_type write, void * writerData) noexcept
+inline ReportWriter::ReportWriter(write_function_type write, const void * writerData) noexcept
   : _write{write}
   , _writerData{writerData} {}
 
@@ -113,7 +113,7 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
 
 } // namespace detail
 
-inline int writeReport(write_function_type write, void * writerData, const CaseRegistrar * head) noexcept {
+inline int writeReport(write_function_type write, const void * writerData, const CaseRegistrar * head) noexcept {
   detail::ReportWriter writer{write, writerData};
 
   writer.addText("TOYTEST 1");

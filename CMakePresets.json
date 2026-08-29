@@ -987,6 +987,16 @@
             "name": "linux-release",
             "configurePreset": "linux-release",
             "inherits": "default-release"
+        },
+        {
+            "name": "gba-debug",
+            "configurePreset": "gba-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "gba-release",
+            "configurePreset": "gba-release",
+            "inherits": "default-release"
         }
     ],
     "packagePresets": [
