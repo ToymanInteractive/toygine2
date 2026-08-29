@@ -40,7 +40,7 @@ constexpr std::size_t c_consoleWidth = 80;
 
 // The report's writer seam carries caller data the log console has no use for. One call is one log entry, so the
 // trailing newline goes, and a line wider than the screen is cut to what one row holds.
-void writeToLog(const char * text, std::size_t length, [[maybe_unused]] void * writerData) noexcept {
+void writeToLog(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   const auto lineLength = (length != 0 && text[length - 1] == '\n') ? length - 1 : length;
   const auto count      = std::min(lineLength, c_consoleWidth);
 
