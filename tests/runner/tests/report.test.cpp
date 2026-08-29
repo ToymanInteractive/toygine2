@@ -24,6 +24,7 @@
 
 #include <cstddef>
 #include <cstring>
+#include <string>
 
 #include <doctest/doctest.h>
 
@@ -242,28 +243,32 @@ TEST_CASE("test/write_report/empty_registry_reports_an_empty_plan") {
                            "TOYTEST SUMMARY passed=0 failed=0\n");
 }
 
-// A line filling the buffer gives up its last byte to the newline, because two lines run together are unreadable
-// while a truncated one is not.
-TEST_CASE("test::detail/report_writer/full_line_keeps_its_newline") {
-  constexpr std::size_t overlongLength = toy::test::detail::ReportWriter::c_lineCapacity * 2;
+// A case name past the line capacity is cut to it and the line keeps its newline, because two report lines run
+// together are unreadable while a truncated name costs only that name.
+TEST_CASE("test/write_report/overlong_case_name_keeps_the_line_break") {
+  constexpr std::size_t capacity   = toy::test::detail::ReportWriter::c_lineCapacity;
+  constexpr std::size_t nameLength = capacity * 2;
 
-  char overlong[overlongLength + 1] = {};
+  char name[nameLength + 1] = {};
 
-  for (std::size_t index = 0; index < overlongLength; ++index)
-    overlong[index] = 'x';
+  for (std::size_t index = 0; index < nameLength; ++index)
+    name[index] = 'x';
 
-  CapturedReport                  captured;
-  CapturedReport *                destination = &captured;
-  toy::test::detail::ReportWriter writer{&captureWrite, &destination};
+  toy::test::CaseRegistrar * head = nullptr;
 
-  writer.addText(overlong);
-  writer.flush();
+  toy::test::CaseRegistrar only{head, name, "a.cpp", 1, &bodyPasses};
 
-  // The second line is what a missing terminator would swallow into the first.
-  writer.addText("next");
-  writer.flush();
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
 
-  REQUIRE(captured.length == toy::test::detail::ReportWriter::c_lineCapacity + 5);
-  REQUIRE(captured.text[toy::test::detail::ReportWriter::c_lineCapacity - 1] == '\n');
-  REQUIRE(captured.text[toy::test::detail::ReportWriter::c_lineCapacity - 2] == 'x');
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  const std::size_t entryOffset = std::char_traits<char>::length("TOYTEST 1\n");
+
+  REQUIRE(code == 0);
+  REQUIRE(captured.text[entryOffset + capacity - 1] == '\n');
+  REQUIRE(captured.text[entryOffset + capacity - 2] == 'x');
+
+  // The plan line is what a missing terminator would swallow into the entry above it.
+  REQUIRE(std::strncmp(captured.text + entryOffset + capacity, "1..1\n", 5) == 0);
 }
