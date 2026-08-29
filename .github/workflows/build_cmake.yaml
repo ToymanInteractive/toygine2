@@ -265,13 +265,15 @@ jobs:
         run: |
           set -euo pipefail
 
-          if [ "${{ matrix.run_test }}" = "true" ]; then
-            if [[ "${{ matrix.cmake_preset }}" == gba-* ]]; then
-              timeout 60 mgba-headless -S 3 -R r0 -l 15 \
-                "$GITHUB_WORKSPACE/out/build/${{ matrix.cmake_preset }}/tests/toygine-units-builtin.gba"
-            else
-              ctest --preset ${{ matrix.cmake_preset }}
-            fi
+          if [ "${{ matrix.run_test }}" != "true" ]; then
+            exit 0
+          fi
+
+          if [[ "${{ matrix.cmake_preset }}" == gba-* ]]; then
+            # One ROM, not CTest cases: the runner stops on SWI 3, leaves the verdict in r0 and logs at info level.
+            timeout 60 mgba-headless -S 3 -R r0 -l 15 "$GITHUB_WORKSPACE/out/build/${{ matrix.cmake_preset }}/tests/toygine-units-builtin.gba"
+          else
+            ctest --preset ${{ matrix.cmake_preset }}
           fi
 
   unit-tests:
