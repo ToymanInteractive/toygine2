@@ -33,8 +33,10 @@
 #define INCLUDE_CORE_HPP_
 
 #include <array>
+#include <concepts>
 #include <cstddef>
 #include <cstdint>
+#include <type_traits>
 #include <utility>
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -42,7 +44,7 @@
 /*!
   \namespace toy
 
-  \brief Root namespace containing all engine modules.
+  \brief Root namespace for every engine module.
 */
 namespace toy {
 

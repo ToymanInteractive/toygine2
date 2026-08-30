@@ -37,7 +37,7 @@ struct FakeString {
   const char * c_str() const noexcept;
 };
 
-// c_str() returns char *, which converts to const char *.
+// c_str() returns char *, not const char * itself.
 struct MutableBufferString {
   size_t size() const noexcept;
   char * c_str() const noexcept;
@@ -71,14 +71,18 @@ struct NonConstString {
 TEST_CASE("string_like/requirements") {
   static_assert(StringLike<FakeString>,
                 "a const size() returning size_t and c_str() returning const char * satisfy StringLike");
-  static_assert(StringLike<MutableBufferString>,
-                "c_str() returning char * must convert to const char * and satisfy StringLike");
+  static_assert(StringLike<FakeString &>,
+                "a reference is stripped from T, so a reference to a satisfying type satisfies StringLike");
 
   static_assert(!StringLike<NoCStrString>, "a type without c_str() must not satisfy StringLike");
   static_assert(!StringLike<NoSizeString>, "a type without size() must not satisfy StringLike");
 
   static_assert(!StringLike<IntSizeString>, "size() returning int must not satisfy StringLike");
+  static_assert(!StringLike<MutableBufferString>, "c_str() returning char * must not satisfy StringLike");
+
   static_assert(!StringLike<NonConstString>, "members callable only on a non-const object must not satisfy StringLike");
+  static_assert(!StringLike<NonConstString &>,
+                "a reference must not carry non-const members past the const requirement");
 
   static_assert(!StringLike<const char *>, "const char * carries no length and must not satisfy StringLike");
   static_assert(!StringLike<int>, "a non-class type must not satisfy StringLike");

@@ -36,14 +36,14 @@ namespace toy {
   \concept StringLike
   \brief Concept satisfied when \a T exposes its length and a C-string pointer on a \c const object.
 
-  Constrains a template that reads a string it neither owns nor copies. The requirement expression uses a \c const
-  reference, so the constrained template takes the string by \c const \c & and cannot modify the caller's.
+  Constrains a template that reads a string it neither owns nor copies. The requirement expression binds a \c const
+  reference, so a type satisfies it only through the members a \c const object exposes.
 
   \section string_like_requirements Requirements
 
-  A type satisfies StringLike if and only if, for an lvalue \a str of type \c const \a T:
+  A type satisfies StringLike if and only if, for an lvalue \a str of type \c const \a T with any reference stripped:
   * \c str.size() is well-formed and its type is exactly \c std::size_t.
-  * \c str.c_str() is well-formed and its result converts to \c const \c char \c *.
+  * \c str.c_str() is well-formed and its type is exactly \c const \c char \c *.
 
   \section string_like_usage Usage Example
 
@@ -58,16 +58,18 @@ namespace toy {
 
   \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
 
-  \note size() has to return \c std::size_t itself. A length reported as \c int, or as a proxy that converts to
-        \c std::size_t, fails the requirement.
+  \note Both member types are matched exactly. A length reported as \c int or as a proxy that converts to \c std::size_t
+        fails, and so does a \c c_str() returning \c char \c *.
+
+  \note A reference is stripped from \a T before the members are looked up, so \a T and \a T \c & give the same answer.
 
   \note Null-termination, ownership, and pointer lifetime stay the type's own contract; the requirement expression
         checks none of them.
 */
 template <typename T>
-concept StringLike = requires(const T & str) {
+concept StringLike = requires(const std::remove_reference_t<T> & str) {
   { str.size() } -> std::same_as<size_t>;
-  { str.c_str() } -> std::convertible_to<const char *>;
+  { str.c_str() } -> std::same_as<const char *>;
 };
 
 } // namespace toy
