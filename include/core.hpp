@@ -99,6 +99,51 @@ using std::array;
 
 } // namespace toy
 
+#if defined(assert)
+// Undefine any existing assert macro to avoid conflicts
+#undef assert
+#endif
+
+#ifdef _DEBUG
+
+#if defined(_MSC_VER)
+#define __FUNC_SIGNATURE__ __FUNCSIG__
+#elif defined(__GNUC__) || defined(__clang__)
+#define __FUNC_SIGNATURE__ __PRETTY_FUNCTION__
+#else
+#define __FUNC_SIGNATURE__ __func__
+#endif
+
+#define assert(expression)                                                                                             \
+  do {                                                                                                                 \
+    if (!(expression)) {                                                                                               \
+      if (std::is_constant_evaluated()) {                                                                              \
+        toy::assertion::assertCompileTimeError();                                                                      \
+      } else {                                                                                                         \
+        toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+      }                                                                                                                \
+    }                                                                                                                  \
+  } while (0)
+
+#define assert_message(expression, message)                                                                            \
+  do {                                                                                                                 \
+    if (!(expression)) {                                                                                               \
+      if (std::is_constant_evaluated()) {                                                                              \
+        toy::assertion::assertCompileTimeError();                                                                      \
+      } else {                                                                                                         \
+        toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+      }                                                                                                                \
+    }                                                                                                                  \
+  } while (0)
+
+#else // _DEBUG
+
+#define assert(expression) ((void)0)
+
+#define assert_message(expression, message) ((void)0)
+
+#endif // _DEBUG
+
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/assertion.hpp"
