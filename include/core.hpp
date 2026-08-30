@@ -24,8 +24,8 @@
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy,
   which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, and the string-like
   concept. From the standard library it re-exports toy::size_t, the fixed-width integers toy::int8_t through
-  toy::uint64_t, toy::to_underlying, and toy::array. The header also defines the assert and assert_message macros, which
-  call into that reporting.
+  toy::uint64_t, toy::to_underlying, toy::array, toy::char_traits, and toy::strncpy. The header also defines the assert
+  and assert_message macros, which call into that reporting.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -97,6 +97,35 @@ using std::to_underlying;
   \sa https://en.cppreference.com/w/cpp/container/array.html
 */
 using std::array;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Strings library https://cppreference.com/cpp/string
+
+/*!
+  \brief Operations a string or view type performs on its character type, among them measuring a length and comparing
+         two sequences; alias for std::char_traits.
+
+  \sa https://cppreference.com/cpp/string/char_traits
+*/
+using std::char_traits;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Text processing library https://cppreference.com/cpp/text
+
+// (lvl 2)               Null-terminated byte strings https://cppreference.com/cpp/string/byte
+
+/*!
+  \brief Copies at most a fixed count of characters from one null-terminated byte string to another; alias for
+         std::strncpy.
+
+  \note The destination carries no terminator when the source is at least as long as the count. A shorter source is
+        padded with null characters up to the count.
+
+  \sa https://cppreference.com/cpp/string/byte/strncpy
+*/
+using std::strncpy;
 
 } // namespace toy
 
