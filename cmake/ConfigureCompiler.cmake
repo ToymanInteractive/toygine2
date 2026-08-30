@@ -26,12 +26,12 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
 
-  # MSVC Compiler Options
-  # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-  # last option is /D
+    # MSVC Compiler Options
+    # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
+    # last option is /D
 
-  # MSVC Linker Options
-  # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
+    # MSVC Linker Options
+    # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE")
     set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE")
@@ -60,27 +60,25 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
 
-      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2 /fpcvt:IA")
-      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2 /fpcvt:IA")
+      string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
+      string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
 
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /favor:blend /Gv /homeparams /jumptablerdata")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /favor:blend /Gv /homeparams /jumptablerdata")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gv /homeparams /jumptablerdata")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gv /homeparams /jumptablerdata")
 
-      string(APPEND CMAKE_C_FLAGS_RELEASE                 " /favor:blend /Gv             /jumptablerdata")
-      string(APPEND CMAKE_CXX_FLAGS_RELEASE               " /favor:blend /Gv             /jumptablerdata")
-
-      string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO "")
+      string(APPEND CMAKE_C_FLAGS_RELEASE           " /favor:blend /Gv             /jumptablerdata")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /favor:blend /Gv             /jumptablerdata")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
 
-      string(APPEND CMAKE_C_FLAGS   " /arch:SSE2 /fpcvt:IA")
-      string(APPEND CMAKE_CXX_FLAGS " /arch:SSE2 /fpcvt:IA")
+      string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
+      string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
 
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO          " /favor:blend /Gr")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO        " /favor:blend /Gr")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gr")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gr")
 
-      string(APPEND CMAKE_C_FLAGS_RELEASE                 " /favor:blend /Gr")
-      string(APPEND CMAKE_CXX_FLAGS_RELEASE               " /favor:blend /Gr")
+      string(APPEND CMAKE_C_FLAGS_RELEASE           " /favor:blend /Gr")
+      string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /favor:blend /Gr")
 
     elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
 
