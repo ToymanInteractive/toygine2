@@ -91,8 +91,11 @@ set(SRC_CORE_LIST
     src/core/utils.cpp)
 set(HDR_CORE_LIST
     include/core.hpp
-    include/core/assertion.hpp)
-set(INL_CORE_LIST )
+    include/core/assertion.hpp
+    include/core/bitwise_enum.hpp
+    include/core/string_like.hpp)
+set(INL_CORE_LIST
+    include/core/bitwise_enum.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
