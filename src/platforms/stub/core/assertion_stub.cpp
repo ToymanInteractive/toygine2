@@ -37,8 +37,10 @@ namespace toy::assertion {
 
 namespace {
 
+/// Capacity of the buffer a failure description is formatted into, terminator included.
 constexpr size_t c_stringBufferSize = 4096;
 
+/// Handler last given to setCallbacks(), or \c nullptr while a failed check reports nothing.
 AssertionCallback _assertionCallback{nullptr};
 
 } // namespace

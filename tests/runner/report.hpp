@@ -141,8 +141,8 @@ public:
 
     \post The line buffer is empty; the writer has been called exactly once with a line ending in a newline.
 
-    \note A line filled to the capacity loses its last byte to the terminator, so every line the writer receives ends
-          in a newline whatever was appended to it.
+    \note A line filled to the capacity loses its last byte to the terminator, so every line the writer receives ends in
+          a newline whatever was appended to it.
   */
   void flush() noexcept;
 
@@ -163,8 +163,8 @@ public:
 
     \post The running case has an entry; a later call prints nothing.
 
-    \note A case failing after its entry is printed keeps the verdict of the first call, which is why the failing
-          caller prints first and the passing one last.
+    \note A case failing after its entry is printed keeps the verdict of the first call, which is why the failing caller
+          prints first and the passing one last.
 
     \sa beginCase()
   */
@@ -210,7 +210,6 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
 
   \note Allocates nothing and touches no global state: the run state and the line buffer are local, so two reports can
         be written in one process.
-
   \note Deterministic — the report depends on the registry order and the case bodies, never on link order or timing.
 
   \sa \ref toy::test::write_function_type

@@ -146,7 +146,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
   \note Declared only when \c _DEBUG is defined. Every other build compiles the empty inline definition below, so a
-  failed check costs nothing in a shipping binary.
+        failed check costs nothing in a shipping binary.
 
   \sa setCallbacks()
 */

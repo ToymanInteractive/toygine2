@@ -39,10 +39,10 @@ namespace {
   analysis.
 
   \note Values: 0x01 = 1-byte ASCII, 0x02-0x04 = length of a multi-byte sequence this lead byte may begin, 0x00 = byte
-  that can never start a valid sequence — continuation bytes (0x80-0xBF), overlong 2-byte leads (0xC0-0xC1), and
-  out-of-range leads (0xF5-0xFF).
+        that can never start a valid sequence — continuation bytes (0x80-0xBF), overlong 2-byte leads (0xC0-0xC1), and
+        out-of-range leads (0xF5-0xFF).
   \note Range and overlong checks that depend on continuation bytes (e.g. for 0xE0, 0xF0, 0xF4) remain the decoder's
-  responsibility; this table validates only what the lead byte alone determines.
+        responsibility; this table validates only what the lead byte alone determines.
 */
 constexpr array<uint8_t, 256> c_utf8CharSizeTable{
   {

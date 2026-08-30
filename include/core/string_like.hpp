@@ -57,12 +57,9 @@ namespace toy {
   \endcode
 
   \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
-
   \note Both member types are matched exactly. A length reported as \c int or as a proxy that converts to \c std::size_t
         fails, and so does a \c c_str() returning \c char \c *.
-
   \note A reference is stripped from \a T before the members are looked up, so \a T and \a T \c & give the same answer.
-
   \note Null-termination, ownership, and pointer lifetime stay the type's own contract; the requirement expression
         checks none of them.
 */
