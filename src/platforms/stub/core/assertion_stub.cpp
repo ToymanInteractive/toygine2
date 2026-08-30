@@ -29,8 +29,6 @@
   \note Selected by the platform CMake list of every target that carries no assertion backend of its own.
 */
 
-#include <cstdio>
-
 #include "core.hpp"
 
 namespace toy::assertion {
