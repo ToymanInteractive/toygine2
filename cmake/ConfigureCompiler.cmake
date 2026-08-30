@@ -91,8 +91,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
 
-    string(APPEND CMAKE_C_FLAGS   " /nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5039 /wd5045 /wd5219 /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast /permissive-")
-    string(APPEND CMAKE_CXX_FLAGS " /nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5039 /wd5045 /wd5219 /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast /permissive-")
+    string(APPEND CMAKE_C_FLAGS   " /nologo /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast /permissive-")
+    string(APPEND CMAKE_CXX_FLAGS " /nologo /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast /permissive-")
 
     string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI /diagnostics:caret   /sdl      /MTd /MP")
     string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI /diagnostics:caret   /sdl      /MTd /MP")
