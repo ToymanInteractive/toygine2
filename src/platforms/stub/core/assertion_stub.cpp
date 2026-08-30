@@ -19,7 +19,14 @@
 //
 /*!
   \file   assertion_stub.cpp
-  \brief
+  \brief  Implementations of \ref toy::assertion for targets with no reporting backend of their own.
+
+  Formats the failure into a fixed 4096-byte buffer and hands it to the registered
+  \ref toy::assertion::AssertionCallback; a description that overruns the buffer ends in \c "...[TRUNCATED]". A
+  failure raised while another is still being reported returns without a second report. Stack walking is absent, so
+  the \ref toy::assertion::StackWalkCallback passed to toy::assertion::setCallbacks() is ignored.
+
+  \note Selected by the platform CMake list of every target that carries no assertion backend of its own.
 */
 
 #include <cstdio>

@@ -22,9 +22,10 @@
   \brief  Umbrella header for the engine core module.
 
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy,
-  which so far provide assertion reporting and the opt-in bitwise operators for flag enumerations. From the standard
-  library it re-exports toy::size_t, the fixed-width integers toy::int8_t through toy::uint64_t, toy::to_underlying, and
-  toy::array.
+  which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, and the string-like
+  concept. From the standard library it re-exports toy::size_t, the fixed-width integers toy::int8_t through
+  toy::uint64_t, toy::to_underlying, and toy::array. The header also defines the assert and assert_message macros, which
+  call into that reporting.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -114,6 +115,25 @@ using std::array;
 #define __FUNC_SIGNATURE__ __func__
 #endif
 
+/*!
+  \def assert
+  \brief Checks \a expression in a debug build and reports a failure with its source location.
+
+  Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(); the
+  registered \ref toy::assertion::AssertionCallback decides what the failure does. A failure during constant evaluation
+  calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression non-constant and
+  fails the build.
+
+  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+
+  \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
+
+  \note Replaces the \c assert macro of \c <cassert>, which this header undefines first.
+  \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so \a expression is
+        never evaluated and a side effect written inside it is lost.
+
+  \sa assert_message
+*/
 #define assert(expression)                                                                                             \
   do {                                                                                                                 \
     if (!(expression)) {                                                                                               \
@@ -125,6 +145,24 @@ using std::array;
     }                                                                                                                  \
   } while (0)
 
+/*!
+  \def assert_message
+  \brief Checks \a expression in a debug build and reports a failure with \a message and its source location.
+
+  Routes the failure exactly as assert does, with \a message carried into the description so that a report reads without
+  opening the source.
+
+  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+  \param message    Reason the condition must hold, in human-readable form, or \c nullptr for none. Read during the call
+                    only.
+
+  \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
+
+  \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so neither argument is
+        evaluated.
+
+  \sa assert
+*/
 #define assert_message(expression, message)                                                                            \
   do {                                                                                                                 \
     if (!(expression)) {                                                                                               \
