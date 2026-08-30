@@ -87,6 +87,34 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     endif ()
 
+    # Temporary
+
+    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
+
+    string(APPEND CMAKE_C_FLAGS   " /nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5039 /wd5045 /wd5219 /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast /permissive-")
+    string(APPEND CMAKE_CXX_FLAGS " /nologo /Wall /WX /wd4007 /wd4464 /wd4514 /wd4668 /wd4710 /wd4711 /wd4820 /wd4866 /wd5039 /wd5045 /wd5219 /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast /permissive-")
+
+    string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI /diagnostics:caret   /sdl      /MTd /MP")
+    string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI /diagnostics:caret   /sdl      /MTd /MP")
+
+    string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /Zi /diagnostics:column  /sdl  /GT /MTd")
+    string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /Zi /diagnostics:column  /sdl  /GT /MTd")
+
+    string(APPEND CMAKE_C_FLAGS_RELEASE           "     /diagnostics:classic /sdl- /GT /MT")
+    string(APPEND CMAKE_CXX_FLAGS_RELEASE         "     /diagnostics:classic /sdl- /GT /MT")
+
+    string(APPEND CMAKE_STATIC_LINKER_FLAGS " /WX")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS    " /WX /MANIFEST /MANIFESTUAC:\"/level='asInvoker' /uiAccess='false'\" /ALLOWISOLATION /LARGEADDRESSAWARE /SAFESEH:NO")
+
+    string(APPEND CMAKE_STATIC_LINKER_FLAGS_DEBUG           "                 /LTCG:OFF")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG              " /INCREMENTAL    /LTCG:OFF /DEBUG:FULL /ASSEMBLYDEBUG")
+
+    string(APPEND CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "                 /LTCG")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     " /INCREMENTAL:NO /LTCG     /DEBUG:FULL /ASSEMBLYDEBUG")
+
+    string(APPEND CMAKE_STATIC_LINKER_FLAGS_RELEASE         "                 /LTCG")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS_RELEASE            " /INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
+
   endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
