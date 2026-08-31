@@ -51,8 +51,20 @@
 */
 namespace toy {
 
-/// Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
+// Type support (basic types, RTTI) https://en.cppreference.com/cpp/types
+
+/*!
+  \brief Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
+
+  \sa https://en.cppreference.com/cpp/types/size_t
+*/
 using std::size_t;
+
+using std::ptrdiff_t;
+
+using std::size_t;
+
+//--------------------------------------------------------------------------------------------------------------------
 
 /// Signed integer type with width of exactly 8 bits and no padding bits
 using std::int8_t;
@@ -228,10 +240,12 @@ using std::strncpy;
 
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
+#include "core/c_string_view.hpp"
 #include "core/string_like.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/bitwise_enum.inl"
+#include "core/c_string_view.inl"
 
 #endif // INCLUDE_CORE_HPP_

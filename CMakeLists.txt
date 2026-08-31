@@ -130,9 +130,11 @@ set(HDR_CORE_LIST
     include/core.hpp
     include/core/assertion.hpp
     include/core/bitwise_enum.hpp
+    include/core/c_string_view.hpp
     include/core/string_like.hpp)
 set(INL_CORE_LIST
-    include/core/bitwise_enum.inl)
+    include/core/bitwise_enum.inl
+    include/core/c_string_view.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
