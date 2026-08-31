@@ -160,9 +160,9 @@ using std::strncpy;
   \brief Checks \a expression in a debug build and reports a failure with its source location.
 
   Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(), which
-  reports the failure through the registered \ref toy::assertion::AssertionCallback. A failure during constant evaluation
-  calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression non-constant and
-  fails the build.
+  reports the failure through the registered \ref toy::assertion::AssertionCallback. A failure during constant
+  evaluation calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression
+  non-constant and fails the build.
 
   \param expression Condition that must hold. Evaluated once, and only in a debug build.
 
