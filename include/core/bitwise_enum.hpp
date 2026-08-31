@@ -88,7 +88,7 @@ namespace toy {
 
   \section compatibility Compatibility
 
-  * Requires C++23 for \c std::to_underlying and the constraint on each overload.
+  * Requires C++23 for \c to_underlying and the constraint on each overload.
   * Header-only, and no operator allocates or calls into the platform, so the facility suits embedded and retro
     targets.
 

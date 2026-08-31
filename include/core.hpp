@@ -22,10 +22,11 @@
   \brief  Umbrella header for the engine core module.
 
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy,
-  which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, and the string-like
-  concept. From the standard library it re-exports toy::size_t, the fixed-width integers toy::int8_t through
-  toy::uint64_t, toy::to_underlying, toy::array, toy::char_traits, and toy::strncpy. The header also defines the assert
-  and assert_message macros, which call into that reporting.
+  which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, the string-like
+  concept, and a view over a null-terminated byte string. From the standard library it re-exports toy::size_t,
+  toy::ptrdiff_t, and toy::nullptr_t, the fixed-width integers toy::int8_t through toy::uint64_t, toy::to_underlying,
+  toy::array, toy::char_traits, and toy::strncpy. The header also defines the assert and assert_message macros, which
+  call into that reporting.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -60,9 +61,23 @@ namespace toy {
 */
 using std::size_t;
 
+/*!
+  \brief Signed integer type large enough to hold the difference between two pointers; result type of pointer
+         subtraction
+
+  \sa https://en.cppreference.com/cpp/types/ptrdiff_t
+*/
 using std::ptrdiff_t;
 
-using std::size_t;
+/*!
+  \brief Type of the null pointer literal \c nullptr; converts to any pointer or pointer-to-member type
+
+  \note An overload taking this type answers the null case on its own, so a call passing \c nullptr never reaches the
+        pointer overload beside it.
+
+  \sa https://cppreference.com/cpp/types/nullptr_t
+*/
+using std::nullptr_t;
 
 //--------------------------------------------------------------------------------------------------------------------
 

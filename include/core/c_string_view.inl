@@ -19,7 +19,7 @@
 //
 /*!
   \file   c_string_view.inl
-  \brief
+  \brief  Inline implementations for \ref toy::CStringView constructors.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -32,7 +32,6 @@ namespace toy {
 constexpr CStringView::CStringView(const char * string) noexcept
   : _data(string)
   , _size(string ? char_traits<char>::length(string) : 0) {
-  std::string_view a;
   assert_message(string != nullptr, "C string must not be null");
 }
 
