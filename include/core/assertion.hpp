@@ -37,8 +37,9 @@
   \brief Assertion failure reporting and the handlers that receive it.
 
   The application decides what a failed check does. setCallbacks() registers a handler that receives the failure
-  description and answers whether execution continues, plus a second handler that receives stack frames. Registration is
-  valid between initialize() and deInitialize(). With no handler registered, a failed check reports nothing.
+  description and answers whether the caller has to stop at the failing check, plus a second handler that receives stack
+  frames. Registration is valid between initialize() and deInitialize(). With no handler registered, a failed check
+  reports nothing.
 
   Typical wiring, from the composition root:
 
@@ -52,7 +53,7 @@
   bool reportAssertion(const char * assertionString) noexcept {
     std::fputs(assertionString, stderr);
 
-    return false; // failure not handled here; let the caller stop
+    return true; // printed, not handled here; stop at the failing check
   }
 
   } // namespace
@@ -75,7 +76,8 @@ namespace toy::assertion {
   \param assertionString Description built from the failed expression, its message, and the source location. Valid only
                          for the duration of the call.
 
-  \return \c true when the failure is handled and execution may continue, \c false to leave the decision to the caller.
+  \return \c true to stop the caller at the failing check, \c false when the handler dealt with the failure and
+          execution may continue.
 
   \note Registered with setCallbacks(); a null pointer disables reporting.
   \note Declared \c noexcept: the handler runs while a failure is already being reported.
