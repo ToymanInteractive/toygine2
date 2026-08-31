@@ -159,8 +159,8 @@ using std::strncpy;
   \def assert
   \brief Checks \a expression in a debug build and reports a failure with its source location.
 
-  Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(); the
-  registered \ref toy::assertion::AssertionCallback decides what the failure does. A failure during constant evaluation
+  Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(), which
+  reports the failure through the registered \ref toy::assertion::AssertionCallback. A failure during constant evaluation
   calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression non-constant and
   fails the build.
 
@@ -168,6 +168,8 @@ using std::strncpy;
 
   \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
 
+  \note Execution continues past a failed check: the macro reports it and returns, so stopping is the registered
+        handler's own decision.
   \note Replaces the \c assert macro of \c \<cassert\>, which this header undefines first.
   \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so \a expression is
         never evaluated and a side effect written inside it is lost.

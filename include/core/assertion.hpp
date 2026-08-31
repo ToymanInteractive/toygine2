@@ -22,8 +22,8 @@
   \brief  Assertion failure reporting and the handlers an application registers for it.
 
   Defines \ref toy::assertion. It holds the two handler types, the initialize() and deInitialize() calls that bound
-  their registration, and assertion(), which the \c assert_message macro calls with the context of the failing check.
-  Reporting is compiled in only when \c _DEBUG is defined; no other build declares assertion() at all.
+  their registration, and assertion(), which the \c assert and \c assert_message macros call with the context of the
+  failing check. Reporting is compiled in only when \c _DEBUG is defined; no other build declares assertion() at all.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -39,7 +39,7 @@
   The application decides what a failed check does. setCallbacks() registers a handler that receives the failure
   description and answers whether the caller has to stop at the failing check, plus a second handler that receives stack
   frames. Registration is valid between initialize() and deInitialize(). With no handler registered, a failed check
-  reports nothing.
+  reports nothing and answers that the caller has to stop.
 
   Typical wiring, from the composition root:
 
@@ -136,10 +136,12 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
 /*!
   \brief Reports a failed check through the registered \ref toy::assertion::AssertionCallback.
 
-  Called by the \c assert_message macro with the context it captures at the failing call site, never directly.
+  Called by the \c assert and \c assert_message macros with the context they capture at the failing call site, never
+  directly.
 
   \param code         Failed expression as written at the call site (e.g. \c "pointer != nullptr").
-  \param message      Reason the condition must hold, in human-readable form.
+  \param message      Reason the condition must hold, in human-readable form, or \c nullptr when the call site supplies
+                      none.
   \param fileName     Source file of the failed check.
   \param functionName Enclosing function of the failed check.
   \param lineNumber   Source line of the failed check.

@@ -22,8 +22,8 @@
   \brief  Implementations of \ref toy::assertion for targets with no reporting backend of their own.
 
   Formats the failure into a fixed 4096-byte buffer and hands it to the registered
-  \ref toy::assertion::AssertionCallback and answers what that handler answered; with no handler registered the answer
-  is \c true. A description that overruns the buffer ends in \c "...[TRUNCATED]". A failure raised while another is
+  \ref toy::assertion::AssertionCallback, then answers what that handler decided. An unregistered handler answers
+  \c true, and a description that overruns the buffer ends in \c "...[TRUNCATED]". A failure raised while another is
   still being reported answers \c false without a second report. Stack walking is absent, so the
   \ref toy::assertion::StackWalkCallback passed to toy::assertion::setCallbacks() is ignored.
 
