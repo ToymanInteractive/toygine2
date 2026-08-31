@@ -22,9 +22,10 @@
   \brief  Umbrella header for the engine core module.
 
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy,
-  which so far provide assertion reporting and the opt-in bitwise operators for flag enumerations. From the standard
-  library it re-exports toy::size_t, the fixed-width integers toy::int8_t through toy::uint64_t, toy::to_underlying, and
-  toy::array.
+  which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, and the string-like
+  concept. From the standard library it re-exports toy::size_t, the fixed-width integers toy::int8_t through
+  toy::uint64_t, toy::to_underlying, toy::array, toy::char_traits, and toy::strncpy. The header also defines the assert
+  and assert_message macros, which call into that reporting.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -36,6 +37,8 @@
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
+#include <cstring>
+#include <string_view>
 #include <type_traits>
 #include <utility>
 
@@ -97,7 +100,129 @@ using std::to_underlying;
 */
 using std::array;
 
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Strings library https://cppreference.com/cpp/string
+
+/*!
+  \brief Operations a string or view type performs on its character type, among them measuring a length and comparing
+         two sequences; alias for std::char_traits.
+
+  \sa https://cppreference.com/cpp/string/char_traits
+*/
+using std::char_traits;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Text processing library https://cppreference.com/cpp/text
+
+// (lvl 2)               Null-terminated byte strings https://cppreference.com/cpp/string/byte
+
+/*!
+  \brief Copies at most a fixed count of characters from one null-terminated byte string to another; alias for
+         std::strncpy.
+
+  \note The destination carries no terminator when the source is at least as long as the count. A shorter source is
+        padded with null characters up to the count.
+
+  \sa https://cppreference.com/cpp/string/byte/strncpy
+*/
+using std::strncpy;
+
 } // namespace toy
+
+#if defined(assert)
+// Undefine any existing assert macro to avoid conflicts
+#undef assert
+#endif
+
+#ifdef _DEBUG
+
+/*!
+  \def __FUNC_SIGNATURE__
+  \brief Name of the enclosing function, as the active compiler spells it.
+
+  Expands to \c __FUNCSIG__ on MSVC, to \c __PRETTY_FUNCTION__ on GCC and Clang, and to \c __func__ elsewhere, so a
+  failure report carries the full signature where the compiler offers one.
+
+  \note Defined only when \c _DEBUG is defined, and expanded by assert and assert_message; call sites never spell it.
+*/
+#if defined(_MSC_VER)
+#define __FUNC_SIGNATURE__ __FUNCSIG__
+#elif defined(__GNUC__) || defined(__clang__)
+#define __FUNC_SIGNATURE__ __PRETTY_FUNCTION__
+#else
+#define __FUNC_SIGNATURE__ __func__
+#endif
+
+/*!
+  \def assert
+  \brief Checks \a expression in a debug build and reports a failure with its source location.
+
+  Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(), which
+  reports the failure through the registered \ref toy::assertion::AssertionCallback. A failure during constant
+  evaluation calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression
+  non-constant and fails the build.
+
+  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+
+  \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
+
+  \note Execution continues past a failed check: the macro reports it and returns, so stopping is the registered
+        handler's own decision.
+  \note Replaces the \c assert macro of \c \<cassert\>, which this header undefines first.
+  \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so \a expression is
+        never evaluated and a side effect written inside it is lost.
+
+  \sa assert_message
+*/
+#define assert(expression)                                                                                             \
+  do {                                                                                                                 \
+    if (!(expression)) {                                                                                               \
+      if (std::is_constant_evaluated()) {                                                                              \
+        toy::assertion::assertCompileTimeError();                                                                      \
+      } else {                                                                                                         \
+        toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+      }                                                                                                                \
+    }                                                                                                                  \
+  } while (0)
+
+/*!
+  \def assert_message
+  \brief Checks \a expression in a debug build and reports a failure with \a message and its source location.
+
+  Routes the failure exactly as assert does, with \a message carried into the description so that a report reads without
+  opening the source.
+
+  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+  \param message    Reason the condition must hold, in human-readable form, or \c nullptr for none. Read during the call
+                    only.
+
+  \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
+
+  \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so neither argument is
+        evaluated.
+
+  \sa assert
+*/
+#define assert_message(expression, message)                                                                            \
+  do {                                                                                                                 \
+    if (!(expression)) {                                                                                               \
+      if (std::is_constant_evaluated()) {                                                                              \
+        toy::assertion::assertCompileTimeError();                                                                      \
+      } else {                                                                                                         \
+        toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+      }                                                                                                                \
+    }                                                                                                                  \
+  } while (0)
+
+#else // _DEBUG
+
+#define assert(expression) ((void)0)
+
+#define assert_message(expression, message) ((void)0)
+
+#endif // _DEBUG
 
 //--------------------------------------------------------------------------------------------------------------------
 

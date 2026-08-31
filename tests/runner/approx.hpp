@@ -24,8 +24,8 @@
   Defines \ref toy::test::Approx: a value carrying a relative tolerance, compared through a free \c operator==. Used
   wherever a test asserts a floating-point result, under either runner.
 
-  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
-        for this type.
+  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
+        type.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_APPROX_HPP_
@@ -108,7 +108,6 @@ concept ApproxOperand = std::convertible_to<T, double>;
   operands' own precision rather than in \c double, which DocTest always uses.
 
   \note A comparison involving NaN is false, matching the behaviour of the built-in operator.
-
   \note The default tolerance is the same constant for every \a T, deliberately: DocTest uses that one value regardless
         of type, and matching it keeps a test's verdict identical under both runners.
 */
@@ -165,12 +164,10 @@ Approx(T) -> Approx<double>;
 
   \note The formula and its strict inequality reproduce DocTest 2.5.3. DocTest's adjustable scale factor is fixed at one
         here; no test configures it.
-
   \note Both operands are widened to their common type before comparison, so mixing precisions loses nothing. DocTest
         instead narrows everything to \c double. The two agree on every value \c double represents, because the gap
         between the precisions stays orders of magnitude below the tolerance; they can disagree on a
         <tt>long double</tt> beyond the range of \c double, where narrowing yields infinity.
-
   \note The form with the plain value on the left resolves through the reversed candidate C++20 synthesizes, so no
         second operator is declared.
 

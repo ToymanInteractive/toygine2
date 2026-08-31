@@ -24,8 +24,8 @@
   Defines the \c TOY_TEST_ASSERT macro and toy::test::detail::assertionFailed(): what a violated precondition does
   inside the runner. Written without \c <cassert> so the runner keeps building on targets that ship no hosted headers.
 
-  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
-        for this type.
+  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
+        type.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_ASSERTION_HPP_
@@ -46,9 +46,8 @@ namespace toy::test::detail {
   \param message     Reason the condition must hold.
 
   \note Called by the \c TOY_TEST_ASSERT macro, never directly.
-
-  \note Both arguments are passed for a debugger to read at the frame and are otherwise unused: the runner has no
-        output of its own, and the hosted headers that would give it one are unavailable on its targets.
+  \note Both arguments are passed for a debugger to read at the frame and are otherwise unused: the runner has no output
+        of its own, and the hosted headers that would give it one are unavailable on its targets.
 
   \warning Execution never continues past the call: the process stops on a trap instruction, or on a breakpoint a
            debugger cannot resume past.

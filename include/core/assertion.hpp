@@ -22,8 +22,8 @@
   \brief  Assertion failure reporting and the handlers an application registers for it.
 
   Defines \ref toy::assertion. It holds the two handler types, the initialize() and deInitialize() calls that bound
-  their registration, and assertion(), which the \c assert_message macro calls with the context of the failing check.
-  Reporting is compiled in only when \c _DEBUG is defined; every other build gets an empty inline assertion().
+  their registration, and assertion(), which the \c assert and \c assert_message macros call with the context of the
+  failing check. Reporting is compiled in only when \c _DEBUG is defined; no other build declares assertion() at all.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -37,8 +37,9 @@
   \brief Assertion failure reporting and the handlers that receive it.
 
   The application decides what a failed check does. setCallbacks() registers a handler that receives the failure
-  description and answers whether execution continues, plus a second handler that receives stack frames. Registration is
-  valid between initialize() and deInitialize(). With no handler registered, a failed check reports nothing.
+  description and answers whether the caller has to stop at the failing check, plus a second handler that receives stack
+  frames. Registration is valid between initialize() and deInitialize(). With no handler registered, a failed check
+  reports nothing and answers that the caller has to stop.
 
   Typical wiring, from the composition root:
 
@@ -52,7 +53,7 @@
   bool reportAssertion(const char * assertionString) noexcept {
     std::fputs(assertionString, stderr);
 
-    return false; // failure not handled here - let the caller stop
+    return true; // printed, not handled here; stop at the failing check
   }
 
   } // namespace
@@ -75,7 +76,8 @@ namespace toy::assertion {
   \param assertionString Description built from the failed expression, its message, and the source location. Valid only
                          for the duration of the call.
 
-  \return \c true when the failure is handled and execution may continue, \c false to leave the decision to the caller.
+  \return \c true to stop the caller at the failing check, \c false when the handler dealt with the failure and
+          execution may continue.
 
   \note Registered with setCallbacks(); a null pointer disables reporting.
   \note Declared \c noexcept: the handler runs while a failure is already being reported.
@@ -98,7 +100,7 @@ using StackWalkCallback = void (*)(const char * stackFrameString) noexcept;
 /*!
   \brief Prepares assertion reporting; call from the composition root before any check can fail.
 
-  \post No handler is registered; setCallbacks() and assertion() may be called.
+  \post No handler is registered; setCallbacks() and, in a debug build, assertion() may be called.
 
   \sa deInitialize(), setCallbacks()
 */
@@ -134,43 +136,29 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
 /*!
   \brief Reports a failed check through the registered \ref toy::assertion::AssertionCallback.
 
-  Called by the \c assert_message macro with the context it captures at the failing call site, never directly.
+  Called by the \c assert and \c assert_message macros with the context they capture at the failing call site, never
+  directly.
 
   \param code         Failed expression as written at the call site (e.g. \c "pointer != nullptr").
-  \param message      Reason the condition must hold, in human-readable form.
+  \param message      Reason the condition must hold, in human-readable form, or \c nullptr when the call site supplies
+                      none.
   \param fileName     Source file of the failed check.
   \param functionName Enclosing function of the failed check.
   \param lineNumber   Source line of the failed check.
 
+  \return \c true when the caller has to stop at the failing check, \c false when the handler dealt with the failure.
+          Answers \c true with no handler registered as well, so a failed check never passes unnoticed.
+
   \pre initialize() must have been called.
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
-  \note Declared only when \c _DEBUG is defined. Every other build compiles the empty inline definition below, so a
-  failed check costs nothing in a shipping binary.
+  \note Declared only when \c _DEBUG is defined. Every other build has no assertion() to call: the assert and
+        assert_message macros expand to \c ((void)0), so a failed check costs nothing in a shipping binary.
 
   \sa setCallbacks()
 */
-void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber) noexcept;
-
-#else  // _DEBUG
-
-/*!
-  \brief Discards a failed check: the definition selected when \c _DEBUG is not defined.
-
-  Mirrors the debug declaration so call sites compile unchanged. The parameters are unused and the call has no effect.
-
-  \param code         Unused.
-  \param message      Unused.
-  \param fileName     Unused.
-  \param functionName Unused.
-  \param lineNumber   Unused.
-*/
-inline void assertion([[maybe_unused]] const char * code, [[maybe_unused]] const char * message,
-                      [[maybe_unused]] const char * fileName, [[maybe_unused]] const char * functionName,
-                      [[maybe_unused]] size_t lineNumber) noexcept {
-  // Intentionally empty - no-op in release builds
-}
 
 #endif // _DEBUG
 

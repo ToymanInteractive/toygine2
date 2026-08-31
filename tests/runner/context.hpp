@@ -24,8 +24,8 @@
   Defines \ref toy::test::Context and \ref toy::test::failure_reporter_type: the counters, the per-case verdict and the
   info stack a reporter reads back. Driven by toy::test::runCase() and read back by whichever runner prints the run.
 
-  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
-        for this type.
+  \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
+        type.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_CONTEXT_HPP_
