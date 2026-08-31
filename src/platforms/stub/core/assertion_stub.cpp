@@ -22,9 +22,10 @@
   \brief  Implementations of \ref toy::assertion for targets with no reporting backend of their own.
 
   Formats the failure into a fixed 4096-byte buffer and hands it to the registered
-  \ref toy::assertion::AssertionCallback; a description that overruns the buffer ends in \c "...[TRUNCATED]". A
-  failure raised while another is still being reported returns without a second report. Stack walking is absent, so
-  the \ref toy::assertion::StackWalkCallback passed to toy::assertion::setCallbacks() is ignored.
+  \ref toy::assertion::AssertionCallback and answers what that handler answered; with no handler registered the answer
+  is \c true. A description that overruns the buffer ends in \c "...[TRUNCATED]". A failure raised while another is
+  still being reported answers \c false without a second report. Stack walking is absent, so the
+  \ref toy::assertion::StackWalkCallback passed to toy::assertion::setCallbacks() is ignored.
 
   \note Selected by the platform CMake list of every target that carries no assertion backend of its own.
 */
@@ -57,11 +58,11 @@ void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWal
 
 #ifdef _DEBUG
 
-void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber) noexcept {
   static bool reEnter = false;
   if (reEnter)
-    return;
+    return false;
 
   reEnter = true;
 
@@ -86,10 +87,12 @@ void assertion(const char * code, const char * message, const char * fileName, c
 #endif
   }
 
-  if (_assertionCallback != nullptr)
-    _assertionCallback(assertionString);
+  // An unregistered handler leaves the failure unreported, so the caller still has to stop at it.
+  const bool stop = _assertionCallback != nullptr ? _assertionCallback(assertionString) : true;
 
   reEnter = false;
+
+  return stop;
 }
 
 #endif // _DEBUG

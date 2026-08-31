@@ -23,7 +23,7 @@
 
   Defines \ref toy::assertion. It holds the two handler types, the initialize() and deInitialize() calls that bound
   their registration, and assertion(), which the \c assert_message macro calls with the context of the failing check.
-  Reporting is compiled in only when \c _DEBUG is defined; every other build gets an empty inline assertion().
+  Reporting is compiled in only when \c _DEBUG is defined; no other build declares assertion() at all.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -100,7 +100,7 @@ using StackWalkCallback = void (*)(const char * stackFrameString) noexcept;
 /*!
   \brief Prepares assertion reporting; call from the composition root before any check can fail.
 
-  \post No handler is registered; setCallbacks() and assertion() may be called.
+  \post No handler is registered; setCallbacks() and, in a debug build, assertion() may be called.
 
   \sa deInitialize(), setCallbacks()
 */
@@ -144,35 +144,19 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \param functionName Enclosing function of the failed check.
   \param lineNumber   Source line of the failed check.
 
+  \return \c true when the caller has to stop at the failing check, \c false when the handler dealt with the failure.
+          Answers \c true with no handler registered as well, so a failed check never passes unnoticed.
+
   \pre initialize() must have been called.
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
-  \note Declared only when \c _DEBUG is defined. Every other build compiles the empty inline definition below, so a
-        failed check costs nothing in a shipping binary.
+  \note Declared only when \c _DEBUG is defined. Every other build has no assertion() to call: the assert and
+        assert_message macros expand to \c ((void)0), so a failed check costs nothing in a shipping binary.
 
   \sa setCallbacks()
 */
-void assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber) noexcept;
-
-#else  // _DEBUG
-
-/*!
-  \brief Discards a failed check: the definition selected when \c _DEBUG is not defined.
-
-  Mirrors the debug declaration so call sites compile unchanged. The parameters are unused and the call has no effect.
-
-  \param code         Unused.
-  \param message      Unused.
-  \param fileName     Unused.
-  \param functionName Unused.
-  \param lineNumber   Unused.
-*/
-inline void assertion([[maybe_unused]] const char * code, [[maybe_unused]] const char * message,
-                      [[maybe_unused]] const char * fileName, [[maybe_unused]] const char * functionName,
-                      [[maybe_unused]] size_t lineNumber) noexcept {
-  // Intentionally empty: a no-op in release builds
-}
 
 #endif // _DEBUG
 
