@@ -28,3 +28,26 @@ source_group("Platform\\Core"        FILES ${PLATFORM_SRC_CORE_LIST}        ${PL
 list(APPEND SRC_LIST ${PLATFORM_SRC_CORE_LIST})
 list(APPEND HDR_LIST ${PLATFORM_HDR_CORE_LIST})
 list(APPEND LIB_LIST ${PLATFORM_LIB_CORE_LIST})
+
+# Overlay over the installed ClownMDSDK: a file under extern/clownmdsdk wins over the SDK's own copy. The
+# include directory goes ahead of every toolchain include path, so <string.h> and <cstring> resolve here,
+# and each source is compiled into the engine, so its definitions are linked before libc.a is searched.
+# Both lists are globbed, so dropping a file into the overlay needs no change to this file.
+set(CLOWNMDSDK_OVERLAY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/clownmdsdk)
+
+file(GLOB_RECURSE PLATFORM_SRC_EXTERN_LIST CONFIGURE_DEPENDS
+    ${CLOWNMDSDK_OVERLAY_DIR}/src/*.c
+    ${CLOWNMDSDK_OVERLAY_DIR}/src/*.cpp)
+file(GLOB_RECURSE PLATFORM_HDR_EXTERN_LIST CONFIGURE_DEPENDS
+    ${CLOWNMDSDK_OVERLAY_DIR}/include/*)
+
+source_group("Platform\\Extern"      FILES ${PLATFORM_SRC_EXTERN_LIST}      ${PLATFORM_HDR_EXTERN_LIST})
+
+# The overlay is SDK code and uses the GNU C dialect the SDK builds it in; the engine's own C is ISO
+# (CMAKE_C_EXTENSIONS is OFF), which rejects the asm keyword these routines are written with.
+set_source_files_properties(${PLATFORM_SRC_EXTERN_LIST} PROPERTIES COMPILE_OPTIONS -std=gnu17)
+
+include_directories(BEFORE ${CLOWNMDSDK_OVERLAY_DIR}/include)
+
+list(APPEND SRC_LIST ${PLATFORM_SRC_EXTERN_LIST})
+list(APPEND HDR_LIST ${PLATFORM_HDR_EXTERN_LIST})

@@ -1,0 +1,17 @@
+#ifndef CSTRING_H
+#define CSTRING_H
+
+#include <cstddef>
+
+#include <string.h>
+
+namespace std {
+
+using ::memcpy;
+using ::memmove;
+using ::memset;
+using ::strncpy;
+
+} // namespace std
+
+#endif /* CSTRING_H */
