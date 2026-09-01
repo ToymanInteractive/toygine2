@@ -131,6 +131,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
     message(FATAL_ERROR "ClownMDSDK not found. Install ClownMDSDK and ensure CLOWNMDSDK is set.")
   endif ()
 
+  add_compile_definitions($<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:_DEBUG>)
+
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
   if (NOT DEVKITPRO_FOUND)
