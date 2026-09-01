@@ -17,22 +17,24 @@
 // OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 // DEALINGS IN THE SOFTWARE.
 //
+/*!
+  \file   c_string_view.inl
+  \brief  Inline implementations for \ref toy::CStringView constructors.
 
-#ifndef CSTRING_H
-#define CSTRING_H
+  \note Included by core.hpp only; do not include this file directly.
+*/
 
-#include <cstddef>
+#ifndef INCLUDE_CORE_C_STRING_VIEW_INL_
+#define INCLUDE_CORE_C_STRING_VIEW_INL_
 
-#include <string.h>
+namespace toy {
 
-namespace std {
+constexpr CStringView::CStringView(const char * string) noexcept
+  : _data(string)
+  , _size(string ? char_traits<char>::length(string) : 0) {
+  assert_message(string != nullptr, "C string must not be null");
+}
 
-using ::memcpy;
-using ::memmove;
-using ::memset;
+} // namespace toy
 
-using ::strncpy;
-
-} // namespace std
-
-#endif /* CSTRING_H */
+#endif // INCLUDE_CORE_C_STRING_VIEW_INL_

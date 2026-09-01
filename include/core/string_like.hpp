@@ -42,7 +42,7 @@ namespace toy {
   \section string_like_requirements Requirements
 
   A type satisfies StringLike if and only if, for an lvalue \a str of type \c const \a T with any reference stripped:
-  * \c str.size() is well-formed and its type is exactly \c std::size_t.
+  * \c str.size() is well-formed and its type is exactly \c size_t.
   * \c str.c_str() is well-formed and its type is exactly \c const \c char \c *.
 
   \section string_like_usage Usage Example
@@ -57,7 +57,7 @@ namespace toy {
   \endcode
 
   \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
-  \note Both member types are matched exactly. A length reported as \c int or as a proxy that converts to \c std::size_t
+  \note Both member types are matched exactly. A length reported as \c int or as a proxy that converts to \c size_t
         fails, and so does a \c c_str() returning \c char \c *.
   \note A reference is stripped from \a T before the members are looked up, so \a T and \a T \c & give the same answer.
   \note Null-termination, ownership, and pointer lifetime stay the type's own contract; the requirement expression

@@ -28,10 +28,29 @@
 
 #include "core.hpp"
 
+[[noreturn]] static bool assertionCallback(const char * message) noexcept {
+  throw std::runtime_error(message);
+}
+
+static void stackWalkCallback(const char * info) noexcept {
+  throw std::runtime_error(info);
+}
+
 int main(int argc, char ** argv) noexcept {
+  toy::assertion::initialize();
+
+  toy::assertion::setCallbacks(assertionCallback, stackWalkCallback);
+
   doctest::Context context;
 
   context.applyCommandLine(argc, argv);
 
-  return context.run(); // run doctest
+  int res = context.run(); // run doctest
+
+  toy::assertion::deInitialize();
+
+  if (context.shouldExit())
+    exit(res);
+
+  return res;
 }
