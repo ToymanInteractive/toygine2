@@ -47,8 +47,10 @@ namespace toy {
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
   * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
-  * **Constexpr support**: construction and copying evaluate in a constant expression.
+  * **Constexpr support**: construction, copying, and iteration evaluate in a constant expression.
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
+  * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
+    view.
   * **Type safety**: construction from \c nullptr is deleted, so the null case fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -58,14 +60,21 @@ namespace toy {
   #include "core.hpp"
 
   constexpr toy::CStringView name("player");
-
   constexpr toy::CStringView alias(name);
+
+  size_t letters = 0;
+  for (const char character : alias) {
+    letters += static_cast<size_t>(character != ' ');
+  }
+
+  const char last = *name.rbegin();
   \endcode
 
   \section c_string_view_performance Performance Characteristics
 
   * **Construction from a pointer**: O(n) in the length of the string, one scan for the terminator.
   * **Default construction and copying**: O(1).
+  * **Iterator access**: O(1); each iterator is a pointer into the viewed string, or a reverse adaptor over one.
   * **Memory usage**: one pointer and one length, 16 bytes on a 64-bit target and 8 bytes on a 32-bit one.
 
   \section c_string_view_safety Safety Guarantees
@@ -75,6 +84,8 @@ namespace toy {
   * **Lifetime**: the characters belong to whoever created them; the view neither owns them nor extends their
     lifetime.
   * **Type safety**: the deleted \c nullptr_t constructor rejects a literal \c nullptr during compilation.
+  * **Iterator validity**: an iterator stays valid while the string it points into lives. Assigning to the view repoints
+    the view alone and leaves an outstanding iterator on the previous string.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
   \section c_string_view_compatibility Compatibility
@@ -172,20 +183,101 @@ public:
   */
   constexpr CStringView & operator=(const CStringView & view) noexcept = default;
 
+  /*!
+    \brief Returns an iterator to the first character.
+
+    \return Iterator to the first character, equal to end() when the view holds no character.
+
+    \note A view holding no string yields a null pointer, which still compares equal to end().
+
+    \sa end()
+    \sa cbegin()
+  */
   [[nodiscard]] constexpr const_iterator begin() const noexcept;
 
+  /*!
+    \brief Returns an iterator to the first character.
+
+    Repeats begin(): the view exposes only const iterators.
+
+    \return Iterator to the first character, equal to cend() when the view holds no character.
+
+    \sa begin()
+    \sa cend()
+  */
   [[nodiscard]] constexpr const_iterator cbegin() const noexcept;
 
+  /*!
+    \brief Returns an iterator one past the last character.
+
+    \return Iterator to the position after the last character.
+
+    \note Over a viewed string that position holds the terminator.
+    \note A view holding no string yields a null pointer.
+
+    \sa begin()
+    \sa cend()
+  */
   [[nodiscard]] constexpr const_iterator end() const noexcept;
 
+  /*!
+    \brief Returns an iterator one past the last character.
+
+    Repeats end(): the view exposes only const iterators.
+
+    \return Iterator to the position after the last character.
+
+    \sa end()
+    \sa cbegin()
+  */
   [[nodiscard]] constexpr const_iterator cend() const noexcept;
 
+  /*!
+    \brief Returns a reverse iterator to the last character.
+
+    Starts at the last character; the walk runs back to front and stops before the first.
+
+    \return Reverse iterator over end(), equal to rend() when the view holds no character.
+
+    \sa rend()
+    \sa crbegin()
+  */
   [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept;
 
+  /*!
+    \brief Returns a reverse iterator to the last character.
+
+    Repeats rbegin(): the view exposes only const iterators.
+
+    \return Reverse iterator over cend(), equal to crend() when the view holds no character.
+
+    \sa rbegin()
+    \sa crend()
+  */
   [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept;
 
+  /*!
+    \brief Returns a reverse iterator to the position before the first character.
+
+    \return Reverse iterator over begin(), the end of a back-to-front walk.
+
+    \note Dereferencing it reads before the first character; a walk ends by comparing against it instead.
+
+    \sa rbegin()
+    \sa crend()
+  */
   [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept;
 
+  /*!
+    \brief Returns a reverse iterator to the position before the first character.
+
+    Repeats rend(): the view exposes only const iterators.
+
+    \return Reverse iterator over cbegin(), the end of a back-to-front walk.
+
+    \sa rend()
+    \sa crbegin()
+  */
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
 
 private:
