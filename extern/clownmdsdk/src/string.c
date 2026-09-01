@@ -21,8 +21,6 @@
 #include <stdint.h>
 #include <string.h>
 
-#ifdef _DEBUG
-
 char* strncpy(char* const dest, const char* const src, const size_t count)
 {
 	size_t index;
@@ -37,5 +35,3 @@ char* strncpy(char* const dest, const char* const src, const size_t count)
 
 	return dest;
 }
-
-#endif
