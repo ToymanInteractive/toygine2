@@ -30,7 +30,12 @@ namespace std {
 using ::memcpy;
 using ::memmove;
 using ::memset;
+
+#ifdef _DEBUG
+
 using ::strncpy;
+
+#endif
 
 } // namespace std
 
