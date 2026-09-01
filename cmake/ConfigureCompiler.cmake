@@ -36,8 +36,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17")
     set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest")
 
-    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG /ZI")
-    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG /ZI")
+    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
+    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
 
     set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi")
@@ -63,6 +63,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
       string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
 
+      string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
+      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
+
       string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gv /homeparams /jumptablerdata")
       string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gv /homeparams /jumptablerdata")
 
@@ -74,6 +77,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
       string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
 
+      string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
+      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
+
       string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gr")
       string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gr")
 
@@ -84,6 +90,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
       string(APPEND CMAKE_C_FLAGS   " /forceInterlockedFunctions")
       string(APPEND CMAKE_CXX_FLAGS " /forceInterlockedFunctions")
+
+      string(APPEND CMAKE_C_FLAGS_DEBUG             " /Zi")
+      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /Zi")
 
     endif ()
 
