@@ -172,6 +172,22 @@ public:
   */
   constexpr CStringView & operator=(const CStringView & view) noexcept = default;
 
+  [[nodiscard]] constexpr const_iterator begin() const noexcept;
+
+  [[nodiscard]] constexpr const_iterator cbegin() const noexcept;
+
+  [[nodiscard]] constexpr const_iterator end() const noexcept;
+
+  [[nodiscard]] constexpr const_iterator cend() const noexcept;
+
+  [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept;
+
+  [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept;
+
+  [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept;
+
+  [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
+
 private:
   /// First character of the viewed string, \c nullptr while the view holds none
   const char * _data{nullptr};

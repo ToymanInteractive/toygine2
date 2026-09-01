@@ -19,7 +19,7 @@
 //
 /*!
   \file   c_string_view.inl
-  \brief  Inline implementations for \ref toy::CStringView constructors.
+  \brief  Inline implementations for \ref toy::CStringView.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -33,6 +33,38 @@ constexpr CStringView::CStringView(const char * string) noexcept
   : _data(string)
   , _size(string ? char_traits<char>::length(string) : 0) {
   assert_message(string != nullptr, "C string must not be null");
+}
+
+constexpr CStringView::const_iterator CStringView::begin() const noexcept {
+  return _data;
+}
+
+constexpr CStringView::const_iterator CStringView::cbegin() const noexcept {
+  return begin();
+}
+
+constexpr CStringView::const_iterator CStringView::end() const noexcept {
+  return _data + _size;
+}
+
+constexpr CStringView::const_iterator CStringView::cend() const noexcept {
+  return end();
+}
+
+constexpr CStringView::const_reverse_iterator CStringView::rbegin() const noexcept {
+  return const_reverse_iterator(end());
+}
+
+constexpr CStringView::const_reverse_iterator CStringView::crbegin() const noexcept {
+  return rbegin();
+}
+
+constexpr CStringView::const_reverse_iterator CStringView::rend() const noexcept {
+  return const_reverse_iterator(begin());
+}
+
+constexpr CStringView::const_reverse_iterator CStringView::crend() const noexcept {
+  return rend();
 }
 
 } // namespace toy
