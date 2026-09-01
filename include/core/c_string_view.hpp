@@ -158,6 +158,20 @@ public:
   */
   CStringView(nullptr_t) = delete;
 
+  /*!
+    \brief Makes this view read the same string as \a view.
+
+    \param view View to copy the pointer and the length from.
+
+    \return Reference to this view.
+
+    \post Both views read the same characters. The string this view held before stays untouched, since the view owns
+          nothing.
+
+    \sa CStringView(const CStringView &)
+  */
+  constexpr CStringView & operator=(const CStringView & view) noexcept = default;
+
 private:
   /// First character of the viewed string, \c nullptr while the view holds none
   const char * _data{nullptr};
