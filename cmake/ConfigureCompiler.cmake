@@ -28,7 +28,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /std
+    # last option is /Z7
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -39,8 +39,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi")
 
     set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /DNDEBUG")
     set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /DNDEBUG")
@@ -63,6 +63,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
       string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
 
+      string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
+      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
+
       string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gv /homeparams /jumptablerdata")
       string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gv /homeparams /jumptablerdata")
 
@@ -73,6 +76,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
       string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
       string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
+
+      string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
+      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
 
       string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gr")
       string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gr")
@@ -85,6 +91,9 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS   " /forceInterlockedFunctions")
       string(APPEND CMAKE_CXX_FLAGS " /forceInterlockedFunctions")
 
+      string(APPEND CMAKE_C_FLAGS_DEBUG             " /Zi")
+      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /Zi")
+
     endif ()
 
     # Temporary
@@ -94,14 +103,14 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     string(APPEND CMAKE_C_FLAGS   " /nologo /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast")
     string(APPEND CMAKE_CXX_FLAGS " /nologo /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast")
 
-    string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI /diagnostics:caret   /sdl      /MTd /MP")
-    string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI /diagnostics:caret   /sdl      /MTd /MP")
+    string(APPEND CMAKE_C_FLAGS_DEBUG             " /diagnostics:caret   /sdl      /MTd /MP")
+    string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /diagnostics:caret   /sdl      /MTd /MP")
 
-    string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /Zi /diagnostics:column  /sdl  /GT /MTd")
-    string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /Zi /diagnostics:column  /sdl  /GT /MTd")
+    string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /diagnostics:column  /sdl  /GT /MTd")
+    string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /diagnostics:column  /sdl  /GT /MTd")
 
-    string(APPEND CMAKE_C_FLAGS_RELEASE           "     /diagnostics:classic /sdl- /GT /MT")
-    string(APPEND CMAKE_CXX_FLAGS_RELEASE         "     /diagnostics:classic /sdl- /GT /MT")
+    string(APPEND CMAKE_C_FLAGS_RELEASE           " /diagnostics:classic /sdl- /GT /MT")
+    string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /diagnostics:classic /sdl- /GT /MT")
 
     string(APPEND CMAKE_STATIC_LINKER_FLAGS " /WX")
     string(APPEND CMAKE_EXE_LINKER_FLAGS    " /WX /MANIFEST /MANIFESTUAC:\"/level='asInvoker' /uiAccess='false'\" /ALLOWISOLATION /LARGEADDRESSAWARE /SAFESEH:NO")
