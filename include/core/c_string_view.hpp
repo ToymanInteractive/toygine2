@@ -280,12 +280,65 @@ public:
   */
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
 
+  [[nodiscard]] constexpr const_reference operator[](size_type pos) const noexcept;
+
+  [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
+
+  [[nodiscard]] constexpr const_reference front() const noexcept;
+
+  [[nodiscard]] constexpr const_reference back() const noexcept;
+
+  [[nodiscard]] constexpr const_pointer data() const noexcept;
+
+  [[nodiscard]] constexpr const_pointer c_str() const noexcept;
+
+  [[nodiscard]] constexpr size_type size() const noexcept;
+
+  [[nodiscard]] constexpr size_type length() const noexcept;
+
+  [[nodiscard]] constexpr size_type max_size() const noexcept;
+
+  [[nodiscard]] constexpr bool empty() const noexcept;
+
+  constexpr void remove_prefix(size_type n) noexcept;
+
+  constexpr void swap(CStringView & v) noexcept;
+
+  size_type copy(value_type * dest, size_type count, size_type pos = 0) const noexcept;
+
+  constexpr int compare(CStringView v) const noexcept;
+
+  constexpr int compare(size_type pos1, size_type count1, CStringView v) const noexcept;
+
+  constexpr int compare(size_type pos1, size_type count1, CStringView v, size_type pos2,
+                        size_type count2) const noexcept;
+
+  constexpr int compare(const value_type * s) const noexcept;
+
+  constexpr int compare(size_type pos1, size_type count1, const value_type * s) const noexcept;
+
+  constexpr int compare(size_type pos1, size_type count1, const value_type * s, size_type count2) const noexcept;
+
+  constexpr bool starts_with(CStringView sv) const noexcept;
+
+  constexpr bool starts_with(value_type ch) const noexcept;
+
+  constexpr bool starts_with(const value_type * s) const noexcept;
+
+  constexpr bool ends_with(CStringView sv) const noexcept;
+
+  constexpr bool ends_with(value_type ch) const noexcept;
+
+  constexpr bool ends_with(const value_type * s) const noexcept;
+
+  static constexpr const size_type npos = -1;
+
 private:
   /// First character of the viewed string, \c nullptr while the view holds none
-  const char * _data{nullptr};
+  const value_type * _data{nullptr};
 
   /// Length of the viewed string in bytes, the terminator excluded
-  size_t _size{0};
+  size_type _size{0};
 };
 
 } // namespace toy
