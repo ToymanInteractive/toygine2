@@ -39,7 +39,15 @@ constexpr const char * c_samplePrefix   = "play";
 constexpr const char * c_sampleLonger   = "player one";
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
 constexpr const char * c_repeated       = "abracadabra";
-constexpr size_t       c_repeatedLength = char_traits<char>::length(c_repeated);
+constexpr const char * c_repeatedLonger = "abracadabra and then some";
+
+// Views the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
+constexpr CStringView c_sampleView(c_sample);
+constexpr CStringView c_repeatedView(c_repeated);
+
+// Offset every search reports when it matches nothing.
+constexpr size_t c_npos           = CStringView::npos;
+constexpr size_t c_repeatedLength = char_traits<char>::length(c_repeated);
 
 // Distance a forward walk covers, as a length rather than a pointer difference.
 [[nodiscard]] constexpr size_t forwardLength(const CStringView & view) noexcept {
@@ -156,8 +164,8 @@ TEST_CASE("c_string_view/iteration") {
 
   static_assert(forwardLength(CStringView(c_sample)) == c_sampleLength,
                 "the forward range must span the literal's byte count");
-  static_assert(*CStringView(c_sample).begin() == 'p', "the first character must be the literal's first byte");
-  static_assert(*CStringView(c_sample).end() == '\0', "the position past the last character holds the terminator");
+  static_assert(*c_sampleView.begin() == 'p', "the first character must be the literal's first byte");
+  static_assert(*c_sampleView.end() == '\0', "the position past the last character holds the terminator");
   static_assert(CStringView().begin() == CStringView().end(), "an empty view must yield an empty range");
 }
 
@@ -180,9 +188,8 @@ TEST_CASE("c_string_view/iteration_reverse") {
 
   static_assert(reverseLength(CStringView(c_sample)) == c_sampleLength,
                 "the reverse range must span the literal's byte count");
-  static_assert(*CStringView(c_sample).rbegin() == 'r', "a reverse walk must start at the last character");
-  static_assert(CStringView(c_sample).rend().base() == CStringView(c_sample).begin(),
-                "the reverse end must adapt the forward beginning");
+  static_assert(*c_sampleView.rbegin() == 'r', "a reverse walk must start at the last character");
+  static_assert(c_sampleView.rend().base() == c_sampleView.begin(), "the reverse end must adapt the forward beginning");
   static_assert(CStringView().rbegin() == CStringView().rend(), "an empty view must yield an empty reverse range");
 }
 
@@ -204,9 +211,9 @@ TEST_CASE("c_string_view/element_access") {
   CHECK(&view.back() == view.data() + c_sampleLength - 1);
 
   static_assert(CStringView(c_sample)[0] == 'p', "an indexed read must yield the literal's byte at that offset");
-  static_assert(CStringView(c_sample).at(c_sampleLength - 1) == 'r', "at() must read the same byte as operator[]");
-  static_assert(CStringView(c_sample).front() == 'p', "the front character must be the literal's first byte");
-  static_assert(CStringView(c_sample).back() == 'r', "the back character must be the literal's last byte");
+  static_assert(c_sampleView.at(c_sampleLength - 1) == 'r', "at() must read the same byte as operator[]");
+  static_assert(c_sampleView.front() == 'p', "the front character must be the literal's first byte");
+  static_assert(c_sampleView.back() == 'r', "the back character must be the literal's last byte");
 }
 
 // The pointer the view hands to a C interface, and the terminator that pointer reaches.
@@ -223,8 +230,8 @@ TEST_CASE("c_string_view/pointer_access") {
   CHECK(empty.data() == nullptr);
   CHECK(empty.c_str() == nullptr);
 
-  static_assert(CStringView(c_sample).data() == c_sample, "the view must hand back the pointer it was built from");
-  static_assert(CStringView(c_sample).c_str()[c_sampleLength] == '\0',
+  static_assert(c_sampleView.data() == c_sample, "the view must hand back the pointer it was built from");
+  static_assert(c_sampleView.c_str()[c_sampleLength] == '\0',
                 "the byte past the last character must be the terminator");
   static_assert(CStringView().data() == nullptr, "a default-constructed view names no string");
 }
@@ -249,12 +256,11 @@ TEST_CASE("c_string_view/capacity") {
 
   CHECK(view.max_size() == static_cast<CStringView::size_type>(-1));
 
-  static_assert(CStringView(c_sample).size() == c_sampleLength, "size() must report the literal's UTF-8 byte count");
-  static_assert(CStringView(c_sample).length() == CStringView(c_sample).size(),
-                "length() and size() must report the same count");
+  static_assert(c_sampleView.size() == c_sampleLength, "size() must report the literal's UTF-8 byte count");
+  static_assert(c_sampleView.length() == c_sampleView.size(), "length() and size() must report the same count");
   static_assert(CStringView().empty(), "a default-constructed view holds no character");
-  static_assert(!CStringView(c_sample).empty(), "a view over a non-empty literal holds characters");
-  static_assert(CStringView::npos == static_cast<CStringView::size_type>(-1),
+  static_assert(!c_sampleView.empty(), "a view over a non-empty literal holds characters");
+  static_assert(c_npos == static_cast<CStringView::size_type>(-1),
                 "npos must be the largest value the length type carries");
 }
 
@@ -334,10 +340,10 @@ TEST_CASE("c_string_view/compare") {
   CHECK(view.compare(c_samplePrefix) > 0);
   CHECK(view.compare(c_sampleLonger) < 0);
 
-  static_assert(CStringView(c_sample).compare(CStringView(c_sample)) == 0, "a string must compare equal to itself");
-  static_assert(CStringView(c_sample).compare(CStringView(c_samplePrefix)) > 0,
+  static_assert(c_sampleView.compare(CStringView(c_sample)) == 0, "a string must compare equal to itself");
+  static_assert(c_sampleView.compare(CStringView(c_samplePrefix)) > 0,
                 "a longer string sharing a prefix must order after the shorter one");
-  static_assert(CStringView(c_sample).compare(c_sampleLonger) < 0,
+  static_assert(c_sampleView.compare(c_sampleLonger) < 0,
                 "the pointer overload must order by the first differing byte");
 }
 
@@ -352,15 +358,20 @@ TEST_CASE("c_string_view/compare_substring") {
   CHECK(view.compare(0, 4, CStringView(c_sampleLonger), 0, 4) == 0);
   CHECK(view.compare(0, c_sampleLength, CStringView(c_sampleLonger), 0, 4) > 0);
 
+  // Equal-length parts that differ order on the first differing character, with no length left to decide.
+  CHECK(view.compare(0, 4, CStringView("plaz"), 0, 4) < 0);
+  CHECK(view.compare(0, 4, CStringView("plaa"), 0, 4) > 0);
+
   CHECK(view.compare(0, 4, c_samplePrefix) == 0);
   CHECK(view.compare(0, 4, c_sampleLonger, 4) == 0);
 
-  static_assert(CStringView(c_sample).compare(0, 4, CStringView(c_samplePrefix)) == 0,
+  static_assert(c_sampleView.compare(0, 4, CStringView(c_samplePrefix)) == 0,
                 "a part must compare equal to the string it repeats");
-  static_assert(CStringView(c_sample).compare(0, 4, CStringView(c_sample)) < 0,
+  static_assert(c_sampleView.compare(0, 4, CStringView(c_sample)) < 0,
                 "a shorter part must order before the whole string it starts");
-  static_assert(CStringView(c_sample).compare(0, 4, c_sampleLonger, 4) == 0,
-                "the pointer overload must read only the characters the count names");
+  static_assert(c_sampleView.compare(0, 4, c_sampleLonger, 4) == 0, "the count bounds what is read");
+  static_assert(c_sampleView.compare(0, 4, CStringView("plaz"), 0, 4) < 0,
+                "equal-length parts must order on the first differing character");
 }
 
 // Whether the viewed string opens with the characters the argument names.
@@ -379,13 +390,10 @@ TEST_CASE("c_string_view/starts_with") {
   CHECK(view.starts_with(c_samplePrefix));
   CHECK_FALSE(view.starts_with(c_sampleLonger));
 
-  static_assert(CStringView(c_sample).starts_with(CStringView(c_samplePrefix)),
-                "a string must start with its own leading part");
-  static_assert(!CStringView(c_sample).starts_with(CStringView(c_sampleLonger)),
-                "a string cannot start with a longer one");
-  static_assert(CStringView(c_sample).starts_with('p'), "the character overload must read the first byte");
-  static_assert(CStringView(c_sample).starts_with(c_samplePrefix),
-                "the pointer overload must measure its argument and match the same characters");
+  static_assert(c_sampleView.starts_with(CStringView(c_samplePrefix)), "a string must start with its own leading part");
+  static_assert(!c_sampleView.starts_with(CStringView(c_sampleLonger)), "a string cannot start with a longer one");
+  static_assert(c_sampleView.starts_with('p'), "the character overload reads the first byte");
+  static_assert(c_sampleView.starts_with(c_samplePrefix), "the pointer overload measures its argument");
 }
 
 // Whether the viewed string closes with the characters the argument names.
@@ -404,11 +412,10 @@ TEST_CASE("c_string_view/ends_with") {
   CHECK(view.ends_with("yer"));
   CHECK_FALSE(view.ends_with(c_sampleLonger));
 
-  static_assert(CStringView(c_sample).ends_with(CStringView("yer")), "a string must end with its own trailing part");
-  static_assert(!CStringView(c_sample).ends_with(CStringView(c_sampleLonger)), "a string cannot end with a longer one");
-  static_assert(CStringView(c_sample).ends_with('r'), "the character overload must read the last byte");
-  static_assert(CStringView(c_sample).ends_with("yer"),
-                "the pointer overload must measure its argument and match the same characters");
+  static_assert(c_sampleView.ends_with(CStringView("yer")), "a string must end with its own trailing part");
+  static_assert(!c_sampleView.ends_with(CStringView(c_sampleLonger)), "a string cannot end with a longer one");
+  static_assert(c_sampleView.ends_with('r'), "the character overload reads the last byte");
+  static_assert(c_sampleView.ends_with("yer"), "the pointer overload measures its argument");
 }
 
 // Where a forward search first matches the characters the argument names.
@@ -417,58 +424,47 @@ TEST_CASE("c_string_view/find") {
 
   CHECK(view.find(CStringView("abra")) == 0);
   CHECK(view.find(CStringView("abra"), 1) == 7);
-  CHECK(view.find(CStringView("abra"), 8) == CStringView::npos);
+  CHECK(view.find(CStringView("abra"), 8) == c_npos);
   CHECK(view.find(CStringView("cad")) == 4);
-  CHECK(view.find(CStringView("xyz")) == CStringView::npos);
+  CHECK(view.find(CStringView("xyz")) == c_npos);
 
-  // A needle longer than the viewed string matches nowhere.
-  CHECK(view.find(CStringView(c_sampleLonger)) == CStringView::npos);
+  // A needle longer than the viewed string matches nowhere, decided on the lengths before any character is read.
+  CHECK(view.find(CStringView(c_repeatedLonger)) == c_npos);
+  CHECK(view.find(c_repeatedLonger, 0, char_traits<char>::length(c_repeatedLonger)) == c_npos);
 
   // An empty needle matches at the offset the search starts from; past the end it matches nowhere.
   CHECK(view.find(CStringView("")) == 0);
   CHECK(view.find(CStringView(""), c_repeatedLength) == c_repeatedLength);
-  CHECK(view.find(CStringView(""), c_repeatedLength + 1) == CStringView::npos);
+  CHECK(view.find(CStringView(""), c_repeatedLength + 1) == c_npos);
 
   // The counted overload reads only the leading characters its count names.
   CHECK(view.find("abrasive", 0, 4) == 0);
   CHECK(view.find("abrasive", 1, 4) == 7);
 
   CHECK(view.find("cad") == 4);
-  CHECK(view.find("cad", 5) == CStringView::npos);
+  CHECK(view.find("cad", 5) == c_npos);
 
-  static_assert(CStringView(c_repeated).find(CStringView("abra")) == 0,
-                "a search must report the first offset the needle matches at");
-  static_assert(CStringView(c_repeated).find(CStringView("abra"), 1) == 7,
-                "a search must skip a match starting before the offset it was given");
-  static_assert(CStringView(c_repeated).find(CStringView("xyz")) == CStringView::npos,
-                "a needle absent from the string must report npos");
-  static_assert(CStringView(c_repeated).find(CStringView("")) == 0,
-                "an empty needle must match at the offset the search starts from");
-  static_assert(CStringView(c_repeated).find("abrasive", 1, 4) == 7,
-                "the counted overload must read only the characters its count names");
-  static_assert(CStringView(c_repeated).find("cad") == 4,
-                "the pointer overload must measure its argument and match the same characters");
-}
-
-// Where a forward search first meets the character the argument names.
-TEST_CASE("c_string_view/find_character") {
-  const CStringView view(c_repeated);
-
+  // The character overload reads single characters rather than a sequence.
   CHECK(view.find('a') == 0);
   CHECK(view.find('a', 1) == 3);
   CHECK(view.find('d') == 6);
-  CHECK(view.find('z') == CStringView::npos);
+  CHECK(view.find('z') == c_npos);
 
   // A start at or past the last character matches nowhere.
-  CHECK(view.find('a', c_repeatedLength) == CStringView::npos);
-  CHECK(CStringView("").find('a') == CStringView::npos);
+  CHECK(view.find('a', c_repeatedLength) == c_npos);
+  CHECK(CStringView("").find('a') == c_npos);
 
-  static_assert(CStringView(c_repeated).find('a') == 0,
-                "a character search must report the first offset the character sits at");
-  static_assert(CStringView(c_repeated).find('a', 1) == 3,
-                "a character search must skip an occurrence before the offset it was given");
-  static_assert(CStringView(c_repeated).find('z') == CStringView::npos,
-                "a character absent from the string must report npos");
+  static_assert(c_repeatedView.find('a') == 0, "the first occurrence wins");
+  static_assert(c_repeatedView.find('a', 1) == 3, "the offset skips earlier matches");
+  static_assert(c_repeatedView.find('z') == c_npos, "an absent character reports npos");
+  static_assert(c_repeatedView.find(CStringView("abra")) == 0, "the first match wins");
+  static_assert(c_repeatedView.find(CStringView("abra"), 1) == 7, "the offset skips earlier matches");
+  static_assert(c_repeatedView.find(CStringView("xyz")) == c_npos, "an absent needle reports npos");
+  static_assert(c_repeatedView.find(CStringView(c_repeatedLonger)) == c_npos,
+                "a needle longer than the string reports npos");
+  static_assert(c_repeatedView.find(CStringView("")) == 0, "an empty needle matches at the start offset");
+  static_assert(c_repeatedView.find("abrasive", 1, 4) == 7, "the count bounds what is read");
+  static_assert(c_repeatedView.find("cad") == 4, "the pointer overload measures its argument");
 }
 
 // Where a backward search last matches the characters the argument names.
@@ -479,51 +475,40 @@ TEST_CASE("c_string_view/rfind") {
   CHECK(view.rfind(CStringView("abra"), 6) == 0);
   CHECK(view.rfind(CStringView("abra"), 0) == 0);
   CHECK(view.rfind(CStringView("cad")) == 4);
-  CHECK(view.rfind(CStringView("xyz")) == CStringView::npos);
-  CHECK(view.rfind(CStringView(c_sampleLonger)) == CStringView::npos);
+  CHECK(view.rfind(CStringView("xyz")) == c_npos);
+  CHECK(view.rfind(CStringView(c_repeatedLonger)) == c_npos);
+  CHECK(view.rfind(c_repeatedLonger, c_npos, char_traits<char>::length(c_repeatedLonger)) == c_npos);
 
   // An empty needle matches at the offset the search starts from, capped at the length.
   CHECK(view.rfind(CStringView("")) == c_repeatedLength);
   CHECK(view.rfind(CStringView(""), 5) == 5);
 
-  CHECK(view.rfind("abrasive", CStringView::npos, 4) == 7);
+  CHECK(view.rfind("abrasive", c_npos, 4) == 7);
   CHECK(view.rfind("cad") == 4);
-  CHECK(view.rfind("cad", 3) == CStringView::npos);
+  CHECK(view.rfind("cad", 3) == c_npos);
 
-  static_assert(CStringView(c_repeated).rfind(CStringView("abra")) == 7,
-                "a backward search must report the last offset the needle matches at");
-  static_assert(CStringView(c_repeated).rfind(CStringView("abra"), 6) == 0,
-                "the offset caps where a match may start, not where it may end");
-  static_assert(CStringView(c_repeated).rfind(CStringView("xyz")) == CStringView::npos,
-                "a needle absent from the string must report npos");
-  static_assert(CStringView(c_repeated).rfind(CStringView("")) == c_repeatedLength,
-                "an empty needle must match at the end when the search starts there");
-  static_assert(CStringView(c_repeated).rfind("abrasive", CStringView::npos, 4) == 7,
-                "the counted overload must read only the characters its count names");
-  static_assert(CStringView(c_repeated).rfind("cad") == 4,
-                "the pointer overload must measure its argument and match the same characters");
-}
-
-// Where a backward search last meets the character the argument names.
-TEST_CASE("c_string_view/rfind_character") {
-  const CStringView view(c_repeated);
-
+  // The character overload reads single characters rather than a sequence.
   CHECK(view.rfind('a') == c_repeatedLength - 1);
   CHECK(view.rfind('a', 9) == 7);
   CHECK(view.rfind('d') == 6);
-  CHECK(view.rfind('z') == CStringView::npos);
+  CHECK(view.rfind('z') == c_npos);
 
   // An offset of zero leaves the first character as the only candidate.
-  CHECK(view.rfind('b', 0) == CStringView::npos);
+  CHECK(view.rfind('b', 0) == c_npos);
   CHECK(view.rfind('a', 0) == 0);
-  CHECK(CStringView("").rfind('a') == CStringView::npos);
+  CHECK(CStringView("").rfind('a') == c_npos);
 
-  static_assert(CStringView(c_repeated).rfind('a') == c_repeatedLength - 1,
-                "a backward character search must report the last offset the character sits at");
-  static_assert(CStringView(c_repeated).rfind('a', 9) == 7,
-                "the offset caps how far back the search may report a match");
-  static_assert(CStringView(c_repeated).rfind('z') == CStringView::npos,
-                "a character absent from the string must report npos");
+  static_assert(c_repeatedView.rfind('a') == c_repeatedLength - 1, "the last occurrence wins");
+  static_assert(c_repeatedView.rfind('a', 9) == 7, "the offset caps how far back a match may sit");
+  static_assert(c_repeatedView.rfind('z') == c_npos, "an absent character reports npos");
+  static_assert(c_repeatedView.rfind(CStringView("abra")) == 7, "the last match wins");
+  static_assert(c_repeatedView.rfind(CStringView("abra"), 6) == 0, "the offset caps where a match starts");
+  static_assert(c_repeatedView.rfind(CStringView("xyz")) == c_npos, "an absent needle reports npos");
+  static_assert(c_repeatedView.rfind(CStringView(c_repeatedLonger)) == c_npos,
+                "a needle longer than the string reports npos");
+  static_assert(c_repeatedView.rfind(CStringView("")) == c_repeatedLength, "an empty needle matches at the end");
+  static_assert(c_repeatedView.rfind("abrasive", c_npos, 4) == 7, "the count bounds what is read");
+  static_assert(c_repeatedView.rfind("cad") == 4, "the pointer overload measures its argument");
 }
 
 // Whether the characters the argument names appear anywhere in the viewed string.
@@ -540,13 +525,10 @@ TEST_CASE("c_string_view/contains") {
   CHECK(view.contains("dabra"));
   CHECK_FALSE(view.contains("dabraz"));
 
-  static_assert(CStringView(c_repeated).contains(CStringView("cad")),
-                "a needle the string holds must report as contained");
-  static_assert(!CStringView(c_repeated).contains(CStringView("xyz")),
-                "a needle the string lacks must not report as contained");
-  static_assert(CStringView(c_repeated).contains('d'), "the character overload must read the same occurrences");
-  static_assert(CStringView(c_repeated).contains("dabra"),
-                "the pointer overload must measure its argument and match the same characters");
+  static_assert(c_repeatedView.contains(CStringView("cad")), "a needle the string holds is contained");
+  static_assert(!c_repeatedView.contains(CStringView("xyz")), "a needle the string lacks is not contained");
+  static_assert(c_repeatedView.contains('d'), "the character overload matches the same offsets");
+  static_assert(c_repeatedView.contains("dabra"), "the pointer overload measures its argument");
 }
 
 // Where a forward search first meets any character the argument's set holds.
@@ -555,35 +537,29 @@ TEST_CASE("c_string_view/find_first_of") {
 
   CHECK(view.find_first_of(CStringView("rc")) == 2);
   CHECK(view.find_first_of(CStringView("rc"), 3) == 4);
-  CHECK(view.find_first_of(CStringView("xyz")) == CStringView::npos);
+  CHECK(view.find_first_of(CStringView("xyz")) == c_npos);
 
   // An empty set holds no character to match, unlike an empty needle in a substring search.
-  CHECK(view.find_first_of(CStringView("")) == CStringView::npos);
-  CHECK(CStringView("").find_first_of(CStringView("a")) == CStringView::npos);
+  CHECK(view.find_first_of(CStringView("")) == c_npos);
+  CHECK(CStringView("").find_first_of(CStringView("a")) == c_npos);
 
   // A set of one character reads the same as a character search.
   CHECK(view.find_first_of('d') == 6);
   CHECK(view.find_first_of('a', 1) == 3);
-  CHECK(view.find_first_of('z') == CStringView::npos);
+  CHECK(view.find_first_of('z') == c_npos);
 
   CHECK(view.find_first_of("rcxyz", 0, 2) == 2);
   CHECK(view.find_first_of("rcxyz", 3, 2) == 4);
 
   CHECK(view.find_first_of("rc") == 2);
-  CHECK(view.find_first_of("rc", 10) == CStringView::npos);
+  CHECK(view.find_first_of("rc", 10) == c_npos);
 
-  static_assert(CStringView(c_repeated).find_first_of(CStringView("rc")) == 2,
-                "a set search must report the first offset any of its characters sits at");
-  static_assert(CStringView(c_repeated).find_first_of(CStringView("rc"), 3) == 4,
-                "a set search must skip an occurrence before the offset it was given");
-  static_assert(CStringView(c_repeated).find_first_of(CStringView("")) == CStringView::npos,
-                "an empty set must match nowhere");
-  static_assert(CStringView(c_repeated).find_first_of('d') == 6,
-                "the character overload must read the same occurrences as a set of one");
-  static_assert(CStringView(c_repeated).find_first_of("rcxyz", 3, 2) == 4,
-                "the counted overload must read only the characters its count names");
-  static_assert(CStringView(c_repeated).find_first_of("rc") == 2,
-                "the pointer overload must measure its argument and match the same set");
+  static_assert(c_repeatedView.find_first_of(CStringView("rc")) == 2, "the first set member wins");
+  static_assert(c_repeatedView.find_first_of(CStringView("rc"), 3) == 4, "the offset skips earlier matches");
+  static_assert(c_repeatedView.find_first_of(CStringView("")) == c_npos, "an empty set matches nowhere");
+  static_assert(c_repeatedView.find_first_of('d') == 6, "a set of one is that character");
+  static_assert(c_repeatedView.find_first_of("rcxyz", 3, 2) == 4, "the count bounds what is read");
+  static_assert(c_repeatedView.find_first_of("rc") == 2, "the pointer overload measures its argument");
 }
 
 // Where a backward search last meets any character the argument's set holds.
@@ -592,33 +568,27 @@ TEST_CASE("c_string_view/find_last_of") {
 
   CHECK(view.find_last_of(CStringView("rc")) == 9);
   CHECK(view.find_last_of(CStringView("rc"), 8) == 4);
-  CHECK(view.find_last_of(CStringView("xyz")) == CStringView::npos);
+  CHECK(view.find_last_of(CStringView("xyz")) == c_npos);
 
-  CHECK(view.find_last_of(CStringView("")) == CStringView::npos);
-  CHECK(CStringView("").find_last_of(CStringView("a")) == CStringView::npos);
+  CHECK(view.find_last_of(CStringView("")) == c_npos);
+  CHECK(CStringView("").find_last_of(CStringView("a")) == c_npos);
 
   CHECK(view.find_last_of('a') == c_repeatedLength - 1);
   CHECK(view.find_last_of('a', 9) == 7);
-  CHECK(view.find_last_of('z') == CStringView::npos);
+  CHECK(view.find_last_of('z') == c_npos);
 
-  CHECK(view.find_last_of("rcxyz", CStringView::npos, 2) == 9);
+  CHECK(view.find_last_of("rcxyz", c_npos, 2) == 9);
   CHECK(view.find_last_of("rcxyz", 8, 2) == 4);
 
   CHECK(view.find_last_of("rc") == 9);
-  CHECK(view.find_last_of("rc", 1) == CStringView::npos);
+  CHECK(view.find_last_of("rc", 1) == c_npos);
 
-  static_assert(CStringView(c_repeated).find_last_of(CStringView("rc")) == 9,
-                "a backward set search must report the last offset any of its characters sits at");
-  static_assert(CStringView(c_repeated).find_last_of(CStringView("rc"), 8) == 4,
-                "the offset caps how far back the search may report a match");
-  static_assert(CStringView(c_repeated).find_last_of(CStringView("")) == CStringView::npos,
-                "an empty set must match nowhere");
-  static_assert(CStringView(c_repeated).find_last_of('a') == c_repeatedLength - 1,
-                "the character overload must read the same occurrences as a set of one");
-  static_assert(CStringView(c_repeated).find_last_of("rcxyz", 8, 2) == 4,
-                "the counted overload must read only the characters its count names");
-  static_assert(CStringView(c_repeated).find_last_of("rc") == 9,
-                "the pointer overload must measure its argument and match the same set");
+  static_assert(c_repeatedView.find_last_of(CStringView("rc")) == 9, "the last set member wins");
+  static_assert(c_repeatedView.find_last_of(CStringView("rc"), 8) == 4, "the offset caps how far back a match may sit");
+  static_assert(c_repeatedView.find_last_of(CStringView("")) == c_npos, "an empty set matches nowhere");
+  static_assert(c_repeatedView.find_last_of('a') == c_repeatedLength - 1, "a set of one is that character");
+  static_assert(c_repeatedView.find_last_of("rcxyz", 8, 2) == 4, "the count bounds what is read");
+  static_assert(c_repeatedView.find_last_of("rc") == 9, "the pointer overload measures its argument");
 }
 
 // Where a forward search first meets a character the argument's set does not hold.
@@ -630,36 +600,30 @@ TEST_CASE("c_string_view/find_first_not_of") {
   CHECK(view.find_first_not_of(CStringView("abr")) == 4);
 
   // A set holding every character the string uses leaves nothing to report.
-  CHECK(view.find_first_not_of(CStringView("abcdr")) == CStringView::npos);
+  CHECK(view.find_first_not_of(CStringView("abcdr")) == c_npos);
 
   // An empty set excludes no character, so the search stops where it starts.
   CHECK(view.find_first_not_of(CStringView("")) == 0);
-  CHECK(CStringView("").find_first_not_of(CStringView("")) == CStringView::npos);
+  CHECK(CStringView("").find_first_not_of(CStringView("")) == c_npos);
 
   CHECK(view.find_first_not_of('a') == 1);
   CHECK(view.find_first_not_of('a', 3) == 4);
-  CHECK(CStringView("aaa").find_first_not_of('a') == CStringView::npos);
+  CHECK(CStringView("aaa").find_first_not_of('a') == c_npos);
 
   CHECK(view.find_first_not_of("abxyz", 0, 2) == 2);
   CHECK(view.find_first_not_of("abxyz", 3, 2) == 4);
 
   CHECK(view.find_first_not_of("ab") == 2);
-  CHECK(view.find_first_not_of("ab", 10) == CStringView::npos);
+  CHECK(view.find_first_not_of("ab", 10) == c_npos);
 
-  static_assert(CStringView(c_repeated).find_first_not_of(CStringView("ab")) == 2,
-                "the search must report the first offset the set leaves out");
-  static_assert(CStringView(c_repeated).find_first_not_of(CStringView("ab"), 3) == 4,
-                "the search must skip an excluded character before the offset it was given");
-  static_assert(CStringView(c_repeated).find_first_not_of(CStringView("abcdr")) == CStringView::npos,
-                "a set covering every character must report npos");
-  static_assert(CStringView(c_repeated).find_first_not_of(CStringView("")) == 0,
-                "an empty set must leave the first character reported");
-  static_assert(CStringView(c_repeated).find_first_not_of('a') == 1,
-                "the character overload must exclude that character alone");
-  static_assert(CStringView(c_repeated).find_first_not_of("abxyz", 3, 2) == 4,
-                "the counted overload must read only the characters its count names");
-  static_assert(CStringView(c_repeated).find_first_not_of("ab") == 2,
-                "the pointer overload must measure its argument and exclude the same set");
+  static_assert(c_repeatedView.find_first_not_of(CStringView("ab")) == 2, "the first excluded character wins");
+  static_assert(c_repeatedView.find_first_not_of(CStringView("ab"), 3) == 4, "the offset skips earlier matches");
+  static_assert(c_repeatedView.find_first_not_of(CStringView("abcdr")) == c_npos,
+                "a set covering every character reports npos");
+  static_assert(c_repeatedView.find_first_not_of(CStringView("")) == 0, "an empty set excludes nothing");
+  static_assert(c_repeatedView.find_first_not_of('a') == 1, "the character overload excludes one character");
+  static_assert(c_repeatedView.find_first_not_of("abxyz", 3, 2) == 4, "the count bounds what is read");
+  static_assert(c_repeatedView.find_first_not_of("ab") == 2, "the pointer overload measures its argument");
 }
 
 // Where a backward search last meets a character the argument's set does not hold.
@@ -668,35 +632,31 @@ TEST_CASE("c_string_view/find_last_not_of") {
 
   CHECK(view.find_last_not_of(CStringView("ab")) == 9);
   CHECK(view.find_last_not_of(CStringView("ab"), 8) == 6);
-  CHECK(view.find_last_not_of(CStringView("abcdr")) == CStringView::npos);
+  CHECK(view.find_last_not_of(CStringView("abcdr")) == c_npos);
 
   CHECK(view.find_last_not_of(CStringView("")) == c_repeatedLength - 1);
-  CHECK(CStringView("").find_last_not_of(CStringView("")) == CStringView::npos);
+  CHECK(CStringView("").find_last_not_of(CStringView("")) == c_npos);
 
   CHECK(view.find_last_not_of('a') == 9);
   CHECK(view.find_last_not_of('a', 8) == 8);
-  CHECK(CStringView("aaa").find_last_not_of('a') == CStringView::npos);
+  CHECK(CStringView("aaa").find_last_not_of('a') == c_npos);
 
-  CHECK(view.find_last_not_of("abxyz", CStringView::npos, 2) == 9);
+  CHECK(view.find_last_not_of("abxyz", c_npos, 2) == 9);
   CHECK(view.find_last_not_of("abxyz", 8, 2) == 6);
 
   CHECK(view.find_last_not_of("ab") == 9);
-  CHECK(view.find_last_not_of("ab", 1) == CStringView::npos);
+  CHECK(view.find_last_not_of("ab", 1) == c_npos);
 
-  static_assert(CStringView(c_repeated).find_last_not_of(CStringView("ab")) == 9,
-                "the search must report the last offset the set leaves out");
-  static_assert(CStringView(c_repeated).find_last_not_of(CStringView("ab"), 8) == 6,
-                "the offset caps how far back the search may report a match");
-  static_assert(CStringView(c_repeated).find_last_not_of(CStringView("abcdr")) == CStringView::npos,
-                "a set covering every character must report npos");
-  static_assert(CStringView(c_repeated).find_last_not_of(CStringView("")) == c_repeatedLength - 1,
-                "an empty set must leave the last character reported");
-  static_assert(CStringView(c_repeated).find_last_not_of('a') == 9,
-                "the character overload must exclude that character alone");
-  static_assert(CStringView(c_repeated).find_last_not_of("abxyz", 8, 2) == 6,
-                "the counted overload must read only the characters its count names");
-  static_assert(CStringView(c_repeated).find_last_not_of("ab") == 9,
-                "the pointer overload must measure its argument and exclude the same set");
+  static_assert(c_repeatedView.find_last_not_of(CStringView("ab")) == 9, "the last excluded character wins");
+  static_assert(c_repeatedView.find_last_not_of(CStringView("ab"), 8) == 6,
+                "the offset caps how far back a match may sit");
+  static_assert(c_repeatedView.find_last_not_of(CStringView("abcdr")) == c_npos,
+                "a set covering every character reports npos");
+  static_assert(c_repeatedView.find_last_not_of(CStringView("")) == c_repeatedLength - 1,
+                "an empty set excludes nothing");
+  static_assert(c_repeatedView.find_last_not_of('a') == 9, "the character overload excludes one character");
+  static_assert(c_repeatedView.find_last_not_of("abxyz", 8, 2) == 6, "the count bounds what is read");
+  static_assert(c_repeatedView.find_last_not_of("ab") == 9, "the pointer overload measures its argument");
 }
 
 } // namespace toy
