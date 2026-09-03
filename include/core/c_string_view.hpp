@@ -471,7 +471,7 @@ public:
     \sa starts_with()
     \sa ends_with()
   */
-  constexpr int compare(CStringView v) const noexcept;
+  [[nodiscard]] constexpr int compare(CStringView v) const noexcept;
 
   /*!
     \brief Orders a part of this view against another view.
@@ -487,7 +487,7 @@ public:
 
     \sa compare(CStringView)
   */
-  constexpr int compare(size_type pos1, size_type count1, CStringView v) const noexcept;
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, CStringView v) const noexcept;
 
   /*!
     \brief Orders a part of this view against a part of another view.
@@ -506,8 +506,8 @@ public:
 
     \sa compare(CStringView)
   */
-  constexpr int compare(size_type pos1, size_type count1, CStringView v, size_type pos2,
-                        size_type count2) const noexcept;
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, CStringView v, size_type pos2,
+                                      size_type count2) const noexcept;
 
   /*!
     \brief Orders this view against a null-terminated byte string.
@@ -523,7 +523,7 @@ public:
 
     \sa compare(CStringView)
   */
-  constexpr int compare(const value_type * s) const noexcept;
+  [[nodiscard]] constexpr int compare(const value_type * s) const noexcept;
 
   /*!
     \brief Orders a part of this view against a null-terminated byte string.
@@ -540,7 +540,7 @@ public:
 
     \sa compare(size_type, size_type, CStringView)
   */
-  constexpr int compare(size_type pos1, size_type count1, const value_type * s) const noexcept;
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * s) const noexcept;
 
   /*!
     \brief Orders a part of this view against a counted part of a byte string.
@@ -558,7 +558,8 @@ public:
 
     \sa compare(size_type, size_type, CStringView, size_type, size_type)
   */
-  constexpr int compare(size_type pos1, size_type count1, const value_type * s, size_type count2) const noexcept;
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * s,
+                                      size_type count2) const noexcept;
 
   /*!
     \brief Reports whether the viewed string opens with given characters.
@@ -573,7 +574,7 @@ public:
     \sa ends_with()
     \sa compare(size_type, size_type, CStringView)
   */
-  constexpr bool starts_with(CStringView sv) const noexcept;
+  [[nodiscard]] constexpr bool starts_with(CStringView sv) const noexcept;
 
   /*!
     \brief Reports whether the viewed string opens with a given character.
@@ -585,7 +586,7 @@ public:
     \sa front()
     \sa ends_with()
   */
-  constexpr bool starts_with(value_type ch) const noexcept;
+  [[nodiscard]] constexpr bool starts_with(value_type ch) const noexcept;
 
   /*!
     \brief Reports whether the viewed string opens with given characters.
@@ -600,7 +601,7 @@ public:
 
     \sa starts_with(CStringView)
   */
-  constexpr bool starts_with(const value_type * s) const noexcept;
+  [[nodiscard]] constexpr bool starts_with(const value_type * s) const noexcept;
 
   /*!
     \brief Reports whether the viewed string closes with given characters.
@@ -615,7 +616,7 @@ public:
     \sa starts_with()
     \sa compare(size_type, size_type, CStringView)
   */
-  constexpr bool ends_with(CStringView sv) const noexcept;
+  [[nodiscard]] constexpr bool ends_with(CStringView sv) const noexcept;
 
   /*!
     \brief Reports whether the viewed string closes with a given character.
@@ -627,7 +628,7 @@ public:
     \sa back()
     \sa starts_with()
   */
-  constexpr bool ends_with(value_type ch) const noexcept;
+  [[nodiscard]] constexpr bool ends_with(value_type ch) const noexcept;
 
   /*!
     \brief Reports whether the viewed string closes with given characters.
@@ -643,7 +644,7 @@ public:
 
     \sa ends_with(CStringView)
   */
-  constexpr bool ends_with(const value_type * s) const noexcept;
+  [[nodiscard]] constexpr bool ends_with(const value_type * s) const noexcept;
 
   /*!
     \brief Reports whether given characters appear anywhere in the viewed string.
@@ -656,7 +657,7 @@ public:
 
     \sa find(CStringView, size_type)
   */
-  constexpr bool contains(CStringView sv) const noexcept;
+  [[nodiscard]] constexpr bool contains(CStringView sv) const noexcept;
 
   /*!
     \brief Reports whether a given character appears anywhere in the viewed string.
@@ -667,7 +668,7 @@ public:
 
     \sa find(value_type, size_type)
   */
-  constexpr bool contains(value_type ch) const noexcept;
+  [[nodiscard]] constexpr bool contains(value_type ch) const noexcept;
 
   /*!
     \brief Reports whether given characters appear anywhere in the viewed string.
@@ -682,7 +683,7 @@ public:
 
     \sa contains(CStringView)
   */
-  constexpr bool contains(const value_type * s) const noexcept;
+  [[nodiscard]] constexpr bool contains(const value_type * s) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds given characters.
@@ -700,7 +701,7 @@ public:
     \sa rfind(CStringView, size_type)
     \sa find_first_of(CStringView, size_type)
   */
-  constexpr size_type find(CStringView v, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find(CStringView v, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a given character.
@@ -713,7 +714,7 @@ public:
     \sa rfind(value_type, size_type)
     \sa contains(value_type)
   */
-  constexpr size_type find(value_type ch, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find(value_type ch, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds given characters.
@@ -733,7 +734,7 @@ public:
 
     \sa find(CStringView, size_type)
   */
-  constexpr size_type find(const value_type * s, size_type pos, size_type count) const noexcept;
+  [[nodiscard]] constexpr size_type find(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds given characters.
@@ -751,7 +752,7 @@ public:
 
     \sa find(CStringView, size_type)
   */
-  constexpr size_type find(const value_type * s, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find(const value_type * s, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds given characters.
@@ -771,7 +772,7 @@ public:
     \sa find(CStringView, size_type)
     \sa find_last_of(CStringView, size_type)
   */
-  constexpr size_type rfind(CStringView v, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type rfind(CStringView v, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a given character.
@@ -785,7 +786,7 @@ public:
     \sa find(value_type, size_type)
     \sa find_last_of(value_type, size_type)
   */
-  constexpr size_type rfind(value_type ch, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type rfind(value_type ch, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds given characters.
@@ -806,7 +807,7 @@ public:
 
     \sa rfind(CStringView, size_type)
   */
-  constexpr size_type rfind(const value_type * s, size_type pos, size_type count) const noexcept;
+  [[nodiscard]] constexpr size_type rfind(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds given characters.
@@ -826,7 +827,7 @@ public:
 
     \sa rfind(CStringView, size_type)
   */
-  constexpr size_type rfind(const value_type * s, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type rfind(const value_type * s, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds any character of a given set.
@@ -845,7 +846,7 @@ public:
     \sa find_last_of(CStringView, size_type)
     \sa find_first_not_of(CStringView, size_type)
   */
-  constexpr size_type find_first_of(CStringView v, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_of(CStringView v, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a given character.
@@ -860,7 +861,7 @@ public:
     \sa find(value_type, size_type)
     \sa find_last_of(value_type, size_type)
   */
-  constexpr size_type find_first_of(value_type ch, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_of(value_type ch, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds any character of a given set.
@@ -881,7 +882,7 @@ public:
 
     \sa find_first_of(CStringView, size_type)
   */
-  constexpr size_type find_first_of(const value_type * s, size_type pos, size_type count) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_of(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds any character of a given set.
@@ -900,7 +901,7 @@ public:
 
     \sa find_first_of(CStringView, size_type)
   */
-  constexpr size_type find_first_of(const value_type * s, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_of(const value_type * s, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds any character of a given set.
@@ -920,7 +921,7 @@ public:
     \sa find_first_of(CStringView, size_type)
     \sa find_last_not_of(CStringView, size_type)
   */
-  constexpr size_type find_last_of(CStringView v, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_of(CStringView v, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a given character.
@@ -936,7 +937,7 @@ public:
     \sa rfind(value_type, size_type)
     \sa find_first_of(value_type, size_type)
   */
-  constexpr size_type find_last_of(value_type ch, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_of(value_type ch, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds any character of a given set.
@@ -957,7 +958,7 @@ public:
 
     \sa find_last_of(CStringView, size_type)
   */
-  constexpr size_type find_last_of(const value_type * s, size_type pos, size_type count) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_of(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds any character of a given set.
@@ -977,7 +978,7 @@ public:
 
     \sa find_last_of(CStringView, size_type)
   */
-  constexpr size_type find_last_of(const value_type * s, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_of(const value_type * s, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a character outside a given set.
@@ -996,7 +997,7 @@ public:
     \sa find_last_not_of(CStringView, size_type)
     \sa find_first_of(CStringView, size_type)
   */
-  constexpr size_type find_first_not_of(CStringView v, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_not_of(CStringView v, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a character other than a given one.
@@ -1010,7 +1011,7 @@ public:
     \sa find_last_not_of(value_type, size_type)
     \sa find_first_of(value_type, size_type)
   */
-  constexpr size_type find_first_not_of(value_type ch, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_not_of(value_type ch, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a character outside a given set.
@@ -1032,7 +1033,8 @@ public:
 
     \sa find_first_not_of(CStringView, size_type)
   */
-  constexpr size_type find_first_not_of(const value_type * s, size_type pos, size_type count) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_not_of(const value_type * s, size_type pos,
+                                                      size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a character outside a given set.
@@ -1051,7 +1053,7 @@ public:
 
     \sa find_first_not_of(CStringView, size_type)
   */
-  constexpr size_type find_first_not_of(const value_type * s, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_not_of(const value_type * s, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a character outside a given set.
@@ -1071,7 +1073,7 @@ public:
     \sa find_first_not_of(CStringView, size_type)
     \sa find_last_of(CStringView, size_type)
   */
-  constexpr size_type find_last_not_of(CStringView v, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_not_of(CStringView v, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a character other than a given one.
@@ -1086,7 +1088,7 @@ public:
     \sa find_first_not_of(value_type, size_type)
     \sa find_last_of(value_type, size_type)
   */
-  constexpr size_type find_last_not_of(value_type ch, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_not_of(value_type ch, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a character outside a given set.
@@ -1107,7 +1109,8 @@ public:
 
     \sa find_last_not_of(CStringView, size_type)
   */
-  constexpr size_type find_last_not_of(const value_type * s, size_type pos, size_type count) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_not_of(const value_type * s, size_type pos,
+                                                     size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a character outside a given set.
@@ -1127,7 +1130,7 @@ public:
 
     \sa find_last_not_of(CStringView, size_type)
   */
-  constexpr size_type find_last_not_of(const value_type * s, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_not_of(const value_type * s, size_type pos = npos) const noexcept;
 
   /// Offset no character sits at, returned by every search that matches nothing
   static constexpr const size_type npos = -1;
