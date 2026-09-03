@@ -47,7 +47,7 @@ namespace toy {
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
   * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
-  * **Constexpr support**: every operation but copy() evaluates in a constant expression.
+  * **Constexpr support**: every operation evaluates in a constant expression.
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
   * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
     view.
@@ -297,7 +297,7 @@ public:
 
     \return Reference to the character at \a pos.
 
-    \pre \a pos is less than size(), checked by assert_message in debug builds.
+    \pre \a pos is at most size(), checked by assert_message in debug builds.
 
     \sa at()
     \sa front()
@@ -445,15 +445,15 @@ public:
     \param count Greatest count of characters to write.
     \param pos   Offset in the viewed string to start reading at (default: \c 0).
 
-    \return Count of characters written: \a count, or what is left after \a pos, whichever is smaller.
+    \return Count of characters written: \a count, or what is left after \a pos, whichever is smaller, and
+            \c 0 when \a pos is size().
 
     \pre \a pos is less than size(), checked by assert_message in debug builds.
     \pre \a dest addresses at least as many characters as the call returns.
 
     \note The call writes no terminator; whether the copy needs one is the caller's decision.
-    \note The one member that does not evaluate in a constant expression.
   */
-  size_type copy(value_type * dest, size_type count, size_type pos = 0) const noexcept;
+  constexpr size_type copy(value_type * dest, size_type count, size_type pos = 0) const noexcept;
 
   /*!
     \brief Orders this view against another.
@@ -545,6 +545,9 @@ public:
   /*!
     \brief Orders a part of this view against a counted part of a byte string.
 
+    Reads \a count2 characters from \a s instead of scanning it for a terminator, so \a s may hold null characters and
+    need not end in one.
+
     \param pos1   Offset in this view the part starts at.
     \param count1 Count of characters the part covers.
     \param s      Byte string the compared characters are read from.
@@ -554,7 +557,8 @@ public:
             a positive value when the part of \a s does.
 
     \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
-    \pre \a s is non-null and addresses at least \a count2 characters, checked by assert_message in debug builds.
+    \pre \a s is non-null, checked by assert_message in debug builds.
+    \pre \a s addresses at least \a count2 characters.
 
     \sa compare(size_type, size_type, CStringView, size_type, size_type)
   */

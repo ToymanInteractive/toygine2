@@ -132,8 +132,8 @@ constexpr void CStringView::swap(CStringView & v) noexcept {
   v._size       = sz;
 }
 
-inline CStringView::size_type CStringView::copy(value_type * dest, size_type count, size_type pos) const noexcept {
-  assert_message(pos < size(), "copy() can't copy past the end of the string");
+constexpr CStringView::size_type CStringView::copy(value_type * dest, size_type count, size_type pos) const noexcept {
+  assert_message(pos <= size(), "copy() can't copy past the end of the string");
 
   const auto rLength = min(count, size() - pos);
   traits_type::copy(dest, data() + pos, rLength);
@@ -181,7 +181,14 @@ constexpr int CStringView::compare(size_type pos1, size_type count1, const value
 
 constexpr int CStringView::compare(size_type pos1, size_type count1, const value_type * s,
                                    size_type count2) const noexcept {
-  return compare(pos1, count1, CStringView(s), 0, count2);
+  assert_message(pos1 <= size() && pos1 + count1 <= size(), "Range out of bounds");
+  assert_message(s != nullptr, "C string must not be null");
+
+  const int retVal = traits_type::compare(data() + pos1, s, min(count1, count2));
+  if (retVal == 0)
+    return count1 == count2 ? 0 : (count1 < count2 ? -1 : 1);
+
+  return retVal;
 }
 
 constexpr bool CStringView::starts_with(CStringView sv) const noexcept {

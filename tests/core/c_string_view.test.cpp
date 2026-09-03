@@ -30,13 +30,18 @@ namespace toy {
 namespace {
 
 // The literal every case reads. Its length is measured from the literal, not written out as a constant.
-constexpr const char * c_sample         = "player";
-constexpr size_t       c_sampleLength   = char_traits<char>::length(c_sample);
+constexpr const char * c_sample          = "player";
+constexpr size_t       c_sampleLength    = char_traits<char>::length(c_sample);
 // The same characters back to front, the order a reverse walk must yield.
-constexpr const char * c_sampleReverse  = "reyalp";
+constexpr const char * c_sampleReverse   = "reyalp";
 // A leading part of the sample, and a longer string starting with it.
-constexpr const char * c_samplePrefix   = "play";
-constexpr const char * c_sampleLonger   = "player one";
+constexpr const char * c_samplePrefix    = "play";
+constexpr const char * c_sampleLonger    = "player one";
+// Characters without a terminator, the buffer shape a counted comparison has to accept.
+constexpr char         c_countedPart[4]  = {'p', 'l', 'a', 'y'};
+// A terminator inside the counted range, which a measured length would stop at.
+constexpr char         c_embeddedNull[5] = {'p', 'l', '\0', 'a', 'y'};
+
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
 constexpr const char * c_repeated       = "abracadabra";
 constexpr const char * c_repeatedLonger = "abracadabra and then some";
@@ -65,6 +70,21 @@ constexpr size_t c_repeatedLength = char_traits<char>::length(c_repeated);
   view.remove_prefix(count);
 
   return view;
+}
+
+// Count a copy writes, so a constant expression can drive the one member that touches caller storage.
+[[nodiscard]] constexpr size_t copiedCount(const char * string, size_t count, size_t pos) noexcept {
+  char buffer[16] = {};
+
+  return CStringView(string).copy(buffer, count, pos);
+}
+
+// Character a copy leaves at an offset in caller storage.
+[[nodiscard]] constexpr char copiedAt(const char * string, size_t count, size_t index) noexcept {
+  char buffer[16] = {};
+  CStringView(string).copy(buffer, count);
+
+  return buffer[index];
 }
 
 // The view the first argument names after the two exchange their contents.
@@ -324,6 +344,21 @@ TEST_CASE("c_string_view/copy") {
   char exact[16] = {};
   CHECK(view.copy(exact, c_sampleLength) == c_sampleLength);
   CHECK(exact[c_sampleLength] == '\0');
+
+  // Starting at the end names an empty range rather than a range out of bounds.
+  char none[16] = {};
+  CHECK(view.copy(none, 4, c_sampleLength) == 0);
+  CHECK(none[0] == '\0');
+
+  // A view holding no character can be copied from; there is simply nothing to write.
+  CHECK(CStringView("").copy(none, 4) == 0);
+  CHECK(CStringView().copy(none, 4) == 0);
+
+  static_assert(copiedCount(c_sample, 4, 0) == 4, "a copy writes what the count names");
+  static_assert(copiedCount(c_sample, 32, 2) == c_sampleLength - 2, "a copy stops at the end of the string");
+  static_assert(copiedCount(c_sample, 4, c_sampleLength) == 0, "a copy starting at the end writes nothing");
+  static_assert(copiedAt(c_sample, 4, 0) == 'p', "a copy writes the characters the view holds");
+  static_assert(copiedAt(c_sample, 4, 4) == '\0', "a copy writes nothing past its count");
 }
 
 // The sign each comparison of two whole strings yields.
@@ -365,6 +400,11 @@ TEST_CASE("c_string_view/compare_substring") {
   CHECK(view.compare(0, 4, c_samplePrefix) == 0);
   CHECK(view.compare(0, 4, c_sampleLonger, 4) == 0);
 
+  // The counted overload reads exactly the count, so the argument needs no terminator and may hold one inside.
+  CHECK(view.compare(0, 4, c_countedPart, 4) == 0);
+  CHECK(view.compare(0, 2, c_countedPart, 2) == 0);
+  CHECK(view.compare(0, 4, c_embeddedNull, 4) > 0);
+
   static_assert(c_sampleView.compare(0, 4, CStringView(c_samplePrefix)) == 0,
                 "a part must compare equal to the string it repeats");
   static_assert(c_sampleView.compare(0, 4, CStringView(c_sample)) < 0,
@@ -372,6 +412,10 @@ TEST_CASE("c_string_view/compare_substring") {
   static_assert(c_sampleView.compare(0, 4, c_sampleLonger, 4) == 0, "the count bounds what is read");
   static_assert(c_sampleView.compare(0, 4, CStringView("plaz"), 0, 4) < 0,
                 "equal-length parts must order on the first differing character");
+  static_assert(c_sampleView.compare(0, 4, c_countedPart, 4) == 0,
+                "a counted argument needs no terminator to compare against");
+  static_assert(c_sampleView.compare(0, 4, c_embeddedNull, 4) > 0,
+                "a terminator inside the count is an ordinary character");
 }
 
 // Whether the viewed string opens with the characters the argument names.
