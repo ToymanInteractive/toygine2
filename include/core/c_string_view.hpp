@@ -51,8 +51,8 @@ namespace toy {
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
   * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
     view.
-  * **Search set**: substring, character, and character-set searches in both directions, each matching the \c
-  std::string_view contract.
+  * **Search set**: substring, character, and character-set searches in both directions, each matching the
+    \c std::string_view contract.
   * **Type safety**: construction from \c nullptr is deleted, so the null case fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 

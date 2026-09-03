@@ -135,14 +135,14 @@ constexpr void CStringView::swap(CStringView & v) noexcept {
 inline CStringView::size_type CStringView::copy(value_type * dest, size_type count, size_type pos) const noexcept {
   assert_message(pos < size(), "copy() can't copy past the end of the string");
 
-  const auto rLength = std::min(count, size() - pos);
+  const auto rLength = min(count, size() - pos);
   traits_type::copy(dest, data() + pos, rLength);
 
   return rLength;
 }
 
 constexpr int CStringView::compare(CStringView v) const noexcept {
-  const int retVal = traits_type::compare(data(), v.data(), std::min(size(), v.size()));
+  const int retVal = traits_type::compare(data(), v.data(), min(size(), v.size()));
   if (retVal == 0)
     return size() == v.size() ? 0 : (size() < v.size() ? -1 : 1);
 
@@ -152,7 +152,7 @@ constexpr int CStringView::compare(CStringView v) const noexcept {
 constexpr int CStringView::compare(size_type pos1, size_type count1, CStringView v) const noexcept {
   assert_message(pos1 <= size() && pos1 + count1 <= size(), "Range out of bounds");
 
-  const int retVal = traits_type::compare(data() + pos1, v.data(), std::min(count1, v.size()));
+  const int retVal = traits_type::compare(data() + pos1, v.data(), min(count1, v.size()));
   if (retVal == 0)
     return count1 == v.size() ? 0 : (count1 < v.size() ? -1 : 1);
 
@@ -164,7 +164,7 @@ constexpr int CStringView::compare(size_type pos1, size_type count1, CStringView
   assert_message(pos1 <= size() && pos1 + count1 <= size(), "Range out of bounds");
   assert_message(pos2 <= v.size() && pos2 + count2 <= v.size(), "Range out of bounds");
 
-  const int retVal = traits_type::compare(data() + pos1, v.data() + pos2, std::min(count1, count2));
+  const int retVal = traits_type::compare(data() + pos1, v.data() + pos2, min(count1, count2));
   if (retVal == 0)
     return count1 == count2 ? 0 : (count1 < count2 ? -1 : 1);
 
@@ -259,7 +259,7 @@ constexpr CStringView::size_type CStringView::rfind(value_type ch, size_type pos
   if (empty())
     return npos;
 
-  for (size_type index = std::min(pos, size() - 1);; --index) {
+  for (size_type index = min(pos, size() - 1);; --index) {
     if (traits_type::eq(_data[index], ch))
       return index;
 
@@ -273,11 +273,11 @@ constexpr CStringView::size_type CStringView::rfind(value_type ch, size_type pos
 constexpr CStringView::size_type CStringView::rfind(const value_type * s, size_type pos,
                                                     size_type count) const noexcept {
   if (count == 0)
-    return std::min(pos, size());
+    return min(pos, size());
   else if (count > size())
     return npos;
 
-  for (size_type index = std::min(pos, size() - count);; --index) {
+  for (size_type index = min(pos, size() - count);; --index) {
     if (traits_type::compare(_data + index, s, count) == 0)
       return index;
 
@@ -326,7 +326,7 @@ constexpr CStringView::size_type CStringView::find_last_of(const value_type * s,
   if (empty() || count == 0)
     return npos;
 
-  for (size_type index = std::min(pos, size() - 1);; --index) {
+  for (size_type index = min(pos, size() - 1);; --index) {
     if (traits_type::find(s, count, _data[index]) != nullptr)
       return index;
 
@@ -374,7 +374,7 @@ constexpr CStringView::size_type CStringView::find_last_not_of(value_type ch, si
   if (empty())
     return npos;
 
-  for (size_type index = std::min(pos, size() - 1);; --index) {
+  for (size_type index = min(pos, size() - 1);; --index) {
     if (!traits_type::eq(_data[index], ch))
       return index;
 
@@ -390,7 +390,7 @@ constexpr CStringView::size_type CStringView::find_last_not_of(const value_type 
   if (empty())
     return npos;
 
-  for (size_type index = std::min(pos, size() - 1);; --index) {
+  for (size_type index = min(pos, size() - 1);; --index) {
     if (traits_type::find(s, count, _data[index]) == nullptr)
       return index;
 

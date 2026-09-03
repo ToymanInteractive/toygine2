@@ -25,7 +25,7 @@
   which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, the string-like
   concept, and a view over a null-terminated byte string. From the standard library it re-exports toy::size_t,
   toy::ptrdiff_t, toy::nullptr_t, and toy::numeric_limits, the fixed-width integers toy::int8_t through toy::uint64_t,
-  toy::to_underlying, toy::array, toy::char_traits, and toy::strncpy. The header also defines the assert and
+  toy::to_underlying, toy::array, toy::min, toy::char_traits, and toy::strncpy. The header also defines the assert and
   assert_message macros, which call into that reporting.
 
   \note Include this header only; do not include internal headers directly.
@@ -34,6 +34,7 @@
 #ifndef INCLUDE_CORE_HPP_
 #define INCLUDE_CORE_HPP_
 
+#include <algorithm>
 #include <array>
 #include <concepts>
 #include <cstddef>
@@ -136,6 +137,19 @@ using std::to_underlying;
   \sa https://en.cppreference.com/w/cpp/container/array.html
 */
 using std::array;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Algorithms library https://cppreference.com/cpp/algorithm
+
+/*!
+  \brief Smaller of two values, the first one when they compare equal; alias for std::min.
+
+  \note Returns a reference to an argument, so a \c const \c & bound to it dangles when that argument was a temporary.
+
+  \sa https://cppreference.com/cpp/algorithm/min
+*/
+using std::min;
 
 //--------------------------------------------------------------------------------------------------------------------
 
