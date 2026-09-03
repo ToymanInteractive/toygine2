@@ -24,9 +24,9 @@
   Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy,
   which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, the string-like
   concept, and a view over a null-terminated byte string. From the standard library it re-exports toy::size_t,
-  toy::ptrdiff_t, and toy::nullptr_t, the fixed-width integers toy::int8_t through toy::uint64_t, toy::to_underlying,
-  toy::array, toy::char_traits, and toy::strncpy. The header also defines the assert and assert_message macros, which
-  call into that reporting.
+  toy::ptrdiff_t, toy::nullptr_t, and toy::numeric_limits, the fixed-width integers toy::int8_t through toy::uint64_t,
+  toy::to_underlying, toy::array, toy::min, toy::char_traits, and toy::strncpy. The header also defines the assert and
+  assert_message macros, which call into that reporting.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -34,12 +34,14 @@
 #ifndef INCLUDE_CORE_HPP_
 #define INCLUDE_CORE_HPP_
 
+#include <algorithm>
 #include <array>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
 #include <iterator>
+#include <limits>
 #include <string_view>
 #include <type_traits>
 #include <utility>
@@ -73,12 +75,20 @@ using std::ptrdiff_t;
 /*!
   \brief Type of the null pointer literal \c nullptr; converts to any pointer or pointer-to-member type
 
-  \note An overload taking this type answers the null case on its own, so a call passing \c nullptr never reaches the
-        pointer overload beside it.
+  \note An overload taking this type catches \c nullptr before the pointer overload beside it does.
 
   \sa https://cppreference.com/cpp/types/nullptr_t
 */
 using std::nullptr_t;
+
+/*!
+  \brief Properties of an arithmetic type, among them its lowest and highest values; alias for std::numeric_limits.
+
+  \note For a floating-point type min() is the smallest positive value; lowest() is the most negative one.
+
+  \sa https://en.cppreference.com/w/cpp/types/numeric_limits.html
+*/
+using std::numeric_limits;
 
 //--------------------------------------------------------------------------------------------------------------------
 
@@ -127,6 +137,19 @@ using std::to_underlying;
   \sa https://en.cppreference.com/w/cpp/container/array.html
 */
 using std::array;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Algorithms library https://cppreference.com/cpp/algorithm
+
+/*!
+  \brief Smaller of two values, the first one when they compare equal; alias for std::min.
+
+  \note Returns a reference to an argument, so a \c const \c & bound to it dangles when that argument was a temporary.
+
+  \sa https://cppreference.com/cpp/algorithm/min
+*/
+using std::min;
 
 //--------------------------------------------------------------------------------------------------------------------
 

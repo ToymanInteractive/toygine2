@@ -31,6 +31,10 @@ __attribute__((visibility("default"))) void * memcpy(void * dest, const void * s
 __attribute__((visibility("default"))) void * memmove(void * dest, const void * src, size_t count);
 __attribute__((visibility("default"))) void * memset(void * dest, int ch, size_t count);
 
+__attribute__((visibility("default"))) int memcmp(const void * lhs, const void * rhs, size_t count);
+__attribute__((visibility("default"))) void * memchr(const void * ptr, int ch, size_t count);
+
+__attribute__((visibility("default"))) size_t strlen(const char * str);
 __attribute__((visibility("default"))) char * strncpy(char * dest, const char * src, size_t count);
 
 #ifdef __cplusplus

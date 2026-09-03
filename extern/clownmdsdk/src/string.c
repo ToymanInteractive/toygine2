@@ -21,6 +21,43 @@
 #include <stdint.h>
 #include <string.h>
 
+int memcmp(const void* const lhs, const void* const rhs, const size_t count)
+{
+	const unsigned char* const left = lhs;
+	const unsigned char* const right = rhs;
+	size_t index;
+
+	// Report the ordering of the first pair of bytes that differ, compared as unsigned.
+	for (index = 0; index != count; ++index)
+		if (left[index] != right[index])
+			return left[index] < right[index] ? -1 : 1;
+
+	return 0;
+}
+
+void* memchr(const void* const ptr, const int ch, const size_t count)
+{
+	const unsigned char* const bytes = ptr;
+	const unsigned char value = (unsigned char)ch;
+	size_t index;
+
+	for (index = 0; index != count; ++index)
+		if (bytes[index] == value)
+			return (void*)&bytes[index];
+
+	return NULL;
+}
+
+size_t strlen(const char* const str)
+{
+	size_t length;
+
+	for (length = 0; str[length] != '\0'; ++length)
+		;
+
+	return length;
+}
+
 char* strncpy(char* const dest, const char* const src, const size_t count)
 {
 	size_t index;

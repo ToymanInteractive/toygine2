@@ -43,10 +43,6 @@ file(GLOB_RECURSE PLATFORM_HDR_EXTERN_LIST CONFIGURE_DEPENDS
 
 source_group("Platform\\Extern"      FILES ${PLATFORM_SRC_EXTERN_LIST}      ${PLATFORM_HDR_EXTERN_LIST})
 
-# The overlay is SDK code and uses the GNU C dialect the SDK builds it in; the engine's own C is ISO
-# (CMAKE_C_EXTENSIONS is OFF), which rejects the asm keyword these routines are written with.
-set_source_files_properties(${PLATFORM_SRC_EXTERN_LIST} PROPERTIES COMPILE_OPTIONS -std=gnu17)
-
 include_directories(BEFORE ${CLOWNMDSDK_OVERLAY_DIR}/include)
 
 list(APPEND SRC_LIST ${PLATFORM_SRC_EXTERN_LIST})
