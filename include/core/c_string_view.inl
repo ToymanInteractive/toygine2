@@ -208,6 +208,203 @@ constexpr bool CStringView::ends_with(const value_type * s) const noexcept {
   return ends_with(CStringView(s));
 }
 
+constexpr bool CStringView::contains(CStringView sv) const noexcept {
+  return find(sv) != npos;
+}
+
+constexpr bool CStringView::contains(value_type ch) const noexcept {
+  return find(ch) != npos;
+}
+
+constexpr bool CStringView::contains(const value_type * s) const noexcept {
+  return find(s) != npos;
+}
+
+constexpr CStringView::size_type CStringView::find(CStringView v, size_type pos) const noexcept {
+  return find(v.data(), pos, v.size());
+}
+
+constexpr CStringView::size_type CStringView::find(value_type ch, size_type pos) const noexcept {
+  for (size_type index = pos; index < size(); ++index)
+    if (traits_type::eq(_data[index], ch))
+      return index;
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find(const value_type * s, size_type pos,
+                                                   size_type count) const noexcept {
+  if (count == 0)
+    return pos <= size() ? pos : npos;
+  else if (count > size())
+    return npos;
+
+  const size_type last = size() - count;
+  for (size_type index = pos; index <= last; ++index)
+    if (traits_type::compare(_data + index, s, count) == 0)
+      return index;
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find(const value_type * s, size_type pos) const noexcept {
+  return find(CStringView(s), pos);
+}
+
+constexpr CStringView::size_type CStringView::rfind(CStringView v, size_type pos) const noexcept {
+  return rfind(v.data(), pos, v.size());
+}
+
+constexpr CStringView::size_type CStringView::rfind(value_type ch, size_type pos) const noexcept {
+  if (empty())
+    return npos;
+
+  for (size_type index = std::min(pos, size() - 1);; --index) {
+    if (traits_type::eq(_data[index], ch))
+      return index;
+
+    if (index == 0)
+      break;
+  }
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::rfind(const value_type * s, size_type pos,
+                                                    size_type count) const noexcept {
+  if (count == 0)
+    return std::min(pos, size());
+  else if (count > size())
+    return npos;
+
+  for (size_type index = std::min(pos, size() - count);; --index) {
+    if (traits_type::compare(_data + index, s, count) == 0)
+      return index;
+
+    if (index == 0)
+      break;
+  }
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::rfind(const value_type * s, size_type pos) const noexcept {
+  return rfind(CStringView(s), pos);
+}
+
+constexpr CStringView::size_type CStringView::find_first_of(CStringView v, size_type pos) const noexcept {
+  return find_first_of(v.data(), pos, v.size());
+}
+
+constexpr CStringView::size_type CStringView::find_first_of(value_type ch, size_type pos) const noexcept {
+  return find(ch, pos);
+}
+
+constexpr CStringView::size_type CStringView::find_first_of(const value_type * s, size_type pos,
+                                                            size_type count) const noexcept {
+  for (size_type index = pos; index < size(); ++index)
+    if (traits_type::find(s, count, _data[index]) != nullptr)
+      return index;
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find_first_of(const value_type * s, size_type pos) const noexcept {
+  return find_first_of(CStringView(s), pos);
+}
+
+constexpr CStringView::size_type CStringView::find_last_of(CStringView v, size_type pos) const noexcept {
+  return find_last_of(v.data(), pos, v.size());
+}
+
+constexpr CStringView::size_type CStringView::find_last_of(value_type ch, size_type pos) const noexcept {
+  return rfind(ch, pos);
+}
+
+constexpr CStringView::size_type CStringView::find_last_of(const value_type * s, size_type pos,
+                                                           size_type count) const noexcept {
+  if (empty() || count == 0)
+    return npos;
+
+  for (size_type index = std::min(pos, size() - 1);; --index) {
+    if (traits_type::find(s, count, _data[index]) != nullptr)
+      return index;
+
+    if (index == 0)
+      break;
+  }
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find_last_of(const value_type * s, size_type pos) const noexcept {
+  return find_last_of(CStringView(s), pos);
+}
+
+constexpr CStringView::size_type CStringView::find_first_not_of(CStringView v, size_type pos) const noexcept {
+  return find_first_not_of(v.data(), pos, v.size());
+}
+
+constexpr CStringView::size_type CStringView::find_first_not_of(value_type ch, size_type pos) const noexcept {
+  for (size_type index = pos; index < size(); ++index)
+    if (!traits_type::eq(_data[index], ch))
+      return index;
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find_first_not_of(const value_type * s, size_type pos,
+                                                                size_type count) const noexcept {
+  for (size_type index = pos; index < size(); ++index)
+    if (traits_type::find(s, count, _data[index]) == nullptr)
+      return index;
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find_first_not_of(const value_type * s, size_type pos) const noexcept {
+  return find_first_not_of(CStringView(s), pos);
+}
+
+constexpr CStringView::size_type CStringView::find_last_not_of(CStringView v, size_type pos) const noexcept {
+  return find_last_not_of(v.data(), pos, v.size());
+}
+
+constexpr CStringView::size_type CStringView::find_last_not_of(value_type ch, size_type pos) const noexcept {
+  if (empty())
+    return npos;
+
+  for (size_type index = std::min(pos, size() - 1);; --index) {
+    if (!traits_type::eq(_data[index], ch))
+      return index;
+
+    if (index == 0)
+      break;
+  }
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find_last_not_of(const value_type * s, size_type pos,
+                                                               size_type count) const noexcept {
+  if (empty())
+    return npos;
+
+  for (size_type index = std::min(pos, size() - 1);; --index) {
+    if (traits_type::find(s, count, _data[index]) == nullptr)
+      return index;
+
+    if (index == 0)
+      break;
+  }
+
+  return npos;
+}
+
+constexpr CStringView::size_type CStringView::find_last_not_of(const value_type * s, size_type pos) const noexcept {
+  return find_last_not_of(CStringView(s), pos);
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_VIEW_INL_
