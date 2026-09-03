@@ -72,17 +72,28 @@ constexpr size_t c_repeatedLength = char_traits<char>::length(c_repeated);
   return view;
 }
 
+// Byte no copy ever writes, so anything the call leaves past its count shows up against it.
+constexpr char c_sentinel = '#';
+
+// Caller storage prefilled with the sentinel.
+[[nodiscard]] constexpr array<char, 16> sentinelBuffer() noexcept {
+  array<char, 16> buffer{};
+  buffer.fill(c_sentinel);
+
+  return buffer;
+}
+
 // Count a copy writes, so a constant expression can drive the one member that touches caller storage.
 [[nodiscard]] constexpr size_t copiedCount(const char * string, size_t count, size_t pos) noexcept {
-  char buffer[16] = {};
+  array<char, 16> buffer = sentinelBuffer();
 
-  return CStringView(string).copy(buffer, count, pos);
+  return CStringView(string).copy(buffer.data(), count, pos);
 }
 
 // Character a copy leaves at an offset in caller storage.
 [[nodiscard]] constexpr char copiedAt(const char * string, size_t count, size_t index) noexcept {
-  char buffer[16] = {};
-  CStringView(string).copy(buffer, count);
+  array<char, 16> buffer = sentinelBuffer();
+  CStringView(string).copy(buffer.data(), count);
 
   return buffer[index];
 }
@@ -331,34 +342,34 @@ TEST_CASE("c_string_view/swap") {
 TEST_CASE("c_string_view/copy") {
   const CStringView view(c_sample);
 
-  char buffer[16] = {};
-  CHECK(view.copy(buffer, 4) == 4);
-  CHECK(char_traits<char>::compare(buffer, c_samplePrefix, 4) == 0);
+  array<char, 16> buffer = sentinelBuffer();
+  CHECK(view.copy(buffer.data(), 4) == 4);
+  CHECK(char_traits<char>::compare(buffer.data(), c_samplePrefix, 4) == 0);
+
+  // The call writes characters only; the sentinel past the count survives, so no terminator was added.
+  CHECK(buffer[4] == c_sentinel);
 
   // A count past the end copies what remains rather than reading past the terminator.
-  char tail[16] = {};
-  CHECK(view.copy(tail, 32, 2) == c_sampleLength - 2);
-  CHECK(char_traits<char>::compare(tail, "ayer", 4) == 0);
-
-  // The call writes characters only; the terminator stays the caller's business.
-  char exact[16] = {};
-  CHECK(view.copy(exact, c_sampleLength) == c_sampleLength);
-  CHECK(exact[c_sampleLength] == '\0');
+  array<char, 16> tail = sentinelBuffer();
+  CHECK(view.copy(tail.data(), 32, 2) == c_sampleLength - 2);
+  CHECK(char_traits<char>::compare(tail.data(), "ayer", 4) == 0);
+  CHECK(tail[c_sampleLength - 2] == c_sentinel);
 
   // Starting at the end names an empty range rather than a range out of bounds.
-  char none[16] = {};
-  CHECK(view.copy(none, 4, c_sampleLength) == 0);
-  CHECK(none[0] == '\0');
+  array<char, 16> none = sentinelBuffer();
+  CHECK(view.copy(none.data(), 4, c_sampleLength) == 0);
+  CHECK(none[0] == c_sentinel);
 
   // A view holding no character can be copied from; there is simply nothing to write.
-  CHECK(CStringView("").copy(none, 4) == 0);
-  CHECK(CStringView().copy(none, 4) == 0);
+  CHECK(CStringView("").copy(none.data(), 4) == 0);
+  CHECK(CStringView().copy(none.data(), 4) == 0);
+  CHECK(none[0] == c_sentinel);
 
   static_assert(copiedCount(c_sample, 4, 0) == 4, "a copy writes what the count names");
   static_assert(copiedCount(c_sample, 32, 2) == c_sampleLength - 2, "a copy stops at the end of the string");
   static_assert(copiedCount(c_sample, 4, c_sampleLength) == 0, "a copy starting at the end writes nothing");
   static_assert(copiedAt(c_sample, 4, 0) == 'p', "a copy writes the characters the view holds");
-  static_assert(copiedAt(c_sample, 4, 4) == '\0', "a copy writes nothing past its count");
+  static_assert(copiedAt(c_sample, 4, 4) == c_sentinel, "a copy writes nothing past its count");
 }
 
 // The sign each comparison of two whole strings yields.
@@ -404,6 +415,7 @@ TEST_CASE("c_string_view/compare_substring") {
   CHECK(view.compare(0, 4, c_countedPart, 4) == 0);
   CHECK(view.compare(0, 2, c_countedPart, 2) == 0);
   CHECK(view.compare(0, 4, c_embeddedNull, 4) > 0);
+  CHECK(CStringView("pl").compare(0, 2, c_embeddedNull, 4) < 0);
 
   static_assert(c_sampleView.compare(0, 4, CStringView(c_samplePrefix)) == 0,
                 "a part must compare equal to the string it repeats");
@@ -416,6 +428,7 @@ TEST_CASE("c_string_view/compare_substring") {
                 "a counted argument needs no terminator to compare against");
   static_assert(c_sampleView.compare(0, 4, c_embeddedNull, 4) > 0,
                 "a terminator inside the count is an ordinary character");
+  static_assert(CStringView("pl").compare(0, 2, c_embeddedNull, 4) < 0, "the count sets the length, not a terminator");
 }
 
 // Whether the viewed string opens with the characters the argument names.

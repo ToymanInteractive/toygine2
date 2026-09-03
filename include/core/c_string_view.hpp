@@ -297,7 +297,7 @@ public:
 
     \return Reference to the character at \a pos.
 
-    \pre \a pos is at most size(), checked by assert_message in debug builds.
+    \pre \a pos is less than size(), checked by assert_message in debug builds.
 
     \sa at()
     \sa front()
@@ -448,7 +448,7 @@ public:
     \return Count of characters written: \a count, or what is left after \a pos, whichever is smaller, and
             \c 0 when \a pos is size().
 
-    \pre \a pos is less than size(), checked by assert_message in debug builds.
+    \pre \a pos is at most size(), checked by assert_message in debug builds.
     \pre \a dest addresses at least as many characters as the call returns.
 
     \note The call writes no terminator; whether the copy needs one is the caller's decision.
