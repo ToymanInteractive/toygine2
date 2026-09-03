@@ -150,7 +150,7 @@ constexpr int CStringView::compare(CStringView v) const noexcept {
 }
 
 constexpr int CStringView::compare(size_type pos1, size_type count1, CStringView v) const noexcept {
-  assert_message(pos1 <= size() && pos1 + count1 <= size(), "Range out of bounds");
+  assert_message(pos1 <= size() && count1 <= size() - pos1, "Range out of bounds");
 
   const int retVal = traits_type::compare(data() + pos1, v.data(), min(count1, v.size()));
   if (retVal == 0)
@@ -161,8 +161,8 @@ constexpr int CStringView::compare(size_type pos1, size_type count1, CStringView
 
 constexpr int CStringView::compare(size_type pos1, size_type count1, CStringView v, size_type pos2,
                                    size_type count2) const noexcept {
-  assert_message(pos1 <= size() && pos1 + count1 <= size(), "Range out of bounds");
-  assert_message(pos2 <= v.size() && pos2 + count2 <= v.size(), "Range out of bounds");
+  assert_message(pos1 <= size() && count1 <= size() - pos1, "Range out of bounds");
+  assert_message(pos2 <= v.size() && count2 <= v.size() - pos2, "Range out of bounds");
 
   const int retVal = traits_type::compare(data() + pos1, v.data() + pos2, min(count1, count2));
   if (retVal == 0)
@@ -181,7 +181,7 @@ constexpr int CStringView::compare(size_type pos1, size_type count1, const value
 
 constexpr int CStringView::compare(size_type pos1, size_type count1, const value_type * s,
                                    size_type count2) const noexcept {
-  assert_message(pos1 <= size() && pos1 + count1 <= size(), "Range out of bounds");
+  assert_message(pos1 <= size() && count1 <= size() - pos1, "Range out of bounds");
   assert_message(s != nullptr, "C string must not be null");
 
   const int retVal = traits_type::compare(data() + pos1, s, min(count1, count2));
