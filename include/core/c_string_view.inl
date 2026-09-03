@@ -108,7 +108,7 @@ constexpr CStringView::size_type CStringView::length() const noexcept {
 }
 
 constexpr CStringView::size_type CStringView::max_size() const noexcept {
-  return std::numeric_limits<size_type>::max() / sizeof(value_type);
+  return numeric_limits<size_type>::max() / sizeof(value_type);
 }
 
 constexpr bool CStringView::empty() const noexcept {
