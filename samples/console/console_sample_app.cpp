@@ -130,8 +130,7 @@ int main() {
   while (appletMainLoop()) {
     padUpdate(&pad);
 
-    u64 kDown = padGetButtonsDown(&pad);
-    if (kDown & HidNpadButton_Plus)
+    if (padGetButtonsDown(&pad) & HidNpadButton_Plus)
       break;
 
     consoleUpdate(NULL);

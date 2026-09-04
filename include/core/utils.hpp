@@ -36,22 +36,45 @@ namespace toy {
   \brief Counts the characters a UTF-8 string encodes.
 
   Walks the string one lead byte at a time and steps over the sequence that byte announces, so a character stored in
-  two, three, or four bytes counts once.
+  two, three, or four bytes counts once. The walk trusts the width the lead byte announces; toy::validateUtf8() is what
+  checks the bytes behind it.
 
   \param str Null-terminated UTF-8 string to measure.
 
-  \return Count of encoded characters, \c 0 over an empty string, and \c 0 when a byte starts no valid sequence or
-          the terminator cuts one short.
+  \return Count of encoded characters, \c 0 over an empty string, and \c 0 where the walk stops early.
 
   \pre \a str is non-null, checked by assert_message in debug builds; a shipping build counts \c 0 instead.
-  \pre \a str holds well-formed UTF-8. A malformed byte and a truncated sequence each fail an assert_message check in
-       debug builds and end the count at \c 0 in a shipping build.
+  \pre \a str holds well-formed UTF-8, checked with toy::validateUtf8() by assert_message in debug builds. A shipping
+       build skips that check: a byte starting no sequence and a sequence the terminator cuts short each end the count
+       at \c 0, while an overlong, a surrogate, and a code point past U+10FFFF each count as one character.
 
   \note The count is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
   \note The walk stops at the terminator and never reads past it, whatever width a lead byte announces.
-  \note Continuation bytes are tested against the terminator alone; their values stay unvalidated.
+
+  \sa toy::validateUtf8()
 */
 [[nodiscard]] size_t utf8Len(const char * str) noexcept;
+
+/*!
+  \brief Reports whether a byte string is well-formed UTF-8.
+
+  Checks every sequence against Unicode table 3-7: the lead byte, the narrowed range of the byte after it, and the
+  10xxxxxx form of the rest. That rejects an overlong encoding, a surrogate, and a code point past U+10FFFF, each of
+  which a lead byte alone admits.
+
+  \param str Null-terminated byte string to check.
+
+  \return \c true when every sequence is well-formed, \c false at the first that is not and \c false for a null \a str.
+          An empty string is well-formed.
+
+  \note Asserts nothing, so it reads as the condition of an assert_message check — which is how utf8Len() states its
+        precondition.
+  \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
+  \note Cost is O(n) in the length of the string, one pass, so a caller checking before a walk pays for two.
+
+  \sa toy::utf8Len()
+*/
+[[nodiscard]] bool validateUtf8(const char * str) noexcept;
 
 } // namespace toy
 

@@ -414,8 +414,7 @@ public:
 
     \return Count of encoded characters, \c 0 over an empty string and \c 0 while the view holds no string.
 
-    \pre The viewed string holds well-formed UTF-8. Malformed bytes fail an assert_message check in debug builds and
-         count \c 0 in a shipping build.
+    \pre The viewed string holds well-formed UTF-8.
 
     \note The count matches size() only where every character is ASCII.
     \note The count is a runtime one, unlike the rest of the view: it calls toy::utf8Len(), which is defined in a
