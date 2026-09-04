@@ -21,8 +21,8 @@
   \file   utils.cpp
   \brief  Implementation details for the core string and UTF-8 utilities.
 
-  Defines the internal UTF-8 character-size lookup table used for O(1) sequence-length decoding; further utility
-  definitions are added here as the API grows.
+  Defines toy::utf8Len() and the internal UTF-8 character-size lookup table it reads for O(1) lead-byte classification;
+  further utility definitions are added here as the API grows.
 */
 
 #include "core.hpp"
@@ -69,5 +69,31 @@ constexpr array<uint8_t, 256> c_utf8CharSizeTable{
 };
 
 } // namespace
+
+size_t utf8Len(const char * str) noexcept {
+  assert_message(str != nullptr, "C string must not be null");
+  if (str == nullptr)
+    return 0;
+
+  size_t size = 0;
+  while (*str != '\0') {
+    const auto symbolLength = c_utf8CharSizeTable[bit_cast<uint8_t>(*str)];
+    assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
+    if (symbolLength == 0)
+      return 0;
+
+    // The lead byte announces the width; the terminator may still cut the sequence short of it.
+    for (uint8_t offset = 1; offset < symbolLength; ++offset) {
+      assert_message(str[offset] != '\0', "Truncated UTF-8 symbol");
+      if (str[offset] == '\0')
+        return 0;
+    }
+
+    str += symbolLength;
+    ++size;
+  }
+
+  return size;
+}
 
 } // namespace toy

@@ -298,6 +298,23 @@ TEST_CASE("c_string_view/capacity") {
                 "npos must be the largest value the length type carries");
 }
 
+// How many characters the viewed string holds, against the bytes it measures.
+TEST_CASE("c_string_view/utf8_size") {
+  const CStringView view(c_sample);
+
+  // An ASCII string stores one byte per character, so both counts agree.
+  CHECK(view.utf8_size() == view.size());
+
+  // Cyrillic stores two bytes per character, so the character count is half the byte count.
+  const CStringView cyrillic("привет");
+  CHECK(cyrillic.utf8_size() == cyrillic.size() / 2);
+
+  CHECK(CStringView("").utf8_size() == 0);
+
+  // A view over no string counts nothing, the way it reports no length.
+  CHECK(CStringView().utf8_size() == 0);
+}
+
 // Where the view starts reading after it drops leading characters.
 TEST_CASE("c_string_view/remove_prefix") {
   CStringView view(c_sample);

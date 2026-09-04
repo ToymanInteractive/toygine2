@@ -27,6 +27,8 @@
 #ifndef INCLUDE_CORE_C_STRING_VIEW_INL_
 #define INCLUDE_CORE_C_STRING_VIEW_INL_
 
+#include "utils.hpp"
+
 namespace toy {
 
 constexpr CStringView::CStringView(const char * string) noexcept
@@ -109,6 +111,10 @@ constexpr CStringView::size_type CStringView::length() const noexcept {
 
 constexpr CStringView::size_type CStringView::max_size() const noexcept {
   return numeric_limits<size_type>::max() / sizeof(value_type);
+}
+
+inline CStringView::size_type CStringView::utf8_size() const noexcept {
+  return _data != nullptr ? utf8Len(_data) : 0;
 }
 
 constexpr bool CStringView::empty() const noexcept {

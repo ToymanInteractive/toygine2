@@ -245,6 +245,7 @@ All documentation must be:
 * **Present tense, active voice:** "Returns the element count", not "Will return" or "The count is returned"; a `\param` is a noun phrase, not a sentence about the caller.
 * **Do not restate the signature:** a block says what the declaration cannot. Never open a `\brief` with the symbol's name — in a `\file` block, with the file name the `\file` tag already carries — nor spell out a visible type.
 * **One fact per tag:** one line per `\note`, `\warning` only for what breaks a caller, 2-3 `\sa` links at most (see **Notes and Warnings**, **See-Also Tags**).
+* **Say nothing the build already guarantees:** the C++23 baseline, exceptions and RTTI off, warnings as errors — name one only where the symbol departs from it. The fixed **Exception safety** entry is the one deliberate repetition (see **Class Sections Detail**).
 * **No abbreviations** beyond the domain terms the code uses (see Naming under **Code Quality**).
 * **Examples compile:** a `\section usage` block builds as written, lifted from a sample or a test, never from memory (see Documented and demonstrated under **API Design Principles**).
 
@@ -277,6 +278,8 @@ Every header file (`.hpp` and `.inl`) carries a `\file` block; a translation uni
 * **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
 * **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add the **`\note Included by …`** line exactly as in the template below, spelling the barrel per Barrel include policy under **Cross-References**.
 * **`.cpp`** — keep the `\brief` short:  “Implementation of …” or “Definitions for …” with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
+* **One paragraph, three lines at most:** a `\file` block orients; what a symbol is, guarantees, or costs belongs in that symbol's own block (see Say it once, then link under **Documentation Philosophy**).
+* **Never an inventory:** no `\file` block lists what a header declares, re-exports, or includes — Doxygen generates those lists, a hand-written one goes stale (see Stale is worse than absent). An umbrella names what it aggregates and defines, never the names it re-exports.
 
 #### Template: public header (`.hpp`)
 
@@ -341,7 +344,7 @@ Always follow this order:
 6. `\section usage Usage Example` — code block
 7. `\section performance Performance Characteristics` — Big-O complexity
 8. `\section safety Safety Guarantees`
-9. `\section compatibility Compatibility` — platform/standard (optional)
+9. `\section compatibility Compatibility` — platform reach and integration (optional)
 10. `\note` — notes
 11. `\warning` — warnings (if needed)
 12. `\sa` — related classes/types
@@ -414,7 +417,7 @@ The class block, with these deltas:
   ```
 
 * `\section performance` states the type's actual memory model — fixed at compile time and heap-free only where that is the contract; `\section safety` carries **Type safety**: uses C++23 concepts.
-* `\section compatibility` where the parameters constrain use — C++ standard, cross-platform support, embedded suitability where the type allocates nothing dynamically.
+* `\section compatibility` where the parameters constrain use — cross-platform reach, embedded suitability where the type allocates nothing dynamically.
 * `\warning` after `\note` where a parameter choice can be got wrong (see **Notes and Warnings**).
 
 #### Struct
@@ -461,7 +464,7 @@ concept ConceptName = /* ... */;
 * **`\section usage Usage Example`** — the `#include` a consumer actually writes (module barrel or root umbrella, never an internal header — see **Project Structure**), then the call sequence end to end: construction, the operation, what the caller does with the result. Provenance and compilability follow Examples compile under **Writing Style**.
 * **`\section performance Performance Characteristics`** — Big-O complexity for key operations, memory usage where it matters.
 * **`\section safety Safety Guarantees`** — contracts, bounds safety, type safety, allocation behavior; which invariants `assert_message` checks in debug and what a violation does in a shipping build. **Exception safety** is a fixed entry: no operation throws, exceptions being off in the build; name an operation `noexcept` only where the declaration carries the specifier (see Failure under **What to Document**, Language subset under **Lint Rules**).
-* **`\section compatibility Compatibility`** (optional) — only where the type has a special requirement: C++ standard, STL integration, cross-platform reach, embedded suitability.
+* **`\section compatibility Compatibility`** (optional) — only where the type departs from what the build guarantees everywhere: STL integration, a target where the symbol is absent or degraded, embedded suitability. Neither the standard a feature needs nor header-only versus linked delivery counts; with nothing left, omit the section (see Say nothing the build already guarantees under **Writing Style**).
 
 ### Concept Documentation
 

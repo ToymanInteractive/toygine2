@@ -47,7 +47,7 @@ namespace toy {
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
   * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
-  * **Constexpr support**: every operation evaluates in a constant expression.
+  * **Constexpr support**: every operation except utf8_size() evaluates in a constant expression.
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
   * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
     view.
@@ -90,6 +90,8 @@ namespace toy {
   * **Character-set search**: O(n * m) in the length of the view and the size of the set.
   * **Comparison**: O(n) in the shorter of the two lengths; equality stops on a length mismatch before reading a
     character.
+  * **UTF-8 character count**: O(n) in the length of the string, one walk over the lead bytes; nothing is cached
+    between calls.
   * **Memory usage**: one pointer and one length, 16 bytes on a 64-bit target and 8 bytes on a 32-bit one.
 
   \section c_string_view_safety Safety Guarantees
@@ -105,8 +107,7 @@ namespace toy {
 
   \section c_string_view_compatibility Compatibility
 
-  * Requires C++20 for the conditional \c explicit specifier on the pointer constructor.
-  * Header-only, and no operation allocates or calls into the platform, so the type suits embedded and retro targets.
+  * No operation allocates or calls into the platform, so the type suits embedded and retro targets.
 
   \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
   \note A default-constructed view holds a null pointer, not a pointer to an empty string.
@@ -404,6 +405,25 @@ public:
     \sa size()
   */
   [[nodiscard]] constexpr size_type max_size() const noexcept;
+
+  /*!
+    \brief Counts the characters the viewed string encodes in UTF-8.
+
+    Reads the viewed bytes as UTF-8 and counts a character once, whatever width it is stored in, where size() reports
+    the bytes those characters occupy.
+
+    \return Count of encoded characters, \c 0 over an empty string and \c 0 while the view holds no string.
+
+    \pre The viewed string holds well-formed UTF-8. Malformed bytes fail an assert_message check in debug builds and
+         count \c 0 in a shipping build.
+
+    \note The count matches size() only where every character is ASCII.
+    \note The count is a runtime one, unlike the rest of the view: it calls toy::utf8Len(), which is defined in a
+          translation unit.
+
+    \sa size()
+  */
+  [[nodiscard]] size_type utf8_size() const noexcept;
 
   /*!
     \brief Reports whether the view holds no character.

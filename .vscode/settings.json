@@ -20,7 +20,8 @@
         "nodiscard",
         "picobench",
         "toygine",
-        "toyman"
+        "toyman",
+        "unvalidated"
     ],
     "C_Cpp.autocompleteAddParentheses": true,
     "C_Cpp.clang_format_fallbackStyle": "Google",
