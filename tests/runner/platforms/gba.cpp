@@ -89,8 +89,7 @@ void writeLine(const char * text, std::size_t length, const void * writerData) n
 
   printf("%.*s", static_cast<int>(count), text);
 
-  const bool mGBADetected = *static_cast<const bool *>(writerData);
-  if (mGBADetected)
+  if (const bool mGBADetected = *static_cast<const bool *>(writerData); mGBADetected)
     mGBAWriteToDebugLog(text, length);
 }
 

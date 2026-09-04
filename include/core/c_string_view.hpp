@@ -47,12 +47,14 @@ namespace toy {
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
   * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
-  * **Constexpr support**: every operation evaluates in a constant expression.
+  * **Constexpr support**: every operation except utf8_size() evaluates in a constant expression.
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
   * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
     view.
   * **Search set**: substring, character, and character-set searches in both directions, each matching the
     \c std::string_view contract.
+  * **Ordered comparison**: equality and a three-way order over the bytes, against another view or a null-terminated
+    byte string.
   * **Type safety**: construction from \c nullptr is deleted, so the null case fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -75,6 +77,7 @@ namespace toy {
 
   const size_t extension = path.rfind('.');
   const bool   named     = path.contains(name);
+  const bool   isPlayer  = name == "player";
   \endcode
 
   \section c_string_view_performance Performance Characteristics
@@ -85,6 +88,10 @@ namespace toy {
   * **Substring search**: O(n * m) in the length of the view and the length of the needle; nothing is indexed or
     cached between calls.
   * **Character-set search**: O(n * m) in the length of the view and the size of the set.
+  * **Comparison**: O(n) in the shorter of the two lengths; equality stops on a length mismatch before reading a
+    character.
+  * **UTF-8 character count**: O(n) in the length of the string, one walk over the lead bytes; nothing is cached
+    between calls.
   * **Memory usage**: one pointer and one length, 16 bytes on a 64-bit target and 8 bytes on a 32-bit one.
 
   \section c_string_view_safety Safety Guarantees
@@ -100,8 +107,7 @@ namespace toy {
 
   \section c_string_view_compatibility Compatibility
 
-  * Requires C++20 for the conditional \c explicit specifier on the pointer constructor.
-  * Header-only, and no operation allocates or calls into the platform, so the type suits embedded and retro targets.
+  * No operation allocates or calls into the platform, so the type suits embedded and retro targets.
 
   \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
   \note A default-constructed view holds a null pointer, not a pointer to an empty string.
@@ -399,6 +405,24 @@ public:
     \sa size()
   */
   [[nodiscard]] constexpr size_type max_size() const noexcept;
+
+  /*!
+    \brief Counts the characters the viewed string encodes in UTF-8.
+
+    Reads the viewed bytes as UTF-8 and counts a character once, whatever width it is stored in, where size() reports
+    the bytes those characters occupy.
+
+    \return Count of encoded characters, \c 0 over an empty string and \c 0 while the view holds no string.
+
+    \pre The viewed string holds well-formed UTF-8.
+
+    \note The count matches size() only where every character is ASCII.
+    \note The count is a runtime one, unlike the rest of the view: it calls toy::utf8Len(), which is defined in a
+          translation unit.
+
+    \sa size()
+  */
+  [[nodiscard]] size_type utf8_size() const noexcept;
 
   /*!
     \brief Reports whether the view holds no character.
@@ -1138,6 +1162,47 @@ public:
 
   /// Offset no character sits at, returned by every search that matches nothing
   static constexpr const size_type npos = -1;
+
+  /*!
+    \brief Reports whether two views read the same characters.
+
+    Compares the lengths first and the bytes only when those match. Either side converts from a null-terminated byte
+    string, so a literal compares against a view directly. A literal \c nullptr meets the deleted constructor and
+    fails to compile.
+
+    \param lhs View on the left of the operator.
+    \param rhs View on the right of the operator.
+
+    \return \c true when both views hold the same length and the same bytes, \c false otherwise.
+
+    \note The compiler synthesizes \c != from this operator.
+    \note A view over no string and a view over an empty string both report a length of \c 0, which makes them equal.
+
+    \sa operator<=>()
+    \sa compare(CStringView)
+  */
+  friend constexpr bool operator==(CStringView lhs, CStringView rhs) noexcept;
+
+  /*!
+    \brief Orders two views lexicographically.
+
+    Reads the bytes in order and settles a tie on the lengths, so a string that starts another one orders before it.
+    Either side converts from a null-terminated byte string, as equality does.
+
+    \param lhs View on the left of the operator.
+    \param rhs View on the right of the operator.
+
+    \return \c strong_ordering::less when \a lhs orders first, \c strong_ordering::equal when both hold the same
+            characters, \c strong_ordering::greater when \a rhs orders first.
+
+    \note The compiler synthesizes \c <, \c <=, \c >, and \c >= from this operator.
+    \note Bytes order by their \c unsigned \c char value, so the order holds on a target whose plain \c char is signed.
+    \note The order consults no locale, which makes it identical across runs and targets.
+
+    \sa operator==()
+    \sa compare(CStringView)
+  */
+  friend constexpr traits_type::comparison_category operator<=>(CStringView lhs, CStringView rhs) noexcept;
 
 private:
   /// First character of the viewed string, \c nullptr while the view holds none

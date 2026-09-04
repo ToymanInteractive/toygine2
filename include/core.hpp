@@ -21,12 +21,8 @@
   \file   core.hpp
   \brief  Umbrella header for the engine core module.
 
-  Single public entry point for the core module. It aggregates the module's public headers into namespace \ref toy,
-  which so far provide assertion reporting, the opt-in bitwise operators for flag enumerations, the string-like
-  concept, and a view over a null-terminated byte string. From the standard library it re-exports toy::size_t,
-  toy::ptrdiff_t, toy::nullptr_t, and toy::numeric_limits, the fixed-width integers toy::int8_t through toy::uint64_t,
-  toy::to_underlying, toy::array, toy::min, toy::char_traits, and toy::strncpy. The header also defines the assert and
-  assert_message macros, which call into that reporting.
+  Single public entry point for the core module: aggregates its public headers into namespace \ref toy, re-exports the
+  standard-library names the engine builds on, and defines the assert and assert_message macros.
 
   \note Include this header only; do not include internal headers directly.
 */
@@ -36,6 +32,7 @@
 
 #include <algorithm>
 #include <array>
+#include <bit>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -55,12 +52,12 @@
 */
 namespace toy {
 
-// Type support (basic types, RTTI) https://en.cppreference.com/cpp/types
+// Type support (basic types, RTTI) https://cppreference.com/cpp/types
 
 /*!
   \brief Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
 
-  \sa https://en.cppreference.com/cpp/types/size_t
+  \sa https://cppreference.com/cpp/types/size_t
 */
 using std::size_t;
 
@@ -68,7 +65,7 @@ using std::size_t;
   \brief Signed integer type large enough to hold the difference between two pointers; result type of pointer
          subtraction
 
-  \sa https://en.cppreference.com/cpp/types/ptrdiff_t
+  \sa https://cppreference.com/cpp/types/ptrdiff_t
 */
 using std::ptrdiff_t;
 
@@ -86,7 +83,7 @@ using std::nullptr_t;
 
   \note For a floating-point type min() is the smallest positive value; lowest() is the most negative one.
 
-  \sa https://en.cppreference.com/w/cpp/types/numeric_limits.html
+  \sa https://cppreference.com/w/cpp/types/numeric_limits.html
 */
 using std::numeric_limits;
 
@@ -118,23 +115,37 @@ using std::uint64_t;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-// (lvl 1)               Utility library https://en.cppreference.com/cpp/utility
+// (lvl 1)               Utility library https://cppreference.com/cpp/utility
 
 /*!
   \brief Value of an enumerator in the underlying type of its enumeration; alias for std::to_underlying.
 
-  \sa https://en.cppreference.com/cpp/utility/to_underlying
+  \sa https://cppreference.com/cpp/utility/to_underlying
 */
 using std::to_underlying;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-// (lvl 1)               Containers library https://en.cppreference.com/w/cpp/container.html
+// (lvl 1)               Utility library https://cppreference.com/cpp/utility
+// (lvl 2)               Bit manipulation https://cppreference.com/cpp/utility/bit
+
+/*!
+  \brief Value of one type read from the object representation of another of the same size; alias for std::bit_cast.
+
+  \note Both types must be trivially copyable, and a pointer or union member in either bars constant evaluation.
+
+  \sa https://cppreference.com/cpp/numeric/bit_cast
+*/
+using std::bit_cast;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+// (lvl 1)               Containers library https://cppreference.com/w/cpp/container.html
 
 /*!
   \brief Fixed-size array container with a compile-time constant number of elements; alias for std::array.
 
-  \sa https://en.cppreference.com/w/cpp/container/array.html
+  \sa https://cppreference.com/w/cpp/container/array.html
 */
 using std::array;
 
@@ -281,6 +292,7 @@ using std::strncpy;
 #include "core/bitwise_enum.hpp"
 #include "core/c_string_view.hpp"
 #include "core/string_like.hpp"
+#include "core/utils.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 
