@@ -42,6 +42,9 @@ constexpr char         c_countedPart[4]  = {'p', 'l', 'a', 'y'};
 // A terminator inside the counted range, which a measured length would stop at.
 constexpr char         c_embeddedNull[5] = {'p', 'l', '\0', 'a', 'y'};
 
+// A byte above the ASCII range, which orders after an ASCII one only where bytes compare as unsigned char.
+constexpr const char * c_highByte = "\xff";
+
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
 constexpr const char * c_repeated       = "abracadabra";
 constexpr const char * c_repeatedLonger = "abracadabra and then some";
@@ -429,6 +432,65 @@ TEST_CASE("c_string_view/compare_substring") {
   static_assert(c_sampleView.compare(0, 4, c_embeddedNull, 4) > 0,
                 "a terminator inside the count is an ordinary character");
   static_assert(CStringView("pl").compare(0, 2, c_embeddedNull, 4) < 0, "the count sets the length, not a terminator");
+}
+
+// Whether two views hold the same characters, and what the synthesized inequality reports.
+TEST_CASE("c_string_view/equality") {
+  const CStringView view(c_sample);
+
+  CHECK(view == CStringView(c_sample));
+  CHECK_FALSE(view == CStringView(c_samplePrefix));
+  CHECK(view != CStringView(c_sampleLonger));
+
+  // Either side converts from a null-terminated string, so a literal compares against a view directly.
+  CHECK(view == c_sample);
+  CHECK(c_sample == view);
+  CHECK(view != c_samplePrefix);
+
+  // A view over no string and one over an empty string both hold no character.
+  CHECK(CStringView() == CStringView(""));
+  CHECK(CStringView() == CStringView());
+
+  static_assert(c_sampleView == CStringView(c_sample), "a string must compare equal to itself");
+  static_assert(!(c_sampleView == CStringView(c_samplePrefix)), "strings of different lengths must not compare equal");
+  static_assert(c_sampleView != CStringView(c_sampleLonger), "the synthesized inequality must negate the comparison");
+  static_assert(c_sampleView == c_sample, "a null-terminated string converts on either side");
+  static_assert(CStringView() == CStringView(""), "a view over no string equals a view over an empty one");
+}
+
+// Where a view sits in a lexicographic order, and what the synthesized relations report.
+TEST_CASE("c_string_view/ordering") {
+  const CStringView view(c_sample);
+
+  CHECK((view <=> CStringView(c_sample)) == std::strong_ordering::equal);
+  CHECK((view <=> CStringView(c_samplePrefix)) == std::strong_ordering::greater);
+  CHECK((view <=> CStringView("playz")) == std::strong_ordering::less);
+
+  // A string that starts another one orders before it, the tie settled on the lengths.
+  CHECK(CStringView(c_samplePrefix) < view);
+  CHECK(view < CStringView(c_sampleLonger));
+  CHECK(view <= CStringView(c_sample));
+  CHECK(view >= CStringView(c_sample));
+  CHECK(view > CStringView("plaa"));
+
+  // Either side converts from a null-terminated string, the way equality accepts one.
+  CHECK(view > c_samplePrefix);
+  CHECK(c_samplePrefix < view);
+
+  // Bytes order by their unsigned value, so a high byte sits after an ASCII one even where plain char is signed.
+  CHECK(CStringView(c_highByte) > CStringView("a"));
+
+  CHECK((CStringView() <=> CStringView("")) == std::strong_ordering::equal);
+
+  static_assert((c_sampleView <=> CStringView(c_sample)) == std::strong_ordering::equal,
+                "a string must order equal to itself");
+  static_assert((c_sampleView <=> CStringView(c_samplePrefix)) == std::strong_ordering::greater,
+                "a longer string sharing a prefix must order after the shorter one");
+  static_assert(c_sampleView < CStringView(c_sampleLonger), "the synthesized relations must follow the ordering");
+  static_assert(c_sampleView > c_samplePrefix, "a null-terminated string converts on either side");
+  static_assert(CStringView(c_highByte) > CStringView("a"), "bytes must order by their unsigned char value");
+  static_assert((CStringView() <=> CStringView("")) == std::strong_ordering::equal,
+                "a view over no string orders equal to a view over an empty one");
 }
 
 // Whether the viewed string opens with the characters the argument names.

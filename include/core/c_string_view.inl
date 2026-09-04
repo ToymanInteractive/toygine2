@@ -380,6 +380,14 @@ constexpr CStringView::size_type CStringView::find_last_not_of(const value_type 
   return find_last_not_of(CStringView(s), pos);
 }
 
+constexpr bool operator==(CStringView lhs, CStringView rhs) noexcept {
+  return lhs.size() == rhs.size() && lhs.compare(rhs) == 0;
+}
+
+constexpr CStringView::traits_type::comparison_category operator<=>(CStringView lhs, CStringView rhs) noexcept {
+  return lhs.compare(rhs) <=> 0;
+}
+
 } // namespace toy
 
 #endif // INCLUDE_CORE_C_STRING_VIEW_INL_
