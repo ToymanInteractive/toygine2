@@ -28,13 +28,13 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /Zc:alignedNew
+    # last option is /Zc:enumTypes
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")

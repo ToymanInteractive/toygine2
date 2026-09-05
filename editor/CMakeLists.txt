@@ -18,9 +18,9 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-cmake_minimum_required(VERSION 3.24)
+cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
-project(toygine2_editor VERSION 0.1.0 LANGUAGES CXX OBJCXX)
+project(ToyGine2Editor LANGUAGES C CXX OBJCXX VERSION 26.17.0 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
 
 if(NOT APPLE)
   message(FATAL_ERROR "The editor bootstrap currently targets macOS only (Cocoa + MoltenVK).")
@@ -36,7 +36,12 @@ if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum macOS version" FORCE)
 endif()
 
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
 include(FetchContent)
+
+# Declares the ckdl target and the kdl::kdl alias without running ckdl's own CMakeLists.
+include(ckdl)
 
 # Vulkan-Headers and volk are pinned to exact tags. Bump both together in a dedicated change.
 FetchContent_Declare(
