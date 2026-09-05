@@ -21,8 +21,9 @@
   \file   context.hpp
   \brief  Per-run state of the built-in test runner.
 
-  Defines \ref toy::test::Context and \ref toy::test::failure_reporter_type: the counters, the per-case verdict and the
-  info stack a reporter reads back. Driven by toy::test::runCase() and read back by whichever runner prints the run.
+  Defines \ref toy::test::Context and \ref toy::test::failure_reporter_type: the counters, the per-case verdict, the
+  subcase names and the info stack a reporter reads back. Driven by toy::test::runCase() and by the run that writes the
+  report; read back by whichever runner prints it.
 
   \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
         type.
@@ -67,10 +68,11 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 
   \section features Key Features
 
-  * **Allocation-free**: fixed-size info stack, no container and no heap
+  * **Allocation-free**: fixed-size info stack and subcase-name table, no container and no heap
   * **Explicit context**: no global state, so two runners can coexist in one process
   * **Reporter seam**: failures leave through a function pointer carrying caller-owned data, not a virtual call
   * **Per-case verdict**: totals span the run while caseFailed() covers the running case
+  * **Branch layout**: subcaseCount() and subcaseNameAt() report the branches one run of a body reveals
 
   \section usage Usage Example
 
@@ -86,7 +88,7 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 
   * **Construction**: O(1) constant time
   * **record()**: O(1) constant time
-  * **Memory usage**: 8 info entries plus counters, about 200 bytes
+  * **Memory usage**: 8 info entries, 16 subcase names and the counters, about 400 bytes
 
   \section safety Safety Guarantees
 
@@ -103,6 +105,9 @@ class Context final {
 public:
   /// Depth of the info stack; messages beyond it are dropped.
   static constexpr std::size_t c_maxInfoDepth = 8;
+
+  /// Number of subcase names kept for the report; a case with more still runs, and the names past it are lost.
+  static constexpr std::size_t c_maxSubcaseNames = 16;
 
   /*!
     \brief Builds a context reporting failures through \a reporter.
@@ -126,7 +131,7 @@ public:
 
     \param name  Case name; must outlive the run.
 
-    \post caseFailed() is \c false, caseName() returns \a name, totals are unchanged.
+    \post caseFailed() is \c false, caseName() returns \a name, no subcase name is recorded, totals are unchanged.
   */
   void beginCase(const char * name) noexcept;
 
@@ -187,6 +192,9 @@ public:
 
     \return \c true when this run targets the subcase and the body must execute.
 
+    \post The name is readable through subcaseNameAt(), unless the subcase sits past
+          \ref toy::test::Context::c_maxSubcaseNames.
+
     \post On a nested entry the nested flag is raised and \c false is returned.
 
     \note Called by \ref toy::test::detail::SubcaseGuard, not from a test body.
@@ -194,6 +202,20 @@ public:
     \sa leaveSubcase()
   */
   bool enterSubcase(const char * name) noexcept;
+
+  /*!
+    \brief Returns the name of the subcase a given run enters.
+
+    \param index  Zero-based position of the subcase in declaration order.
+
+    \return Name recorded for the subcase, \c nullptr past what the case revealed or past
+            \ref toy::test::Context::c_maxSubcaseNames.
+
+    \note Names are recorded on every run, so one run of a case is enough to read them back.
+
+    \sa subcaseCount()
+  */
+  [[nodiscard]] const char * subcaseNameAt(std::size_t index) const noexcept;
 
   /*!
     \brief Leaves the entered subcase.
@@ -240,20 +262,21 @@ public:
   [[nodiscard]] const char * subcaseName() const noexcept;
 
 private:
-  failure_reporter_type                 _reporter;
-  void *                                _reporterData;
-  const char *                          _caseName;
-  const char *                          _subcaseName;
-  std::size_t                           _passedCount;
-  std::size_t                           _failedCount;
-  std::size_t                           _infoDepth;
-  bool                                  _caseFailed;
-  std::size_t                           _targetSubcase;
-  std::size_t                           _seenSubcases;
-  std::size_t                           _subcaseCount;
-  bool                                  _insideSubcase;
-  bool                                  _nestedSubcase;
-  std::array<InfoEntry, c_maxInfoDepth> _infoStack;
+  failure_reporter_type                       _reporter;
+  void *                                      _reporterData;
+  const char *                                _caseName;
+  const char *                                _subcaseName;
+  std::size_t                                 _passedCount;
+  std::size_t                                 _failedCount;
+  std::size_t                                 _infoDepth;
+  bool                                        _caseFailed;
+  std::size_t                                 _targetSubcase;
+  std::size_t                                 _seenSubcases;
+  std::size_t                                 _subcaseCount;
+  bool                                        _insideSubcase;
+  bool                                        _nestedSubcase;
+  std::array<InfoEntry, c_maxInfoDepth>       _infoStack;
+  std::array<const char *, c_maxSubcaseNames> _subcaseNames;
 };
 
 } // namespace toy::test

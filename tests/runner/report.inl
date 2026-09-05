@@ -32,11 +32,25 @@ inline ReportWriter::ReportWriter(write_function_type write, const void * writer
   : _write{write}
   , _writerData{writerData} {}
 
+inline void ReportWriter::openLine() noexcept {
+  if (_length != 0)
+    return;
+
+  while (_length < _indent && _length < c_lineCapacity) {
+    _buffer[_length] = ' ';
+    ++_length;
+  }
+}
+
 inline void ReportWriter::addText(const char * text) noexcept {
+  openLine();
+
   _length = appendText(_buffer, c_lineCapacity, _length, text);
 }
 
 inline void ReportWriter::addDescription(const char * text) noexcept {
+  openLine();
+
   _length = appendEscaped(_buffer, c_lineCapacity, _length, text);
 }
 
@@ -44,11 +58,15 @@ inline void ReportWriter::addQuoted(const char * text) noexcept {
   // flush() spends the last byte of a full line on the line break, which would take the closing quote with it.
   constexpr std::size_t quotedCapacity = c_lineCapacity - 1;
 
+  openLine();
+
   if (_length <= quotedCapacity)
     _length = appendQuoted(_buffer, quotedCapacity, _length, text);
 }
 
 inline void ReportWriter::addInteger(long long value) noexcept {
+  openLine();
+
   _length = appendInteger(_buffer, c_lineCapacity, _length, value);
 }
 
@@ -64,11 +82,21 @@ inline void ReportWriter::flush() noexcept {
   _length = 0;
 }
 
-inline void ReportWriter::beginCase(std::size_t number, const char * name) noexcept {
-  _caseName        = name;
-  _caseNumber      = number;
-  _caseReported    = false;
-  _diagnosticsOpen = false;
+inline void ReportWriter::beginPoint(std::size_t number, const char * description) noexcept {
+  _pointDescription = description;
+  _pointNumber      = number;
+  _pointReported    = false;
+  _diagnosticsOpen  = false;
+}
+
+inline void ReportWriter::setIndent(std::size_t spaces) noexcept {
+  _indent = spaces;
+}
+
+inline void ReportWriter::writePlan(std::size_t count) noexcept {
+  addText("1..");
+  addInteger(static_cast<long long>(count));
+  flush();
 }
 
 inline void ReportWriter::openDiagnostics() noexcept {
@@ -88,7 +116,7 @@ inline bool ReportWriter::diagnosticsOpen() const noexcept {
   return _diagnosticsOpen;
 }
 
-inline void ReportWriter::endCase() noexcept {
+inline void ReportWriter::endPoint() noexcept {
   if (!_diagnosticsOpen)
     return;
 
@@ -99,15 +127,15 @@ inline void ReportWriter::endCase() noexcept {
 }
 
 inline void ReportWriter::writeVerdict(bool failed) noexcept {
-  if (_caseReported)
+  if (_pointReported)
     return;
 
-  _caseReported = true;
+  _pointReported = true;
 
   addText(failed ? "not ok " : "ok ");
-  addInteger(static_cast<long long>(_caseNumber));
+  addInteger(static_cast<long long>(_pointNumber));
   addText(" - ");
-  addDescription(_caseName);
+  addDescription(_pointDescription);
 
   flush();
 }
@@ -143,12 +171,6 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
   writer.addQuoted(failure.expression);
   writer.flush();
 
-  if (failure.subcaseName != nullptr) {
-    writer.addText("      subcase: ");
-    writer.addQuoted(failure.subcaseName);
-    writer.flush();
-  }
-
   if (context.infoCount() > 0) {
     writer.addText("      info:");
     writer.flush();
@@ -167,6 +189,76 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
       writer.flush();
     }
   }
+}
+
+inline void reportSubtest(ReportWriter & writer, Context & context, const Context & probe,
+                          const CaseRegistrar & registrar, std::size_t subcaseCount) noexcept {
+  TOY_TEST_ASSERT(subcaseCount > 0, "a subtest must hold at least one branch");
+
+  constexpr std::size_t subtestIndent = 4;
+
+  // The header names the subtest, and TAP requires the point closing it to carry the same description.
+  writer.addText("# Subtest: ");
+  writer.addText(registrar.name());
+  writer.flush();
+
+  writer.setIndent(subtestIndent);
+
+  context.beginCase(registrar.name());
+
+  for (std::size_t index = 0; index < subcaseCount; ++index) {
+    const char * const subcaseName = probe.subcaseNameAt(index);
+
+    writer.beginPoint(index + 1, subcaseName != nullptr ? subcaseName : registrar.name());
+
+    context.beginRun(index);
+    registrar.body()(context);
+
+    // Prints only for a branch that failed nothing, since a failure inside it wrote the verdict already.
+    writer.writeVerdict(false);
+    writer.endPoint();
+  }
+
+  TOY_TEST_ASSERT(context.subcaseCount() == subcaseCount, "the reported runs must cover every branch the probe found");
+
+  writer.writePlan(subcaseCount);
+  writer.setIndent(0);
+}
+
+inline void reportCase(ReportWriter & writer, Context & context, const CaseRegistrar & registrar,
+                       std::size_t number) noexcept {
+  // A subtest prints its whole document before the test point that closes it, so the branches of a case must be known
+  // before its first line. A silent context runs the body once to reveal them, which a deterministic body repeats.
+  Context probe{nullptr};
+
+  probe.beginCase(registrar.name());
+  probe.beginRun(0);
+  registrar.body()(probe);
+
+  const std::size_t subcaseCount = probe.subcaseCount();
+
+  if (subcaseCount == 0) {
+    writer.beginPoint(number, registrar.name());
+
+    runCase(context, registrar.name(), registrar.body());
+  } else {
+    reportSubtest(writer, context, probe, registrar, subcaseCount);
+
+    writer.beginPoint(number, registrar.name());
+  }
+
+  // A nested subcase condemns the case, so the test point must read "not ok" even when every assertion passed.
+  if (context.nestedSubcaseDetected()) {
+    writer.writeVerdict(true);
+    writer.openDiagnostics();
+    writer.addText("  error: ");
+    writer.addQuoted("nested subcase");
+    writer.flush();
+  }
+
+  // Prints only for a point that reached here unprinted, since a failure inside the case wrote the verdict already.
+  writer.writeVerdict(context.caseFailed());
+  writer.endPoint();
 }
 
 } // namespace detail
@@ -194,29 +286,14 @@ inline int writeReport(write_function_type write, const void * writerData, const
 
   for (const CaseRegistrar * node = head; node != nullptr; node = node->next()) {
     ++caseCount;
-    writer.beginCase(caseCount, node->name());
 
-    runCase(context, node->name(), node->body());
+    detail::reportCase(writer, context, *node, caseCount);
 
-    // A nested subcase condemns the case, so the test point must read "not ok" even when every assertion passed.
-    if (context.nestedSubcaseDetected()) {
-      nestedSeen = true;
-
-      writer.writeVerdict(true);
-      writer.openDiagnostics();
-      writer.addText("  error: ");
-      writer.addQuoted("nested subcase");
-      writer.flush();
-    }
-
-    // Prints only for a case that reached here without a failure, since the verdict is already written otherwise.
-    writer.writeVerdict(false);
-    writer.endCase();
+    // The flag survives until the next case starts, so the run reads it back here rather than through a return value.
+    nestedSeen = nestedSeen || context.nestedSubcaseDetected();
   }
 
-  writer.addText("1..");
-  writer.addInteger(static_cast<long long>(caseCount));
-  writer.flush();
+  writer.writePlan(caseCount);
 
   writer.addText("# assertions passed=");
   writer.addInteger(static_cast<long long>(context.passedCount()));

@@ -40,7 +40,8 @@ inline Context::Context(failure_reporter_type reporter, void * reporterData) noe
   , _subcaseCount{0}
   , _insideSubcase{false}
   , _nestedSubcase{false}
-  , _infoStack{} {}
+  , _infoStack{}
+  , _subcaseNames{} {}
 
 inline void Context::beginCase(const char * name) noexcept {
   _caseName      = name;
@@ -52,6 +53,8 @@ inline void Context::beginCase(const char * name) noexcept {
   _subcaseCount  = 0;
   _insideSubcase = false;
   _nestedSubcase = false;
+
+  _subcaseNames.fill(nullptr);
 }
 
 inline bool Context::record(bool passed, const char * expression, const char * file, int line) noexcept {
@@ -142,6 +145,10 @@ inline bool Context::enterSubcase(const char * name) noexcept {
   if (index >= _subcaseCount)
     _subcaseCount = index + 1;
 
+  // Recorded on every run, including the ones that skip this subcase, so a single run reveals the whole layout.
+  if (index < c_maxSubcaseNames)
+    _subcaseNames[index] = name;
+
   if (index != _targetSubcase)
     return false;
 
@@ -154,6 +161,10 @@ inline bool Context::enterSubcase(const char * name) noexcept {
 inline void Context::leaveSubcase() noexcept {
   _insideSubcase = false;
   _subcaseName   = nullptr;
+}
+
+inline const char * Context::subcaseNameAt(std::size_t index) const noexcept {
+  return index < c_maxSubcaseNames ? _subcaseNames[index] : nullptr;
 }
 
 inline std::size_t Context::subcaseCount() const noexcept {

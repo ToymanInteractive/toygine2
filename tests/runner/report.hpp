@@ -22,9 +22,9 @@
   \brief  Writer of the TAP version 14 report shared by every runner binary.
 
   Defines \ref toy::test::write_function_type and \ref toy::test::detail::ReportWriter: the line buffer and the walk
-  over a case registry that turn a run into a TAP document. Sits on top of toy_test.hpp rather than inside it, because
-  output is what consumes the runner, not part of it. Used by the runner's entry point and by its unit test, which
-  reads the report back through a writer of its own.
+  over a case registry that turn a run into a TAP document, subtests included. Sits on top of toy_test.hpp rather than
+  inside it, because output is what consumes the runner, not part of it. Used by the runner's entry point and by its
+  unit test, which reads the report back through a writer of its own.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_REPORT_HPP_
@@ -57,15 +57,16 @@ namespace detail {
   \brief Line buffer and per-case verdict state of the TAP report.
 
   Builds one line at a time in a fixed buffer and hands it to the writer given at construction. Also holds the running
-  case, so the test point prints once however many failures the case records.
+  test point, so it prints once however many failures land under it, and the indent a TAP subtest needs.
 
   \section features Key Features
 
   * **Allocation-free**: one fixed buffer, no container and no heap
   * **Freestanding**: formats integers and text without \c <cstdio> or \c <charconv>
-  * **Verdict once**: writeVerdict() prints the test point of a case at most once
+  * **Verdict once**: writeVerdict() prints the running test point at most once
+  * **Subtest indent**: setIndent() shifts every following line, so a nested document keeps its four spaces
   * **TAP escaping**: addDescription() escapes the backslash and the hash, which TAP reads as syntax
-  * **YAML diagnostics**: one block per test point, opened by the first failure and closed by endCase()
+  * **YAML diagnostics**: one block per test point, opened by the first failure and closed by endPoint()
   * **Truncating**: a line past the buffer is cut and still terminated, never overflowed
 
   \section usage Usage Example
@@ -73,22 +74,22 @@ namespace detail {
   \code
   toy::test::detail::ReportWriter writer{&write, &destination};
 
-  writer.beginCase(1, "core/fixed_string/append");
+  writer.beginPoint(1, "core/fixed_string/append");
   writer.writeVerdict(false);
-  writer.endCase();
+  writer.endPoint();
   \endcode
 
   \section performance Performance Characteristics
 
   * **Construction**: O(1) constant time
   * **addText(), addDescription() and addQuoted()**: O(n) in the text length
-  * **Memory usage**: 256-byte line buffer plus six words
+  * **Memory usage**: 256-byte line buffer plus seven words
 
   \section safety Safety Guarantees
 
   * **Contracts**: none; a line past the capacity is truncated, not asserted
   * **Bounds safety**: every append stops at the buffer's capacity
-  * **Memory safety**: no ownership of the case name, which must outlive the run
+  * **Memory safety**: no ownership of the point description, which must outlive the run
   * **Exception safety**: No operation throws; exceptions are off in the build
 
   \note Every line the writer emits ends in a newline, so a writer may treat one call as one line.
@@ -176,19 +177,41 @@ public:
   void flush() noexcept;
 
   /*!
-    \brief Starts a case and clears its verdict.
+    \brief Starts a test point and clears its verdict.
 
-    \param number  Position of the case in the run, counted from one.
-    \param name    Case name; must outlive the run.
+    \param number       Position of the point in the document it belongs to, counted from one.
+    \param description  Text following the point number; must outlive the run.
 
-    \post writeVerdict() will print a test point for this case, and no diagnostic block is open.
+    \post writeVerdict() will print this point, and no diagnostic block is open.
+
+    \sa endPoint()
   */
-  void beginCase(std::size_t number, const char * name) noexcept;
+  void beginPoint(std::size_t number, const char * description) noexcept;
 
   /*!
-    \brief Opens the YAML diagnostic block of the running case unless it is already open.
+    \brief Sets the indent every following line opens with.
 
-    \post The block is open and endCase() closes it.
+    \param spaces  Number of leading spaces (default: \c 0 at construction).
+
+    \post Lines started after this call carry \a spaces leading spaces.
+
+    \note A TAP subtest indents its document by four, and the YAML block inside it by two more.
+  */
+  void setIndent(std::size_t spaces) noexcept;
+
+  /*!
+    \brief Writes the plan line of the document being built.
+
+    \param count  Number of test points the document holds.
+
+    \note The plan of a subtest carries the indent of its document, the plan of the run carries none.
+  */
+  void writePlan(std::size_t count) noexcept;
+
+  /*!
+    \brief Opens the YAML diagnostic block of the running test point unless it is already open.
+
+    \post The block is open and endPoint() closes it.
 
     \note A test point carries at most one diagnostic block, so every failure of a case writes into the same one.
 
@@ -196,38 +219,42 @@ public:
   */
   void openDiagnostics() noexcept;
 
-  /// Returns whether the running case has an open diagnostic block.
+  /// Returns whether the running test point has an open diagnostic block.
   [[nodiscard]] bool diagnosticsOpen() const noexcept;
 
   /*!
-    \brief Ends the running case, closing its diagnostic block when one is open.
+    \brief Ends the running test point, closing its diagnostic block when one is open.
 
     \post No diagnostic block is open.
 
-    \sa beginCase()
+    \sa beginPoint()
   */
-  void endCase() noexcept;
+  void endPoint() noexcept;
 
   /*!
-    \brief Prints the test point of the running case unless it is already printed.
+    \brief Prints the running test point unless it is already printed.
 
     \param failed  \c true for a \c "not ok" line, \c false for an \c "ok" one.
 
-    \post The running case has a test point; a later call prints nothing.
+    \post The running point is printed; a later call prints nothing.
 
-    \note A case failing after its test point is printed keeps the verdict of the first call, which is why the failing
-          caller prints first and the passing one last.
+    \note A point failing after it is printed keeps the verdict of the first call, which is why the failing caller
+          prints first and the passing one last.
 
-    \sa beginCase()
+    \sa beginPoint()
   */
   void writeVerdict(bool failed) noexcept;
 
 private:
+  /// Opens a line with the indent set by setIndent(), doing nothing once the line has bytes in it.
+  void openLine() noexcept;
+
   write_function_type _write;
   const void *        _writerData;
-  const char *        _caseName{nullptr};
-  std::size_t         _caseNumber{0};
-  bool                _caseReported{false};
+  const char *        _pointDescription{nullptr};
+  std::size_t         _pointNumber{0};
+  std::size_t         _indent{0};
+  bool                _pointReported{false};
   bool                _diagnosticsOpen{false};
   char                _buffer[c_lineCapacity]{};
   std::size_t         _length{0};
@@ -248,14 +275,52 @@ private:
 */
 void reportFailure(const Context & context, const FailureRecord & failure, void * reporterData) noexcept;
 
+/*!
+  \brief Runs every branch of a case and writes the TAP subtest they form.
+
+  \param writer        Writer the document is built with.
+  \param context       Context the branches run against; its case is restarted here.
+  \param probe         Context that already ran the body once, read for the branch names.
+  \param registrar     Registry node holding the case name and body.
+  \param subcaseCount  Number of branches the probe revealed.
+
+  \pre \a subcaseCount is above zero.
+
+  \post The subtest document is written, the indent is back to zero, and the point closing the subtest is not written
+        yet.
+
+  \note A branch the probe left unnamed takes the case name, which happens past
+        \ref toy::test::Context::c_maxSubcaseNames.
+*/
+void reportSubtest(ReportWriter & writer, Context & context, const Context & probe, const CaseRegistrar & registrar,
+                   std::size_t subcaseCount) noexcept;
+
+/*!
+  \brief Runs one case and writes its test point, or the subtest a case with branches becomes.
+
+  \param writer     Writer the document is built with.
+  \param context    Context the case runs against.
+  \param registrar  Registry node holding the case name and body.
+  \param number     Position of the case in the run, counted from one.
+
+  \post The case has been probed and run, and its test point is written.
+
+  \note The body runs once against a silent context before anything is printed, because the shape of the case decides
+        its first line.
+
+  \sa \ref toy::test::Context
+*/
+void reportCase(ReportWriter & writer, Context & context, const CaseRegistrar & registrar, std::size_t number) noexcept;
+
 } // namespace detail
 
 /*!
   \brief Runs every case in a registry and writes the TAP report.
 
-  Prints the version line, one test point per case in registry order, the plan line and a summary comment. A repeated
-  case name ends the document with \c "Bail out!" before any body executes, because two cases sharing a name cannot be
-  told apart in a report.
+  Prints the version line, one test point per case in registry order, the plan line and a summary comment. A case
+  declaring subcases prints as a TAP subtest instead: one point per branch, then the point closing it. A repeated case
+  name ends the document with \c "Bail out!" before any body executes, because two cases sharing a name cannot be told
+  apart in a report.
 
   \param write       Function receiving each line of the report; must not be \c nullptr.
   \param writerData  Storage handed back to \a write on every call; may be \c nullptr.
@@ -263,8 +328,10 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
 
   \return \c 0 when every assertion passed, \c 1 on any failure or a nested subcase, \c 2 on a duplicate case name.
 
-  \post Every case in the registry has run, unless a duplicate name bailed the run out.
+  \post Every case in the registry has been probed and run, unless a duplicate name bailed the run out.
 
+  \note A silent probe run reveals the branches of a case before its first line is printed, so a body must reach the
+        same branches on every run.
   \note A failing case carries its diagnostics in the YAML block under its test point.
   \note Allocates nothing and touches no global state: the run state and the line buffer are local, so two reports can
         be written in one process.

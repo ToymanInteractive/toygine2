@@ -19,7 +19,7 @@
 //
 /*!
   \file   report.test.cpp
-  \brief  Unit tests for the TAP report: test point per case, YAML diagnostics, plan line, summary and exit code.
+  \brief  Unit tests for the TAP report: test points, subtests, YAML diagnostics, plan line, summary and exit code.
 */
 
 #include <cstddef>
@@ -165,8 +165,8 @@ TEST_CASE("test/write_report/failures_share_one_case_header") {
                            "# assertions passed=0 failed=2\n");
 }
 
-// Three branches give three runs of the body, so the summary counts three passing assertions under one test point.
-TEST_CASE("test/write_report/subcases_run_once_each_under_one_entry") {
+// Three branches give three runs of the body, and each run is a test point of the subtest the case becomes.
+TEST_CASE("test/write_report/subcases_print_a_subtest_per_branch") {
   toy::test::CaseRegistrar * head = nullptr;
 
   toy::test::CaseRegistrar only{head, "sample/subcases", "a.cpp", 1, &bodyRunsThreeSubcases};
@@ -178,6 +178,11 @@ TEST_CASE("test/write_report/subcases_run_once_each_under_one_entry") {
 
   REQUIRE(code == 0);
   REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/subcases\n"
+                           "    ok 1 - first\n"
+                           "    ok 2 - second\n"
+                           "    ok 3 - third\n"
+                           "    1..3\n"
                            "ok 1 - sample/subcases\n"
                            "1..1\n"
                            "# assertions passed=3 failed=0\n");
@@ -196,6 +201,9 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
 
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/nested\n"
+                           "    ok 1 - outer\n"
+                           "    1..1\n"
                            "not ok 1 - sample/nested\n"
                            "  ---\n"
                            "  severity: fail\n"
@@ -205,8 +213,8 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
                            "# assertions passed=0 failed=0\n");
 }
 
-// The subcase and the info entries live at the moment of the failure, so both reach the list item under it.
-TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
+// The info entries live at the moment of the failure, so they reach the list item under the branch that failed.
+TEST_CASE("test/write_report/failure_block_carries_info") {
   toy::test::CaseRegistrar * head = nullptr;
 
   toy::test::CaseRegistrar only{head, "sample/info", "a.cpp", 1, &bodyFailsInsideSubcase};
@@ -218,19 +226,21 @@ TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
 
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/info\n"
+                           "    not ok 1 - branch\n"
+                           "      ---\n"
+                           "      severity: fail\n"
+                           "      failures:\n"
+                           "        - at:\n"
+                           "            file: 'info.cpp'\n"
+                           "            line: 33\n"
+                           "          expr: 'values[index] == 0'\n"
+                           "          info:\n"
+                           "            - text: 'index'\n"
+                           "              value: 7\n"
+                           "      ...\n"
+                           "    1..1\n"
                            "not ok 1 - sample/info\n"
-                           "  ---\n"
-                           "  severity: fail\n"
-                           "  failures:\n"
-                           "    - at:\n"
-                           "        file: 'info.cpp'\n"
-                           "        line: 33\n"
-                           "      expr: 'values[index] == 0'\n"
-                           "      subcase: 'branch'\n"
-                           "      info:\n"
-                           "        - text: 'index'\n"
-                           "          value: 7\n"
-                           "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=1\n");
 }
