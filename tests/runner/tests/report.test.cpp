@@ -19,7 +19,7 @@
 //
 /*!
   \file   report.test.cpp
-  \brief  Unit tests for the TAP report: test point per case, failure blocks, plan line, summary and exit code.
+  \brief  Unit tests for the TAP report: test point per case, YAML diagnostics, plan line, summary and exit code.
 */
 
 #include <cstddef>
@@ -62,6 +62,12 @@ void bodyPasses(toy::test::Context & toyTestContext) {
 void bodyFailsTwice(toy::test::Context & context) {
   static_cast<void>(context.record(false, "1 == 2", "first.cpp", 11));
   static_cast<void>(context.record(false, "2 == 3", "second.cpp", 22));
+}
+
+// A colon inside a plain YAML scalar starts a mapping and an apostrophe closes a quoted one, so both go through the
+// writer that quotes.
+void bodyFailsWithAwkwardText(toy::test::Context & context) {
+  static_cast<void>(context.record(false, "map['a: b'] == c", "od'd.cpp", 7));
 }
 
 void bodyRunsThreeSubcases(toy::test::Context & toyTestContext) {
@@ -129,7 +135,7 @@ TEST_CASE("test/write_report/passing_run_prints_an_entry_per_case") {
                            "# assertions passed=2 failed=0\n");
 }
 
-// Two failures in one case share a single test point and each print their own location block.
+// Two failures in one case share a single test point, and the YAML block under it carries one list item each.
 TEST_CASE("test/write_report/failures_share_one_case_header") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -143,12 +149,18 @@ TEST_CASE("test/write_report/failures_share_one_case_header") {
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TAP version 14\n"
                            "not ok 1 - sample/fails\n"
-                           "  file: first.cpp\n"
-                           "  line: 11\n"
-                           "  expr: 1 == 2\n"
-                           "  file: second.cpp\n"
-                           "  line: 22\n"
-                           "  expr: 2 == 3\n"
+                           "  ---\n"
+                           "  severity: fail\n"
+                           "  failures:\n"
+                           "    - at:\n"
+                           "        file: 'first.cpp'\n"
+                           "        line: 11\n"
+                           "      expr: '1 == 2'\n"
+                           "    - at:\n"
+                           "        file: 'second.cpp'\n"
+                           "        line: 22\n"
+                           "      expr: '2 == 3'\n"
+                           "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=2\n");
 }
@@ -185,12 +197,15 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TAP version 14\n"
                            "not ok 1 - sample/nested\n"
-                           "  error: nested subcase\n"
+                           "  ---\n"
+                           "  severity: fail\n"
+                           "  error: 'nested subcase'\n"
+                           "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=0\n");
 }
 
-// The subcase and the info entries live at the moment of the failure, so both reach the block under it.
+// The subcase and the info entries live at the moment of the failure, so both reach the list item under it.
 TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -204,11 +219,45 @@ TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
   REQUIRE(code == 1);
   REQUIRE_REPORT(captured, "TAP version 14\n"
                            "not ok 1 - sample/info\n"
-                           "  file: info.cpp\n"
-                           "  line: 33\n"
-                           "  expr: values[index] == 0\n"
-                           "  subcase: branch\n"
-                           "  info: index: 7\n"
+                           "  ---\n"
+                           "  severity: fail\n"
+                           "  failures:\n"
+                           "    - at:\n"
+                           "        file: 'info.cpp'\n"
+                           "        line: 33\n"
+                           "      expr: 'values[index] == 0'\n"
+                           "      subcase: 'branch'\n"
+                           "      info:\n"
+                           "        - text: 'index'\n"
+                           "          value: 7\n"
+                           "  ...\n"
+                           "1..1\n"
+                           "# assertions passed=0 failed=1\n");
+}
+
+// The bytes that would end a scalar early reach the block quoted: the apostrophe doubled, the colon left alone inside
+// the quotes it can no longer escape.
+TEST_CASE("test/write_report/failure_block_quotes_yaml_syntax") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/awkward", "a.cpp", 1, &bodyFailsWithAwkwardText};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 1);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "not ok 1 - sample/awkward\n"
+                           "  ---\n"
+                           "  severity: fail\n"
+                           "  failures:\n"
+                           "    - at:\n"
+                           "        file: 'od''d.cpp'\n"
+                           "        line: 7\n"
+                           "      expr: 'map[''a: b''] == c'\n"
+                           "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=1\n");
 }

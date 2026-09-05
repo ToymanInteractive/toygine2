@@ -65,6 +65,7 @@ namespace detail {
   * **Freestanding**: formats integers and text without \c <cstdio> or \c <charconv>
   * **Verdict once**: writeVerdict() prints the test point of a case at most once
   * **TAP escaping**: addDescription() escapes the backslash and the hash, which TAP reads as syntax
+  * **YAML diagnostics**: one block per test point, opened by the first failure and closed by endCase()
   * **Truncating**: a line past the buffer is cut and still terminated, never overflowed
 
   \section usage Usage Example
@@ -74,13 +75,14 @@ namespace detail {
 
   writer.beginCase(1, "core/fixed_string/append");
   writer.writeVerdict(false);
+  writer.endCase();
   \endcode
 
   \section performance Performance Characteristics
 
   * **Construction**: O(1) constant time
-  * **addText()**: O(n) in the text length
-  * **Memory usage**: 256-byte line buffer plus five words
+  * **addText(), addDescription() and addQuoted()**: O(n) in the text length
+  * **Memory usage**: 256-byte line buffer plus six words
 
   \section safety Safety Guarantees
 
@@ -140,6 +142,19 @@ public:
   void addDescription(const char * text) noexcept;
 
   /*!
+    \brief Appends text to the line being built as a single-quoted YAML scalar.
+
+    \param text  Null-terminated text.
+
+    \post The line grows by the quoted text; a scalar cut at the capacity still closes.
+
+    \note The last byte of a full line belongs to the break flush() writes, so the quoting stops before it.
+
+    \sa addText()
+  */
+  void addQuoted(const char * text) noexcept;
+
+  /*!
     \brief Appends a signed decimal number to the line being built.
 
     \param value  Value to format.
@@ -166,9 +181,32 @@ public:
     \param number  Position of the case in the run, counted from one.
     \param name    Case name; must outlive the run.
 
-    \post writeVerdict() will print a test point for this case.
+    \post writeVerdict() will print a test point for this case, and no diagnostic block is open.
   */
   void beginCase(std::size_t number, const char * name) noexcept;
+
+  /*!
+    \brief Opens the YAML diagnostic block of the running case unless it is already open.
+
+    \post The block is open and endCase() closes it.
+
+    \note A test point carries at most one diagnostic block, so every failure of a case writes into the same one.
+
+    \sa diagnosticsOpen()
+  */
+  void openDiagnostics() noexcept;
+
+  /// Returns whether the running case has an open diagnostic block.
+  [[nodiscard]] bool diagnosticsOpen() const noexcept;
+
+  /*!
+    \brief Ends the running case, closing its diagnostic block when one is open.
+
+    \post No diagnostic block is open.
+
+    \sa beginCase()
+  */
+  void endCase() noexcept;
 
   /*!
     \brief Prints the test point of the running case unless it is already printed.
@@ -190,12 +228,16 @@ private:
   const char *        _caseName{nullptr};
   std::size_t         _caseNumber{0};
   bool                _caseReported{false};
+  bool                _diagnosticsOpen{false};
   char                _buffer[c_lineCapacity]{};
   std::size_t         _length{0};
 };
 
 /*!
-  \brief Writes the block describing one failed assertion.
+  \brief Writes the YAML list item describing one failed assertion.
+
+  Opens the diagnostic block of the case on the first failure and appends to it on every later one, so several
+  failures share the one block their test point may carry.
 
   \param context       Context that recorded the failure; read for the info stack.
   \param failure       The failed assertion.
@@ -223,6 +265,7 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
 
   \post Every case in the registry has run, unless a duplicate name bailed the run out.
 
+  \note A failing case carries its diagnostics in the YAML block under its test point.
   \note Allocates nothing and touches no global state: the run state and the line buffer are local, so two reports can
         be written in one process.
   \note Deterministic — the report depends on the registry order and the case bodies, never on link order or timing.

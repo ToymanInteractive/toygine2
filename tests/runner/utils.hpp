@@ -22,8 +22,9 @@
   \brief  Freestanding helpers the runner needs where a hosted header is unavailable.
 
   Declares toy::test::detail::absoluteValue(), toy::test::detail::compareNames(), toy::test::detail::appendText(),
-  toy::test::detail::appendEscaped() and toy::test::detail::appendInteger(): what \c <cmath>, \c <cstring> and
-  \c <charconv> would provide, written so the runner builds on targets whose standard library ships none of them.
+  toy::test::detail::appendEscaped(), toy::test::detail::appendQuoted() and toy::test::detail::appendInteger(): what
+  \c <cmath>, \c <cstring> and \c <charconv> would provide, written so the runner builds on targets whose standard
+  library ships none of them.
 
   \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test
         for this type.
@@ -95,13 +96,33 @@ template <std::floating_point T>
   \pre \a offset does not exceed \a capacity.
 
   \note A backslash arrives as \c "\\\\" and a hash as \c "\\#", the two escapes TAP defines.
-
   \note An escape pair that does not fit is left out whole, so a truncated line never ends in a lone backslash.
 
   \sa appendText()
 */
 [[nodiscard]] constexpr std::size_t appendEscaped(char * buffer, std::size_t capacity, std::size_t offset,
                                                   const char * text) noexcept;
+
+/*!
+  \brief Writes text into a buffer as a single-quoted YAML scalar, stopping at its capacity.
+
+  \param buffer    Destination buffer.
+  \param capacity  Size of \a buffer in bytes.
+  \param offset    Position to write from.
+  \param text      Null-terminated source text.
+
+  \return Offset past the closing quote; equals \a offset when the two quotes alone do not fit.
+
+  \pre \a offset does not exceed \a capacity.
+
+  \note An apostrophe arrives doubled, which is how a single-quoted scalar carries one.
+  \note A truncated scalar still closes, so the block around it stays parsable.
+  \note The pair standing for one apostrophe is written whole or not at all.
+
+  \sa appendEscaped()
+*/
+[[nodiscard]] constexpr std::size_t appendQuoted(char * buffer, std::size_t capacity, std::size_t offset,
+                                                 const char * text) noexcept;
 
 /*!
   \brief Writes a signed decimal representation into a buffer, stopping at its capacity.

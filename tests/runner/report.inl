@@ -40,6 +40,14 @@ inline void ReportWriter::addDescription(const char * text) noexcept {
   _length = appendEscaped(_buffer, c_lineCapacity, _length, text);
 }
 
+inline void ReportWriter::addQuoted(const char * text) noexcept {
+  // flush() spends the last byte of a full line on the line break, which would take the closing quote with it.
+  constexpr std::size_t quotedCapacity = c_lineCapacity - 1;
+
+  if (_length <= quotedCapacity)
+    _length = appendQuoted(_buffer, quotedCapacity, _length, text);
+}
+
 inline void ReportWriter::addInteger(long long value) noexcept {
   _length = appendInteger(_buffer, c_lineCapacity, _length, value);
 }
@@ -57,9 +65,37 @@ inline void ReportWriter::flush() noexcept {
 }
 
 inline void ReportWriter::beginCase(std::size_t number, const char * name) noexcept {
-  _caseName     = name;
-  _caseNumber   = number;
-  _caseReported = false;
+  _caseName        = name;
+  _caseNumber      = number;
+  _caseReported    = false;
+  _diagnosticsOpen = false;
+}
+
+inline void ReportWriter::openDiagnostics() noexcept {
+  if (_diagnosticsOpen)
+    return;
+
+  _diagnosticsOpen = true;
+
+  addText("  ---");
+  flush();
+
+  addText("  severity: fail");
+  flush();
+}
+
+inline bool ReportWriter::diagnosticsOpen() const noexcept {
+  return _diagnosticsOpen;
+}
+
+inline void ReportWriter::endCase() noexcept {
+  if (!_diagnosticsOpen)
+    return;
+
+  _diagnosticsOpen = false;
+
+  addText("  ...");
+  flush();
 }
 
 inline void ReportWriter::writeVerdict(bool failed) noexcept {
@@ -82,36 +118,54 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
   // The test point prints once per case, so several failures in one case stay under one verdict.
   writer.writeVerdict(true);
 
-  writer.addText("  file: ");
-  writer.addText(failure.file);
+  // The list header belongs to the failure that opens the block; every later one appends an item to it.
+  const bool firstFailure = !writer.diagnosticsOpen();
+
+  writer.openDiagnostics();
+
+  if (firstFailure) {
+    writer.addText("  failures:");
+    writer.flush();
+  }
+
+  writer.addText("    - at:");
   writer.flush();
 
-  writer.addText("  line: ");
+  writer.addText("        file: ");
+  writer.addQuoted(failure.file);
+  writer.flush();
+
+  writer.addText("        line: ");
   writer.addInteger(failure.line);
   writer.flush();
 
-  writer.addText("  expr: ");
-  writer.addText(failure.expression);
+  writer.addText("      expr: ");
+  writer.addQuoted(failure.expression);
   writer.flush();
 
   if (failure.subcaseName != nullptr) {
-    writer.addText("  subcase: ");
-    writer.addText(failure.subcaseName);
+    writer.addText("      subcase: ");
+    writer.addQuoted(failure.subcaseName);
+    writer.flush();
+  }
+
+  if (context.infoCount() > 0) {
+    writer.addText("      info:");
     writer.flush();
   }
 
   for (std::size_t index = 0; index < context.infoCount(); ++index) {
     const InfoEntry & entry = context.infoAt(index);
 
-    writer.addText("  info: ");
-    writer.addText(entry.text);
+    writer.addText("        - text: ");
+    writer.addQuoted(entry.text);
+    writer.flush();
 
     if (entry.hasValue) {
-      writer.addText(": ");
+      writer.addText("          value: ");
       writer.addInteger(entry.value);
+      writer.flush();
     }
-
-    writer.flush();
   }
 }
 
@@ -149,12 +203,15 @@ inline int writeReport(write_function_type write, const void * writerData, const
       nestedSeen = true;
 
       writer.writeVerdict(true);
-      writer.addText("  error: nested subcase");
+      writer.openDiagnostics();
+      writer.addText("  error: ");
+      writer.addQuoted("nested subcase");
       writer.flush();
     }
 
     // Prints only for a case that reached here without a failure, since the verdict is already written otherwise.
     writer.writeVerdict(false);
+    writer.endCase();
   }
 
   writer.addText("1..");

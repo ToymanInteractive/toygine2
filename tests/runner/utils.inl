@@ -80,6 +80,40 @@ constexpr std::size_t appendEscaped(char * buffer, std::size_t capacity, std::si
   return offset;
 }
 
+constexpr std::size_t appendQuoted(char * buffer, std::size_t capacity, std::size_t offset,
+                                   const char * text) noexcept {
+  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+
+  // A scalar is two quotes at the very least; anything shorter would leave the block with an unterminated one.
+  if (capacity - offset < 2)
+    return offset;
+
+  buffer[offset] = '\'';
+  ++offset;
+
+  while (*text != '\0') {
+    const std::size_t width = *text == '\'' ? 2 : 1;
+
+    // The closing quote owns the last byte, and a doubled apostrophe never splits across it.
+    if (offset + width >= capacity)
+      break;
+
+    if (width == 2) {
+      buffer[offset] = '\'';
+      ++offset;
+    }
+
+    buffer[offset] = *text;
+    ++offset;
+    ++text;
+  }
+
+  buffer[offset] = '\'';
+  ++offset;
+
+  return offset;
+}
+
 constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset, long long value) noexcept {
   TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
 
