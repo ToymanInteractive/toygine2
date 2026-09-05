@@ -36,6 +36,10 @@ inline void ReportWriter::addText(const char * text) noexcept {
   _length = appendText(_buffer, c_lineCapacity, _length, text);
 }
 
+inline void ReportWriter::addDescription(const char * text) noexcept {
+  _length = appendEscaped(_buffer, c_lineCapacity, _length, text);
+}
+
 inline void ReportWriter::addInteger(long long value) noexcept {
   _length = appendInteger(_buffer, c_lineCapacity, _length, value);
 }
@@ -67,7 +71,7 @@ inline void ReportWriter::writeVerdict(bool failed) noexcept {
   addText(failed ? "not ok " : "ok ");
   addInteger(static_cast<long long>(_caseNumber));
   addText(" - ");
-  addText(_caseName);
+  addDescription(_caseName);
 
   flush();
 }
@@ -75,7 +79,7 @@ inline void ReportWriter::writeVerdict(bool failed) noexcept {
 inline void reportFailure(const Context & context, const FailureRecord & failure, void * reporterData) noexcept {
   ReportWriter & writer = *static_cast<ReportWriter *>(reporterData);
 
-  // The header prints once per case, so several failures in one case stay under one entry.
+  // The test point prints once per case, so several failures in one case stay under one verdict.
   writer.writeVerdict(true);
 
   writer.addText("  file: ");
@@ -116,14 +120,14 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
 inline int writeReport(write_function_type write, const void * writerData, const CaseRegistrar * head) noexcept {
   detail::ReportWriter writer{write, writerData};
 
-  writer.addText("TOYTEST 1");
+  writer.addText("TAP version 14");
   writer.flush();
 
   const CaseRegistrar * duplicate = detail::findDuplicateName(head);
 
   if (duplicate != nullptr) {
-    writer.addText("TOYTEST ERROR duplicate case name: ");
-    writer.addText(duplicate->name());
+    writer.addText("Bail out! duplicate case name: ");
+    writer.addDescription(duplicate->name());
     writer.flush();
 
     return 2;
@@ -140,7 +144,7 @@ inline int writeReport(write_function_type write, const void * writerData, const
 
     runCase(context, node->name(), node->body());
 
-    // A nested subcase condemns the case, so the entry must read "not ok" even when every assertion passed.
+    // A nested subcase condemns the case, so the test point must read "not ok" even when every assertion passed.
     if (context.nestedSubcaseDetected()) {
       nestedSeen = true;
 
@@ -157,7 +161,7 @@ inline int writeReport(write_function_type write, const void * writerData, const
   writer.addInteger(static_cast<long long>(caseCount));
   writer.flush();
 
-  writer.addText("TOYTEST SUMMARY passed=");
+  writer.addText("# assertions passed=");
   writer.addInteger(static_cast<long long>(context.passedCount()));
   writer.addText(" failed=");
   writer.addInteger(static_cast<long long>(context.failedCount()));

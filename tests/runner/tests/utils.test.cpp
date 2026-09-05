@@ -19,7 +19,7 @@
 //
 /*!
   \file   utils.test.cpp
-  \brief  Unit tests for the runner's magnitude, name-ordering and buffer-formatting helpers.
+  \brief  Unit tests for the runner's magnitude, name-ordering, escaping and buffer-formatting helpers.
 */
 
 #include <array>
@@ -51,6 +51,14 @@ template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendIntegerInto(long long value) noexcept {
   AppendResult<Capacity> result{};
   result.written = toy::test::detail::appendInteger(result.buffer.data(), Capacity, 0, value);
+
+  return result;
+}
+
+template <std::size_t Capacity>
+[[nodiscard]] constexpr AppendResult<Capacity> appendEscapedInto(const char * text) noexcept {
+  AppendResult<Capacity> result{};
+  result.written = toy::test::detail::appendEscaped(result.buffer.data(), Capacity, 0, text);
 
   return result;
 }
@@ -151,6 +159,35 @@ TEST_CASE("test::detail/append_text/writes_nothing_at_a_full_buffer") {
   constexpr auto full = appendTextAt<4>(4, "abc");
   static_assert(full.written == 4, "an append at capacity must return the capacity");
   static_assert(full.buffer[0] == '\0', "an append at capacity must leave the buffer untouched");
+}
+
+// appendEscaped passes ordinary bytes through and prefixes the two TAP reads as syntax.
+TEST_CASE("test::detail/append_escaped/escapes_hash_and_backslash") {
+  char              buffer[16] = {};
+  const std::size_t written    = toy::test::detail::appendEscaped(buffer, sizeof(buffer), 0, "a#b\\c");
+
+  REQUIRE(written == 7);
+  REQUIRE(buffer[1] == '\\');
+  REQUIRE(buffer[2] == '#');
+  REQUIRE(buffer[4] == '\\');
+  REQUIRE(buffer[5] == '\\');
+
+  constexpr auto escaped = appendEscapedInto<16>("a#b\\c");
+  static_assert(escaped.written == 7, "two escaped bytes must cost one extra byte each");
+  static_assert(escaped.buffer[1] == '\\', "a hash must arrive behind a backslash");
+  static_assert(escaped.buffer[2] == '#', "the hash itself must follow its escape");
+  static_assert(escaped.buffer[6] == 'c', "text after an escaped byte must survive unchanged");
+}
+
+// An escape pair is written whole or not at all: a lone trailing backslash would escape the newline that ends the line.
+TEST_CASE("test::detail/append_escaped/never_splits_an_escape_pair") {
+  constexpr auto split = appendEscapedInto<3>("ab#");
+  static_assert(split.written == 2, "a pair that does not fit must leave the offset before it");
+  static_assert(split.buffer[2] == '\0', "the byte the pair would have opened must stay untouched");
+
+  constexpr auto fits = appendEscapedInto<4>("ab#");
+  static_assert(fits.written == 4, "a pair that fits must be written whole");
+  static_assert(fits.buffer[3] == '#', "the escaped byte must close the pair");
 }
 
 // appendInteger writes the decimal digits in order, most significant first.

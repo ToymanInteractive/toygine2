@@ -19,7 +19,7 @@
 //
 /*!
   \file   report.test.cpp
-  \brief  Unit tests for the TOYTEST report: entry per case, failure blocks, plan line, summary and exit code.
+  \brief  Unit tests for the TAP report: test point per case, failure blocks, plan line, summary and exit code.
 */
 
 #include <cstddef>
@@ -109,7 +109,7 @@ void bodyFailsInsideSubcase(toy::test::Context & toyTestContext) {
     REQUIRE(reportMatches((captured), (expected)));                                                                    \
   } while (false)
 
-// A run without a failure prints one entry per case, the plan line, the summary, and reports success.
+// A run without a failure prints one test point per case, the plan line, the summary, and reports success.
 TEST_CASE("test/write_report/passing_run_prints_an_entry_per_case") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -122,14 +122,14 @@ TEST_CASE("test/write_report/passing_run_prints_an_entry_per_case") {
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 0);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+  REQUIRE_REPORT(captured, "TAP version 14\n"
                            "ok 1 - sample/a/first\n"
                            "ok 2 - sample/b/second\n"
                            "1..2\n"
-                           "TOYTEST SUMMARY passed=2 failed=0\n");
+                           "# assertions passed=2 failed=0\n");
 }
 
-// Two failures in one case share a single header and each print their own location block.
+// Two failures in one case share a single test point and each print their own location block.
 TEST_CASE("test/write_report/failures_share_one_case_header") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -141,7 +141,7 @@ TEST_CASE("test/write_report/failures_share_one_case_header") {
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 1);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+  REQUIRE_REPORT(captured, "TAP version 14\n"
                            "not ok 1 - sample/fails\n"
                            "  file: first.cpp\n"
                            "  line: 11\n"
@@ -150,10 +150,10 @@ TEST_CASE("test/write_report/failures_share_one_case_header") {
                            "  line: 22\n"
                            "  expr: 2 == 3\n"
                            "1..1\n"
-                           "TOYTEST SUMMARY passed=0 failed=2\n");
+                           "# assertions passed=0 failed=2\n");
 }
 
-// Three branches give three runs of the body, so the summary counts three passing assertions under one entry.
+// Three branches give three runs of the body, so the summary counts three passing assertions under one test point.
 TEST_CASE("test/write_report/subcases_run_once_each_under_one_entry") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -165,10 +165,10 @@ TEST_CASE("test/write_report/subcases_run_once_each_under_one_entry") {
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 0);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+  REQUIRE_REPORT(captured, "TAP version 14\n"
                            "ok 1 - sample/subcases\n"
                            "1..1\n"
-                           "TOYTEST SUMMARY passed=3 failed=0\n");
+                           "# assertions passed=3 failed=0\n");
 }
 
 // A nested subcase condemns its case even though no assertion failed, and the run reports failure.
@@ -183,11 +183,11 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 1);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+  REQUIRE_REPORT(captured, "TAP version 14\n"
                            "not ok 1 - sample/nested\n"
                            "  error: nested subcase\n"
                            "1..1\n"
-                           "TOYTEST SUMMARY passed=0 failed=0\n");
+                           "# assertions passed=0 failed=0\n");
 }
 
 // The subcase and the info entries live at the moment of the failure, so both reach the block under it.
@@ -202,7 +202,7 @@ TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 1);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+  REQUIRE_REPORT(captured, "TAP version 14\n"
                            "not ok 1 - sample/info\n"
                            "  file: info.cpp\n"
                            "  line: 33\n"
@@ -210,10 +210,10 @@ TEST_CASE("test/write_report/failure_block_carries_subcase_and_info") {
                            "  subcase: branch\n"
                            "  info: index: 7\n"
                            "1..1\n"
-                           "TOYTEST SUMMARY passed=0 failed=1\n");
+                           "# assertions passed=0 failed=1\n");
 }
 
-// A repeated case name aborts the run before any body executes and reports the reserved code.
+// A repeated case name bails the run out before any body executes and reports the reserved code.
 TEST_CASE("test/write_report/duplicate_name_aborts_before_the_first_case") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -226,8 +226,27 @@ TEST_CASE("test/write_report/duplicate_name_aborts_before_the_first_case") {
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
   REQUIRE(code == 2);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
-                           "TOYTEST ERROR duplicate case name: sample/duplicate\n");
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "Bail out! duplicate case name: sample/duplicate\n");
+}
+
+// TAP reads an unescaped hash in a description as the start of a directive, so both it and the backslash that
+// escapes it leave the writer escaped.
+TEST_CASE("test/write_report/description_escapes_hash_and_backslash") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/hash#and\\back", "a.cpp", 1, &bodyPasses};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 0);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "ok 1 - sample/hash\\#and\\\\back\n"
+                           "1..1\n"
+                           "# assertions passed=1 failed=0\n");
 }
 
 // An empty registry is a run of no cases, not an error.
@@ -238,9 +257,9 @@ TEST_CASE("test/write_report/empty_registry_reports_an_empty_plan") {
   const int code = toy::test::writeReport(&captureWrite, &destination, nullptr);
 
   REQUIRE(code == 0);
-  REQUIRE_REPORT(captured, "TOYTEST 1\n"
+  REQUIRE_REPORT(captured, "TAP version 14\n"
                            "1..0\n"
-                           "TOYTEST SUMMARY passed=0 failed=0\n");
+                           "# assertions passed=0 failed=0\n");
 }
 
 // A case name past the line capacity is cut to it and the line keeps its newline, because two report lines run
@@ -263,7 +282,7 @@ TEST_CASE("test/write_report/overlong_case_name_keeps_the_line_break") {
 
   const int code = toy::test::writeReport(&captureWrite, &destination, head);
 
-  const std::size_t entryOffset = std::char_traits<char>::length("TOYTEST 1\n");
+  const std::size_t entryOffset = std::char_traits<char>::length("TAP version 14\n");
 
   REQUIRE(code == 0);
   REQUIRE(captured.text[entryOffset + capacity - 1] == '\n');

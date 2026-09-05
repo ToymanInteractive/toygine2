@@ -19,12 +19,12 @@
 //
 /*!
   \file   report.hpp
-  \brief  Writer of the TOYTEST report shared by every runner binary.
+  \brief  Writer of the TAP version 14 report shared by every runner binary.
 
   Defines \ref toy::test::write_function_type and \ref toy::test::detail::ReportWriter: the line buffer and the walk
-  over a case registry that turn a run into text. Sits on top of toy_test.hpp rather than inside it, because output is
-  what consumes the runner, not part of it. Used by the runner's entry point and by its unit test, which reads the
-  report back through a writer of its own.
+  over a case registry that turn a run into a TAP document. Sits on top of toy_test.hpp rather than inside it, because
+  output is what consumes the runner, not part of it. Used by the runner's entry point and by its unit test, which
+  reads the report back through a writer of its own.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_REPORT_HPP_
@@ -54,16 +54,17 @@ namespace detail {
 
 /*!
   \class ReportWriter
-  \brief Line buffer and per-case verdict state of the TOYTEST report.
+  \brief Line buffer and per-case verdict state of the TAP report.
 
   Builds one line at a time in a fixed buffer and hands it to the writer given at construction. Also holds the running
-  case, so the verdict line prints once however many failures the case records.
+  case, so the test point prints once however many failures the case records.
 
   \section features Key Features
 
   * **Allocation-free**: one fixed buffer, no container and no heap
   * **Freestanding**: formats integers and text without \c <cstdio> or \c <charconv>
-  * **Verdict once**: writeVerdict() prints the entry for a case at most once
+  * **Verdict once**: writeVerdict() prints the test point of a case at most once
+  * **TAP escaping**: addDescription() escapes the backslash and the hash, which TAP reads as syntax
   * **Truncating**: a line past the buffer is cut and still terminated, never overflowed
 
   \section usage Usage Example
@@ -126,6 +127,19 @@ public:
   void addText(const char * text) noexcept;
 
   /*!
+    \brief Appends text to the line being built with the backslash and the hash escaped.
+
+    \param text  Null-terminated text.
+
+    \post The line grows by the escaped text, or stops at the capacity.
+
+    \note TAP reads an unescaped hash in a test point description or a bail-out reason as the start of a directive.
+
+    \sa addText()
+  */
+  void addDescription(const char * text) noexcept;
+
+  /*!
     \brief Appends a signed decimal number to the line being built.
 
     \param value  Value to format.
@@ -152,19 +166,19 @@ public:
     \param number  Position of the case in the run, counted from one.
     \param name    Case name; must outlive the run.
 
-    \post writeVerdict() will print an entry for this case.
+    \post writeVerdict() will print a test point for this case.
   */
   void beginCase(std::size_t number, const char * name) noexcept;
 
   /*!
-    \brief Prints the entry of the running case unless it is already printed.
+    \brief Prints the test point of the running case unless it is already printed.
 
-    \param failed  \c true for a \c "not ok" entry, \c false for an \c "ok" one.
+    \param failed  \c true for a \c "not ok" line, \c false for an \c "ok" one.
 
-    \post The running case has an entry; a later call prints nothing.
+    \post The running case has a test point; a later call prints nothing.
 
-    \note A case failing after its entry is printed keeps the verdict of the first call, which is why the failing caller
-          prints first and the passing one last.
+    \note A case failing after its test point is printed keeps the verdict of the first call, which is why the failing
+          caller prints first and the passing one last.
 
     \sa beginCase()
   */
@@ -195,10 +209,11 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
 } // namespace detail
 
 /*!
-  \brief Runs every case in a registry and writes the TOYTEST report.
+  \brief Runs every case in a registry and writes the TAP report.
 
-  Prints the format line, one entry per case in registry order, the plan line and the summary. A repeated case name
-  aborts the run before any body executes, because two cases sharing a name cannot be told apart in a report.
+  Prints the version line, one test point per case in registry order, the plan line and a summary comment. A repeated
+  case name ends the document with \c "Bail out!" before any body executes, because two cases sharing a name cannot be
+  told apart in a report.
 
   \param write       Function receiving each line of the report; must not be \c nullptr.
   \param writerData  Storage handed back to \a write on every call; may be \c nullptr.
@@ -206,7 +221,7 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
 
   \return \c 0 when every assertion passed, \c 1 on any failure or a nested subcase, \c 2 on a duplicate case name.
 
-  \post Every case in the registry has run, unless a duplicate name aborted the run.
+  \post Every case in the registry has run, unless a duplicate name bailed the run out.
 
   \note Allocates nothing and touches no global state: the run state and the line buffer are local, so two reports can
         be written in one process.
