@@ -1,10 +1,10 @@
 # AI AGENTS rules for This Repository
 
-This document defines **mandatory rules** for AI‑assisted code, test, and documentation generation in this repository.
+This document defines **mandatory rules** for AI-assisted code, test, and documentation generation in this repository.
 
 All AI tools (Cursor, Copilot, ChatGPT, etc.) **must follow these rules** when generating or modifying code, tests, or documentation.
 
-You are an expert in GameDev and C++ development. Your goal is to build performant, maintainable, and extensible game engine following modern C++ best practices (C++23 baseline). You have expert experience with game architecture, engine internals, and real-time systems, with shipping titles to production, and with writing, testing, and running C++ applications on desktop (Windows, macOS 10.12+, Linux), retro and modern consoles, mobile, embedded and web.
+You are an expert in GameDev and C++ development. Your goal is to build a performant, maintainable, and extensible game engine following modern C++ best practices (C++23 baseline). You have shipped titles to production and know game architecture, engine internals, and real-time systems from the inside. You write, test, and run C++ applications on desktop (Windows, macOS 10.12+, Linux), retro and modern consoles, mobile, embedded, and web.
 
 ## Interaction Guidelines
 
@@ -54,7 +54,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 
 * **Justify before adding:** Every dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; state why a new one is needed.
 * **Selection criteria:** Stable, maintained, permissive non-copyleft license (MIT, BSD, zlib, Apache-2.0). Favor header-only code without exceptions/RTTI that builds on every target platform (desktop, mobile, embedded, retro/modern consoles).
-* **Acquisition:** CMake `FetchContent` by default, declared in `cmake/` (standalone apps — `editor/` — declare theirs in their own `CMakeLists.txt`) — no submodules, system-wide installs, or package managers with global state. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, console toolchains, patched sources); record the upstream version and patches.
+* **Acquisition:** CMake `FetchContent` by default, declared in `cmake/` (standalone apps like `editor/` declare theirs in their own `CMakeLists.txt`) — no submodules, system-wide installs, or package managers with global state. Vendor under `extern/` only when `FetchContent` is not viable (offline builds, console toolchains, patched sources); record the upstream version and patches.
 * **Declaring:** Pin to an exact tag or commit (never a branch), prefer `GIT_SHALLOW TRUE`; link third-party dependencies only through namespaced CMake targets (`dep::dep`), never global `include_directories` or raw paths into `_deps/`; platform frameworks (`-framework Cocoa`) are linked directly. Declare every dependency you use — never rely on a transitive one. `FetchContent_MakeAvailable` order matters when one dependency provides targets for another (`Vulkan-Headers` before `volk`); comment why.
 * **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, picobench) behind their CMake options so engine consumers never pull them in.
 * **Versioning and overrides:** To force a transitive version, declare it before the consumer (first declaration wins) with a comment. Bump versions in a dedicated change; bump lockstep pairs together (e.g. `Vulkan-Headers` + `volk`).
@@ -277,8 +277,8 @@ Every header file (`.hpp` and `.inl`) carries a `\file` block; a translation uni
 * **`\file`** — file name only, as it appears under `include/` or `src/` (e.g. `window_show_state.hpp`), not a full path.
 * **`\brief`** — one line: what this file *is*, the role of the translation unit (see Do not restate the signature under **Writing Style**).
 * **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
-* **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. “constructors and accessors”, “comparison operators”). Add the **`\note Included by …`** line exactly as in the template below, spelling the barrel per Barrel include policy under **Cross-References**.
-* **`.cpp`** — keep the `\brief` short:  “Implementation of …” or “Definitions for …” with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
+* **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. "constructors and accessors", "comparison operators"). Add the **`\note Included by …`** line exactly as in the template below, spelling the barrel per Barrel include policy under **Cross-References**.
+* **`.cpp`** — keep the `\brief` short: "Implementation of …" or "Definitions for …" with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
 * **One paragraph, three lines at most:** a `\file` block orients; what a symbol is, guarantees, or costs belongs in that symbol's own block (see Say it once, then link under **Documentation Philosophy**).
 * **Never an inventory:** no `\file` block lists what a header declares, re-exports, or includes — Doxygen generates those lists, a hand-written one goes stale (see Stale is worse than absent). An umbrella names what it aggregates and defines, never the names it re-exports.
 

@@ -19,7 +19,7 @@
 //
 /*!
   \file   utils.test.cpp
-  \brief  Unit tests for the runner's magnitude, name-ordering and buffer-formatting helpers.
+  \brief  Unit tests for the runner's magnitude, name-ordering, escaping, quoting and buffer-formatting helpers.
 */
 
 #include <array>
@@ -51,6 +51,22 @@ template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendIntegerInto(long long value) noexcept {
   AppendResult<Capacity> result{};
   result.written = toy::test::detail::appendInteger(result.buffer.data(), Capacity, 0, value);
+
+  return result;
+}
+
+template <std::size_t Capacity>
+[[nodiscard]] constexpr AppendResult<Capacity> appendEscapedInto(const char * text) noexcept {
+  AppendResult<Capacity> result{};
+  result.written = toy::test::detail::appendEscaped(result.buffer.data(), Capacity, 0, text);
+
+  return result;
+}
+
+template <std::size_t Capacity>
+[[nodiscard]] constexpr AppendResult<Capacity> appendQuotedInto(const char * text) noexcept {
+  AppendResult<Capacity> result{};
+  result.written = toy::test::detail::appendQuoted(result.buffer.data(), Capacity, 0, text);
 
   return result;
 }
@@ -151,6 +167,75 @@ TEST_CASE("test::detail/append_text/writes_nothing_at_a_full_buffer") {
   constexpr auto full = appendTextAt<4>(4, "abc");
   static_assert(full.written == 4, "an append at capacity must return the capacity");
   static_assert(full.buffer[0] == '\0', "an append at capacity must leave the buffer untouched");
+}
+
+// appendEscaped passes ordinary bytes through and prefixes the two TAP reads as syntax.
+TEST_CASE("test::detail/append_escaped/escapes_hash_and_backslash") {
+  char              buffer[16] = {};
+  const std::size_t written    = toy::test::detail::appendEscaped(buffer, sizeof(buffer), 0, "a#b\\c");
+
+  REQUIRE(written == 7);
+  REQUIRE(buffer[1] == '\\');
+  REQUIRE(buffer[2] == '#');
+  REQUIRE(buffer[4] == '\\');
+  REQUIRE(buffer[5] == '\\');
+
+  constexpr auto escaped = appendEscapedInto<16>("a#b\\c");
+  static_assert(escaped.written == 7, "two escaped bytes must cost one extra byte each");
+  static_assert(escaped.buffer[1] == '\\', "a hash must arrive behind a backslash");
+  static_assert(escaped.buffer[2] == '#', "the hash itself must follow its escape");
+  static_assert(escaped.buffer[6] == 'c', "text after an escaped byte must survive unchanged");
+}
+
+// An escape pair is written whole or not at all: a lone trailing backslash would escape the newline that ends the line.
+TEST_CASE("test::detail/append_escaped/never_splits_an_escape_pair") {
+  constexpr auto split = appendEscapedInto<3>("ab#");
+  static_assert(split.written == 2, "a pair that does not fit must leave the offset before it");
+  static_assert(split.buffer[2] == '\0', "the byte the pair would have opened must stay untouched");
+
+  constexpr auto fits = appendEscapedInto<4>("ab#");
+  static_assert(fits.written == 4, "a pair that fits must be written whole");
+  static_assert(fits.buffer[3] == '#', "the escaped byte must close the pair");
+}
+
+// appendQuoted wraps the text in the quotes YAML needs and doubles the one byte that closes them early.
+TEST_CASE("test::detail/append_quoted/wraps_text_and_doubles_the_apostrophe") {
+  char              buffer[16] = {};
+  const std::size_t written    = toy::test::detail::appendQuoted(buffer, sizeof(buffer), 0, "a'b");
+
+  REQUIRE(written == 6);
+  REQUIRE(buffer[0] == '\'');
+  REQUIRE(buffer[5] == '\'');
+
+  constexpr auto quoted = appendQuotedInto<16>("a'b");
+  static_assert(quoted.written == 6, "two quotes and a doubled apostrophe must cost three bytes over the text");
+  static_assert(quoted.buffer[2] == '\'', "the apostrophe must arrive doubled");
+  static_assert(quoted.buffer[3] == '\'', "the second half of the doubled apostrophe must follow the first");
+  static_assert(quoted.buffer[5] == '\'', "the scalar must close with a quote");
+}
+
+// A scalar cut at the capacity still closes, because an unterminated quote would take the rest of the block with it.
+TEST_CASE("test::detail/append_quoted/closes_a_truncated_scalar") {
+  constexpr auto truncated = appendQuotedInto<5>("abcdef");
+  static_assert(truncated.written == 5, "a truncated scalar must fill the capacity");
+  static_assert(truncated.buffer[3] == 'c', "the last byte that fits must be the third of the text");
+  static_assert(truncated.buffer[4] == '\'', "the closing quote must take the last byte");
+
+  // The pair that stands for one apostrophe goes in whole or not at all, so the closing quote stays unambiguous.
+  constexpr auto split = appendQuotedInto<4>("a'b");
+  static_assert(split.written == 3, "a doubled apostrophe that does not fit must leave the scalar without it");
+  static_assert(split.buffer[2] == '\'', "the scalar must close after the byte that fits");
+}
+
+// Two bytes are the shortest scalar there is, so a buffer with less takes nothing at all.
+TEST_CASE("test::detail/append_quoted/writes_nothing_without_room_for_both_quotes") {
+  constexpr auto empty = appendQuotedInto<1>("a");
+  static_assert(empty.written == 0, "a buffer that cannot hold both quotes must take nothing");
+  static_assert(empty.buffer[0] == '\0', "the buffer must stay untouched");
+
+  constexpr auto pair = appendQuotedInto<2>("a");
+  static_assert(pair.written == 2, "the two quotes alone must still form an empty scalar");
+  static_assert(pair.buffer[1] == '\'', "an empty scalar must close");
 }
 
 // appendInteger writes the decimal digits in order, most significant first.
