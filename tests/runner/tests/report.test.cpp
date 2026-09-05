@@ -82,6 +82,12 @@ void bodyRunsThreeSubcases(toy::test::Context & toyTestContext) {
   }
 }
 
+void bodyRunsOneSubcase(toy::test::Context & toyTestContext) {
+  TOY_TEST_SUBCASE("only") {
+    TOY_TEST_CHECK(1 == 1);
+  }
+}
+
 void bodyNestsSubcases(toy::test::Context & toyTestContext) {
   TOY_TEST_SUBCASE("outer") {
     TOY_TEST_SUBCASE("inner") {
@@ -270,6 +276,28 @@ TEST_CASE("test/write_report/failure_block_quotes_yaml_syntax") {
                            "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=1\n");
+}
+
+// A comment is never escaped and a description always is, so one name reaches the report in two spellings. A harness
+// unescapes the description before matching it against the raw name, which is what keeps the pair correlated.
+TEST_CASE("test/write_report/subtest_header_keeps_the_name_unescaped") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/hash#case", "a.cpp", 1, &bodyRunsOneSubcase};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 0);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/hash#case\n"
+                           "    ok 1 - only\n"
+                           "    1..1\n"
+                           "ok 1 - sample/hash\\#case\n"
+                           "1..1\n"
+                           "# assertions passed=1 failed=0\n");
 }
 
 // A repeated case name bails the run out before any body executes and reports the reserved code.

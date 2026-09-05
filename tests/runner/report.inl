@@ -83,6 +83,8 @@ inline void ReportWriter::flush() noexcept {
 }
 
 inline void ReportWriter::beginPoint(std::size_t number, const char * description) noexcept {
+  TOY_TEST_ASSERT(!_diagnosticsOpen, "the previous test point must be closed by endPoint()");
+
   _pointDescription = description;
   _pointNumber      = number;
   _pointReported    = false;
@@ -197,7 +199,9 @@ inline void reportSubtest(ReportWriter & writer, Context & context, const Contex
 
   constexpr std::size_t subtestIndent = 4;
 
-  // The header names the subtest, and TAP requires the point closing it to carry the same description.
+  // The header names the subtest, and TAP requires the point closing it to carry the same description. The name here
+  // stays unescaped: escaping covers descriptions and reasons, never comments, and a harness matches this raw name
+  // against the description it has already unescaped.
   writer.addText("# Subtest: ");
   writer.addText(registrar.name());
   writer.flush();

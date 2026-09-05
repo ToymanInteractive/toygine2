@@ -182,6 +182,8 @@ public:
     \param number       Position of the point in the document it belongs to, counted from one.
     \param description  Text following the point number; must outlive the run.
 
+    \pre The previous point is closed by endPoint(); a block left open would lose its closing line.
+
     \post writeVerdict() will print this point, and no diagnostic block is open.
 
     \sa endPoint()
