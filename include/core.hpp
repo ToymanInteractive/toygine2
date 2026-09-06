@@ -202,6 +202,16 @@ using std::strncpy;
 
 } // namespace toy
 
+//--------------------------------------------------------------------------------------------------------------------
+
+/*!
+  \namespace toy::log
+
+  \brief Logging module: the severity levels a log call carries.
+*/
+
+//--------------------------------------------------------------------------------------------------------------------
+
 #if defined(assert)
 // Undefine any existing assert macro to avoid conflicts
 #undef assert
@@ -300,6 +310,7 @@ using std::strncpy;
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
 #include "core/c_string_view.hpp"
+#include "core/log_level.hpp"
 #include "core/string_like.hpp"
 #include "core/utils.hpp"
 

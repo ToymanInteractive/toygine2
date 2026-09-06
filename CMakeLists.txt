@@ -131,6 +131,7 @@ set(HDR_CORE_LIST
     include/core/assertion.hpp
     include/core/bitwise_enum.hpp
     include/core/c_string_view.hpp
+    include/core/log_level.hpp
     include/core/string_like.hpp
     include/core/utils.hpp)
 set(INL_CORE_LIST
@@ -143,6 +144,7 @@ source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
 set(SRC_APPLICATION_LIST )
 set(HDR_APPLICATION_LIST
+    include/application.hpp
     include/application/version.hpp)
 set(INL_APPLICATION_LIST
     include/application/version.inl)
