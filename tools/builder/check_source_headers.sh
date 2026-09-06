@@ -40,8 +40,8 @@ else
   RAW_FILES=$(git diff --name-only "$(git merge-base "$BASE_REF" HEAD)"..HEAD)
 fi
 
-# Exclude vendored code under extern/; the per-file switch below decides which of the rest are checked.
-FILES_TO_CHECK=$(grep -v "^extern/" <<< "$RAW_FILES" || true)
+# Exclude vendored code under thirdparty/; the per-file switch below decides which of the rest are checked.
+FILES_TO_CHECK=$(grep -v "^thirdparty/" <<< "$RAW_FILES" || true)
 
 if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check for license headers."

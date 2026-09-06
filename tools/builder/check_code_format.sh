@@ -40,9 +40,9 @@ else
   RAW_FILES=$(git diff --name-only "$(git merge-base "$BASE_REF" HEAD)"..HEAD)
 fi
 
-# Keep only C / C++ (and Java / JS) sources, excluding vendored code under extern/.
+# Keep only C / C++ (and Java / JS) sources, excluding vendored code under thirdparty/.
 FILES_TO_CHECK=$( (grep -E "\.(cpp|cc|c\+\+|cxx|c|h|hpp|inl|mm|m|java|js)$" <<< "$RAW_FILES" || true) \
-                | (grep -v "^extern/" || true) )
+                | (grep -v "^thirdparty/" || true) )
 
 if [[ -z "$FILES_TO_CHECK" ]]; then
   echo "There is no source code to check the formatting."

@@ -18,38 +18,32 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-# KDL parser for the project manifest. The editor uses only the streaming C API: nodes map onto the setting registry
+# KDL parser for the project manifest. Consumers use only the streaming C API: nodes map onto the setting registry
 # directly, so kdlpp would build a document model only to have it taken apart.
+#
+# Upstream ships a CMakeLists that builds its CLI utilities and C++ bindings, registers its own tests with CTest, and
+# adds a global target named `math`, so the vendored copy drops it and this file declares the target instead.
+# thirdparty/README.md records the upstream commit.
 
-include(FetchContent)
 include(CheckSymbolExists)
 
-# Upstream's CMakeLists builds the CLI utilities and the C++ bindings, turns its own tests on and hands them to CTest,
-# and adds a global target named `math`, with no namespaced target for consumers. SOURCE_SUBDIR names a directory the
-# repository lacks, so MakeAvailable populates the sources and never calls add_subdirectory.
-FetchContent_Declare(
-  ckdl
-  GIT_REPOSITORY https://github.com/tjol/ckdl.git
-  GIT_TAG        c9c33fe64446287215e80705545139d92a48f829 # main after 1.0: signed-overflow fix in the parser
-  GIT_SHALLOW    TRUE
-  SOURCE_SUBDIR  do-not-configure
-)
-FetchContent_MakeAvailable(ckdl)
+set(CKDL_DIR ${CMAKE_CURRENT_LIST_DIR}/ckdl)
 
-# Mirrors KDL_C_SOURCES and KDL_UTF8_C_SOURCES upstream. Re-check when moving the pin.
+# Mirrors KDL_C_SOURCES and KDL_UTF8_C_SOURCES upstream. Re-check when refreshing the vendored copy. src/utils holds
+# the CLI tools and stays out of the build.
 add_library(ckdl STATIC
-  ${ckdl_SOURCE_DIR}/src/bigint.c
-  ${ckdl_SOURCE_DIR}/src/compat.c
-  ${ckdl_SOURCE_DIR}/src/emitter.c
-  ${ckdl_SOURCE_DIR}/src/parser.c
-  ${ckdl_SOURCE_DIR}/src/str.c
-  ${ckdl_SOURCE_DIR}/src/tokenizer.c
-  ${ckdl_SOURCE_DIR}/src/utf8.c
+  ${CKDL_DIR}/src/bigint.c
+  ${CKDL_DIR}/src/compat.c
+  ${CKDL_DIR}/src/emitter.c
+  ${CKDL_DIR}/src/parser.c
+  ${CKDL_DIR}/src/str.c
+  ${CKDL_DIR}/src/tokenizer.c
+  ${CKDL_DIR}/src/utf8.c
 )
 set_target_properties(ckdl PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON C_EXTENSIONS OFF)
 
 # Public headers live in include/; the sources also pull private headers from src/.
-target_include_directories(ckdl PUBLIC ${ckdl_SOURCE_DIR}/include PRIVATE ${ckdl_SOURCE_DIR}/src)
+target_include_directories(ckdl PUBLIC ${CKDL_DIR}/include PRIVATE ${CKDL_DIR}/src)
 
 # KDL_STATIC_LIB must reach consumers: it strips the dllimport decoration from exported symbols.
 target_compile_definitions(ckdl PUBLIC KDL_STATIC_LIB=1 PRIVATE BUILDING_KDL=1)
@@ -60,7 +54,11 @@ if(HAVE_REALLOCF)
   target_compile_definitions(ckdl PRIVATE HAVE_REALLOCF)
 endif()
 
-# Third-party code is not ours to keep warning-free, and it inherits the editor's flags.
-target_compile_options(ckdl PRIVATE -w)
+# Vendored code is not ours to keep warning-free, and it inherits the including project's flags.
+if(MSVC)
+  target_compile_options(ckdl PRIVATE /w)
+else()
+  target_compile_options(ckdl PRIVATE -w)
+endif()
 
 add_library(kdl::kdl ALIAS ckdl)

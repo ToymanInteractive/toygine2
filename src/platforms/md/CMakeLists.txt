@@ -29,11 +29,11 @@ list(APPEND SRC_LIST ${PLATFORM_SRC_CORE_LIST})
 list(APPEND HDR_LIST ${PLATFORM_HDR_CORE_LIST})
 list(APPEND LIB_LIST ${PLATFORM_LIB_CORE_LIST})
 
-# Overlay over the installed ClownMDSDK: a file under extern/clownmdsdk wins over the SDK's own copy. The
+# Overlay over the installed ClownMDSDK: a file under thirdparty/clownmdsdk wins over the SDK's own copy. The
 # include directory goes ahead of every toolchain include path, so <string.h> and <cstring> resolve here,
 # and each source is compiled into the engine, so its definitions are linked before libc.a is searched.
 # Both lists are globbed, so dropping a file into the overlay needs no change to this file.
-set(CLOWNMDSDK_OVERLAY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/extern/clownmdsdk)
+set(CLOWNMDSDK_OVERLAY_DIR ${CMAKE_CURRENT_SOURCE_DIR}/thirdparty/clownmdsdk)
 
 file(GLOB_RECURSE PLATFORM_SRC_EXTERN_LIST CONFIGURE_DEPENDS
     ${CLOWNMDSDK_OVERLAY_DIR}/src/*.c

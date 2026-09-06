@@ -36,11 +36,11 @@ if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
   set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum macOS version" FORCE)
 endif()
 
-list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty)
 
 include(FetchContent)
 
-# Declares the ckdl target and the kdl::kdl alias without running ckdl's own CMakeLists.
+# Declares the ckdl target and the kdl::kdl alias over the vendored sources in thirdparty/ckdl.
 include(ckdl)
 
 # Vulkan-Headers and volk are pinned to exact tags. Bump both together in a dedicated change.
