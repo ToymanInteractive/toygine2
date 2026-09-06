@@ -84,3 +84,7 @@ target_compile_options(editor PRIVATE
   $<$<COMPILE_LANGUAGE:CXX>:-Wall;-Wextra;-Wpedantic>
   $<$<COMPILE_LANGUAGE:OBJCXX>:-Wall;-Wextra>
 )
+
+# The bundle is the whole artifact: everything the editor needs is inside editor.app. Its component joins the runtime
+# group in the root CMakeLists, so it ships in the same archive as the library and the samples.
+install(TARGETS editor BUNDLE DESTINATION bin COMPONENT editor)
