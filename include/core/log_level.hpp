@@ -36,6 +36,8 @@ namespace toy::log {
   \enum  Level
   \brief Severity of a log message, ordered by verbosity.
 
+  \ingroup Logger
+
   \ref toy::log::Level::Off admits nothing, \ref toy::log::Level::Trace admits everything, and the values between them
   grow with detail. A message passes a ceiling when the number behind its level is at most that ceiling.
 
@@ -66,6 +68,8 @@ enum class Level : int8_t {
 /*!
   \def   LOG_MAX_LEVEL
   \brief Number of the most verbose \ref toy::log::Level a build keeps.
+
+  \ingroup Logger
 
   A call reaches the binary when its level is at most this value; anything more verbose compiles out. Define it ahead of
   core.hpp, on the compiler command line or in the target's CMake definitions, to cut the verbose end of the scale on a

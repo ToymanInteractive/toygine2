@@ -132,6 +132,7 @@ set(HDR_CORE_LIST
     include/core/bitwise_enum.hpp
     include/core/c_string_view.hpp
     include/core/log_level.hpp
+    include/core/log_metadata.hpp
     include/core/string_like.hpp
     include/core/utils.hpp)
 set(INL_CORE_LIST
