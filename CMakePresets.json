@@ -210,7 +210,6 @@
                 "type-release",
                 "platform-windows-x64",
                 "with-benchmarks",
-                "with-editor",
                 "with-samples",
                 "with-tests",
                 "base"
@@ -234,7 +233,6 @@
                 "type-release",
                 "platform-windows-x86",
                 "with-benchmarks",
-                "with-editor",
                 "with-samples",
                 "with-tests",
                 "base"
@@ -258,7 +256,6 @@
                 "type-release",
                 "platform-windows-arm64",
                 "with-benchmarks",
-                "with-editor",
                 "with-samples",
                 "with-tests",
                 "base"
@@ -344,7 +341,6 @@
                 "type-debug",
                 "platform-linux",
                 "with-benchmarks",
-                "with-editor",
                 "with-samples",
                 "with-tests",
                 "base"
@@ -358,7 +354,6 @@
                 "type-release",
                 "platform-linux",
                 "with-benchmarks",
-                "with-editor",
                 "with-samples",
                 "with-tests",
                 "base"

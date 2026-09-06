@@ -3,6 +3,8 @@ language: "en-US"
 early_access: true
 enable_free_tier: true
 reviews:
+  path_filters:
+    - "!thirdparty/**"
   profile: "assertive"
   request_changes_workflow: true
   high_level_summary: true
