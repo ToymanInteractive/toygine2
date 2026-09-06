@@ -21,7 +21,7 @@
   \file   version.hpp
   \brief  Version of a build, and the order two versions compare in.
 
-  Defines \ref toy::application::Version: the major, minor, and patch numbers of a build plus the revision it was built
+  Defines \ref toy::application::Version the major, minor, and patch numbers of a build plus the revision it was built
   from. Used where an application names its build to a log line or checks it against saved data.
 
   \note Included by application.hpp only; do not include this file directly.
