@@ -28,13 +28,13 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /Zc:externConstexpr
+    # last option is /Zc:forScope
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
-    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr")
+    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
@@ -100,8 +100,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
 
-    string(APPEND CMAKE_C_FLAGS   " /nologo /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast")
-    string(APPEND CMAKE_CXX_FLAGS " /nologo /Zc:wchar_t /Zc:forScope /Zc:inline /Zc:preprocessor /Zc:rvalueCast")
+    string(APPEND CMAKE_C_FLAGS   " /nologo /Zc:wchar_t /Zc:inline /Zc:preprocessor /Zc:rvalueCast")
+    string(APPEND CMAKE_CXX_FLAGS " /nologo /Zc:wchar_t /Zc:inline /Zc:preprocessor /Zc:rvalueCast")
 
     string(APPEND CMAKE_C_FLAGS_DEBUG             " /diagnostics:caret   /sdl      /MTd /MP")
     string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /diagnostics:caret   /sdl      /MTd /MP")
