@@ -43,22 +43,21 @@ include(FetchContent)
 # Declares the ckdl target and the kdl::kdl alias over the vendored sources in thirdparty/ckdl.
 include(ckdl)
 
-# Vulkan-Headers and volk are pinned to exact tags. Bump both together in a dedicated change.
-FetchContent_Declare(
-  Vulkan-Headers
-  GIT_REPOSITORY https://github.com/KhronosGroup/Vulkan-Headers.git
-  GIT_TAG        vulkan-sdk-1.3.296.0
-  GIT_SHALLOW    TRUE
-)
+# Declares the Vulkan::Headers target and VULKAN_HEADERS_DIR over the vendored headers in thirdparty/vulkan.
+include(vulkan)
+
+# volk reads VULKAN_HEADERS_INSTALL_DIR before it falls back to find_package(Vulkan) and $VULKAN_SDK, so the vendored
+# headers win over whatever SDK the build machine happens to carry, and a machine without one still builds.
+set(VULKAN_HEADERS_INSTALL_DIR ${VULKAN_HEADERS_DIR})
+
+# volk is pinned to an exact tag; bump it against the vendored header version in a dedicated change.
 FetchContent_Declare(
   volk
   GIT_REPOSITORY https://github.com/zeux/volk.git
-  GIT_TAG        1.3.295
+  GIT_TAG        1.4.350
   GIT_SHALLOW    TRUE
 )
-
-# Order matters: Vulkan-Headers provides the Vulkan::Headers target that volk links against.
-FetchContent_MakeAvailable(Vulkan-Headers volk)
+FetchContent_MakeAvailable(volk)
 
 # volk and every consumer must agree on the platform surface so vkCreateMetalSurfaceEXT is loaded.
 target_compile_definitions(volk PUBLIC VK_USE_PLATFORM_METAL_EXT)
@@ -75,6 +74,7 @@ set_source_files_properties(src/main_menu.mm src/window.mm PROPERTIES COMPILE_OP
 
 target_link_libraries(editor PRIVATE
   volk::volk
+  Vulkan::Headers
   "-framework Cocoa"
   "-framework QuartzCore"
   "-framework Metal"

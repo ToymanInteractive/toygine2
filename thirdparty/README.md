@@ -15,3 +15,14 @@ Files extracted from upstream source:
 - `src/` folder
   - These files can be removed: `CMakeLists.txt`
 - `COPYING`
+
+## vulkan
+
+- Upstream: https://github.com/KhronosGroup/Vulkan-Headers
+- Version: vulkan-sdk-1.4.362.0 (ee2ec5fd83dafce291024683b50dc89219333076, 2026)
+- License: Apache 2.0 / MIT
+
+Files extracted from upstream source:
+
+- `include/`
+- `LICENSES/`
