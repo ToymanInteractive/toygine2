@@ -141,9 +141,19 @@ source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_CORE_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} include/toygine.hpp)
-list(APPEND INL_LIST ${INL_CORE_LIST})
+set(SRC_APPLICATION_LIST )
+set(HDR_APPLICATION_LIST
+    include/application/version.hpp)
+set(INL_APPLICATION_LIST
+    include/application/version.inl)
+
+source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} include/toygine.hpp)
+list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})

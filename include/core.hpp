@@ -118,6 +118,15 @@ using std::uint64_t;
 // (lvl 1)               Utility library https://cppreference.com/cpp/utility
 
 /*!
+  \brief Result of a three-way comparison whose equal operands are substitutable; alias for std::strong_ordering.
+
+  \note \c equal and \c equivalent name the same value.
+
+  \sa https://cppreference.com/cpp/utility/compare/strong_ordering
+*/
+using std::strong_ordering;
+
+/*!
   \brief Value of an enumerator in the underlying type of its enumeration; alias for std::to_underlying.
 
   \sa https://cppreference.com/cpp/utility/to_underlying
