@@ -18,8 +18,8 @@ Files extracted from upstream source:
 
 ## vulkan
 
-- Upstream: https://github.com/KhronosGroup/Vulkan-Headers
-- Version: vulkan-sdk-1.4.362.0 (ee2ec5fd83dafce291024683b50dc89219333076, 2026)
+- Upstream: <https://github.com/KhronosGroup/Vulkan-Headers>
+- Version: v1.4.362 (ee2ec5fd83dafce291024683b50dc89219333076, 2026)
 - License: Apache 2.0 / MIT
 
 Files extracted from upstream source:
