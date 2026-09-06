@@ -19,11 +19,10 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 # KDL parser for the project manifest. Consumers use only the streaming C API: nodes map onto the setting registry
-# directly, so kdlpp would build a document model only to have it taken apart.
+# directly, so kdlpp would build a document model just to take it apart.
 #
-# Upstream ships a CMakeLists that builds its CLI utilities and C++ bindings, registers its own tests with CTest, and
-# adds a global target named `math`, so the vendored copy drops it and this file declares the target instead.
-# thirdparty/README.md records the upstream commit.
+# The vendored copy drops the upstream CMakeLists, which builds CLI utilities and C++ bindings, adds CTest tests, and
+# defines a global `math` target. thirdparty/README.md records the upstream commit.
 
 include(CheckSymbolExists)
 

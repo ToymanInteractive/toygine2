@@ -182,6 +182,15 @@ if (TOYGINE_BUILD_DOCS)
   add_subdirectory(docs)
 endif ()
 
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Editor
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_EDITOR)
+  add_subdirectory(editor)
+endif ()
+
 #-----------------------------------------------------------------------------------------------------------------------
 # Samples
 #-----------------------------------------------------------------------------------------------------------------------
@@ -223,8 +232,8 @@ endif ()
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Packs what the build installed, one archive per component group. Group 'runtime' is everything a consumer needs: the
-# library, its headers, the license and the sample executables. include(CPack) must stay last, after every install()
-# rule, otherwise the component list it captures is incomplete.
+# library, its headers, the license, the sample executables and, where it is built, the editor. include(CPack) must stay
+# last, after every install() rule, otherwise the component list it captures is incomplete.
 if (TOP_PROJECT)
   set(CPACK_GENERATOR "ZIP")
   set(CPACK_PACKAGE_NAME "${PROJECT_NAME}${PACKAGE_NAME_SUFFIX}")
@@ -236,11 +245,17 @@ if (TOP_PROJECT)
   # Component install mode is what filters the archive down to CPACK_COMPONENTS_ALL: without it CPack packs every
   # install() rule in the build, including those the FetchContent dependencies declare for themselves.
   set(CPACK_COMPONENTS_ALL headers library license samples)
+
+  if (TOYGINE_BUILD_EDITOR)
+    list(APPEND CPACK_COMPONENTS_ALL editor)
+  endif ()
+
   set(CPACK_ARCHIVE_COMPONENT_INSTALL ON)
   set(CPACK_COMPONENTS_GROUPING ONE_PER_GROUP)
 
   # One group today, so one archive. The symbols step adds a 'debug' group holding a 'symbols' component; the group is
   # named 'debug' so it never collides with that component name.
+  set(CPACK_COMPONENT_EDITOR_GROUP runtime)
   set(CPACK_COMPONENT_HEADERS_GROUP runtime)
   set(CPACK_COMPONENT_LIBRARY_GROUP runtime)
   set(CPACK_COMPONENT_LICENSE_GROUP runtime)
