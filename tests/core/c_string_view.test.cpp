@@ -112,6 +112,19 @@ constexpr char c_sentinel = '#';
 
 } // namespace
 
+// What a copy and a scope exit cost the caller, the initializer form the call site may write, and what a
+// declaration without one leaves behind.
+TEST_CASE("c_string_view/value_semantics") {
+  static_assert(std::is_trivially_copyable_v<CStringView>, "the view must copy as bytes");
+  static_assert(std::is_trivially_destructible_v<CStringView>, "leaving scope must run no destructor");
+  static_assert(std::is_standard_layout_v<CStringView>, "the layout must stay readable from a C interface");
+
+  static_assert(!std::is_aggregate_v<CStringView>,
+                "the pointer and the length stay private, so no call site may brace-initialize them");
+  static_assert(!std::is_trivially_default_constructible_v<CStringView>,
+                "a default-constructed view names no string and reports no length, which is not a trivial default");
+}
+
 // The aliases the view publishes, and the type each one has to name.
 TEST_CASE("c_string_view/types") {
   static_assert(std::is_same_v<CStringView::value_type, char>, "the view reads plain char characters");
@@ -173,7 +186,6 @@ TEST_CASE("c_string_view/construction_from_null") {
                 "the deleted overload must reject a literal nullptr during compilation");
 
   static_assert(std::is_nothrow_default_constructible_v<CStringView>, "an empty view must be buildable without cost");
-  static_assert(std::is_trivially_copyable_v<CStringView>, "the view owns nothing, so a copy must stay trivial");
 }
 
 // The range a forward walk covers and the characters it yields.
