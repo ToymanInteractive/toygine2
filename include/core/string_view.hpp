@@ -501,13 +501,13 @@ public:
     \brief Orders a part of this view against another view.
 
     \param pos1   Offset in this view the part starts at.
-    \param count1 Count of characters the part covers.
+    \param count1 Greatest count of characters the part covers, capped at what is left after \a pos1.
     \param v      View to order the part against.
 
     \return \c 0 when the part and \a v hold the same characters, a negative value when the part orders first, a
             positive value when \a v does.
 
-    \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
+    \pre \a pos1 is at most size(), checked by assert_message in debug builds.
 
     \sa compare(StringView)
   */
@@ -517,16 +517,16 @@ public:
     \brief Orders a part of this view against a part of another view.
 
     \param pos1   Offset in this view the first part starts at.
-    \param count1 Count of characters the first part covers.
+    \param count1 Greatest count of characters the first part covers, capped at what is left after \a pos1.
     \param v      View the second part is taken from.
     \param pos2   Offset in \a v the second part starts at.
-    \param count2 Count of characters the second part covers.
+    \param count2 Greatest count of characters the second part covers, capped at what is left after \a pos2.
 
     \return \c 0 when both parts hold the same characters, a negative value when the first orders before the second,
             a positive value when it orders after.
 
-    \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
-    \pre \a pos2 and \a count2 name a range inside \a v, checked by assert_message in debug builds.
+    \pre \a pos1 is at most size(), checked by assert_message in debug builds.
+    \pre \a pos2 is at most the size of \a v, checked by assert_message in debug builds.
 
     \sa compare(StringView)
   */
@@ -553,13 +553,13 @@ public:
     \brief Orders a part of this view against a null-terminated byte string.
 
     \param pos1   Offset in this view the part starts at.
-    \param count1 Count of characters the part covers.
+    \param count1 Greatest count of characters the part covers, capped at what is left after \a pos1.
     \param s      Null-terminated byte string to order the part against.
 
     \return \c 0 when the part and \a s hold the same characters, a negative value when the part orders first,
             a positive value when \a s does.
 
-    \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
+    \pre \a pos1 is at most size(), checked by assert_message in debug builds.
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \sa compare(size_type, size_type, StringView)
@@ -573,14 +573,14 @@ public:
     need not end in one.
 
     \param pos1   Offset in this view the part starts at.
-    \param count1 Count of characters the part covers.
+    \param count1 Greatest count of characters the part covers, capped at what is left after \a pos1.
     \param s      Byte string the compared characters are read from.
     \param count2 Count of characters to read from \a s.
 
     \return \c 0 when both parts hold the same characters, a negative value when the part of this view orders first,
             a positive value when the part of \a s does.
 
-    \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
+    \pre \a pos1 is at most size(), checked by assert_message in debug builds.
     \pre \a s is non-null, checked by assert_message in debug builds.
     \pre \a s addresses at least \a count2 characters.
 

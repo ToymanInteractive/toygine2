@@ -463,6 +463,67 @@ TEST_CASE("string_view/compare_substring") {
   static_assert(StringView("pl").compare(0, 2, c_embeddedNull, 4) < 0, "the count sets the length, not a terminator");
 }
 
+// A count past the end of the part names the rest of it, the way copy() reads its own count.
+TEST_CASE("string_view/compare_substring_clamped_count") {
+  const StringView view(c_sample);
+
+  CHECK(view.compare(0, c_npos, StringView(c_sample)) == 0);
+  CHECK(view.compare(2, c_npos, StringView("ayer")) == 0);
+  CHECK(view.compare(c_sampleLength, c_npos, StringView("")) == 0);
+
+  CHECK(view.compare(0, c_npos, StringView(c_sampleLonger), 0, c_npos) < 0);
+  CHECK(view.compare(2, c_npos, StringView("xayer"), 1, c_npos) == 0);
+
+  CHECK(view.compare(0, c_npos, c_sample) == 0);
+  CHECK(view.compare(2, c_npos, "ayer", 4) == 0);
+
+  static_assert(c_sampleView.compare(0, c_npos, StringView(c_sample)) == 0,
+                "a count past the end must name the rest of the string");
+  static_assert(c_sampleView.compare(2, c_npos, StringView("ayer")) == 0,
+                "a clamped count must settle the length tie-break on what was read");
+  static_assert(c_sampleView.compare(0, c_npos, StringView(c_sampleLonger), 0, c_npos) < 0,
+                "both counts must clamp to the parts they name");
+}
+
+// The sign a comparison yields against a view that holds no string, which reads no character to order on.
+TEST_CASE("string_view/compare_empty") {
+  const StringView empty;
+  const StringView view(c_sample);
+
+  CHECK(empty.compare(empty) == 0);
+  CHECK(empty.compare(view) < 0);
+  CHECK(view.compare(empty) > 0);
+  CHECK(empty.compare(0, c_npos, empty) == 0);
+  CHECK(empty.compare(0, c_npos, empty, 0, c_npos) == 0);
+
+  static_assert(StringView().compare(StringView()) == 0, "two views holding no string must compare equal");
+  static_assert(StringView().compare(c_sampleView) < 0, "a view holding no string must order before any string");
+}
+
+// The offset a search reports for a set that holds no character, which every character of the string lies outside.
+TEST_CASE("string_view/find_empty_set") {
+  const StringView empty;
+  const StringView view(c_sample);
+
+  CHECK(view.find_first_of(empty) == c_npos);
+  CHECK(view.find_last_of(empty) == c_npos);
+
+  CHECK(view.find_first_not_of(empty) == 0);
+  CHECK(view.find_first_not_of(empty, 2) == 2);
+  CHECK(view.find_first_not_of(empty, c_sampleLength) == c_npos);
+  CHECK(view.find_last_not_of(empty) == c_sampleLength - 1);
+  CHECK(view.find_last_not_of(empty, 2) == 2);
+
+  CHECK(empty.find_first_not_of(empty) == c_npos);
+  CHECK(empty.find_last_not_of(empty) == c_npos);
+
+  static_assert(c_sampleView.find_first_of(StringView()) == c_npos, "an empty set must match no character");
+  static_assert(c_sampleView.find_last_of(StringView()) == c_npos, "an empty set must match no character backwards");
+  static_assert(c_sampleView.find_first_not_of(StringView()) == 0, "an empty set must leave every character out");
+  static_assert(c_sampleView.find_last_not_of(StringView()) == c_sampleLength - 1,
+                "an empty set must leave the last character out too");
+}
+
 // Whether two views hold the same characters, and what the synthesized inequality reports.
 TEST_CASE("string_view/equality") {
   const StringView view(c_sample);
