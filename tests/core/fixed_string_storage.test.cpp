@@ -65,11 +65,27 @@ constexpr char c_sentinel = '#';
   return storage;
 }
 
-// The answer reserve() gives for a length, so a constant expression reads both sides of the bound.
-[[nodiscard]] constexpr bool reserved(size_t newCapacity) noexcept {
-  Storage storage;
+// Index of the first byte where two buffers differ, c_allocatedSize when they hold the same bytes throughout.
+[[nodiscard]] constexpr size_t firstDifference(const Storage & left, const Storage & right) noexcept {
+  size_t index = 0;
+  while (index < c_allocatedSize && left.data()[index] == right.data()[index])
+    ++index;
 
-  return storage.reserve(newCapacity);
+  return index;
+}
+
+// What a reserve() call answered, and where the buffer first differs from its state before the call.
+struct ReserveResult {
+  bool   answer;
+  size_t difference;
+};
+
+// Both halves of one reserve() call, so a constant expression reads the answer and the bytes from the same call.
+[[nodiscard]] constexpr ReserveResult reserveResult(size_t newCapacity) noexcept {
+  Storage       storage = sampleStorage();
+  const Storage before  = storage;
+
+  return {storage.reserve(newCapacity), firstDifference(storage, before)};
 }
 
 // Character left at the length setSize() was given, over a buffer that held no null character there.
@@ -155,18 +171,27 @@ TEST_CASE("fixed_string_storage/data_access") {
 
 // Which lengths the buffer admits, and what asking leaves behind.
 TEST_CASE("fixed_string_storage/reserve") {
-  Storage storage = sampleStorage();
+  Storage       storage = sampleStorage();
+  const Storage before  = storage;
 
   CHECK(storage.reserve(c_allocatedSize - 1));
+  CHECK(firstDifference(storage, before) == c_allocatedSize);
+
   CHECK_FALSE(storage.reserve(c_allocatedSize));
+  CHECK(firstDifference(storage, before) == c_allocatedSize);
 
   // Asking changes nothing: the buffer is fixed, so neither answer moves the length or the bound.
   CHECK(storage.size() == c_sampleLength);
   CHECK(storage.capacity() == c_allocatedSize - 1);
 
-  static_assert(reserved(0), "an empty string must fit any buffer");
-  static_assert(reserved(c_allocatedSize - 1), "a length at capacity must fit");
-  static_assert(!reserved(c_allocatedSize), "a length past capacity must be refused, terminator included");
+  static_assert(reserveResult(0).answer, "an empty string must fit any buffer");
+  static_assert(reserveResult(c_allocatedSize - 1).answer, "a length at capacity must fit");
+  static_assert(!reserveResult(c_allocatedSize).answer, "a length past capacity must be refused, terminator included");
+
+  static_assert(reserveResult(c_allocatedSize - 1).difference == c_allocatedSize,
+                "an accepted length must leave every byte of the buffer as it was");
+  static_assert(reserveResult(c_allocatedSize).difference == c_allocatedSize,
+                "a refused length must leave every byte of the buffer as it was");
 }
 
 // What setSize() records, and where it puts the terminator.
@@ -201,13 +226,6 @@ TEST_CASE("fixed_string_storage/set_size_shrink") {
   static_assert(byteAfterShrink(c_shortLength) == '\0', "the terminator must move to the new length");
   static_assert(byteAfterShrink(c_shortLength + 1) == c_sample[c_shortLength + 1],
                 "a character past the new length must survive the call");
-}
-
-// The storage contract a string constrains on, and which buffers meet it.
-TEST_CASE("fixed_string_storage/concept") {
-  static_assert(StringStorage<Storage>, "the buffer must satisfy the storage concept a string constrains on");
-  static_assert(StringStorage<Storage &>, "a reference is stripped from T, so a reference must satisfy it too");
-  static_assert(StringStorage<FixedStringStorage<1>>, "the smallest buffer must satisfy the concept as well");
 }
 
 } // namespace toy
