@@ -21,8 +21,8 @@
   \file   utils.hpp
   \brief  Utility functions the core module shares across its types.
 
-  Declares toy::utf8Len(), which reads a byte string as UTF-8 and reports how many characters it encodes. Called where
-  a byte length has to become a character count, as \ref toy::CStringView does.
+  Declares toy::utf8Len(), which reads a byte string as UTF-8 and reports how many characters it encodes. Called where a
+  byte length has to become a character count, as \ref toy::StringView does.
 
   \note Included by core.hpp only; do not include this file directly.
 */

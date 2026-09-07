@@ -18,32 +18,32 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   c_string_view.hpp
+  \file   string_view.hpp
   \brief  Non-owning view over a null-terminated byte string that carries its length.
 
-  Defines \ref toy::CStringView, a read-only view that holds the pointer to a null-terminated byte string and the
-  length measured when the view was built. Used where a call site hands the string to a C interface and still needs its
-  length without a second scan for the terminator.
+  Defines \ref toy::StringView, a read-only view that holds the pointer to a null-terminated byte string and the length
+  measured when the view was built. Used where a call site hands the string to a C interface and still needs its length
+  without a second scan for the terminator.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_C_STRING_VIEW_HPP_
-#define INCLUDE_CORE_C_STRING_VIEW_HPP_
+#ifndef INCLUDE_CORE_STRING_VIEW_HPP_
+#define INCLUDE_CORE_STRING_VIEW_HPP_
 
 #include "string_like.hpp"
 
 namespace toy {
 
 /*!
-  \class CStringView
+  \class StringView
   \brief Read-only view over a null-terminated byte string that keeps the pointer and its measured length.
 
   Stores the pointer the caller supplies and copies neither the characters nor the terminator, so the viewed string has
   to outlive the view. Null-termination is part of the contract, unlike \c std::string_view: the pointer stays valid
   input for a C interface, and the length needs no second scan.
 
-  \section c_string_view_features Key Features
+  \section string_view_features Key Features
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
   * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
@@ -58,13 +58,13 @@ namespace toy {
   * **Type safety**: construction from \c nullptr is deleted, so the null case fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \section c_string_view_usage Usage Example
+  \section string_view_usage Usage Example
 
   \code
   #include "core.hpp"
 
-  constexpr toy::CStringView name("player");
-  constexpr toy::CStringView alias(name);
+  constexpr toy::StringView name("player");
+  constexpr toy::StringView alias(name);
 
   size_t letters = 0;
   for (const char character : alias) {
@@ -73,14 +73,14 @@ namespace toy {
 
   const char last = *name.rbegin();
 
-  constexpr toy::CStringView path("assets/player.png");
+  constexpr toy::StringView path("assets/player.png");
 
   const size_t extension = path.rfind('.');
   const bool   named     = path.contains(name);
   const bool   isPlayer  = name == "player";
   \endcode
 
-  \section c_string_view_performance Performance Characteristics
+  \section string_view_performance Performance Characteristics
 
   * **Construction from a pointer**: O(n) in the length of the string, one scan for the terminator.
   * **Default construction and copying**: O(1).
@@ -94,7 +94,7 @@ namespace toy {
     between calls.
   * **Memory usage**: one pointer and one length, 16 bytes on a 64-bit target and 8 bytes on a 32-bit one.
 
-  \section c_string_view_safety Safety Guarantees
+  \section string_view_safety Safety Guarantees
 
   * **Contracts**: the pointer constructor checks its argument against \c nullptr with assert_message in debug builds.
     A shipping build skips the check and stores the null pointer with a length of \c 0.
@@ -105,7 +105,7 @@ namespace toy {
     the view alone and leaves an outstanding iterator on the previous string.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \section c_string_view_compatibility Compatibility
+  \section string_view_compatibility Compatibility
 
   * No operation allocates or calls into the platform, so the type suits embedded and retro targets.
 
@@ -116,7 +116,7 @@ namespace toy {
 
   \sa \ref toy::StringLike
 */
-class CStringView {
+class StringView {
 public:
   /// Character operations the view uses to measure and compare
   using traits_type            = char_traits<char>;
@@ -132,11 +132,11 @@ public:
   using const_reference        = const char &;
   /// Iterator over the viewed characters
   using const_iterator         = const_pointer;
-  /// Read-only iterator alias; repeats \ref toy::CStringView::const_iterator
+  /// Read-only iterator alias; repeats \ref toy::StringView::const_iterator
   using iterator               = const_iterator;
   /// Iterator walking the viewed characters back to front
   using const_reverse_iterator = std::reverse_iterator<const_iterator>;
-  /// Read-only reverse iterator alias; repeats \ref toy::CStringView::const_reverse_iterator
+  /// Read-only reverse iterator alias; repeats \ref toy::StringView::const_reverse_iterator
   using reverse_iterator       = const_reverse_iterator;
   /// Unsigned type the length is measured in
   using size_type              = size_t;
@@ -148,7 +148,7 @@ public:
 
     \post The view holds a null pointer and a length of \c 0.
   */
-  constexpr CStringView() noexcept = default;
+  constexpr StringView() noexcept = default;
 
   /*!
     \brief Builds a view over the same string as \a other.
@@ -157,7 +157,7 @@ public:
 
     \post Both views read the same characters; neither owns them.
   */
-  constexpr CStringView(const CStringView & other) noexcept = default;
+  constexpr StringView(const StringView & other) noexcept = default;
 
   /*!
     \brief Builds a view over a null-terminated byte string and measures its length.
@@ -172,18 +172,18 @@ public:
 
     \post The view holds \a string and its length in bytes, the terminator excluded.
 
-    \sa CStringView()
+    \sa StringView()
   */
-  constexpr explicit(false) CStringView(const char * string) noexcept;
+  constexpr explicit(false) StringView(const char * string) noexcept;
 
   /*!
     \brief Deleted: a null pointer names no string to view.
 
     Rejects a literal \c nullptr during compilation, ahead of the debug check the pointer constructor performs.
 
-    \sa CStringView(const char *)
+    \sa StringView(const char *)
   */
-  CStringView(nullptr_t) = delete;
+  StringView(nullptr_t) = delete;
 
   /*!
     \brief Makes this view read the same string as \a view.
@@ -195,9 +195,9 @@ public:
     \post Both views read the same characters. The string this view held before stays untouched, since the view owns
           nothing.
 
-    \sa CStringView(const CStringView &)
+    \sa StringView(const StringView &)
   */
-  constexpr CStringView & operator=(const CStringView & view) noexcept = default;
+  constexpr StringView & operator=(const StringView & view) noexcept = default;
 
   /*!
     \brief Returns an iterator to the first character.
@@ -460,7 +460,7 @@ public:
 
     \sa operator=()
   */
-  constexpr void swap(CStringView & v) noexcept;
+  constexpr void swap(StringView & v) noexcept;
 
   /*!
     \brief Copies characters into caller storage.
@@ -495,7 +495,7 @@ public:
     \sa starts_with()
     \sa ends_with()
   */
-  [[nodiscard]] constexpr int compare(CStringView v) const noexcept;
+  [[nodiscard]] constexpr int compare(StringView v) const noexcept;
 
   /*!
     \brief Orders a part of this view against another view.
@@ -509,9 +509,9 @@ public:
 
     \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
 
-    \sa compare(CStringView)
+    \sa compare(StringView)
   */
-  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, CStringView v) const noexcept;
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, StringView v) const noexcept;
 
   /*!
     \brief Orders a part of this view against a part of another view.
@@ -528,15 +528,15 @@ public:
     \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
     \pre \a pos2 and \a count2 name a range inside \a v, checked by assert_message in debug builds.
 
-    \sa compare(CStringView)
+    \sa compare(StringView)
   */
-  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, CStringView v, size_type pos2,
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, StringView v, size_type pos2,
                                       size_type count2) const noexcept;
 
   /*!
     \brief Orders this view against a null-terminated byte string.
 
-    Measures \a s and orders it the way compare(CStringView) does.
+    Measures \a s and orders it the way compare(StringView) does.
 
     \param s Null-terminated byte string to order against.
 
@@ -545,7 +545,7 @@ public:
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
-    \sa compare(CStringView)
+    \sa compare(StringView)
   */
   [[nodiscard]] constexpr int compare(const value_type * s) const noexcept;
 
@@ -562,7 +562,7 @@ public:
     \pre \a pos1 and \a count1 name a range inside this view, checked by assert_message in debug builds.
     \pre \a s is non-null, checked by assert_message in debug builds.
 
-    \sa compare(size_type, size_type, CStringView)
+    \sa compare(size_type, size_type, StringView)
   */
   [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * s) const noexcept;
 
@@ -584,7 +584,7 @@ public:
     \pre \a s is non-null, checked by assert_message in debug builds.
     \pre \a s addresses at least \a count2 characters.
 
-    \sa compare(size_type, size_type, CStringView, size_type, size_type)
+    \sa compare(size_type, size_type, StringView, size_type, size_type)
   */
   [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * s,
                                       size_type count2) const noexcept;
@@ -600,9 +600,9 @@ public:
     \note An empty \a sv matches every string.
 
     \sa ends_with()
-    \sa compare(size_type, size_type, CStringView)
+    \sa compare(size_type, size_type, StringView)
   */
-  [[nodiscard]] constexpr bool starts_with(CStringView sv) const noexcept;
+  [[nodiscard]] constexpr bool starts_with(StringView sv) const noexcept;
 
   /*!
     \brief Reports whether the viewed string opens with a given character.
@@ -619,7 +619,7 @@ public:
   /*!
     \brief Reports whether the viewed string opens with given characters.
 
-    Measures \a s and matches it the way starts_with(CStringView) does.
+    Measures \a s and matches it the way starts_with(StringView) does.
 
     \param s Null-terminated byte string the viewed string has to open with.
 
@@ -627,7 +627,7 @@ public:
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
-    \sa starts_with(CStringView)
+    \sa starts_with(StringView)
   */
   [[nodiscard]] constexpr bool starts_with(const value_type * s) const noexcept;
 
@@ -642,9 +642,9 @@ public:
     \note An empty \a sv matches every string.
 
     \sa starts_with()
-    \sa compare(size_type, size_type, CStringView)
+    \sa compare(size_type, size_type, StringView)
   */
-  [[nodiscard]] constexpr bool ends_with(CStringView sv) const noexcept;
+  [[nodiscard]] constexpr bool ends_with(StringView sv) const noexcept;
 
   /*!
     \brief Reports whether the viewed string closes with a given character.
@@ -661,7 +661,7 @@ public:
   /*!
     \brief Reports whether the viewed string closes with given characters.
 
-    Measures \a s and matches it the way ends_with(CStringView) does.
+    Measures \a s and matches it the way ends_with(StringView) does.
 
     \param s Null-terminated byte string the viewed string has to close with.
 
@@ -670,7 +670,7 @@ public:
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
-    \sa ends_with(CStringView)
+    \sa ends_with(StringView)
   */
   [[nodiscard]] constexpr bool ends_with(const value_type * s) const noexcept;
 
@@ -683,9 +683,9 @@ public:
 
     \note An empty \a sv appears in every string.
 
-    \sa find(CStringView, size_type)
+    \sa find(StringView, size_type)
   */
-  [[nodiscard]] constexpr bool contains(CStringView sv) const noexcept;
+  [[nodiscard]] constexpr bool contains(StringView sv) const noexcept;
 
   /*!
     \brief Reports whether a given character appears anywhere in the viewed string.
@@ -701,7 +701,7 @@ public:
   /*!
     \brief Reports whether given characters appear anywhere in the viewed string.
 
-    Measures \a s and looks for it the way contains(CStringView) does.
+    Measures \a s and looks for it the way contains(StringView) does.
 
     \param s Null-terminated byte string to look for.
 
@@ -709,7 +709,7 @@ public:
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
-    \sa contains(CStringView)
+    \sa contains(StringView)
   */
   [[nodiscard]] constexpr bool contains(const value_type * s) const noexcept;
 
@@ -722,14 +722,14 @@ public:
     \param v   Characters to match, in order.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first match at or after \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the first match at or after \a pos, \ref toy::StringView::npos when the string holds none.
 
     \note An empty \a v matches at \a pos, and matches nothing once \a pos is past the length.
 
-    \sa rfind(CStringView, size_type)
-    \sa find_first_of(CStringView, size_type)
+    \sa rfind(StringView, size_type)
+    \sa find_first_of(StringView, size_type)
   */
-  [[nodiscard]] constexpr size_type find(CStringView v, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find(StringView v, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a given character.
@@ -737,7 +737,7 @@ public:
     \param ch  Character to match.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first \a ch at or after \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the first \a ch at or after \a pos, \ref toy::StringView::npos when the string holds none.
 
     \sa rfind(value_type, size_type)
     \sa contains(value_type)
@@ -754,31 +754,31 @@ public:
     \param pos   Offset to start the search at.
     \param count Count of characters to read from \a s.
 
-    \return Offset of the first match at or after \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the first match at or after \a pos, \ref toy::StringView::npos when the string holds none.
 
     \pre \a s addresses at least \a count characters.
 
     \note A \a count of \c 0 matches at \a pos, and matches nothing once \a pos is past the length.
 
-    \sa find(CStringView, size_type)
+    \sa find(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds given characters.
 
-    Measures \a s and matches it the way find(CStringView, size_type) does.
+    Measures \a s and matches it the way find(StringView, size_type) does.
 
     \param s   Characters to match, in order.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first match at or after \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the first match at or after \a pos, \ref toy::StringView::npos when the string holds none.
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \note An empty \a s matches at \a pos, and matches nothing once \a pos is past the length.
 
-    \sa find(CStringView, size_type)
+    \sa find(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find(const value_type * s, size_type pos = 0) const noexcept;
 
@@ -790,26 +790,26 @@ public:
 
     \param v   Characters to match, in order.
     \param pos Greatest offset a match may start at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last match starting at or before \a pos, \ref toy::CStringView::npos when the string holds
+    \return Offset of the last match starting at or before \a pos, \ref toy::StringView::npos when the string holds
             none.
 
     \note An empty \a v matches at \a pos, capped at the length.
 
-    \sa find(CStringView, size_type)
-    \sa find_last_of(CStringView, size_type)
+    \sa find(StringView, size_type)
+    \sa find_last_of(StringView, size_type)
   */
-  [[nodiscard]] constexpr size_type rfind(CStringView v, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type rfind(StringView v, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a given character.
 
     \param ch  Character to match.
-    \param pos Greatest offset the character may sit at (default: \ref toy::CStringView::npos, which searches the whole
+    \param pos Greatest offset the character may sit at (default: \ref toy::StringView::npos, which searches the whole
                string).
 
-    \return Offset of the last \a ch at or before \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the last \a ch at or before \a pos, \ref toy::StringView::npos when the string holds none.
 
     \sa find(value_type, size_type)
     \sa find_last_of(value_type, size_type)
@@ -826,34 +826,34 @@ public:
     \param pos   Greatest offset a match may start at.
     \param count Count of characters to read from \a s.
 
-    \return Offset of the last match starting at or before \a pos, \ref toy::CStringView::npos when the string holds
+    \return Offset of the last match starting at or before \a pos, \ref toy::StringView::npos when the string holds
             none.
 
     \pre \a s addresses at least \a count characters.
 
     \note A \a count of \c 0 matches at \a pos, capped at the length.
 
-    \sa rfind(CStringView, size_type)
+    \sa rfind(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type rfind(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds given characters.
 
-    Measures \a s and matches it the way rfind(CStringView, size_type) does.
+    Measures \a s and matches it the way rfind(StringView, size_type) does.
 
     \param s   Characters to match, in order.
     \param pos Greatest offset a match may start at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last match starting at or before \a pos, \ref toy::CStringView::npos when the string holds
+    \return Offset of the last match starting at or before \a pos, \ref toy::StringView::npos when the string holds
             none.
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \note An empty \a s matches at \a pos, capped at the length.
 
-    \sa rfind(CStringView, size_type)
+    \sa rfind(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type rfind(const value_type * s, size_type pos = npos) const noexcept;
 
@@ -866,15 +866,15 @@ public:
     \param v   Characters the match may be any one of.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first character at or after \a pos that \a v holds, \ref toy::CStringView::npos when there is
+    \return Offset of the first character at or after \a pos that \a v holds, \ref toy::StringView::npos when there is
             none.
 
     \note An empty \a v holds no character to match, so the search reports nothing.
 
-    \sa find_last_of(CStringView, size_type)
-    \sa find_first_not_of(CStringView, size_type)
+    \sa find_last_of(StringView, size_type)
+    \sa find_first_not_of(StringView, size_type)
   */
-  [[nodiscard]] constexpr size_type find_first_of(CStringView v, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_of(StringView v, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a given character.
@@ -884,7 +884,7 @@ public:
     \param ch  Character to match.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first \a ch at or after \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the first \a ch at or after \a pos, \ref toy::StringView::npos when the string holds none.
 
     \sa find(value_type, size_type)
     \sa find_last_of(value_type, size_type)
@@ -901,33 +901,33 @@ public:
     \param pos   Offset to start the search at.
     \param count Count of characters to read from \a s.
 
-    \return Offset of the first character at or after \a pos that \a s holds, \ref toy::CStringView::npos when there is
+    \return Offset of the first character at or after \a pos that \a s holds, \ref toy::StringView::npos when there is
             none.
 
     \pre \a s addresses at least \a count characters.
 
     \note A \a count of \c 0 holds no character to match, so the search reports nothing.
 
-    \sa find_first_of(CStringView, size_type)
+    \sa find_first_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_first_of(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds any character of a given set.
 
-    Measures \a s and matches it the way find_first_of(CStringView, size_type) does.
+    Measures \a s and matches it the way find_first_of(StringView, size_type) does.
 
     \param s   Characters the match may be any one of.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first character at or after \a pos that \a s holds, \ref toy::CStringView::npos when there is
+    \return Offset of the first character at or after \a pos that \a s holds, \ref toy::StringView::npos when there is
             none.
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \note An empty \a s holds no character to match, so the search reports nothing.
 
-    \sa find_first_of(CStringView, size_type)
+    \sa find_first_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_first_of(const value_type * s, size_type pos = 0) const noexcept;
 
@@ -939,17 +939,17 @@ public:
 
     \param v   Characters the match may be any one of.
     \param pos Greatest offset the match may sit at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last character at or before \a pos that \a v holds, \ref toy::CStringView::npos when there is
+    \return Offset of the last character at or before \a pos that \a v holds, \ref toy::StringView::npos when there is
             none.
 
     \note An empty \a v holds no character to match, so the search reports nothing.
 
-    \sa find_first_of(CStringView, size_type)
-    \sa find_last_not_of(CStringView, size_type)
+    \sa find_first_of(StringView, size_type)
+    \sa find_last_not_of(StringView, size_type)
   */
-  [[nodiscard]] constexpr size_type find_last_of(CStringView v, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_of(StringView v, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a given character.
@@ -958,9 +958,9 @@ public:
 
     \param ch  Character to match.
     \param pos Greatest offset the match may sit at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last \a ch at or before \a pos, \ref toy::CStringView::npos when the string holds none.
+    \return Offset of the last \a ch at or before \a pos, \ref toy::StringView::npos when the string holds none.
 
     \sa rfind(value_type, size_type)
     \sa find_first_of(value_type, size_type)
@@ -977,34 +977,34 @@ public:
     \param pos   Greatest offset the match may sit at.
     \param count Count of characters to read from \a s.
 
-    \return Offset of the last character at or before \a pos that \a s holds, \ref toy::CStringView::npos when there is
+    \return Offset of the last character at or before \a pos that \a s holds, \ref toy::StringView::npos when there is
             none.
 
     \pre \a s addresses at least \a count characters.
 
     \note A \a count of \c 0 holds no character to match, so the search reports nothing.
 
-    \sa find_last_of(CStringView, size_type)
+    \sa find_last_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_last_of(const value_type * s, size_type pos, size_type count) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds any character of a given set.
 
-    Measures \a s and matches it the way find_last_of(CStringView, size_type) does.
+    Measures \a s and matches it the way find_last_of(StringView, size_type) does.
 
     \param s   Characters the match may be any one of.
     \param pos Greatest offset the match may sit at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last character at or before \a pos that \a s holds, \ref toy::CStringView::npos when there is
+    \return Offset of the last character at or before \a pos that \a s holds, \ref toy::StringView::npos when there is
             none.
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \note An empty \a s holds no character to match, so the search reports nothing.
 
-    \sa find_last_of(CStringView, size_type)
+    \sa find_last_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_last_of(const value_type * s, size_type pos = npos) const noexcept;
 
@@ -1017,15 +1017,15 @@ public:
     \param v   Characters the match may not be any of.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first character at or after \a pos that \a v does not hold, \ref toy::CStringView::npos when
+    \return Offset of the first character at or after \a pos that \a v does not hold, \ref toy::StringView::npos when
             there is none.
 
     \note An empty \a v leaves every character out, so the search reports \a pos while that offset is inside the string.
 
-    \sa find_last_not_of(CStringView, size_type)
-    \sa find_first_of(CStringView, size_type)
+    \sa find_last_not_of(StringView, size_type)
+    \sa find_first_of(StringView, size_type)
   */
-  [[nodiscard]] constexpr size_type find_first_not_of(CStringView v, size_type pos = 0) const noexcept;
+  [[nodiscard]] constexpr size_type find_first_not_of(StringView v, size_type pos = 0) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string first holds a character other than a given one.
@@ -1033,7 +1033,7 @@ public:
     \param ch  Character to match.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first character at or after \a pos that differs from \a ch, \ref toy::CStringView::npos when
+    \return Offset of the first character at or after \a pos that differs from \a ch, \ref toy::StringView::npos when
             there is none.
 
     \sa find_last_not_of(value_type, size_type)
@@ -1051,7 +1051,7 @@ public:
     \param pos   Offset to start the search at.
     \param count Count of characters to read from \a s.
 
-    \return Offset of the first character at or after \a pos that \a s does not hold, \ref toy::CStringView::npos when
+    \return Offset of the first character at or after \a pos that \a s does not hold, \ref toy::StringView::npos when
             there is none.
 
     \pre \a s addresses at least \a count characters.
@@ -1059,7 +1059,7 @@ public:
     \note A \a count of \c 0 leaves every character out, so the search reports \a pos while that offset is inside the
           string.
 
-    \sa find_first_not_of(CStringView, size_type)
+    \sa find_first_not_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_first_not_of(const value_type * s, size_type pos,
                                                       size_type count) const noexcept;
@@ -1067,19 +1067,19 @@ public:
   /*!
     \brief Returns the offset where the viewed string first holds a character outside a given set.
 
-    Measures \a s and matches it the way find_first_not_of(CStringView, size_type) does.
+    Measures \a s and matches it the way find_first_not_of(StringView, size_type) does.
 
     \param s   Characters the match may not be any of.
     \param pos Offset to start the search at (default: \c 0).
 
-    \return Offset of the first character at or after \a pos that \a s does not hold, \ref toy::CStringView::npos when
+    \return Offset of the first character at or after \a pos that \a s does not hold, \ref toy::StringView::npos when
             there is none.
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \note An empty \a s leaves every character out, so the search reports \a pos while that offset is inside the string.
 
-    \sa find_first_not_of(CStringView, size_type)
+    \sa find_first_not_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_first_not_of(const value_type * s, size_type pos = 0) const noexcept;
 
@@ -1091,26 +1091,26 @@ public:
 
     \param v   Characters the match may not be any of.
     \param pos Greatest offset the match may sit at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last character at or before \a pos that \a v does not hold, \ref toy::CStringView::npos when
+    \return Offset of the last character at or before \a pos that \a v does not hold, \ref toy::StringView::npos when
             there is none.
 
     \note An empty \a v leaves every character out, so the search reports the last character.
 
-    \sa find_first_not_of(CStringView, size_type)
-    \sa find_last_of(CStringView, size_type)
+    \sa find_first_not_of(StringView, size_type)
+    \sa find_last_of(StringView, size_type)
   */
-  [[nodiscard]] constexpr size_type find_last_not_of(CStringView v, size_type pos = npos) const noexcept;
+  [[nodiscard]] constexpr size_type find_last_not_of(StringView v, size_type pos = npos) const noexcept;
 
   /*!
     \brief Returns the offset where the viewed string last holds a character other than a given one.
 
     \param ch  Character to match.
     \param pos Greatest offset the match may sit at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last character at or before \a pos that differs from \a ch, \ref toy::CStringView::npos when
+    \return Offset of the last character at or before \a pos that differs from \a ch, \ref toy::StringView::npos when
             there is none.
 
     \sa find_first_not_of(value_type, size_type)
@@ -1128,14 +1128,14 @@ public:
     \param pos   Greatest offset the match may sit at.
     \param count Count of characters to read from \a s.
 
-    \return Offset of the last character at or before \a pos that \a s does not hold, \ref toy::CStringView::npos when
+    \return Offset of the last character at or before \a pos that \a s does not hold, \ref toy::StringView::npos when
             there is none.
 
     \pre \a s addresses at least \a count characters.
 
     \note A \a count of \c 0 leaves every character out, so the search reports the last character.
 
-    \sa find_last_not_of(CStringView, size_type)
+    \sa find_last_not_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_last_not_of(const value_type * s, size_type pos,
                                                      size_type count) const noexcept;
@@ -1143,20 +1143,20 @@ public:
   /*!
     \brief Returns the offset where the viewed string last holds a character outside a given set.
 
-    Measures \a s and matches it the way find_last_not_of(CStringView, size_type) does.
+    Measures \a s and matches it the way find_last_not_of(StringView, size_type) does.
 
     \param s   Characters the match may not be any of.
     \param pos Greatest offset the match may sit at
-               (default: \ref toy::CStringView::npos, which searches the whole string).
+               (default: \ref toy::StringView::npos, which searches the whole string).
 
-    \return Offset of the last character at or before \a pos that \a s does not hold, \ref toy::CStringView::npos when
+    \return Offset of the last character at or before \a pos that \a s does not hold, \ref toy::StringView::npos when
             there is none.
 
     \pre \a s is non-null, checked by assert_message in debug builds.
 
     \note An empty \a s leaves every character out, so the search reports the last character.
 
-    \sa find_last_not_of(CStringView, size_type)
+    \sa find_last_not_of(StringView, size_type)
   */
   [[nodiscard]] constexpr size_type find_last_not_of(const value_type * s, size_type pos = npos) const noexcept;
 
@@ -1179,9 +1179,9 @@ public:
     \note A view over no string and a view over an empty string both report a length of \c 0, which makes them equal.
 
     \sa operator<=>()
-    \sa compare(CStringView)
+    \sa compare(StringView)
   */
-  friend constexpr bool operator==(CStringView lhs, CStringView rhs) noexcept;
+  friend constexpr bool operator==(StringView lhs, StringView rhs) noexcept;
 
   /*!
     \brief Orders two views lexicographically.
@@ -1200,9 +1200,9 @@ public:
     \note The order consults no locale, which makes it identical across runs and targets.
 
     \sa operator==()
-    \sa compare(CStringView)
+    \sa compare(StringView)
   */
-  friend constexpr traits_type::comparison_category operator<=>(CStringView lhs, CStringView rhs) noexcept;
+  friend constexpr traits_type::comparison_category operator<=>(StringView lhs, StringView rhs) noexcept;
 
 private:
   /// First character of the viewed string, \c nullptr while the view holds none
@@ -1214,4 +1214,4 @@ private:
 
 } // namespace toy
 
-#endif // INCLUDE_CORE_C_STRING_VIEW_HPP_
+#endif // INCLUDE_CORE_STRING_VIEW_HPP_

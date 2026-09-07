@@ -309,18 +309,18 @@ using std::strncpy;
 
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
-#include "core/c_string_view.hpp"
 #include "core/fixed_string_storage.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
 #include "core/string_like.hpp"
 #include "core/string_storage.hpp"
+#include "core/string_view.hpp"
 #include "core/utils.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/bitwise_enum.inl"
-#include "core/c_string_view.inl"
 #include "core/fixed_string_storage.inl"
+#include "core/string_view.inl"
 
 #endif // INCLUDE_CORE_HPP_
