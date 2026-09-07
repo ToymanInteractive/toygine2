@@ -36,8 +36,6 @@ namespace toy::log {
   \struct Metadata
   \brief  Format string, source location, and severity of one log call.
 
-  \ingroup Logger
-
   Aggregate the caller fills field by field. No member carries a default, so a field the initializer leaves out is
   value-initialized instead: a null pointer, a zero line, or \ref toy::log::Level::Off.
 

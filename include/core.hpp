@@ -205,17 +205,9 @@ using std::strncpy;
 //--------------------------------------------------------------------------------------------------------------------
 
 /*!
-  \defgroup Logger Logger
-
-  \brief Compile-time filtered logging with pluggable sinks.
-*/
-
-/*!
   \namespace toy::log
 
   \brief Logging module: the severity levels a log call carries.
-
-  \ingroup Logger
 */
 
 //--------------------------------------------------------------------------------------------------------------------
