@@ -228,4 +228,11 @@ TEST_CASE("fixed_string_storage/set_size_shrink") {
                 "a character past the new length must survive the call");
 }
 
+// The storage contract a string constrains on, and which buffers meet it.
+TEST_CASE("fixed_string_storage/concept") {
+  static_assert(StringStorage<Storage>, "the buffer must satisfy the storage concept a string constrains on");
+  static_assert(StringStorage<Storage &>, "a reference is stripped from T, so a reference must satisfy it too");
+  static_assert(StringStorage<FixedStringStorage<1>>, "the smallest buffer must satisfy the concept as well");
+}
+
 } // namespace toy

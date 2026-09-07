@@ -53,6 +53,7 @@ namespace toy {
   * **Null-terminated**: setSize() writes the terminator, so data() stays valid input for a C interface.
   * **Constexpr support**: every operation evaluates in a constant expression.
   * **Exception safety**: no operation throws; exceptions are off in the build.
+  * **Storage concept**: models \ref toy::StringStorage, so a string constrained on it accepts this buffer.
   * **Checkable capacity**: reserve() answers whether a length fits before setSize() commits to it.
 
   \section fixed_string_storage_usage Usage Example
@@ -89,6 +90,8 @@ namespace toy {
         first setSize().
   \note The bytes between size() and capacity() keep whatever was written there; a shorter length moves the terminator
         and clears nothing.
+
+  \sa \ref toy::StringStorage
 */
 template <size_t AllocatedSize>
 class FixedStringStorage {
@@ -139,7 +142,7 @@ public:
 
     \return \c true when \a newCapacity is at most capacity(), \c false when the buffer is too small for it.
 
-    \post capacity() is unchanged, and size() keeps the length it reported.
+    \post capacity() is unchanged, size() keeps the length it reported, and no character in the buffer changes.
 
     \note A storage that owns heap memory grows here; this one answers from the size it was given.
 
