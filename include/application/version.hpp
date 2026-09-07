@@ -72,23 +72,23 @@ namespace toy::application {
   \section version_safety Safety Guarantees
 
   * **Lifetime**: \a revision views characters it does not own, so the string has to outlive the version.
-  * **Contracts**: none of its own; \a revision inherits what \ref toy::CStringView checks.
+  * **Contracts**: none of its own; \a revision inherits what \ref toy::StringView checks.
   * **Memory safety**: nothing allocates, and the numbers live in the object itself.
-  * **Type safety**: a \c nullptr revision meets the deleted constructor of \ref toy::CStringView and fails to compile.
+  * **Type safety**: a \c nullptr revision meets the deleted constructor of \ref toy::StringView and fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
   \note A version built without a revision compares equal only to another one that carries none.
 
-  \sa \ref toy::CStringView
+  \sa \ref toy::StringView
 */
 struct Version {
-  uint32_t major{0};      ///< Major number, compared first
+  uint32_t major{0};     ///< Major number, compared first
 
-  uint32_t minor{0};      ///< Minor number, compared when the major numbers match
+  uint32_t minor{0};     ///< Minor number, compared when the major numbers match
 
-  uint32_t patch{0};      ///< Patch number, compared when the major and minor numbers match
+  uint32_t patch{0};     ///< Patch number, compared when the major and minor numbers match
 
-  CStringView revision{}; ///< Source the build came from, compared last; empty when the build names none
+  StringView revision{}; ///< Source the build came from, compared last; empty when the build names none
 
   /*!
     \brief Reports whether two versions name the same build.
