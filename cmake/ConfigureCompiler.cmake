@@ -33,7 +33,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
-    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope /Zc:gotoScope")
+    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope")
     set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
