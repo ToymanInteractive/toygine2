@@ -45,6 +45,11 @@ constexpr size_t FixedStringStorage<AllocatedSize>::capacity() const noexcept {
 }
 
 template <size_t AllocatedSize>
+constexpr bool FixedStringStorage<AllocatedSize>::reserve(size_t newCapacity) noexcept {
+  return newCapacity <= capacity();
+}
+
+template <size_t AllocatedSize>
 constexpr size_t FixedStringStorage<AllocatedSize>::size() const noexcept {
   return _size;
 }

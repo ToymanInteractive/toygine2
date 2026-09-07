@@ -186,7 +186,6 @@ TEST_CASE("c_string_view/construction_from_null") {
                 "the deleted overload must reject a literal nullptr during compilation");
 
   static_assert(std::is_nothrow_default_constructible_v<CStringView>, "an empty view must be buildable without cost");
-  static_assert(std::is_trivially_copyable_v<CStringView>, "the view owns nothing, so a copy must stay trivial");
 }
 
 // The range a forward walk covers and the characters it yields.

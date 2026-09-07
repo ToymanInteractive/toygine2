@@ -53,6 +53,7 @@ namespace toy {
   * **Null-terminated**: setSize() writes the terminator, so data() stays valid input for a C interface.
   * **Constexpr support**: every operation evaluates in a constant expression.
   * **Exception safety**: no operation throws; exceptions are off in the build.
+  * **Checkable capacity**: reserve() answers whether a length fits before setSize() commits to it.
 
   \section fixed_string_storage_usage Usage Example
 
@@ -77,7 +78,8 @@ namespace toy {
   \section fixed_string_storage_safety Safety Guarantees
 
   * **Contracts**: setSize() checks its argument against capacity() with assert_message in debug builds. A shipping
-    build skips the check, and a length past the buffer writes the terminator out of bounds.
+    build skips the check, and a length past the buffer writes the terminator out of bounds; reserve() is how a caller
+    keeps that from happening.
   * **Bounds safety**: what a caller writes through data() goes unchecked; staying inside capacity() is the caller's
     responsibility.
   * **Type safety**: an \a AllocatedSize of \c 0 fails to compile.
@@ -127,6 +129,26 @@ public:
   [[nodiscard]] constexpr size_t capacity() const noexcept;
 
   /*!
+    \brief Reports whether the buffer holds a string of the requested length.
+
+    Allocates nothing and leaves the buffer as it was: the size is fixed at compile time, so the call answers the
+    question a caller would otherwise put to capacity() itself. It is the portable way to make setSize() safe over a
+    storage whose type the caller does not know.
+
+    \param newCapacity Count of characters the buffer must hold, the terminator excluded.
+
+    \return \c true when \a newCapacity is at most capacity(), \c false when the buffer is too small for it.
+
+    \post capacity() is unchanged, and size() keeps the length it reported.
+
+    \note A storage that owns heap memory grows here; this one answers from the size it was given.
+
+    \sa capacity()
+    \sa setSize()
+  */
+  [[nodiscard]] constexpr bool reserve(size_t newCapacity) noexcept;
+
+  /*!
     \brief Returns the length of the stored string.
 
     \return Count of characters before the terminator, \c 0 for an empty buffer.
@@ -152,6 +174,8 @@ public:
 
     \note The buffer never grows: a length past capacity() breaks the precondition instead of reaching for memory, which
           is where a storage that owns heap memory parts ways with this one.
+    \note A caller that cannot rule the length out beforehand asks reserve() first, which answers the same question over
+          either storage.
 
     \sa size()
     \sa capacity()

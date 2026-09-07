@@ -65,6 +65,13 @@ constexpr char c_sentinel = '#';
   return storage;
 }
 
+// The answer reserve() gives for a length, so a constant expression reads both sides of the bound.
+[[nodiscard]] constexpr bool reserved(size_t newCapacity) noexcept {
+  Storage storage;
+
+  return storage.reserve(newCapacity);
+}
+
 // Character left at the length setSize() was given, over a buffer that held no null character there.
 [[nodiscard]] constexpr char terminatorAfter(size_t newSize) noexcept {
   Storage storage = sentinelStorage();
@@ -144,6 +151,22 @@ TEST_CASE("fixed_string_storage/data_access") {
   static_assert(c_sampleStorage.data()[0] == c_sample[0], "the const overload must read the characters written in");
   static_assert(c_sampleStorage.data()[c_sampleLength - 1] == c_sample[c_sampleLength - 1],
                 "every written character must read back");
+}
+
+// Which lengths the buffer admits, and what asking leaves behind.
+TEST_CASE("fixed_string_storage/reserve") {
+  Storage storage = sampleStorage();
+
+  CHECK(storage.reserve(c_allocatedSize - 1));
+  CHECK_FALSE(storage.reserve(c_allocatedSize));
+
+  // Asking changes nothing: the buffer is fixed, so neither answer moves the length or the bound.
+  CHECK(storage.size() == c_sampleLength);
+  CHECK(storage.capacity() == c_allocatedSize - 1);
+
+  static_assert(reserved(0), "an empty string must fit any buffer");
+  static_assert(reserved(c_allocatedSize - 1), "a length at capacity must fit");
+  static_assert(!reserved(c_allocatedSize), "a length past capacity must be refused, terminator included");
 }
 
 // What setSize() records, and where it puts the terminator.
