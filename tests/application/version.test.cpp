@@ -39,6 +39,19 @@ constexpr Version c_build{1, 4, 2, c_revision};
 
 } // namespace
 
+// What a copy and a scope exit cost the caller, the initializer form the call site may write, and what a
+// declaration without one leaves behind.
+TEST_CASE("application/version/value_semantics") {
+  static_assert(std::is_trivially_copyable_v<Version>, "the version must copy as bytes");
+  static_assert(std::is_trivially_destructible_v<Version>, "leaving scope must run no destructor");
+  static_assert(std::is_standard_layout_v<Version>, "the layout must stay readable from a C interface");
+
+  static_assert(std::is_aggregate_v<Version>, "designated initializers require the type to stay an aggregate");
+  static_assert(!std::is_trivially_default_constructible_v<Version>,
+                "a default-constructed version zeroes its numbers and empties its revision, which is not a trivial "
+                "default");
+}
+
 // What an omitted field leaves behind, read back through the members.
 TEST_CASE("application/version/defaults") {
   const Version omitted{};
@@ -63,9 +76,8 @@ TEST_CASE("application/version/defaults") {
   static_assert(Version{.minor = 4}.patch == 0, "a designated initializer must leave the unnamed fields defaulted");
 }
 
-// The type-level contract the comparisons and the call-site initialization rest on.
+// The type-level contract the comparison operators rest on.
 TEST_CASE("application/version/traits") {
-  static_assert(std::is_aggregate_v<Version>, "designated initializers require the type to stay an aggregate");
   static_assert(std::is_same_v<decltype(c_build <=> c_build), std::strong_ordering>,
                 "the ordering must yield a strong ordering, not a weak or partial one");
   static_assert(std::is_same_v<decltype(c_build == c_build), bool>, "equality must yield a plain bool");
