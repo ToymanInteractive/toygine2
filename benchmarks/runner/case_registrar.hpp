@@ -34,8 +34,7 @@
 
 namespace toy::benchmark {
 
-/// Body of a benchmark, as produced by the BENCHMARK_CASE macro; the bench arrives with its title and epoch
-/// length already set.
+/// Body of a benchmark, as produced by the BENCHMARK_CASE macro.
 using case_body_type = void (*)(ankerl::nanobench::Bench & bench);
 
 /*!
@@ -75,6 +74,8 @@ using case_body_type = void (*)(ankerl::nanobench::Bench & bench);
 
   \note Registration happens before \c main, so a node must have static storage duration.
   \note A later registration writes the link of an earlier node, so a node must not be \c const.
+
+  \sa \ref toy::benchmark::detail::caseListHead
 */
 class CaseRegistrar final {
 public:
@@ -97,7 +98,7 @@ public:
   CaseRegistrar(CaseRegistrar &&)                  = delete;
   CaseRegistrar & operator=(CaseRegistrar &&)      = delete;
 
-  /// Returns the benchmark name, which titles its table.
+  /// Returns the benchmark name.
   [[nodiscard]] const char * name() const noexcept;
 
   /// Returns the source file declaring the benchmark.
