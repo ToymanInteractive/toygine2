@@ -36,7 +36,7 @@ endif ()
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
 # Whether the build host runs the test binaries itself, which is also what the DocTest half of the build needs.
-# A console target reaches CTest through an emulator instead, registered below.
+# A console target reaches CTest through an emulator, registered as a test below.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -48,7 +48,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 #-----------------------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Test translation units
+# Tests translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
 # The runner's platform layer: output, exit, and the entry point. A file, not a macro, so the runner itself carries
@@ -132,6 +132,10 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     message(STATUS "mgba-headless not found: the test ROM is built but no CTest test runs it")
   endif ()
 endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Tests built with doctest and discovered by CTest
+#-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   include(FetchContent)
