@@ -20,7 +20,7 @@
         "libogc",
         "MSVC",
         "nodiscard",
-        "picobench",
+        "nanobench",
         "RELWITHDEBINFO",
         "thirdparty",
         "toygine",

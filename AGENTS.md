@@ -24,7 +24,8 @@ A C++ game engine split into named modules. Each module mirrors one layout acros
 Non-module directories:
 
 * `src/platforms/` — platform-specific code and per-target `platform_config.hpp`, selected by the build for the active target.
-* `tests/` and `benchmarks/` — test and benchmark rules live beside them — read [`tests/AGENTS.md`](tests/AGENTS.md) first.
+* `tests/` — unit tests and the runner they build on; test rules live beside them — read [`tests/AGENTS.md`](tests/AGENTS.md) first.
+* `benchmarks/` — benchmarks and the runner they build on; benchmark rules live beside them — read [`benchmarks/AGENTS.md`](benchmarks/AGENTS.md) first.
 * `samples/` — standalone usage examples; `resources/` — assets they consume.
 * `editor/` — editor application; does **not** follow the module layout — read [`editor/AGENTS.md`](editor/AGENTS.md) first.
 * `cmake/` — `FetchContent_Declare` deps, toolchain, and platform config; `thirdparty/` — vendored deps when `FetchContent` is not viable (see **Dependency Management**).
@@ -56,7 +57,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Selection criteria:** Stable, maintained, permissive non-copyleft license (MIT, BSD, zlib, Apache-2.0). Favor header-only code without exceptions/RTTI that builds on every target platform (desktop, mobile, embedded, retro/modern consoles).
 * **Acquisition:** CMake `FetchContent` by default, declared in `cmake/` (standalone apps like `editor/` declare theirs in their own `CMakeLists.txt`) — no submodules, system-wide installs, or package managers with global state. Vendor under `thirdparty/` only when `FetchContent` is not viable (offline builds, console toolchains, patched sources); record the upstream version and patches.
 * **Declaring:** Pin to an exact tag or commit (never a branch), prefer `GIT_SHALLOW TRUE`; link third-party dependencies only through namespaced CMake targets (`dep::dep`), never global `include_directories` or raw paths into `_deps/`; platform frameworks (`-framework Cocoa`) are linked directly. Declare every dependency you use — never rely on a transitive one. `FetchContent_MakeAvailable` order matters when one dependency provides targets for another (`Vulkan-Headers` before `volk`); comment why.
-* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, picobench) behind their CMake options so engine consumers never pull them in.
+* **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, nanobench) behind their CMake options so engine consumers never pull them in.
 * **Versioning and overrides:** To force a transitive version, declare it before the consumer (first declaration wins) with a comment. Bump versions in a dedicated change; bump lockstep pairs together (e.g. `Vulkan-Headers` + `volk`).
 * **Platform SDKs and toolchains:** Console SDKs (devkitPro, PSPSDK, ...) and compilers come from the environment via toolchain files in `cmake/`, never via `FetchContent`; fail the build with a clear message when one is missing.
 * **Removing:** Drop the declaration (or `thirdparty/` directory) and all references, then verify a clean build on all target platforms.
@@ -186,7 +187,11 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 
 ## Testing
 
-Tests and benchmarks have their own rules — read [`tests/AGENTS.md`](tests/AGENTS.md) first. It covers running and gating tests, test shape, `TEST_CASE` naming, and floating-point comparisons.
+Tests have their own rules — read [`tests/AGENTS.md`](tests/AGENTS.md) first. It covers running and gating tests, test shape, `TEST_CASE` naming, and floating-point comparisons.
+
+## Benchmarks
+
+Benchmarks have their own rules — read [`benchmarks/AGENTS.md`](benchmarks/AGENTS.md) first. It covers what a benchmark answers, how one is built and run, benchmark shape, and `BENCHMARK_CASE` naming.
 
 ## Documentation
 

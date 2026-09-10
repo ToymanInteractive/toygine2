@@ -31,7 +31,7 @@
 
 namespace toy {
 
-constexpr StringView::StringView(const char * string) noexcept
+constexpr StringView::StringView(const value_type * string) noexcept
   : _data(string)
   , _size(string ? traits_type::length(string) : 0) {
   assert_message(string != nullptr, "C string must not be null");

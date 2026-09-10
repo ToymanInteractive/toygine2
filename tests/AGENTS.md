@@ -1,6 +1,6 @@
 # AI AGENTS rules for Tests
 
-Rules for tests and benchmarks in this repository. Bold section names refer to the root [`AGENTS.md`](../AGENTS.md) unless the section appears in this file.
+Rules for tests in this repository. Bold section names refer to the root [`AGENTS.md`](../AGENTS.md) unless the section appears in this file.
 
 ## Testing
 
@@ -14,7 +14,6 @@ Building, running, and splitting tests across targets. Test shape follows **Test
 * **Determinism fixtures:** Replay a recorded input snapshot against a fixed seed and compare state to a stored golden — both determinism guard and regression test for the systems it drives (see Determinism, Input).
 * **Frame-loop independence:** Drive simulation tests by explicit tick counts and fixed deltas, never wall-clock time or a real frame loop; a test that sleeps or reads the clock is non-deterministic by construction (see Frame loop and time).
 * **Assertions:** DocTest `REQUIRE` when failure makes the rest of the case meaningless, `CHECK` when independent expectations should all report; `static_assert` with a human-readable message for compile-time invariants (see **Assertions**).
-* **Benchmarks:** picobench, at `benchmarks/<module>/<name>.benchmark.cpp`, gated by `TOYGINE_BUILD_BENCHMARKS`. Measures a system against its declared per-frame budget (see Budgets and profiling); not a correctness test, never gates a merge.
 * **Cross-target verification:** Runtime tests execute on desktop, where sanitizers exist (see Sanitizers). The same translation units compile for every console through the built-in runner, so compile-time tests fire there, and on Nintendo GBA the ROM runs under mGBA. Module tests are built twice on desktop, under DocTest and the built-in runner, and a divergence between the two shows as a differing verdict.
 * **Report format:** The built-in runner prints TAP version 14 — a version line, one test point per case in registry order, the plan and a summary comment counting assertions, not cases. A case with subcases prints as a subtest with one test point per branch; a failed assertion carries its file, line, expression and info entries in the YAML block under its point; a duplicate case name ends the run with `Bail out!`. The `gba-*` test presets run CTest verbose, so a passing run still shows the report; the DocTest binary beside it keeps its own format.
 * **Coverage:** `TOYGINE_TESTS_ENABLE_COVERAGE` instruments a test build; reports go to Codecov per `codecov.yml`. Coverage is a signal, never a target — tests written to raise it are the redundancy the style rules forbid (see One contract, one case under **Testing Best Practices**).
@@ -35,7 +34,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Fakes over mocks:** Exceptions and RTTI off, no hidden allocation — the mocking frameworks do not fit this build (see Language subset, Allocation policy). Hand-write fakes at the engine's virtual seams (null RHI backend, in-memory asset source, capturing log sink); a static seam takes a stub type argument (see Virtual seams where they earn it).
 * **Golden data:** Compare baked output and replayed state byte-for-byte against a golden stored beside the test. Regenerating one is a reviewed commit with a stated cause, never a side effect of a failing run (see Determinism fixtures, Asset pipeline).
 * **Allocation accounting:** Where a rule forbids allocation — frame loop, mixer callback, job body — assert it with a counting allocator; a stray `new` then fails a test, not a profiling session (see Frame allocators).
-* **Budget guards stay out:** Wall-clock thresholds belong to benchmarks; a timing assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
+* **Budget guards stay out:** A case never asserts a wall-clock threshold; such an assertion fails on a loaded CI machine and says nothing about correctness (see Budgets and profiling).
 * **Assert the observable contract:** Bind a case to what the public API returns, never to internal state or a layout the type may change; a refactor that preserves behavior leaves the test untouched (see Test seams, not test hooks).
 * **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
 * **Expected values derive from the source:** Check a `size()` against `std::char_traits<char>::length("...")` on the same literal (needs `<string>`), never a hand-counted constant — the literal stays the single source of truth, multi-byte UTF-8 included.
