@@ -181,10 +181,14 @@ BENCHMARK_CASE("core/string_view/rfind_large") {
 }
 
 BENCHMARK_CASE("core/string_view/compare") {
-  const toy::StringView  view(opaque(c_haystack));
-  const toy::StringView  same(opaque(c_haystack));
+  std::array<char, std::char_traits<char>::length(c_haystack) + 1> haystackCopy;
+  std::memcpy(haystackCopy.data(), c_haystack, std::char_traits<char>::length(c_haystack) + 1);
+
+  // The right-hand operands read a separate buffer: over one buffer the comparison can answer from pointer identity.
+  toy::StringView        view(opaque(c_haystack));
+  const toy::StringView  same(opaque(haystackCopy.data()));
   const std::string_view reference(opaque(c_haystack));
-  const std::string_view sameReference(opaque(c_haystack));
+  const std::string_view sameReference(opaque(haystackCopy.data()));
 
   bench.unit("comparison");
 

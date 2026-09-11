@@ -24,8 +24,7 @@
 
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-# Whether the build host can time a callable and print the table: nanobench needs a steady clock and iostreams, which
-# no console toolchain here offers. A measurement taken under an emulator would report the host anyway.
+# Whether the build host can time a callable: no console toolchain here gives nanobench a steady clock or iostreams.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH ON)
@@ -35,12 +34,10 @@ endif ()
 # Benchmarks translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# The runner: the entry point that walks the registry and prints one table per benchmark. A file of its own, so a
-# benchmark carries no entry point and no table setup.
+# The runner: the entry point that walks the registry and prints a table per benchmark, so no benchmark holds one.
 set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/main.cpp)
 
-# Benchmarks of engine modules. Each registers its tables through the BENCHMARK_CASE macro, so a new file joins the
-# binary without a line of CMake.
+# Benchmarks of engine modules: the glob adds a file to the target, BENCHMARK_CASE registers the cases inside it.
 file(GLOB_RECURSE TOYGINE_MODULE_BENCHMARKS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.benchmark.cpp")
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -59,10 +56,12 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
       PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench::nanobench ${TOYGINE_LIBRARY_NAME})
 
+  # COMMAND takes no shell: a redirection would reach the binary as a pattern, so file output needs a runner option.
+  # The other way is a ${CMAKE_COMMAND} -P wrapper, where execute_process can take OUTPUT_FILE.
   add_custom_target(benchmarks_run
-    COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks> ${BENCHMARK_OUTPUT_REDIRECT}
+    COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
     WORKING_DIRECTORY $<TARGET_FILE_DIR:${TOYGINE_LIBRARY_NAME}-benchmarks>
-    COMMENT "Running benchmarks and saving results"
+    COMMENT "Running benchmarks"
   )
 
   # A generator expression names the binary but orders nothing, so the run target asks for the build itself.
