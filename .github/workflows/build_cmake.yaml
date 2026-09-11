@@ -269,6 +269,10 @@ jobs:
         if: ${{ matrix.run_benchmarks == 'true' }}
         run: cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
 
+      - name: Install bencher CLI
+        if: matrix.run_benchmarks == 'true'
+        uses: bencherdev/bencher@v0.6.8
+
   unit-tests:
     name: Collect unit tests
     runs-on: ubuntu-26.04
