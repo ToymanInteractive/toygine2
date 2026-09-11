@@ -43,13 +43,21 @@ constexpr char         c_countedPart[4]  = {'p', 'l', 'a', 'y'};
 constexpr char         c_embeddedNull[5] = {'p', 'l', '\0', 'a', 'y'};
 
 // A byte above the ASCII range, which orders after an ASCII one only where bytes compare as unsigned char.
-constexpr const char * c_highByte = "\xff";
+constexpr const char * c_highByte       = "\xff";
+// The same byte inside a string, so a character-set search meets a value that is negative as a plain char.
+constexpr const char * c_highByteInside = "a\xff"
+                                          "b";
 
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
-constexpr const char * c_repeated            = "abracadabra";
-constexpr const char * c_repeatedLonger      = "abracadabra and then some";
+constexpr const char * c_repeated               = "abracadabra";
+constexpr const char * c_repeatedLonger         = "abracadabra and then some";
 // The same literal with its last character replaced, which only a comparison reading to the end can reject.
-constexpr const char * c_repeatedLastDiffers = "abracadabrx";
+constexpr const char * c_repeatedLastDiffers    = "abracadabrx";
+// The same again, differing in its first character and in one byte of its middle.
+constexpr const char * c_repeatedFirstDiffers   = "xbracadabra";
+constexpr const char * c_repeatedMiddleDiffers  = "abXacadabra";
+// And again, differing in the byte just before the last, which a middle comparison short by one would skip.
+constexpr const char * c_repeatedNearEndDiffers = "abracadabXa";
 
 // Views the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
 constexpr StringView c_sampleView(c_sample);
@@ -712,6 +720,17 @@ TEST_CASE("string_view/rfind") {
   CHECK(view.rfind(StringView(""), 5) == 5);
 
   CHECK(view.rfind("abrasive", c_npos, 4) == 7);
+
+  // A needle the size of the string leaves one candidate, which any of its three parts can reject.
+  CHECK(view.rfind(c_repeated, c_npos, c_repeatedLength) == 0);
+  CHECK(view.rfind(c_repeatedFirstDiffers, c_npos, c_repeatedLength) == c_npos);
+  CHECK(view.rfind(c_repeatedMiddleDiffers, c_npos, c_repeatedLength) == c_npos);
+  CHECK(view.rfind(c_repeatedNearEndDiffers, c_npos, c_repeatedLength) == c_npos);
+  CHECK(view.rfind(c_repeatedLastDiffers, c_npos, c_repeatedLength) == c_npos);
+
+  // Counts of one and two, where the comparison behind the ends has nothing left to read.
+  CHECK(view.rfind("a", c_npos, 1) == c_repeatedLength - 1);
+  CHECK(view.rfind("ab", c_npos, 2) == 7);
   CHECK(view.rfind("cad") == 4);
   CHECK(view.rfind("cad", 3) == c_npos);
 
@@ -737,6 +756,17 @@ TEST_CASE("string_view/rfind") {
   static_assert(c_repeatedView.rfind(StringView("")) == c_repeatedLength, "an empty needle matches at the end");
   static_assert(c_repeatedView.rfind("abrasive", c_npos, 4) == 7, "the count bounds what is read");
   static_assert(c_repeatedView.rfind("cad") == 4, "the pointer overload measures its argument");
+  static_assert(c_repeatedView.rfind(c_repeated, c_npos, c_repeatedLength) == 0,
+                "a needle the size of the string matches at the front");
+  static_assert(c_repeatedView.rfind(c_repeatedFirstDiffers, c_npos, c_repeatedLength) == c_npos,
+                "a needle differing in its first byte matches nowhere");
+  static_assert(c_repeatedView.rfind(c_repeatedMiddleDiffers, c_npos, c_repeatedLength) == c_npos,
+                "a needle differing in its middle matches nowhere");
+  static_assert(c_repeatedView.rfind(c_repeatedNearEndDiffers, c_npos, c_repeatedLength) == c_npos,
+                "a needle differing just before its last byte matches nowhere");
+  static_assert(c_repeatedView.rfind(c_repeatedLastDiffers, c_npos, c_repeatedLength) == c_npos,
+                "a needle differing in its last byte matches nowhere");
+  static_assert(c_repeatedView.rfind("ab", c_npos, 2) == 7, "a count of two is decided by its ends alone");
 }
 
 // Whether the characters the argument names appear anywhere in the viewed string.
@@ -760,6 +790,25 @@ TEST_CASE("string_view/contains") {
 }
 
 // Where a forward search first meets any character the argument's set holds.
+// A byte above the ASCII range reaches a character-set search, where a signed index would read outside the table.
+TEST_CASE("string_view/character_set_high_byte") {
+  const StringView view(c_highByteInside);
+
+  CHECK(view.find_first_of(StringView(c_highByte)) == 1);
+  CHECK(view.find_last_of(StringView(c_highByte)) == 1);
+  CHECK(view.find_first_not_of(StringView("a\xff")) == 2);
+  CHECK(view.find_last_not_of(StringView("b\xff")) == 0);
+
+  static_assert(StringView(c_highByteInside).find_first_of(StringView(c_highByte)) == 1,
+                "a high byte is found in a set");
+  static_assert(StringView(c_highByteInside).find_last_of(StringView(c_highByte)) == 1,
+                "a high byte is found scanning backwards");
+  static_assert(StringView(c_highByteInside).find_first_not_of(StringView("a\xff")) == 2,
+                "a high byte counts as a member of the set");
+  static_assert(StringView(c_highByteInside).find_last_not_of(StringView("b\xff")) == 0,
+                "a high byte counts as a member scanning backwards");
+}
+
 TEST_CASE("string_view/find_first_of") {
   const StringView view(c_repeated);
 

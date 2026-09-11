@@ -253,7 +253,7 @@ constexpr StringView::size_type StringView::find(value_type ch, size_type pos) c
   if (pos >= size())
     return npos;
 
-  // memchr at runtime, a plain scan under constant evaluation; either way it reads no byte before \a pos.
+  // memchr at runtime, a plain scan under constant evaluation; neither reads a byte before pos.
   const value_type * found = traits_type::find(_data + pos, size() - pos, ch);
 
   return found != nullptr ? static_cast<size_type>(found - _data) : npos;
@@ -306,9 +306,17 @@ constexpr StringView::size_type StringView::rfind(const value_type * s, size_typ
   else if (count > size())
     return npos;
 
-  for (size_type remaining = min(pos, size() - count) + 1; remaining > 0; --remaining)
-    if (traits_type::compare(_data + remaining - 1, s, count) == 0)
-      return remaining - 1;
+  for (size_type remaining = min(pos, size() - count) + 1; remaining > 0; --remaining) {
+    const size_type index = remaining - 1;
+
+    // Ends reject most positions before compare(); the backward walk keeps the early exit a forward scan loses.
+    if (!traits_type::eq(_data[index], s[0]))
+      continue;
+    if (count > 1 && !traits_type::eq(_data[index + count - 1], s[count - 1]))
+      continue;
+    if (count <= 2 || traits_type::compare(_data + index + 1, s + 1, count - 2) == 0)
+      return index;
+  }
 
   return npos;
 }

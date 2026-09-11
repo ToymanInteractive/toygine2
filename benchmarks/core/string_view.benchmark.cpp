@@ -147,6 +147,23 @@ BENCHMARK_CASE("core/string_view/find_first_of_large") {
   });
 }
 
+BENCHMARK_CASE("core/string_view/rfind_late_large") {
+  const toy::StringView  view(opaque(largeHaystack()));
+  const std::string_view reference(opaque(largeHaystack()));
+  const toy::StringView  needle(opaque(c_needle));
+  const std::string_view needleReference(opaque(c_needle));
+
+  bench.unit("search");
+
+  // The needle sits at the very end, the shape a backward scan answers at once and a forward scan pays in full.
+  bench.run("toy::StringView", [&] {
+    ankerl::nanobench::doNotOptimizeAway(view.rfind(needle));
+  });
+  bench.run("std::string_view", [&] {
+    ankerl::nanobench::doNotOptimizeAway(reference.rfind(needleReference));
+  });
+}
+
 BENCHMARK_CASE("core/string_view/rfind_large") {
   const toy::StringView  view(opaque(largeHaystack()));
   const std::string_view reference(opaque(largeHaystack()));

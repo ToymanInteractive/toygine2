@@ -174,10 +174,8 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   endif ()
 
   if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
-    # include the cmake code coverage module
     include(CodeCoverage)
 
-    # Update the default compiler flags to enable coverage
     # The directory-scope flags also reach the link line, which is what pulls in the gcov runtime under Clang
     append_coverage_compiler_flags()
     append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
@@ -187,7 +185,6 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     # lcov 2.x fails on a pattern that matches nothing, so every entry here must name a directory that exists
     set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
 
-    # cmake code coverage module target
     # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                    # tests run serially: parallel cases of one binary race over the same .gcda files
