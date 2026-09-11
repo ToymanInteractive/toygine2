@@ -54,8 +54,8 @@ constexpr const char * c_prefix = "the quick brown fox";
 constexpr size_t c_largeSize = 4096;
 
 // Long text every large case reads: the prefix at the front, the needle at the back, an alphabet cycle between them.
-// Neither needle occurs inside the cycle, so every search crosses the whole text.
-// The cycle repeats each letter every 26 bytes, so a substring search meets a first-character candidate that often.
+// Neither the prefix nor the needle occurs inside the cycle, so every search crosses the whole text.
+// The cycle repeats each letter every 26 bytes, which is how often a substring search meets a candidate first byte.
 [[nodiscard]] const char * largeHaystack() noexcept {
   static const std::array<char, c_largeSize + 1> text = [] {
     std::array<char, c_largeSize + 1> buffer{};
