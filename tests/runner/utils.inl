@@ -24,6 +24,9 @@
   \note Included by utils.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_UTILS_INL_
+#define INCLUDE_TESTS_RUNNER_UTILS_INL_
+
 namespace toy::test::detail {
 
 template <std::floating_point T>
@@ -145,3 +148,5 @@ constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::si
 }
 
 } // namespace toy::test::detail
+
+#endif // INCLUDE_TESTS_RUNNER_UTILS_INL_

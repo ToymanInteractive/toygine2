@@ -31,8 +31,7 @@
 
 namespace {
 
-// The append helpers write through a pointer, which a constant expression cannot hand them directly.
-// Wrapping the buffer in a return value gives every static_assert below one constexpr call to inspect.
+// The append helpers write through a pointer, so a returned buffer gives each static_assert one call to inspect.
 template <std::size_t Capacity>
 struct AppendResult final {
   std::array<char, Capacity> buffer;

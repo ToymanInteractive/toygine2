@@ -24,6 +24,9 @@
   \note Included by context.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_CONTEXT_INL_
+#define INCLUDE_TESTS_RUNNER_CONTEXT_INL_
+
 namespace toy::test {
 
 inline Context::Context(failure_reporter_type reporter, void * reporterData) noexcept
@@ -105,8 +108,7 @@ inline bool Context::caseFailed() const noexcept {
 }
 
 inline std::size_t Context::infoCount() const noexcept {
-  // The depth counter keeps growing past the fixed stack so that pushes and pops stay balanced;
-  // what is readable is capped at the stack itself.
+  // The depth counter grows past the fixed stack to keep pushes and pops balanced; only what is read is capped.
   return std::min(_infoDepth, c_maxInfoDepth);
 }
 
@@ -176,3 +178,5 @@ inline bool Context::nestedSubcaseDetected() const noexcept {
 }
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_CONTEXT_INL_

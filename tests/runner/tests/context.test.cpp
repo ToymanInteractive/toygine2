@@ -48,8 +48,7 @@ struct CapturedFailure final {
   std::size_t  callCount  = 0;
 };
 
-// The capture lives in the case that reads it and arrives here through the context's reporter data, so no state
-// outlives a case or travels between two of them.
+// The capture lives in the case that reads it and arrives through the reporter data, so no state outlives it.
 void captureFailure(const toy::test::Context & context, const toy::test::FailureRecord & failure,
                     void * reporterData) noexcept {
   CapturedFailure & captured = *static_cast<CapturedFailure *>(reporterData);

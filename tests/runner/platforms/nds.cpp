@@ -35,8 +35,7 @@ namespace {
 // Columns of the console consoleDemoInit() sets up: the 256-pixel screen over the 8-pixel tiles it draws with.
 constexpr std::size_t c_consoleWidth = 32;
 
-// The report's writer seam carries caller data stdout has no use for. A line wider than one row is cut to it:
-// printing the tail would cost further rows and push the summary off the top of the screen.
+// Caller data stdout has no use for; a line wider than one row is cut, so the summary stays on screen.
 void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   const auto count = std::min(length, c_consoleWidth);
 

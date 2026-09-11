@@ -70,8 +70,7 @@ void mGBAWriteToDebugLog(const char * text, std::size_t length) noexcept {
   *reinterpret_cast<volatile std::uint16_t *>(0x04FFF700) = c_debugLevelInfo | c_debugSend;
 }
 
-// SWI 3 (Stop) ends emulation and mgba-rom-test -S 3 -R r0 takes the exit code from r0.
-// The call is written by hand because libgba's Stop() clobbers r0.
+// SWI 3 ends emulation and mgba reads the code from r0; written by hand because libgba's Stop() clobbers r0.
 [[noreturn]] void mGBASwiExit(int code) noexcept {
 #ifdef __thumb__
   asm volatile("mov r0, %0\n\tswi 3" : : "r"(code) : "r0", "r1", "r2", "r3", "memory");
@@ -82,8 +81,7 @@ void mGBAWriteToDebugLog(const char * text, std::size_t length) noexcept {
   __builtin_unreachable();
 }
 
-// The report's writer seam carries the second destination the line has. A line wider than one row is cut to it:
-// printing the tail would cost further rows and push the summary off the top of the screen.
+// The seam carries the line's second destination; a wider line is cut, so the summary stays on screen.
 void writeLine(const char * text, std::size_t length, const void * writerData) noexcept {
   const auto count = std::min(length, c_consoleWidth);
 

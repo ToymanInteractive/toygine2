@@ -38,8 +38,7 @@ namespace {
 // Columns one row of the WHB log console holds. The WHB API reports no width, so the figure is fixed here.
 constexpr std::size_t c_consoleWidth = 80;
 
-// The report's writer seam carries caller data the log console has no use for. One call is one log entry, so the
-// trailing newline goes, and a line wider than the screen is cut to what one row holds.
+// Caller data the log console ignores; one call is one entry, so the newline goes and a wide line is cut.
 void writeToLog(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   const auto lineLength = (length != 0 && text[length - 1] == '\n') ? length - 1 : length;
   const auto count      = std::min(lineLength, c_consoleWidth);

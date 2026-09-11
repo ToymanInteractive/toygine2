@@ -19,15 +19,17 @@
 //
 /*!
   \file   case_registrar.inl
-  \brief  Inline implementations for \ref toy::test::CaseRegistrar: registration and accessors.
+  \brief  Inline implementations for \ref toy::benchmark::CaseRegistrar: registration and accessors.
 
   \note Included by case_registrar.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_INL_
-#define INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_INL_
+#ifndef INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_INL_
+#define INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_INL_
 
-namespace toy::test {
+#include <cstring>
+
+namespace toy::benchmark {
 
 inline CaseRegistrar::CaseRegistrar(CaseRegistrar *& head, const char * name, const char * file, int line,
                                     case_body_type body) noexcept
@@ -35,10 +37,10 @@ inline CaseRegistrar::CaseRegistrar(CaseRegistrar *& head, const char * name, co
   , _file{file}
   , _line{line}
   , _body{body} {
-  // Insertion sort at registration time: O(n) per node, but it makes the run order depend on names alone.
+  // Insertion sort at registration time: O(n) per node, but it makes the print order depend on names alone.
   CaseRegistrar ** link = &head;
 
-  while (*link != nullptr && detail::compareNames((*link)->_name, name) < 0)
+  while (*link != nullptr && std::strcmp((*link)->_name, name) < 0)
     link = &(*link)->_next;
 
   _next = *link;
@@ -65,6 +67,6 @@ inline const CaseRegistrar * CaseRegistrar::next() const noexcept {
   return _next;
 }
 
-} // namespace toy::test
+} // namespace toy::benchmark
 
-#endif // INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_INL_
+#endif // INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_INL_

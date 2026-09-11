@@ -32,8 +32,7 @@ void emptyBody(toy::test::Context & context) {
   static_cast<void>(context);
 }
 
-// A registrar stores the pointer it is handed rather than copying the text, so a case's identity in the list is the
-// literal's address, and the assertions compare addresses.
+// A registrar stores the pointer, so identity is the literal's address, which the assertions compare directly.
 constexpr const char * c_alpha = "alpha";
 constexpr const char * c_bravo = "bravo";
 

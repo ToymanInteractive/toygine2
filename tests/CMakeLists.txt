@@ -36,7 +36,7 @@ endif ()
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
 # Whether the build host runs the test binaries itself, which is also what the DocTest half of the build needs.
-# A console target reaches CTest through an emulator instead, registered below.
+# A console target reaches CTest through an emulator, registered as a test below.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -48,7 +48,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 #-----------------------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Test translation units
+# Tests translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
 # The runner's platform layer: output, exit, and the entry point. A file, not a macro, so the runner itself carries
@@ -133,6 +133,10 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   endif ()
 endif ()
 
+#-----------------------------------------------------------------------------------------------------------------------
+# Tests built with doctest and discovered by CTest
+#-----------------------------------------------------------------------------------------------------------------------
+
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   include(FetchContent)
   include(CTest)
@@ -170,10 +174,8 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   endif ()
 
   if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
-    # include the cmake code coverage module
     include(CodeCoverage)
 
-    # Update the default compiler flags to enable coverage
     # The directory-scope flags also reach the link line, which is what pulls in the gcov runtime under Clang
     append_coverage_compiler_flags()
     append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
@@ -183,7 +185,6 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     # lcov 2.x fails on a pattern that matches nothing, so every entry here must name a directory that exists
     set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
 
-    # cmake code coverage module target
     # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                    # tests run serially: parallel cases of one binary race over the same .gcda files

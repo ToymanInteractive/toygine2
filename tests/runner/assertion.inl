@@ -24,15 +24,16 @@
   \note Included by assertion.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_ASSERTION_INL_
+#define INCLUDE_TESTS_RUNNER_ASSERTION_INL_
+
 namespace toy::test::detail {
 
 [[noreturn]] inline void assertionFailed([[maybe_unused]] const char * expression,
                                          [[maybe_unused]] const char * message) noexcept {
-  // A trap intrinsic is the only stop available here: <cassert> and <cstdlib> are hosted headers, and the runner must
-  // build on targets that ship neither.
+  // A trap intrinsic is the only stop here: <cassert> and <cstdlib> are hosted, and some targets ship neither.
 #if defined(_MSC_VER) && !defined(__clang__)
-  // Unlike a trap instruction, a breakpoint is resumable: a debugger may continue past it. The loop makes that
-  // impossible, so the function cannot fall through its [[noreturn]] contract.
+  // A breakpoint is resumable, so the loop keeps the function from falling through its [[noreturn]] contract.
   for (;;)
     __debugbreak();
 #else  // defined(_MSC_VER) && !defined(__clang__)
@@ -41,3 +42,5 @@ namespace toy::test::detail {
 }
 
 } // namespace toy::test::detail
+
+#endif // INCLUDE_TESTS_RUNNER_ASSERTION_INL_

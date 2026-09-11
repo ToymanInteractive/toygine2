@@ -24,6 +24,9 @@
   \note Included by approx.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_APPROX_INL_
+#define INCLUDE_TESTS_RUNNER_APPROX_INL_
+
 #include "utils.hpp"
 
 namespace toy::test {
@@ -64,10 +67,11 @@ constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept {
   const common_type right      = detail::absoluteValue(expected);
   const common_type larger     = left > right ? left : right;
 
-  // Reproduces doctest 2.5.3 exactly, down to the strict comparison: difference < epsilon * (1 + larger).
-  // The added one keeps values near zero from demanding exact equality, and the larger operand carries the
-  // scaling across magnitudes. Any departure here makes one test disagree with itself under the two runners.
+  // Reproduces doctest 2.5.3 exactly: difference < epsilon * (1 + larger), where the one spares values near zero
+  // and the larger operand scales across magnitudes. Any departure makes a test disagree under the two runners.
   return difference < static_cast<common_type>(lhs.tolerance()) * (common_type{1} + larger);
 }
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_APPROX_INL_

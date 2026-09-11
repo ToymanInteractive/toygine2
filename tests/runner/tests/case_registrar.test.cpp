@@ -32,17 +32,14 @@ void emptyBody(toy::test::Context & context) {
   static_cast<void>(context);
 }
 
-// A registrar stores the pointers it is handed rather than copying the text, so a case's identity in the list is the
-// literal's address. Comparing addresses asserts that contract and keeps the assertions independent of the name
-// comparison the insertion sort itself runs on.
+// A registrar stores the pointer, so identity is the literal's address, which the assertions compare directly.
 constexpr const char * c_alpha = "alpha";
 constexpr const char * c_mike  = "mike";
 constexpr const char * c_zulu  = "zulu";
 
 } // namespace
 
-// Registration order does not survive: the list comes out sorted by name. The three register out of order in both
-// directions, so neither a plain prepend nor a plain append reproduces the expected sequence.
+// The three register out of order both ways, so neither a plain prepend nor append gives the sorted sequence.
 TEST_CASE("test/case_registrar/insertion_keeps_list_sorted") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -50,8 +47,7 @@ TEST_CASE("test/case_registrar/insertion_keeps_list_sorted") {
   toy::test::CaseRegistrar third{head, c_zulu, "z.cpp", 3, &emptyBody};
   toy::test::CaseRegistrar first{head, c_alpha, "a.cpp", 1, &emptyBody};
 
-  // Walking with a cursor keeps a broken link a reported failure: dereferencing a chain would crash the case instead,
-  // and the built-in runner has no signal handler to name the case on a console target.
+  // A cursor keeps a broken link a reported failure; a dereferenced chain would crash with no handler to name it.
   const toy::test::CaseRegistrar * node = head;
 
   REQUIRE(node != nullptr);

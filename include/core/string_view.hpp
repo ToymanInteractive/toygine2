@@ -127,9 +127,9 @@ public:
   /// Pointer to a viewed character
   using const_pointer          = const char *;
   /// Mutable character reference, present for parity with \c std::string_view; the view exposes no mutable access
-  using reference              = char &;
+  using reference              = value_type &;
   /// Reference to a viewed character
-  using const_reference        = const char &;
+  using const_reference        = const value_type &;
   /// Iterator over the viewed characters
   using const_iterator         = const_pointer;
   /// Read-only iterator alias; repeats \ref toy::StringView::const_iterator
@@ -174,7 +174,7 @@ public:
 
     \sa StringView()
   */
-  constexpr explicit(false) StringView(const char * string) noexcept;
+  constexpr explicit(false) StringView(const value_type * string) noexcept;
 
   /*!
     \brief Deleted: a null pointer names no string to view.

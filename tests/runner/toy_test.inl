@@ -25,6 +25,9 @@
   \note Included by toy_test.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_INL_
+#define INCLUDE_TESTS_RUNNER_TOY_TEST_INL_
+
 namespace toy::test {
 
 inline void runCase(Context & context, const char * name, case_body_type body) noexcept {
@@ -79,3 +82,5 @@ inline InfoGuard::~InfoGuard() noexcept {
 } // namespace detail
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_TOY_TEST_INL_

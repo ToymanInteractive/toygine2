@@ -31,7 +31,7 @@
 
 namespace toy {
 
-constexpr StringView::StringView(const char * string) noexcept
+constexpr StringView::StringView(const value_type * string) noexcept
   : _data(string)
   , _size(string ? traits_type::length(string) : 0) {
   assert_message(string != nullptr, "C string must not be null");
@@ -250,11 +250,13 @@ constexpr StringView::size_type StringView::find(StringView v, size_type pos) co
 }
 
 constexpr StringView::size_type StringView::find(value_type ch, size_type pos) const noexcept {
-  for (size_type index = pos; index < size(); ++index)
-    if (traits_type::eq(_data[index], ch))
-      return index;
+  if (pos >= size())
+    return npos;
 
-  return npos;
+  // memchr at runtime, a plain scan under constant evaluation; neither reads a byte before pos.
+  const value_type * found = traits_type::find(_data + pos, size() - pos, ch);
+
+  return found != nullptr ? static_cast<size_type>(found - _data) : npos;
 }
 
 constexpr StringView::size_type StringView::find(const value_type * s, size_type pos, size_type count) const noexcept {
@@ -264,9 +266,20 @@ constexpr StringView::size_type StringView::find(const value_type * s, size_type
     return npos;
 
   const size_type last = size() - count;
-  for (size_type index = pos; index <= last; ++index)
-    if (traits_type::compare(_data + index, s, count) == 0)
+  for (size_type index = pos; index <= last;) {
+    // memchr at runtime: skips to the next position that can start a match instead of comparing at every one.
+    const value_type * candidate = traits_type::find(_data + index, last - index + 1, s[0]);
+    if (candidate == nullptr)
+      return npos;
+
+    index = static_cast<size_type>(candidate - _data);
+
+    // The first character matched already, so the comparison starts behind it.
+    if (traits_type::compare(candidate + 1, s + 1, count - 1) == 0)
       return index;
+
+    ++index;
+  }
 
   return npos;
 }
@@ -293,9 +306,17 @@ constexpr StringView::size_type StringView::rfind(const value_type * s, size_typ
   else if (count > size())
     return npos;
 
-  for (size_type remaining = min(pos, size() - count) + 1; remaining > 0; --remaining)
-    if (traits_type::compare(_data + remaining - 1, s, count) == 0)
-      return remaining - 1;
+  for (size_type remaining = min(pos, size() - count) + 1; remaining > 0; --remaining) {
+    const size_type index = remaining - 1;
+
+    // Ends reject most positions before compare(); the backward walk keeps the early exit a forward scan loses.
+    if (!traits_type::eq(_data[index], s[0]))
+      continue;
+    if (count > 1 && !traits_type::eq(_data[index + count - 1], s[count - 1]))
+      continue;
+    if (count <= 2 || traits_type::compare(_data + index + 1, s + 1, count - 2) == 0)
+      return index;
+  }
 
   return npos;
 }

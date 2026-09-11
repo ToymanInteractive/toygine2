@@ -32,12 +32,10 @@
 
 namespace {
 
-// Columns one row of the console consoleInit() sets up holds. libnx reports the figure in PrintConsole::consoleWidth
-// but publishes no default, so it is fixed here.
+// Columns per row after consoleInit(); libnx reports it in PrintConsole::consoleWidth but publishes no default.
 constexpr std::size_t c_consoleWidth = 80;
 
-// The report's writer seam carries caller data stdout has no use for. A line wider than one row is cut to it:
-// printing the tail would cost further rows and push the summary off the top of the screen.
+// Caller data stdout has no use for; a line wider than one row is cut, so the summary stays on screen.
 void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   const auto count = std::min(length, c_consoleWidth);
 
@@ -56,8 +54,7 @@ int main() {
 
   const int code = ::toy::test::writeReport(&writeLine, nullptr, ::toy::test::detail::caseListHead);
 
-  // The report holds the screen until Plus is pressed: the applet closes on its own otherwise, taking the last
-  // lines with it.
+  // Holds the screen until Plus is pressed; otherwise the applet closes and takes the last lines with it.
   while (appletMainLoop()) {
     padUpdate(&pad);
 
