@@ -16,6 +16,17 @@ Files extracted from upstream source:
   - These files can be removed: `CMakeLists.txt`
 - `COPYING`
 
+## nanobench
+
+- Upstream: <https://github.com/martinus/nanobench>
+- Version: main (7252da9d96bd0d71f508e9b2813ab1f57fdfaec1, 2026)
+- License: MIT
+
+Files extracted from upstream source:
+
+- `src/include/nanobench.h`
+- `LICENSE`
+
 ## vulkan
 
 - Upstream: <https://github.com/KhronosGroup/Vulkan-Headers>

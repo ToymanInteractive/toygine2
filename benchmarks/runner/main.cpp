@@ -22,6 +22,9 @@
   \brief  Entry point of the benchmark binary: applies the command line and prints one table per selected benchmark.
 */
 
+// nanobench keeps its implementation behind this macro, and exactly one translation unit may define it.
+#define ANKERL_NANOBENCH_IMPLEMENT
+
 #include <chrono>
 #include <cstdio>
 #include <cstring>

@@ -48,10 +48,10 @@ file(GLOB_RECURSE TOYGINE_MODULE_BENCHMARKS_SRC CONFIGURE_DEPENDS RELATIVE "${CM
 #-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
-  include(FetchContent)
+  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty)
 
-  FetchContent_Declare(nanobench GIT_REPOSITORY https://github.com/martinus/nanobench.git GIT_TAG v4.6.0 GIT_SHALLOW TRUE)
-  FetchContent_MakeAvailable(nanobench)
+  # Declares the nanobench target and the nanobench::nanobench alias over the vendored sources in thirdparty/nanobench.
+  include(nanobench)
 
   add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${TOYGINE_BENCHMARK_RUNNER_SRC} ${TOYGINE_MODULE_BENCHMARKS_SRC})
 
