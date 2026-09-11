@@ -50,13 +50,12 @@ constexpr const char * c_absentWideSet = "!?#%&@$^*()[]{}<>|~+";
 // Prefix the text carries, long enough that an answer takes more than the first character.
 constexpr const char * c_prefix = "the quick brown fox";
 
-// Length of the long text, forty times the short one and still well inside the first cache level, so a case over it
-// measures the search rather than the memory system.
+// Long text length: forty times the short one, inside the first cache level, so a case measures search not memory.
 constexpr size_t c_largeSize = 4096;
 
 // Long text every large case reads: the prefix at the front, the needle at the back, an alphabet cycle between them.
-// Neither needle occurs inside the cycle, so every search crosses the whole text. The cycle repeats each letter every
-// 26 bytes, so a substring search also meets a first-character candidate that often.
+// Neither needle occurs inside the cycle, so every search crosses the whole text.
+// The cycle repeats each letter every 26 bytes, so a substring search meets a first-character candidate that often.
 [[nodiscard]] const char * largeHaystack() noexcept {
   static const std::array<char, c_largeSize + 1> text = [] {
     std::array<char, c_largeSize + 1> buffer{};
@@ -75,8 +74,7 @@ constexpr size_t c_largeSize = 4096;
   return text.data();
 }
 
-// Hands a pointer through an opaque barrier, so a measured call reads the text instead of a constant the compiler
-// folded while it still knew what the pointer pointed at.
+// Hands a pointer through an opaque barrier, so a measured call reads the text instead of a folded constant.
 [[nodiscard]] const char * opaque(const char * string) noexcept {
   ankerl::nanobench::doNotOptimizeAway(string);
 
