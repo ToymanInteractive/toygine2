@@ -46,8 +46,10 @@ constexpr char         c_embeddedNull[5] = {'p', 'l', '\0', 'a', 'y'};
 constexpr const char * c_highByte = "\xff";
 
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
-constexpr const char * c_repeated       = "abracadabra";
-constexpr const char * c_repeatedLonger = "abracadabra and then some";
+constexpr const char * c_repeated            = "abracadabra";
+constexpr const char * c_repeatedLonger      = "abracadabra and then some";
+// The same literal with its last character replaced, which only a comparison reading to the end can reject.
+constexpr const char * c_repeatedLastDiffers = "abracadabrx";
 
 // Views the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
 constexpr StringView c_sampleView(c_sample);
@@ -650,6 +652,16 @@ TEST_CASE("string_view/find") {
   CHECK(view.find("abrasive", 0, 4) == 0);
   CHECK(view.find("abrasive", 1, 4) == 7);
 
+  // A count of one matches at the last position, where the comparison behind the matched character reads nothing.
+  CHECK(view.find("a", c_repeatedLength - 1, 1) == c_repeatedLength - 1);
+
+  // A candidate sharing only its first character must not end the scan.
+  CHECK(view.find("abz", 0, 3) == c_npos);
+
+  // A needle the size of the string leaves a single candidate, which its last byte decides.
+  CHECK(view.find(c_repeated, 0, c_repeatedLength) == 0);
+  CHECK(view.find(c_repeatedLastDiffers, 0, c_repeatedLength) == c_npos);
+
   CHECK(view.find("cad") == 4);
   CHECK(view.find("cad", 5) == c_npos);
 
@@ -674,6 +686,13 @@ TEST_CASE("string_view/find") {
   static_assert(c_repeatedView.find(StringView("")) == 0, "an empty needle matches at the start offset");
   static_assert(c_repeatedView.find("abrasive", 1, 4) == 7, "the count bounds what is read");
   static_assert(c_repeatedView.find("cad") == 4, "the pointer overload measures its argument");
+  static_assert(c_repeatedView.find("a", c_repeatedLength - 1, 1) == c_repeatedLength - 1,
+                "a count of one matches at the last position");
+  static_assert(c_repeatedView.find("abz", 0, 3) == c_npos, "a candidate sharing only its first character is rejected");
+  static_assert(c_repeatedView.find(c_repeated, 0, c_repeatedLength) == 0,
+                "a needle the size of the string matches at the front");
+  static_assert(c_repeatedView.find(c_repeatedLastDiffers, 0, c_repeatedLength) == c_npos,
+                "a needle differing in its last byte matches nowhere");
 }
 
 // Where a backward search last matches the characters the argument names.

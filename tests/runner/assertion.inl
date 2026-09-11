@@ -24,6 +24,9 @@
   \note Included by assertion.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_ASSERTION_INL_
+#define INCLUDE_TESTS_RUNNER_ASSERTION_INL_
+
 namespace toy::test::detail {
 
 [[noreturn]] inline void assertionFailed([[maybe_unused]] const char * expression,
@@ -41,3 +44,5 @@ namespace toy::test::detail {
 }
 
 } // namespace toy::test::detail
+
+#endif // INCLUDE_TESTS_RUNNER_ASSERTION_INL_

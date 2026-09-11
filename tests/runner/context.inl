@@ -24,6 +24,9 @@
   \note Included by context.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_CONTEXT_INL_
+#define INCLUDE_TESTS_RUNNER_CONTEXT_INL_
+
 namespace toy::test {
 
 inline Context::Context(failure_reporter_type reporter, void * reporterData) noexcept
@@ -176,3 +179,5 @@ inline bool Context::nestedSubcaseDetected() const noexcept {
 }
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_CONTEXT_INL_

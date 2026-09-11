@@ -24,6 +24,9 @@
   \note Included by approx.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_APPROX_INL_
+#define INCLUDE_TESTS_RUNNER_APPROX_INL_
+
 #include "utils.hpp"
 
 namespace toy::test {
@@ -71,3 +74,5 @@ constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept {
 }
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_APPROX_INL_

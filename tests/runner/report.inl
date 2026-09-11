@@ -24,6 +24,9 @@
   \note Included by report.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_REPORT_INL_
+#define INCLUDE_TESTS_RUNNER_REPORT_INL_
+
 namespace toy::test {
 
 namespace detail {
@@ -309,3 +312,5 @@ inline int writeReport(write_function_type write, const void * writerData, const
 }
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_REPORT_INL_

@@ -7,6 +7,7 @@ Rules for benchmarks in this repository. Bold section names refer to the root [`
 Building, running, and gating. What a body measures follows **Benchmark Shape** below, case names **Naming Benchmarks**.
 
 * **What a benchmark answers:** Measures a system against its declared per-frame budget (see Budgets and profiling); not a correctness test, never gates a merge. CI builds benchmarks and runs none — a result is a number a human reads.
+* **Measured under optimization:** Numbers come from a `<platform>-release` preset, which compiles at `-O2`. The debug presets pass no `-O`, so an inline header-only type is measured uninlined and unvectorized, and the ratio can come out wrong in either direction. Debug builds check that a benchmark runs, never what it costs.
 * **Library and layout:** nanobench, one file per public type at `benchmarks/<module>/<name>.benchmark.cpp`, gated by `TOYGINE_BUILD_BENCHMARKS` so engine consumers never pull the dependency in (see Build-only dependencies).
 * **Desktop alone:** nanobench needs a steady host clock and iostreams, which no console toolchain here offers, so `benchmarks/CMakeLists.txt` skips the tree off desktop. A claim about console performance comes from the target, never from an emulator on the build host.
 * **One binary:** every `*.benchmark.cpp` links into `<library>-benchmarks` beside the runner in `benchmarks/runner/`. `BENCHMARK_CASE` is what joins a file to the build, so a new one costs no CMake; `benchmarks_run` builds the binary and runs it.

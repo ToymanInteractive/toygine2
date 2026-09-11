@@ -24,6 +24,9 @@
   \note Included by case_registrar.hpp only; do not include this file directly.
 */
 
+#ifndef INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_INL_
+#define INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_INL_
+
 namespace toy::test {
 
 inline CaseRegistrar::CaseRegistrar(CaseRegistrar *& head, const char * name, const char * file, int line,
@@ -63,3 +66,5 @@ inline const CaseRegistrar * CaseRegistrar::next() const noexcept {
 }
 
 } // namespace toy::test
+
+#endif // INCLUDE_TESTS_RUNNER_CASE_REGISTRAR_INL_
