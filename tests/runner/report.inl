@@ -202,9 +202,7 @@ inline void reportSubtest(ReportWriter & writer, Context & context, const Contex
 
   constexpr std::size_t subtestIndent = 4;
 
-  // The header names the subtest, and TAP requires the point closing it to carry the same description. The name here
-  // stays unescaped: escaping covers descriptions and reasons, never comments, and a harness matches this raw name
-  // against the description it has already unescaped.
+  // TAP wants the closing point to repeat the subtest name; it stays raw here because escaping covers no comment.
   writer.addText("# Subtest: ");
   writer.addText(registrar.name());
   writer.flush();
@@ -234,8 +232,7 @@ inline void reportSubtest(ReportWriter & writer, Context & context, const Contex
 
 inline void reportCase(ReportWriter & writer, Context & context, const CaseRegistrar & registrar,
                        std::size_t number) noexcept {
-  // A subtest prints its whole document before the test point that closes it, so the branches of a case must be known
-  // before its first line. A silent context runs the body once to reveal them, which a deterministic body repeats.
+  // Branches must be known before the first line, so a silent context runs the body once to reveal them.
   Context probe{nullptr};
 
   probe.beginCase(registrar.name());

@@ -30,11 +30,9 @@
 
 namespace {
 
-// The report's writer seam carries caller data the debug port has no use for. Bytes go one at a time because the
-// text carries no terminator, and nothing is cut to a row: this port is a stream, not a screen.
+// Caller data the debug port ignores; bytes go one at a time since the text has no terminator, nothing is cut.
 void writeToDebugPort(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
-  // The port ends a line on a null byte, which is what Debug::PrintNewline() sends. A newline reaching it as-is
-  // would print as one more character, running the whole report into a single line.
+  // The port ends a line on a null byte, so a raw newline would print as a character and join every line into one.
   for (std::size_t index = 0; index < length; ++index)
     ClownMDSDK::MainCPU::Debug::Print(text[index] == '\n' ? '\0' : text[index]);
 }

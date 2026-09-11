@@ -114,8 +114,7 @@ TEST_CASE("test/approx/comparison_mixes_precisions") {
   static_assert(1.0 == toy::test::Approx(1.0F), "a double must compare equal to an Approx<float> of one");
 }
 
-// The default tolerance is single-precision epsilon scaled by a hundred, the same value doctest applies, and it
-// does not change with the value's type.
+// The default tolerance is single-precision epsilon times a hundred, as in doctest, whatever the value's type.
 TEST_CASE("test/approx/tolerance_defaults_to_doctest_value") {
   constexpr double expected = static_cast<double>(std::numeric_limits<float>::epsilon()) * 100.0;
 
@@ -137,14 +136,11 @@ TEST_CASE("test/approx/epsilon_converts_to_the_value_type") {
   REQUIRE(1.0F == tolerant);
 }
 
-// The comparison reproduces doctest's formula, including its strict inequality. A difference of one and a half
-// epsilons around one is the cheapest point that separates the two candidate formulas: doctest's threshold there
-// is two epsilons, while a threshold of one epsilon would reject it.
+// At one, a difference of 1.5 epsilon separates doctest's threshold of two epsilons from a threshold of one.
 TEST_CASE("test/approx/comparison_matches_the_doctest_formula") {
   // doctest 2.5.3: fabs(lhs - value) < epsilon * (scale + max(fabs(lhs), fabs(value))), with scale fixed at one.
   constexpr auto doctestEquals = [](double lhs, double value, double epsilon) {
-    // The magnitude is taken locally rather than through the runner's helper: an oracle sharing code with the
-    // code under test agrees with it even when both are wrong.
+    // Magnitude taken locally: an oracle sharing code with the code under test agrees even when both are wrong.
     const auto magnitude = [](double input) constexpr {
       return input < 0.0 ? -input : input;
     };
@@ -187,9 +183,7 @@ TEST_CASE("test/approx/comparison_matches_the_doctest_formula") {
     REQUIRE(1.0 == toy::test::Approx(1.0));
   }
 
-  // A zero tolerance collapses the threshold to zero, and a strict inequality rejects a difference of zero with
-  // it. DocTest 2.5.3 behaves the same way, so the surprise is part of the contract rather than a defect: reading
-  // it as one invites replacing the strict comparison and breaking the agreement between the two runners.
+  // Zero tolerance rejects even a zero difference, as in doctest 2.5.3: contract, not a defect to be fixed.
   SUBCASE("a zero tolerance rejects even an exact match") {
     REQUIRE(doctestEquals(1.0, 1.0, 0.0) == false);
     REQUIRE_FALSE(1.0 == toy::test::Approx(1.0).epsilon(0.0));

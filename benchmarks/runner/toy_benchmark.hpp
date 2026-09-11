@@ -41,6 +41,17 @@ namespace toy::benchmark::detail {
 */
 inline CaseRegistrar * caseListHead = nullptr;
 
+/*!
+  \brief Finds the first benchmark whose name repeats.
+
+  \param head  List head; may be \c nullptr.
+
+  \return First node whose name equals its successor's, or \c nullptr when every name is unique.
+
+  \note Relies on the list being sorted, which puts equal names next to each other.
+*/
+[[nodiscard]] const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept;
+
 } // namespace toy::benchmark::detail
 
 // Two levels of indirection are what makes __COUNTER__ expand before it is pasted.
@@ -48,8 +59,7 @@ inline CaseRegistrar * caseListHead = nullptr;
 #define TOY_BENCHMARK_CONCAT(lhs, rhs)       TOY_BENCHMARK_CONCAT_INNER(lhs, rhs)
 #define TOY_BENCHMARK_UNIQUE(prefix)         TOY_BENCHMARK_CONCAT(prefix, __COUNTER__)
 
-// The registrar is not const: a later registration writes the link of an earlier node, see
-// toy::benchmark::CaseRegistrar.
+// The registrar is not const: a later registration writes the link, see toy::benchmark::CaseRegistrar.
 #define TOY_BENCHMARK_CASE_IMPL(caseName, bodyName, registrarName)                                                     \
   static void                            bodyName(::ankerl::nanobench::Bench & bench);                                 \
   static ::toy::benchmark::CaseRegistrar registrarName{::toy::benchmark::detail::caseListHead, caseName, __FILE__,     \
@@ -59,5 +69,7 @@ inline CaseRegistrar * caseListHead = nullptr;
 /// Declares and registers a benchmark case; see \ref toy::benchmark::CaseRegistrar.
 #define BENCHMARK_CASE(caseName)                                                                                       \
   TOY_BENCHMARK_CASE_IMPL(caseName, TOY_BENCHMARK_UNIQUE(toyBenchmarkBody), TOY_BENCHMARK_UNIQUE(toyBenchmarkReg))
+
+#include "toy_benchmark.inl"
 
 #endif // INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_HPP_

@@ -31,9 +31,7 @@
 
 namespace {
 
-// A case body reaches the runner as a bare function pointer, so it carries no state of its own. Every count a case
-// below asserts therefore travels through the context that case owns: one recorded assertion per run, one more per
-// entered subcase.
+// A body is a bare function pointer, so every count travels through the context: one per run, one per subcase.
 void bodyWithoutSubcases(toy::test::Context & context) {
   context.record(true, "the body ran", "file.cpp", 1);
 }
@@ -89,13 +87,9 @@ TEST_CASE("test/context/case_without_subcases_runs_once") {
   REQUIRE(context.subcaseCount() == 0);
 }
 
-// Three subcases produce three runs, and each run enters a different one, in declaration order. The repeated-run loop
-// is spelled out here rather than driven through runCase(), so the name the guard admits on every run lands in storage
-// local to the case; a run entering the wrong branch then names it instead of vanishing into a total.
+// Three subcases, three runs, in declaration order; the loop is local so a wrong branch is named, not counted.
 TEST_CASE("test::detail/subcase_guard/each_subcase_runs_exactly_once") {
-  // What one run admitted: the subcase it entered and how many it entered. The count keeps a second entry from hiding
-  // behind the first, and the empty name stands for a run that entered none, which keeps a comparison below from
-  // dereferencing a null pointer.
+  // What one run entered and how many: the count catches a second entry, the empty name stands for none.
   struct RunRecord final {
     const char * name  = "";
     std::size_t  count = 0;

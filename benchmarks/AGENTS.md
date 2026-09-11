@@ -11,8 +11,9 @@ Building, running, and gating. What a body measures follows **Benchmark Shape** 
 * **Library and layout:** nanobench, one file per public type at `benchmarks/<module>/<name>.benchmark.cpp`, gated by `TOYGINE_BUILD_BENCHMARKS` so engine consumers never pull the dependency in (see Build-only dependencies).
 * **Desktop alone:** nanobench needs a steady host clock and iostreams, which no console toolchain here offers, so `benchmarks/CMakeLists.txt` skips the tree off desktop. A claim about console performance comes from the target, never from an emulator on the build host.
 * **One binary:** every `*.benchmark.cpp` links into `<library>-benchmarks` beside the runner in `benchmarks/runner/`. `BENCHMARK_CASE` is what joins a file to the build, so a new one costs no CMake; `benchmarks_run` builds the binary and runs it.
+* **Selecting what runs:** a pattern runs every benchmark whose name carries it as a substring, and no pattern runs all. `--list` first prints each name with the file and line declaring it instead of running; patterns after it narrow that listing.
 * **One entry point:** every benchmark translation unit includes `benchmarks/runner/toy_benchmark.hpp`, never nanobench directly — the registry lives there, and a file reaching past it registers nothing.
-* **Deterministic order:** the registry sorts by name, so tables print in name order whatever order the linker gave the objects; no benchmark depends on running before or after another.
+* **Deterministic order:** the registry sorts by name, so tables print in name order whatever order the linker gave the objects; no benchmark depends on running before or after another. A repeated name ends the run before the first table: the name both titles a table and selects it.
 
 ## Benchmark Shape
 

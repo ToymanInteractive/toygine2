@@ -19,7 +19,7 @@
 //
 /*!
   \file   main.cpp
-  \brief  Entry point of the benchmark binary: prints one table per registered benchmark.
+  \brief  Entry point of the benchmark binary: applies the command line and prints one table per selected benchmark.
 */
 
 #include <chrono>
@@ -52,6 +52,15 @@ int main(int argc, char ** argv) {
   char **   patterns = argv + skipped;
   const int count    = argc - skipped;
 
+  // A name titles its table and selects it on the command line, so two under one name cannot be told apart.
+  if (const auto * duplicate = ::toy::benchmark::detail::findDuplicateName(::toy::benchmark::detail::caseListHead);
+      duplicate != nullptr) {
+    std::fprintf(stderr, "duplicate benchmark name: %s\n  %s:%d\n  %s:%d\n", duplicate->name(), duplicate->file(),
+                 duplicate->line(), duplicate->next()->file(), duplicate->next()->line());
+
+    return 1;
+  }
+
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
        benchmarkCase              = benchmarkCase->next()) {
     if (!selected(benchmarkCase->name(), count, patterns))
@@ -64,8 +73,7 @@ int main(int argc, char ** argv) {
 
     ankerl::nanobench::Bench bench;
 
-    // Every table is configured here rather than in a body: the ratio column and the epoch length are what make two
-    // tables comparable, and an epoch shorter than this measures the clock instead of the call.
+    // Configured here, not in a body: the ratio column and the epoch length are what make two tables comparable.
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));
 
     benchmarkCase->body()(bench);

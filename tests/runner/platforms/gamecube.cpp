@@ -32,12 +32,10 @@
 
 namespace {
 
-// Columns one row of the console holds. Unknown until the video mode is picked, so main() fills it in before the
-// first report line is written; the value here only keeps the writer safe if that ever stops being true.
+// Columns per row, unknown until the video mode is picked; main() fills it in, this value is only a fallback.
 std::size_t consoleWidth = 0;
 
-// The report's writer seam carries caller data stdout has no use for. A line wider than one row is cut to it:
-// printing the tail would cost further rows and push the summary off the top of the screen.
+// Caller data stdout has no use for; a line wider than one row is cut, so the summary stays on screen.
 void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
   const auto count = std::min(length, consoleWidth);
 

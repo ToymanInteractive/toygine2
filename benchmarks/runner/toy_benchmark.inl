@@ -18,49 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   3ds.cpp
-  \brief  Platform layer for Nintendo 3DS: console output and the entry point.
+  \file   toy_benchmark.inl
+  \brief  Inline implementation of the registry's duplicate-name scan.
+
+  \note Included by toy_benchmark.hpp only; do not include this file directly.
 */
 
-#include <algorithm>
-#include <cstddef>
-#include <cstdio>
+#ifndef INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
+#define INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
 
-// clang-format off
-#include <3ds.h>
-// clang-format on
+#include <cstring>
 
-#include "report.hpp"
+namespace toy::benchmark::detail {
 
-namespace {
+inline const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept {
+  for (const CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
+    if (std::strcmp(node->name(), node->next()->name()) == 0)
+      return node;
 
-// Columns of the console consoleInit() sets up on the top screen: its 400 pixels over the 8-pixel tiles it draws with.
-constexpr std::size_t c_consoleWidth = 50;
-
-// Caller data stdout has no use for; a line wider than one row is cut, so the summary stays on screen.
-void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
-  const auto count = std::min(length, c_consoleWidth);
-
-  printf("%.*s", static_cast<int>(count), text);
+  return nullptr;
 }
 
-} // namespace
+} // namespace toy::benchmark::detail
 
-int main() {
-  gfxInitDefault();
-
-  consoleInit(GFX_TOP, nullptr);
-
-  const int code = ::toy::test::writeReport(&writeLine, nullptr, ::toy::test::detail::caseListHead);
-
-  while (aptMainLoop()) {
-    gfxFlushBuffers();
-    gfxSwapBuffers();
-
-    gspWaitForVBlank();
-  }
-
-  gfxExit();
-
-  return code;
-}
+#endif // INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_

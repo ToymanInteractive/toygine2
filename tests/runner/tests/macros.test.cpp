@@ -31,9 +31,8 @@
 
 namespace {
 
-// Bodies use the internal macro names, because the short ones belong to doctest inside this binary.
-//
-// The passing assertion is the witness: it is recorded only if the body reaches the line after the failing one.
+// Bodies use the internal macro names, because the short ones belong to doctest inside this binary. The passing
+// assertion is the witness: it is recorded only if the body reaches the line after the failing one.
 void bodyWithFailingRequire(toy::test::Context & toyTestContext) {
   TOY_TEST_REQUIRE(1 == 2);
   TOY_TEST_CHECK(1 == 1);
@@ -96,16 +95,13 @@ TEST_CASE("test/macros/case_macro_registers_the_case") {
   CHECK(registered->line() == c_registeredCaseLine);
 }
 
-// The subcase macro produces one run per branch, and each branch executes once. The run loop is spelled out here
-// rather than delegated to toy::test::runCase(), because a body it accepts is a bare function pointer and could
-// report which branch ran only through state outside the case.
+// Spelled out instead of runCase(): a function pointer could report the branch only through state outside it.
 TEST_CASE("test/macros/subcase_expands_to_one_run_per_branch") {
   // The macros reach the run state through a name they choose themselves, so the case declares the context under it.
   toy::test::Context toyTestContext{nullptr};
   toyTestContext.beginCase("generated/case");
 
-  // One more run than the case declares subcases, so a loop that fails to terminate is a failed expectation below
-  // rather than a hung test.
+  // One run more than the case has subcases, so a loop that never ends fails an expectation instead of hanging.
   constexpr std::size_t c_maxRuns = 4;
 
   std::array<std::size_t, 3> hits{};

@@ -31,8 +31,7 @@
 #ifndef INCLUDE_TESTS_RUNNER_ASSERTION_HPP_
 #define INCLUDE_TESTS_RUNNER_ASSERTION_HPP_
 
-// MSVC declares __debugbreak() here. Every other toolchain uses a compiler builtin and needs no header, which is what
-// keeps the runner buildable where no hosted header exists.
+// MSVC declares __debugbreak() here; every other toolchain uses a builtin and needs no hosted header.
 #if defined(_MSC_VER) && !defined(__clang__)
 #include <intrin.h>
 #endif // defined(_MSC_VER) && !defined(__clang__)

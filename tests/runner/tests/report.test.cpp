@@ -40,9 +40,7 @@ struct CapturedReport final {
   std::size_t length                  = 0;
 };
 
-// The capture lives in the case that reads it and arrives through the writer data, so no state outlives a case. The
-// seam carries the address of the capture rather than the capture itself: what it promises to leave alone is the
-// pointer, while the buffer behind it is the destination this writer exists to fill.
+// The capture lives in the case that reads it; the seam carries its address, the buffer behind it is the target.
 void captureWrite(const char * text, std::size_t length, const void * writerData) noexcept {
   CapturedReport & captured = **static_cast<CapturedReport * const *>(writerData);
 
@@ -57,15 +55,13 @@ void bodyPasses(toy::test::Context & toyTestContext) {
   TOY_TEST_CHECK(1 == 1);
 }
 
-// Recording straight through the context is what keeps the file and line in the expected report fixed; a macro would
-// paste this file's own path and a line number that any edit above shifts.
+// Recording through the context fixes the file and line; a macro would paste a path and a shifting line number.
 void bodyFailsTwice(toy::test::Context & context) {
   static_cast<void>(context.record(false, "1 == 2", "first.cpp", 11));
   static_cast<void>(context.record(false, "2 == 3", "second.cpp", 22));
 }
 
-// A colon inside a plain YAML scalar starts a mapping and an apostrophe closes a quoted one, so both go through the
-// writer that quotes.
+// A colon starts a YAML mapping and an apostrophe closes a quoted scalar, so both go through the quoting writer.
 void bodyFailsWithAwkwardText(toy::test::Context & context) {
   static_cast<void>(context.record(false, "map['a: b'] == c", "od'd.cpp", 7));
 }
@@ -103,17 +99,15 @@ void bodyFailsInsideSubcase(toy::test::Context & toyTestContext) {
   }
 }
 
-// Compares exactly the bytes the writer handed over, then requires the expected text to end there too: a report that
-// merely starts with the expected text is not the expected report. Comparing to the terminator instead would ignore
-// the captured length and pass a report whose writer miscounted it.
+// Compares the bytes handed over and requires the expected text to end there: a prefix is not the report.
+// Comparing to the terminator would ignore the captured length and pass a report whose writer miscounted it.
 [[nodiscard]] bool reportMatches(const CapturedReport & captured, const char * expected) noexcept {
   return std::strncmp(captured.text, expected, captured.length) == 0 && expected[captured.length] == '\0';
 }
 
 } // namespace
 
-// Puts both texts into the failure message, because a comparison folded into a bool reports only that they differ,
-// and the whole point of comparing the report in full is to see where it went wrong.
+// Both texts reach the failure message: a folded bool would report only that they differ, never where.
 #define REQUIRE_REPORT(captured, expected)                                                                             \
   do {                                                                                                                 \
     INFO("actual:\n" << (captured).text);                                                                              \
@@ -251,8 +245,7 @@ TEST_CASE("test/write_report/failure_block_carries_info") {
                            "# assertions passed=0 failed=1\n");
 }
 
-// The bytes that would end a scalar early reach the block quoted: the apostrophe doubled, the colon left alone inside
-// the quotes it can no longer escape.
+// Bytes that would end a scalar early arrive quoted: the apostrophe doubled, the colon left as it is.
 TEST_CASE("test/write_report/failure_block_quotes_yaml_syntax") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -278,8 +271,8 @@ TEST_CASE("test/write_report/failure_block_quotes_yaml_syntax") {
                            "# assertions passed=0 failed=1\n");
 }
 
-// A comment is never escaped and a description always is, so one name reaches the report in two spellings. A harness
-// unescapes the description before matching it against the raw name, which is what keeps the pair correlated.
+// A comment is never escaped and a description always is, so one name reaches the report in two spellings. A
+// harness unescapes the description before matching it against the raw name, which keeps the pair correlated.
 TEST_CASE("test/write_report/subtest_header_keeps_the_name_unescaped") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -317,8 +310,7 @@ TEST_CASE("test/write_report/duplicate_name_aborts_before_the_first_case") {
                            "Bail out! duplicate case name: sample/duplicate\n");
 }
 
-// TAP reads an unescaped hash in a description as the start of a directive, so both it and the backslash that
-// escapes it leave the writer escaped.
+// TAP reads a bare hash in a description as a directive, so it and its backslash both leave the writer escaped.
 TEST_CASE("test/write_report/description_escapes_hash_and_backslash") {
   toy::test::CaseRegistrar * head = nullptr;
 
@@ -349,8 +341,7 @@ TEST_CASE("test/write_report/empty_registry_reports_an_empty_plan") {
                            "# assertions passed=0 failed=0\n");
 }
 
-// A case name past the line capacity is cut to it and the line keeps its newline, because two report lines run
-// together are unreadable while a truncated name costs only that name.
+// An over-long case name is cut and the line keeps its newline: two report lines run together are unreadable.
 TEST_CASE("test/write_report/overlong_case_name_keeps_the_line_break") {
   constexpr std::size_t capacity   = toy::test::detail::ReportWriter::c_lineCapacity;
   constexpr std::size_t nameLength = capacity * 2;
