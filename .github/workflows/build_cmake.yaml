@@ -262,22 +262,12 @@ jobs:
           archive: false
 
       - name: Unit testing
-        run: |
-          set -euo pipefail
-
-          if [ "${{ matrix.run_test }}" != "true" ]; then
-            exit 0
-          fi
-
-          ctest --preset ${{ matrix.cmake_preset }}
+        if: ${{ matrix.run_test == 'true' }}
+        run: ctest --preset ${{ matrix.cmake_preset }}
 
       - name: Benchmarks
-        run: |
-          set -euo pipefail
-
-          if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
-            cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
-          fi
+        if: ${{ matrix.run_benchmarks == 'true' }}
+        run: cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
 
   unit-tests:
     name: Collect unit tests
