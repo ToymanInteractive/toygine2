@@ -27,6 +27,10 @@ Files extracted from upstream source:
 - `src/include/nanobench.h`
 - `LICENSE`
 
+Local patches:
+
+- 0001-msvc-support
+
 ## vulkan
 
 - Upstream: <https://github.com/KhronosGroup/Vulkan-Headers>
