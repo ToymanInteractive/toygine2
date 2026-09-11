@@ -3245,7 +3245,14 @@ static int streamHeaderHashIndex() {
 }
 
 // pword holds a raw void*, so what it points at has to be freed when the stream goes away.
-static void streamHeaderHashCallback(std::ios_base::event ev, std::ios_base& ios, int index) {
+#if defined(_MSC_VER)
+#    define ANKERL_NANOBENCH_IOS_CALLBACK __cdecl
+#else
+#    define ANKERL_NANOBENCH_IOS_CALLBACK
+#endif
+
+static void ANKERL_NANOBENCH_IOS_CALLBACK streamHeaderHashCallback(std::ios_base::event ev, std::ios_base& ios,
+                                                                   int index) {
     if (std::ios_base::erase_event == ev) {
         // NOLINTNEXTLINE(cppcoreguidelines-owning-memory)
         delete static_cast<uint64_t*>(ios.pword(index));
