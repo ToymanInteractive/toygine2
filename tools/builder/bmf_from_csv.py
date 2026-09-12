@@ -50,7 +50,16 @@ def read_rows(stream):
         if len(fields) != len(HEADER):
             raise SystemExit(f"expected {len(HEADER)} fields, got {len(fields)}: {fields}")
 
-        yield dict(zip(HEADER, fields))
+        row = dict(zip(HEADER, fields))
+
+        for name in ("epoch", "iters", "ticks", "ps_per_tick"):
+            if not row[name].isdigit():
+                raise SystemExit(f"expected a whole number in {name}, got {row[name]!r}")
+
+        if int(row["iters"]) == 0:
+            raise SystemExit(f"expected a positive iters, got 0: {fields}")
+
+        yield row
 
 
 def nanoseconds_per_call(row):
