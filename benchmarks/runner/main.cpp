@@ -26,58 +26,62 @@
 #define ANKERL_NANOBENCH_IMPLEMENT
 
 #include <chrono>
+#include <cstddef>
+#include <cstdint>
 #include <cstdio>
-#include <cstring>
+#include <iostream>
+#include <string>
 #include <string_view>
 
+#include "command_line.hpp"
 #include "toy_benchmark.hpp"
 
 namespace {
 
-// What the leading options asked for; the arguments from firstPattern on are patterns.
-struct Options final {
-  bool listOnly     = false;
-  bool csv          = false;
-  bool noTable      = false;
-  int  firstPattern = 1;
-};
+// Picoseconds in a second: nanobench times a desktop epoch in seconds, and a CSV row counts whole picoseconds.
+constexpr double c_picosecondsPerSecond = 1e12;
 
-// Reads the leading --list, --csv and --no-table in any order.
-[[nodiscard]] Options parseOptions(int argc, char ** argv) noexcept {
-  Options options;
+// A CSV field, quoted when the text carries a comma, a quote, a tab or a line break, with inner quotes doubled.
+[[nodiscard]] std::string csvField(std::string_view text) {
+  if (text.find_first_of(",\"\n\r\t") == std::string_view::npos)
+    return std::string{text};
 
-  while (options.firstPattern < argc) {
-    if (const char * argument = argv[options.firstPattern]; std::strcmp(argument, "--list") == 0)
-      options.listOnly = true;
-    else if (std::strcmp(argument, "--csv") == 0)
-      options.csv = true;
-    else if (std::strcmp(argument, "--no-table") == 0)
-      options.noTable = true;
-    else
-      break;
+  std::string quoted;
+  quoted.reserve(text.size() + 2);
+  quoted.push_back('"');
 
-    ++options.firstPattern;
+  for (const char character : text) {
+    if (character == '"')
+      quoted.push_back('"');
+
+    quoted.push_back(character);
   }
 
-  return options;
+  quoted.push_back('"');
+
+  return quoted;
 }
 
-// Whether a name carries any of the patterns as a substring. No pattern at all selects every benchmark.
-[[nodiscard]] bool selected(std::string_view name, int count, char ** patterns) noexcept {
-  if (count <= 0)
-    return true;
+// Prints one CSV row per timed epoch of a finished table, so a host-side script can do the statistics.
+void printCsvRows(std::string_view caseName, const ankerl::nanobench::Bench & bench) {
+  for (const auto & result : bench.results())
+    for (std::size_t epoch = 0; epoch < result.size(); ++epoch) {
+      const double iterations = result.get(epoch, ankerl::nanobench::Result::Measure::iterations);
 
-  for (int index = 0; index < count; ++index)
-    if (name.contains(patterns[index]))
-      return true;
+      // A desktop has no timer tick, so a tick is one picosecond and the count spans the whole epoch.
+      const auto ticks = static_cast<std::uint64_t>(result.get(epoch, ankerl::nanobench::Result::Measure::elapsed)
+                                                    * iterations * c_picosecondsPerSecond);
 
-  return false;
+      std::cout << "#csv " << csvField(caseName) << ',' << csvField(result.config().mBenchmarkName) << ','
+                << csvField(result.config().mUnit) << ',' << epoch << ',' << static_cast<std::uint64_t>(iterations)
+                << ',' << ticks << ",1\n";
+    }
 }
 
 } // namespace
 
 int main(int argc, char ** argv) {
-  const Options options = parseOptions(argc, argv);
+  const auto options = toy::benchmark::detail::parseOptions(argc, argv);
 
   // A name titles its table and selects it on the command line, so two under one name cannot be told apart.
   if (const auto * duplicate = ::toy::benchmark::detail::findDuplicateName(::toy::benchmark::detail::caseListHead);
@@ -92,9 +96,12 @@ int main(int argc, char ** argv) {
   char **   patterns = argv + options.firstPattern;
   const int count    = argc - options.firstPattern;
 
+  if (options.csv)
+    std::cout << "#csv case,row,unit,epoch,iters,ticks,ps_per_tick\n";
+
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
        benchmarkCase              = benchmarkCase->next()) {
-    if (!selected(benchmarkCase->name(), count, patterns))
+    if (!toy::benchmark::detail::selected(benchmarkCase->name(), count, patterns))
       continue;
 
     if (options.listOnly) {
@@ -107,11 +114,14 @@ int main(int argc, char ** argv) {
     // Set here rather than in a body: a shared ratio column and epoch length keep two tables comparable.
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));
 
-    // nanobench prints its table from run(), so the table is suppressed by taking its stream away.
+    // nanobench prints the table from run(), so taking its stream away suppresses it.
     if (options.noTable)
       bench.output(nullptr);
 
     benchmarkCase->body()(bench);
+
+    if (options.csv)
+      printCsvRows(benchmarkCase->name(), bench);
   }
 
   return 0;

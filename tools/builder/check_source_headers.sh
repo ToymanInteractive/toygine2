@@ -67,7 +67,7 @@ while IFS= read -r file; do
   # Slash style: C / C++ / Objective-C sources. Hash style: shell and CMake scripts.
   case "$file" in
     *.cpp | *.cc | *.c++ | *.cxx | *.c | *.h | *.hpp | *.inl | *.mm | *.m) template="$HEADER_C_LIKE" ;;
-    *.sh | *.cmake | */CMakeLists.txt | CMakeLists.txt) template="$HEADER_SCRIPT" ;;
+    *.sh | *.cmake | */CMakeLists.txt | CMakeLists.txt | *.py) template="$HEADER_SCRIPT" ;;
     *) continue ;;  # Not a source file we check
   esac
 

@@ -29,6 +29,35 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
+# Clang 21.1.0 documentation.    https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html
+# Clang 21.1.0 diagnostic flags. https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
+# last option is -Wabstract-vbase-init
+
+set(CLANG_CMAKE_C_FLAGS                  "-Werror")
+set(CLANG_CMAKE_CXX_FLAGS                "-Werror -Wabstract-vbase-init")
+
+set(CLANG_CMAKE_C_FLAGS_DEBUG            "")
+set(CLANG_CMAKE_CXX_FLAGS_DEBUG          "")
+
+set(CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO   "")
+set(CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
+
+set(CLANG_CMAKE_C_FLAGS_RELEASE          "")
+set(CLANG_CMAKE_CXX_FLAGS_RELEASE        "")
+
+
+set(CLANG_CMAKE_STATIC_LINKER_FLAGS                 "")
+set(CLANG_CMAKE_EXE_LINKER_FLAGS                    "")
+
+set(CLANG_CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
+set(CLANG_CMAKE_EXE_LINKER_FLAGS_DEBUG              "")
+
+set(CLANG_CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
+set(CLANG_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
+
+set(CLANG_CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
+set(CLANG_CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
+
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
@@ -36,13 +65,13 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /Zc:noexceptTypes
+    # last option is /Zc:referenceBinding
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope                                                     /Zc:inline")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes /Zc:nrvo /Zc:preprocessor /Zc:referenceBinding")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
@@ -108,8 +137,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
 
-    string(APPEND CMAKE_C_FLAGS   " /nologo /Zc:wchar_t /Zc:preprocessor /Zc:rvalueCast")
-    string(APPEND CMAKE_CXX_FLAGS " /nologo /Zc:wchar_t /Zc:preprocessor /Zc:rvalueCast")
+    string(APPEND CMAKE_C_FLAGS                   " /nologo /Zc:wchar_t /Zc:preprocessor /Zc:rvalueCast")
+    string(APPEND CMAKE_CXX_FLAGS                 " /nologo /Zc:wchar_t /Zc:preprocessor /Zc:rvalueCast")
 
     string(APPEND CMAKE_C_FLAGS_DEBUG             " /diagnostics:caret   /sdl      /MTd /MP")
     string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /diagnostics:caret   /sdl      /MTd /MP")
@@ -120,8 +149,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     string(APPEND CMAKE_C_FLAGS_RELEASE           " /diagnostics:classic /sdl- /GT /MT")
     string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /diagnostics:classic /sdl- /GT /MT")
 
-    string(APPEND CMAKE_STATIC_LINKER_FLAGS " /WX")
-    string(APPEND CMAKE_EXE_LINKER_FLAGS    " /WX /MANIFEST /MANIFESTUAC:\"/level='asInvoker' /uiAccess='false'\" /ALLOWISOLATION /LARGEADDRESSAWARE /SAFESEH:NO")
+    string(APPEND CMAKE_STATIC_LINKER_FLAGS                 " /WX")
+    string(APPEND CMAKE_EXE_LINKER_FLAGS                    " /WX /MANIFEST /MANIFESTUAC:\"/level='asInvoker' /uiAccess='false'\" /ALLOWISOLATION /LARGEADDRESSAWARE /SAFESEH:NO")
 
     string(APPEND CMAKE_STATIC_LINKER_FLAGS_DEBUG           "                 /LTCG:OFF")
     string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG              " /INCREMENTAL    /LTCG:OFF /DEBUG:FULL /ASSEMBLYDEBUG")
@@ -141,6 +170,31 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   if (CMAKE_GENERATOR STREQUAL "Xcode")
     message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
   endif ()
+
+    set(CMAKE_C_FLAGS                   " ${CLANG_CMAKE_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS                 " ${CLANG_CMAKE_CXX_FLAGS}")
+
+    set(CMAKE_C_FLAGS_DEBUG             " ${CLANG_CMAKE_C_FLAGS_DEBUG} -g")
+    set(CMAKE_CXX_FLAGS_DEBUG           " ${CLANG_CMAKE_CXX_FLAGS_DEBUG} -g")
+
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO    " ${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  " ${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
+
+    set(CMAKE_C_FLAGS_RELEASE           " ${CLANG_CMAKE_C_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE         " ${CLANG_CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+
+
+    set(CMAKE_STATIC_LINKER_FLAGS                 " ${CLANG_CMAKE_STATIC_LINKER_FLAGS}")
+    set(CMAKE_EXE_LINKER_FLAGS                    " ${CLANG_CMAKE_EXE_LINKER_FLAGS}")
+
+    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_DEBUG}")
+    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              " ${CLANG_CMAKE_EXE_LINKER_FLAGS_DEBUG}")
+
+    set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO}")
+    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     " ${CLANG_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
+
+    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_RELEASE}")
+    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            " ${CLANG_CMAKE_EXE_LINKER_FLAGS_RELEASE}")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 

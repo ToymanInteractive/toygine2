@@ -82,6 +82,9 @@ list(FILTER TOYGINE_MODULE_TESTS_SRC EXCLUDE REGEX "^runner/")
 # Tests of the runner itself. Written against doctest and inspecting its internals, so only doctest builds them.
 file(GLOB TOYGINE_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/runner/tests/*.test.cpp")
 
+# Tests of the benchmark runner's host-side logic: plain C++ under doctest, beside the test runner's own tests.
+file(GLOB TOYGINE_BENCHMARK_RUNNER_TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../benchmarks/runner/tests/*.test.cpp")
+
 #-----------------------------------------------------------------------------------------------------------------------
 # Tests built with the runner written for consoles
 #-----------------------------------------------------------------------------------------------------------------------
@@ -151,12 +154,14 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   add_executable(${TOYGINE_LIBRARY_NAME}-units
       ${TOYGINE_MODULE_TESTS_SRC}
       ${TOYGINE_RUNNER_TESTS_SRC}
+      ${TOYGINE_BENCHMARK_RUNNER_TESTS_SRC}
       ctest_main.cpp)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME}-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS
                                                                   TOYGINE_TESTS_USE_DOCTEST)
 
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
+  target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../benchmarks/runner)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 

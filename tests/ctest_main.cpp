@@ -28,12 +28,17 @@
 
 #include "core.hpp"
 
-[[noreturn]] static bool assertionCallback(const char * message) noexcept {
-  throw std::runtime_error(message);
+// Throwing here would terminate instead of reaching doctest: both callback types are noexcept.
+static bool assertionCallback(const char * message) noexcept {
+  ADD_FAIL_CHECK_AT(__FILE__, __LINE__, message);
+
+  // Stops the caller at the failing check, the same thing an unregistered handler does.
+  return true;
 }
 
+// One frame of a trace, so it reports a message rather than a second failure.
 static void stackWalkCallback(const char * info) noexcept {
-  throw std::runtime_error(info);
+  ADD_MESSAGE_AT(__FILE__, __LINE__, info);
 }
 
 int main(int argc, char ** argv) noexcept {
@@ -45,7 +50,7 @@ int main(int argc, char ** argv) noexcept {
 
   context.applyCommandLine(argc, argv);
 
-  int res = context.run(); // run doctest
+  int res = context.run();
 
   toy::assertion::deInitialize();
 
