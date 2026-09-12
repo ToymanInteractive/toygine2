@@ -26,13 +26,19 @@
 #define ANKERL_NANOBENCH_IMPLEMENT
 
 #include <chrono>
+#include <cstddef>
+#include <cstdint>
 #include <cstdio>
 #include <cstring>
+#include <iostream>
 #include <string_view>
 
 #include "toy_benchmark.hpp"
 
 namespace {
+
+// Picoseconds in a second: nanobench times a desktop epoch in seconds, and a CSV row counts whole picoseconds.
+constexpr double c_picosecondsPerSecond = 1e12;
 
 // What the leading options asked for; the arguments from firstPattern on are patterns.
 struct Options final {
@@ -74,6 +80,21 @@ struct Options final {
   return false;
 }
 
+// Prints one CSV row per timed epoch of a finished table, so a host-side script can do the statistics.
+void printCsvRows(std::string_view caseName, const ankerl::nanobench::Bench & bench) {
+  for (const auto & result : bench.results())
+    for (std::size_t epoch = 0; epoch < result.size(); ++epoch) {
+      const double iterations = result.get(epoch, ankerl::nanobench::Result::Measure::iterations);
+
+      // A desktop has no timer tick, so a tick is one picosecond and the count spans the whole epoch.
+      const auto ticks = static_cast<std::uint64_t>(result.get(epoch, ankerl::nanobench::Result::Measure::elapsed)
+                                                    * iterations * c_picosecondsPerSecond);
+
+      std::cout << "#csv " << caseName << ',' << result.config().mBenchmarkName << ',' << result.config().mUnit << ','
+                << epoch << ',' << static_cast<std::uint64_t>(iterations) << ',' << ticks << ",1\n";
+    }
+}
+
 } // namespace
 
 int main(int argc, char ** argv) {
@@ -92,6 +113,9 @@ int main(int argc, char ** argv) {
   char **   patterns = argv + options.firstPattern;
   const int count    = argc - options.firstPattern;
 
+  if (options.csv)
+    std::cout << "#csv case,row,unit,epoch,iters,ticks,ps_per_tick\n";
+
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
        benchmarkCase              = benchmarkCase->next()) {
     if (!selected(benchmarkCase->name(), count, patterns))
@@ -107,11 +131,14 @@ int main(int argc, char ** argv) {
     // Set here rather than in a body: a shared ratio column and epoch length keep two tables comparable.
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));
 
-    // nanobench prints its table from run(), so the table is suppressed by taking its stream away.
+    // nanobench prints the table from run(), so taking its stream away suppresses it.
     if (options.noTable)
       bench.output(nullptr);
 
     benchmarkCase->body()(bench);
+
+    if (options.csv)
+      printCsvRows(benchmarkCase->name(), bench);
   }
 
   return 0;
