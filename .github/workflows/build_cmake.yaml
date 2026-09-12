@@ -262,14 +262,16 @@ jobs:
           archive: false
 
       - name: Unit testing
-        run: |
-          set -euo pipefail
+        if: ${{ matrix.run_test == 'true' }}
+        run: ctest --preset ${{ matrix.cmake_preset }}
 
-          if [ "${{ matrix.run_test }}" != "true" ]; then
-            exit 0
-          fi
+      - name: Benchmarks
+        if: ${{ matrix.run_benchmarks == 'true' }}
+        run: cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
 
-          ctest --preset ${{ matrix.cmake_preset }}
+      - name: Install bencher CLI
+        if: matrix.run_benchmarks == 'true'
+        uses: bencherdev/bencher@v0.6.12
 
   unit-tests:
     name: Collect unit tests

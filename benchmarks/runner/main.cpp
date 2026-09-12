@@ -28,18 +28,50 @@
 #include <chrono>
 #include <cstdio>
 #include <cstring>
+#include <optional>
+#include <string_view>
 
 #include "toy_benchmark.hpp"
 
 namespace {
 
+// What the leading options asked for; the arguments from firstPattern on are patterns.
+struct Options final {
+  bool         listOnly     = false;
+  const char * bmfPath      = nullptr;
+  int          firstPattern = 1;
+};
+
+// Reads the leading --list and --bmf <path> in any order. Empty when --bmf is the last argument.
+[[nodiscard]] std::optional<Options> parseOptions(int argc, char ** argv) noexcept {
+  Options options;
+
+  while (options.firstPattern < argc) {
+    if (const char * argument = argv[options.firstPattern]; std::strcmp(argument, "--list") == 0) {
+      options.listOnly = true;
+    } else if (std::strcmp(argument, "--bmf") == 0) {
+      if (options.firstPattern + 1 == argc)
+        return std::nullopt;
+
+      options.bmfPath = argv[options.firstPattern + 1];
+      ++options.firstPattern;
+    } else {
+      break;
+    }
+
+    ++options.firstPattern;
+  }
+
+  return options;
+}
+
 // Whether a name carries any of the patterns as a substring. No pattern at all selects every benchmark.
-[[nodiscard]] bool selected(const char * name, int count, char ** patterns) noexcept {
+[[nodiscard]] bool selected(std::string_view name, int count, char ** patterns) noexcept {
   if (count <= 0)
     return true;
 
   for (int index = 0; index < count; ++index)
-    if (std::strstr(name, patterns[index]) != nullptr)
+    if (name.contains(patterns[index]))
       return true;
 
   return false;
@@ -48,12 +80,12 @@ namespace {
 } // namespace
 
 int main(int argc, char ** argv) {
-  // Running one benchmark alone is what tells a surprising number from a benchmark that disturbs its neighbours.
-  const bool listOnly = argc > 1 && std::strcmp(argv[1], "--list") == 0;
-  const int  skipped  = listOnly ? 2 : 1;
+  const auto options = parseOptions(argc, argv);
+  if (!options) {
+    std::fprintf(stderr, "usage: %s [--list] [--bmf <path>] [pattern...]\n", argv[0]);
 
-  char **   patterns = argv + skipped;
-  const int count    = argc - skipped;
+    return 1;
+  }
 
   // A name titles its table and selects it on the command line, so two under one name cannot be told apart.
   if (const auto * duplicate = ::toy::benchmark::detail::findDuplicateName(::toy::benchmark::detail::caseListHead);
@@ -64,19 +96,23 @@ int main(int argc, char ** argv) {
     return 1;
   }
 
+  // Running one benchmark alone separates a surprising number from a benchmark that disturbs its neighbours.
+  char **   patterns = argv + options->firstPattern;
+  const int count    = argc - options->firstPattern;
+
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
        benchmarkCase              = benchmarkCase->next()) {
     if (!selected(benchmarkCase->name(), count, patterns))
       continue;
 
-    if (listOnly) {
+    if (options->listOnly) {
       std::printf("%s\t%s:%d\n", benchmarkCase->name(), benchmarkCase->file(), benchmarkCase->line());
       continue;
     }
 
     ankerl::nanobench::Bench bench;
 
-    // Configured here, not in a body: the ratio column and the epoch length are what make two tables comparable.
+    // Set here rather than in a body: a shared ratio column and epoch length keep two tables comparable.
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));
 
     benchmarkCase->body()(bench);
