@@ -31,6 +31,7 @@
 #include <cstdio>
 #include <cstring>
 #include <iostream>
+#include <string>
 #include <string_view>
 
 #include "toy_benchmark.hpp"
@@ -80,6 +81,27 @@ struct Options final {
   return false;
 }
 
+// A CSV field, quoted when the text carries a comma, a quote, a tab or a line break, with inner quotes doubled.
+[[nodiscard]] std::string csvField(std::string_view text) {
+  if (text.find_first_of(",\"\n\r\t") == std::string_view::npos)
+    return std::string{text};
+
+  std::string quoted;
+  quoted.reserve(text.size() + 2);
+  quoted.push_back('"');
+
+  for (const char character : text) {
+    if (character == '"')
+      quoted.push_back('"');
+
+    quoted.push_back(character);
+  }
+
+  quoted.push_back('"');
+
+  return quoted;
+}
+
 // Prints one CSV row per timed epoch of a finished table, so a host-side script can do the statistics.
 void printCsvRows(std::string_view caseName, const ankerl::nanobench::Bench & bench) {
   for (const auto & result : bench.results())
@@ -90,8 +112,9 @@ void printCsvRows(std::string_view caseName, const ankerl::nanobench::Bench & be
       const auto ticks = static_cast<std::uint64_t>(result.get(epoch, ankerl::nanobench::Result::Measure::elapsed)
                                                     * iterations * c_picosecondsPerSecond);
 
-      std::cout << "#csv " << caseName << ',' << result.config().mBenchmarkName << ',' << result.config().mUnit << ','
-                << epoch << ',' << static_cast<std::uint64_t>(iterations) << ',' << ticks << ",1\n";
+      std::cout << "#csv " << csvField(caseName) << ',' << csvField(result.config().mBenchmarkName) << ','
+                << csvField(result.config().mUnit) << ',' << epoch << ',' << static_cast<std::uint64_t>(iterations)
+                << ',' << ticks << ",1\n";
     }
 }
 
