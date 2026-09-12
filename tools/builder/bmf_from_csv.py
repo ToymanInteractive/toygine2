@@ -1,5 +1,5 @@
 #-----------------------------------------------------------------------------------------------------------------------
-# Copyright (c) 2026-7 Toyman Interactive
+# Copyright (c) 2026 Toyman Interactive
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy of this
 # software and associated documentation files (the "Software"), to deal in the Software
@@ -53,7 +53,7 @@ def read_rows(stream):
         row = dict(zip(HEADER, fields))
 
         for name in ("epoch", "iters", "ticks", "ps_per_tick"):
-            if not row[name].isdigit():
+            if not row[name].isdecimal():
                 raise SystemExit(f"expected a whole number in {name}, got {row[name]!r}")
 
         if int(row["iters"]) == 0:
