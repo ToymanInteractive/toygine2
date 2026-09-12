@@ -19,7 +19,7 @@
 //
 /*!
   \file   main.cpp
-  \brief  Entry point of the benchmark binary: applies the command line and prints one table per selected benchmark.
+  \brief  Entry point of the benchmark binary: applies the command line, prints the tables and the epochs behind them.
 */
 
 // nanobench keeps its implementation behind this macro, and exactly one translation unit may define it.
@@ -28,7 +28,6 @@
 #include <chrono>
 #include <cstdio>
 #include <cstring>
-#include <optional>
 #include <string_view>
 
 #include "toy_benchmark.hpp"
@@ -37,27 +36,25 @@ namespace {
 
 // What the leading options asked for; the arguments from firstPattern on are patterns.
 struct Options final {
-  bool         listOnly     = false;
-  const char * bmfPath      = nullptr;
-  int          firstPattern = 1;
+  bool listOnly     = false;
+  bool csv          = false;
+  bool noTable      = false;
+  int  firstPattern = 1;
 };
 
-// Reads the leading --list and --bmf <path> in any order. Empty when --bmf is the last argument.
-[[nodiscard]] std::optional<Options> parseOptions(int argc, char ** argv) noexcept {
+// Reads the leading --list, --csv and --no-table in any order.
+[[nodiscard]] Options parseOptions(int argc, char ** argv) noexcept {
   Options options;
 
   while (options.firstPattern < argc) {
-    if (const char * argument = argv[options.firstPattern]; std::strcmp(argument, "--list") == 0) {
+    if (const char * argument = argv[options.firstPattern]; std::strcmp(argument, "--list") == 0)
       options.listOnly = true;
-    } else if (std::strcmp(argument, "--bmf") == 0) {
-      if (options.firstPattern + 1 == argc)
-        return std::nullopt;
-
-      options.bmfPath = argv[options.firstPattern + 1];
-      ++options.firstPattern;
-    } else {
+    else if (std::strcmp(argument, "--csv") == 0)
+      options.csv = true;
+    else if (std::strcmp(argument, "--no-table") == 0)
+      options.noTable = true;
+    else
       break;
-    }
 
     ++options.firstPattern;
   }
@@ -80,12 +77,7 @@ struct Options final {
 } // namespace
 
 int main(int argc, char ** argv) {
-  const auto options = parseOptions(argc, argv);
-  if (!options) {
-    std::fprintf(stderr, "usage: %s [--list] [--bmf <path>] [pattern...]\n", argv[0]);
-
-    return 1;
-  }
+  const Options options = parseOptions(argc, argv);
 
   // A name titles its table and selects it on the command line, so two under one name cannot be told apart.
   if (const auto * duplicate = ::toy::benchmark::detail::findDuplicateName(::toy::benchmark::detail::caseListHead);
@@ -97,15 +89,15 @@ int main(int argc, char ** argv) {
   }
 
   // Running one benchmark alone separates a surprising number from a benchmark that disturbs its neighbours.
-  char **   patterns = argv + options->firstPattern;
-  const int count    = argc - options->firstPattern;
+  char **   patterns = argv + options.firstPattern;
+  const int count    = argc - options.firstPattern;
 
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
        benchmarkCase              = benchmarkCase->next()) {
     if (!selected(benchmarkCase->name(), count, patterns))
       continue;
 
-    if (options->listOnly) {
+    if (options.listOnly) {
       std::printf("%s\t%s:%d\n", benchmarkCase->name(), benchmarkCase->file(), benchmarkCase->line());
       continue;
     }
@@ -114,6 +106,10 @@ int main(int argc, char ** argv) {
 
     // Set here rather than in a body: a shared ratio column and epoch length keep two tables comparable.
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));
+
+    // nanobench prints its table from run(), so the table is suppressed by taking its stream away.
+    if (options.noTable)
+      bench.output(nullptr);
 
     benchmarkCase->body()(bench);
   }

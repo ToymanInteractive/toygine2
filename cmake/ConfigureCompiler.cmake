@@ -22,19 +22,27 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
+# MSVC Compiler Options
+# https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
+# MSVC Linker Options
+# https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
+
+# XCode 26.6 contains AppleClang version: 21.0.0.21000101
+# Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
+
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
   if (MSVC)
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /Zc:lambda
+    # last option is /Zc:noexceptTypes
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope                                                     /Zc:inline")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
