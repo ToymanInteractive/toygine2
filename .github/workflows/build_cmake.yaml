@@ -238,11 +238,7 @@ jobs:
 
       - name: Build
         run: |
-          BENCHMARKS_ARG=""
-          if [ "${{ matrix.run_benchmarks }}" = "true" ]; then
-            BENCHMARKS_ARG="-DBENCHMARKS_OUTPUT_FILE=$GITHUB_WORKSPACE/benchmarks_bmf.json"
-          fi
-          cmake $BENCHMARKS_ARG --preset ${{ matrix.cmake_preset }}
+          cmake --preset ${{ matrix.cmake_preset }}
           cmake --build --preset ${{ matrix.cmake_preset }}
 
       - name: Package
@@ -267,7 +263,10 @@ jobs:
 
       - name: Benchmarks
         if: ${{ matrix.run_benchmarks == 'true' }}
-        run: cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run
+        run: |
+          cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run | tee benchmarks.log
+          python3 tools/builder/bmf_from_csv.py benchmarks.log > benchmarks_bmf.json
+          head -20 benchmarks_bmf.json
 
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
