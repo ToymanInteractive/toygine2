@@ -49,6 +49,9 @@ def read_rows(stream):
     if rows[0] != HEADER:
         raise SystemExit(f"unexpected CSV header: {rows[0]}")
 
+    if len(rows) == 1:
+        raise SystemExit("no benchmark rows in the input; did every pattern match nothing?")
+
     for fields in rows[1:]:
         if len(fields) < NAMED_COLUMNS or (len(fields) - NAMED_COLUMNS) % 2 != 0:
             raise SystemExit(f"expected {NAMED_COLUMNS} columns and a pair per epoch, got {len(fields)}: {fields}")

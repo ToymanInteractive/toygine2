@@ -281,6 +281,26 @@ jobs:
         if: matrix.run_benchmarks == 'true'
         uses: bencherdev/bencher@v0.6.12
 
+      - name: Upload benchmarks to bencher.dev
+        if: matrix.run_benchmarks == 'true' && github.event_name != 'pull_request' && github.ref_name == 'main'
+        env:
+          BENCHER_API_KEY: ${{ secrets.BENCHER_API_KEY }}
+        run: |
+          bencher run \
+            --project toygine2 \
+            --key "$BENCHER_API_KEY" \
+            --branch "${GITHUB_REF_NAME}" \
+            --testbed "${{ matrix.artifact_id }}" \
+            --threshold-measure latency \
+            --threshold-test t_test \
+            --threshold-max-sample-size 64 \
+            --threshold-upper-boundary 0.99 \
+            --thresholds-reset \
+            --allow-failure \
+            --adapter json \
+            --file benchmarks_bmf.json \
+            --github-actions '${{ secrets.GITHUB_TOKEN }}'
+
       - name: Upload benchmarks to bencher.dev (PR)
         if: >-
           ${{
