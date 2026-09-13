@@ -71,7 +71,10 @@ inline constexpr std::size_t c_epochCount = 7;
   \param  value  Result the barrier consumes.
 
   \note GCC and Clang take \a value as the input operand of an empty asm statement, so the computation behind it stays.
-  \note MSVC has no inline assembly on x64 or Arm64, so a \c volatile read of the first byte of \a value stands in.
+        The branch is chosen by \c __clang__ and \c __GNUC__, because clang-cl defines \c _MSC_VER while understanding
+        the assembly.
+  \note MSVC has no inline assembly on x64 or Arm64, so every byte of \a value is read through a \c volatile pointer
+        instead. Reading one byte would leave the compiler free to fold whatever affects only the others.
 */
 template <typename T>
 void doNotOptimizeAway(T && value) noexcept;

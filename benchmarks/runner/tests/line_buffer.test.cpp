@@ -65,6 +65,41 @@ TEST_CASE("benchmark::detail/line_buffer/flush_writes_one_line") {
   CHECK(captured.calls == 1);
 }
 
+// A field without delimiters is written as it stands; a comma, a quote or a tab puts it in quotes.
+TEST_CASE("benchmark::detail/line_buffer/quotes_a_field_with_delimiters") {
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+
+  toy::benchmark::detail::LineBuffer line{
+    {.write = &captureLines, .writerData = &capturedPointer}
+  };
+
+  line.addField("toy::StringView");
+  line.addText(",");
+  line.addField("toy::FixedString<32, char>");
+  line.addText(",");
+  line.addField("say \"hi\"");
+  line.flush();
+
+  CHECK(captured.text == "toy::StringView,\"toy::FixedString<32, char>\",\"say \"\"hi\"\"\"\n");
+}
+
+// A line break inside a field becomes a space: the host reads one line at a time.
+TEST_CASE("benchmark::detail/line_buffer/field_never_breaks_the_line") {
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+
+  toy::benchmark::detail::LineBuffer line{
+    {.write = &captureLines, .writerData = &capturedPointer}
+  };
+
+  line.addField("two\nlines\rback");
+  line.flush();
+
+  CHECK(captured.text == "two lines back\n");
+  CHECK(captured.calls == 1);
+}
+
 // A line longer than the buffer is cut, and its last byte is still the newline.
 TEST_CASE("benchmark::detail/line_buffer/cut_line_keeps_its_newline") {
   CapturedLines         captured{};

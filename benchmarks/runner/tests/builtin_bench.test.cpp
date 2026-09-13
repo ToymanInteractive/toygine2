@@ -83,6 +83,33 @@ TEST_CASE("benchmark/bench/prints_one_csv_row_per_run") {
            "#csv core/fake/title,slow,search,1000,7,4,24,4,24,4,24,4,24,4,24,4,24,4,24\n");
 }
 
+// A row name with a template argument list keeps the field count: the comma inside it is quoted.
+TEST_CASE("benchmark/bench/quotes_a_row_name_with_a_comma") {
+  ManualClock           clock{};
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+
+  const toy::benchmark::Clock timer{.now                = &readManualClock,
+                                    .clockData          = &clock,
+                                    .picosecondsPerTick = 1000,
+                                    .minEpochTicks      = 16,
+                                    .maxIterations      = 1024};
+
+  toy::benchmark::Bench bench{
+    timer, {.write = &captureLines, .writerData = &capturedPointer},
+     "core/fixed_string/append"
+  };
+
+  bench.run("toy::FixedString<32, char>", [&clock] {
+    clock.ticks += 16;
+  });
+
+  CHECK(
+    captured.text
+    == "#csv core/fixed_string/append,\"toy::FixedString<32, char>\",op,1000,7,1,16,1,16,1,16,1,16,1,16,1,16,1,16\n"
+  );
+}
+
 // A timer standing still gets a comment naming both limits in place of the row.
 TEST_CASE("benchmark/bench/stalled_timer_names_the_limits") {
   ManualClock           clock{};

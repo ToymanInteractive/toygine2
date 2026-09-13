@@ -36,6 +36,29 @@ inline void LineBuffer::addText(const char * text) noexcept {
   _length = appendText(_buffer, _length, text);
 }
 
+inline void LineBuffer::addField(const char * text) noexcept {
+  bool quoted = false;
+
+  for (const char * character = text; *character != '\0' && !quoted; ++character)
+    quoted = *character == ',' || *character == '"' || *character == '\t';
+
+  if (quoted)
+    _length = appendText(_buffer, _length, "\"");
+
+  for (const char * character = text; *character != '\0'; ++character) {
+    // A line break would split the row across two callbacks, and the host parses one line at a time.
+    const char escaped[2] = {*character == '\n' || *character == '\r' ? ' ' : *character, '\0'};
+
+    if (escaped[0] == '"')
+      _length = appendText(_buffer, _length, "\"");
+
+    _length = appendText(_buffer, _length, escaped);
+  }
+
+  if (quoted)
+    _length = appendText(_buffer, _length, "\"");
+}
+
 inline void LineBuffer::addDecimal(std::uint64_t value) noexcept {
   _length = appendDecimal(_buffer, _length, value);
 }

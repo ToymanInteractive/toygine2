@@ -127,6 +127,21 @@ public:
   void addText(const char * text) noexcept;
 
   /*!
+    \brief Appends a CSV field, quoting it when the text carries a delimiter.
+
+    \param text  Field text.
+
+    \post The line grows by the field, or stops at the capacity.
+
+    \note A comma, a quote or a tab puts the field in quotes and doubles every inner quote. That is the escaping
+          \c tools/builder/bmf_from_csv.py reads through the \c csv module.
+    \note A line break becomes a space: the host reads the log line by line, so no field spans two lines.
+
+    \sa addText()
+  */
+  void addField(const char * text) noexcept;
+
+  /*!
     \brief Appends an unsigned integer as decimal digits.
 
     \param value  Value to append.

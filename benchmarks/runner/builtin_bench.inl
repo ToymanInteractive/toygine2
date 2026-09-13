@@ -31,14 +31,15 @@ namespace toy::benchmark {
 
 template <typename T>
 void doNotOptimizeAway(T && value) noexcept {
-#if defined(__GNUC__)
-  // The value is an input of an empty instruction, so the computation behind it has to happen and reach a register or
-  // memory. The test is __GNUC__ rather than _MSC_VER: clang-cl defines the latter but understands the assembly.
+#if defined(__clang__) || defined(__GNUC__)
+  // An input operand of an empty instruction: the computation behind the value has to happen and reach a register.
   asm volatile("" : : "r,m"(value) : "memory");
 #else
-  // MSVC has no inline assembly on x64 or Arm64. A volatile read of the first byte is an observable use of the value;
-  // taking its address alone is not.
-  static_cast<void>(*reinterpret_cast<const volatile char *>(&value));
+  // Every byte read through a volatile pointer, so the whole object has to exist rather than just its first byte.
+  const volatile char * bytes = reinterpret_cast<const volatile char *>(&value);
+
+  for (std::size_t byte = 0; byte < sizeof(value); ++byte)
+    static_cast<void>(bytes[byte]);
 #endif
 }
 
@@ -105,11 +106,11 @@ inline void Bench::writeRow(const char * name, std::uint32_t iterations,
   detail::LineBuffer line{_output};
 
   line.addText("#csv ");
-  line.addText(_title);
+  line.addField(_title);
   line.addText(",");
-  line.addText(name);
+  line.addField(name);
   line.addText(",");
-  line.addText(_unit);
+  line.addField(_unit);
   line.addText(",");
   line.addDecimal(_clock.picosecondsPerTick);
   line.addText(",");
@@ -131,7 +132,7 @@ inline void Bench::writeUncalibrated(const char * name) noexcept {
 
   // The line carries both numbers: calibration ends the same way for a standing timer and for a limit too small.
   line.addText("# ");
-  line.addText(name);
+  line.addField(name);
   line.addText(": no epoch reached ");
   line.addDecimal(_clock.minEpochTicks);
   line.addText(" ticks within ");
