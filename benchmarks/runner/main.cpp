@@ -38,7 +38,7 @@
 
 namespace {
 
-// Picoseconds in a second: nanobench times a desktop epoch in seconds, and a CSV row counts whole picoseconds.
+// Picoseconds in a second: nanobench times an epoch in seconds, and the CSV carries whole picoseconds.
 constexpr double c_picosecondsPerSecond = 1e12;
 
 // A CSV field, quoted when the text carries a comma, a quote, a tab or a line break, with inner quotes doubled.
@@ -62,20 +62,25 @@ constexpr double c_picosecondsPerSecond = 1e12;
   return quoted;
 }
 
-// Prints one CSV row per timed epoch of a finished table, so a host-side script can do the statistics.
+// Prints one CSV line per row of a finished table: the names once, then a pair of integers per timed epoch.
 void printCsvRows(std::string_view caseName, const ankerl::nanobench::Bench & bench) {
-  for (const auto & result : bench.results())
-    for (std::size_t epoch = 0; epoch < result.size(); ++epoch) {
+  for (const auto & result : bench.results()) {
+    const std::size_t epochs = result.size();
+
+    // A desktop has no timer tick: ps_per_tick is one, so the epoch lengths below are picosecond counts.
+    std::cout << "#csv " << csvField(caseName) << ',' << csvField(result.config().mBenchmarkName) << ','
+              << csvField(result.config().mUnit) << ",1," << epochs;
+
+    for (std::size_t epoch = 0; epoch < epochs; ++epoch) {
       const double iterations = result.get(epoch, ankerl::nanobench::Result::Measure::iterations);
+      const auto   ticks = static_cast<std::uint64_t>(result.get(epoch, ankerl::nanobench::Result::Measure::elapsed)
+                                                      * iterations * c_picosecondsPerSecond);
 
-      // A desktop has no timer tick, so a tick is one picosecond and the count spans the whole epoch.
-      const auto ticks = static_cast<std::uint64_t>(result.get(epoch, ankerl::nanobench::Result::Measure::elapsed)
-                                                    * iterations * c_picosecondsPerSecond);
-
-      std::cout << "#csv " << csvField(caseName) << ',' << csvField(result.config().mBenchmarkName) << ','
-                << csvField(result.config().mUnit) << ',' << epoch << ',' << static_cast<std::uint64_t>(iterations)
-                << ',' << ticks << ",1\n";
+      std::cout << ',' << static_cast<std::uint64_t>(iterations) << ',' << ticks;
     }
+
+    std::cout << '\n';
+  }
 }
 
 } // namespace
@@ -97,7 +102,7 @@ int main(int argc, char ** argv) {
   const int count    = argc - options.firstPattern;
 
   if (options.csv)
-    std::cout << "#csv case,row,unit,epoch,iters,ticks,ps_per_tick\n";
+    std::cout << "#csv case,row,unit,ps_per_tick,epochs,iters,ticks\n";
 
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
        benchmarkCase              = benchmarkCase->next()) {

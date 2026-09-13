@@ -20,9 +20,9 @@
 
 """Builds a Bencher Metric Format report from the CSV lines a benchmark run prints.
 
-The runner prints integers only: whole epochs in timer ticks, the length of a tick in picoseconds and the number of
-calls in the epoch. Dividing, the median and the spread happen here, so a target without a floating-point unit never
-has to do them.
+The runner prints integers only: one line per benchmark row, naming it once and following it with a pair per timed
+epoch, the calls in that epoch and its length in timer ticks. Dividing, the median and the spread happen here, so a
+target without a floating-point unit never has to do them.
 """
 
 import argparse
@@ -32,7 +32,8 @@ import statistics
 import sys
 
 CSV_PREFIX = "#csv "
-HEADER = ["case", "row", "unit", "epoch", "iters", "ticks", "ps_per_tick"]
+HEADER = ["case", "row", "unit", "ps_per_tick", "epochs", "iters", "ticks"]
+NAMED_COLUMNS = 5
 
 
 def read_rows(stream):
@@ -49,24 +50,27 @@ def read_rows(stream):
         raise SystemExit(f"unexpected CSV header: {rows[0]}")
 
     for fields in rows[1:]:
-        if len(fields) != len(HEADER):
-            raise SystemExit(f"expected {len(HEADER)} fields, got {len(fields)}: {fields}")
+        if len(fields) < NAMED_COLUMNS or (len(fields) - NAMED_COLUMNS) % 2 != 0:
+            raise SystemExit(f"expected {NAMED_COLUMNS} columns and a pair per epoch, got {len(fields)}: {fields}")
 
-        row = dict(zip(HEADER, fields))
+        for value in fields[3:]:
+            if not value.isdecimal():
+                raise SystemExit(f"expected a whole number, got {value!r} in {fields}")
 
-        for name in ("epoch", "iters", "ticks", "ps_per_tick"):
-            if not row[name].isdecimal():
-                raise SystemExit(f"expected a whole number in {name}, got {row[name]!r}")
+        pairs = [(int(fields[at]), int(fields[at + 1])) for at in range(NAMED_COLUMNS, len(fields), 2)]
 
-        if int(row["iters"]) == 0:
+        if len(pairs) != int(fields[4]):
+            raise SystemExit(f"expected {fields[4]} epochs, got {len(pairs)}: {fields}")
+
+        if any(iterations == 0 for iterations, _ in pairs):
             raise SystemExit(f"expected a positive iters, got 0: {fields}")
 
-        yield row
+        yield {"case": fields[0], "row": fields[1], "ps_per_tick": int(fields[3]), "epochs": pairs}
 
 
-def nanoseconds_per_call(row):
+def nanoseconds_per_call(iterations, ticks, picoseconds_per_tick):
     """Converts one epoch into nanoseconds per call."""
-    return int(row["ticks"]) * int(row["ps_per_tick"]) / int(row["iters"]) / 1000.0
+    return ticks * picoseconds_per_tick / iterations / 1000.0
 
 
 def build_report(rows):
@@ -74,7 +78,8 @@ def build_report(rows):
     epochs = {}
 
     for row in rows:
-        epochs.setdefault(f"{row['case']}/{row['row']}", []).append(nanoseconds_per_call(row))
+        values = epochs.setdefault(f"{row['case']}/{row['row']}", [])
+        values.extend(nanoseconds_per_call(calls, ticks, row["ps_per_tick"]) for calls, ticks in row["epochs"])
 
     return {
         name: {
