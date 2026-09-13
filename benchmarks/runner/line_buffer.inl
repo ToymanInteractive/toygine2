@@ -18,27 +18,37 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   toy_benchmark.inl
-  \brief  Inline implementation of the registry's duplicate-name scan.
+  \file   line_buffer.inl
+  \brief  Inline implementations for \ref toy::benchmark::detail::LineBuffer.
 
-  \note Included by toy_benchmark.hpp only; do not include this file directly.
+  \note Included by line_buffer.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
-#define INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
-
-#include "runner_utils.hpp"
+#ifndef INCLUDE_BENCHMARKS_RUNNER_LINE_BUFFER_INL_
+#define INCLUDE_BENCHMARKS_RUNNER_LINE_BUFFER_INL_
 
 namespace toy::benchmark::detail {
 
-inline const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept {
-  for (const CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
-    if (compareNames(node->name(), node->next()->name()) == 0)
-      return node;
+inline LineBuffer::LineBuffer(const Output & output) noexcept
+  : _output{output} {}
 
-  return nullptr;
+inline void LineBuffer::addText(const char * text) noexcept {
+  _length = appendText(_buffer, _length, text);
+}
+
+inline void LineBuffer::addDecimal(std::uint64_t value) noexcept {
+  _length = appendDecimal(_buffer, _length, value);
+}
+
+inline void LineBuffer::flush() noexcept {
+  // The newline owns the last byte, so a cut line still ends where the receiver expects one.
+  const auto newline = _length < c_capacity ? _length : c_capacity - 1;
+
+  _buffer[newline] = '\n';
+  _output.write(_buffer.data(), newline + 1, _output.writerData);
+  _length = 0;
 }
 
 } // namespace toy::benchmark::detail
 
-#endif // INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
+#endif // INCLUDE_BENCHMARKS_RUNNER_LINE_BUFFER_INL_

@@ -27,7 +27,7 @@
 #ifndef INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_INL_
 #define INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_INL_
 
-#include <cstring>
+#include "runner_utils.hpp"
 
 namespace toy::benchmark {
 
@@ -40,7 +40,7 @@ inline CaseRegistrar::CaseRegistrar(CaseRegistrar *& head, const char * name, co
   // Insertion sort at registration time: O(n) per node, but it makes the print order depend on names alone.
   CaseRegistrar ** link = &head;
 
-  while (*link != nullptr && std::strcmp((*link)->_name, name) < 0)
+  while (*link != nullptr && detail::compareNames((*link)->_name, name) < 0)
     link = &(*link)->_next;
 
   _next = *link;
