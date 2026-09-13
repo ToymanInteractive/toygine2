@@ -2,6 +2,13 @@ name: CMake
 
 on:
   workflow_call:
+    secrets:
+      SONAR_TOKEN:
+        required: true
+      CODECOV_TOKEN:
+        required: true
+      BENCHER_API_KEY:
+        required: true
 
 permissions:
   contents: read
@@ -271,6 +278,25 @@ jobs:
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
         uses: bencherdev/bencher@v0.6.12
+
+      - name: Upload benchmarks to bencher.dev (PR)
+        if: matrix.run_benchmarks == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        env:
+          BENCHER_API_KEY: ${{ secrets.BENCHER_API_KEY }}
+          BENCHER_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+        run: |
+          bencher run \
+            --project toygine2 \
+            --key "$BENCHER_API_KEY" \
+            --branch "$GITHUB_HEAD_REF" \
+            --start-point "$GITHUB_BASE_REF" \
+            --start-point-hash "$BENCHER_BASE_SHA" \
+            --start-point-clone-thresholds \
+            --start-point-reset \
+            --testbed "${{ matrix.artifact_id }}" \
+            --adapter json \
+            --file benchmarks_bmf.json \
+            --github-actions "${{ secrets.GITHUB_TOKEN }}"
 
   unit-tests:
     name: Collect unit tests
