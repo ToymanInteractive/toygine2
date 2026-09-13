@@ -136,24 +136,24 @@ inline void Bench::writeRow(const char * name, std::uint32_t iterations,
 inline void Bench::writeOverlongRow(const char * name) noexcept {
   detail::LineBuffer line{_output};
 
-  line.addText("# ");
-  line.addField(name);
-  line.addText(": row does not fit ");
+  // The fixed part goes first: a name long enough to overflow the row would push the diagnostic out of the line too.
+  line.addText("# row does not fit ");
   line.addDecimal(detail::LineBuffer::c_capacity);
-  line.addText(" characters");
+  line.addText(" characters: ");
+  line.addField(name);
   line.flush();
 }
 
 inline void Bench::writeUncalibrated(const char * name) noexcept {
   detail::LineBuffer line{_output};
 
-  line.addText("# ");
-  line.addField(name);
-  line.addText(": no epoch reached ");
+  // The numbers go before the name for the same reason as in writeOverlongRow(): a long name would crowd them out.
+  line.addText("# no epoch reached ");
   line.addDecimal(_clock.minEpochTicks);
   line.addText(" ticks within ");
   line.addDecimal(_clock.maxIterations);
-  line.addText(" calls");
+  line.addText(" calls: ");
+  line.addField(name);
   line.flush();
 }
 

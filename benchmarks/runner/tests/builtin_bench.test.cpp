@@ -132,7 +132,10 @@ TEST_CASE("benchmark/bench/overlong_row_becomes_a_comment") {
     clock.ticks += 16;
   });
 
-  CHECK(captured.text.starts_with("# xxx"));
+  const std::string diagnostic = "# row does not fit " + std::to_string(toy::benchmark::detail::LineBuffer::c_capacity)
+                                 + " characters: xxx";
+
+  CHECK(captured.text.starts_with(diagnostic));
   CHECK(captured.text.find("#csv ") == std::string::npos);
   CHECK(captured.text.back() == '\n');
 }
@@ -156,7 +159,7 @@ TEST_CASE("benchmark/bench/stalled_timer_names_the_limits") {
 
   bench.run("idle", [] {});
 
-  CHECK(captured.text == "# idle: no epoch reached 16 ticks within 4 calls\n");
+  CHECK(captured.text == "# no epoch reached 16 ticks within 4 calls: idle\n");
 }
 
 // Calibration stops at a limit that is not a power of two instead of doubling past it.
@@ -183,7 +186,7 @@ TEST_CASE("benchmark/bench/calibration_stays_within_the_limit") {
 
   // Epochs of one, two and three calls; a fourth epoch would have run four.
   CHECK(calls == 6);
-  CHECK(captured.text == "# idle: no epoch reached 16 ticks within 3 calls\n");
+  CHECK(captured.text == "# no epoch reached 16 ticks within 3 calls: idle\n");
 }
 
 // A limit below one call ends the row without running the operation.
@@ -209,7 +212,7 @@ TEST_CASE("benchmark/bench/zero_limit_runs_nothing") {
   });
 
   CHECK(calls == 0);
-  CHECK(captured.text == "# idle: no epoch reached 16 ticks within 0 calls\n");
+  CHECK(captured.text == "# no epoch reached 16 ticks within 0 calls: idle\n");
 }
 
 // A timer that advances below the epoch length reports the same two limits, so the message stays true for it too.
@@ -237,5 +240,5 @@ TEST_CASE("benchmark/bench/short_epochs_name_the_limits") {
 
   // Epochs of one, two and four calls last one, two and four ticks, all short of sixteen.
   CHECK(calls == 7);
-  CHECK(captured.text == "# slow: no epoch reached 16 ticks within 4 calls\n");
+  CHECK(captured.text == "# no epoch reached 16 ticks within 4 calls: slow\n");
 }
