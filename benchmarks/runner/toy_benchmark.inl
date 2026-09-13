@@ -27,13 +27,13 @@
 #ifndef INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
 #define INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_INL_
 
-#include <cstring>
+#include "runner_utils.hpp"
 
 namespace toy::benchmark::detail {
 
 inline const CaseRegistrar * findDuplicateName(const CaseRegistrar * head) noexcept {
   for (const CaseRegistrar * node = head; node != nullptr && node->next() != nullptr; node = node->next())
-    if (std::strcmp(node->name(), node->next()->name()) == 0)
+    if (compareNames(node->name(), node->next()->name()) == 0)
       return node;
 
   return nullptr;

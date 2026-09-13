@@ -298,8 +298,7 @@ jobs:
             --thresholds-reset \
             --allow-failure \
             --adapter json \
-            --file benchmarks_bmf.json \
-            --github-actions '${{ secrets.GITHUB_TOKEN }}'
+            --file benchmarks_bmf.json
 
       - name: Upload benchmarks to bencher.dev (PR)
         if: >-
