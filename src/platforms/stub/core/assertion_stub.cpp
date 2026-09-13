@@ -36,8 +36,12 @@ namespace toy::assertion {
 
 namespace {
 
+#ifdef _DEBUG
+
 /// Capacity of the buffer a failure description is formatted into, terminator included.
 constexpr size_t c_stringBufferSize = 4096;
+
+#endif // _DEBUG
 
 /// Handler last given to setCallbacks(), or \c nullptr while a failed check reports nothing.
 AssertionCallback _assertionCallback{nullptr};
