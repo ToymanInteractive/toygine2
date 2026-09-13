@@ -18,6 +18,8 @@ jobs:
     permissions:
       contents: read
       packages: read
+      pull-requests: write
+      checks: write
 
     strategy:
       fail-fast: false
@@ -280,7 +282,13 @@ jobs:
         uses: bencherdev/bencher@v0.6.12
 
       - name: Upload benchmarks to bencher.dev (PR)
-        if: matrix.run_benchmarks == 'true' && github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+        if: >-
+          ${{
+              matrix.run_benchmarks == 'true'
+              && github.event_name == 'pull_request'
+              && github.event.pull_request.head.repo.full_name == github.repository
+              && github.actor != 'dependabot[bot]'
+           }}
         env:
           BENCHER_API_KEY: ${{ secrets.BENCHER_API_KEY }}
           BENCHER_BASE_SHA: ${{ github.event.pull_request.base.sha }}
