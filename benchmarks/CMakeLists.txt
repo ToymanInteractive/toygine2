@@ -56,12 +56,12 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
       PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench::nanobench ${TOYGINE_LIBRARY_NAME})
 
-  # COMMAND takes no shell: a redirection would reach the binary as a pattern, so file output needs a runner option.
-  # The other way is a ${CMAKE_COMMAND} -P wrapper, where execute_process can take OUTPUT_FILE.
+  # The tables are for a human reading the log, the CSV lines for tools/builder/bmf_from_csv.py reading the same log.
   add_custom_target(benchmarks_run
-    COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+    COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks> --csv
     WORKING_DIRECTORY $<TARGET_FILE_DIR:${TOYGINE_LIBRARY_NAME}-benchmarks>
     COMMENT "Running benchmarks"
+    VERBATIM
   )
 
   # A generator expression names the binary but orders nothing, so the run target asks for the build itself.

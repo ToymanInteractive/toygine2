@@ -10,7 +10,12 @@ permissions:
 
 jobs:
   archive_pr_branch:
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
+    if: >-
+      ${{
+          github.event_name == 'pull_request'
+          && github.event.pull_request.head.repo.full_name == github.repository
+          && github.actor != 'dependabot[bot]'
+       }}
     runs-on: ubuntu-latest
     steps:
       - name: Install bencher CLI
