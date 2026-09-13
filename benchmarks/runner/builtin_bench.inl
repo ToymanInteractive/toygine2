@@ -32,10 +32,9 @@ namespace toy::benchmark {
 template <typename T>
 void doNotOptimizeAway(T && value) noexcept {
 #if defined(__clang__) || defined(__GNUC__)
-  // An input operand of an empty instruction: the computation behind the value has to happen and reach a register.
+  // An empty instruction takes the value as an input, so the computation behind it has to happen first.
   asm volatile("" : : "r,m"(value) : "memory");
 #else
-  // Every byte read through a volatile pointer, so the whole object has to exist rather than just its first byte.
   const volatile char * bytes = reinterpret_cast<const volatile char *>(&value);
 
   for (std::size_t byte = 0; byte < sizeof(value); ++byte)
@@ -124,13 +123,30 @@ inline void Bench::writeRow(const char * name, std::uint32_t iterations,
     line.addDecimal(epoch);
   }
 
+  // A cut row would reach the host with fields missing, and one such row ends the parse of the whole log.
+  if (line.truncated()) {
+    writeOverlongRow(name);
+
+    return;
+  }
+
+  line.flush();
+}
+
+inline void Bench::writeOverlongRow(const char * name) noexcept {
+  detail::LineBuffer line{_output};
+
+  line.addText("# ");
+  line.addField(name);
+  line.addText(": row does not fit ");
+  line.addDecimal(detail::LineBuffer::c_capacity);
+  line.addText(" characters");
   line.flush();
 }
 
 inline void Bench::writeUncalibrated(const char * name) noexcept {
   detail::LineBuffer line{_output};
 
-  // The line carries both numbers: calibration ends the same way for a standing timer and for a limit too small.
   line.addText("# ");
   line.addField(name);
   line.addText(": no epoch reached ");

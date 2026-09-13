@@ -151,6 +151,18 @@ public:
   void addDecimal(std::uint64_t value) noexcept;
 
   /*!
+    \brief Tells whether the line has run out of capacity.
+
+    \return \c true when an append reached the end of the buffer, so the line no longer holds everything asked of it.
+
+    \note A caller building a row of fields checks this before the flush: a cut row reaches the host with fields
+          missing.
+
+    \sa flush()
+  */
+  [[nodiscard]] bool truncated() const noexcept;
+
+  /*!
     \brief Hands the line with a newline to the output and starts a new one.
 
     \post The output received one call, and the line is empty.

@@ -110,6 +110,33 @@ TEST_CASE("benchmark/bench/quotes_a_row_name_with_a_comma") {
   );
 }
 
+// A row longer than the line becomes a comment: a cut CSV row would end the parse of the whole log.
+TEST_CASE("benchmark/bench/overlong_row_becomes_a_comment") {
+  ManualClock           clock{};
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+  const std::string     longName(300, 'x');
+
+  const toy::benchmark::Clock timer{.now                = &readManualClock,
+                                    .clockData          = &clock,
+                                    .picosecondsPerTick = 1000,
+                                    .minEpochTicks      = 16,
+                                    .maxIterations      = 1024};
+
+  toy::benchmark::Bench bench{
+    timer, {.write = &captureLines, .writerData = &capturedPointer},
+     "core/fake/title"
+  };
+
+  bench.run(longName.c_str(), [&clock] {
+    clock.ticks += 16;
+  });
+
+  CHECK(captured.text.starts_with("# xxx"));
+  CHECK(captured.text.find("#csv ") == std::string::npos);
+  CHECK(captured.text.back() == '\n');
+}
+
 // A timer standing still gets a comment naming both limits in place of the row.
 TEST_CASE("benchmark/bench/stalled_timer_names_the_limits") {
   ManualClock           clock{};

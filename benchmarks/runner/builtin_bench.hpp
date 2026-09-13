@@ -176,6 +176,7 @@ private:
 
   void writeRow(const char * name, std::uint32_t iterations,
                 const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept;
+  void writeOverlongRow(const char * name) noexcept;
   void writeUncalibrated(const char * name) noexcept;
 
   Clock        _clock;

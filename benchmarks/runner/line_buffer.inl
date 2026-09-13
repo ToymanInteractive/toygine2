@@ -63,6 +63,11 @@ inline void LineBuffer::addDecimal(std::uint64_t value) noexcept {
   _length = appendDecimal(_buffer, _length, value);
 }
 
+inline bool LineBuffer::truncated() const noexcept {
+  // The last byte belongs to the newline, so a line filling the buffer has already lost characters.
+  return _length >= c_capacity;
+}
+
 inline void LineBuffer::flush() noexcept {
   // The newline owns the last byte, so a cut line still ends where the receiver expects one.
   const auto newline = _length < c_capacity ? _length : c_capacity - 1;
