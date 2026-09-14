@@ -54,8 +54,10 @@ namespace toy {
   * **Null-terminated**: c_str() returns a pointer that goes to a C interface unchanged.
   * **Value semantics**: a copy is as independent as the storage's own copy; over \ref toy::FixedStringStorage it holds
     its own bytes.
-  * **Constexpr support**: the default constructor, size(), and c_str() evaluate in a constant expression when the
-    storage supports that.
+  * **Constexpr support**: every constructor, size(), and c_str() evaluate in a constant expression when the storage
+    supports that.
+  * **Counted construction**: a pointer and a byte count build a string from a range with no terminator, the way
+    \c std::basic_string does.
   * **Type safety**: construction from \c nullptr is deleted, so a literal null pointer fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -64,22 +66,27 @@ namespace toy {
   \code
   #include "core.hpp"
 
-  constexpr toy::FixedString<16> name;
+  constexpr toy::FixedString<16> name("player");
+  constexpr toy::FixedString<16> prefix("player", 4);
 
-  const size_t       length = name.size();   // 0
-  const char * const text   = name.c_str();  // reads ""
+  const size_t       length = name.size();     // 6
+  const char * const text   = prefix.c_str();  // reads "play"
   \endcode
 
   \section string_performance Performance Characteristics
 
   * **Default construction**: the cost of default-constructing the storage, O(n) in the buffer size for
     \ref toy::FixedStringStorage.
+  * **Construction from a pointer and a count**: default construction plus one copy, O(n) in \a count.
+  * **Construction from a pointer**: one scan for the terminator, then the counted construction.
   * **Length and pointer access**: one call into the storage, O(1) for \ref toy::FixedStringStorage.
   * **Memory usage**: the storage object and nothing else.
 
   \section string_safety Safety Guarantees
 
-  * **Contracts**: the pointer constructor checks its argument against \c nullptr with assert_message in debug builds.
+  * **Contracts**: the constructors check the source pointer against \c nullptr and the length against the storage
+    with assert_message in debug builds. A shipping build skips the checks and builds an empty string when the
+    source does not fit.
   * **Type safety**: \a storageType is checked against \ref toy::StringStorage, and the deleted \c nullptr_t
     constructor rejects a literal \c nullptr during compilation.
   * **Lifetime**: c_str() points into the string's own storage and dangles once the string is destroyed.
@@ -128,19 +135,45 @@ public:
   constexpr String() noexcept = default;
 
   /*!
+    \brief Builds a string holding a copy of \a count bytes starting at \a string.
+
+    Copies exactly \a count bytes, so the source needs no terminator, and a \c '\\0' inside the range is copied like any
+    other byte. The contract follows \c std::basic_string(const CharT *, size_type): a null \a string with a \a count of
+    \c 0 names an empty range and builds an empty string.
+
+    \param string First byte of the range to copy.
+    \param count  Number of bytes to copy.
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable; a shorter range is undefined behavior.
+    \pre The storage accepts \a count: its reserve() answers \c true, checked by assert_message in debug builds. For
+         \ref toy::FixedString that means \a count is below the buffer size.
+
+    \post size() returns \a count, and c_str() reads the copied bytes followed by \c '\\0'.
+
+    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects \a count.
+             \c std::basic_string reports the same case by throwing \c std::length_error, which leaves no object behind.
+
+    \sa String(const char *)
+  */
+  constexpr String(const value_type * string, size_type count) noexcept;
+
+  /*!
     \brief Builds a string holding a copy of a null-terminated byte string.
 
-    Converts implicitly, so a string literal or a \c const \c char \c * argument becomes a string at the call site. The
-    characters are copied into the storage, so \a string may be destroyed once the constructor returns.
+    Converts implicitly, so a string literal or a \c const \c char \c * argument becomes a string at the call site.
+    Measures \a string and then builds the string the way String(const char *, size_t) does, so capacity handling is
+    the same. The characters are copied into the storage, so \a string may be destroyed once the constructor returns.
 
     \param string Null-terminated byte string to copy.
 
     \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre The storage accepts the length of \a string, as String(const char *, size_t) requires.
 
     \post size() returns the length of \a string in bytes, the terminator excluded, and c_str() reads the same
           characters as \a string.
 
-    \sa String()
+    \sa String(const char *, size_t)
   */
   constexpr explicit(false) String(const value_type * string) noexcept;
 

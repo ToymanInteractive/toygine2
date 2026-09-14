@@ -30,6 +30,21 @@
 namespace toy {
 
 template <StringStorage storageType>
+constexpr String<storageType>::String(const value_type * string, size_type count) noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to copy");
+
+  const bool reserved = _storage.reserve(count);
+  assert_message(reserved, "the string must fit the storage it is built in");
+  if (!reserved)
+    return;
+
+  // memmove behind char_traits::copy takes no null source, even for an empty range.
+  if (count != 0)
+    traits_type::copy(_storage.data(), string, count);
+  _storage.setSize(count);
+}
+
+template <StringStorage storageType>
 constexpr String<storageType>::String(const value_type * string) noexcept
   : String(string, string != nullptr ? traits_type::length(string) : 0) {
   assert_message(string != nullptr, "C string must not be null");
