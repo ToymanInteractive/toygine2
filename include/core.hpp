@@ -312,6 +312,7 @@ using std::strncpy;
 #include "core/fixed_string_storage.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
+#include "core/string.hpp"
 #include "core/string_like.hpp"
 #include "core/string_storage.hpp"
 #include "core/string_view.hpp"
@@ -321,6 +322,7 @@ using std::strncpy;
 
 #include "core/bitwise_enum.inl"
 #include "core/fixed_string_storage.inl"
+#include "core/string.inl"
 #include "core/string_view.inl"
 
 #endif // INCLUDE_CORE_HPP_

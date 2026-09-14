@@ -136,11 +136,13 @@ set(HDR_CORE_LIST
     include/core/string_like.hpp
     include/core/string_storage.hpp
     include/core/string_view.hpp
+    include/core/string.hpp
     include/core/utils.hpp)
 set(INL_CORE_LIST
     include/core/bitwise_enum.inl
     include/core/fixed_string_storage.inl
-    include/core/string_view.inl)
+    include/core/string_view.inl
+    include/core/string.inl)
 
 source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
 
