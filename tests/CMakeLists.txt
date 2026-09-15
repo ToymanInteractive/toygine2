@@ -35,7 +35,7 @@ endif ()
 
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-# Whether the host runs test binaries itself, as DocTest needs; a console reaches CTest via an emulator test below.
+# Whether the host runs test binaries itself, as DocTest needs; on Nintendo GBA an emulator test below may run them.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -98,7 +98,7 @@ target_include_directories(${TOYGINE_LIBRARY_NAME}-units-builtin
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-units-builtin PRIVATE ${TOYGINE_LIBRARY_NAME})
 
-# Consoles cannot load the ELF, so each target converts it to the image format its loader takes.
+# These consoles cannot load the ELF, so each converts it to its loader's image format; Sega MD is built above.
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   gba_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
@@ -115,7 +115,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
   wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
 endif ()
 
-# The toolchain image's mgba-headless runs the ROM under CTest, so the GBA reports like any other target in CI.
+# If find_program locates mgba-headless, CTest runs the GBA ROM under it like any other test.
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
 
