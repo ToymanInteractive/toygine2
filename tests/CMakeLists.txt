@@ -35,7 +35,7 @@ endif ()
 
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-# Whether the host runs test binaries itself, as DocTest needs; on Nintendo GBA an emulator test below may run them.
+# Whether the host runs test binaries itself, as DocTest needs; on Nintendo GBA and Sega MD an emulator may run them.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -130,6 +130,25 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     set_tests_properties(units-builtin PROPERTIES TIMEOUT 60)
   else ()
     message(STATUS "mgba-headless not found: the test ROM is built but no CTest test runs it")
+  endif ()
+endif ()
+
+# If find_program locates blastem, CTest runs the Sega MD ROM under it like any other test.
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  find_program(TOYGINE_BLASTEM blastem)
+
+  if (TOYGINE_BLASTEM)
+    # -b runs headless and exits after the given frame count; the cartridge target file is the ROM itself.
+    add_test(NAME units-builtin COMMAND ${TOYGINE_BLASTEM} -b 1800 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-units-builtin>)
+
+    # BlastEm always exits with 0, so the verdict is read from the report it prints as KDEBUG MESSAGE lines.
+    set_tests_properties(units-builtin PROPERTIES
+                         PASS_REGULAR_EXPRESSION "KDEBUG MESSAGE: # assertions passed=[0-9]+ failed=0"
+                         # A nested subcase fails a point without failing an assertion, so the points are checked too.
+                         FAIL_REGULAR_EXPRESSION "KDEBUG MESSAGE: *not ok |KDEBUG MESSAGE: Bail out!"
+                         TIMEOUT 60)
+  else ()
+    message(STATUS "blastem not found: the test ROM is built but no CTest test runs it")
   endif ()
 endif ()
 
