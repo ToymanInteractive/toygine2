@@ -33,17 +33,25 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # Clang 21.1.0 diagnostic flags. https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
 # last option is -Wanon-enum-enum-conversion
 
-set(CLANG_CMAKE_C_FLAGS                  "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion")
-set(CLANG_CMAKE_CXX_FLAGS                "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion")
+set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion")
+set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion")
+set(CLANG_CMAKE_OBJC_FLAGS                  "${CLANG_CMAKE_C_FLAGS}   -Warc-maybe-repeated-use-of-weak")
+set(CLANG_CMAKE_OBJCXX_FLAGS                "${CLANG_CMAKE_CXX_FLAGS} -Warc-maybe-repeated-use-of-weak")
 
-set(CLANG_CMAKE_C_FLAGS_DEBUG            "")
-set(CLANG_CMAKE_CXX_FLAGS_DEBUG          "")
+set(CLANG_CMAKE_C_FLAGS_DEBUG               "")
+set(CLANG_CMAKE_CXX_FLAGS_DEBUG             "")
+set(CLANG_CMAKE_OBJC_FLAGS_DEBUG            "${CLANG_CMAKE_C_FLAGS_DEBUG}")
+set(CLANG_CMAKE_OBJCXX_FLAGS_DEBUG          "${CLANG_CMAKE_CXX_FLAGS_DEBUG}")
 
-set(CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO   "")
-set(CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO "")
+set(CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO      "")
+set(CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO    "")
+set(CLANG_CMAKE_OBJC_FLAGS_RELWITHDEBINFO   "${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO}")
+set(CLANG_CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO "${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
 
-set(CLANG_CMAKE_C_FLAGS_RELEASE          "")
-set(CLANG_CMAKE_CXX_FLAGS_RELEASE        "")
+set(CLANG_CMAKE_C_FLAGS_RELEASE             "")
+set(CLANG_CMAKE_CXX_FLAGS_RELEASE           "")
+set(CLANG_CMAKE_OBJC_FLAGS_RELEASE          "${CLANG_CMAKE_C_FLAGS_RELEASE}")
+set(CLANG_CMAKE_OBJCXX_FLAGS_RELEASE        "${CLANG_CMAKE_CXX_FLAGS_RELEASE}")
 
 
 set(CLANG_CMAKE_STATIC_LINKER_FLAGS                 "")
@@ -65,13 +73,13 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /Zc:strictStrings
+    # last option is /Zc:templateScope
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
 
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope                                                     /Zc:inline")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes /Zc:nrvo /Zc:preprocessor /Zc:referenceBinding /Zc:rvalueCast /Zc:sizedDealloc /Zc:strictStrings")
+    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes /Zc:nrvo /Zc:preprocessor /Zc:referenceBinding /Zc:rvalueCast /Zc:sizedDealloc /Zc:strictStrings /Zc:templateScope")
 
     set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
     set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG")
@@ -173,17 +181,25 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
 
-    set(CMAKE_C_FLAGS                   " ${CLANG_CMAKE_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS                 " ${CLANG_CMAKE_CXX_FLAGS}")
+    set(CMAKE_C_FLAGS                     " ${CLANG_CMAKE_C_FLAGS}")
+    set(CMAKE_CXX_FLAGS                   " ${CLANG_CMAKE_CXX_FLAGS}")
+    set(CMAKE_OBJC_FLAGS                  " ${CLANG_CMAKE_OBJC_FLAGS}")
+    set(CMAKE_OBJCXX_FLAGS                " ${CLANG_CMAKE_OBJCXX_FLAGS}")
 
-    set(CMAKE_C_FLAGS_DEBUG             " ${CLANG_CMAKE_C_FLAGS_DEBUG} -g")
-    set(CMAKE_CXX_FLAGS_DEBUG           " ${CLANG_CMAKE_CXX_FLAGS_DEBUG} -g")
+    set(CMAKE_C_FLAGS_DEBUG               " ${CLANG_CMAKE_C_FLAGS_DEBUG} -g")
+    set(CMAKE_CXX_FLAGS_DEBUG             " ${CLANG_CMAKE_CXX_FLAGS_DEBUG} -g")
+    set(CMAKE_OBJC_FLAGS_DEBUG            " ${CLANG_CMAKE_OBJC_FLAGS_DEBUG} -g")
+    set(CMAKE_OBJCXX_FLAGS_DEBUG          " ${CLANG_CMAKE_OBJCXX_FLAGS_DEBUG} -g")
 
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO    " ${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO  " ${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
+    set(CMAKE_C_FLAGS_RELWITHDEBINFO      " ${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO    " ${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
+    set(CMAKE_OBJC_FLAGS_RELWITHDEBINFO   " ${CLANG_CMAKE_OBJC_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
+    set(CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO " ${CLANG_CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
 
-    set(CMAKE_C_FLAGS_RELEASE           " ${CLANG_CMAKE_C_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_CXX_FLAGS_RELEASE         " ${CLANG_CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_C_FLAGS_RELEASE             " ${CLANG_CMAKE_C_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_CXX_FLAGS_RELEASE           " ${CLANG_CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_OBJC_FLAGS_RELEASE          " ${CLANG_CMAKE_OBJC_FLAGS_RELEASE} -O3 -DNDEBUG")
+    set(CMAKE_OBJCXX_FLAGS_RELEASE        " ${CLANG_CMAKE_OBJCXX_FLAGS_RELEASE} -O3 -DNDEBUG")
 
 
     set(CMAKE_STATIC_LINKER_FLAGS                 " ${CLANG_CMAKE_STATIC_LINKER_FLAGS}")
@@ -305,6 +321,8 @@ endif ()
 foreach (FLAGS_VARIABLE IN ITEMS
   CMAKE_C_FLAGS
   CMAKE_CXX_FLAGS
+  CMAKE_OBJC_FLAGS
+  CMAKE_OBJCXX_FLAGS
   CMAKE_STATIC_LINKER_FLAGS
   CMAKE_SHARED_LINKER_FLAGS
   CMAKE_MODULE_LINKER_FLAGS
