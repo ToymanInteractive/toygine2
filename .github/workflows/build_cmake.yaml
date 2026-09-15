@@ -311,7 +311,13 @@ jobs:
         env:
           BENCHER_API_KEY: ${{ secrets.BENCHER_API_KEY }}
           BENCHER_BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          BENCHER_TESTBED: ${{ matrix.artifact_id }}
         run: |
+          # linux-x64 always reports to the PR; other testbeds comment only once an alert fires
+          ci_flags=()
+          if [[ "$BENCHER_TESTBED" != "linux-x64" ]]; then
+            ci_flags+=(--ci-only-on-alert)
+          fi
           bencher run \
             --project toygine2 \
             --key "$BENCHER_API_KEY" \
@@ -320,10 +326,11 @@ jobs:
             --start-point-hash "$BENCHER_BASE_SHA" \
             --start-point-clone-thresholds \
             --start-point-reset \
-            --testbed "${{ matrix.artifact_id }}" \
+            --testbed "$BENCHER_TESTBED" \
             --adapter json \
             --file benchmarks_bmf.json \
-            --github-actions "${{ secrets.GITHUB_TOKEN }}"
+            --github-actions "${{ secrets.GITHUB_TOKEN }}" \
+            "${ci_flags[@]}"
 
   unit-tests:
     name: Collect unit tests
