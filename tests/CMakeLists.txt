@@ -35,8 +35,7 @@ endif ()
 
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-# Whether the build host runs the test binaries itself, which is also what the DocTest half of the build needs.
-# A console target reaches CTest through an emulator, registered as a test below.
+# Whether the host runs test binaries itself, as DocTest needs; a console reaches CTest via an emulator test below.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -51,8 +50,7 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 # Tests translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# The runner's platform layer: output, exit, and the entry point. A file, not a macro, so the runner itself carries
-# no target branches.
+# The runner's platform layer (output, exit, entry point) is a per-target file, so the runner has no target branches.
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
@@ -100,7 +98,7 @@ target_include_directories(${TOYGINE_LIBRARY_NAME}-units-builtin
     PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
 target_link_libraries(${TOYGINE_LIBRARY_NAME}-units-builtin PRIVATE ${TOYGINE_LIBRARY_NAME})
 
-# The ELF alone is not something the console can load; the ROM is what the next spec hands to an emulator.
+# Consoles cannot load the ELF, so each target converts it to the image format its loader takes.
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   gba_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
@@ -117,16 +115,15 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
   wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
 endif ()
 
-# The ROM reaches CTest through the emulator the toolchain image ships, so the console target reports the way every
-# other one does instead of being launched by hand from CI.
+# The toolchain image's mgba-headless runs the ROM under CTest, so the GBA reports like any other target in CI.
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
 
   if (TOYGINE_MGBA_HEADLESS)
-    # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level. DKP_FILE is where gba_create_rom
-    # records the ROM it wrote, which is not the target file the ELF leaves behind.
+    # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level.
     add_test(NAME units-builtin
              COMMAND ${TOYGINE_MGBA_HEADLESS} -S 3 -R r0 -l 15
+                     # gba_create_rom records the ROM path in DKP_FILE; the target file is the ELF.
                      $<TARGET_PROPERTY:${TOYGINE_LIBRARY_NAME}-units-builtin,DKP_FILE>)
 
     # A ROM that never reaches SWI 3 would otherwise run until the job's own timeout.
@@ -186,9 +183,9 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
     append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
 
-    # exclude tests, the build tree (fetched dependencies live there) and system headers from coverage analysis
+    # exclude benchmarks, tests, the build tree (fetched dependencies live there) and system headers from coverage
     # lcov 2.x fails on a pattern that matches nothing, so every entry here must name a directory that exists
-    set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
+    set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/benchmarks/*" "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
 
     # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
