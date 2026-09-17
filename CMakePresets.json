@@ -986,22 +986,12 @@
         {
             "name": "gba-debug",
             "configurePreset": "gba-debug",
-            "inherits": "default-debug",
-            "output": {
-                "shortProgress": true,
-                "verbosity": "verbose",
-                "outputOnFailure": true
-            }
+            "inherits": "default-debug"
         },
         {
             "name": "gba-release",
             "configurePreset": "gba-release",
-            "inherits": "default-release",
-            "output": {
-                "shortProgress": true,
-                "verbosity": "verbose",
-                "outputOnFailure": true
-            }
+            "inherits": "default-release"
         }
     ],
     "packagePresets": [

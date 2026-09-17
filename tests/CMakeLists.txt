@@ -120,9 +120,15 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
 
   if (TOYGINE_MGBA_HEADLESS)
+    find_file(TOYGINE_GBA_BIOS gba_bios.bin HINTS /usr/local/share/emibios NO_CMAKE_FIND_ROOT_PATH)
+
+    if (TOYGINE_GBA_BIOS)
+      set(TOYGINE_MGBA_BIOS_ARGS -b ${TOYGINE_GBA_BIOS} -C skipBios=1)
+    endif ()
+
     # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level.
     add_test(NAME units-builtin
-             COMMAND ${TOYGINE_MGBA_HEADLESS} -S 3 -R r0 -l 15
+             COMMAND ${TOYGINE_MGBA_HEADLESS} ${TOYGINE_MGBA_BIOS_ARGS} -S 3 -R r0 -l 15
                      # gba_create_rom records the ROM path in DKP_FILE; the target file is the ELF.
                      $<TARGET_PROPERTY:${TOYGINE_LIBRARY_NAME}-units-builtin,DKP_FILE>)
 
