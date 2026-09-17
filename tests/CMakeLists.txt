@@ -124,7 +124,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
     find_file(TOYGINE_GBA_BIOS gba_bios.bin HINTS /usr/local/share/emibios NO_CMAKE_FIND_ROOT_PATH)
 
     if (TOYGINE_GBA_BIOS)
-      set(TOYGINE_MGBA_BIOS_ARGS -b ${TOYGINE_GBA_BIOS})
+      set(TOYGINE_MGBA_BIOS_ARGS -b ${TOYGINE_GBA_BIOS} -C skipBios=1)
     endif ()
 
     # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level.
