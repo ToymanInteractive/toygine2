@@ -120,7 +120,6 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
 
   if (TOYGINE_MGBA_HEADLESS)
-    # The toolchain image puts the emibios BIOS outside the devkitPro sysroot, where find_file does not look by default.
     find_file(TOYGINE_GBA_BIOS gba_bios.bin HINTS /usr/local/share/emibios NO_CMAKE_FIND_ROOT_PATH)
 
     if (TOYGINE_GBA_BIOS)
