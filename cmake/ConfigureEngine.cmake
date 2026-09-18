@@ -32,6 +32,7 @@ set(CMAKE_C_EXTENSIONS OFF)
 
 find_package(ClownMDSDK)
 find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wii-u)
+find_package(Libdragon)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)
@@ -68,6 +69,10 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
   if (DEVKITPRO_SWITCH_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Switch")
+  endif ()
+
+  if (LIBDRAGON_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo 64")
   endif ()
 
   if (DEVKITPRO_GAMECUBE_FOUND)

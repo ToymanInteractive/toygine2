@@ -121,6 +121,13 @@ jobs:
             cmake_preset: switch-release
             artifact_id: switch
 
+          - name: Nintendo 64
+            os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.n64.toolchain:latest
+            run_test: "false"
+            cmake_preset: n64-release
+            artifact_id: n64
+
           - name: Nintendo GameCube
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.gc.toolchain:latest
