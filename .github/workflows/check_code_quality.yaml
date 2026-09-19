@@ -68,7 +68,7 @@ jobs:
       - if: ${{ matrix.build-mode == 'manual' }}
         shell: bash
         run: |
-          # fetched dependencies (doctest, picobench) live outside the source root, so CodeQL drops their alerts
+          # fetched dependencies (doctest, nanobench) live outside the source root, so CodeQL drops their alerts
           cmake --preset linux-debug -DFETCHCONTENT_BASE_DIR=${{ runner.temp }}/_deps
           cmake --build --preset linux-debug --parallel
           echo "CODEQL_CPP_COMPILATION_DATABASE=${{ github.workspace }}/out/build/compile_commands.json" >> $GITHUB_ENV
