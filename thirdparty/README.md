@@ -16,6 +16,20 @@ Files extracted from upstream source:
   - These files can be removed: `CMakeLists.txt`
 - `COPYING`
 
+## libpng
+
+- Upstream: http://libpng.org/pub/png/libpng.html
+- Version: 1.6.58 (3061454d980de7d53608f594194cfac722721d2a, 2026)
+- License: libpng/zlib
+
+Files extracted from upstream source:
+
+- All `.c` and `.h` files of the main directory, apart from example.c and pngtest.c
+- `arm/`, `intel/`, `loongarch/`, `mips/`, `powerpc/` and `riscv/` folders, except .editorconfig files
+- `scripts/pnglibconf.h.prebuilt` as `pnglibconf.h`
+- `CMakeLists.txt`
+- `LICENSE`
+
 ## nanobench
 
 - Upstream: <https://github.com/martinus/nanobench>
