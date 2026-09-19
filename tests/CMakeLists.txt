@@ -35,7 +35,7 @@ endif ()
 
 set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
 
-# Whether the host runs test binaries itself, as DocTest needs; on Nintendo GBA an emulator test below may run them.
+# Whether the host runs test binaries itself, as DocTest needs; on Nintendo GBA and Sega MD an emulator may run them.
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST OFF)
 if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
   set(TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST ON)
@@ -115,8 +115,25 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
   wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
 endif ()
 
-# If find_program locates mgba-headless, CTest runs the GBA ROM under it like any other test.
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  # If find_program locates blastem, CTest runs the Sega MD ROM under it like any other test.
+  find_program(TOYGINE_BLASTEM blastem)
+
+  if (TOYGINE_BLASTEM)
+    # -b runs headless and exits after the given frame count; the cartridge target file is the ROM itself.
+    # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
+    add_test(NAME units-builtin
+             COMMAND ${TOYGINE_BLASTEM} -t -b 1800 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-units-builtin>)
+
+    # BlastEm always exits with 0, so the verdict is read from the report it prints as KDEBUG MESSAGE lines.
+    # The summary line prints last, so matching it also catches a run that died halfway through the report.
+    set_tests_properties(units-builtin PROPERTIES TIMEOUT 60
+                                                  PASS_REGULAR_EXPRESSION "# assertions passed=[0-9]+ failed=0")
+  else ()
+    message(STATUS "blastem not found: the test ROM is built but no CTest test runs it")
+  endif ()
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+  # If find_program locates mgba-headless, CTest runs the GBA ROM under it like any other test.
   find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
 
   if (TOYGINE_MGBA_HEADLESS)

@@ -984,6 +984,16 @@
             "inherits": "default-release"
         },
         {
+            "name": "md-debug",
+            "configurePreset": "md-debug",
+            "inherits": "default-debug"
+        },
+        {
+            "name": "md-release",
+            "configurePreset": "md-release",
+            "inherits": "default-release"
+        },
+        {
             "name": "gba-debug",
             "configurePreset": "gba-debug",
             "inherits": "default-debug"
