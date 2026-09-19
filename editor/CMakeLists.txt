@@ -82,3 +82,12 @@ if (APPLE)
   # group in the root CMakeLists, so it ships in the same archive as the library and the samples.
   install(TARGETS editor BUNDLE DESTINATION bin COMPONENT editor)
 endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Unit tests
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif ()
