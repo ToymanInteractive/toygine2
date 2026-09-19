@@ -165,7 +165,7 @@ TEST_CASE("string_view/types") {
 // What each constructor and the assignment leave behind, read back through the iterators.
 TEST_CASE("string_view/construction") {
   const StringView empty;
-  CHECK(forwardLength(empty) == 1);
+  CHECK(forwardLength(empty) == 0);
   CHECK(empty.begin() == nullptr);
 
   const StringView view(c_sample);
