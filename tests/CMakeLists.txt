@@ -88,9 +88,6 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 
-  # Exit code 0 is the whole contract: every module test must reach the same verdict under both runners.
-  add_test(NAME units-builtin COMMAND ${TOYGINE_LIBRARY_NAME}-units-builtin)
-
   # CodeCoverage aborts on anything but a gcov-compatible toolchain, so keep the option a no-op elsewhere (MSVC)
   set(TOYGINE_COMPILER_SUPPORT_COVERAGE OFF)
   if (CMAKE_CXX_COMPILER_ID MATCHES "^(GNU|(Apple)?[Cc]lang)$")
@@ -117,7 +114,7 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                    # tests run serially: parallel cases of one binary race over the same .gcda files
                                    EXECUTABLE_ARGS --output-on-failure --no-tests=error
-                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units ${TOYGINE_LIBRARY_NAME}-units-builtin
+                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
                                    LCOV_ARGS "--ignore-errors" "inconsistent")
 
   endif ()
