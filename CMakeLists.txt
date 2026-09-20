@@ -28,12 +28,6 @@ project(ToyGine2
 set(TOYGINE_LIBRARY_NAME toygine)
 set(TOYGINE_SOURCE_PATH ${CMAKE_CURRENT_SOURCE_DIR})
 
-# Is top level project
-set(TOP_PROJECT OFF)
-if (CMAKE_CURRENT_SOURCE_DIR STREQUAL CMAKE_SOURCE_DIR)
-    set(TOP_PROJECT ON)
-endif ()
-
 # To distinguish between debug and release builds
 set(CMAKE_DEBUG_POSTFIX "d")
 set(CMAKE_RELWITHDEBINFO_POSTFIX "rd")
@@ -56,7 +50,7 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 endif ()
 
-if (TOP_PROJECT)
+if (PROJECT_IS_TOP_LEVEL)
   include(CMakeDependentOption)
 
   option(TOYGINE_BUILD_BENCHMARKS "Set when you want to build engine benchmarks" ON)
@@ -225,7 +219,7 @@ endif ()
 
 # Only a top-level build installs. The engine exports no CMake package yet, so these rules exist to feed CPack (see
 # Packaging below); a parent project embedding toygine keeps its own install layout untouched.
-if (TOP_PROJECT)
+if (PROJECT_IS_TOP_LEVEL)
   install(TARGETS ${TOYGINE_LIBRARY_NAME} ARCHIVE DESTINATION lib COMPONENT library)
 
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
@@ -245,7 +239,7 @@ endif ()
 # Packs what the build installed, one archive per component group. Group 'runtime' is everything a consumer needs: the
 # library, its headers, the license, the sample executables and, where it is built, the editor. include(CPack) must stay
 # last, after every install() rule, otherwise the component list it captures is incomplete.
-if (TOP_PROJECT)
+if (PROJECT_IS_TOP_LEVEL)
   set(CPACK_GENERATOR "ZIP")
   set(CPACK_PACKAGE_NAME "${PROJECT_NAME}${PACKAGE_NAME_SUFFIX}")
   set(CPACK_PACKAGE_VENDOR "Toyman Interactive")

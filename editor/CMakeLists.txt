@@ -20,71 +20,66 @@
 
 cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
-project(ToyGine2Editor LANGUAGES C CXX OBJCXX VERSION 26.17.0 HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2)
-
-if(NOT APPLE)
-  message(FATAL_ERROR "The editor bootstrap currently targets macOS only (Cocoa + MoltenVK).")
-endif()
-
-set(CMAKE_CXX_STANDARD 23)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-set(CMAKE_OBJCXX_STANDARD 23)
-set(CMAKE_OBJCXX_STANDARD_REQUIRED ON)
-
-# CAMetalLayer / MoltenVK need a modern deployment target; bump if you raise the Vulkan floor.
-if(NOT CMAKE_OSX_DEPLOYMENT_TARGET)
-  set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum macOS version" FORCE)
-endif()
+if (APPLE)
+  # CAMetalLayer / MoltenVK need a modern deployment target; bump if you raise the Vulkan floor.
+  if (NOT CMAKE_OSX_DEPLOYMENT_TARGET)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum macOS version" FORCE)
+  endif ()
+endif ()
 
 list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty)
 
-include(FetchContent)
-
-# Declares the ckdl target and the kdl::kdl alias over the vendored sources in thirdparty/ckdl.
 include(ckdl)
 
-# Declares the Vulkan::Headers target and VULKAN_HEADERS_DIR over the vendored headers in thirdparty/vulkan.
-include(vulkan)
+if (APPLE)
+  include(vulkan)
 
-# volk reads VULKAN_HEADERS_INSTALL_DIR before it falls back to find_package(Vulkan) and $VULKAN_SDK, so the vendored
-# headers win over whatever SDK the build machine happens to carry, and a machine without one still builds.
-set(VULKAN_HEADERS_INSTALL_DIR ${VULKAN_HEADERS_DIR})
+  include(FetchContent)
 
-# volk is pinned to an exact tag; bump it against the vendored header version in a dedicated change.
-FetchContent_Declare(
-  volk
-  GIT_REPOSITORY https://github.com/zeux/volk.git
-  GIT_TAG        1.4.350
-  GIT_SHALLOW    TRUE
-)
-FetchContent_MakeAvailable(volk)
+  # volk reads VULKAN_HEADERS_INSTALL_DIR before it falls back to find_package(Vulkan) and $VULKAN_SDK, so the vendored
+  # headers win over whatever SDK the build machine happens to carry, and a machine without one still builds.
+  set(VULKAN_HEADERS_INSTALL_DIR ${VULKAN_HEADERS_DIR})
 
-# volk and every consumer must agree on the platform surface so vkCreateMetalSurfaceEXT is loaded.
-target_compile_definitions(volk PUBLIC VK_USE_PLATFORM_METAL_EXT)
+  # volk is pinned to an exact tag; bump it against the vendored header version in a dedicated change.
+  FetchContent_Declare(
+    volk
+    GIT_REPOSITORY https://github.com/zeux/volk.git
+    GIT_TAG        1.4.350
+    GIT_SHALLOW    TRUE
+  )
+  FetchContent_MakeAvailable(volk)
 
-add_executable(editor MACOSX_BUNDLE
-  src/main.cpp
-  src/main_menu.mm
-  src/window.mm
-  src/vulkan_context.cpp
-)
+  # volk and every consumer must agree on the platform surface so vkCreateMetalSurfaceEXT is loaded.
+  target_compile_definitions(volk PUBLIC VK_USE_PLATFORM_METAL_EXT)
 
-# The window and menu backends are Objective-C++; ARC keeps the Cocoa object lifetimes correct.
-set_source_files_properties(src/main_menu.mm src/window.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
+  add_executable(editor MACOSX_BUNDLE
+    src/main.cpp
+    src/main_menu.mm
+    src/window.mm
+    src/vulkan_context.cpp
+  )
 
-target_link_libraries(editor PRIVATE
-  volk::volk
-  Vulkan::Headers
-  "-framework Cocoa"
-  "-framework QuartzCore"
-  "-framework Metal"
-)
+  # The window and menu backends are Objective-C++; ARC keeps the Cocoa object lifetimes correct.
+  set_source_files_properties(src/main_menu.mm src/window.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
 
-target_compile_options(editor PRIVATE
-  $<$<COMPILE_LANGUAGE:CXX>:-Wall;-Wextra;-Wpedantic>
-  $<$<COMPILE_LANGUAGE:OBJCXX>:-Wall;-Wextra>
-)
+  target_link_libraries(editor PRIVATE
+    volk::volk
+    Vulkan::Headers
+    "-framework Cocoa"
+    "-framework QuartzCore"
+    "-framework Metal"
+  )
 
-# The bundle is the whole artifact: everything the editor needs is inside editor.app. Its component joins the runtime
-# group in the root CMakeLists, so it ships in the same archive as the library and the samples.
-install(TARGETS editor BUNDLE DESTINATION bin COMPONENT editor)
+  # The bundle is the whole artifact: everything the editor needs is inside editor.app. Its component joins the runtime
+  # group in the root CMakeLists, so it ships in the same archive as the library and the samples.
+  install(TARGETS editor BUNDLE DESTINATION bin COMPONENT editor)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Unit tests
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(tests)
+endif ()
