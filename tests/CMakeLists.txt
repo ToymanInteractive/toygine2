@@ -50,29 +50,6 @@ set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
 # Tests translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# The runner's platform layer (output, exit, entry point) is a per-target file, so the runner has no target branches.
-if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gba.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/nds.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/3ds.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/switch.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gamecube.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/wii.cpp)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
-  set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/wii_u.cpp)
-else ()
-  message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
-endif ()
-
 # Tests of engine modules. Both runners build them, so a drift between the two splits the verdict or fails the build.
 file(GLOB_RECURSE TOYGINE_MODULE_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
 list(FILTER TOYGINE_MODULE_TESTS_SRC EXCLUDE REGEX "^runner/")
@@ -84,82 +61,8 @@ file(GLOB TOYGINE_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_S
 file(GLOB TOYGINE_BENCHMARK_RUNNER_TESTS_SRC CONFIGURE_DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/../benchmarks/runner/tests/*.test.cpp")
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Tests built with the runner written for consoles
-#-----------------------------------------------------------------------------------------------------------------------
-
-# Sega MD has no plain executable: the cartridge linker script and its startup stub are what give the binary an entry.
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
-  add_cartridge_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
-else ()
-  add_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
-endif ()
-
-target_include_directories(${TOYGINE_LIBRARY_NAME}-units-builtin
-    PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-units-builtin PRIVATE ${TOYGINE_LIBRARY_NAME})
-
-# These consoles cannot load the ELF, so each converts it to its loader's image format; Sega MD is built above.
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
-  gba_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
-  nds_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
-  ctr_create_3dsx(${TOYGINE_LIBRARY_NAME}-units-builtin)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
-  nx_create_nro(${TOYGINE_LIBRARY_NAME}-units-builtin)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
-  ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
-  ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
-  wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
-endif ()
-
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
-  # If find_program locates blastem, CTest runs the Sega MD ROM under it like any other test.
-  find_program(TOYGINE_BLASTEM blastem)
-
-  if (TOYGINE_BLASTEM)
-    # -b runs headless and exits after the given frame count; the cartridge target file is the ROM itself.
-    # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
-    add_test(NAME units-builtin
-             COMMAND ${TOYGINE_BLASTEM} -t -b 1800 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-units-builtin>)
-
-    # BlastEm always exits with 0, so the verdict is read from the report it prints as KDEBUG MESSAGE lines.
-    # The summary line prints last, so matching it also catches a run that died halfway through the report.
-    set_tests_properties(units-builtin PROPERTIES TIMEOUT 60
-                                                  PASS_REGULAR_EXPRESSION "# assertions passed=[0-9]+ failed=0")
-  else ()
-    message(STATUS "blastem not found: the test ROM is built but no CTest test runs it")
-  endif ()
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
-  # If find_program locates mgba-headless, CTest runs the GBA ROM under it like any other test.
-  find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
-
-  if (TOYGINE_MGBA_HEADLESS)
-    find_file(TOYGINE_GBA_BIOS gba_bios.bin HINTS /usr/local/share/emibios NO_CMAKE_FIND_ROOT_PATH)
-
-    if (TOYGINE_GBA_BIOS)
-      set(TOYGINE_MGBA_BIOS_ARGS -b ${TOYGINE_GBA_BIOS} -C skipBios=1)
-    endif ()
-
-    # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level.
-    add_test(NAME units-builtin
-             COMMAND ${TOYGINE_MGBA_HEADLESS} ${TOYGINE_MGBA_BIOS_ARGS} -S 3 -R r0 -l 15
-                     # gba_create_rom records the ROM path in DKP_FILE; the target file is the ELF.
-                     $<TARGET_PROPERTY:${TOYGINE_LIBRARY_NAME}-units-builtin,DKP_FILE>)
-
-    # A ROM that never reaches SWI 3 would otherwise run until the job's own timeout.
-    set_tests_properties(units-builtin PROPERTIES TIMEOUT 60)
-  else ()
-    message(STATUS "mgba-headless not found: the test ROM is built but no CTest test runs it")
-  endif ()
-endif ()
-
-#-----------------------------------------------------------------------------------------------------------------------
 # Tests built with doctest and discovered by CTest
 #-----------------------------------------------------------------------------------------------------------------------
-
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   include(FetchContent)
   include(CTest)
@@ -218,4 +121,101 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
                                    LCOV_ARGS "--ignore-errors" "inconsistent")
 
   endif ()
-endif ()
+else ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Tests built with the runner written for consoles
+#-----------------------------------------------------------------------------------------------------------------------
+
+  # The runner's platform layer (output, exit, entry point) is a per-target file, so the runner has no target branches.
+  if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gba.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/nds.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/3ds.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/switch.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gamecube.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/wii.cpp)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+    set(TOYGINE_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/wii_u.cpp)
+  else ()
+    message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
+  endif ()
+
+  # Sega MD has no plain executable: the cartridge linker script and its startup stub are what give the binary an entry.
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+    add_cartridge_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
+  else ()
+    add_executable(${TOYGINE_LIBRARY_NAME}-units-builtin ${TOYGINE_RUNNER_SRC} ${TOYGINE_MODULE_TESTS_SRC})
+  endif ()
+
+  target_include_directories(${TOYGINE_LIBRARY_NAME}-units-builtin
+      PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
+  target_link_libraries(${TOYGINE_LIBRARY_NAME}-units-builtin PRIVATE ${TOYGINE_LIBRARY_NAME})
+
+  # These consoles cannot load the ELF, so each converts it to its loader's image format; Sega MD is built above.
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+    gba_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+    nds_create_rom(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+    ctr_create_3dsx(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+    nx_create_nro(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+    ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
+    ogc_create_dol(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+    wut_create_rpx(${TOYGINE_LIBRARY_NAME}-units-builtin)
+  endif ()
+
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+    # If find_program locates blastem, CTest runs the Sega MD ROM under it like any other test.
+    find_program(TOYGINE_BLASTEM blastem)
+
+    if (TOYGINE_BLASTEM)
+      # -b runs headless and exits after the given frame count; the cartridge target file is the ROM itself.
+      # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
+      add_test(NAME units-builtin
+              COMMAND ${TOYGINE_BLASTEM} -t -b 1800 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-units-builtin>)
+
+      # BlastEm always exits with 0, so the verdict is read from the report it prints as KDEBUG MESSAGE lines.
+      # The summary line prints last, so matching it also catches a run that died halfway through the report.
+      set_tests_properties(units-builtin PROPERTIES TIMEOUT 60
+                                                    PASS_REGULAR_EXPRESSION "# assertions passed=[0-9]+ failed=0")
+    else ()
+      message(STATUS "blastem not found: the test ROM is built but no CTest test runs it")
+    endif ()
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+    # If find_program locates mgba-headless, CTest runs the GBA ROM under it like any other test.
+    find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
+
+    if (TOYGINE_MGBA_HEADLESS)
+      find_file(TOYGINE_GBA_BIOS gba_bios.bin HINTS /usr/local/share/emibios NO_CMAKE_FIND_ROOT_PATH)
+
+      if (TOYGINE_GBA_BIOS)
+        set(TOYGINE_MGBA_BIOS_ARGS -b ${TOYGINE_GBA_BIOS} -C skipBios=1)
+      endif ()
+
+      # The runner stops on SWI 3, leaves the verdict in r0 and logs at info level.
+      add_test(NAME units-builtin
+              COMMAND ${TOYGINE_MGBA_HEADLESS} ${TOYGINE_MGBA_BIOS_ARGS} -S 3 -R r0 -l 15
+                      # gba_create_rom records the ROM path in DKP_FILE; the target file is the ELF.
+                      $<TARGET_PROPERTY:${TOYGINE_LIBRARY_NAME}-units-builtin,DKP_FILE>)
+
+      # A ROM that never reaches SWI 3 would otherwise run until the job's own timeout.
+      set_tests_properties(units-builtin PROPERTIES TIMEOUT 60)
+    else ()
+      message(STATUS "mgba-headless not found: the test ROM is built but no CTest test runs it")
+    endif ()
+  endif ()
+endif()
