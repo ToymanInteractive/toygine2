@@ -21,9 +21,6 @@
 cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 if (APPLE)
-  set(CMAKE_OBJCXX_STANDARD 23)
-  set(CMAKE_OBJCXX_STANDARD_REQUIRED ON)
-
   # CAMetalLayer / MoltenVK need a modern deployment target; bump if you raise the Vulkan floor.
   if (NOT CMAKE_OSX_DEPLOYMENT_TARGET)
     set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum macOS version" FORCE)
@@ -71,11 +68,6 @@ if (APPLE)
     "-framework Cocoa"
     "-framework QuartzCore"
     "-framework Metal"
-  )
-
-  target_compile_options(editor PRIVATE
-    $<$<COMPILE_LANGUAGE:CXX>:-Wall;-Wextra;-Wpedantic>
-    $<$<COMPILE_LANGUAGE:OBJCXX>:-Wall;-Wextra>
   )
 
   # The bundle is the whole artifact: everything the editor needs is inside editor.app. Its component joins the runtime

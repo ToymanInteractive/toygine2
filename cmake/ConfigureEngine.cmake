@@ -30,6 +30,16 @@ set(CMAKE_C_STANDARD 17)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 set(CMAKE_C_EXTENSIONS OFF)
 
+# Enable Objective-C++23 Globally
+set(CMAKE_OBJCXX_STANDARD 23)
+set(CMAKE_OBJCXX_STANDARD_REQUIRED ON)
+set(CMAKE_OBJCXX_EXTENSIONS OFF)
+
+# Enable Objective-C17 Globally
+set(CMAKE_OBJC_STANDARD 17)
+set(CMAKE_OBJC_STANDARD_REQUIRED ON)
+set(CMAKE_OBJC_EXTENSIONS OFF)
+
 find_package(ClownMDSDK)
 find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wii-u)
 
