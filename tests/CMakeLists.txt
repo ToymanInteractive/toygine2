@@ -175,7 +175,7 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
     setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                    # tests run serially: parallel cases of one binary race over the same .gcda files
                                    EXECUTABLE_ARGS --output-on-failure --no-tests=error
-                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
+                                   DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units ${TOYGINE_LIBRARY_NAME}-units-builtin
                                    LCOV_ARGS "--ignore-errors" "inconsistent")
 
   endif ()
