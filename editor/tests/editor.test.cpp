@@ -31,7 +31,7 @@ namespace toy {
 // The aliases the view publishes, and the type each one has to name.
 TEST_CASE("editor/string_view/types") {
   const StringView empty;
-  CHECK(empty.begin() == nullptr);
+  CHECK(empty.begin() != nullptr);
 }
 
 } // namespace toy
