@@ -1,7 +1,6 @@
 # Third party libraries
 
 Please keep categories (`##` level) listed alphabetically and matching their respective folder names.
-Use two empty lines to separate categories for readability.
 
 ## ckdl
 
@@ -15,6 +14,24 @@ Files extracted from upstream source:
 - `src/` folder
   - These files can be removed: `CMakeLists.txt`
 - `COPYING`
+
+## clownmdsdk
+
+Overlay over the installed ClownMDSDK toolchain: a file here wins over the SDK's own copy (see
+`src/platforms/md/CMakeLists.txt`).
+
+Local files, MIT like the engine:
+
+- `include/cstring`, `include/string.h`, `src/string.c`
+
+Files extracted from GCC libstdc++:
+
+- Upstream: <https://gcc.gnu.org/git/gcc.git>
+- Version: releases/gcc-16.2.0 (78d4ac73dd391005b895a6148cd9831e28e1208b, 2026)
+- License: GPL-3.0 with the GCC Runtime Library Exception (`LICENSES/COPYING3`, `LICENSES/COPYING.RUNTIME`)
+- `libstdc++-v3/include/bits/binders.h` as `include/bits/binders.h`, unmodified; the freestanding libstdc++ in
+  ClownMDSDK omits it, and `<ranges>` fails to compile without it
+- Must match the GCC version of the SDK toolchain; update it together with ClownMDSDK
 
 ## nanobench
 
