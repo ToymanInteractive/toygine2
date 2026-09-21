@@ -34,6 +34,7 @@
 
 namespace toy {
 
+/// String class template.
 template <StringStorage storageType>
 class String {
 public:
