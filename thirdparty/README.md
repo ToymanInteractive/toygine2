@@ -42,7 +42,6 @@ Files extracted from upstream source:
 - `include/`
 - `LICENSES/`
 
-
 ## zlib
 
 - Upstream: <https://github.com/madler/zlib>
