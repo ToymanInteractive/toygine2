@@ -65,5 +65,9 @@ if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
 
   target_include_directories(editor-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
   target_link_libraries(editor-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+
+  # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
+  set_target_properties(editor-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+
   doctest_discover_tests(editor-units)
 endif ()

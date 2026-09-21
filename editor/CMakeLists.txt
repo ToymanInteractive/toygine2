@@ -23,7 +23,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 if (APPLE)
   # CAMetalLayer / MoltenVK need a modern deployment target; bump if you raise the Vulkan floor.
   if (NOT CMAKE_OSX_DEPLOYMENT_TARGET)
-    set(CMAKE_OSX_DEPLOYMENT_TARGET "10.15" CACHE STRING "Minimum macOS version" FORCE)
+    set(CMAKE_OSX_DEPLOYMENT_TARGET "11.0" CACHE STRING "Minimum macOS version" FORCE)
   endif ()
 endif ()
 
@@ -32,6 +32,7 @@ list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty)
 include(ckdl)
 
 if (APPLE)
+  # Declares the Vulkan::Headers target and VULKAN_HEADERS_DIR over the vendored headers in thirdparty/vulkan.
   include(vulkan)
 
   include(FetchContent)
