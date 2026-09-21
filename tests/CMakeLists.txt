@@ -144,6 +144,10 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_CTEST)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../benchmarks/runner)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+
+  # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
+  set_target_properties(${TOYGINE_LIBRARY_NAME}-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
 
   # Exit code 0 is the whole contract: every module test must reach the same verdict under both runners.

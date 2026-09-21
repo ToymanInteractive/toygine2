@@ -41,3 +41,15 @@ Files extracted from upstream source:
 
 - `include/`
 - `LICENSES/`
+
+
+## zlib
+
+- Upstream: <https://github.com/madler/zlib>
+- Version: develop (98095f829266a1cab0360bc9b4164c81a71bda66, 2026)
+- License: zlib
+
+Files extracted from upstream source:
+
+- All `.c` and `.h` files, except `gz*.c`, `infback.c`, `compress.c` and `uncompr.c`
+- `LICENSE`
