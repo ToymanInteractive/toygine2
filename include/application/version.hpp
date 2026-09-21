@@ -115,8 +115,8 @@ struct Version {
     \param lhs Version on the left of the operator.
     \param rhs Version on the right of the operator.
 
-    \return \c strong_ordering::less when \a lhs orders first, \c strong_ordering::equal when both hold the same numbers
-            and the same revision, \c strong_ordering::greater when \a rhs orders first.
+    \return \c std::strong_ordering::less when \a lhs orders first, \c std::strong_ordering::equal when both hold the
+            same numbers and the same revision, \c std::strong_ordering::greater when \a rhs orders first.
 
     \note The compiler synthesizes \c <, \c <=, \c >, and \c >= from this operator.
     \note The order consults no locale, which makes it identical across runs and targets.
@@ -126,7 +126,7 @@ struct Version {
 
     \sa operator==()
   */
-  friend constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
+  friend constexpr std::strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept;
 };
 
 } // namespace toy::application

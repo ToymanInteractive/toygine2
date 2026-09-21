@@ -103,10 +103,10 @@ TEST_CASE("enable_bitwise_operators/opt_in_through_template_argument_list") {
   using flags_type = TemplatedHolder<int, long>::Flags;
 
   REQUIRE(EnableBitwiseOperators<flags_type>::enable == true);
-  REQUIRE(toy::to_underlying(flags_type::A | flags_type::B) == 3);
+  REQUIRE(std::to_underlying(flags_type::A | flags_type::B) == 3);
 
   static_assert(BitwiseEnum<flags_type>, "an enum spelled with a template argument list must satisfy BitwiseEnum");
-  static_assert(toy::to_underlying(flags_type::A | flags_type::B) == 3,
+  static_assert(std::to_underlying(flags_type::A | flags_type::B) == 3,
                 "flags_type::A | flags_type::B must equal 3 through the macro-generated specialization");
 }
 
@@ -114,9 +114,9 @@ TEST_CASE("enable_bitwise_operators/opt_in_through_template_argument_list") {
 TEST_CASE("enable_bitwise_operators/operator_or") {
   // TestFlags::A | TestFlags::B combines bits.
   SUBCASE("or_combines_bits") {
-    REQUIRE(toy::to_underlying(TestFlags::A | TestFlags::B) == 3);
+    REQUIRE(std::to_underlying(TestFlags::A | TestFlags::B) == 3);
 
-    static_assert(toy::to_underlying(TestFlags::A | TestFlags::B) == 3, "TestFlags::A | TestFlags::B must equal 3");
+    static_assert(std::to_underlying(TestFlags::A | TestFlags::B) == 3, "TestFlags::A | TestFlags::B must equal 3");
   }
 
   // TestFlags::None | TestFlags::A yields TestFlags::A (TestFlags::None is zero).
@@ -140,9 +140,9 @@ TEST_CASE("enable_bitwise_operators/operator_and") {
 
   // TestFlags::A & TestFlags::B has no common bits; underlying value is zero.
   SUBCASE("and_disjoint_bits") {
-    REQUIRE(toy::to_underlying(TestFlags::A & TestFlags::B) == 0);
+    REQUIRE(std::to_underlying(TestFlags::A & TestFlags::B) == 0);
 
-    static_assert(toy::to_underlying(TestFlags::A & TestFlags::B) == 0, "TestFlags::A & TestFlags::B must be zero");
+    static_assert(std::to_underlying(TestFlags::A & TestFlags::B) == 0, "TestFlags::A & TestFlags::B must be zero");
   }
 }
 
@@ -158,18 +158,18 @@ TEST_CASE("enable_bitwise_operators/operator_xor") {
 
   // Same ^ same yields zero.
   SUBCASE("xor_same_yields_zero") {
-    REQUIRE(toy::to_underlying(TestFlags::C ^ TestFlags::C) == 0);
+    REQUIRE(std::to_underlying(TestFlags::C ^ TestFlags::C) == 0);
 
-    static_assert(toy::to_underlying(TestFlags::C ^ TestFlags::C) == 0, "TestFlags::C ^ TestFlags::C must be zero");
+    static_assert(std::to_underlying(TestFlags::C ^ TestFlags::C) == 0, "TestFlags::C ^ TestFlags::C must be zero");
   }
 }
 
 // Bitwise NOT.
 TEST_CASE("enable_bitwise_operators/operator_not") {
   // ~TestFlags::None has all bits set for underlying type.
-  REQUIRE(toy::to_underlying(~TestFlags::None) == 0xFF);
+  REQUIRE(std::to_underlying(~TestFlags::None) == 0xFF);
 
-  static_assert(toy::to_underlying(~TestFlags::None) == 0xFF, "~TestFlags::None must have all bits set for uint8_t");
+  static_assert(std::to_underlying(~TestFlags::None) == 0xFF, "~TestFlags::None must have all bits set for uint8_t");
 }
 
 // Compound assignment operators.

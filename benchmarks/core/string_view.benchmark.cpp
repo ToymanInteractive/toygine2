@@ -22,7 +22,6 @@
   \brief  Search and comparison of \ref toy::StringView measured against std::string_view.
 */
 
-#include <array>
 #include <string>
 #include <string_view>
 

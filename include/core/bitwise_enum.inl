@@ -33,25 +33,25 @@ namespace toy {
 template <typename T>
   requires BitwiseEnum<T>
 [[nodiscard]] constexpr T operator|(T lhs, T rhs) noexcept {
-  return static_cast<T>(to_underlying(lhs) | to_underlying(rhs));
+  return static_cast<T>(std::to_underlying(lhs) | std::to_underlying(rhs));
 }
 
 template <typename T>
   requires BitwiseEnum<T>
 [[nodiscard]] constexpr T operator&(T lhs, T rhs) noexcept {
-  return static_cast<T>(to_underlying(lhs) & to_underlying(rhs));
+  return static_cast<T>(std::to_underlying(lhs) & std::to_underlying(rhs));
 }
 
 template <typename T>
   requires BitwiseEnum<T>
 [[nodiscard]] constexpr T operator^(T lhs, T rhs) noexcept {
-  return static_cast<T>(to_underlying(lhs) ^ to_underlying(rhs));
+  return static_cast<T>(std::to_underlying(lhs) ^ std::to_underlying(rhs));
 }
 
 template <typename T>
   requires BitwiseEnum<T>
 [[nodiscard]] constexpr T operator~(T val) noexcept {
-  return static_cast<T>(~to_underlying(val));
+  return static_cast<T>(~std::to_underlying(val));
 }
 
 template <typename T>
