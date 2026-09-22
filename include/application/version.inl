@@ -29,14 +29,14 @@
 
 namespace toy::application {
 
-constexpr strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
-  if (const auto cmp = lhs.major <=> rhs.major; cmp != strong_ordering::equal)
+constexpr std::strong_ordering operator<=>(const Version & lhs, const Version & rhs) noexcept {
+  if (const auto cmp = lhs.major <=> rhs.major; cmp != std::strong_ordering::equal)
     return cmp;
 
-  if (const auto cmp = lhs.minor <=> rhs.minor; cmp != strong_ordering::equal)
+  if (const auto cmp = lhs.minor <=> rhs.minor; cmp != std::strong_ordering::equal)
     return cmp;
 
-  if (const auto cmp = lhs.patch <=> rhs.patch; cmp != strong_ordering::equal)
+  if (const auto cmp = lhs.patch <=> rhs.patch; cmp != std::strong_ordering::equal)
     return cmp;
 
   return lhs.revision <=> rhs.revision;

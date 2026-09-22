@@ -30,6 +30,33 @@
 namespace toy {
 
 template <StringStorage storageType>
+constexpr String<storageType>::String(size_type count, value_type ch) noexcept {
+  const bool reserved = _storage.reserve(count);
+  assert_message(reserved, "the string must fit the storage it is built in");
+  if (!reserved)
+    return;
+
+  traits_type::assign(_storage.data(), count, ch);
+  _storage.setSize(count);
+}
+
+template <StringStorage storageType>
+template <std::input_iterator InputIterator>
+  requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+constexpr String<storageType>::String(InputIterator first, InputIterator last) noexcept {
+  _copyRange(std::move(first), std::move(last));
+}
+
+#if defined(__cpp_lib_ranges_to_container)
+template <StringStorage storageType>
+template <std::ranges::input_range Range>
+  requires std::same_as<std::ranges::range_value_t<Range>, char>
+constexpr String<storageType>::String(std::from_range_t, Range && range) noexcept {
+  _copyRange(std::ranges::begin(range), std::ranges::end(range));
+}
+#endif // __cpp_lib_ranges_to_container
+
+template <StringStorage storageType>
 constexpr String<storageType>::String(const value_type * string, size_type count) noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to copy");
 
@@ -41,6 +68,7 @@ constexpr String<storageType>::String(const value_type * string, size_type count
   // memmove behind char_traits::copy takes no null source, even for an empty range.
   if (count != 0)
     traits_type::copy(_storage.data(), string, count);
+
   _storage.setSize(count);
 }
 
@@ -51,6 +79,36 @@ constexpr String<storageType>::String(const value_type * string) noexcept
 }
 
 template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::String(const StringType & string) noexcept
+  : String(string.c_str(), string.size()) {}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::String(const StringType & string, size_type pos, size_type count) noexcept
+  : String(string.c_str() + min(pos, string.size()), min(count, string.size() - min(pos, string.size()))) {
+  assert_message(pos <= string.size(), "the substring must start inside the source string");
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::String(String && other, size_type pos, size_type count) noexcept
+  : _storage(std::move(other._storage)) {
+  const size_type sourceLength = _storage.size();
+  assert_message(pos <= sourceLength, "the substring must start inside the source string");
+
+  const size_type offset = min(pos, sourceLength);
+  const size_type length = min(count, sourceLength - offset);
+  if (offset != 0 && length != 0)
+    traits_type::move(_storage.data(), _storage.data() + offset, length);
+
+  _storage.setSize(length);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::String(std::initializer_list<value_type> list) noexcept
+  : String(list.begin(), list.size()) {}
+
+template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::size() const noexcept {
   return _storage.size();
 }
@@ -58,6 +116,34 @@ constexpr String<storageType>::size_type String<storageType>::size() const noexc
 template <StringStorage storageType>
 constexpr String<storageType>::const_pointer String<storageType>::c_str() const noexcept {
   return _storage.data();
+}
+
+template <StringStorage storageType>
+template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
+constexpr void String<storageType>::_copyRange(InputIterator first, Sentinel last) noexcept {
+  if constexpr (std::forward_iterator<InputIterator>) {
+    const auto count    = static_cast<size_type>(std::ranges::distance(first, last));
+    const bool reserved = _storage.reserve(count);
+    assert_message(reserved, "the string must fit the storage it is built in");
+    if (!reserved)
+      return;
+
+    std::ranges::copy(std::move(first), std::move(last), _storage.data());
+    _storage.setSize(count);
+  } else {
+    // A single pass reveals the length only at the end, so the storage is asked one character at a time.
+    for (size_type count = 0; first != last; ++first, ++count) {
+      const bool reserved = _storage.reserve(count + 1);
+      assert_message(reserved, "the string must fit the storage it is built in");
+      if (!reserved) {
+        _storage.setSize(0);
+        return;
+      }
+
+      _storage.data()[count] = *first;
+      _storage.setSize(count + 1);
+    }
+  }
 }
 
 } // namespace toy

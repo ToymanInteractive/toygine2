@@ -1192,8 +1192,8 @@ public:
     \param lhs View on the left of the operator.
     \param rhs View on the right of the operator.
 
-    \return \c strong_ordering::less when \a lhs orders first, \c strong_ordering::equal when both hold the same
-            characters, \c strong_ordering::greater when \a rhs orders first.
+    \return \c std::strong_ordering::less when \a lhs orders first, \c std::strong_ordering::equal when both hold the
+            same characters, \c std::strong_ordering::greater when \a rhs orders first.
 
     \note The compiler synthesizes \c <, \c <=, \c >, and \c >= from this operator.
     \note Bytes order by their \c unsigned \c char value, so the order holds on a target whose plain \c char is signed.

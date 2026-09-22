@@ -37,8 +37,10 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <initializer_list>
 #include <iterator>
 #include <limits>
+#include <ranges>
 #include <string_view>
 #include <type_traits>
 #include <utility>
@@ -54,37 +56,16 @@ namespace toy {
 
 // Type support (basic types, RTTI) https://cppreference.com/cpp/types
 
-/*!
-  \brief Unsigned integer type large enough to hold the size in bytes of any object; result type of \c sizeof
-
-  \sa https://cppreference.com/cpp/types/size_t
-*/
+// https://cppreference.com/cpp/types/size_t
 using std::size_t;
 
-/*!
-  \brief Signed integer type large enough to hold the difference between two pointers; result type of pointer
-         subtraction
-
-  \sa https://cppreference.com/cpp/types/ptrdiff_t
-*/
+// https://cppreference.com/cpp/types/ptrdiff_t
 using std::ptrdiff_t;
 
-/*!
-  \brief Type of the null pointer literal \c nullptr; converts to any pointer or pointer-to-member type
-
-  \note An overload taking this type catches \c nullptr before the pointer overload beside it does.
-
-  \sa https://cppreference.com/cpp/types/nullptr_t
-*/
+// https://cppreference.com/cpp/types/nullptr_t
 using std::nullptr_t;
 
-/*!
-  \brief Properties of an arithmetic type, among them its lowest and highest values; alias for std::numeric_limits.
-
-  \note For a floating-point type min() is the smallest positive value; lowest() is the most negative one.
-
-  \sa https://cppreference.com/w/cpp/types/numeric_limits.html
-*/
+// https://cppreference.com/w/cpp/types/numeric_limits.html
 using std::numeric_limits;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -115,89 +96,31 @@ using std::uint64_t;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-// (lvl 1)               Utility library https://cppreference.com/cpp/utility
-
-/*!
-  \brief Result of a three-way comparison whose equal operands are substitutable; alias for std::strong_ordering.
-
-  \note \c equal and \c equivalent name the same value.
-
-  \sa https://cppreference.com/cpp/utility/compare/strong_ordering
-*/
-using std::strong_ordering;
-
-/*!
-  \brief Value of an enumerator in the underlying type of its enumeration; alias for std::to_underlying.
-
-  \sa https://cppreference.com/cpp/utility/to_underlying
-*/
-using std::to_underlying;
-
-//--------------------------------------------------------------------------------------------------------------------
-
-// (lvl 1)               Utility library https://cppreference.com/cpp/utility
-// (lvl 2)               Bit manipulation https://cppreference.com/cpp/utility/bit
-
-/*!
-  \brief Value of one type read from the object representation of another of the same size; alias for std::bit_cast.
-
-  \note Both types must be trivially copyable, and a pointer or union member in either bars constant evaluation.
-
-  \sa https://cppreference.com/cpp/numeric/bit_cast
-*/
-using std::bit_cast;
-
-//--------------------------------------------------------------------------------------------------------------------
-
 // (lvl 1)               Containers library https://cppreference.com/w/cpp/container.html
 
-/*!
-  \brief Fixed-size array container with a compile-time constant number of elements; alias for std::array.
-
-  \sa https://cppreference.com/w/cpp/container/array.html
-*/
+// https://cppreference.com/w/cpp/container/array.html
 using std::array;
 
 //--------------------------------------------------------------------------------------------------------------------
 
 // (lvl 1)               Algorithms library https://cppreference.com/cpp/algorithm
 
-/*!
-  \brief Smaller of two values, the first one when they compare equal; alias for std::min.
-
-  \note Returns a reference to an argument, so a \c const \c & bound to it dangles when that argument was a temporary.
-
-  \sa https://cppreference.com/cpp/algorithm/min
-*/
+// https://cppreference.com/cpp/algorithm/min
 using std::min;
 
 //--------------------------------------------------------------------------------------------------------------------
 
 // (lvl 1)               Strings library https://cppreference.com/cpp/string
 
-/*!
-  \brief Operations a string or view type performs on its character type, among them measuring a length and comparing
-         two sequences; alias for std::char_traits.
-
-  \sa https://cppreference.com/cpp/string/char_traits
-*/
+// https://cppreference.com/cpp/string/char_traits
 using std::char_traits;
 
 //--------------------------------------------------------------------------------------------------------------------
 
 // (lvl 1)               Text processing library https://cppreference.com/cpp/text
-
 // (lvl 2)               Null-terminated byte strings https://cppreference.com/cpp/string/byte
 
-/*!
-  \brief Copies at most a fixed count of characters from one null-terminated byte string to another; alias for
-         std::strncpy.
-
-  \note The destination carries no terminator when the source is at least as long as the count. A shorter source is
-        padded with null characters up to the count.
-
-  \sa https://cppreference.com/cpp/string/byte/strncpy
-*/
+// https://cppreference.com/cpp/string/byte/strncpy
 using std::strncpy;
 
 } // namespace toy

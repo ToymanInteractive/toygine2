@@ -115,7 +115,7 @@ size_t utf8Len(const char * str) noexcept {
 
   size_t size = 0;
   while (*str != '\0') {
-    const auto symbolLength = c_utf8CharSizeTable[bit_cast<uint8_t>(*str)];
+    const auto symbolLength = c_utf8CharSizeTable[std::bit_cast<uint8_t>(*str)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
     if (symbolLength == 0)
       return 0;
@@ -139,7 +139,7 @@ bool validateUtf8(const char * str) noexcept {
     return false;
 
   while (*str != '\0') {
-    const auto leadByte     = bit_cast<uint8_t>(*str);
+    const auto leadByte     = std::bit_cast<uint8_t>(*str);
     const auto symbolLength = c_utf8CharSizeTable[leadByte];
     if (symbolLength == 0)
       return false;
@@ -148,7 +148,7 @@ bool validateUtf8(const char * str) noexcept {
     // sequence falls outside either range, which is what stops the walk at the end of a string cut short.
     ByteRange range = secondByteRange(leadByte);
     for (uint8_t offset = 1; offset < symbolLength; ++offset) {
-      if (const auto trailingByte = bit_cast<uint8_t>(str[offset]);
+      if (const auto trailingByte = std::bit_cast<uint8_t>(str[offset]);
           trailingByte < range.lowest || trailingByte > range.highest)
         return false;
 
