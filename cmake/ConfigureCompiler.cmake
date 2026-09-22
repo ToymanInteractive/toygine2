@@ -81,8 +81,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
     set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope                                                     /Zc:inline                                                                                                                                                                                                                               /ZH:SHA_256")
     set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes /Zc:nrvo /Zc:preprocessor /Zc:referenceBinding /Zc:rvalueCast /Zc:sizedDealloc /Zc:strictStrings /Zc:templateScope /Zc:ternary /Zc:threadSafeInit /Zc:tlsGuards /Zc:wchar_t /Zc:zeroSizeArrayNew /ZH:SHA_256")
 
-    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG.    /Zf")
-    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG.    /Zf")
+    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG     /Zf")
+    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG     /Zf")
 
     set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi /Zf")
     set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi /Zf")
