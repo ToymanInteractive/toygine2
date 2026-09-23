@@ -67,7 +67,8 @@ endif ()
 # Unit tests
 #-----------------------------------------------------------------------------------------------------------------------
 
-if (TOYGINE_BUILD_TESTS)
+# The tests need doctest and a host that runs the binary, so the tree is skipped off desktop like the benchmarks above.
+if (TOYGINE_BUILD_TESTS AND TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
   enable_testing()
   add_subdirectory(runner/tests)
 endif ()

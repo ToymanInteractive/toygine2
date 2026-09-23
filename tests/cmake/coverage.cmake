@@ -43,11 +43,24 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
   # only the two instrumented targets above produce one, which is why benchmarks and the editor name no pattern here
   set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
 
+  # The run is a whole ctest pass, so every registered binary has to exist: doctest registers a NOT_BUILT entry for one
+  # that does not, and that entry fails the run before lcov sees a report. Which of them a build configures varies.
+  set(TOYGINE_COVERAGE_DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units)
+  foreach (candidate IN ITEMS console-test-runner-units benchmarks-runner-units editor-units)
+    if (TARGET ${candidate})
+      list(APPEND TOYGINE_COVERAGE_DEPENDENCIES ${candidate})
+
+      # Only this directory's flags reach a link line, so a binary outside it links the instrumented library without
+      # the gcov runtime it calls into. The flag stays off their compile lines: their own sources need no counters.
+      target_link_options(${candidate} PRIVATE --coverage)
+    endif ()
+  endforeach ()
+
   # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
   setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
                                  # tests run serially: parallel cases of one binary race over the same .gcda files
                                  EXECUTABLE_ARGS --output-on-failure --no-tests=error
-                                 DEPENDENCIES ${TOYGINE_LIBRARY_NAME}-units
+                                 DEPENDENCIES ${TOYGINE_COVERAGE_DEPENDENCIES}
                                  LCOV_ARGS "--ignore-errors" "inconsistent")
   set_target_properties(unit_tests_coverage PROPERTIES FOLDER "tests")
 endif ()

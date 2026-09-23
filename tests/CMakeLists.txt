@@ -99,8 +99,6 @@ if (TOYGINE_TESTS_RUNNER STREQUAL "doctest")
   set_target_properties(${TOYGINE_LIBRARY_NAME}-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
 
   doctest_discover_tests(${TOYGINE_LIBRARY_NAME}-units)
-
-  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/coverage.cmake)
 else ()
   # These consoles cannot load the ELF, so each converts it to its loader's image format; Sega MD is built above.
   if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
@@ -130,4 +128,13 @@ endif ()
 # They need doctest and a host that runs the binary, so no console builds them.
 if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
   add_subdirectory(runner/tests)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Coverage
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Last: the coverage run drives ctest over every test binary, so it has to see the targets the other trees declare.
+if (TOYGINE_TESTS_RUNNER STREQUAL "doctest")
+  include(${CMAKE_CURRENT_SOURCE_DIR}/cmake/coverage.cmake)
 endif ()

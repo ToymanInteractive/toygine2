@@ -29,27 +29,25 @@ file(GLOB_RECURSE TOYGINE_BENCHMARK_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAK
 # Tests built with doctest and discovered by CTest
 #-----------------------------------------------------------------------------------------------------------------------
 
-if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
-  include(FetchContent)
+include(FetchContent)
 
-  FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
-  FetchContent_MakeAvailable(doctest)
+FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(doctest)
 
-  list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
+list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
-  include(doctest)
+include(doctest)
 
-  add_executable(benchmarks-runner-units
-      ${TOYGINE_BENCHMARK_TESTS_SRC}
-      ctest_main.cpp)
-  target_compile_definitions(benchmarks-runner-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+add_executable(benchmarks-runner-units
+    ${TOYGINE_BENCHMARK_TESTS_SRC}
+    ctest_main.cpp)
+target_compile_definitions(benchmarks-runner-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
 
-  target_include_directories(benchmarks-runner-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-  target_link_libraries(benchmarks-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-  set_target_properties(benchmarks-runner-units PROPERTIES FOLDER "tests")
+target_include_directories(benchmarks-runner-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(benchmarks-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+set_target_properties(benchmarks-runner-units PROPERTIES FOLDER "tests")
 
-  # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
-  set_target_properties(benchmarks-runner-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+# arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
+set_target_properties(benchmarks-runner-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
 
-  doctest_discover_tests(benchmarks-runner-units)
-endif ()
+doctest_discover_tests(benchmarks-runner-units)
