@@ -31,10 +31,10 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.    https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html
 # Clang 21.1.0 diagnostic flags. https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option is -Wauto-decl-extensions
+# last option is -Wbad-function-cast
 
-set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions")
-set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties")
+set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast")
+set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast")
 set(CLANG_CMAKE_OBJC_FLAGS                  "${CLANG_CMAKE_C_FLAGS}   -Warc-maybe-repeated-use-of-weak")
 set(CLANG_CMAKE_OBJCXX_FLAGS                "${CLANG_CMAKE_CXX_FLAGS} -Warc-maybe-repeated-use-of-weak")
 
@@ -73,7 +73,7 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
     # MSVC Compiler Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /ZH:SHA_256
+    # last option is /Zo
 
     # MSVC Linker Options
     # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
@@ -111,8 +111,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
       string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
       string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
 
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gv /homeparams /jumptablerdata")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gv /homeparams /jumptablerdata")
+      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gv /homeparams /jumptablerdata /Zo")
+      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gv /homeparams /jumptablerdata /Zo")
 
       string(APPEND CMAKE_C_FLAGS_RELEASE           " /favor:blend /Gv             /jumptablerdata")
       string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /favor:blend /Gv             /jumptablerdata")

@@ -19,43 +19,38 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Remove all of the extra targets
-set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
-#-----------------------------------------------------------------------------------------------------------------------
-
-#-----------------------------------------------------------------------------------------------------------------------
 # Tests translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Tests of editor modules. Both runners build them, so a drift between the two splits the verdict or fails the build.
-file(GLOB_RECURSE TOYGINE_EDITOR_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
+# Tests of the built-in runner, the one the consoles depend on. Written against doctest and inspecting the runner's
+# internals, so they build on desktop alone, whichever runner TOYGINE_TESTS_RUNNER selects for the engine's own tests.
+file(GLOB_RECURSE TOYGINE_TEST_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Tests built with doctest and discovered by CTest
 #-----------------------------------------------------------------------------------------------------------------------
 
-if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
-  include(FetchContent)
-  include(CTest)
+include(FetchContent)
 
-  FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
-  FetchContent_MakeAvailable(doctest)
+FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
+FetchContent_MakeAvailable(doctest)
 
-  list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
+list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
 
-  include(doctest)
+include(doctest)
 
-  add_executable(editor-units
-      ${TOYGINE_EDITOR_TESTS_SRC}
-      ctest_main.cpp)
-  target_compile_definitions(editor-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+add_executable(console-test-runner-units
+    ${TOYGINE_TEST_RUNNER_TESTS_SRC}
+    ctest_main.cpp)
 
-  target_include_directories(editor-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
-  target_link_libraries(editor-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-  set_target_properties(editor-units PROPERTIES FOLDER "tests")
+# The shim resolves TEST_CASE to doctest's, leaving the TOY_TEST_ macros beside it as what these cases exercise.
+target_compile_definitions(console-test-runner-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS TOYGINE_TESTS_USE_DOCTEST)
 
-  # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
-  set_target_properties(editor-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+target_include_directories(console-test-runner-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+target_link_libraries(console-test-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+set_target_properties(console-test-runner-units PROPERTIES FOLDER "tests")
 
-  doctest_discover_tests(editor-units)
-endif ()
+# arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
+set_target_properties(console-test-runner-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+
+doctest_discover_tests(console-test-runner-units)
