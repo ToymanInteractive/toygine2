@@ -56,8 +56,9 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
     endif ()
   endforeach ()
 
-  # ctest runs from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
-  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ctest
+  # The ctest beside the configuring cmake, not whichever one the build environment's PATH happens to carry; it runs
+  # from the build tree, where CMakePresets.json is not visible, so it takes no --preset argument
+  setup_target_for_coverage_lcov(NAME unit_tests_coverage EXECUTABLE ${CMAKE_CTEST_COMMAND}
                                  # tests run serially: parallel cases of one binary race over the same .gcda files
                                  EXECUTABLE_ARGS --output-on-failure --no-tests=error
                                  DEPENDENCIES ${TOYGINE_COVERAGE_DEPENDENCIES}
