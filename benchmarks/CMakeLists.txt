@@ -22,13 +22,8 @@
 # nanobench support
 #-----------------------------------------------------------------------------------------------------------------------
 
-set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
-
 # Whether the build host can time a callable: no console toolchain here gives nanobench a steady clock or iostreams.
-set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH OFF)
-if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
-  set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH ON)
-endif ()
+set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH ${TOYGINE_TARGET_PLATFORM_IS_DESKTOP})
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks translation units
@@ -66,4 +61,13 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
 
   # A generator expression names the binary but orders nothing, so the run target asks for the build itself.
   add_dependencies(benchmarks_run ${TOYGINE_LIBRARY_NAME}-benchmarks)
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Unit tests
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_BUILD_TESTS)
+  enable_testing()
+  add_subdirectory(runner/tests)
 endif ()

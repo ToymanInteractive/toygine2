@@ -99,3 +99,11 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   set(TOYGINE_TARGET_PLATFORM ${FIRST_PLATFORM} CACHE STRING "Select destination TOYGINE_TARGET_PLATFORM for build")
   set_property(CACHE TOYGINE_TARGET_PLATFORM PROPERTY STRINGS ${AVAILABLE_PLATFORMS})
 endif ()
+
+# Desktop targets run their own binaries on the build host; tests, benchmarks and the editor branch on it.
+set(TOYGINE_DESKTOP_PLATFORMS "Windows Desktop" "Linux Desktop" "macOS Desktop")
+
+set(TOYGINE_TARGET_PLATFORM_IS_DESKTOP OFF)
+if (TOYGINE_TARGET_PLATFORM IN_LIST TOYGINE_DESKTOP_PLATFORMS)
+  set(TOYGINE_TARGET_PLATFORM_IS_DESKTOP ON)
+endif ()

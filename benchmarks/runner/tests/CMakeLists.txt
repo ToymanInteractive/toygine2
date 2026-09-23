@@ -19,16 +19,11 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Remove all of the extra targets
-set_property(GLOBAL PROPERTY CTEST_TARGETS_ADDED 1)
-#-----------------------------------------------------------------------------------------------------------------------
-
-#-----------------------------------------------------------------------------------------------------------------------
 # Tests translation units
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Tests of editor modules. Both runners build them, so a drift between the two splits the verdict or fails the build.
-file(GLOB_RECURSE TOYGINE_EDITOR_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
+# Tests of the benchmark runner's host-side logic: plain C++ under doctest, without the timing that needs nanobench.
+file(GLOB_RECURSE TOYGINE_BENCHMARK_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.test.cpp")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Tests built with doctest and discovered by CTest
@@ -36,7 +31,6 @@ file(GLOB_RECURSE TOYGINE_EDITOR_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_C
 
 if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
   include(FetchContent)
-  include(CTest)
 
   FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
   FetchContent_MakeAvailable(doctest)
@@ -45,17 +39,17 @@ if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
 
   include(doctest)
 
-  add_executable(editor-units
-      ${TOYGINE_EDITOR_TESTS_SRC}
+  add_executable(benchmarks-runner-units
+      ${TOYGINE_BENCHMARK_TESTS_SRC}
       ctest_main.cpp)
-  target_compile_definitions(editor-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
+  target_compile_definitions(benchmarks-runner-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
 
-  target_include_directories(editor-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/../../include)
-  target_link_libraries(editor-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
-  set_target_properties(editor-units PROPERTIES FOLDER "tests")
+  target_include_directories(benchmarks-runner-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
+  target_link_libraries(benchmarks-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+  set_target_properties(benchmarks-runner-units PROPERTIES FOLDER "tests")
 
   # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.
-  set_target_properties(editor-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
+  set_target_properties(benchmarks-runner-units PROPERTIES XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED NO)
 
-  doctest_discover_tests(editor-units)
+  doctest_discover_tests(benchmarks-runner-units)
 endif ()
