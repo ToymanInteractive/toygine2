@@ -46,6 +46,22 @@ Files extracted from upstream source:
 - `scripts/cmake/doctestAddTests.cmake`
 - `LICENSE.txt`
 
+## libpng
+
+- Upstream: <https://github.com/pnggroup/libpng>
+- Version: v1.6.58 (3061454d980de7d53608f594194cfac722721d2a, 2026)
+- License: libpng-2.0
+
+Files extracted from upstream source:
+
+- `png*.c` and `png*.h`, except `pngtest.c`
+- `scripts/pnglibconf.h.prebuilt` as `pnglibconf.h`, unmodified; nothing regenerates it here
+- `arm/` folder, except `filter_neon.S`: the NEON path uses the intrinsics
+- `intel/` folder
+- `AUTHORS` and `LICENSE`
+
+The `loongarch/`, `mips/`, `powerpc/` and `riscv/` filters are left out: the editor targets x86 and ARM only.
+
 ## nanobench
 
 - Upstream: <https://github.com/martinus/nanobench>
