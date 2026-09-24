@@ -38,10 +38,10 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME})
   append_coverage_compiler_flags_to_target(${TOYGINE_LIBRARY_NAME}-units)
 
-  # exclude the tests, the build tree (fetched dependencies live there) and system headers from coverage
+  # exclude the tests, vendored doctest and system headers from coverage
   # lcov 2.x fails on a pattern that matches nothing, so every entry must cover a file the capture actually carries:
   # only the two instrumented targets above produce one, which is why benchmarks and the editor name no pattern here
-  set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_BINARY_DIR}/*" "/usr/*")
+  set(COVERAGE_EXCLUDES "${CMAKE_SOURCE_DIR}/tests/*" "${CMAKE_SOURCE_DIR}/thirdparty/*" "/usr/*")
 
   # The run is a whole ctest pass, so every registered binary has to exist: doctest registers a NOT_BUILT entry for one
   # that does not, and that entry fails the run before lcov sees a report. Which of them a build configures varies.

@@ -66,13 +66,7 @@ endif ()
 #-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TESTS_RUNNER STREQUAL "doctest")
-  include(FetchContent)
-
-  FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
-  FetchContent_MakeAvailable(doctest)
-
-  list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
-
+  # Declares doctest::doctest and doctest_discover_tests() over the vendored copy in thirdparty/doctest.
   include(doctest)
 endif ()
 

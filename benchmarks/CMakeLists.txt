@@ -40,8 +40,6 @@ file(GLOB_RECURSE TOYGINE_MODULE_BENCHMARKS_SRC CONFIGURE_DEPENDS RELATIVE "${CM
 #-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
-  list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/../thirdparty)
-
   # Declares the nanobench target and the nanobench::nanobench alias over the vendored sources in thirdparty/nanobench.
   include(nanobench)
 

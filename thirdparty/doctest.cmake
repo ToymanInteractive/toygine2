@@ -18,24 +18,32 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Microbenchmark library for the benchmark runner. The whole library is one header, with the definitions behind
-# ANKERL_NANOBENCH_IMPLEMENT; benchmarks/runner/main.cpp is the only translation unit that defines it. The copy keeps
-# src/include/ and LICENSE and drops the upstream CMakeLists, which declares a project of its own and builds a 36-file
-# test binary. thirdparty/README.md records the upstream commit and the local patch.
+# Unit test framework for the engine and editor test runners. doctest.h is the amalgamated single header, with the
+# definitions behind DOCTEST_CONFIG_IMPLEMENT; each runner's ctest_main.cpp defines it. The copy keeps that header, the
+# two CMake scripts behind doctest_discover_tests() and the license, and drops the upstream CMakeLists, which declares a
+# project of its own, builds the examples and tests, and installs a package config. thirdparty/README.md records the
+# upstream tag.
 
-set(NANOBENCH_DIR ${CMAKE_CURRENT_LIST_DIR}/nanobench)
+# Every test runner includes this file, and the target below must be created only once.
+include_guard(GLOBAL)
+
+set(DOCTEST_DIR ${CMAKE_CURRENT_LIST_DIR}/doctest)
+
+# Consumers reach this file through include(doctest), the name of the upstream helper that defines
+# doctest_discover_tests(), so the helper comes along with the target.
+include(${DOCTEST_DIR}/scripts/cmake/doctest.cmake)
 
 # The compiler finds the header through the include path; listing it puts the copy in the IDE's project tree.
-set(HDR_NANOBENCH_LIST
-  ${NANOBENCH_DIR}/src/include/nanobench.h
+set(HDR_DOCTEST_LIST
+  ${DOCTEST_DIR}/doctest/doctest.h
 )
 
-add_library(nanobench INTERFACE ${HDR_NANOBENCH_LIST})
+add_library(doctest INTERFACE ${HDR_DOCTEST_LIST})
 
 # Keeps the vendored target out of the way in the Xcode and Visual Studio trees; other generators ignore it.
-set_target_properties(nanobench PROPERTIES FOLDER "thirdparty")
+set_target_properties(doctest PROPERTIES FOLDER "thirdparty")
 
 # SYSTEM keeps the project's warnings off headers that are not ours.
-target_include_directories(nanobench SYSTEM INTERFACE ${NANOBENCH_DIR}/src/include)
+target_include_directories(doctest SYSTEM INTERFACE ${DOCTEST_DIR})
 
-add_library(nanobench::nanobench ALIAS nanobench)
+add_library(doctest::doctest ALIAS doctest)

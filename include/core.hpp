@@ -96,13 +96,6 @@ using std::uint64_t;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-// (lvl 1)               Containers library https://cppreference.com/w/cpp/container.html
-
-// https://cppreference.com/w/cpp/container/array.html
-using std::array;
-
-//--------------------------------------------------------------------------------------------------------------------
-
 // (lvl 1)               Algorithms library https://cppreference.com/cpp/algorithm
 
 // https://cppreference.com/cpp/algorithm/min

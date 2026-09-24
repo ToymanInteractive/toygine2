@@ -35,14 +35,9 @@ file(GLOB_RECURSE TOYGINE_EDITOR_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_C
 #-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
-  include(FetchContent)
   include(CTest)
 
-  FetchContent_Declare(doctest GIT_REPOSITORY https://github.com/doctest/doctest GIT_TAG v2.5.3 GIT_SHALLOW TRUE)
-  FetchContent_MakeAvailable(doctest)
-
-  list(APPEND CMAKE_MODULE_PATH ${doctest_SOURCE_DIR}/scripts/cmake)
-
+  # Declares doctest::doctest and doctest_discover_tests() over the vendored copy in thirdparty/doctest.
   include(doctest)
 
   add_executable(editor-units

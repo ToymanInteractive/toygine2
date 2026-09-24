@@ -89,8 +89,8 @@ constexpr size_t c_repeatedLength = char_traits<char>::length(c_repeated);
 constexpr char c_sentinel = '#';
 
 // Caller storage prefilled with the sentinel.
-[[nodiscard]] constexpr array<char, 16> sentinelBuffer() noexcept {
-  array<char, 16> buffer{};
+[[nodiscard]] constexpr std::array<char, 16> sentinelBuffer() noexcept {
+  std::array<char, 16> buffer{};
   buffer.fill(c_sentinel);
 
   return buffer;
@@ -98,14 +98,14 @@ constexpr char c_sentinel = '#';
 
 // Count a copy writes, so a constant expression can drive the one member that touches caller storage.
 [[nodiscard]] constexpr size_t copiedCount(const char * string, size_t count, size_t pos) noexcept {
-  array<char, 16> buffer = sentinelBuffer();
+  std::array<char, 16> buffer = sentinelBuffer();
 
   return StringView(string).copy(buffer.data(), count, pos);
 }
 
 // Character a copy leaves at an offset in caller storage.
 [[nodiscard]] constexpr char copiedAt(const char * string, size_t count, size_t index) noexcept {
-  array<char, 16> buffer = sentinelBuffer();
+  std::array<char, 16> buffer = sentinelBuffer();
   StringView(string).copy(buffer.data(), count);
 
   return buffer[index];
@@ -384,7 +384,7 @@ TEST_CASE("string_view/swap") {
 TEST_CASE("string_view/copy") {
   const StringView view(c_sample);
 
-  array<char, 16> buffer = sentinelBuffer();
+  std::array<char, 16> buffer = sentinelBuffer();
   CHECK(view.copy(buffer.data(), 4) == 4);
   CHECK(char_traits<char>::compare(buffer.data(), c_samplePrefix, 4) == 0);
 
@@ -392,13 +392,13 @@ TEST_CASE("string_view/copy") {
   CHECK(buffer[4] == c_sentinel);
 
   // A count past the end copies what remains rather than reading past the terminator.
-  array<char, 16> tail = sentinelBuffer();
+  std::array<char, 16> tail = sentinelBuffer();
   CHECK(view.copy(tail.data(), 32, 2) == c_sampleLength - 2);
   CHECK(char_traits<char>::compare(tail.data(), "ayer", 4) == 0);
   CHECK(tail[c_sampleLength - 2] == c_sentinel);
 
   // Starting at the end names an empty range rather than a range out of bounds.
-  array<char, 16> none = sentinelBuffer();
+  std::array<char, 16> none = sentinelBuffer();
   CHECK(view.copy(none.data(), 4, c_sampleLength) == 0);
   CHECK(none[0] == c_sentinel);
 
