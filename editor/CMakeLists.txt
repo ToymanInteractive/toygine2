@@ -30,23 +30,12 @@ endif ()
 include(ckdl)
 
 if (APPLE)
-  # Declares the Vulkan::Headers target and VULKAN_HEADERS_DIR over the vendored headers in thirdparty/vulkan.
+  # Declares the Vulkan::Headers target over the vendored headers in thirdparty/vulkan.
   include(vulkan)
 
-  include(FetchContent)
-
-  # volk reads VULKAN_HEADERS_INSTALL_DIR before it falls back to find_package(Vulkan) and $VULKAN_SDK, so the vendored
-  # headers win over whatever SDK the build machine happens to carry, and a machine without one still builds.
-  set(VULKAN_HEADERS_INSTALL_DIR ${VULKAN_HEADERS_DIR})
-
-  # volk is pinned to an exact tag; bump it against the vendored header version in a dedicated change.
-  FetchContent_Declare(
-    volk
-    GIT_REPOSITORY https://github.com/zeux/volk.git
-    GIT_TAG        1.4.350
-    GIT_SHALLOW    TRUE
-  )
-  FetchContent_MakeAvailable(volk)
+  # Declares the volk target and the volk::volk alias over the vendored sources in thirdparty/volk, built against the
+  # Vulkan::Headers above, so no Vulkan SDK on the build machine is needed or used.
+  include(volk)
 
   # volk and every consumer must agree on the platform surface so vkCreateMetalSurfaceEXT is loaded.
   target_compile_definitions(volk PUBLIC VK_USE_PLATFORM_METAL_EXT)

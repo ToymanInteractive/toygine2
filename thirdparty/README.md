@@ -76,6 +76,19 @@ Local patches:
 
 - 0001-msvc-support
 
+## volk
+
+- Upstream: <https://github.com/zeux/volk>
+- Version: master, 1.4.362 (e640c6ea6420bdaf6248e85f736ab0b99491ae58, 2026)
+- License: MIT
+
+Files extracted from upstream source:
+
+- `volk.c` and `volk.h`
+- `LICENSE.md`
+
+`VOLK_HEADER_VERSION` in `volk.h` must match `VK_HEADER_VERSION` in the `vulkan` headers; update both together.
+
 ## vulkan
 
 - Upstream: <https://github.com/KhronosGroup/Vulkan-Headers>
