@@ -33,6 +33,19 @@ Files extracted from GCC libstdc++:
   ClownMDSDK omits it, and `<ranges>` fails to compile without it
 - Must match the GCC version of the SDK toolchain; update it together with ClownMDSDK
 
+## doctest
+
+- Upstream: <https://github.com/doctest/doctest>
+- Version: v2.5.3 (2d0a9359a60c51affe2a9bebb1be1dca47868151, 2026)
+- License: MIT
+
+Files extracted from upstream source:
+
+- `doctest/doctest.h`
+- `scripts/cmake/doctest.cmake`
+- `scripts/cmake/doctestAddTests.cmake`
+- `LICENSE.txt`
+
 ## nanobench
 
 - Upstream: <https://github.com/martinus/nanobench>
