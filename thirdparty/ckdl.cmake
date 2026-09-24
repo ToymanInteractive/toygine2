@@ -19,18 +19,16 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 # KDL parser for the project manifest. Consumers use only the streaming C API: nodes map onto the setting registry
-# directly, so kdlpp would build a document model just to take it apart.
-#
-# The vendored copy drops the upstream CMakeLists, which builds CLI utilities and C++ bindings, adds CTest tests, and
-# defines a global `math` target. thirdparty/README.md records the upstream commit.
+# directly, so kdlpp would build a document model just to take it apart. The copy drops the upstream CMakeLists, which
+# builds CLI utilities and C++ bindings, adds CTest tests and defines a global math target. thirdparty/README.md records
+# the upstream commit.
 
 include(CheckSymbolExists)
 
 set(CKDL_DIR ${CMAKE_CURRENT_LIST_DIR}/ckdl)
 
-# Mirrors KDL_C_SOURCES and KDL_UTF8_C_SOURCES upstream. Re-check when refreshing the vendored copy. src/utils holds
-# the CLI tools and stays out of the build.
-add_library(ckdl STATIC
+# Mirrors KDL_C_SOURCES and KDL_UTF8_C_SOURCES upstream. Re-check both lists when refreshing the copy.
+set(SRC_CKDL_LIST
   ${CKDL_DIR}/src/bigint.c
   ${CKDL_DIR}/src/compat.c
   ${CKDL_DIR}/src/emitter.c
@@ -39,21 +37,49 @@ add_library(ckdl STATIC
   ${CKDL_DIR}/src/tokenizer.c
   ${CKDL_DIR}/src/utf8.c
 )
-set_target_properties(ckdl PROPERTIES C_STANDARD 11 C_STANDARD_REQUIRED ON C_EXTENSIONS OFF)
 
-# Public headers live in include/; the sources also pull private headers from src/.
-target_include_directories(ckdl PUBLIC ${CKDL_DIR}/include PRIVATE ${CKDL_DIR}/src)
+# The compiler finds these through the include path; listing them puts the whole copy in the IDE's project tree.
+set(HDR_CKDL_LIST
+  ${CKDL_DIR}/include/kdl/common-macros.h
+  ${CKDL_DIR}/include/kdl/common.h
+  ${CKDL_DIR}/include/kdl/emitter.h
+  ${CKDL_DIR}/include/kdl/kdl.h
+  ${CKDL_DIR}/include/kdl/parser.h
+  ${CKDL_DIR}/include/kdl/tokenizer.h
+  ${CKDL_DIR}/include/kdl/value.h
+  ${CKDL_DIR}/src/bigint.h
+  ${CKDL_DIR}/src/compat.h
+  ${CKDL_DIR}/src/grammar.h
+  ${CKDL_DIR}/src/str.h
+  ${CKDL_DIR}/src/utf8.h
+)
 
-# KDL_STATIC_LIB must reach consumers: it strips the dllimport decoration from exported symbols.
-target_compile_definitions(ckdl PUBLIC KDL_STATIC_LIB=1 PRIVATE BUILDING_KDL=1)
+add_library(ckdl STATIC ${SRC_CKDL_LIST} ${HDR_CKDL_LIST})
 
-# ckdl uses reallocf where it exists. macOS has it, but check rather than assume.
+# Keeps the vendored target out of the way in the Xcode and Visual Studio trees; other generators ignore it.
+set_target_properties(ckdl PROPERTIES FOLDER "thirdparty")
+
+# Public headers live in include/; the private ones sit beside the sources, which reach them by relative include.
+# SYSTEM keeps the project's warnings off headers that are not ours.
+target_include_directories(ckdl SYSTEM PUBLIC ${CKDL_DIR}/include)
+
+# KDL_STATIC_LIB must reach consumers: without it the Windows headers mark every function dllimport.
+target_compile_definitions(ckdl PUBLIC KDL_STATIC_LIB)
+
+# compat.c supplies reallocf where the C library lacks it; macOS and the BSDs have their own, and the check keeps
+# compat.c from defining a second one.
 check_symbol_exists(reallocf "stdlib.h" HAVE_REALLOCF)
 if(HAVE_REALLOCF)
   target_compile_definitions(ckdl PRIVATE HAVE_REALLOCF)
 endif()
 
-# Vendored code is not ours to keep warning-free, and it inherits the including project's flags.
+# pow(), floor() and log10() from the number code live in libm on Linux and Android; Apple and Windows fold it into the
+# C runtime.
+if(UNIX AND NOT APPLE)
+  target_link_libraries(ckdl PRIVATE m)
+endif()
+
+# The sources trip the project's -Werror set (-Wbad-function-cast, -Wassign-enum), and vendored code is not ours to patch.
 if(MSVC)
   target_compile_options(ckdl PRIVATE /w)
 else()

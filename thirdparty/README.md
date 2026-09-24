@@ -10,9 +10,8 @@ Please keep categories (`##` level) listed alphabetically and matching their res
 
 Files extracted from upstream source:
 
-- `include/` folder, minus the `dlg` subfolder
-- `src/` folder
-  - These files can be removed: `CMakeLists.txt`
+- `include/` folder, except `dlg/`
+- `src/` folder, except `utils/` (the CLI tools)
 - `COPYING`
 
 ## clownmdsdk
