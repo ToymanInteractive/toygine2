@@ -31,7 +31,7 @@ namespace {
 
 // The literal every case reads. Its length is measured from the literal, not written out as a constant.
 constexpr const char * c_sample          = "player";
-constexpr size_t       c_sampleLength    = char_traits<char>::length(c_sample);
+constexpr size_t       c_sampleLength    = std::char_traits<char>::length(c_sample);
 // The same characters back to front, the order a reverse walk must yield.
 constexpr const char * c_sampleReverse   = "reyalp";
 // A leading part of the sample, and a longer string starting with it.
@@ -65,7 +65,7 @@ constexpr StringView c_repeatedView(c_repeated);
 
 // Offset every search reports when it matches nothing.
 constexpr size_t c_npos           = StringView::npos;
-constexpr size_t c_repeatedLength = char_traits<char>::length(c_repeated);
+constexpr size_t c_repeatedLength = std::char_traits<char>::length(c_repeated);
 
 // Distance a forward walk covers, as a length rather than a pointer difference.
 [[nodiscard]] constexpr size_t forwardLength(const StringView & view) noexcept {
@@ -366,7 +366,7 @@ TEST_CASE("string_view/swap") {
 
   left.swap(right);
   CHECK(left.data() == c_samplePrefix);
-  CHECK(left.size() == char_traits<char>::length(c_samplePrefix));
+  CHECK(left.size() == std::char_traits<char>::length(c_samplePrefix));
   CHECK(right.data() == c_sample);
   CHECK(right.size() == c_sampleLength);
 
@@ -376,7 +376,7 @@ TEST_CASE("string_view/swap") {
 
   static_assert(swapped(c_sample, c_samplePrefix).data() == c_samplePrefix,
                 "the left view must read the string the right one named");
-  static_assert(swapped(c_sample, c_samplePrefix).size() == char_traits<char>::length(c_samplePrefix),
+  static_assert(swapped(c_sample, c_samplePrefix).size() == std::char_traits<char>::length(c_samplePrefix),
                 "the length must travel with the pointer");
 }
 
@@ -386,7 +386,7 @@ TEST_CASE("string_view/copy") {
 
   std::array<char, 16> buffer = sentinelBuffer();
   CHECK(view.copy(buffer.data(), 4) == 4);
-  CHECK(char_traits<char>::compare(buffer.data(), c_samplePrefix, 4) == 0);
+  CHECK(std::char_traits<char>::compare(buffer.data(), c_samplePrefix, 4) == 0);
 
   // The call writes characters only; the sentinel past the count survives, so no terminator was added.
   CHECK(buffer[4] == c_sentinel);
@@ -394,7 +394,7 @@ TEST_CASE("string_view/copy") {
   // A count past the end copies what remains rather than reading past the terminator.
   std::array<char, 16> tail = sentinelBuffer();
   CHECK(view.copy(tail.data(), 32, 2) == c_sampleLength - 2);
-  CHECK(char_traits<char>::compare(tail.data(), "ayer", 4) == 0);
+  CHECK(std::char_traits<char>::compare(tail.data(), "ayer", 4) == 0);
   CHECK(tail[c_sampleLength - 2] == c_sentinel);
 
   // Starting at the end names an empty range rather than a range out of bounds.
@@ -649,7 +649,7 @@ TEST_CASE("string_view/find") {
 
   // A needle longer than the viewed string matches nowhere, decided on the lengths before any character is read.
   CHECK(view.find(StringView(c_repeatedLonger)) == c_npos);
-  CHECK(view.find(c_repeatedLonger, 0, char_traits<char>::length(c_repeatedLonger)) == c_npos);
+  CHECK(view.find(c_repeatedLonger, 0, std::char_traits<char>::length(c_repeatedLonger)) == c_npos);
 
   // An empty needle matches at the offset the search starts from; past the end it matches nowhere.
   CHECK(view.find(StringView("")) == 0);
@@ -713,7 +713,7 @@ TEST_CASE("string_view/rfind") {
   CHECK(view.rfind(StringView("cad")) == 4);
   CHECK(view.rfind(StringView("xyz")) == c_npos);
   CHECK(view.rfind(StringView(c_repeatedLonger)) == c_npos);
-  CHECK(view.rfind(c_repeatedLonger, c_npos, char_traits<char>::length(c_repeatedLonger)) == c_npos);
+  CHECK(view.rfind(c_repeatedLonger, c_npos, std::char_traits<char>::length(c_repeatedLonger)) == c_npos);
 
   // An empty needle matches at the offset the search starts from, capped at the length.
   CHECK(view.rfind(StringView("")) == c_repeatedLength);

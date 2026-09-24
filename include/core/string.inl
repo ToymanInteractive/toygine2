@@ -65,7 +65,7 @@ constexpr String<storageType>::String(const value_type * string, size_type count
   if (!reserved)
     return;
 
-  // memmove behind char_traits::copy takes no null source, even for an empty range.
+  // memmove behind std::char_traits::copy takes no null source, even for an empty range.
   if (count != 0)
     traits_type::copy(_storage.data(), string, count);
 

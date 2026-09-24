@@ -119,7 +119,7 @@ namespace toy {
 class StringView {
 public:
   /// Character operations the view uses to measure and compare
-  using traits_type            = char_traits<char>;
+  using traits_type            = std::char_traits<char>;
   /// Type of the viewed characters
   using value_type             = char;
   /// Mutable character pointer, present for parity with \c std::string_view; the view exposes no mutable access

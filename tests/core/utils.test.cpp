@@ -63,10 +63,10 @@ constexpr char c_aboveRange[]      = {'\xF4', '\x90', '\x80', '\x80', '\0'};
 
 // How many characters a UTF-8 string holds, against the bytes it occupies.
 TEST_CASE("utf8_len/counts_characters_not_bytes") {
-  CHECK(utf8Len(c_ascii) == char_traits<char>::length(c_ascii));
-  CHECK(utf8Len(c_cyrillic) == char_traits<char>::length(c_cyrillic) / 2);
-  CHECK(utf8Len(c_cjk) == char_traits<char>::length(c_cjk) / 3);
-  CHECK(utf8Len(c_emoji) == char_traits<char>::length(c_emoji) / 4);
+  CHECK(utf8Len(c_ascii) == std::char_traits<char>::length(c_ascii));
+  CHECK(utf8Len(c_cyrillic) == std::char_traits<char>::length(c_cyrillic) / 2);
+  CHECK(utf8Len(c_cjk) == std::char_traits<char>::length(c_cjk) / 3);
+  CHECK(utf8Len(c_emoji) == std::char_traits<char>::length(c_emoji) / 4);
 
   // A mixed string counts every character once, whatever width each one is stored in.
   CHECK(utf8Len(c_mixed) == utf8Len(c_ascii) + utf8Len(c_cyrillic) + utf8Len(c_cjk) + utf8Len(c_emoji) + 3);

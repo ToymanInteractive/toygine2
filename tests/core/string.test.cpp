@@ -42,7 +42,7 @@ constexpr size_t c_capacity = c_allocatedSize - 1;
 
 // The literal most cases copy; its length is measured from the literal.
 constexpr const char * c_sample       = "player";
-constexpr size_t       c_sampleLength = char_traits<char>::length(c_sample);
+constexpr size_t       c_sampleLength = std::char_traits<char>::length(c_sample);
 
 // Byte count a counted construction takes, short enough to leave sample characters out.
 constexpr size_t c_prefixLength = 4;
@@ -60,16 +60,16 @@ constexpr size_t c_embeddedNullLength = sizeof(c_embeddedNull) - 1;
 
 // Literal longer than the buffer, so a counted construction can fill the buffer exactly.
 constexpr const char * c_long       = "abcdefghijklmnopqrstuvwxyz";
-constexpr size_t       c_longLength = char_traits<char>::length(c_long);
+constexpr size_t       c_longLength = std::char_traits<char>::length(c_long);
 
 // Character and count the fill cases write, and the same fill spelled out.
 constexpr char         c_fillCharacter = 'x';
 constexpr const char * c_filled        = "xxxxx";
-constexpr size_t       c_fillCount     = char_traits<char>::length(c_filled);
+constexpr size_t       c_fillCount     = std::char_traits<char>::length(c_filled);
 
 // The characters the initializer-list cases write between braces, spelled as a literal.
 constexpr const char * c_listed       = "abc";
-constexpr size_t       c_listedLength = char_traits<char>::length(c_listed);
+constexpr size_t       c_listedLength = std::char_traits<char>::length(c_listed);
 
 // Index of the first byte where the string differs from the count bytes of expected followed by a terminator; count + 1
 // when the size and every byte match.
