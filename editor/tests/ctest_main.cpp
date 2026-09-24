@@ -19,7 +19,7 @@
 //
 /*!
   \file   ctest_main.cpp
-  \brief  Entry point of the doctest build: applies the command line and runs the registered cases.
+  \brief  Entry point of the editor doctest build: applies the command line and runs the registered cases.
 */
 
 #define DOCTEST_CONFIG_IMPLEMENT
@@ -36,7 +36,7 @@ static bool assertionCallback(const char * message) noexcept {
   return true;
 }
 
-// One frame of a trace, so it reports a message rather than a second failure.
+// One frame of a stack trace: record it as a message so the walk adds no failures of its own.
 static void stackWalkCallback(const char * info) noexcept {
   ADD_MESSAGE_AT(__FILE__, __LINE__, info);
 }
