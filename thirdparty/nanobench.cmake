@@ -18,17 +18,24 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Microbenchmark library the benchmark runner builds on. One header carries the whole library, with the definitions
-# behind ANKERL_NANOBENCH_IMPLEMENT; benchmarks/runner/main.cpp is the only translation unit that defines it.
-#
-# The vendored copy keeps only the header and the license, dropping the upstream CMakeLists that declares a project of
-# its own and builds a 36-file test binary. thirdparty/README.md records the upstream commit.
+# Microbenchmark library for the benchmark runner. The whole library is one header, with the definitions behind
+# ANKERL_NANOBENCH_IMPLEMENT; benchmarks/runner/main.cpp is the only translation unit that defines it. The copy keeps
+# src/include/ and LICENSE and drops the upstream CMakeLists, which declares a project of its own and builds a 36-file
+# test binary. thirdparty/README.md records the upstream commit and the local patch.
 
 set(NANOBENCH_DIR ${CMAKE_CURRENT_LIST_DIR}/nanobench)
 
-add_library(nanobench INTERFACE)
+# The compiler finds the header through the include path; listing it puts the copy in the IDE's project tree.
+set(HDR_NANOBENCH_LIST
+  ${NANOBENCH_DIR}/src/include/nanobench.h
+)
 
-# SYSTEM keeps the project's warning flags off a header that is not ours to keep clean.
+add_library(nanobench INTERFACE ${HDR_NANOBENCH_LIST})
+
+# Keeps the vendored target out of the way in the Xcode and Visual Studio trees; other generators ignore it.
+set_target_properties(nanobench PROPERTIES FOLDER "thirdparty")
+
+# SYSTEM keeps the project's warnings off headers that are not ours.
 target_include_directories(nanobench SYSTEM INTERFACE ${NANOBENCH_DIR}/src/include)
 
 add_library(nanobench::nanobench ALIAS nanobench)
