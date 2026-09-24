@@ -1,0 +1,5 @@
+{
+    // Lints thirdparty/README.md but not vendored libraries or git-ignored files; rules live in .markdownlint.json.
+    "gitignore": true,
+    "ignores": ["thirdparty/*/**"]
+}
