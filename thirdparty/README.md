@@ -10,9 +10,8 @@ Please keep categories (`##` level) listed alphabetically and matching their res
 
 Files extracted from upstream source:
 
-- `include/` folder, minus the `dlg` subfolder
-- `src/` folder
-  - These files can be removed: `CMakeLists.txt`
+- `include/` folder, except `dlg/`
+- `src/` folder, except `utils/` (the CLI tools)
 - `COPYING`
 
 ## clownmdsdk
@@ -46,6 +45,22 @@ Files extracted from upstream source:
 - `scripts/cmake/doctestAddTests.cmake`
 - `LICENSE.txt`
 
+## libpng
+
+- Upstream: <https://github.com/pnggroup/libpng>
+- Version: v1.6.58 (3061454d980de7d53608f594194cfac722721d2a, 2026)
+- License: libpng-2.0
+
+Files extracted from upstream source:
+
+- `png*.c` and `png*.h`, except `pngtest.c`
+- `scripts/pnglibconf.h.prebuilt` as `pnglibconf.h`, unmodified; nothing regenerates it here
+- `arm/` folder, except `filter_neon.S`: the NEON path uses the intrinsics
+- `intel/` folder
+- `AUTHORS` and `LICENSE`
+
+The `loongarch/`, `mips/`, `powerpc/` and `riscv/` filters are left out: the editor targets x86 and ARM only.
+
 ## nanobench
 
 - Upstream: <https://github.com/martinus/nanobench>
@@ -60,6 +75,19 @@ Files extracted from upstream source:
 Local patches:
 
 - 0001-msvc-support
+
+## volk
+
+- Upstream: <https://github.com/zeux/volk>
+- Version: master, 1.4.362 (e640c6ea6420bdaf6248e85f736ab0b99491ae58, 2026)
+- License: MIT
+
+Files extracted from upstream source:
+
+- `volk.c` and `volk.h`
+- `LICENSE.md`
+
+`VOLK_HEADER_VERSION` in `volk.h` must match `VK_HEADER_VERSION` in the `vulkan` headers; update both together.
 
 ## vulkan
 

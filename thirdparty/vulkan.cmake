@@ -22,7 +22,6 @@
 # MoltenVK provides the ICD. The copy keeps include/ and LICENSES/ and drops the upstream CMakeLists, which would
 # install the headers and build the C++ module. thirdparty/README.md records the upstream tag.
 
-# volk locates the headers by this path rather than through Vulkan::Headers, so it is set before volk is configured.
 set(VULKAN_HEADERS_DIR ${CMAKE_CURRENT_LIST_DIR}/vulkan)
 
 # The compiler finds these through the include path; listing them puts the whole copy in the IDE's project tree.

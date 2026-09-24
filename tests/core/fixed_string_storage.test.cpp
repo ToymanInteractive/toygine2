@@ -36,7 +36,7 @@ using Storage = FixedStringStorage<c_allocatedSize>;
 
 // The literal the cases write. Its length is measured from the literal, not written out as a constant.
 constexpr const char * c_sample       = "player";
-constexpr size_t       c_sampleLength = char_traits<char>::length(c_sample);
+constexpr size_t       c_sampleLength = std::char_traits<char>::length(c_sample);
 
 // Length a shortened storage keeps, short enough to leave sample characters behind the new terminator.
 constexpr size_t c_shortLength = 2;

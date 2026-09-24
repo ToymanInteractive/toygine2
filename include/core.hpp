@@ -103,13 +103,6 @@ using std::min;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-// (lvl 1)               Strings library https://cppreference.com/cpp/string
-
-// https://cppreference.com/cpp/string/char_traits
-using std::char_traits;
-
-//--------------------------------------------------------------------------------------------------------------------
-
 // (lvl 1)               Text processing library https://cppreference.com/cpp/text
 // (lvl 2)               Null-terminated byte strings https://cppreference.com/cpp/string/byte
 

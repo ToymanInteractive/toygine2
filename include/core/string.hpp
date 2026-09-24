@@ -39,7 +39,7 @@ template <StringStorage storageType>
 class String {
 public:
   /// Character operations the string uses to measure its characters
-  using traits_type            = char_traits<char>;
+  using traits_type            = std::char_traits<char>;
   /// Type of the stored characters
   using value_type             = char;
   /// Unsigned type the length is measured in
