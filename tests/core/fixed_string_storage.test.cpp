@@ -104,6 +104,15 @@ struct ReserveResult {
   return storage.data()[index];
 }
 
+// Whether every byte of a default-constructed buffer is a null character, as constant evaluation guarantees.
+[[nodiscard]] constexpr bool defaultBufferIsNull() noexcept {
+  const Storage storage;
+
+  return std::ranges::all_of(storage.data(), storage.data() + c_allocatedSize, [](char character) {
+    return character == '\0';
+  });
+}
+
 // Storage the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
 constexpr Storage c_sampleStorage = sampleStorage();
 
@@ -119,7 +128,7 @@ TEST_CASE("fixed_string_storage/value_semantics") {
   static_assert(!std::is_aggregate_v<Storage>,
                 "the bytes and the length stay private, so no call site may brace-initialize them");
   static_assert(!std::is_trivially_default_constructible_v<Storage>,
-                "a default-constructed buffer fills itself with null characters, which is not a trivial default");
+                "a default-constructed buffer writes its terminator, which is not a trivial default");
 }
 
 // What a storage reports before anything is written into it.
@@ -130,14 +139,9 @@ TEST_CASE("fixed_string_storage/default_state") {
   CHECK(storage.data() != nullptr);
   CHECK(storage.data()[0] == '\0');
 
-  // Every byte starts as a null character, not only the one the terminator sits on.
-  size_t firstNonNull = 0;
-  while (firstNonNull <= storage.capacity() && storage.data()[firstNonNull] == '\0')
-    ++firstNonNull;
-  CHECK(firstNonNull == storage.capacity() + 1);
-
   static_assert(Storage().size() == 0, "a default-constructed storage holds no character");
   static_assert(Storage().data()[0] == '\0', "the buffer must read as an empty string before the first setSize()");
+  static_assert(defaultBufferIsNull(), "constant evaluation must leave no byte of the buffer indeterminate");
 }
 
 // The bound a length may not cross, and the byte the terminator claims out of the buffer.
