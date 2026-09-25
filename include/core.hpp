@@ -101,14 +101,6 @@ using std::uint64_t;
 // https://cppreference.com/cpp/algorithm/min
 using std::min;
 
-//--------------------------------------------------------------------------------------------------------------------
-
-// (lvl 1)               Text processing library https://cppreference.com/cpp/text
-// (lvl 2)               Null-terminated byte strings https://cppreference.com/cpp/string/byte
-
-// https://cppreference.com/cpp/string/byte/strncpy
-using std::strncpy;
-
 } // namespace toy
 
 //--------------------------------------------------------------------------------------------------------------------

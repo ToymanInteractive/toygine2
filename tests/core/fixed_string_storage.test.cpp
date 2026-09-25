@@ -178,6 +178,30 @@ template <typename StorageType>
   return storage;
 }
 
+// Storage filled to capacity with an alphabet cycle, long enough that a copy of it takes the length-based path.
+template <typename StorageType>
+constexpr void fillToCapacity(StorageType & storage) noexcept {
+  for (size_t index = 0; index < storage.capacity(); ++index)
+    storage.data()[index] = static_cast<char>('a' + (index % 26));
+  storage.setSize(storage.capacity());
+}
+
+// Index of the first byte where a storage differs from the alphabet cycle at capacity, capacity() + 1 on a full match.
+template <typename StorageType>
+[[nodiscard]] constexpr size_t fullDifference(const StorageType & storage) noexcept {
+  if (storage.size() != storage.capacity())
+    return 0;
+
+  size_t index = 0;
+  while (index < storage.capacity() && storage.data()[index] == static_cast<char>('a' + (index % 26)))
+    ++index;
+
+  if (index == storage.capacity() && storage.data()[index] == '\0')
+    ++index;
+
+  return index;
+}
+
 // Byte past the sample's terminator in a sentinel-filled storage after a copy assignment of the sample.
 template <typename StorageType>
 [[nodiscard]] constexpr char byteAfterCopyAssignment() noexcept {
@@ -187,6 +211,29 @@ template <typename StorageType>
   target = source;
 
   return target.data()[c_sampleLength + 1];
+}
+
+// Where a full storage, copy-assigned over a shorter one, first differs from the alphabet cycle.
+template <typename StorageType>
+[[nodiscard]] constexpr size_t fullCopyAssignedDifference() noexcept {
+  StorageType source;
+  fillToCapacity(source);
+
+  StorageType target = sampleStorage<StorageType>();
+  target             = source;
+
+  return fullDifference(target);
+}
+
+// Where a copy of a full storage first differs from the alphabet cycle.
+template <typename StorageType>
+[[nodiscard]] constexpr size_t fullCopyConstructedDifference() noexcept {
+  StorageType source;
+  fillToCapacity(source);
+
+  const StorageType copy(source);
+
+  return fullDifference(copy);
 }
 
 // Where a copy of the sample storage first differs from the sample.
@@ -345,6 +392,7 @@ TEST_CASE("fixed_string_storage/assignment") {
   CHECK(sampleDifference(selfAssigned<Storage>()) == c_sampleLength + 1);
   CHECK(sampleDifference(selfAssigned<LargeStorage>()) == c_sampleLength + 1);
 
+  CHECK(fullCopyAssignedDifference<LargeStorage>() == c_largeAllocatedSize);
   CHECK(byteAfterCopyAssignment<LargeStorage>() == c_sentinel);
 
   static_assert(sampleDifference(copyAssigned<Storage>()) == c_sampleLength + 1,
@@ -355,6 +403,8 @@ TEST_CASE("fixed_string_storage/assignment") {
                 "a length-based move assignment must reproduce the source");
   static_assert(sampleDifference(selfAssigned<LargeStorage>()) == c_sampleLength + 1,
                 "a length-based self-assignment must keep the contents");
+  static_assert(fullCopyAssignedDifference<LargeStorage>() == c_largeAllocatedSize,
+                "a full string must be copied by its length, terminator included");
   static_assert(byteAfterCopyAssignment<LargeStorage>() == c_sentinel,
                 "a length-based copy assignment must leave the bytes past the terminator as they were");
 }
@@ -365,6 +415,7 @@ TEST_CASE("fixed_string_storage/copy_construction") {
   CHECK(copyConstructedDifference<LargeStorage>() == c_sampleLength + 1);
   CHECK(moveConstructedDifference<Storage>() == c_sampleLength + 1);
   CHECK(moveConstructedDifference<LargeStorage>() == c_sampleLength + 1);
+  CHECK(fullCopyConstructedDifference<LargeStorage>() == c_largeAllocatedSize);
 
   static_assert(copyConstructedDifference<Storage>() == c_sampleLength + 1,
                 "a whole-object copy construction must reproduce the source");
@@ -372,6 +423,8 @@ TEST_CASE("fixed_string_storage/copy_construction") {
                 "a length-based copy construction must reproduce the source and its terminator");
   static_assert(moveConstructedDifference<LargeStorage>() == c_sampleLength + 1,
                 "a length-based move construction must reproduce the source");
+  static_assert(fullCopyConstructedDifference<LargeStorage>() == c_largeAllocatedSize,
+                "a full string must be copied by its length, terminator included");
 }
 
 // The storage contract a string constrains on, and which buffers meet it.

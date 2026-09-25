@@ -86,7 +86,7 @@ bool assertion(const char * code, const char * message, const char * fileName, c
 #if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
     strcpy_s(&assertionString[c_stringBufferSize - truncationLength], truncationLength, truncationMessage);
 #else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    strncpy(&assertionString[c_stringBufferSize - truncationLength], truncationMessage, truncationLength);
+    std::strncpy(&assertionString[c_stringBufferSize - truncationLength], truncationMessage, truncationLength);
     assertionString[c_stringBufferSize - 1] = '\0';
 #endif
   }

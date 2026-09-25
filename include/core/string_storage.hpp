@@ -82,7 +82,7 @@ namespace toy {
     }
 
     storage.setSize(length);
-    toy::strncpy(storage.data(), text, length);
+    std::strncpy(storage.data(), text, length);
 
     return true;
   }
