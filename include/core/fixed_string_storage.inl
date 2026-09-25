@@ -30,6 +30,15 @@
 namespace toy {
 
 template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage() noexcept {
+  if consteval {
+    std::ranges::fill(_buffer, '\0');
+  } else {
+    _buffer[0] = '\0';
+  }
+}
+
+template <size_t AllocatedSize>
 constexpr char * FixedStringStorage<AllocatedSize>::data() noexcept {
   return _buffer;
 }

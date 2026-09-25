@@ -72,7 +72,7 @@ namespace toy {
 
   \section fixed_string_storage_performance Performance Characteristics
 
-  * **Default construction**: O(n) in \a AllocatedSize; the buffer starts filled with null characters.
+  * **Default construction**: O(1); only the first byte is written, except in constant evaluation.
   * **Access and length**: O(1) for data(), capacity(), size(), and setSize().
   * **Memory usage**: \a AllocatedSize bytes of characters and one length field, the object aligned as \c size_t.
 
@@ -86,8 +86,8 @@ namespace toy {
   * **Type safety**: an \a AllocatedSize of \c 0 fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \note A default-constructed buffer holds null characters throughout, so data() reads as an empty string before the
-        first setSize().
+  \note A default-constructed buffer starts with the terminator, so data() reads as an empty string before the first
+        setSize().
   \note The bytes between size() and capacity() keep whatever was written there; a shorter length moves the terminator
         and clears nothing.
 
@@ -98,6 +98,20 @@ class FixedStringStorage {
   static_assert(AllocatedSize > 0, "FixedStringStorage capacity must be greater than zero.");
 
 public:
+  /*!
+    \brief Builds an empty buffer.
+
+    Writes the terminator into the first byte and leaves the rest of the buffer uninitialized, so construction costs
+    the same for any \a AllocatedSize. A constant expression may hold no indeterminate byte, so constant evaluation
+    fills the whole buffer with null characters instead.
+
+    \post size() returns \c 0, and data() points at \c '\\0'.
+    \post The bytes past the terminator are indeterminate outside constant evaluation.
+
+    \sa setSize()
+  */
+  constexpr FixedStringStorage() noexcept;
+
   /*!
     \brief Returns the pointer to the buffer for writing.
 
@@ -187,7 +201,7 @@ public:
 
 private:
   /// Characters of the string, the terminator, and the bytes past it
-  char _buffer[AllocatedSize] = {'\0'};
+  char _buffer[AllocatedSize];
 
   /// Length of the string in bytes, the terminator excluded
   size_t _size{0};
