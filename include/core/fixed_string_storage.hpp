@@ -111,9 +111,9 @@ public:
   /*!
     \brief Builds an empty buffer.
 
-    Writes the terminator into the first byte and leaves the rest of the buffer uninitialized, so construction costs
-    the same for any \a AllocatedSize. A constant expression may hold no indeterminate byte, so constant evaluation
-    fills the whole buffer with null characters instead.
+    Writes the terminator into the first byte and leaves the rest of the buffer uninitialized, so construction costs the
+    same for any \a AllocatedSize. A constant expression may hold no indeterminate byte, so constant evaluation fills
+    the whole buffer with null characters instead.
 
     \post size() returns \c 0, and data() points at \c '\\0'.
     \post The bytes past the terminator are indeterminate outside constant evaluation.
@@ -137,8 +137,8 @@ public:
   /*!
     \brief Builds a copy of the characters of \a other.
 
-    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters
-    and the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
+    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters and
+    the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
 
     \param other Storage to copy.
 
@@ -193,8 +193,8 @@ public:
   /*!
     \brief Replaces the contents with a copy of the characters of \a other.
 
-    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters
-    and the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
+    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters and
+    the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
 
     \param other Storage to copy.
 

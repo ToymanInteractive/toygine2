@@ -136,8 +136,8 @@ public:
 
     \post size() returns the length of \a range, and c_str() reads its characters followed by \c '\\0'.
 
-    \note Declared only where the standard library defines \c __cpp_lib_ranges_to_container; a freestanding
-          libstdc++, as on Sega MD, does not.
+    \note Declared only where the standard library defines \c __cpp_lib_ranges_to_container; a freestanding libstdc++,
+          as on Sega MD, does not.
 
     \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects the length
              of \a range.
@@ -160,8 +160,8 @@ public:
 
     \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
     \pre The \a count bytes starting at \a string are readable.
-    \pre The storage accepts \a count, checked by assert_message in debug builds; for \ref toy::FixedString,
-         \a count is below the buffer size.
+    \pre The storage accepts \a count, checked by assert_message in debug builds; for \ref toy::FixedString, \a count is
+         below the buffer size.
 
     \post size() returns \a count, and c_str() reads the copied bytes followed by \c '\\0'.
 
@@ -236,8 +236,8 @@ public:
     \pre \a pos is not greater than the length of \a string, checked by assert_message in debug builds.
     \pre The storage accepts the length of the substring, as String(const char *, size_t) requires.
 
-    \post size() returns the smaller of \a count and the length of \a string minus \a pos, and c_str() reads those
-          bytes followed by \c '\\0'.
+    \post size() returns the smaller of \a count and the length of \a string minus \a pos, and c_str() reads those bytes
+          followed by \c '\\0'.
 
     \warning A shipping build skips the checks and leaves the string empty when \a pos is past the end of \a string or
              the storage rejects the substring, where \c std::basic_string throws \c std::out_of_range or
@@ -453,8 +453,8 @@ public:
 
     \post size() returns \a count, and every character before the terminator equals \a ch.
 
-    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects \a
-    count, where \c std::basic_string throws \c std::length_error.
+    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects
+             \a count, where \c std::basic_string throws \c std::length_error.
 
     \sa operator=(char)
   */
@@ -503,8 +503,8 @@ public:
 
     \post size() returns \a count, and c_str() reads the copied bytes followed by \c '\\0'.
 
-    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects \a
-    count, where \c std::basic_string throws \c std::length_error.
+    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects
+             \a count, where \c std::basic_string throws \c std::length_error.
 
     \sa assign(const char *)
   */
@@ -535,8 +535,8 @@ public:
     measured first and copied in one step; a single-pass range is read one character at a time and checked against the
     storage whenever the buffer fills.
 
-    \tparam InputIterator Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its
-                          own \c std::sentinel_for.
+    \tparam InputIterator Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its own
+                          \c std::sentinel_for.
 
     \param first Iterator to the first character to copy.
     \param last  Iterator past the last character to copy.
@@ -611,8 +611,8 @@ public:
     \pre \a pos is not greater than the length of \a string, checked by assert_message in debug builds.
     \pre The storage accepts the length of the substring, as assign(const char *, size_t) requires.
 
-    \post size() returns the smaller of \a count and the length of \a string minus \a pos, and c_str() reads those
-          bytes followed by \c '\\0'.
+    \post size() returns the smaller of \a count and the length of \a string minus \a pos, and c_str() reads those bytes
+          followed by \c '\\0'.
 
     \warning A shipping build skips the checks and leaves the string unchanged when \a pos is past the end of \a string
              or the storage rejects the substring, where \c std::basic_string throws \c std::out_of_range or
@@ -749,8 +749,7 @@ private:
   Allocates nothing, so the type works on targets without a heap.
 
   \tparam Capacity Size of the buffer in bytes, the terminator included; the string holds at most \a Capacity \c - \c 1
-                   characters. Must be greater than \c 0, checked by a static assertion in
-                   \ref toy::FixedStringStorage.
+                   characters. Must be greater than \c 0, checked by a static assertion in \ref toy::FixedStringStorage.
 
   \sa \ref toy::String
 */

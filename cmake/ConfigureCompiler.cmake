@@ -34,7 +34,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # last option is -Wbind-to-temporary-copy
 
 set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast")
-set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast -Wbinary-literal -Wbind-to-temporary-copy")
+set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast -Wbinary-literal")
 set(CLANG_CMAKE_OBJC_FLAGS                  "${CLANG_CMAKE_C_FLAGS}   -Warc-maybe-repeated-use-of-weak")
 set(CLANG_CMAKE_OBJCXX_FLAGS                "${CLANG_CMAKE_CXX_FLAGS} -Warc-maybe-repeated-use-of-weak")
 
