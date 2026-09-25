@@ -30,6 +30,55 @@
 namespace toy {
 
 template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage() noexcept {
+  if consteval {
+    std::ranges::fill(_buffer, '\0');
+  } else {
+    _buffer[0] = '\0';
+  }
+
+  static_assert(sizeof(FixedStringStorage) == _objectSize, "_objectSize must match the layout the compiler chose");
+}
+
+template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage(const FixedStringStorage & other) noexcept
+  requires(_copiesByLength)
+  : _size(other._size) {
+  if consteval {
+    // A constant expression may hold no indeterminate byte, so the tail the copy skips is cleared first.
+    std::ranges::fill(_buffer, '\0');
+  }
+
+  std::char_traits<char>::copy(_buffer, other._buffer, other._size + 1);
+}
+
+template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage(FixedStringStorage && other) noexcept
+  requires(_copiesByLength)
+  : FixedStringStorage(other) {}
+
+template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize> & FixedStringStorage<AllocatedSize>::operator=(
+  const FixedStringStorage & other
+) noexcept
+  requires(_copiesByLength) {
+  if (this != &other) {
+    std::char_traits<char>::copy(_buffer, other._buffer, other._size + 1);
+    _size = other._size;
+  }
+
+  return *this;
+}
+
+template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize> & FixedStringStorage<AllocatedSize>::operator=(
+  FixedStringStorage && other
+) noexcept
+  requires(_copiesByLength) {
+  return *this = other;
+}
+
+template <size_t AllocatedSize>
 constexpr char * FixedStringStorage<AllocatedSize>::data() noexcept {
   return _buffer;
 }

@@ -101,14 +101,6 @@ using std::uint64_t;
 // https://cppreference.com/cpp/algorithm/min
 using std::min;
 
-//--------------------------------------------------------------------------------------------------------------------
-
-// (lvl 1)               Text processing library https://cppreference.com/cpp/text
-// (lvl 2)               Null-terminated byte strings https://cppreference.com/cpp/string/byte
-
-// https://cppreference.com/cpp/string/byte/strncpy
-using std::strncpy;
-
 } // namespace toy
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -117,6 +109,12 @@ using std::strncpy;
   \namespace toy::log
 
   \brief Logging module: the severity levels a log call carries.
+*/
+
+/*!
+  \namespace toy::platform
+
+  \brief Constants whose values the active target platform supplies.
 */
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -221,6 +219,7 @@ using std::strncpy;
 #include "core/fixed_string_storage.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
+#include "core/platform.hpp"
 #include "core/string.hpp"
 #include "core/string_like.hpp"
 #include "core/string_storage.hpp"

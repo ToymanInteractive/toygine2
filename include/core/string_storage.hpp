@@ -54,7 +54,7 @@ namespace toy {
   * \c storage.reserve(\a newSize) has type \c bool.
   * \c storage.setSize(\a newSize) has type \c void.
 
-  The expression checks the shape of those six members and nothing else. Four further guarantees belong to the storage
+  The expression checks the shape of those six members and nothing else. Seven further guarantees belong to the storage
   type, and a type that breaks them still compiles:
 
   * Neither data() overload returns \c nullptr, and both point at the same bytes.
@@ -62,6 +62,11 @@ namespace toy {
   * setSize() records the length and writes that terminator, and touches no other character.
   * reserve() answers \c true only when a following setSize() of that length is within contract, and a \c false one
     leaves the storage as it was.
+  * data() points at capacity() + 1 writable bytes, so a caller may write characters up to capacity() before it calls
+    setSize().
+  * A \c true reserve() keeps the first size() characters, moving them along when it grows the buffer.
+  * reserve() of a length no greater than capacity() keeps the buffer where it is, so a pointer into the characters
+    stays valid across the call.
 
   \section string_storage_usage Usage Example
 
@@ -77,7 +82,7 @@ namespace toy {
     }
 
     storage.setSize(length);
-    toy::strncpy(storage.data(), text, length);
+    std::strncpy(storage.data(), text, length);
 
     return true;
   }

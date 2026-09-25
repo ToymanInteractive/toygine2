@@ -19,7 +19,7 @@
 //
 /*!
   \file   string.test.cpp
-  \brief  Unit tests for \ref toy::String constructors.
+  \brief  Unit tests for \ref toy::String constructors and assignment.
 */
 
 #include "core.hpp"
@@ -152,17 +152,19 @@ static_assert(std::input_iterator<UncomparableIterator>
 }
 
 // Where a copy of the sample string first differs from the sample.
+template <typename StringType = Fixed>
 [[nodiscard]] constexpr size_t copiedDifference() noexcept {
-  const Fixed source(c_sample);
-  const Fixed copy(source);
+  const StringType source(c_sample);
+  const StringType copy(source);
 
   return firstDifference(copy, c_sample, c_sampleLength);
 }
 
 // Where a string moved from the sample string first differs from the sample.
+template <typename StringType = Fixed>
 [[nodiscard]] constexpr size_t movedDifference() noexcept {
-  Fixed       source(c_sample);
-  const Fixed moved(std::move(source));
+  StringType       source(c_sample);
+  const StringType moved(std::move(source));
 
   return firstDifference(moved, c_sample, c_sampleLength);
 }
@@ -173,6 +175,94 @@ static_assert(std::input_iterator<UncomparableIterator>
   const Fixed tail(source, c_substringOffset);
 
   return firstDifference(tail, c_sample + c_substringOffset, c_tailLength);
+}
+
+// Buffer large enough that assignment copies only the characters in use, the path Fixed does not take.
+constexpr size_t c_largeAllocatedSize = 256;
+
+using Large = FixedString<c_largeAllocatedSize>;
+
+static_assert(sizeof(Fixed) <= platform::c_inlineCopyMaxBytes,
+              "Fixed must copy its whole object on every target, so the assignment cases reach that path");
+static_assert(sizeof(Large) > platform::c_inlineCopyMaxBytes,
+              "Large must copy by length on every target, so the assignment cases reach that path");
+
+// String holding a value longer than the sample, so an assignment of the sample has to move the terminator.
+template <typename StringType>
+[[nodiscard]] constexpr StringType longerThanSample() noexcept {
+  return StringType(c_long, c_capacity);
+}
+
+// Where a string holding a longer value, then copy-assigned the sample string, first differs from the sample.
+template <typename StringType>
+[[nodiscard]] constexpr size_t copyAssignedDifference() noexcept {
+  const StringType source(c_sample);
+  StringType       target = longerThanSample<StringType>();
+  target                  = source;
+
+  return firstDifference(target, c_sample, c_sampleLength);
+}
+
+// Where a string holding a longer value, then move-assigned the sample string, first differs from the sample.
+template <typename StringType>
+[[nodiscard]] constexpr size_t moveAssignedDifference() noexcept {
+  StringType source(c_sample);
+  StringType target = longerThanSample<StringType>();
+  target            = std::move(source);
+
+  return firstDifference(target, c_sample, c_sampleLength);
+}
+
+// Where the sample string, assigned to itself through an alias, first differs from the sample.
+template <typename StringType>
+[[nodiscard]] constexpr size_t selfAssignedDifference() noexcept {
+  StringType         string(c_sample);
+  const StringType & alias = string;
+  string                   = alias;
+
+  return firstDifference(string, c_sample, c_sampleLength);
+}
+
+// Where the sample string, assigned a substring of itself, first differs from that substring.
+[[nodiscard]] constexpr size_t selfSubstringDifference() noexcept {
+  Fixed string(c_sample);
+  string.assign(string, c_substringOffset, c_substringLength);
+
+  return firstDifference(string, c_sample + c_substringOffset, c_substringLength);
+}
+
+// Where the sample string, assigned counted bytes from inside its own buffer, first differs from those bytes.
+[[nodiscard]] constexpr size_t selfPointerDifference() noexcept {
+  Fixed string(c_sample);
+  string.assign(string.c_str() + c_substringOffset, c_substringLength);
+
+  return firstDifference(string, c_sample + c_substringOffset, c_substringLength);
+}
+
+// Where the sample string, assigned a view of its own tail as a range, first differs from that tail.
+[[nodiscard]] constexpr size_t selfRangeDifference() noexcept {
+  Fixed string(c_sample);
+  string.assign_range(StringView{string.c_str() + c_substringOffset});
+
+  return firstDifference(string, c_sample + c_substringOffset, c_tailLength);
+}
+
+// Where a string holding a longer value, then assigned a single-pass range over the sample, first differs from it.
+[[nodiscard]] constexpr size_t singlePassAssignedDifference() noexcept {
+  Fixed string = longerThanSample<Fixed>();
+  string.assign(SinglePassIterator(c_sample), SinglePassIterator(c_sample + c_sampleLength));
+
+  return firstDifference(string, c_sample, c_sampleLength);
+}
+
+// Where a string holding a longer value, then assigned a single-pass range with assign_range(), first differs from it.
+[[nodiscard]] constexpr size_t singlePassRangeDifference() noexcept {
+  const std::ranges::subrange range(SinglePassIterator(c_sample), SinglePassIterator(c_sample + c_sampleLength));
+
+  Fixed string = longerThanSample<Fixed>();
+  string.assign_range(range);
+
+  return firstDifference(string, c_sample, c_sampleLength);
 }
 
 } // namespace
@@ -345,8 +435,11 @@ TEST_CASE("string/construction_copy") {
 
   CHECK(copy.c_str() != source.c_str());
   CHECK(firstDifference(copy, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(copiedDifference<Large>() == c_sampleLength + 1);
 
   static_assert(copiedDifference() == c_sampleLength + 1, "a copy must hold every byte of its source");
+  static_assert(copiedDifference<Large>() == c_sampleLength + 1,
+                "a copy that takes only the characters in use must still hold every one of them");
 }
 
 // A moved-to string holds the characters its source held.
@@ -355,8 +448,11 @@ TEST_CASE("string/construction_move") {
   const Fixed moved(std::move(source));
 
   CHECK(firstDifference(moved, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(movedDifference<Large>() == c_sampleLength + 1);
 
   static_assert(movedDifference() == c_sampleLength + 1, "a moved-to string must hold every byte of its source");
+  static_assert(movedDifference<Large>() == c_sampleLength + 1,
+                "a move that takes only the characters in use must still hold every one of them");
 }
 
 // A substring of an rvalue string moves the kept bytes to the front of the storage it takes over.
@@ -403,6 +499,10 @@ TEST_CASE("string/construction_signatures") {
                 "a substring construction must not throw");
   static_assert(std::is_nothrow_copy_constructible_v<Fixed>, "copying a string must not throw");
   static_assert(std::is_nothrow_move_constructible_v<Fixed>, "moving a string must not throw");
+  static_assert(std::is_trivially_copy_constructible_v<Fixed>,
+                "a small string must keep the trivial copy construction");
+  static_assert(!std::is_trivially_copy_constructible_v<Large>,
+                "a large string must copy only the characters in use on construction");
   static_assert(std::is_nothrow_constructible_v<Fixed, Fixed &&, size_t, size_t>,
                 "a moved-from substring construction must not throw");
   static_assert(std::is_nothrow_destructible_v<Fixed>, "destroying a string must not throw");
@@ -420,6 +520,267 @@ TEST_CASE("string/construction_signatures") {
                 "an iterator range must hold characters, not values that merely convert to char");
   static_assert(!std::is_constructible_v<Fixed, UncomparableIterator, UncomparableIterator>,
                 "an iterator pair must be comparable, so the constructor can find the end of the range");
+}
+
+// A fill assignment writes count copies of a character; zero empties the string, and a single char is a fill of one.
+TEST_CASE("string/assignment_fill") {
+  Fixed filled = longerThanSample<Fixed>();
+  filled.assign(c_fillCount, c_fillCharacter);
+  CHECK(firstDifference(filled, c_filled, c_fillCount) == c_fillCount + 1);
+
+  Fixed emptied = longerThanSample<Fixed>();
+  emptied.assign(0, c_fillCharacter);
+  CHECK(emptied.size() == 0);
+  CHECK(*emptied.c_str() == '\0');
+
+  Fixed single = longerThanSample<Fixed>();
+  single       = c_fillCharacter;
+  CHECK(firstDifference(single, c_filled, 1) == 2);
+
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(c_fillCount, c_fillCharacter), c_filled, c_fillCount)
+                  == c_fillCount + 1,
+                "a fill assignment must write count copies of the character and terminate them");
+  static_assert(longerThanSample<Fixed>().assign(0, c_fillCharacter).size() == 0,
+                "a fill count of zero must empty the string");
+  static_assert(firstDifference(longerThanSample<Fixed>() = c_fillCharacter, c_filled, 1) == 2,
+                "a character must assign as a fill of one");
+}
+
+// A pointer assignment copies a C string whole, or exactly count bytes of a counted one, embedded nulls included.
+TEST_CASE("string/assignment_from_pointer") {
+  Fixed measured = longerThanSample<Fixed>();
+  measured       = c_sample;
+  CHECK(firstDifference(measured, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(measured.c_str() != c_sample);
+
+  Fixed prefix = longerThanSample<Fixed>();
+  prefix.assign(c_sample, c_prefixLength);
+  CHECK(firstDifference(prefix, c_sample, c_prefixLength) == c_prefixLength + 1);
+
+  Fixed embedded = longerThanSample<Fixed>();
+  embedded.assign(c_embeddedNull, c_embeddedNullLength);
+  CHECK(firstDifference(embedded, c_embeddedNull, c_embeddedNullLength) == c_embeddedNullLength + 1);
+
+  Fixed fromNull = longerThanSample<Fixed>();
+  fromNull.assign(nullptr, 0);
+  CHECK(fromNull.size() == 0);
+
+  static_assert(firstDifference(longerThanSample<Fixed>() = c_sample, c_sample, c_sampleLength) == c_sampleLength + 1,
+                "a null-terminated source must be copied whole");
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(c_sample), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "assign() must copy a null-terminated source as operator= does");
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(c_sample, c_prefixLength), c_sample, c_prefixLength)
+                  == c_prefixLength + 1,
+                "a counted assignment must copy the prefix and terminate it");
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(c_embeddedNull, c_embeddedNullLength), c_embeddedNull,
+                                c_embeddedNullLength)
+                  == c_embeddedNullLength + 1,
+                "a null byte inside the range must not end the copy");
+  static_assert(longerThanSample<Fixed>().assign(nullptr, 0).size() == 0,
+                "a null pointer with a count of zero must empty the string");
+}
+
+// A string-like source, a view or a string over another storage, is copied whole by operator= and assign() alike.
+TEST_CASE("string/assignment_from_string_like") {
+  Fixed fromView = longerThanSample<Fixed>();
+  fromView       = StringView{c_sample};
+  CHECK(firstDifference(fromView, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  const Wide wide(c_sample);
+  Fixed      fromWide = longerThanSample<Fixed>();
+  fromWide.assign(wide);
+  CHECK(firstDifference(fromWide, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(firstDifference(longerThanSample<Fixed>() = StringView{c_sample}, c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a view must be copied whole");
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(Wide(c_sample)), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a string over another storage must be copied whole");
+}
+
+// A substring assignment starts at the offset, takes at most count bytes, and stops at the end of the source.
+TEST_CASE("string/assignment_substring") {
+  const StringView view{c_sample};
+
+  Fixed bounded = longerThanSample<Fixed>();
+  bounded.assign(view, c_substringOffset, c_substringLength);
+  CHECK(firstDifference(bounded, c_sample + c_substringOffset, c_substringLength) == c_substringLength + 1);
+
+  Fixed tail = longerThanSample<Fixed>();
+  tail.assign(Wide(c_sample), c_substringOffset);
+  CHECK(firstDifference(tail, c_sample + c_substringOffset, c_tailLength) == c_tailLength + 1);
+
+  Fixed atEnd = longerThanSample<Fixed>();
+  atEnd.assign(view, c_sampleLength);
+  CHECK(atEnd.size() == 0);
+
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(StringView{c_sample}, c_substringOffset,
+                                                                 c_substringLength),
+                                c_sample + c_substringOffset, c_substringLength)
+                  == c_substringLength + 1,
+                "a substring must take count bytes from the offset");
+  static_assert(longerThanSample<Fixed>().assign(StringView{c_sample}, c_substringOffset).size() == c_tailLength,
+                "an offset alone must take the rest of the source");
+  static_assert(longerThanSample<Fixed>().assign(StringView{c_sample}, c_sampleLength).size() == 0,
+                "an offset at the end of the source must empty the string");
+}
+
+// An iterator range replaces the contents whole, whether the iterators allow several passes or one.
+TEST_CASE("string/assignment_from_iterators") {
+  Fixed fromPointers = longerThanSample<Fixed>();
+  fromPointers.assign(c_sample, c_sample + c_sampleLength);
+  CHECK(firstDifference(fromPointers, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed fromEmpty = longerThanSample<Fixed>();
+  fromEmpty.assign(c_sample, c_sample);
+  CHECK(fromEmpty.size() == 0);
+
+  CHECK(singlePassAssignedDifference() == c_sampleLength + 1);
+
+  static_assert(firstDifference(longerThanSample<Fixed>().assign(c_sample, c_sample + c_sampleLength), c_sample,
+                                c_sampleLength)
+                  == c_sampleLength + 1,
+                "a forward range must replace the contents whole");
+  static_assert(singlePassAssignedDifference() == c_sampleLength + 1,
+                "a single-pass range must replace the contents whole");
+}
+
+// assign_range() replaces the contents with a range, contiguous or single-pass.
+TEST_CASE("string/assignment_from_range") {
+  Fixed fromView = longerThanSample<Fixed>();
+  fromView.assign_range(StringView{c_sample});
+  CHECK(firstDifference(fromView, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  CHECK(singlePassRangeDifference() == c_sampleLength + 1);
+
+  static_assert(firstDifference(longerThanSample<Fixed>().assign_range(StringView{c_sample}), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a contiguous range must replace the contents whole");
+  static_assert(singlePassRangeDifference() == c_sampleLength + 1,
+                "a single-pass range must replace the contents whole");
+}
+
+// A braced list replaces the contents character by character, through operator= and assign() alike.
+TEST_CASE("string/assignment_from_initializer_list") {
+  Fixed string = longerThanSample<Fixed>();
+  string       = {'a', 'b', 'c'};
+  CHECK(firstDifference(string, c_listed, c_listedLength) == c_listedLength + 1);
+
+  static_assert(firstDifference(longerThanSample<Fixed>() = {'a', 'b', 'c'}, c_listed, c_listedLength)
+                  == c_listedLength + 1,
+                "a list must be copied character by character");
+  static_assert(firstDifference(longerThanSample<Fixed>().assign({'a', 'b', 'c'}), c_listed, c_listedLength)
+                  == c_listedLength + 1,
+                "assign() must copy a list as operator= does");
+}
+
+// A copy assignment reproduces the source, whether the storage copies its whole object or only the characters in use.
+TEST_CASE("string/assignment_copy") {
+  CHECK(copyAssignedDifference<Fixed>() == c_sampleLength + 1);
+  CHECK(copyAssignedDifference<Large>() == c_sampleLength + 1);
+
+  const Large source(c_sample);
+  Large       target = longerThanSample<Large>();
+  target.assign(source);
+  CHECK(firstDifference(target, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(target.c_str() != source.c_str());
+
+  static_assert(copyAssignedDifference<Fixed>() == c_sampleLength + 1,
+                "a whole-object copy assignment must reproduce the source");
+  static_assert(copyAssignedDifference<Large>() == c_sampleLength + 1,
+                "a length-based copy assignment must reproduce the source and move the terminator");
+}
+
+// A move assignment leaves the target holding what the source held, over either copy path.
+TEST_CASE("string/assignment_move") {
+  CHECK(moveAssignedDifference<Fixed>() == c_sampleLength + 1);
+  CHECK(moveAssignedDifference<Large>() == c_sampleLength + 1);
+
+  Large source(c_sample);
+  Large target = longerThanSample<Large>();
+  target.assign(std::move(source));
+  CHECK(firstDifference(target, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(moveAssignedDifference<Fixed>() == c_sampleLength + 1,
+                "a whole-object move assignment must reproduce the source");
+  static_assert(moveAssignedDifference<Large>() == c_sampleLength + 1,
+                "a length-based move assignment must reproduce the source");
+}
+
+// A source inside the string itself, the whole string or a part of it, survives the assignment that reads it.
+TEST_CASE("string/assignment_from_itself") {
+  CHECK(selfAssignedDifference<Fixed>() == c_sampleLength + 1);
+  CHECK(selfAssignedDifference<Large>() == c_sampleLength + 1);
+  CHECK(selfSubstringDifference() == c_substringLength + 1);
+  CHECK(selfPointerDifference() == c_substringLength + 1);
+  CHECK(selfRangeDifference() == c_tailLength + 1);
+
+  static_assert(selfAssignedDifference<Fixed>() == c_sampleLength + 1,
+                "a whole-object self-assignment must keep the contents");
+  static_assert(selfAssignedDifference<Large>() == c_sampleLength + 1,
+                "a length-based self-assignment must keep the contents");
+  static_assert(selfSubstringDifference() == c_substringLength + 1, "a substring of the string itself must survive");
+  static_assert(selfPointerDifference() == c_substringLength + 1,
+                "bytes read from the string's own buffer must survive");
+  static_assert(selfRangeDifference() == c_tailLength + 1, "a view of the string's own tail must survive");
+}
+
+#if !defined(_DEBUG)
+// Without the debug checks a rejected assignment keeps the old contents; a single-pass range, already written, empties.
+TEST_CASE("string/assignment_rejected") {
+  Fixed filled(c_sample);
+  filled.assign(c_capacity + 1, c_fillCharacter);
+  CHECK(firstDifference(filled, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed counted(c_sample);
+  counted.assign(c_long, c_longLength);
+  CHECK(firstDifference(counted, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed pastEnd(c_sample);
+  pastEnd.assign(StringView{c_long}, c_longLength + 1);
+  CHECK(firstDifference(pastEnd, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed forward(c_sample);
+  forward.assign(c_long, c_long + c_longLength);
+  CHECK(firstDifference(forward, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed singlePass(c_sample);
+  singlePass.assign(SinglePassIterator(c_long), SinglePassIterator(c_long + c_longLength));
+  CHECK(singlePass.size() == 0);
+
+  static_assert(firstDifference(Fixed(c_sample).assign(c_capacity + 1, c_fillCharacter), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a rejected fill must keep the old contents");
+  static_assert(firstDifference(Fixed(c_sample).assign(c_long, c_longLength), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a rejected counted copy must keep the old contents");
+  static_assert(firstDifference(Fixed(c_sample).assign(StringView{c_long}, c_longLength + 1), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "an offset past the end must keep the old contents");
+}
+#endif // !_DEBUG
+
+// Which assignments a call site may write, which never throw, which stay trivial, and which the type system rejects.
+TEST_CASE("string/assignment_signatures") {
+  static_assert(std::is_nothrow_copy_assignable_v<Fixed> && std::is_nothrow_move_assignable_v<Fixed>,
+                "copying or moving a string into another must not throw");
+  static_assert(std::is_nothrow_copy_assignable_v<Large> && std::is_nothrow_move_assignable_v<Large>,
+                "a length-based copy must not throw either");
+  static_assert(std::is_nothrow_assignable_v<Fixed &, const char *>, "a pointer assignment must not throw");
+  static_assert(std::is_nothrow_assignable_v<Fixed &, char>, "a character assignment must not throw");
+
+  static_assert(std::is_trivially_copy_assignable_v<Fixed>, "a small string must keep the trivial copy assignment");
+  static_assert(!std::is_trivially_copy_assignable_v<Large>, "a large string must copy only the characters in use");
+
+  static_assert(std::is_assignable_v<Fixed &, StringView>,
+                "a view must assign without a cast, as std::basic_string allows, although it cannot construct one");
+  static_assert(std::is_assignable_v<Fixed &, Wide>, "a string over another storage must assign without a cast");
+  static_assert(std::is_assignable_v<Fixed &, std::initializer_list<char>>, "a braced list must assign");
+
+  static_assert(!std::is_assignable_v<Fixed &, nullptr_t>,
+                "the deleted overload must reject a literal nullptr during compilation");
 }
 
 } // namespace toy

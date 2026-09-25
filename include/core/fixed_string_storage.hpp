@@ -31,6 +31,8 @@
 #ifndef INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
 #define INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
 
+#include "platform.hpp"
+
 namespace toy {
 
 /*!
@@ -72,8 +74,9 @@ namespace toy {
 
   \section fixed_string_storage_performance Performance Characteristics
 
-  * **Default construction**: O(n) in \a AllocatedSize; the buffer starts filled with null characters.
+  * **Default construction**: O(1); only the first byte is written, except in constant evaluation.
   * **Access and length**: O(1) for data(), capacity(), size(), and setSize().
+  * **Copy and assignment**: a whole-object copy up to \ref toy::platform::c_inlineCopyMaxBytes, O(size()) above it.
   * **Memory usage**: \a AllocatedSize bytes of characters and one length field, the object aligned as \c size_t.
 
   \section fixed_string_storage_safety Safety Guarantees
@@ -86,8 +89,8 @@ namespace toy {
   * **Type safety**: an \a AllocatedSize of \c 0 fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \note A default-constructed buffer holds null characters throughout, so data() reads as an empty string before the
-        first setSize().
+  \note A default-constructed buffer starts with the terminator, so data() reads as an empty string before the first
+        setSize().
   \note The bytes between size() and capacity() keep whatever was written there; a shorter length moves the terminator
         and clears nothing.
 
@@ -97,7 +100,147 @@ template <size_t AllocatedSize>
 class FixedStringStorage {
   static_assert(AllocatedSize > 0, "FixedStringStorage capacity must be greater than zero.");
 
+  /// Bytes the object occupies: the buffer padded to the alignment of the length, then the length
+  static constexpr size_t _objectSize = (AllocatedSize + alignof(size_t) - 1) / alignof(size_t) * alignof(size_t)
+                                        + sizeof(size_t);
+
+  /// Whether copies and assignments take only the characters in use rather than the whole object
+  static constexpr bool _copiesByLength = _objectSize > platform::c_inlineCopyMaxBytes;
+
 public:
+  /*!
+    \brief Builds an empty buffer.
+
+    Writes the terminator into the first byte and leaves the rest of the buffer uninitialized, so construction costs the
+    same for any \a AllocatedSize. A constant expression may hold no indeterminate byte, so constant evaluation fills
+    the whole buffer with null characters instead.
+
+    \post size() returns \c 0, and data() points at \c '\\0'.
+    \post The bytes past the terminator are indeterminate outside constant evaluation.
+
+    \sa setSize()
+  */
+  constexpr FixedStringStorage() noexcept;
+
+  /*!
+    \brief Builds a copy of \a other byte for byte, the buffer past the terminator included.
+
+    Selected while the object is no larger than \ref toy::platform::c_inlineCopyMaxBytes, so the copy stays trivial and
+    compiles to a few loads and stores.
+
+    \param other Storage to copy.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+  */
+  constexpr FixedStringStorage(const FixedStringStorage & other) noexcept = default;
+
+  /*!
+    \brief Builds a copy of the characters of \a other.
+
+    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters and
+    the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
+
+    \param other Storage to copy.
+
+    \post size() returns other.size(), and data() reads the same characters followed by \c '\\0'.
+    \post The bytes past the terminator are indeterminate outside constant evaluation.
+
+    \note The type is not trivially copyable while this overload is selected.
+  */
+  constexpr FixedStringStorage(const FixedStringStorage & other) noexcept
+    requires(_copiesByLength);
+
+  /*!
+    \brief Builds a copy of \a other by copying the whole object.
+
+    Selected under the same size rule as the whole-object copy constructor; the buffer lives inside the object, so there
+    is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+  */
+  constexpr FixedStringStorage(FixedStringStorage && other) noexcept = default;
+
+  /*!
+    \brief Builds a copy of the characters of \a other.
+
+    Selected under the same size rule as the length-based copy constructor; the buffer lives inside the object, so there
+    is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \post size() returns other.size(), and data() reads the same characters followed by \c '\\0'.
+    \post The bytes past the terminator are indeterminate outside constant evaluation.
+  */
+  constexpr FixedStringStorage(FixedStringStorage && other) noexcept
+    requires(_copiesByLength);
+
+  /*!
+    \brief Replaces the contents with a copy of \a other by copying the whole object.
+
+    Selected while the object is no larger than \ref toy::platform::c_inlineCopyMaxBytes, so the copy stays trivial and
+    compiles to a few loads and stores.
+
+    \param other Storage to copy.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+  */
+  constexpr FixedStringStorage & operator=(const FixedStringStorage & other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a other.
+
+    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters and
+    the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
+
+    \param other Storage to copy.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same characters followed by \c '\\0'.
+    \post The bytes past the terminator keep what they held before the call.
+
+    \note The type is not trivially copyable while this overload is selected.
+  */
+  constexpr FixedStringStorage & operator=(const FixedStringStorage & other) noexcept
+    requires(_copiesByLength);
+
+  /*!
+    \brief Replaces the contents with a copy of \a other by copying the whole object.
+
+    Selected under the same size rule as the whole-object copy assignment; the buffer lives inside the object, so there
+    is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+  */
+  constexpr FixedStringStorage & operator=(FixedStringStorage && other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a other.
+
+    Selected under the same size rule as the length-based copy assignment; the buffer lives inside the object, so there
+    is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same characters followed by \c '\\0'.
+    \post The bytes past the terminator keep what they held before the call.
+  */
+  constexpr FixedStringStorage & operator=(FixedStringStorage && other) noexcept
+    requires(_copiesByLength);
+
+  /// Destroys the storage, which releases nothing.
+  constexpr ~FixedStringStorage() noexcept = default;
+
   /*!
     \brief Returns the pointer to the buffer for writing.
 
@@ -187,7 +330,7 @@ public:
 
 private:
   /// Characters of the string, the terminator, and the bytes past it
-  char _buffer[AllocatedSize] = {'\0'};
+  char _buffer[AllocatedSize];
 
   /// Length of the string in bytes, the terminator excluded
   size_t _size{0};
