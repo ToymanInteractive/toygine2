@@ -37,10 +37,10 @@ constexpr size_t c_length = 1024;
 // Offset the substring cases start at: half the source, so the kept part is as long as the dropped one.
 constexpr size_t c_substringOffset = c_length / 2;
 
-// Characters in the short copy case: an identifier held in a buffer sized for c_length.
+// Characters in the short copy cases: an identifier held in a buffer sized for c_length.
 constexpr size_t c_shortLength = 8;
 
-// String sized to hold every case exactly, so a whole-object copy moves no byte the source does not fill.
+// String sized to hold every case exactly, large enough on every target to copy only the characters in use.
 using LongString = toy::FixedString<c_length + 1>;
 
 // Hands a value through an opaque barrier, so a measured construction reads it instead of a folded constant.
@@ -287,7 +287,24 @@ BENCHMARK_CASE("core/string/construction_copy") {
 
   bench.unit("construction");
 
-  // The toy row copies the whole object, buffer included; the std::string row allocates and copies the characters.
+  // The toy row copies the characters in use into its own buffer; the std::string row allocates and copies them.
+  bench.run("toy::FixedString", [&] {
+    const LongString string(prototype);
+    ankerl::nanobench::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    const std::string string(referencePrototype);
+    ankerl::nanobench::doNotOptimizeAway(string);
+  });
+}
+
+BENCHMARK_CASE("core/string/construction_copy_short") {
+  const LongString  prototype(opaque(sourceText()), opaque(c_shortLength));
+  const std::string referencePrototype(opaque(sourceText()), opaque(c_shortLength));
+
+  bench.unit("construction");
+
+  // A short string in a large buffer: the toy row copies the characters in use, std::string fits them inline.
   bench.run("toy::FixedString", [&] {
     const LongString string(prototype);
     ankerl::nanobench::doNotOptimizeAway(string);

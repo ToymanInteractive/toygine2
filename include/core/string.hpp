@@ -252,7 +252,8 @@ public:
     \brief Builds a string from a copy of \a other.
 
     Copies the storage through its copy constructor, so the two strings share no buffer and the copy allocates only if
-    that storage does. Over \ref toy::FixedStringStorage the whole buffer is copied, not only the characters in use.
+    that storage does. \ref toy::FixedStringStorage copies the whole object up to
+    \ref toy::platform::c_inlineCopyMaxBytes and only the characters in use above it.
 
     \param other String to copy.
 
@@ -266,7 +267,7 @@ public:
     \brief Builds a string that takes over the storage of \a other.
 
     Moves the storage through its move constructor, so a storage that owns heap memory hands over its buffer instead of
-    allocating. \ref toy::FixedStringStorage has no buffer to hand over and copies it.
+    allocating. \ref toy::FixedStringStorage has no buffer to hand over and copies as the copy constructor does.
 
     \param other String to take the storage from.
 
@@ -452,8 +453,8 @@ public:
 
     \post size() returns \a count, and every character before the terminator equals \a ch.
 
-    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects \a count,
-             where \c std::basic_string throws \c std::length_error and keeps its contents.
+    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects \a
+    count, where \c std::basic_string throws \c std::length_error.
 
     \sa operator=(char)
   */
@@ -502,8 +503,8 @@ public:
 
     \post size() returns \a count, and c_str() reads the copied bytes followed by \c '\\0'.
 
-    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects \a count,
-             where \c std::basic_string throws \c std::length_error and keeps its contents.
+    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects \a
+    count, where \c std::basic_string throws \c std::length_error.
 
     \sa assign(const char *)
   */
@@ -548,8 +549,9 @@ public:
 
     \post size() returns the length of the range, and c_str() reads its characters followed by \c '\\0'.
 
-    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects the length
-             of the range.
+    \warning A shipping build skips the capacity check when the storage rejects the length of the range: a single-pass
+             range leaves the string empty, having overwritten it before the length was known, and any other range
+             leaves it unchanged.
 
     \sa assign_range()
   */
@@ -612,8 +614,8 @@ public:
     \post size() returns the smaller of \a count and the length of \a string minus \a pos, and c_str() reads those
           bytes followed by \c '\\0'.
 
-    \warning A shipping build skips the checks and leaves the string empty when \a pos is past the end of \a string or
-             the storage rejects the substring, where \c std::basic_string throws \c std::out_of_range or
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos is past the end of \a string
+             or the storage rejects the substring, where \c std::basic_string throws \c std::out_of_range or
              \c std::length_error.
 
     \sa assign(const StringType &)
@@ -638,8 +640,9 @@ public:
 
     \post size() returns the length of \a range, and c_str() reads its characters followed by \c '\\0'.
 
-    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects the length
-             of \a range.
+    \warning A shipping build skips the capacity check when the storage rejects the length of \a range: a single-pass
+             range leaves the string empty, having overwritten it before the length was known, and any other range
+             leaves it unchanged.
 
     \sa assign(InputIterator, InputIterator)
   */
@@ -707,7 +710,8 @@ private:
     \pre The storage accepts the length of the range, checked by assert_message in debug builds.
     \pre A range that is not contiguous shares no bytes with the storage.
 
-    \post size() returns the length of the range, or \c 0 when the storage rejects it.
+    \post size() returns the length of the range. When the storage rejects it, a single-pass range leaves the storage
+          empty and any other range leaves it as it was.
 
     \sa _copyExternalRange()
   */
@@ -730,7 +734,8 @@ private:
     \pre The storage accepts the length of the range, checked by assert_message in debug builds.
     \pre The range shares no bytes with the storage.
 
-    \post size() returns the length of the range, or \c 0 when the storage rejects it.
+    \post size() returns the length of the range. When the storage rejects it, a single-pass range leaves the storage
+          empty and any other range leaves it as it was.
 
     \sa _copyRange()
   */

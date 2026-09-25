@@ -152,17 +152,19 @@ static_assert(std::input_iterator<UncomparableIterator>
 }
 
 // Where a copy of the sample string first differs from the sample.
+template <typename StringType = Fixed>
 [[nodiscard]] constexpr size_t copiedDifference() noexcept {
-  const Fixed source(c_sample);
-  const Fixed copy(source);
+  const StringType source(c_sample);
+  const StringType copy(source);
 
   return firstDifference(copy, c_sample, c_sampleLength);
 }
 
 // Where a string moved from the sample string first differs from the sample.
+template <typename StringType = Fixed>
 [[nodiscard]] constexpr size_t movedDifference() noexcept {
-  Fixed       source(c_sample);
-  const Fixed moved(std::move(source));
+  StringType       source(c_sample);
+  const StringType moved(std::move(source));
 
   return firstDifference(moved, c_sample, c_sampleLength);
 }
@@ -433,8 +435,11 @@ TEST_CASE("string/construction_copy") {
 
   CHECK(copy.c_str() != source.c_str());
   CHECK(firstDifference(copy, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(copiedDifference<Large>() == c_sampleLength + 1);
 
   static_assert(copiedDifference() == c_sampleLength + 1, "a copy must hold every byte of its source");
+  static_assert(copiedDifference<Large>() == c_sampleLength + 1,
+                "a copy that takes only the characters in use must still hold every one of them");
 }
 
 // A moved-to string holds the characters its source held.
@@ -443,8 +448,11 @@ TEST_CASE("string/construction_move") {
   const Fixed moved(std::move(source));
 
   CHECK(firstDifference(moved, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(movedDifference<Large>() == c_sampleLength + 1);
 
   static_assert(movedDifference() == c_sampleLength + 1, "a moved-to string must hold every byte of its source");
+  static_assert(movedDifference<Large>() == c_sampleLength + 1,
+                "a move that takes only the characters in use must still hold every one of them");
 }
 
 // A substring of an rvalue string moves the kept bytes to the front of the storage it takes over.
@@ -491,6 +499,10 @@ TEST_CASE("string/construction_signatures") {
                 "a substring construction must not throw");
   static_assert(std::is_nothrow_copy_constructible_v<Fixed>, "copying a string must not throw");
   static_assert(std::is_nothrow_move_constructible_v<Fixed>, "moving a string must not throw");
+  static_assert(std::is_trivially_copy_constructible_v<Fixed>,
+                "a small string must keep the trivial copy construction");
+  static_assert(!std::is_trivially_copy_constructible_v<Large>,
+                "a large string must copy only the characters in use on construction");
   static_assert(std::is_nothrow_constructible_v<Fixed, Fixed &&, size_t, size_t>,
                 "a moved-from substring construction must not throw");
   static_assert(std::is_nothrow_destructible_v<Fixed>, "destroying a string must not throw");
@@ -714,6 +726,41 @@ TEST_CASE("string/assignment_from_itself") {
                 "bytes read from the string's own buffer must survive");
   static_assert(selfRangeDifference() == c_tailLength + 1, "a view of the string's own tail must survive");
 }
+
+#if !defined(_DEBUG)
+// Without the debug checks a rejected assignment keeps the old contents; a single-pass range, already written, empties.
+TEST_CASE("string/assignment_rejected") {
+  Fixed filled(c_sample);
+  filled.assign(c_capacity + 1, c_fillCharacter);
+  CHECK(firstDifference(filled, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed counted(c_sample);
+  counted.assign(c_long, c_longLength);
+  CHECK(firstDifference(counted, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed pastEnd(c_sample);
+  pastEnd.assign(StringView{c_long}, c_longLength + 1);
+  CHECK(firstDifference(pastEnd, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed forward(c_sample);
+  forward.assign(c_long, c_long + c_longLength);
+  CHECK(firstDifference(forward, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  Fixed singlePass(c_sample);
+  singlePass.assign(SinglePassIterator(c_long), SinglePassIterator(c_long + c_longLength));
+  CHECK(singlePass.size() == 0);
+
+  static_assert(firstDifference(Fixed(c_sample).assign(c_capacity + 1, c_fillCharacter), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a rejected fill must keep the old contents");
+  static_assert(firstDifference(Fixed(c_sample).assign(c_long, c_longLength), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a rejected counted copy must keep the old contents");
+  static_assert(firstDifference(Fixed(c_sample).assign(StringView{c_long}, c_longLength + 1), c_sample, c_sampleLength)
+                  == c_sampleLength + 1,
+                "an offset past the end must keep the old contents");
+}
+#endif // !_DEBUG
 
 // Which assignments a call site may write, which never throw, which stay trivial, and which the type system rejects.
 TEST_CASE("string/assignment_signatures") {

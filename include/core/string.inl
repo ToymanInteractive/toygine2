@@ -133,9 +133,7 @@ template <StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(size_type count, value_type ch) noexcept {
   const bool reserved = _storage.reserve(count);
   assert_message(reserved, "the assigned string must fit the storage");
-  if (!reserved) {
-    _storage.setSize(0);
-  } else {
+  if (reserved) {
     traits_type::assign(_storage.data(), count, ch);
     _storage.setSize(count);
   }
@@ -159,9 +157,7 @@ constexpr String<storageType> & String<storageType>::assign(const value_type * s
 
   const bool reserved = _storage.reserve(count);
   assert_message(reserved, "the assigned string must fit the storage");
-  if (!reserved) {
-    _storage.setSize(0);
-  } else {
+  if (reserved) {
     // A source inside this string is no longer than size(), so reserve() has kept the buffer it points into.
     if (count != 0) {
       if (_mayOverlap(string))
@@ -208,10 +204,10 @@ template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::assign(const StringType & string, size_type pos,
                                                             size_type count) noexcept {
   assert_message(pos <= string.size(), "the substring must start inside the source string");
+  if (pos > string.size())
+    return *this;
 
-  const size_type offset = min(pos, string.size());
-
-  return assign(string.c_str() + offset, min(count, string.size() - offset));
+  return assign(string.c_str() + pos, min(count, string.size() - pos));
 }
 
 template <StringStorage storageType>
@@ -267,11 +263,8 @@ constexpr void String<storageType>::_copyExternalRange(InputIterator first, Sent
     const auto count    = static_cast<size_t>(std::ranges::distance(first, last));
     const bool reserved = _storage.reserve(count);
     assert_message(reserved, "the string must fit the storage it is built in");
-    if (!reserved) {
-      _storage.setSize(0);
-
+    if (!reserved)
       return;
-    }
 
     if constexpr (std::contiguous_iterator<InputIterator>) {
       if (count != 0)
