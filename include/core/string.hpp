@@ -66,8 +66,8 @@ public:
   /*!
     \brief Builds an empty string.
 
-    Allocates only if the default constructor of the storage does; \ref toy::FixedStringStorage does not, and zeroes its
-    buffer instead.
+    Allocates only if the default constructor of the storage does; \ref toy::FixedStringStorage does not, and writes
+    only the terminator.
 
     \post size() returns \c 0, and c_str() points at \c '\\0'.
 
