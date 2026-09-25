@@ -101,6 +101,10 @@ endif ()
 include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/CMakeLists.txt)
 set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER
     ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/platform_config.hpp)
+if (NOT EXISTS ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
+  message(FATAL_ERROR "Missing platform_config.hpp for ${TOYGINE_TARGET_PLATFORM}: ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER}")
+endif ()
+get_filename_component(TOYGINE_TARGET_PLATFORM_CONFIG_DIR ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER} DIRECTORY)
 
 # Enable and copy compile commands file in fixed space for static analysis tools. The copy runs at build time
 # because CMake writes compile_commands.json during the generate phase, after this script is processed.
@@ -125,6 +129,7 @@ set(HDR_CORE_LIST
     include/core/fixed_string_storage.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
+    include/core/platform.hpp
     include/core/string_like.hpp
     include/core/string_storage.hpp
     include/core/string_view.hpp
@@ -152,13 +157,15 @@ source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST}
 #-----------------------------------------------------------------------------------------------------------------------
 
 list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} include/toygine.hpp)
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} include/toygine.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
 list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 
-target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
+# The platform directory serves platform_config.hpp, which core.hpp includes, to the engine and to every consumer.
+target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
+                                                          ${TOYGINE_TARGET_PLATFORM_CONFIG_DIR})
 
 if (PREPROCESSOR_DEFINITIONS)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
@@ -221,6 +228,11 @@ if (PROJECT_IS_TOP_LEVEL)
     DESTINATION include
     COMPONENT headers
     FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
+
+  # Installed beside core.hpp, which includes it by name; only the active platform's values ship.
+  install(FILES ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER}
+    DESTINATION include
+    COMPONENT headers)
 
   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
     DESTINATION .

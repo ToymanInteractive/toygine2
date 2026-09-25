@@ -329,6 +329,325 @@ public:
   constexpr ~String() noexcept = default;
 
   /*!
+    \brief Replaces the contents with a copy of \a other.
+
+    Assigns the storage through its copy assignment, so the storage decides what the copy costs:
+    \ref toy::FixedStringStorage copies the whole object up to \ref toy::platform::c_inlineCopyMaxBytes and only the
+    characters in use above it.
+
+    \param other String to copy; may be this string.
+
+    \return Reference to this string.
+
+    \post size() returns other.size(), and c_str() reads the same characters.
+
+    \sa assign(const String &)
+  */
+  constexpr String & operator=(const String & other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with those of \a other, taking over its storage where the storage allows.
+
+    Assigns the storage through its move assignment. A storage that owns heap memory hands over its buffer;
+    \ref toy::FixedStringStorage has nothing to hand over and copies as the copy assignment does.
+
+    \param other String to take the contents from; may be this string.
+
+    \return Reference to this string.
+
+    \post size() and c_str() read what \a other held before the call.
+    \post \a other holds whatever the move assignment of the storage leaves; over \ref toy::FixedStringStorage, its
+          original characters.
+
+    \sa assign(String &&)
+  */
+  constexpr String & operator=(String && other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with a copy of the null-terminated byte string \a string.
+
+    \param string Null-terminated byte string to copy; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre The storage accepts the length of \a string, as assign(const char *, size_t) requires.
+
+    \post size() returns the length of \a string, and c_str() reads the same characters.
+
+    \sa assign(const char *)
+  */
+  constexpr String & operator=(const value_type * string) noexcept;
+
+  /*!
+    \brief Replaces the contents with the single character \a ch.
+
+    \param ch Character the string holds after the call.
+
+    \return Reference to this string.
+
+    \pre The storage accepts a length of \c 1, as assign(size_t, char) requires.
+
+    \post size() returns \c 1, and c_str() reads \a ch followed by \c '\\0'.
+
+    \sa assign(size_t, char)
+  */
+  constexpr String & operator=(value_type ch) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters in \a list.
+
+    \param list Characters to copy.
+
+    \return Reference to this string.
+
+    \pre The storage accepts list.size(), as assign(const char *, size_t) requires.
+
+    \post size() returns list.size(), and c_str() reads the characters of \a list followed by \c '\\0'.
+
+    \sa assign(std::initializer_list<char>)
+  */
+  constexpr String & operator=(std::initializer_list<value_type> list) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a string.
+
+    Accepts the source implicitly, as the matching \c std::basic_string operator does, although the constructor from
+    the same type is explicit.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string View or string to copy, such as a \ref toy::StringView or a \ref toy::String over another storage;
+                  may view this string.
+
+    \return Reference to this string.
+
+    \pre The storage accepts the length of \a string, as assign(const char *, size_t) requires.
+
+    \post size() returns the length of \a string, and c_str() reads the same bytes followed by \c '\\0'.
+
+    \sa assign(const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & operator=(const StringType & string) noexcept;
+
+  /*!
+    \brief Deleted: a null pointer names no string to copy.
+
+    Rejects a literal \c nullptr during compilation, ahead of the debug check the pointer assignment performs.
+
+    \sa operator=(const char *)
+  */
+  String & operator=(nullptr_t) = delete;
+
+  /*!
+    \brief Replaces the contents with \a count copies of \a ch.
+
+    \param count Number of characters to write.
+    \param ch    Character written at every position.
+
+    \return Reference to this string.
+
+    \pre The storage accepts \a count: its reserve() returns \c true, checked by assert_message in debug builds.
+
+    \post size() returns \a count, and every character before the terminator equals \a ch.
+
+    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects \a count,
+             where \c std::basic_string throws \c std::length_error and keeps its contents.
+
+    \sa operator=(char)
+  */
+  constexpr String & assign(size_type count, value_type ch) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of \a other, as the copy assignment operator does.
+
+    \param other String to copy; may be this string.
+
+    \return Reference to this string.
+
+    \post size() returns other.size(), and c_str() reads the same characters.
+
+    \sa operator=(const String &)
+  */
+  constexpr String & assign(const String & other) noexcept;
+
+  /*!
+    \brief Replaces the contents with those of \a other, as the move assignment operator does.
+
+    \param other String to take the contents from; may be this string.
+
+    \return Reference to this string.
+
+    \post size() and c_str() read what \a other held before the call.
+
+    \sa operator=(String &&)
+  */
+  constexpr String & assign(String && other) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of \a count bytes starting at \a string.
+
+    Copies exactly \a count bytes, so the source needs no terminator. The source may lie inside this string, as when a
+    string is assigned part of itself: the call then moves the bytes within the buffer instead of copying them.
+
+    \param string First byte to copy.
+    \param count  Number of bytes to copy.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+    \pre The storage accepts \a count, checked by assert_message in debug builds.
+
+    \post size() returns \a count, and c_str() reads the copied bytes followed by \c '\\0'.
+
+    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects \a count,
+             where \c std::basic_string throws \c std::length_error and keeps its contents.
+
+    \sa assign(const char *)
+  */
+  constexpr String & assign(const value_type * string, size_type count) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the null-terminated byte string \a string.
+
+    Measures \a string, then copies it as assign(const char *, size_t) does.
+
+    \param string Null-terminated byte string to copy; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre The storage accepts the length of \a string, as assign(const char *, size_t) requires.
+
+    \post size() returns the length of \a string, and c_str() reads the same characters.
+
+    \sa assign(const char *, size_t)
+  */
+  constexpr String & assign(const value_type * string) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters in [\a first, \a last).
+
+    A contiguous range goes through assign(const char *, size_t), so it may lie inside this string. A forward range is
+    measured first and copied in one step; a single-pass range is read one character at a time and checked against the
+    storage whenever the buffer fills.
+
+    \tparam InputIterator Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its
+                          own \c std::sentinel_for.
+
+    \param first Iterator to the first character to copy.
+    \param last  Iterator past the last character to copy.
+
+    \return Reference to this string.
+
+    \pre \a last is reachable from \a first.
+    \pre A range that is not contiguous does not reference the characters of this string.
+    \pre The storage accepts the length of the range, checked by assert_message in debug builds.
+
+    \post size() returns the length of the range, and c_str() reads its characters followed by \c '\\0'.
+
+    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects the length
+             of the range.
+
+    \sa assign_range()
+  */
+  template <std::input_iterator InputIterator>
+    requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+  constexpr String<storageType> & assign(InputIterator first, InputIterator last) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters in \a list.
+
+    \param list Characters to copy.
+
+    \return Reference to this string.
+
+    \pre The storage accepts list.size(), as assign(const char *, size_t) requires.
+
+    \post size() returns list.size(), and c_str() reads the characters of \a list followed by \c '\\0'.
+
+    \sa operator=(std::initializer_list<char>)
+  */
+  constexpr String & assign(std::initializer_list<value_type> list) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a string.
+
+    Copies size() bytes starting at c_str() of \a string, as assign(const char *, size_t) does.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string View or string to copy; may view this string.
+
+    \return Reference to this string.
+
+    \pre The storage accepts the length of \a string, as assign(const char *, size_t) requires.
+
+    \post size() returns the length of \a string, and c_str() reads the same bytes followed by \c '\\0'.
+
+    \sa assign(const StringType &, size_t, size_t)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & assign(const StringType & string) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the substring of \a string that starts at \a pos.
+
+    Takes at most \a count bytes and stops at the end of \a string. Covers the \c std::basic_string substring overloads
+    for a string and for a string-view-like type.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string View or string to copy from; may view this string.
+    \param pos    Offset of the first byte to copy.
+    \param count  Most bytes to copy (default: \ref toy::String::npos, which copies to the end of \a string).
+
+    \return Reference to this string.
+
+    \pre \a pos is not greater than the length of \a string, checked by assert_message in debug builds.
+    \pre The storage accepts the length of the substring, as assign(const char *, size_t) requires.
+
+    \post size() returns the smaller of \a count and the length of \a string minus \a pos, and c_str() reads those
+          bytes followed by \c '\\0'.
+
+    \warning A shipping build skips the checks and leaves the string empty when \a pos is past the end of \a string or
+             the storage rejects the substring, where \c std::basic_string throws \c std::out_of_range or
+             \c std::length_error.
+
+    \sa assign(const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & assign(const StringType & string, size_type pos, size_type count = npos) noexcept;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a range.
+
+    Reads the range as assign(InputIterator, InputIterator) reads an iterator pair, except that the end of the range
+    may have a type of its own, such as a sentinel that stops at a terminator.
+
+    \tparam Range Source range with \c char as its value type; satisfies \c std::ranges::input_range.
+
+    \param range Characters to copy.
+
+    \return Reference to this string.
+
+    \pre A range that is not contiguous does not reference the characters of this string.
+    \pre The storage accepts the length of \a range, checked by assert_message in debug builds.
+
+    \post size() returns the length of \a range, and c_str() reads its characters followed by \c '\\0'.
+
+    \warning A shipping build skips the capacity check and leaves the string empty when the storage rejects the length
+             of \a range.
+
+    \sa assign(InputIterator, InputIterator)
+  */
+  template <std::ranges::input_range Range>
+    requires std::same_as<std::ranges::range_value_t<Range>, char>
+  constexpr String<storageType> & assign_range(Range && range) noexcept;
+
+  /*!
     \brief Returns the length of the string.
 
     \return Count of bytes before the terminator, \c 0 for an empty string.
@@ -357,7 +676,27 @@ private:
   storageType _storage;
 
   /*!
-    \brief Copies the characters in [\a first, \a last) into the storage, which holds no characters yet.
+    \brief Reports whether a source starting at \a pointer may share bytes with the storage.
+
+    Tells an assignment whether it needs memmove() or can use memcpy(). Constant evaluation cannot compare pointers into
+    unrelated objects, so it answers \c true there, and the caller takes the copy that tolerates overlap.
+
+    \param pointer First byte of the source.
+
+    \return \c true when \a pointer lies within the buffer, its terminator included, or during constant evaluation;
+            \c false otherwise.
+
+    \note Only the first byte is checked; a source that starts before the buffer and runs into it is not a valid string.
+
+    \sa assign(const char *, size_t)
+  */
+  [[nodiscard]] constexpr bool _mayOverlap(const_pointer pointer) const noexcept;
+
+  /*!
+    \brief Replaces the characters in the storage with a copy of the characters in [\a first, \a last).
+
+    A contiguous range may lie inside the storage, as when a string is assigned part of itself; any other range goes to
+    _copyExternalRange().
 
     \tparam InputIterator Iterator type; satisfies \c std::input_iterator.
     \tparam Sentinel      End marker; satisfies \c std::sentinel_for with \a InputIterator.
@@ -365,13 +704,38 @@ private:
     \param first Iterator to the first character to copy.
     \param last  Sentinel past the last character to copy.
 
-    \pre size() is \c 0.
     \pre The storage accepts the length of the range, checked by assert_message in debug builds.
+    \pre A range that is not contiguous shares no bytes with the storage.
 
     \post size() returns the length of the range, or \c 0 when the storage rejects it.
+
+    \sa _copyExternalRange()
   */
   template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
   constexpr void _copyRange(InputIterator first, Sentinel last) noexcept;
+
+  /*!
+    \brief Replaces the characters in the storage with a copy of the characters in [\a first, \a last), which lie
+           outside it.
+
+    Copies a contiguous range with memcpy() rather than memmove(), which some targets implement byte by byte. Called
+    where the source cannot belong to this string, such as a constructor.
+
+    \tparam InputIterator Iterator type; satisfies \c std::input_iterator.
+    \tparam Sentinel      End marker; satisfies \c std::sentinel_for with \a InputIterator.
+
+    \param first Iterator to the first character to copy.
+    \param last  Sentinel past the last character to copy.
+
+    \pre The storage accepts the length of the range, checked by assert_message in debug builds.
+    \pre The range shares no bytes with the storage.
+
+    \post size() returns the length of the range, or \c 0 when the storage rejects it.
+
+    \sa _copyRange()
+  */
+  template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
+  constexpr void _copyExternalRange(InputIterator first, Sentinel last) noexcept;
 };
 
 /*!

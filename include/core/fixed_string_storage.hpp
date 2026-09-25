@@ -31,6 +31,8 @@
 #ifndef INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
 #define INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
 
+#include "platform.hpp"
+
 namespace toy {
 
 /*!
@@ -74,6 +76,7 @@ namespace toy {
 
   * **Default construction**: O(1); only the first byte is written, except in constant evaluation.
   * **Access and length**: O(1) for data(), capacity(), size(), and setSize().
+  * **Assignment**: a whole-object copy up to \ref toy::platform::c_inlineCopyMaxBytes, O(size()) above it.
   * **Memory usage**: \a AllocatedSize bytes of characters and one length field, the object aligned as \c size_t.
 
   \section fixed_string_storage_safety Safety Guarantees
@@ -97,6 +100,13 @@ template <size_t AllocatedSize>
 class FixedStringStorage {
   static_assert(AllocatedSize > 0, "FixedStringStorage capacity must be greater than zero.");
 
+  /// Bytes the object occupies: the buffer padded to the alignment of the length, then the length
+  static constexpr size_t _objectSize = (AllocatedSize + alignof(size_t) - 1) / alignof(size_t) * alignof(size_t)
+                                        + sizeof(size_t);
+
+  /// Whether assignment copies only the characters in use rather than the whole object
+  static constexpr bool _assignsByLength = _objectSize > platform::c_inlineCopyMaxBytes;
+
 public:
   /*!
     \brief Builds an empty buffer.
@@ -111,6 +121,95 @@ public:
     \sa setSize()
   */
   constexpr FixedStringStorage() noexcept;
+
+  /*!
+    \brief Builds a copy of \a other byte for byte, the buffer past the terminator included.
+
+    \param other Storage to copy.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+
+    \sa FixedStringStorage(FixedStringStorage &&)
+  */
+  constexpr FixedStringStorage(const FixedStringStorage & other) noexcept = default;
+
+  /*!
+    \brief Builds a copy of \a other as the copy constructor does.
+
+    The buffer lives inside the object, so there is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+
+    \sa FixedStringStorage(const FixedStringStorage &)
+  */
+  constexpr FixedStringStorage(FixedStringStorage && other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with a copy of \a other by copying the whole object.
+
+    Selected while the object is no larger than \ref toy::platform::c_inlineCopyMaxBytes, so the copy stays trivial and
+    compiles to a few loads and stores.
+
+    \param other Storage to copy.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+  */
+  constexpr FixedStringStorage & operator=(const FixedStringStorage & other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a other.
+
+    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters
+    and the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
+
+    \param other Storage to copy.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same characters followed by \c '\\0'.
+    \post The bytes past the terminator keep what they held before the call.
+
+    \note The type is not trivially copyable while this overload is selected.
+  */
+  constexpr FixedStringStorage & operator=(const FixedStringStorage & other) noexcept
+    requires _assignsByLength;
+
+  /*!
+    \brief Replaces the contents with a copy of \a other by copying the whole object.
+
+    Selected under the same size rule as the whole-object copy assignment; the buffer lives inside the object, so there
+    is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same bytes as other.data() across the whole buffer.
+  */
+  constexpr FixedStringStorage & operator=(FixedStringStorage && other) noexcept = default;
+
+  /*!
+    \brief Replaces the contents with a copy of the characters of \a other.
+
+    Selected under the same size rule as the length-based copy assignment; the buffer lives inside the object, so there
+    is nothing to hand over.
+
+    \param other Storage to copy; keeps its characters.
+
+    \return Reference to this storage.
+
+    \post size() returns other.size(), and data() reads the same characters followed by \c '\\0'.
+    \post The bytes past the terminator keep what they held before the call.
+  */
+  constexpr FixedStringStorage & operator=(FixedStringStorage && other) noexcept
+    requires _assignsByLength;
+
+  /// Destroys the storage, which releases nothing.
+  constexpr ~FixedStringStorage() noexcept = default;
 
   /*!
     \brief Returns the pointer to the buffer for writing.

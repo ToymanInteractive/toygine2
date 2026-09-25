@@ -44,9 +44,20 @@ constexpr size_t c_shortLength = 2;
 // Byte no operation writes, so whatever setSize() puts down shows up against it.
 constexpr char c_sentinel = '#';
 
+// Buffer size above every target's c_inlineCopyMaxBytes, so assignment copies only the characters in use.
+constexpr size_t c_largeAllocatedSize = 256;
+
+using LargeStorage = FixedStringStorage<c_largeAllocatedSize>;
+
+static_assert(sizeof(Storage) <= platform::c_inlineCopyMaxBytes,
+              "Storage must copy its whole object on every target, so the assignment case reaches that path");
+static_assert(sizeof(LargeStorage) > platform::c_inlineCopyMaxBytes,
+              "LargeStorage must copy by length on every target, so the assignment case reaches that path");
+
 // Storage holding the sample, the state a constant expression reads back.
-[[nodiscard]] constexpr Storage sampleStorage() noexcept {
-  Storage storage;
+template <typename StorageType = Storage>
+[[nodiscard]] constexpr StorageType sampleStorage() noexcept {
+  StorageType storage;
 
   for (size_t index = 0; index < c_sampleLength; ++index)
     storage.data()[index] = c_sample[index];
@@ -56,8 +67,9 @@ constexpr char c_sentinel = '#';
 }
 
 // Storage whose every writable byte carries the sentinel, so a terminator reads against a known character.
-[[nodiscard]] constexpr Storage sentinelStorage() noexcept {
-  Storage storage;
+template <typename StorageType = Storage>
+[[nodiscard]] constexpr StorageType sentinelStorage() noexcept {
+  StorageType storage;
 
   for (size_t index = 0; index < storage.capacity(); ++index)
     storage.data()[index] = c_sentinel;
@@ -113,6 +125,52 @@ struct ReserveResult {
   });
 }
 
+// First index where a storage differs from the sample and its terminator; c_sampleLength + 1 on a full match.
+template <typename StorageType>
+[[nodiscard]] constexpr size_t sampleDifference(const StorageType & storage) noexcept {
+  if (storage.size() != c_sampleLength)
+    return 0;
+
+  size_t index = 0;
+  while (index < c_sampleLength && storage.data()[index] == c_sample[index])
+    ++index;
+
+  if (index == c_sampleLength && storage.data()[c_sampleLength] == '\0')
+    ++index;
+
+  return index;
+}
+
+// Sentinel-filled storage after a copy assignment of the sample.
+template <typename StorageType>
+[[nodiscard]] constexpr StorageType copyAssigned() noexcept {
+  const StorageType source = sampleStorage<StorageType>();
+  StorageType       target = sentinelStorage<StorageType>();
+  target                   = source;
+
+  return target;
+}
+
+// Sentinel-filled storage after a move assignment of the sample.
+template <typename StorageType>
+[[nodiscard]] constexpr StorageType moveAssigned() noexcept {
+  StorageType source = sampleStorage<StorageType>();
+  StorageType target = sentinelStorage<StorageType>();
+  target             = std::move(source);
+
+  return target;
+}
+
+// Sample storage after an assignment to itself through an alias.
+template <typename StorageType>
+[[nodiscard]] constexpr StorageType selfAssigned() noexcept {
+  StorageType         storage = sampleStorage<StorageType>();
+  const StorageType & alias   = storage;
+  storage                     = alias;
+
+  return storage;
+}
+
 // Storage the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
 constexpr Storage c_sampleStorage = sampleStorage();
 
@@ -129,6 +187,13 @@ TEST_CASE("fixed_string_storage/value_semantics") {
                 "the bytes and the length stay private, so no call site may brace-initialize them");
   static_assert(!std::is_trivially_default_constructible_v<Storage>,
                 "a default-constructed buffer writes its terminator, which is not a trivial default");
+
+  static_assert(!std::is_trivially_copyable_v<LargeStorage>,
+                "a large buffer must copy only the characters in use on assignment, which is not a trivial copy");
+  static_assert(std::is_trivially_copy_constructible_v<LargeStorage>,
+                "a large buffer must still copy byte for byte on construction");
+  static_assert(std::is_nothrow_copy_assignable_v<LargeStorage> && std::is_nothrow_move_assignable_v<LargeStorage>,
+                "a length-based assignment must not throw");
 }
 
 // What a storage reports before anything is written into it.
@@ -230,6 +295,29 @@ TEST_CASE("fixed_string_storage/set_size_shrink") {
   static_assert(byteAfterShrink(c_shortLength) == '\0', "the terminator must move to the new length");
   static_assert(byteAfterShrink(c_shortLength + 1) == c_sample[c_shortLength + 1],
                 "a character past the new length must survive the call");
+}
+
+// Assignments reproduce the source over both copy paths; the length-based one keeps the bytes past the terminator.
+TEST_CASE("fixed_string_storage/assignment") {
+  CHECK(sampleDifference(copyAssigned<Storage>()) == c_sampleLength + 1);
+  CHECK(sampleDifference(copyAssigned<LargeStorage>()) == c_sampleLength + 1);
+  CHECK(sampleDifference(moveAssigned<Storage>()) == c_sampleLength + 1);
+  CHECK(sampleDifference(moveAssigned<LargeStorage>()) == c_sampleLength + 1);
+  CHECK(sampleDifference(selfAssigned<Storage>()) == c_sampleLength + 1);
+  CHECK(sampleDifference(selfAssigned<LargeStorage>()) == c_sampleLength + 1);
+
+  CHECK(copyAssigned<LargeStorage>().data()[c_sampleLength + 1] == c_sentinel);
+
+  static_assert(sampleDifference(copyAssigned<Storage>()) == c_sampleLength + 1,
+                "a whole-object copy assignment must reproduce the source");
+  static_assert(sampleDifference(copyAssigned<LargeStorage>()) == c_sampleLength + 1,
+                "a length-based copy assignment must reproduce the source and its terminator");
+  static_assert(sampleDifference(moveAssigned<LargeStorage>()) == c_sampleLength + 1,
+                "a length-based move assignment must reproduce the source");
+  static_assert(sampleDifference(selfAssigned<LargeStorage>()) == c_sampleLength + 1,
+                "a length-based self-assignment must keep the contents");
+  static_assert(copyAssigned<LargeStorage>().data()[c_sampleLength + 1] == c_sentinel,
+                "a length-based copy assignment must leave the bytes past the terminator as they were");
 }
 
 // The storage contract a string constrains on, and which buffers meet it.

@@ -119,6 +119,12 @@ using std::strncpy;
   \brief Logging module: the severity levels a log call carries.
 */
 
+/*!
+  \namespace toy::platform
+
+  \brief Constants whose values the active target platform supplies.
+*/
+
 //--------------------------------------------------------------------------------------------------------------------
 
 #if defined(assert)
@@ -221,6 +227,7 @@ using std::strncpy;
 #include "core/fixed_string_storage.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
+#include "core/platform.hpp"
 #include "core/string.hpp"
 #include "core/string_like.hpp"
 #include "core/string_storage.hpp"

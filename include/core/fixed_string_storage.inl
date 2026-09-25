@@ -36,6 +36,29 @@ constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage() noexcept {
   } else {
     _buffer[0] = '\0';
   }
+
+  static_assert(sizeof(FixedStringStorage) == _objectSize, "_objectSize must match the layout the compiler chose");
+}
+
+template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize> & FixedStringStorage<AllocatedSize>::operator=(
+  const FixedStringStorage & other
+) noexcept
+  requires _assignsByLength {
+  if (this != &other) {
+    std::char_traits<char>::copy(_buffer, other._buffer, other._size + 1);
+    _size = other._size;
+  }
+
+  return *this;
+}
+
+template <size_t AllocatedSize>
+constexpr FixedStringStorage<AllocatedSize> & FixedStringStorage<AllocatedSize>::operator=(
+  FixedStringStorage && other
+) noexcept
+  requires _assignsByLength {
+  return *this = other;
 }
 
 template <size_t AllocatedSize>
