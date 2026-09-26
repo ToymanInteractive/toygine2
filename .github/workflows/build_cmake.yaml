@@ -273,7 +273,7 @@ jobs:
       - name: Benchmarks
         if: ${{ matrix.run_benchmarks == 'true' }}
         run: |
-          cmake --build --preset ${{ matrix.cmake_preset }} --target benchmarks_run | tee benchmarks.log
+          cmake --build --preset ${{ matrix.cmake_preset }} --target toygine-benchmarks-run | tee benchmarks.log
           python3 tools/builder/bmf_from_csv.py benchmarks.log > benchmarks_bmf.json
           head -20 benchmarks_bmf.json
 

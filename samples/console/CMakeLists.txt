@@ -19,61 +19,62 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
-  add_cartridge_executable(console_sample_app console_sample_app.cpp)
+  add_cartridge_executable(console-sample-app console_sample_app.cpp)
 else()
-  add_executable(console_sample_app console_sample_app.cpp)
+  add_executable(console-sample-app console_sample_app.cpp)
 endif()
 
-target_link_libraries(console_sample_app PRIVATE toygine)
+target_link_libraries(console-sample-app PRIVATE toygine)
+set_target_properties(console-sample-app PROPERTIES FOLDER "samples")
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.bin" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.bin" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
-  gba_create_rom(console_sample_app)
+  gba_create_rom(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.gba" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.gba" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
-  nds_create_rom(console_sample_app)
+  nds_create_rom(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.nds" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.nds" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
-  ctr_create_3dsx(console_sample_app)
+  ctr_create_3dsx(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.3dsx" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.3dsx" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
-  nx_create_nro(console_sample_app)
+  nx_create_nro(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.nro" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.nro" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
-  ogc_create_dol(console_sample_app)
+  ogc_create_dol(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.dol" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.dol" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
-  ogc_create_dol(console_sample_app)
+  ogc_create_dol(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.dol" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.dol" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 
-  wut_create_rpx(console_sample_app)
+  wut_create_rpx(console-sample-app)
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console_sample_app.rpx" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.rpx" DESTINATION bin COMPONENT samples)
 
 else ()
 
-  install(TARGETS console_sample_app RUNTIME DESTINATION bin COMPONENT samples)
+  install(TARGETS console-sample-app RUNTIME DESTINATION bin COMPONENT samples)
 
 endif ()

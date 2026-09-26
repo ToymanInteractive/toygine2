@@ -46,4 +46,7 @@ set_target_properties(doctest PROPERTIES FOLDER "thirdparty")
 # SYSTEM keeps the project's warnings off headers that are not ours.
 target_include_directories(doctest SYSTEM INTERFACE ${DOCTEST_DIR})
 
+# SUBCASE expands in the test file, beyond SYSTEM's reach, and Clang flags its temporary binding as a C++98 copy.
+target_compile_options(doctest INTERFACE $<$<CXX_COMPILER_ID:Clang,AppleClang>:-Wno-bind-to-temporary-copy>)
+
 add_library(doctest::doctest ALIAS doctest)

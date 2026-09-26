@@ -208,7 +208,7 @@ constexpr String<storageType> & String<storageType>::assign(const StringType & s
   if (pos > string.size())
     return *this;
 
-  return assign(string.c_str() + pos, min(count, string.size() - pos));
+  return assign(string.c_str() + pos, std::min(count, string.size() - pos));
 }
 
 template <StringStorage storageType>
