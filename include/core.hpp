@@ -65,9 +65,6 @@ using std::ptrdiff_t;
 // https://cppreference.com/cpp/types/nullptr_t
 using std::nullptr_t;
 
-// https://cppreference.com/w/cpp/types/numeric_limits.html
-using std::numeric_limits;
-
 //--------------------------------------------------------------------------------------------------------------------
 
 /// Signed integer type with width of exactly 8 bits and no padding bits
