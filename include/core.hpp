@@ -94,13 +94,6 @@ using std::uint32_t;
 /// Unsigned integer type with width of exactly 64 bits and no padding bits
 using std::uint64_t;
 
-//--------------------------------------------------------------------------------------------------------------------
-
-// (lvl 1)               Algorithms library https://cppreference.com/cpp/algorithm
-
-// https://cppreference.com/cpp/algorithm/min
-using std::min;
-
 } // namespace toy
 
 //--------------------------------------------------------------------------------------------------------------------

@@ -86,7 +86,8 @@ constexpr String<storageType>::String(const StringType & string) noexcept
 template <StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::String(const StringType & string, size_type pos, size_type count) noexcept
-  : String(string.c_str() + min(pos, string.size()), min(count, string.size() - min(pos, string.size()))) {
+  : String(string.c_str() + std::min(pos, string.size()),
+           std::min(count, string.size() - std::min(pos, string.size()))) {
   assert_message(pos <= string.size(), "the substring must start inside the source string");
 }
 
@@ -96,8 +97,8 @@ constexpr String<storageType>::String(String && other, size_type pos, size_type 
   const size_type sourceLength = _storage.size();
   assert_message(pos <= sourceLength, "the substring must start inside the source string");
 
-  const size_type offset = min(pos, sourceLength);
-  const size_type length = min(count, sourceLength - offset);
+  const size_type offset = std::min(pos, sourceLength);
+  const size_type length = std::min(count, sourceLength - offset);
   if (offset != 0 && length != 0)
     traits_type::move(_storage.data(), _storage.data() + offset, length);
 
