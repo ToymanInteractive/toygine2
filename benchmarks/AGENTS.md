@@ -18,10 +18,10 @@ Building, running, and gating. What a body measures follows **Benchmark Shape** 
 
 ## Benchmark Shape
 
-* **The runner owns the table:** title, ratio column and epoch length come from `benchmarks/runner/main.cpp`, which is what keeps two tables comparable; a body sets the unit and calls `run()` once per row.
+* **The runner owns the table:** title, ratio column and epoch length come from `benchmarks/runner/platforms/desktop.cpp`, which is what keeps two tables comparable; a body sets the unit and calls `run()` once per row.
 * **One operation per case:** rows compare implementations of one operation. Two operations make the ratio column meaningless, so they are two cases.
 * **A row needs something to measure against:** an engine type against its standard-library equivalent (`std::string_view` beside `toy::StringView`), or against the implementation it replaces — a lone number states neither a budget nor a regression.
-* **Keep the compiler honest:** every measured result goes through `ankerl::nanobench::doNotOptimizeAway`, and a foldable input reaches the body through an opaque barrier. A benchmark over a folded constant still prints a number, which is worse than printing none.
+* **Keep the compiler honest:** every measured result goes through `toy::benchmark::doNotOptimizeAway`, and a foldable input reaches the body through an opaque barrier. A benchmark over a folded constant still prints a number, which is worse than printing none.
 * **Arrange outside the loop:** whatever is not the subject of the measurement is built before `run()`, so the timed callable holds the operation alone.
 * **Data the cache can hold:** state the size a case works over and why. A working set that spills out of cache measures the memory system, not what the name promises.
 
