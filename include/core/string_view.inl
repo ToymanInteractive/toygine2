@@ -110,7 +110,7 @@ constexpr StringView::size_type StringView::length() const noexcept {
 }
 
 constexpr StringView::size_type StringView::max_size() const noexcept {
-  return numeric_limits<size_type>::max() / sizeof(value_type);
+  return std::numeric_limits<size_type>::max() / sizeof(value_type);
 }
 
 inline StringView::size_type StringView::utf8_size() const noexcept {

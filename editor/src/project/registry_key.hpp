@@ -18,43 +18,34 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   value.hpp
-  \brief  Value kinds a setting can hold, and the storage for one value.
+  \file   registry_key.hpp
+  \brief  Identifiers of the settings the editor knows.
 
-  Defines \ref toy::editor::project::Type and \ref toy::editor::project::Value. The kind a setting declares decides
-  which alternative of the variant holds its value.
+  Defines \ref toy::editor::project::Key and \ref toy::editor::project::c_keyCount, the number of settings it
+  enumerates. A setting is always named by its key, so a typo in a setting name fails to compile.
 */
-#ifndef EDITOR_SRC_PROJECT_VALUE_HPP_
-#define EDITOR_SRC_PROJECT_VALUE_HPP_
-
-#include <string>
-#include <variant>
+#ifndef EDITOR_SRC_PROJECT_REGISTRY_KEY_HPP_
+#define EDITOR_SRC_PROJECT_REGISTRY_KEY_HPP_
 
 #include <core.hpp>
 
 namespace toy::editor::project {
 
 /*!
-  \enum   Type
-  \brief  Kind of value a setting holds.
+  \enum   Key
+  \brief  Every setting the editor knows, and the slot each one occupies.
+
+  An enumerator's value is the index of its descriptor in \ref toy::editor::project::c_registry and of its value in
+  \ref toy::editor::project::Project.
 */
-enum class Type {
-  String,      ///< UTF-8 text
-  Integer,     ///< Signed 64-bit integer
-  Double,      ///< Double-precision floating point
-  Boolean,     ///< \c true or \c false
-  Enumeration, ///< Enumerator name held as text; nothing checks it against a set of allowed names
+enum class Key : size_t {
+  Name,  ///< Project name, \ref toy::editor::project::Type::String
+  Count, ///< Number of settings; not a setting
 };
 
-/*!
-  \brief  Storage for one setting's value.
-
-  Holds std::string for \ref toy::editor::project::Type::String and \ref toy::editor::project::Type::Enumeration,
-  int64_t for \ref toy::editor::project::Type::Integer, double for \ref toy::editor::project::Type::Double, and bool
-  for \ref toy::editor::project::Type::Boolean.
-*/
-using Value = std::variant<std::string, int64_t, double, bool>;
+/// Number of settings in the registry.
+inline constexpr size_t c_keyCount = std::to_underlying(Key::Count);
 
 } // namespace toy::editor::project
 
-#endif // EDITOR_SRC_PROJECT_VALUE_HPP_
+#endif // EDITOR_SRC_PROJECT_REGISTRY_KEY_HPP_
