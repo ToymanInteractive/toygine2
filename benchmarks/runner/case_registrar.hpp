@@ -30,12 +30,12 @@
 #ifndef INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_HPP_
 #define INCLUDE_BENCHMARKS_RUNNER_CASE_REGISTRAR_HPP_
 
-#include <nanobench.h>
+#include "bench.hpp"
 
 namespace toy::benchmark {
 
 /// Body of a benchmark, as produced by the BENCHMARK_CASE macro.
-using case_body_type = void (*)(ankerl::nanobench::Bench & bench);
+using case_body_type = void (*)(Bench & bench);
 
 /*!
   \class CaseRegistrar
@@ -55,7 +55,7 @@ using case_body_type = void (*)(ankerl::nanobench::Bench & bench);
   \section usage Usage Example
 
   \code
-  static void body(ankerl::nanobench::Bench & bench);
+  static void body(toy::benchmark::Bench & bench);
   static toy::benchmark::CaseRegistrar registrar{toy::benchmark::detail::caseListHead, "core/string_view/find",
                                                  __FILE__, __LINE__, &body};
   \endcode

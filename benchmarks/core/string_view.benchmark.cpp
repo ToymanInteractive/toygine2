@@ -75,7 +75,7 @@ constexpr size_t c_largeSize = 4096;
 
 // Hands a pointer through an opaque barrier, so a measured call reads the text instead of a folded constant.
 [[nodiscard]] const char * opaque(const char * string) noexcept {
-  ankerl::nanobench::doNotOptimizeAway(string);
+  toy::benchmark::doNotOptimizeAway(string);
 
   return string;
 }
@@ -91,10 +91,10 @@ BENCHMARK_CASE("core/string_view/find") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find(needle));
+    toy::benchmark::doNotOptimizeAway(view.find(needle));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find(needleReference));
+    toy::benchmark::doNotOptimizeAway(reference.find(needleReference));
   });
 }
 
@@ -107,10 +107,10 @@ BENCHMARK_CASE("core/string_view/find_large") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find(needle));
+    toy::benchmark::doNotOptimizeAway(view.find(needle));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find(needleReference));
+    toy::benchmark::doNotOptimizeAway(reference.find(needleReference));
   });
 }
 
@@ -121,10 +121,10 @@ BENCHMARK_CASE("core/string_view/find_char_large") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find(c_missing));
+    toy::benchmark::doNotOptimizeAway(view.find(c_missing));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find(c_missing));
+    toy::benchmark::doNotOptimizeAway(reference.find(c_missing));
   });
 }
 
@@ -137,10 +137,10 @@ BENCHMARK_CASE("core/string_view/find_first_of_large") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find_first_of(set));
+    toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find_first_of(setReference));
+    toy::benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
   });
 }
 
@@ -154,10 +154,10 @@ BENCHMARK_CASE("core/string_view/rfind_late_large") {
 
   // The needle sits at the very end, the shape a backward scan answers at once and a forward scan pays in full.
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.rfind(needle));
+    toy::benchmark::doNotOptimizeAway(view.rfind(needle));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.rfind(needleReference));
+    toy::benchmark::doNotOptimizeAway(reference.rfind(needleReference));
   });
 }
 
@@ -170,10 +170,10 @@ BENCHMARK_CASE("core/string_view/rfind_large") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.rfind(prefix));
+    toy::benchmark::doNotOptimizeAway(view.rfind(prefix));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.rfind(prefixReference));
+    toy::benchmark::doNotOptimizeAway(reference.rfind(prefixReference));
   });
 }
 
@@ -191,10 +191,10 @@ BENCHMARK_CASE("core/string_view/compare") {
 
   // Both operands hold the same text, so the comparison runs to the end instead of stopping at the first difference.
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.compare(same));
+    toy::benchmark::doNotOptimizeAway(view.compare(same));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.compare(sameReference));
+    toy::benchmark::doNotOptimizeAway(reference.compare(sameReference));
   });
 }
 
@@ -205,10 +205,10 @@ BENCHMARK_CASE("core/string_view/find_char") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find(c_missing));
+    toy::benchmark::doNotOptimizeAway(view.find(c_missing));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find(c_missing));
+    toy::benchmark::doNotOptimizeAway(reference.find(c_missing));
   });
 }
 
@@ -221,10 +221,10 @@ BENCHMARK_CASE("core/string_view/find_first_of") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find_first_of(set));
+    toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find_first_of(setReference));
+    toy::benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
   });
 }
 
@@ -238,10 +238,10 @@ BENCHMARK_CASE("core/string_view/find_first_of_wide_set") {
 
   // Against the table above: a cost that follows the size of the set is what a lookup table would flatten.
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.find_first_of(set));
+    toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.find_first_of(setReference));
+    toy::benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
   });
 }
 
@@ -255,10 +255,10 @@ BENCHMARK_CASE("core/string_view/rfind") {
 
   // The only match sits at the front, so a backward search walks the whole text before it answers.
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.rfind(prefix));
+    toy::benchmark::doNotOptimizeAway(view.rfind(prefix));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.rfind(prefixReference));
+    toy::benchmark::doNotOptimizeAway(reference.rfind(prefixReference));
   });
 }
 
@@ -269,10 +269,10 @@ BENCHMARK_CASE("core/string_view/rfind_char") {
   bench.unit("search");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.rfind(c_missing));
+    toy::benchmark::doNotOptimizeAway(view.rfind(c_missing));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.rfind(c_missing));
+    toy::benchmark::doNotOptimizeAway(reference.rfind(c_missing));
   });
 }
 
@@ -285,9 +285,9 @@ BENCHMARK_CASE("core/string_view/starts_with") {
   bench.unit("test");
 
   bench.run("toy::StringView", [&] {
-    ankerl::nanobench::doNotOptimizeAway(view.starts_with(prefix));
+    toy::benchmark::doNotOptimizeAway(view.starts_with(prefix));
   });
   bench.run("std::string_view", [&] {
-    ankerl::nanobench::doNotOptimizeAway(reference.starts_with(prefixReference));
+    toy::benchmark::doNotOptimizeAway(reference.starts_with(prefixReference));
   });
 }

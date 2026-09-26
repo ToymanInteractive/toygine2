@@ -46,7 +46,7 @@ using LongString = toy::FixedString<c_length + 1>;
 // Hands a value through an opaque barrier, so a measured construction reads it instead of a folded constant.
 template <typename T>
 [[nodiscard]] T opaque(T value) noexcept {
-  ankerl::nanobench::doNotOptimizeAway(value);
+  toy::benchmark::doNotOptimizeAway(value);
 
   return value;
 }
@@ -117,11 +117,11 @@ BENCHMARK_CASE("core/string/construction_from_iterators") {
   // A pointer pair is measured by one subtraction and copied as one block.
   bench.run("toy::FixedString", [&] {
     const LongString string(first, last);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(first, last);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -134,11 +134,11 @@ BENCHMARK_CASE("core/string/construction_from_forward_list") {
   // A forward range without subtraction is walked twice by both rows: once to measure, once to copy.
   bench.run("toy::FixedString", [&] {
     const LongString string(list.begin(), list.end());
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(list.begin(), list.end());
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -151,11 +151,11 @@ BENCHMARK_CASE("core/string/construction_from_single_pass") {
   // The toy row checks the storage per character; the std::string row appends and regrows its heap buffer.
   bench.run("toy::FixedString", [&] {
     const LongString string(first, last);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(first, last);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -168,11 +168,11 @@ BENCHMARK_CASE("core/string/construction_from_range") {
   // A contiguous range with a size is measured by one subtraction and copied as one block.
   bench.run("toy::FixedString", [&] {
     const LongString string(std::from_range, range);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(std::from_range, range);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -184,11 +184,11 @@ BENCHMARK_CASE("core/string/construction_from_range_null_terminated") {
   // The sentinel differs from the iterator, so the length comes from a scan for the terminator before the copy.
   bench.run("toy::FixedString", [&] {
     const LongString string(std::from_range, range);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(std::from_range, range);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 #endif // __cpp_lib_ranges_to_container && __cpp_lib_containers_ranges
@@ -202,11 +202,11 @@ BENCHMARK_CASE("core/string/construction_from_string_like") {
   // Both sources know their length, so each row copies one block of known size.
   bench.run("toy::FixedString", [&] {
     const LongString string(view);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(reference);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -220,11 +220,11 @@ BENCHMARK_CASE("core/string/construction_substring") {
   // The std::basic_string(const basic_string &, pos) shape: the second half of a string copied into a new one.
   bench.run("toy::FixedString", [&] {
     const LongString string(source, offset);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(reference, offset);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -240,12 +240,12 @@ BENCHMARK_CASE("core/string/construction_substring_move") {
   bench.run("toy::FixedString", [&] {
     LongString       source(prototype);
     const LongString string(std::move(source), offset);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     std::string       source(referencePrototype);
     const std::string string(std::move(source), offset);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -257,11 +257,11 @@ BENCHMARK_CASE("core/string/construction_fill") {
   // Both rows write count copies of one character; the std::string row allocates its buffer first.
   bench.run("toy::FixedString", [&] {
     const LongString string(count, 'x');
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(count, 'x');
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -273,11 +273,11 @@ BENCHMARK_CASE("core/string/construction_from_pointer") {
   // A null-terminated source is measured by a scan for the terminator, then copied as one block.
   bench.run("toy::FixedString", [&] {
     const LongString string(text);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(text);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -290,11 +290,11 @@ BENCHMARK_CASE("core/string/construction_copy") {
   // The toy row copies the characters in use into its own buffer; the std::string row allocates and copies them.
   bench.run("toy::FixedString", [&] {
     const LongString string(prototype);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(referencePrototype);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -307,11 +307,11 @@ BENCHMARK_CASE("core/string/construction_copy_short") {
   // A short string in a large buffer: the toy row copies the characters in use, std::string fits them inline.
   bench.run("toy::FixedString", [&] {
     const LongString string(prototype);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     const std::string string(referencePrototype);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
 }
 
@@ -326,11 +326,11 @@ BENCHMARK_CASE("core/string/assignment_fill") {
   // Both rows overwrite a buffer that already fits count characters, so neither allocates.
   bench.run("toy::FixedString", [&] {
     string.assign(count, 'x');
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference.assign(count, 'x');
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -345,11 +345,11 @@ BENCHMARK_CASE("core/string/assignment_from_pointer") {
   // Both rows scan for the terminator, then copy into a buffer that already fits the source.
   bench.run("toy::FixedString", [&] {
     string = text;
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference = text;
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -365,11 +365,11 @@ BENCHMARK_CASE("core/string/assignment_from_string_like") {
   // Both sources know their length, so each row copies one block of known size; the toy row also checks for overlap.
   bench.run("toy::FixedString", [&] {
     string = view;
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference = referenceView;
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -386,11 +386,11 @@ BENCHMARK_CASE("core/string/assignment_substring") {
   // The assign(const basic_string &, pos) shape: the second half of a string copied over another one.
   bench.run("toy::FixedString", [&] {
     string.assign(source, offset);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference.assign(referenceSource, offset);
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -406,11 +406,11 @@ BENCHMARK_CASE("core/string/assignment_from_iterators") {
   // A pointer pair is measured by one subtraction and copied as one block.
   bench.run("toy::FixedString", [&] {
     string.assign(first, last);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference.assign(first, last);
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -426,11 +426,11 @@ BENCHMARK_CASE("core/string/assignment_from_single_pass") {
   // The toy row checks the storage only when its buffer fills; the std::string row appends into reserved capacity.
   bench.run("toy::FixedString", [&] {
     string.assign(first, last);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference.assign(first, last);
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -446,11 +446,11 @@ BENCHMARK_CASE("core/string/assignment_from_range") {
   // A contiguous range with a size is measured by one subtraction and copied as one block.
   bench.run("toy::FixedString", [&] {
     string.assign_range(range);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     reference.assign_range(range);
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 #endif // __cpp_lib_containers_ranges
@@ -466,14 +466,14 @@ BENCHMARK_CASE("core/string/copy_assignment") {
 
   // The source passes through the barrier on every run, so neither row can keep it in registers.
   bench.run("toy::FixedString", [&] {
-    ankerl::nanobench::doNotOptimizeAway(source);
+    toy::benchmark::doNotOptimizeAway(source);
     string = source;
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
-    ankerl::nanobench::doNotOptimizeAway(referenceSource);
+    toy::benchmark::doNotOptimizeAway(referenceSource);
     reference = referenceSource;
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -487,14 +487,14 @@ BENCHMARK_CASE("core/string/copy_assignment_short") {
 
   // A short string in a large buffer: the toy row copies the characters in use, std::string fits them inline.
   bench.run("toy::FixedString", [&] {
-    ankerl::nanobench::doNotOptimizeAway(source);
+    toy::benchmark::doNotOptimizeAway(source);
     string = source;
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
-    ankerl::nanobench::doNotOptimizeAway(referenceSource);
+    toy::benchmark::doNotOptimizeAway(referenceSource);
     reference = referenceSource;
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
 
@@ -510,11 +510,11 @@ BENCHMARK_CASE("core/string/move_assignment") {
   bench.run("toy::FixedString", [&] {
     LongString source(prototype);
     string = std::move(source);
-    ankerl::nanobench::doNotOptimizeAway(string);
+    toy::benchmark::doNotOptimizeAway(string);
   });
   bench.run("std::string", [&] {
     std::string source(referencePrototype);
     reference = std::move(source);
-    ankerl::nanobench::doNotOptimizeAway(reference);
+    toy::benchmark::doNotOptimizeAway(reference);
   });
 }
