@@ -18,43 +18,27 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   value.hpp
-  \brief  Value kinds a setting can hold, and the storage for one value.
+  \file   registry_scope.hpp
+  \brief  Sections a manifest divides its settings into.
 
-  Defines \ref toy::editor::project::Type and \ref toy::editor::project::Value. The kind a setting declares decides
-  which alternative of the variant holds its value.
+  Defines \ref toy::editor::project::Scope, which each descriptor carries to place its setting in the manifest.
 */
-#ifndef EDITOR_SRC_PROJECT_VALUE_HPP_
-#define EDITOR_SRC_PROJECT_VALUE_HPP_
-
-#include <string>
-#include <variant>
-
-#include <core.hpp>
+#ifndef EDITOR_SRC_PROJECT_REGISTRY_SCOPE_HPP_
+#define EDITOR_SRC_PROJECT_REGISTRY_SCOPE_HPP_
 
 namespace toy::editor::project {
 
 /*!
-  \enum   Type
-  \brief  Kind of value a setting holds.
+  \enum   Scope
+  \brief  Section of the manifest a setting belongs to.
 */
-enum class Type {
-  String,      ///< UTF-8 text
-  Integer,     ///< Signed 64-bit integer
-  Double,      ///< Double-precision floating point
-  Boolean,     ///< \c true or \c false
-  Enumeration, ///< Enumerator name held as text; nothing checks it against a set of allowed names
+enum class Scope {
+  Common,  ///< Shared by every target
+  Desktop, ///< Desktop platform section
+  MD,      ///< Mega Drive platform section
+  GBA,     ///< Game Boy Advance platform section
 };
-
-/*!
-  \brief  Storage for one setting's value.
-
-  Holds std::string for \ref toy::editor::project::Type::String and \ref toy::editor::project::Type::Enumeration,
-  int64_t for \ref toy::editor::project::Type::Integer, double for \ref toy::editor::project::Type::Double, and bool
-  for \ref toy::editor::project::Type::Boolean.
-*/
-using Value = std::variant<std::string, int64_t, double, bool>;
 
 } // namespace toy::editor::project
 
-#endif // EDITOR_SRC_PROJECT_VALUE_HPP_
+#endif // EDITOR_SRC_PROJECT_REGISTRY_SCOPE_HPP_
