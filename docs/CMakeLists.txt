@@ -23,11 +23,8 @@ find_package(Doxygen 1.18.0 REQUIRED COMPONENTS dot)
 get_target_property(DOXYGEN_DOT_LOCATION Doxygen::dot IMPORTED_LOCATION)
 get_filename_component(DOXYGEN_DOT_DIR "${DOXYGEN_DOT_LOCATION}" DIRECTORY)
 
-include(FetchContent)
-
-FetchContent_Declare(doxygen_awesome_css GIT_REPOSITORY https://github.com/jothepro/doxygen-awesome-css.git GIT_TAG v2.4.2 GIT_SHALLOW TRUE)
-FetchContent_MakeAvailable(doxygen_awesome_css)
-FetchContent_GetProperties(doxygen_awesome_css SOURCE_DIR AWESOME_CSS_DIR)
+# Theme stylesheets and scripts for the HTML output; thirdparty/README.md records the upstream version.
+set(AWESOME_CSS_DIR ${PROJECT_SOURCE_DIR}/thirdparty/doxygen-awesome-css)
 
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/Doxyfile.in ${CMAKE_CURRENT_BINARY_DIR}/Doxyfile @ONLY)
 

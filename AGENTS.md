@@ -13,7 +13,7 @@ You are an expert in GameDev and C++ development. Your goal is to build a perfor
 * **Clarification:** When ambiguous, ask about intent, target platform (retro/modern console, desktop, mobile, web/WASM), and hot-path vs. cold/tooling path — they trade off differently.
 * **Platform Awareness:** State toolchain assumptions (compiler, C++ standard, fixed vs. dynamic memory). Never assume an OS, heap, exceptions, or RTTI; retro and embedded targets may lack all four.
 * **Allocation:** Ask before adding heap allocation on a hot path or in a fixed-capacity type; name its pool and capacity — see Allocation policy.
-* **Dependencies:** Justify a new library's cost (build time, size, portability) and prefer CMake `FetchContent` — see **Dependency Management**.
+* **Dependencies:** Justify a new library's cost (build time, size, portability) and vendor it under `thirdparty/` — see **Dependency Management**.
 * **Tooling:** Format, lint, and build warning-free before committing — see **Lint Rules**.
 * **Testing:** Prefer compile-time `static_assert`; add a DocTest runtime case for what constant evaluation cannot reach, and for the runtime half of a constexpr / runtime parity check — see [`tests/AGENTS.md`](tests/AGENTS.md).
 
@@ -28,7 +28,7 @@ Non-module directories:
 * `benchmarks/` — benchmarks and the runner they build on; benchmark rules live beside them — read [`benchmarks/AGENTS.md`](benchmarks/AGENTS.md) first.
 * `samples/` — standalone usage examples; `resources/` — assets they consume.
 * `editor/` — editor application; does **not** follow the module layout — read [`editor/AGENTS.md`](editor/AGENTS.md) first.
-* `cmake/` — `FetchContent_Declare` deps, toolchain, and platform config; `thirdparty/` — vendored deps when `FetchContent` is not viable (see **Dependency Management**).
+* `cmake/` — toolchain and platform config; `thirdparty/` — vendored deps, each beside the `<dep>.cmake` that declares its target (see **Dependency Management**).
 * `docs/` — Doxygen and prose docs; `tools/` — CI/build scripts; `.github/` — Actions; `.vscode/` — editor settings.
 
 ## C++ style guide
@@ -55,12 +55,12 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 
 * **Justify before adding:** Every dependency costs build time, binary size, and portability. Prefer the standard library or a small in-tree implementation; state why a new one is needed.
 * **Selection criteria:** Stable, maintained, permissive non-copyleft license (MIT, BSD, zlib, Apache-2.0). Favor header-only code without exceptions/RTTI that builds on every target platform (desktop, mobile, embedded, retro/modern consoles).
-* **Acquisition:** CMake `FetchContent` by default, declared in `cmake/` (standalone apps like `editor/` declare theirs in their own `CMakeLists.txt`) — no submodules, system-wide installs, or package managers with global state. Vendor under `thirdparty/` only when `FetchContent` is not viable (offline builds, console toolchains, patched sources); record the upstream version and patches.
-* **Declaring:** Pin to an exact tag or commit (never a branch), prefer `GIT_SHALLOW TRUE`; link third-party dependencies only through namespaced CMake targets (`dep::dep`), never global `include_directories` or raw paths into `_deps/`; platform frameworks (`-framework Cocoa`) are linked directly. Declare every dependency you use — never rely on a transitive one. `FetchContent_MakeAvailable` order matters when one dependency provides targets for another (`Vulkan-Headers` before `volk`); comment why.
+* **Acquisition:** Vendor the sources under `thirdparty/<dep>/`, keeping only the files the build uses plus the license — no submodules, system-wide installs, package managers with global state, or downloads at configure time. Record the upstream URL, the exact tag or commit, the license, the extracted files, and local patches in `thirdparty/README.md`.
+* **Declaring:** `thirdparty/<dep>.cmake` builds the target from the vendored sources and adds its namespaced alias; a consumer reaches it with `include(<dep>)`, never `add_subdirectory` over an upstream `CMakeLists.txt`. Link third-party libraries only through namespaced CMake targets (`dep::dep`), never global `include_directories` or include paths into `thirdparty/`; platform frameworks (`-framework Cocoa`) are linked directly. Declare every dependency you use — never rely on a transitive one. `include()` order matters when one dependency provides targets for another (`vulkan` before `volk`); comment why.
 * **Build-only dependencies:** Gate tooling, test, and benchmark dependencies (DocTest, nanobench) behind their CMake options so engine consumers never pull them in.
-* **Versioning and overrides:** To force a transitive version, declare it before the consumer (first declaration wins) with a comment. Bump versions in a dedicated change; bump lockstep pairs together (e.g. `Vulkan-Headers` + `volk`).
-* **Platform SDKs and toolchains:** Console SDKs (devkitPro, PSPSDK, ...) and compilers come from the environment via toolchain files in `cmake/`, never via `FetchContent`; fail the build with a clear message when one is missing.
-* **Removing:** Drop the declaration (or `thirdparty/` directory) and all references, then verify a clean build on all target platforms.
+* **Versioning:** Bump a vendored copy in a dedicated change — replace the files, reapply the local patches, update its `thirdparty/README.md` entry; bump lockstep pairs together (e.g. `vulkan` + `volk`).
+* **Platform SDKs and toolchains:** Console SDKs (devkitPro, PSPSDK, ...) and compilers come from the environment via toolchain files in `cmake/`, never vendored — `thirdparty/` holds at most an overlay patching an SDK's files (`clownmdsdk/`); fail the build with a clear message when one is missing.
+* **Removing:** Drop the `thirdparty/` directory, its `.cmake` file and `README.md` entry, and all references, then verify a clean build on all target platforms.
 
 ## Code Quality
 
@@ -183,7 +183,7 @@ Style and correctness are enforced by tools, not by review. Configs live at the 
 * **License headers:** every source file starts with the block from `tools/builder/license`, verified in CI; what follows it is **Comment Placement**.
 * **Docs build:** Doxygen must finish with no warnings — a broken `\ref`, a missing `\param`, or an undocumented public symbol is a lint failure.
 * **Markdown:** `markdownlint-cli2` over `**/*.md`.
-* **Out of scope:** `thirdparty/` and `_deps/` are never formatted, linted, or auto-fixed; a vendored change is a recorded patch (see **Dependency Management**).
+* **Out of scope:** `thirdparty/` is never formatted, linted, or auto-fixed; a vendored change is a recorded patch (see **Dependency Management**).
 * **Sweeps land alone:** a reformat or `--fix` run is its own commit, never mixed into a feature diff.
 
 ## Testing

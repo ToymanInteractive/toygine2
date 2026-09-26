@@ -19,9 +19,9 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Microbenchmark library for the benchmark runner. The whole library is one header, with the definitions behind
-# ANKERL_NANOBENCH_IMPLEMENT; benchmarks/runner/main.cpp is the only translation unit that defines it. The copy keeps
-# src/include/ and LICENSE and drops the upstream CMakeLists, which declares a project of its own and builds a 36-file
-# test binary. thirdparty/README.md records the upstream commit and the local patch.
+# ANKERL_NANOBENCH_IMPLEMENT; benchmarks/runner/platforms/desktop.cpp is the only translation unit that defines it.
+# The copy keeps src/include/ and LICENSE and drops the upstream CMakeLists, which declares a project of its own and
+# builds a 36-file test binary. thirdparty/README.md records the upstream commit and the local patch.
 
 set(NANOBENCH_DIR ${CMAKE_CURRENT_LIST_DIR}/nanobench)
 

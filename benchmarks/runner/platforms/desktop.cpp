@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   main.cpp
-  \brief  Entry point of the benchmark binary: applies the command line, prints the tables and the epochs behind them.
+  \file   desktop.cpp
+  \brief  Desktop benchmark entry point: applies the command line, prints nanobench tables and the epochs behind them.
 */
 
 // nanobench keeps its implementation behind this macro, and exactly one translation unit may define it.
@@ -114,7 +114,7 @@ int main(int argc, char ** argv) {
       continue;
     }
 
-    ankerl::nanobench::Bench bench;
+    toy::benchmark::Bench bench;
 
     // Set here rather than in a body: a shared ratio column and epoch length keep two tables comparable.
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));

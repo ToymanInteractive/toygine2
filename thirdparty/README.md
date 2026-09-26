@@ -45,6 +45,17 @@ Files extracted from upstream source:
 - `scripts/cmake/doctestAddTests.cmake`
 - `LICENSE.txt`
 
+## doxygen-awesome-css
+
+- Upstream: <https://github.com/jothepro/doxygen-awesome-css>
+- Version: v2.5.0 (46483f1e5a70ffb9ecd3b82d0a1cd1b24edf13da, 2026)
+- License: MIT
+
+Files extracted from upstream source:
+
+- `doxygen-awesome*.css` and `doxygen-awesome*.js`
+- `LICENSE`
+
 ## libpng
 
 - Upstream: <https://github.com/pnggroup/libpng>

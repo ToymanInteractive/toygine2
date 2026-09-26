@@ -141,7 +141,7 @@ constexpr void StringView::swap(StringView & v) noexcept {
 constexpr StringView::size_type StringView::copy(value_type * dest, size_type count, size_type pos) const noexcept {
   assert_message(pos <= size(), "copy() can't copy past the end of the string");
 
-  const auto rLength = min(count, size() - pos);
+  const auto rLength = std::min(count, size() - pos);
   if (rLength != 0)
     traits_type::copy(dest, data() + pos, rLength);
 
@@ -149,7 +149,7 @@ constexpr StringView::size_type StringView::copy(value_type * dest, size_type co
 }
 
 constexpr int StringView::compare(StringView v) const noexcept {
-  const auto commonSize = min(size(), v.size());
+  const auto commonSize = std::min(size(), v.size());
   const int  retVal     = commonSize != 0 ? traits_type::compare(data(), v.data(), commonSize) : 0;
   if (retVal == 0)
     return size() == v.size() ? 0 : (size() < v.size() ? -1 : 1);
@@ -160,8 +160,8 @@ constexpr int StringView::compare(StringView v) const noexcept {
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v) const noexcept {
   assert_message(pos1 <= size(), "Range out of bounds");
 
-  const auto rCount1 = min(count1, size() - pos1);
-  const auto common  = min(rCount1, v.size());
+  const auto rCount1 = std::min(count1, size() - pos1);
+  const auto common  = std::min(rCount1, v.size());
 
   const int retVal = common != 0 ? traits_type::compare(data() + pos1, v.data(), common) : 0;
   if (retVal == 0)
@@ -175,9 +175,9 @@ constexpr int StringView::compare(size_type pos1, size_type count1, StringView v
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(pos2 <= v.size(), "Range out of bounds");
 
-  const auto rCount1 = min(count1, size() - pos1);
-  const auto rCount2 = min(count2, v.size() - pos2);
-  const auto common  = min(rCount1, rCount2);
+  const auto rCount1 = std::min(count1, size() - pos1);
+  const auto rCount2 = std::min(count2, v.size() - pos2);
+  const auto common  = std::min(rCount1, rCount2);
 
   const int retVal = common != 0 ? traits_type::compare(data() + pos1, v.data() + pos2, common) : 0;
   if (retVal == 0)
@@ -199,8 +199,8 @@ constexpr int StringView::compare(size_type pos1, size_type count1, const value_
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(s != nullptr, "C string must not be null");
 
-  const auto rCount1 = min(count1, size() - pos1);
-  const auto common  = min(rCount1, count2);
+  const auto rCount1 = std::min(count1, size() - pos1);
+  const auto common  = std::min(rCount1, count2);
 
   const int retVal = common != 0 ? traits_type::compare(data() + pos1, s, common) : 0;
   if (retVal == 0)
@@ -302,11 +302,11 @@ constexpr StringView::size_type StringView::rfind(value_type ch, size_type pos) 
 
 constexpr StringView::size_type StringView::rfind(const value_type * s, size_type pos, size_type count) const noexcept {
   if (count == 0)
-    return min(pos, size());
+    return std::min(pos, size());
   else if (count > size())
     return npos;
 
-  for (size_type remaining = min(pos, size() - count) + 1; remaining > 0; --remaining) {
+  for (size_type remaining = std::min(pos, size() - count) + 1; remaining > 0; --remaining) {
     const size_type index = remaining - 1;
 
     // Ends reject most positions before compare(); the backward walk keeps the early exit a forward scan loses.
@@ -416,7 +416,7 @@ constexpr StringView::size_type StringView::find_last_not_of(value_type ch, size
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos,
                                                              size_type count) const noexcept {
   if (count == 0)
-    return empty() ? npos : min(pos, size() - 1);
+    return empty() ? npos : std::min(pos, size() - 1);
 
   for (size_type remaining = pos < size() ? pos + 1 : size(); remaining > 0; --remaining)
     if (traits_type::find(s, count, _data[remaining - 1]) == nullptr)

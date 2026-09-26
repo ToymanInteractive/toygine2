@@ -22,8 +22,8 @@
   \brief  Benchmark macros and registry declarations shared by every benchmark translation unit.
 
   Defines the benchmark registry \ref toy::benchmark::detail::caseListHead and the \c BENCHMARK_CASE macro, and pulls
-  in the registration node they rest on. A benchmark file needs no other include: nanobench arrives through this
-  header.
+  in the registration node they rest on. A benchmark file needs no other include: \ref toy::benchmark::Bench arrives
+  through this header.
 */
 
 #ifndef INCLUDE_BENCHMARKS_RUNNER_TOY_BENCHMARK_HPP_
@@ -61,10 +61,10 @@ inline CaseRegistrar * caseListHead = nullptr;
 
 // The registrar is not const: a later registration writes the link, see toy::benchmark::CaseRegistrar.
 #define TOY_BENCHMARK_CASE_IMPL(caseName, bodyName, registrarName)                                                     \
-  static void                            bodyName(::ankerl::nanobench::Bench & bench);                                 \
+  static void                            bodyName(::toy::benchmark::Bench & bench);                                    \
   static ::toy::benchmark::CaseRegistrar registrarName{::toy::benchmark::detail::caseListHead, caseName, __FILE__,     \
                                                        __LINE__, &bodyName};                                           \
-  static void                            bodyName(::ankerl::nanobench::Bench & bench)
+  static void                            bodyName(::toy::benchmark::Bench & bench)
 
 /// Declares and registers a benchmark case; see \ref toy::benchmark::CaseRegistrar.
 #define BENCHMARK_CASE(caseName)                                                                                       \

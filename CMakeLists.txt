@@ -255,7 +255,7 @@ if (PROJECT_IS_TOP_LEVEL)
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "ToyGine 2 static library, headers and samples")
   set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
   # Component install mode is what filters the archive down to CPACK_COMPONENTS_ALL: without it CPack packs every
-  # install() rule in the build, including those the FetchContent dependencies declare for themselves.
+  # install() rule in the build.
   set(CPACK_COMPONENTS_ALL headers library license samples)
 
   if (TOYGINE_BUILD_EDITOR)

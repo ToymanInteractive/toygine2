@@ -30,7 +30,7 @@ set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH ${TOYGINE_TARGET_PLATFORM_IS_DESKT
 #-----------------------------------------------------------------------------------------------------------------------
 
 # The runner: the entry point that walks the registry and prints a table per benchmark, so no benchmark holds one.
-set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/main.cpp)
+set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
 
 # Benchmarks of engine modules: the glob adds a file to the target, BENCHMARK_CASE registers the cases inside it.
 file(GLOB_RECURSE TOYGINE_MODULE_BENCHMARKS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.benchmark.cpp")
@@ -48,9 +48,13 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
   target_include_directories(${TOYGINE_LIBRARY_NAME}-benchmarks
       PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
   target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench::nanobench ${TOYGINE_LIBRARY_NAME})
+  set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks PROPERTIES FOLDER "benchmarks")
+
+  # Bodies spell toy::benchmark::Bench; this define makes it nanobench's table rather than the console runner's.
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE TOYGINE_BENCHMARKS_USE_NANOBENCH)
 
   # The tables are for a human reading the log, the CSV lines for tools/builder/bmf_from_csv.py reading the same log.
-  add_custom_target(benchmarks_run
+  add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-run
     COMMAND $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks> --csv
     WORKING_DIRECTORY $<TARGET_FILE_DIR:${TOYGINE_LIBRARY_NAME}-benchmarks>
     COMMENT "Running benchmarks"
@@ -58,7 +62,8 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
   )
 
   # A generator expression names the binary but orders nothing, so the run target asks for the build itself.
-  add_dependencies(benchmarks_run ${TOYGINE_LIBRARY_NAME}-benchmarks)
+  add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks-run ${TOYGINE_LIBRARY_NAME}-benchmarks)
+  set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-run PROPERTIES FOLDER "benchmarks")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
