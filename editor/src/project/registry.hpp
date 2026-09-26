@@ -36,7 +36,7 @@
 namespace toy::editor::project {
 
 /// Declaration of every setting, indexed by \ref toy::editor::project::Key.
-inline constexpr std::array<Descriptor, c_keyCount> c_registry{
+inline constexpr std::array c_registry{
   Descriptor{"name", Scope::Common, Type::String, "Untitled", 0, 0.0, false},
 };
 
