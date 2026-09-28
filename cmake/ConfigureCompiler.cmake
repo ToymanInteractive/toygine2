@@ -31,10 +31,10 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.    https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html
 # Clang 21.1.0 diagnostic flags. https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option is -Wbitfield-enum-conversion
+# last option is -Wbitwise-instead-of-logical
 
-set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast                                           -Wbit-int-extension -Wbitfield-enum-conversion")
-set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast -Wbinary-literal -Wbind-to-temporary-copy -Wbit-int-extension -Wbitfield-enum-conversion")
+set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast                                           -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical")
+set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast -Wbinary-literal -Wbind-to-temporary-copy -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical")
 set(CLANG_CMAKE_OBJC_FLAGS                  "${CLANG_CMAKE_C_FLAGS}   -Warc-maybe-repeated-use-of-weak")
 set(CLANG_CMAKE_OBJCXX_FLAGS                "${CLANG_CMAKE_CXX_FLAGS} -Warc-maybe-repeated-use-of-weak")
 

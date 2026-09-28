@@ -156,9 +156,19 @@ source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST}
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} include/toygine.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
-list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST})
+set(SRC_VIDEO_LIST )
+set(HDR_VIDEO_LIST
+    include/video.hpp
+    include/video/color_32.hpp)
+set(INL_VIDEO_LIST )
+
+source_group("Video" FILES ${SRC_VIDEO_LIST} ${HDR_VIDEO_LIST} ${INL_VIDEO_LIST})
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST} ${SRC_VIDEO_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
+list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST} ${INL_VIDEO_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
