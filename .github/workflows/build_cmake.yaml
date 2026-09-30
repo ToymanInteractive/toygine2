@@ -86,6 +86,13 @@ jobs:
             cmake_preset: linux-release
             artifact_id: linux-arm64
 
+          - name: Linux Clang x64
+            os: ubuntu-26.04
+            compiler: clang
+            llvm_version: "23"
+            run_test: "true"
+            cmake_preset: linux-release
+
           - name: Sega Mega Drive
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
@@ -167,12 +174,15 @@ jobs:
         uses: actions/cache/restore@v6.1.0
         with:
           path: ${{ runner.temp }}/apt-cache
-          key: build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
+          key: build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}-${{ matrix.compiler || 'gcc' }}
           restore-keys: |
-            build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}
+            build-${{ matrix.os }}-apt-${{ matrix.cmake_preset }}-${{ matrix.compiler || 'gcc' }}
 
       - name: Prepare CI
         if: ${{ matrix.container == '' }}
+        env:
+          COMPILER: ${{ matrix.compiler }}
+          LLVM_VERSION: ${{ matrix.llvm_version }}
         run: |
           if [[ "${{ matrix.os }}" =~ "windows" ]]; then
             MSVC_INSTALL_PATH=$(vswhere -latest -property installationPath)
@@ -207,15 +217,33 @@ jobs:
               -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
               install eatmydata
 
+            packages=(gcc-16 g++-16)
+
+            if [[ "$COMPILER" == "clang" ]]; then
+              . /etc/os-release
+              sudo install -d -m 0755 /etc/apt/keyrings
+              curl -fsSL https://apt.llvm.org/llvm-snapshot.gpg.key | sudo tee /etc/apt/keyrings/apt.llvm.org.asc > /dev/null
+              echo "deb [signed-by=/etc/apt/keyrings/apt.llvm.org.asc] http://apt.llvm.org/${VERSION_CODENAME}/ llvm-toolchain-${VERSION_CODENAME}-${LLVM_VERSION} main" \
+                | sudo tee /etc/apt/sources.list.d/llvm.list > /dev/null
+              sudo apt -yq -o Acquire::Retries=3 update
+              packages+=("clang-${LLVM_VERSION}")
+            fi
+
             sudo eatmydata apt -yq --no-install-recommends \
               -o Dir::Cache::archives="$APT_CACHE" \
               -o APT::Keep-Downloaded-Packages=true \
               -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
               install \
-              gcc-16 g++-16
+              "${packages[@]}"
 
             sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-16 100
             sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-16 100
+
+            if [[ "$COMPILER" == "clang" ]]; then
+              "clang++-${LLVM_VERSION}" --version
+              echo "CC=clang-${LLVM_VERSION}" >> "$GITHUB_ENV"
+              echo "CXX=clang++-${LLVM_VERSION}" >> "$GITHUB_ENV"
+            fi
 
             sudo rm -f  "$APT_CACHE/lock" || true
             sudo rm -rf "$APT_CACHE/partial" || true
