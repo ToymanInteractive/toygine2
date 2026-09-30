@@ -650,14 +650,25 @@ public:
     requires std::same_as<std::ranges::range_value_t<Range>, char>
   constexpr String<storageType> & assign_range(Range && range) noexcept;
 
-  /*!
-    \brief Returns the length of the string.
+  [[nodiscard]] constexpr reference at(size_type pos) noexcept;
 
-    \return Count of bytes before the terminator, \c 0 for an empty string.
+  [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
 
-    \sa c_str()
-  */
-  [[nodiscard]] constexpr size_type size() const noexcept;
+  [[nodiscard]] constexpr reference operator[](size_type pos) noexcept;
+
+  [[nodiscard]] constexpr const_reference operator[](size_type pos) const noexcept;
+
+  [[nodiscard]] constexpr reference front() noexcept;
+
+  [[nodiscard]] constexpr const_reference front() const noexcept;
+
+  [[nodiscard]] constexpr reference back() noexcept;
+
+  [[nodiscard]] constexpr const_reference back() const noexcept;
+
+  [[nodiscard]] constexpr pointer data() noexcept;
+
+  [[nodiscard]] constexpr const_pointer data() const noexcept;
 
   /*!
     \brief Returns the pointer to the null-terminated characters.
@@ -670,6 +681,17 @@ public:
     \sa size()
   */
   [[nodiscard]] constexpr const_pointer c_str() const noexcept;
+
+  constexpr explicit(false) operator StringView() const noexcept;
+
+  /*!
+    \brief Returns the length of the string.
+
+    \return Count of bytes before the terminator, \c 0 for an empty string.
+
+    \sa c_str()
+  */
+  [[nodiscard]] constexpr size_type size() const noexcept;
 
   /// Count that stands for every character up to the end of the source in the substring constructors
   static constexpr const size_type npos = -1;
