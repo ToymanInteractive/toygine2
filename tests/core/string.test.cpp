@@ -19,7 +19,7 @@
 //
 /*!
   \file   string.test.cpp
-  \brief  Unit tests for \ref toy::String constructors and assignment.
+  \brief  Unit tests for \ref toy::String constructors, assignment, and element access.
 */
 
 #include "core.hpp"
@@ -263,6 +263,34 @@ template <typename StringType>
   string.assign_range(range);
 
   return firstDifference(string, c_sample, c_sampleLength);
+}
+
+// The sample as a constant, so the element-access cases reach the const overloads in a constant expression.
+constexpr Fixed c_sampleString(c_sample);
+
+// The sample after front(), at(), operator[] and back() each write one character, offsets 0, 1, 2 and the last.
+constexpr const char * c_overwritten = "abcyed";
+
+// The sample after a write through data() replaces its first character with the fill character.
+constexpr const char * c_overwrittenFirst = "xlayer";
+
+// The sample string after front(), at(), operator[] and back() each write the matching character of c_overwritten.
+[[nodiscard]] constexpr Fixed overwrittenThroughElements() noexcept {
+  Fixed string(c_sample);
+  string.front() = c_overwritten[0];
+  string.at(1)   = c_overwritten[1];
+  string[2]      = c_overwritten[2];
+  string.back()  = c_overwritten[c_sampleLength - 1];
+
+  return string;
+}
+
+// The sample string after a write through data() replaces its first character.
+[[nodiscard]] constexpr Fixed overwrittenThroughData() noexcept {
+  Fixed string(c_sample);
+  string.data()[0] = c_fillCharacter;
+
+  return string;
 }
 
 } // namespace
@@ -781,6 +809,126 @@ TEST_CASE("string/assignment_signatures") {
 
   static_assert(!std::is_assignable_v<Fixed &, nullptr_t>,
                 "the deleted overload must reject a literal nullptr during compilation");
+}
+
+// The character each indexed access path yields, and where in the string it reads it.
+TEST_CASE("string/element_access") {
+  const Fixed string(c_sample);
+
+  for (size_t index = 0; index < c_sampleLength; ++index) {
+    INFO("index ", static_cast<long long>(index));
+    CHECK(string[index] == c_sample[index]);
+    CHECK(string.at(index) == c_sample[index]);
+  }
+
+  CHECK(string.front() == c_sample[0]);
+  CHECK(string.back() == c_sample[c_sampleLength - 1]);
+
+  // Each access hands back a reference into the string, not a copy of the character.
+  CHECK(&string.front() == string.c_str());
+  CHECK(&string.back() == string.c_str() + c_sampleLength - 1);
+
+  static_assert(c_sampleString[0] == c_sample[0], "an indexed read must yield the literal's byte at that offset");
+  static_assert(c_sampleString.at(c_sampleLength - 1) == c_sample[c_sampleLength - 1],
+                "at() must read the same byte as operator[]");
+  static_assert(c_sampleString.front() == c_sample[0], "the front character must be the literal's first byte");
+  static_assert(c_sampleString.back() == c_sample[c_sampleLength - 1],
+                "the back character must be the literal's last byte");
+  static_assert(&c_sampleString.back() == c_sampleString.c_str() + c_sampleLength - 1,
+                "back() must reference the character before the terminator");
+}
+
+// A write through a reference from front(), at(), operator[] or back() changes that character in place.
+TEST_CASE("string/element_access_writes") {
+  const Fixed string = overwrittenThroughElements();
+
+  CHECK(firstDifference(string, c_overwritten, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(firstDifference(overwrittenThroughElements(), c_overwritten, c_sampleLength) == c_sampleLength + 1,
+                "each writable access must change the character it references and leave the length alone");
+}
+
+// operator[] reaches one offset past the characters, where it yields the terminator, on a writable string as well.
+TEST_CASE("string/element_access_terminator") {
+  Fixed         string(c_sample);
+  const Fixed & constString = string;
+
+  CHECK(constString[c_sampleLength] == '\0');
+  CHECK(&string[c_sampleLength] == string.c_str() + c_sampleLength);
+
+  const Fixed empty;
+  CHECK(empty[0] == '\0');
+
+  static_assert(c_sampleString[c_sampleLength] == '\0', "the offset size() must read the terminator");
+  static_assert(Fixed()[0] == '\0', "the offset 0 of an empty string must read the terminator");
+}
+
+// data() and c_str() hand out the same buffer, and a write through data() changes a character but not the length.
+TEST_CASE("string/pointer_access") {
+  Fixed         string(c_sample);
+  const Fixed & constString = string;
+
+  CHECK(string.data() == string.c_str());
+  CHECK(constString.data() == string.c_str());
+
+  const Fixed written = overwrittenThroughData();
+  CHECK(firstDifference(written, c_overwrittenFirst, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(c_sampleString.data() == c_sampleString.c_str(), "data() must point where c_str() points");
+  static_assert(firstDifference(overwrittenThroughData(), c_overwrittenFirst, c_sampleLength) == c_sampleLength + 1,
+                "a write through data() must change the character and leave the length alone");
+}
+
+// A string passes where a view is taken, and the view reads the string's own characters.
+TEST_CASE("string/conversion_to_string_view") {
+  const Fixed      string(c_sample);
+  const StringView view = string;
+
+  CHECK(view.data() == string.c_str());
+  CHECK(view.size() == string.size());
+
+  static_assert(StringView(c_sampleString).data() == c_sampleString.c_str(),
+                "the view must read the string's buffer, not a copy");
+  static_assert(StringView(c_sampleString).size() == c_sampleLength, "the view must cover every character");
+}
+
+// The view measures up to the first null character, so a string holding one converts to a shorter view.
+TEST_CASE("string/conversion_to_string_view_embedded_null") {
+  constexpr size_t c_viewLength = std::char_traits<char>::length(c_embeddedNull);
+
+  const Fixed      string(c_embeddedNull, c_embeddedNullLength);
+  const StringView view = string;
+
+  CHECK(string.size() == c_embeddedNullLength);
+  CHECK(view.size() == c_viewLength);
+
+  static_assert(StringView(Fixed(c_embeddedNull, c_embeddedNullLength)).size() == c_viewLength,
+                "the view must stop at the first null character");
+}
+
+// Which reference and pointer each access returns on a writable and on a read-only string, and how a view is reached.
+TEST_CASE("string/element_access_signatures") {
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>()[0]), char &>,
+                "operator[] of a writable string must allow writing");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>()[0]), const char &>,
+                "operator[] of a read-only string must allow reading only");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().at(0)), char &>,
+                "at() of a writable string must allow writing");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().at(0)), const char &>,
+                "at() of a read-only string must allow reading only");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().front()), char &>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().back()), char &>,
+                "front() and back() of a writable string must allow writing");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().front()), const char &>
+                  && std::is_same_v<decltype(std::declval<const Fixed &>().back()), const char &>,
+                "front() and back() of a read-only string must allow reading only");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().data()), char *>,
+                "data() of a writable string must allow writing");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().data()), const char *>,
+                "data() of a read-only string must allow reading only");
+
+  static_assert(std::is_nothrow_convertible_v<Fixed, StringView>,
+                "a string must become a view without a cast, as std::basic_string becomes std::basic_string_view");
 }
 
 } // namespace toy

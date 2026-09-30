@@ -651,13 +651,136 @@ public:
   constexpr String<storageType> & assign_range(Range && range) noexcept;
 
   /*!
-    \brief Returns the length of the string.
+    \brief Returns the character at an offset for writing.
 
-    \return Count of bytes before the terminator, \c 0 for an empty string.
+    Where \c std::basic_string throws \c std::out_of_range, an offset past the characters fails a debug check.
+
+    \param pos Zero-based offset of the character.
+
+    \return Reference to the character at \a pos.
+
+    \pre \a pos is less than size(), checked by assert_message in debug builds.
+
+    \warning A shipping build skips the check, and an offset past the characters reads or writes outside them.
+
+    \sa operator[](size_t)
+  */
+  [[nodiscard]] constexpr reference at(size_type pos) noexcept;
+
+  /*!
+    \brief Returns the character at an offset.
+
+    \param pos Zero-based offset of the character.
+
+    \return Reference to the character at \a pos.
+
+    \pre \a pos is less than size(), checked by assert_message in debug builds.
+
+    \sa at(size_t)
+  */
+  [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
+
+  /*!
+    \brief Returns the character at an offset for writing, the terminator included.
+
+    Accepts one offset more than at(): \a pos equal to size() names the terminator, as in \c std::basic_string.
+
+    \param pos Zero-based offset of the character.
+
+    \return Reference to the character at \a pos; at size(), to the terminator.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+
+    \warning Writing anything but \c '\\0' to the terminator leaves c_str() unterminated.
+    \warning A shipping build skips the check, and an offset past the terminator reads or writes outside the characters.
+
+    \sa at(size_t)
+  */
+  [[nodiscard]] constexpr reference operator[](size_type pos) noexcept;
+
+  /*!
+    \brief Returns the character at an offset, the terminator included.
+
+    \param pos Zero-based offset of the character.
+
+    \return Reference to the character at \a pos; at size(), to the terminator.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+
+    \sa operator[](size_t)
+  */
+  [[nodiscard]] constexpr const_reference operator[](size_type pos) const noexcept;
+
+  /*!
+    \brief Returns the first character for writing.
+
+    \return Reference to the character at offset \c 0.
+
+    \pre The string is not empty, checked by assert_message in debug builds.
+
+    \sa back()
+  */
+  [[nodiscard]] constexpr reference front() noexcept;
+
+  /*!
+    \brief Returns the first character.
+
+    \return Reference to the character at offset \c 0.
+
+    \pre The string is not empty, checked by assert_message in debug builds.
+
+    \sa front()
+  */
+  [[nodiscard]] constexpr const_reference front() const noexcept;
+
+  /*!
+    \brief Returns the last character for writing.
+
+    \return Reference to the character before the terminator.
+
+    \pre The string is not empty, checked by assert_message in debug builds.
+
+    \warning A shipping build skips the check, and an empty string yields a reference outside the buffer.
+
+    \sa front()
+  */
+  [[nodiscard]] constexpr reference back() noexcept;
+
+  /*!
+    \brief Returns the last character.
+
+    \return Reference to the character before the terminator.
+
+    \pre The string is not empty, checked by assert_message in debug builds.
+
+    \sa back()
+  */
+  [[nodiscard]] constexpr const_reference back() const noexcept;
+
+  /*!
+    \brief Returns the pointer to the characters for writing.
+
+    A write through the pointer changes characters, never size().
+
+    \return Pointer to the first character, never \c nullptr for a storage meeting the \ref toy::StringStorage
+            guarantees.
+
+    \pre A write stays below offset size(), or writes \c '\\0' to the terminator at size().
+
+    \note The pointer stays valid as long as the one c_str() returns.
 
     \sa c_str()
   */
-  [[nodiscard]] constexpr size_type size() const noexcept;
+  [[nodiscard]] constexpr pointer data() noexcept;
+
+  /*!
+    \brief Returns the pointer to the null-terminated characters.
+
+    \return The pointer c_str() returns.
+
+    \sa data()
+  */
+  [[nodiscard]] constexpr const_pointer data() const noexcept;
 
   /*!
     \brief Returns the pointer to the null-terminated characters.
@@ -667,9 +790,35 @@ public:
 
     \note The pointer stays valid while the string lives and its storage keeps the same buffer.
 
+    \sa data()
     \sa size()
   */
   [[nodiscard]] constexpr const_pointer c_str() const noexcept;
+
+  /*!
+    \brief Returns a view over the characters of the string.
+
+    Converts implicitly, as the \c std::basic_string conversion to \c std::basic_string_view does, so a string passes
+    where a \ref toy::StringView is taken. The view measures c_str() again, which costs a scan of the characters.
+
+    \return View over c_str() up to its first \c '\\0'.
+
+    \note The view owns nothing and stays valid as long as the pointer c_str() returns.
+
+    \warning A string holding \c '\\0' among its characters yields a view that stops there, shorter than size().
+
+    \sa c_str()
+  */
+  constexpr explicit(false) operator StringView() const noexcept;
+
+  /*!
+    \brief Returns the length of the string.
+
+    \return Count of bytes before the terminator, \c 0 for an empty string.
+
+    \sa c_str()
+  */
+  [[nodiscard]] constexpr size_type size() const noexcept;
 
   /// Count that stands for every character up to the end of the source in the substring constructors
   static constexpr const size_type npos = -1;

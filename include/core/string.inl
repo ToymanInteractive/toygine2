@@ -221,13 +221,84 @@ constexpr String<storageType> & String<storageType>::assign_range(Range && range
 }
 
 template <StringStorage storageType>
-constexpr String<storageType>::size_type String<storageType>::size() const noexcept {
-  return _storage.size();
+constexpr String<storageType>::reference String<storageType>::at(size_type pos) noexcept {
+  assert_message(pos < size(), "the position must lie inside the string");
+
+  return data()[pos];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reference String<storageType>::at(size_type pos) const noexcept {
+  assert_message(pos < size(), "the position must lie inside the string");
+
+  return data()[pos];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::reference String<storageType>::operator[](size_type pos) noexcept {
+  assert_message(pos <= size(), "the position must lie inside the string or on its terminator");
+
+  return data()[pos];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reference String<storageType>::operator[](size_type pos) const noexcept {
+  assert_message(pos <= size(), "the position must lie inside the string or on its terminator");
+
+  return data()[pos];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::reference String<storageType>::front() noexcept {
+  assert_message(size() != 0, "the string must not be empty");
+
+  return data()[0];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reference String<storageType>::front() const noexcept {
+  assert_message(size() != 0, "the string must not be empty");
+
+  return data()[0];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::reference String<storageType>::back() noexcept {
+  assert_message(size() != 0, "the string must not be empty");
+
+  return data()[size() - 1];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reference String<storageType>::back() const noexcept {
+  assert_message(size() != 0, "the string must not be empty");
+
+  return data()[size() - 1];
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::pointer String<storageType>::data() noexcept {
+  return _storage.data();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_pointer String<storageType>::data() const noexcept {
+  return _storage.data();
 }
 
 template <StringStorage storageType>
 constexpr String<storageType>::const_pointer String<storageType>::c_str() const noexcept {
-  return _storage.data();
+  return data();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::operator StringView() const noexcept {
+  return StringView(c_str());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::size() const noexcept {
+  return _storage.size();
 }
 
 template <StringStorage storageType>
