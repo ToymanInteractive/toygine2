@@ -331,9 +331,9 @@ jobs:
           BENCHER_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           BENCHER_TESTBED: ${{ matrix.artifact_id }}
         run: |
-          # linux-x64 always reports to the PR; other testbeds comment only once an alert fires
+          # linux-x64-gcc always reports to the PR; other testbeds comment only once an alert fires
           ci_flags=()
-          if [[ "$BENCHER_TESTBED" != "linux-x64" ]]; then
+          if [[ "$BENCHER_TESTBED" != "linux-x64-gcc" ]]; then
             ci_flags+=(--ci-only-on-alert)
           fi
           bencher run \
