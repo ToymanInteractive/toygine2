@@ -72,19 +72,37 @@ jobs:
             cmake_preset: macos-release
             artifact_id: macos-ninja-x64
 
-          - name: Linux Ninja x64
+          - name: Linux Ninja x64 GCC
             os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-release
-            artifact_id: linux-x64
+            artifact_id: linux-x64-gcc
 
-          - name: Linux Ninja arm64
+          - name: Linux Ninja arm64 GCC
             os: ubuntu-26.04-arm
+            container: ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-release
-            artifact_id: linux-arm64
+            artifact_id: linux-arm64-gcc
+
+          - name: Linux Ninja x64 CLang
+            os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.clang.toolchain:latest
+            run_benchmarks: "true"
+            run_test: "true"
+            cmake_preset: linux-release
+            artifact_id: linux-x64-clang
+
+          - name: Linux Ninja arm64 CLang
+            os: ubuntu-26.04-arm
+            container: ghcr.io/toymaninteractive/toygine2.clang.toolchain:latest
+            run_benchmarks: "true"
+            run_test: "true"
+            cmake_preset: linux-release
+            artifact_id: linux-arm64-clang
 
           - name: Sega Mega Drive
             os: ubuntu-26.04
@@ -313,9 +331,9 @@ jobs:
           BENCHER_BASE_SHA: ${{ github.event.pull_request.base.sha }}
           BENCHER_TESTBED: ${{ matrix.artifact_id }}
         run: |
-          # linux-x64 always reports to the PR; other testbeds comment only once an alert fires
+          # linux-x64-gcc always reports to the PR; other testbeds comment only once an alert fires
           ci_flags=()
-          if [[ "$BENCHER_TESTBED" != "linux-x64" ]]; then
+          if [[ "$BENCHER_TESTBED" != "linux-x64-gcc" ]]; then
             ci_flags+=(--ci-only-on-alert)
           fi
           bencher run \

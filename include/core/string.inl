@@ -297,6 +297,66 @@ constexpr String<storageType>::operator StringView() const noexcept {
 }
 
 template <StringStorage storageType>
+constexpr String<storageType>::iterator String<storageType>::begin() noexcept {
+  return data();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_iterator String<storageType>::begin() const noexcept {
+  return data();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_iterator String<storageType>::cbegin() const noexcept {
+  return begin();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::iterator String<storageType>::end() noexcept {
+  return data() + size();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_iterator String<storageType>::end() const noexcept {
+  return data() + size();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_iterator String<storageType>::cend() const noexcept {
+  return end();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::reverse_iterator String<storageType>::rbegin() noexcept {
+  return reverse_iterator(end());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reverse_iterator String<storageType>::rbegin() const noexcept {
+  return const_reverse_iterator(end());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reverse_iterator String<storageType>::crbegin() const noexcept {
+  return rbegin();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::reverse_iterator String<storageType>::rend() noexcept {
+  return reverse_iterator(begin());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reverse_iterator String<storageType>::rend() const noexcept {
+  return const_reverse_iterator(begin());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::const_reverse_iterator String<storageType>::crend() const noexcept {
+  return rend();
+}
+
+template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::size() const noexcept {
   return _storage.size();
 }

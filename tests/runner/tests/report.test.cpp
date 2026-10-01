@@ -108,10 +108,10 @@ void bodyFailsInsideSubcase(toy::test::Context & toyTestContext) {
 } // namespace
 
 // Both texts reach the failure message: a folded bool would report only that they differ, never where.
+// One INFO per expansion: doctest names captures by __LINE__ on Clang 22 and newer, so a second INFO collides.
 #define REQUIRE_REPORT(captured, expected)                                                                             \
   do {                                                                                                                 \
-    INFO("actual:\n" << (captured).text);                                                                              \
-    INFO("expected:\n" << (expected));                                                                                 \
+    INFO("actual:\n" << (captured).text << "\nexpected:\n" << (expected));                                             \
     REQUIRE(reportMatches((captured), (expected)));                                                                    \
   } while (false)
 

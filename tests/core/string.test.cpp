@@ -293,6 +293,24 @@ constexpr const char * c_overwrittenFirst = "xlayer";
   return string;
 }
 
+// A string holding no characters, kept at namespace scope so constant evaluation can compare its iterators.
+constexpr Fixed c_emptyString{};
+
+// The sample characters back to front, the order a reverse walk must yield.
+constexpr const char * c_sampleReversed = "reyalp";
+
+// The sample after writes through begin() and rbegin() replace its first and last characters.
+constexpr const char * c_overwrittenEnds = "alayed";
+
+// The sample string after begin() and rbegin() each write the matching character of c_overwrittenEnds.
+[[nodiscard]] constexpr Fixed overwrittenThroughIterators() noexcept {
+  Fixed string(c_sample);
+  *string.begin()  = c_overwrittenEnds[0];
+  *string.rbegin() = c_overwrittenEnds[c_sampleLength - 1];
+
+  return string;
+}
+
 } // namespace
 
 // What a default-constructed string holds: no characters and a terminator behind c_str().
@@ -929,6 +947,87 @@ TEST_CASE("string/element_access_signatures") {
 
   static_assert(std::is_nothrow_convertible_v<Fixed, StringView>,
                 "a string must become a view without a cast, as std::basic_string becomes std::basic_string_view");
+}
+
+// A front-to-back walk spans the characters from c_str() up to the terminator, the same through the c overloads.
+TEST_CASE("string/iterators") {
+  const Fixed string(c_sample);
+
+  CHECK(string.begin() == string.c_str());
+  CHECK(string.end() == string.c_str() + c_sampleLength);
+  CHECK(string.cbegin() == string.begin());
+  CHECK(string.cend() == string.end());
+  CHECK(firstDifference(Fixed(string.begin(), string.end()), c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(c_sampleString.begin() == c_sampleString.c_str(), "begin() must point at the first character");
+  static_assert(c_sampleString.begin() + c_sampleLength == c_sampleString.end(),
+                "end() must sit one past the last character");
+  static_assert(c_sampleString.cbegin() == c_sampleString.begin() && c_sampleString.cend() == c_sampleString.end(),
+                "the c overloads must return what begin() and end() return");
+}
+
+// A back-to-front walk yields the characters in reverse and ends before the first one.
+TEST_CASE("string/reverse_iterators") {
+  const Fixed string(c_sample);
+
+  CHECK(&*string.rbegin() == string.c_str() + c_sampleLength - 1);
+  CHECK(string.rend().base() == string.begin());
+  CHECK(string.crbegin() == string.rbegin());
+  CHECK(string.crend() == string.rend());
+  CHECK(firstDifference(Fixed(string.rbegin(), string.rend()), c_sampleReversed, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(firstDifference(Fixed(c_sampleString.rbegin(), c_sampleString.rend()), c_sampleReversed, c_sampleLength)
+                  == c_sampleLength + 1,
+                "a reverse walk must yield the characters back to front");
+  static_assert(c_sampleString.crbegin() == c_sampleString.rbegin() && c_sampleString.crend() == c_sampleString.rend(),
+                "the c overloads must return what rbegin() and rend() return");
+}
+
+// An empty string yields an empty walk in both directions.
+TEST_CASE("string/iterators_empty") {
+  const Fixed empty;
+
+  CHECK(empty.begin() == empty.end());
+  CHECK(empty.rbegin() == empty.rend());
+
+  static_assert(c_emptyString.begin() == c_emptyString.end(), "an empty string must have no characters to walk");
+  static_assert(c_emptyString.rbegin() == c_emptyString.rend(), "an empty string must have no characters to walk back");
+}
+
+// A write through begin() or rbegin() changes that character in place and leaves the length alone.
+TEST_CASE("string/iterator_writes") {
+  const Fixed string = overwrittenThroughIterators();
+
+  CHECK(firstDifference(string, c_overwrittenEnds, c_sampleLength) == c_sampleLength + 1);
+
+  static_assert(firstDifference(overwrittenThroughIterators(), c_overwrittenEnds, c_sampleLength) == c_sampleLength + 1,
+                "each writable iterator must change the character it points at");
+}
+
+// Which iterator each overload returns on a writable and on a read-only string, and the range the pair forms.
+TEST_CASE("string/iterator_signatures") {
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().begin()), char *>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().end()), char *>,
+                "begin() and end() of a writable string must allow writing");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().begin()), const char *>
+                  && std::is_same_v<decltype(std::declval<const Fixed &>().end()), const char *>,
+                "begin() and end() of a read-only string must allow reading only");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().cbegin()), const char *>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().cend()), const char *>,
+                "cbegin() and cend() must allow reading only, on a writable string as well");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().rbegin()), std::reverse_iterator<char *>>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().rend()), std::reverse_iterator<char *>>,
+                "rbegin() and rend() of a writable string must allow writing");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().rbegin()), std::reverse_iterator<const char *>>
+                  && std::is_same_v<decltype(std::declval<const Fixed &>().rend()),
+                                    std::reverse_iterator<const char *>>,
+                "rbegin() and rend() of a read-only string must allow reading only");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().crbegin()), std::reverse_iterator<const char *>>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().crend()), std::reverse_iterator<const char *>>,
+                "crbegin() and crend() must allow reading only, on a writable string as well");
+
+  static_assert(std::ranges::contiguous_range<Fixed> && std::ranges::sized_range<Fixed>,
+                "a string must work with the contiguous range algorithms");
 }
 
 } // namespace toy
