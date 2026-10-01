@@ -74,6 +74,7 @@ jobs:
 
           - name: Linux Ninja x64
             os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-release
@@ -81,6 +82,7 @@ jobs:
 
           - name: Linux Ninja arm64
             os: ubuntu-26.04-arm
+            container: ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest
             run_benchmarks: "true"
             run_test: "true"
             cmake_preset: linux-release
