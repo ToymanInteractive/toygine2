@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_=self.webpackChunk_||[]).push([["9872"],{3108(t){t.exports=JSON.parse('{"authors":[{"name":"Dmitry","title":"ToyGine2 author","url":"https://github.com/dkrutskikh","imageURL":"https://avatars.githubusercontent.com/u/8401894","key":"dmitry","page":null,"count":6}]}')}}]);
