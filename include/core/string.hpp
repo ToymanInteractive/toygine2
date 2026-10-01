@@ -812,6 +812,134 @@ public:
   constexpr explicit(false) operator StringView() const noexcept;
 
   /*!
+    \brief Returns an iterator to the first character for writing.
+
+    \return Iterator to the first character, equal to end() when the string is empty.
+
+    \note Every iterator stays valid as long as the pointer data() returns.
+
+    \sa end()
+    \sa cbegin()
+  */
+  [[nodiscard]] constexpr iterator begin() noexcept;
+
+  /*!
+    \brief Returns an iterator to the first character.
+
+    \return Iterator to the first character, equal to end() when the string is empty.
+
+    \sa begin()
+    \sa cbegin()
+  */
+  [[nodiscard]] constexpr const_iterator begin() const noexcept;
+
+  /*!
+    \brief Returns a read-only iterator to the first character.
+
+    \return The iterator the const overload of begin() returns.
+
+    \sa begin()
+    \sa cend()
+  */
+  [[nodiscard]] constexpr const_iterator cbegin() const noexcept;
+
+  /*!
+    \brief Returns an iterator one past the last character.
+
+    \return Iterator to the position after the last character, where the terminator sits.
+
+    \warning Writing anything but \c '\\0' through it leaves c_str() unterminated.
+
+    \sa begin()
+    \sa cend()
+  */
+  [[nodiscard]] constexpr iterator end() noexcept;
+
+  /*!
+    \brief Returns an iterator one past the last character.
+
+    \return Iterator to the position after the last character, where the terminator sits.
+
+    \sa end()
+    \sa cend()
+  */
+  [[nodiscard]] constexpr const_iterator end() const noexcept;
+
+  /*!
+    \brief Returns a read-only iterator one past the last character.
+
+    \return The iterator the const overload of end() returns.
+
+    \sa end()
+    \sa cbegin()
+  */
+  [[nodiscard]] constexpr const_iterator cend() const noexcept;
+
+  /*!
+    \brief Returns a reverse iterator to the last character for writing.
+
+    Starts at the last character; the walk runs back to front and stops before the first.
+
+    \return Reverse iterator over end(), equal to rend() when the string is empty.
+
+    \sa rend()
+    \sa crbegin()
+  */
+  [[nodiscard]] constexpr reverse_iterator rbegin() noexcept;
+
+  /*!
+    \brief Returns a reverse iterator to the last character.
+
+    \return Reverse iterator over end(), equal to rend() when the string is empty.
+
+    \sa rbegin()
+    \sa crbegin()
+  */
+  [[nodiscard]] constexpr const_reverse_iterator rbegin() const noexcept;
+
+  /*!
+    \brief Returns a read-only reverse iterator to the last character.
+
+    \return The iterator the const overload of rbegin() returns.
+
+    \sa rbegin()
+    \sa crend()
+  */
+  [[nodiscard]] constexpr const_reverse_iterator crbegin() const noexcept;
+
+  /*!
+    \brief Returns a reverse iterator to the position before the first character.
+
+    \return Reverse iterator over begin(), the end of a back-to-front walk.
+
+    \note Dereferencing it reads before the first character; a walk ends by comparing against it instead.
+
+    \sa rbegin()
+    \sa crend()
+  */
+  [[nodiscard]] constexpr reverse_iterator rend() noexcept;
+
+  /*!
+    \brief Returns a reverse iterator to the position before the first character.
+
+    \return Reverse iterator over begin(), the end of a back-to-front walk.
+
+    \sa rend()
+    \sa crend()
+  */
+  [[nodiscard]] constexpr const_reverse_iterator rend() const noexcept;
+
+  /*!
+    \brief Returns a read-only reverse iterator to the position before the first character.
+
+    \return The iterator the const overload of rend() returns.
+
+    \sa rend()
+    \sa crbegin()
+  */
+  [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
+
+  /*!
     \brief Returns the length of the string.
 
     \return Count of bytes before the terminator, \c 0 for an empty string.
