@@ -420,10 +420,9 @@ template <typename Edit>
   return expected;
 }
 
-// How many (position, offset, count) triples of a self-insertion leave anything but selfInsertedSample().
-template <typename StringType>
-[[nodiscard]] constexpr size_t selfInsertionFailures() noexcept {
-  size_t failures = 0;
+// Inserts each slice of the sample into itself; report() gets the triple, the difference, and the full-match value.
+template <typename StringType, typename Report>
+constexpr void forEachSelfInsertion(Report report) noexcept {
   for (const size_t position : std::views::iota(size_t{0}, c_sampleLength + 1)) {
     for (const size_t offset : std::views::iota(size_t{0}, c_sampleLength)) {
       for (const size_t count : std::views::iota(size_t{1}, c_sampleLength - offset + 1)) {
@@ -431,11 +430,21 @@ template <typename StringType>
         string.insert(position, string.c_str() + offset, count);
 
         const size_t length = c_sampleLength + count;
-        if (firstDifference(string, selfInsertedSample(position, offset, count).data(), length) != length + 1)
-          ++failures;
+        report(position, offset, count,
+               firstDifference(string, selfInsertedSample(position, offset, count).data(), length), length + 1);
       }
     }
   }
+}
+
+// How many triples of forEachSelfInsertion() leave anything but selfInsertedSample().
+template <typename StringType>
+[[nodiscard]] constexpr size_t selfInsertionFailures() noexcept {
+  size_t failures = 0;
+  forEachSelfInsertion<StringType>([&failures](size_t, size_t, size_t, size_t difference, size_t match) {
+    if (difference != match)
+      ++failures;
+  });
 
   return failures;
 }
@@ -1524,28 +1533,16 @@ TEST_CASE("string/insertion_from_itself") {
   whole(relocating);
   REQUIRE(relocating.c_str() != buffer);
 
-  // Checks every triple selfInsertionFailures() counts, naming the one that breaks.
-  const auto checkSelfInsertions = [&](auto emptyString) {
-    using StringType = decltype(emptyString);
-
-    for (const size_t position : std::views::iota(size_t{0}, c_sampleLength + 1)) {
-      INFO("position ", static_cast<long long>(position));
-      for (const size_t offset : std::views::iota(size_t{0}, c_sampleLength)) {
-        INFO("offset ", static_cast<long long>(offset));
-        for (const size_t count : std::views::iota(size_t{1}, c_sampleLength - offset + 1)) {
-          INFO("count ", static_cast<long long>(count));
-          StringType string(c_sample);
-          string.insert(position, string.c_str() + offset, count);
-
-          const size_t length = c_sampleLength + count;
-          CHECK(firstDifference(string, selfInsertedSample(position, offset, count).data(), length) == length + 1);
-        }
-      }
-    }
+  // Names the triple that breaks, where the static_assert below only counts them.
+  const auto checkSelfInsertion = [&](size_t position, size_t offset, size_t count, size_t difference, size_t match) {
+    INFO("position ", static_cast<long long>(position));
+    INFO("offset ", static_cast<long long>(offset));
+    INFO("count ", static_cast<long long>(count));
+    CHECK(difference == match);
   };
 
-  checkSelfInsertions(Fixed{});
-  checkSelfInsertions(Relocating{});
+  forEachSelfInsertion<Fixed>(checkSelfInsertion);
+  forEachSelfInsertion<Relocating>(checkSelfInsertion);
   CHECK(firstDifference(relocating, c_sampleDoubledInside, c_sampleLength * 2) == c_sampleLength * 2 + 1);
   CHECK(editedDifference<Relocating>(iterated, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
   CHECK(editedDifference<Relocating>(ranged, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
