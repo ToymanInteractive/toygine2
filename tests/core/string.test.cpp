@@ -391,13 +391,19 @@ using Relocating = String<RelocatingStorage<c_capacity>>;
   return std::char_traits<char>::length(expected) + 1;
 }
 
-// Where the sample string, after edit runs on it, first differs from expected.
+// Where the sample string, after edit runs on it, first differs from the count bytes of expected.
 template <typename StringType = Fixed, typename Edit>
-[[nodiscard]] constexpr size_t editedDifference(Edit edit, const char * expected) noexcept {
+[[nodiscard]] constexpr size_t editedDifference(Edit edit, const char * expected, size_t count) noexcept {
   StringType string(c_sample);
   edit(string);
 
-  return firstDifference(string, expected, std::char_traits<char>::length(expected));
+  return firstDifference(string, expected, count);
+}
+
+// Where the sample string, after edit runs on it, first differs from the C string expected.
+template <typename StringType = Fixed, typename Edit>
+[[nodiscard]] constexpr size_t editedDifference(Edit edit, const char * expected) noexcept {
+  return editedDifference<StringType>(edit, expected, std::char_traits<char>::length(expected));
 }
 
 // Offset of the iterator that edit returns after it runs on the sample string.
@@ -1369,24 +1375,15 @@ TEST_CASE("string/insertion_from_pointer") {
   CHECK(editedDifference(terminated, c_listedInside) == fullMatch(c_listedInside));
   CHECK(editedDifference(empty, c_sample) == fullMatch(c_sample));
 
-  Fixed string(c_sample);
-  counted(string);
-  CHECK(firstDifference(string, c_embeddedNullInside, c_embeddedNullInsideLength) == c_embeddedNullInsideLength + 1);
+  CHECK(editedDifference(counted, c_embeddedNullInside, c_embeddedNullInsideLength) == c_embeddedNullInsideLength + 1);
 
   static_assert(editedDifference(terminated, c_listedInside) == fullMatch(c_listedInside),
                 "a C string must go in whole at the offset");
   static_assert(editedDifference(empty, c_sample) == fullMatch(c_sample),
                 "a null pointer with a count of zero must change nothing");
-  static_assert(
-    [] {
-      Fixed string(c_sample);
-      string.insert(c_substringOffset, c_embeddedNull, c_embeddedNullLength);
-
-      return firstDifference(string, c_embeddedNullInside, c_embeddedNullInsideLength);
-    }()
-      == c_embeddedNullInsideLength + 1,
-    "a counted copy must take every byte, a null byte included"
-  );
+  static_assert(editedDifference(counted, c_embeddedNullInside, c_embeddedNullInsideLength)
+                  == c_embeddedNullInsideLength + 1,
+                "a counted copy must take every byte, a null byte included");
 }
 
 // A view or a string over another storage goes in whole, or as the substring that starts at an offset into it.
@@ -1532,6 +1529,7 @@ TEST_CASE("string/insertion_from_itself") {
   const char * buffer = relocating.c_str();
   whole(relocating);
   REQUIRE(relocating.c_str() != buffer);
+  CHECK(firstDifference(relocating, c_sampleDoubledInside, c_sampleLength * 2) == c_sampleLength * 2 + 1);
 
   // Names the triple that breaks, where the static_assert below only counts them.
   const auto checkSelfInsertion = [&](size_t position, size_t offset, size_t count, size_t difference, size_t match) {
@@ -1543,7 +1541,6 @@ TEST_CASE("string/insertion_from_itself") {
 
   forEachSelfInsertion<Fixed>(checkSelfInsertion);
   forEachSelfInsertion<Relocating>(checkSelfInsertion);
-  CHECK(firstDifference(relocating, c_sampleDoubledInside, c_sampleLength * 2) == c_sampleLength * 2 + 1);
   CHECK(editedDifference<Relocating>(iterated, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
   CHECK(editedDifference<Relocating>(ranged, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
 
