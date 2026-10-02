@@ -12,6 +12,7 @@ jobs:
     name: Check code style
     runs-on: ubuntu-26.04
     timeout-minutes: 10
+    container: ghcr.io/toymaninteractive/toygine2.clang.toolchain:latest
     defaults:
       run:
         shell: bash
@@ -23,17 +24,10 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
-      - name: Setup clang-format
-        run: |
-          wget https://apt.llvm.org/llvm.sh
-          chmod +x llvm.sh
-          sudo ./llvm.sh 23
-          sudo apt install -y clang-format-23
-          sudo update-alternatives --install /usr/bin/clang-format clang-format /usr/bin/clang-format-23 230
-
       - name: Get changed files
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_REPO: ${{ github.repository }}
         run: |
           gh pr view "${{ github.event.pull_request.number }}" \
             --json files --jq '.files[].path' > changed_files.txt

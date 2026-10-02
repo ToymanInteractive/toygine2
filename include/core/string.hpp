@@ -940,13 +940,91 @@ public:
   [[nodiscard]] constexpr const_reverse_iterator crend() const noexcept;
 
   /*!
+    \brief Reports whether the string holds no characters.
+
+    \return \c true when size() returns \c 0, \c false otherwise.
+
+    \sa size()
+  */
+  [[nodiscard]] constexpr bool empty() const noexcept;
+
+  /*!
     \brief Returns the length of the string.
 
     \return Count of bytes before the terminator, \c 0 for an empty string.
 
+    \sa length()
     \sa c_str()
   */
   [[nodiscard]] constexpr size_type size() const noexcept;
+
+  /*!
+    \brief Returns the length of the string, as size() does.
+
+    \return The value size() returns.
+
+    \sa size()
+  */
+  [[nodiscard]] constexpr size_type length() const noexcept;
+
+  /*!
+    \brief Returns the longest length the storage can hold.
+
+    Never changes and is never less than capacity(); over \ref toy::FixedStringStorage the two are equal, since the
+    buffer never grows.
+
+    \return Largest value size() may take, as the storage reports it.
+
+    \sa capacity()
+  */
+  [[nodiscard]] constexpr size_type max_size() const noexcept;
+
+  /*!
+    \brief Prepares the storage to hold \a newCapacity characters without growing again.
+
+    Passes the request to the storage: \ref toy::FixedStringStorage checks it against its buffer and allocates nothing,
+    while a storage that owns heap memory may allocate here. A request no greater than capacity() keeps the buffer
+    where it is, and no request shrinks it, as in \c std::basic_string since C++20.
+
+    \param newCapacity Count of characters the string must hold, the terminator excluded.
+
+    \pre The storage accepts \a newCapacity: its reserve() returns \c true, checked by assert_message in debug builds.
+
+    \post size() and the characters are unchanged, and capacity() is at least \a newCapacity.
+
+    \note A request above capacity() may move the buffer, so pointers and iterators into the string must be taken again.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects \a newCapacity,
+             where \c std::basic_string throws \c std::length_error.
+
+    \sa capacity()
+    \sa shrink_to_fit()
+  */
+  constexpr void reserve(size_type newCapacity) noexcept;
+
+  /*!
+    \brief Returns how many characters fit before the storage has to grow.
+
+    \return Count of characters the buffer takes, the terminator excluded; never less than size().
+
+    \sa reserve()
+    \sa max_size()
+  */
+  [[nodiscard]] constexpr size_type capacity() const noexcept;
+
+  /*!
+    \brief Asks the storage to release the capacity the characters do not use.
+
+    The request is non-binding, as in \c std::basic_string: \ref toy::FixedStringStorage keeps its buffer as it is.
+
+    \post size() and the characters are unchanged, and capacity() is no less than size().
+
+    \note A storage that releases memory may move the buffer, so pointers and iterators into the string must be taken
+          again.
+
+    \sa reserve()
+  */
+  constexpr void shrink_to_fit() noexcept;
 
   /// Count that stands for every character up to the end of the source in the substring constructors
   static constexpr const size_type npos = -1;

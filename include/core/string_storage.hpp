@@ -38,8 +38,8 @@ namespace toy {
          length.
 
   Constrains a string over the storage it writes into, so swapping that buffer for one that allocates leaves the string
-  itself unchanged. The requirement expression binds a mutable lvalue and a \c const one, so data(), size() and
-  capacity() must be callable on a \c const object.
+  itself unchanged. The requirement expression binds a mutable lvalue and a \c const one, so data(), size(), capacity()
+  and max_size() must be callable on a \c const object.
 
   \section string_storage_requirements Requirements
 
@@ -51,10 +51,12 @@ namespace toy {
   * \c constStorage.data() has type \c const \c char \c *.
   * \c constStorage.size() has type \c size_t.
   * \c constStorage.capacity() has type \c size_t.
+  * \c constStorage.max_size() has type \c size_t.
   * \c storage.reserve(\a newSize) has type \c bool.
+  * \c storage.shrink_to_fit() has type \c void.
   * \c storage.setSize(\a newSize) has type \c void.
 
-  The expression checks the shape of those six members and nothing else. Seven further guarantees belong to the storage
+  The expression checks the shape of those eight members and nothing else. The guarantees below belong to the storage
   type, and a type that breaks them still compiles:
 
   * Neither data() overload returns \c nullptr, and both point at the same bytes.
@@ -67,6 +69,9 @@ namespace toy {
   * A \c true reserve() keeps the first size() characters, moving them along when it grows the buffer.
   * reserve() of a length no greater than capacity() keeps the buffer where it is, so a pointer into the characters
     stays valid across the call.
+  * max_size() never changes and is never less than capacity(), and reserve() refuses any length above it.
+  * shrink_to_fit() keeps the first size() characters and leaves capacity() no less than size(); it may move the
+    buffer, so a pointer into the characters must be taken again after the call.
 
   \section string_storage_usage Usage Example
 
@@ -101,7 +106,8 @@ namespace toy {
   \warning What setSize() does past capacity() belongs to the type rather than to the concept: a buffer of a fixed size
            treats such a call as a broken precondition, while a storage that owns heap memory grows to fit. A caller
            that asks reserve() first stays within contract over either one.
-  \warning A caller that must not allocate reads capacity() instead, since reserve() is where such a storage allocates.
+  \warning A caller that must not allocate reads capacity() instead, since reserve() and shrink_to_fit() are where such
+           a storage allocates.
 
   \sa \ref toy::FixedStringStorage
   \sa \ref toy::StringLike
@@ -113,7 +119,9 @@ concept StringStorage = requires(std::remove_reference_t<T> & storage, const std
   { constStorage.data() } -> std::same_as<const char *>;
   { constStorage.size() } -> std::same_as<size_t>;
   { constStorage.capacity() } -> std::same_as<size_t>;
+  { constStorage.max_size() } -> std::same_as<size_t>;
   { storage.reserve(newSize) } -> std::same_as<bool>;
+  { storage.shrink_to_fit() } -> std::same_as<void>;
   { storage.setSize(newSize) } -> std::same_as<void>;
 };
 

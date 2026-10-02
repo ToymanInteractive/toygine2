@@ -105,6 +105,15 @@ struct ReserveResult {
   return {storage.reserve(newCapacity), firstDifference(storage, before)};
 }
 
+// Where the buffer first differs from its state before a shrink_to_fit() call.
+[[nodiscard]] constexpr size_t shrinkDifference() noexcept {
+  Storage       storage = sampleStorage();
+  const Storage before  = storage;
+  storage.shrink_to_fit();
+
+  return firstDifference(storage, before);
+}
+
 // Character left at the length setSize() was given, over a buffer that held no null character there.
 [[nodiscard]] constexpr char terminatorAfter(size_t newSize) noexcept {
   Storage storage = sentinelStorage();
@@ -306,6 +315,17 @@ TEST_CASE("fixed_string_storage/capacity") {
   static_assert(FixedStringStorage<256>().capacity() == 255, "capacity must follow AllocatedSize");
 }
 
+// The longest string the buffer holds is its capacity, since the buffer never grows.
+TEST_CASE("fixed_string_storage/max_size") {
+  const Storage storage = sampleStorage();
+
+  CHECK(storage.max_size() == c_allocatedSize - 1);
+
+  static_assert(Storage().max_size() == Storage().capacity(),
+                "max_size must equal capacity, since the buffer never grows");
+  static_assert(FixedStringStorage<1>().max_size() == 0, "the smallest buffer must hold no characters at all");
+}
+
 // Which bytes the two pointer overloads reach, and what a caller reads back after writing through the mutable one.
 TEST_CASE("fixed_string_storage/data_access") {
   Storage         storage;
@@ -347,6 +367,23 @@ TEST_CASE("fixed_string_storage/reserve") {
                 "an accepted length must leave every byte of the buffer as it was");
   static_assert(reserveResult(c_allocatedSize).difference == c_allocatedSize,
                 "a refused length must leave every byte of the buffer as it was");
+}
+
+// A shrink request leaves the buffer as it was: its size is fixed, so there is nothing to release.
+TEST_CASE("fixed_string_storage/shrink_to_fit") {
+  Storage       storage = sampleStorage();
+  const Storage before  = storage;
+  const char *  buffer  = storage.data();
+
+  storage.shrink_to_fit();
+
+  CHECK(firstDifference(storage, before) == c_allocatedSize);
+  CHECK(storage.data() == buffer);
+  CHECK(storage.size() == c_sampleLength);
+  CHECK(storage.capacity() == c_allocatedSize - 1);
+
+  static_assert(shrinkDifference() == c_allocatedSize,
+                "a shrink request must leave every byte of the buffer as it was");
 }
 
 // What setSize() records, and where it puts the terminator.
