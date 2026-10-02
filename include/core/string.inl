@@ -513,7 +513,7 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
   const size_type index = _indexOf(first);
   const size_type end   = _indexOf(last);
   assert_message(index <= end, "the erased range must not end before it starts");
-  if (index <= end)
+  if (index <= end && end <= size())
     erase(index, end - index);
 
   return begin() + index;

@@ -1524,8 +1524,28 @@ TEST_CASE("string/insertion_from_itself") {
   whole(relocating);
   REQUIRE(relocating.c_str() != buffer);
 
-  CHECK(selfInsertionFailures<Fixed>() == 0);
-  CHECK(selfInsertionFailures<Relocating>() == 0);
+  // Checks every triple selfInsertionFailures() counts, naming the one that breaks.
+  const auto checkSelfInsertions = [&](auto emptyString) {
+    using StringType = decltype(emptyString);
+
+    for (const size_t position : std::views::iota(size_t{0}, c_sampleLength + 1)) {
+      INFO("position ", static_cast<long long>(position));
+      for (const size_t offset : std::views::iota(size_t{0}, c_sampleLength)) {
+        INFO("offset ", static_cast<long long>(offset));
+        for (const size_t count : std::views::iota(size_t{1}, c_sampleLength - offset + 1)) {
+          INFO("count ", static_cast<long long>(count));
+          StringType string(c_sample);
+          string.insert(position, string.c_str() + offset, count);
+
+          const size_t length = c_sampleLength + count;
+          CHECK(firstDifference(string, selfInsertedSample(position, offset, count).data(), length) == length + 1);
+        }
+      }
+    }
+  };
+
+  checkSelfInsertions(Fixed{});
+  checkSelfInsertions(Relocating{});
   CHECK(firstDifference(relocating, c_sampleDoubledInside, c_sampleLength * 2) == c_sampleLength * 2 + 1);
   CHECK(editedDifference<Relocating>(iterated, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
   CHECK(editedDifference<Relocating>(ranged, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
@@ -1651,7 +1671,7 @@ TEST_CASE("string/erasure_at_iterator") {
 }
 
 #if !defined(_DEBUG)
-// Without the debug checks an erasure past the end, at end(), or over a reversed range leaves the old contents.
+// Without the debug checks an erasure past the end, at end(), or over a reversed or overlong range keeps the contents.
 TEST_CASE("string/erasure_rejected") {
   constexpr auto pastEnd = [](Fixed & string) {
     string.erase(c_sampleLength + 1);
@@ -1662,16 +1682,22 @@ TEST_CASE("string/erasure_rejected") {
   constexpr auto reversed = [](Fixed & string) {
     string.erase(string.begin() + c_substringOffset, string.cbegin());
   };
+  constexpr auto overlong = [](Fixed & string) {
+    string.erase(string.begin(), string.cend() + 1);
+  };
 
   CHECK(editedDifference(pastEnd, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(atEnd, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(reversed, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(overlong, c_sample) == fullMatch(c_sample));
 
   static_assert(editedDifference(pastEnd, c_sample) == fullMatch(c_sample),
                 "an offset past the end must keep the old contents");
   static_assert(editedDifference(atEnd, c_sample) == fullMatch(c_sample), "end() must keep the old contents");
   static_assert(editedDifference(reversed, c_sample) == fullMatch(c_sample),
                 "a reversed range must keep the old contents");
+  static_assert(editedDifference(overlong, c_sample) == fullMatch(c_sample),
+                "a range that ends past end() must keep the old contents");
 }
 #endif // !_DEBUG
 
