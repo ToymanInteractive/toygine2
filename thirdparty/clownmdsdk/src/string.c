@@ -21,6 +21,47 @@
 #include <stdint.h>
 #include <string.h>
 
+void* memcpy(void* const dest, const void* const src, const size_t count)
+{
+	unsigned char* const target = dest;
+	const unsigned char* const source = src;
+	size_t index;
+
+	for (index = 0; index != count; ++index)
+		target[index] = source[index];
+
+	return dest;
+}
+
+void* memmove(void* const dest, const void* const src, const size_t count)
+{
+	unsigned char* const target = dest;
+	const unsigned char* const source = src;
+	size_t index;
+
+	// A destination starting inside the source is copied back to front, so no byte is overwritten before it is read.
+	if ((uintptr_t)target - (uintptr_t)source < count)
+		for (index = count; index != 0; --index)
+			target[index - 1] = source[index - 1];
+	else
+		for (index = 0; index != count; ++index)
+			target[index] = source[index];
+
+	return dest;
+}
+
+void* memset(void* const dest, const int ch, const size_t count)
+{
+	unsigned char* const target = dest;
+	const unsigned char value = (unsigned char)ch;
+	size_t index;
+
+	for (index = 0; index != count; ++index)
+		target[index] = value;
+
+	return dest;
+}
+
 int memcmp(const void* const lhs, const void* const rhs, const size_t count)
 {
 	const unsigned char* const left = lhs;

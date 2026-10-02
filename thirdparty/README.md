@@ -22,6 +22,9 @@ Overlay over the installed ClownMDSDK toolchain: a file here wins over the SDK's
 Local files, MIT like the engine:
 
 - `include/cstring`, `include/string.h`, `src/string.c`
+- `src/string.c` also replaces the SDK's `memcpy`, `memmove` and `memset`: the SDK's `memmove` always copies front to
+  back and corrupts an overlapping move to a higher address, and all three share one object in its `libc.a`, so
+  defining `memmove` alone collides with the SDK's copy at link time
 
 Files extracted from GCC libstdc++:
 
