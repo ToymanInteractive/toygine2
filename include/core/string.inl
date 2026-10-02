@@ -357,8 +357,39 @@ constexpr String<storageType>::const_reverse_iterator String<storageType>::crend
 }
 
 template <StringStorage storageType>
+constexpr bool String<storageType>::empty() const noexcept {
+  return size() == 0;
+}
+
+template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::size() const noexcept {
   return _storage.size();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::length() const noexcept {
+  return size();
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::max_size() const noexcept {
+  return _storage.max_size();
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::reserve(size_type newCapacity) noexcept {
+  [[maybe_unused]] const bool reserved = _storage.reserve(newCapacity);
+  assert_message(reserved, "the requested capacity must fit the storage");
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::capacity() const noexcept {
+  return _storage.capacity();
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::shrink_to_fit() noexcept {
+  _storage.shrink_to_fit();
 }
 
 template <StringStorage storageType>

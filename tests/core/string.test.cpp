@@ -311,6 +311,22 @@ constexpr const char * c_overwrittenEnds = "alayed";
   return string;
 }
 
+// The sample string after a reserve() of newCapacity, so a constant expression reads what the request left behind.
+[[nodiscard]] constexpr Fixed reservedSample(size_t newCapacity) noexcept {
+  Fixed string(c_sample);
+  string.reserve(newCapacity);
+
+  return string;
+}
+
+// The sample string after a shrink_to_fit() call.
+[[nodiscard]] constexpr Fixed shrunkSample() noexcept {
+  Fixed string(c_sample);
+  string.shrink_to_fit();
+
+  return string;
+}
+
 } // namespace
 
 // What a default-constructed string holds: no characters and a terminator behind c_str().
@@ -1028,6 +1044,118 @@ TEST_CASE("string/iterator_signatures") {
 
   static_assert(std::ranges::contiguous_range<Fixed> && std::ranges::sized_range<Fixed>,
                 "a string must work with the contiguous range algorithms");
+}
+
+// A string is empty only while it holds no characters; a lone null character still counts as one.
+TEST_CASE("string/empty") {
+  CHECK(Fixed().empty());
+  CHECK_FALSE(Fixed(c_sample).empty());
+  CHECK_FALSE(Fixed(1, '\0').empty());
+
+  static_assert(c_emptyString.empty(), "a default-constructed string must be empty");
+  static_assert(!c_sampleString.empty(), "a string with characters must not be empty");
+  static_assert(!Fixed(1, '\0').empty(), "a null character must count as a character");
+}
+
+// length() reports the same count as size(), embedded null characters included.
+TEST_CASE("string/length") {
+  const Fixed sample(c_sample);
+  const Fixed embedded(c_embeddedNull, c_embeddedNullLength);
+
+  CHECK(sample.length() == c_sampleLength);
+  CHECK(embedded.length() == c_embeddedNullLength);
+  CHECK(Fixed().length() == 0);
+
+  static_assert(c_sampleString.length() == c_sampleLength, "length() must count the characters");
+  static_assert(Fixed(c_embeddedNull, c_embeddedNullLength).length() == c_embeddedNullLength,
+                "length() must count an embedded null like any other character");
+  static_assert(c_emptyString.length() == 0, "an empty string must have a length of zero");
+}
+
+// Over a fixed buffer the longest length is the capacity, whatever the string holds now.
+TEST_CASE("string/max_size") {
+  CHECK(Fixed().max_size() == c_capacity);
+  CHECK(Fixed(c_sample).max_size() == c_capacity);
+
+  static_assert(c_sampleString.max_size() == c_capacity, "max_size() must equal the capacity of a fixed buffer");
+  static_assert(FixedString<1>().max_size() == 0, "the smallest buffer must hold no characters at all");
+}
+
+// capacity() reports the characters the buffer takes, the terminator excluded, independent of the length.
+TEST_CASE("string/capacity") {
+  CHECK(Fixed().capacity() == c_capacity);
+  CHECK(Fixed(c_sample).capacity() == c_capacity);
+  CHECK(Wide().capacity() == c_allocatedSize * 2 - 1);
+
+  static_assert(c_emptyString.capacity() == c_capacity, "capacity must be the buffer size less the terminator");
+  static_assert(c_sampleString.capacity() == c_capacity, "capacity must not depend on the length");
+}
+
+// An accepted reserve() leaves the characters, the capacity and the buffer as they were.
+TEST_CASE("string/reserve") {
+  Fixed        string(c_sample);
+  const char * buffer = string.c_str();
+
+  string.reserve(0);
+  CHECK(firstDifference(string, c_sample, c_sampleLength) == c_sampleLength + 1);
+
+  string.reserve(c_capacity);
+  CHECK(firstDifference(string, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(string.capacity() == c_capacity);
+  CHECK(string.c_str() == buffer);
+
+  static_assert(firstDifference(reservedSample(0), c_sample, c_sampleLength) == c_sampleLength + 1,
+                "a request below the length must keep the characters");
+  static_assert(firstDifference(reservedSample(c_capacity), c_sample, c_sampleLength) == c_sampleLength + 1,
+                "a request at capacity must keep the characters");
+  static_assert(reservedSample(c_capacity).capacity() == c_capacity, "a request at capacity must keep the capacity");
+}
+
+#if !defined(_DEBUG)
+// Without the debug checks a reserve() the storage rejects leaves the string as it was.
+TEST_CASE("string/reserve_rejected") {
+  Fixed string(c_sample);
+  string.reserve(c_capacity + 1);
+
+  CHECK(firstDifference(string, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(string.capacity() == c_capacity);
+
+  static_assert(firstDifference(reservedSample(c_capacity + 1), c_sample, c_sampleLength) == c_sampleLength + 1,
+                "a rejected request must keep the characters");
+}
+#endif // !_DEBUG
+
+// A shrink request over a fixed buffer keeps the characters, the capacity and the buffer itself.
+TEST_CASE("string/shrink_to_fit") {
+  Fixed        string(c_sample);
+  const char * buffer = string.c_str();
+
+  string.shrink_to_fit();
+
+  CHECK(firstDifference(string, c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(string.capacity() == c_capacity);
+  CHECK(string.c_str() == buffer);
+
+  static_assert(firstDifference(shrunkSample(), c_sample, c_sampleLength) == c_sampleLength + 1,
+                "a shrink request must keep the characters");
+  static_assert(shrunkSample().capacity() == c_capacity, "a fixed buffer must keep its capacity");
+}
+
+// Which capacity queries and requests never throw, and the type each query returns.
+TEST_CASE("string/capacity_signatures") {
+  static_assert(noexcept(std::declval<const Fixed &>().empty()) && noexcept(std::declval<const Fixed &>().length())
+                  && noexcept(std::declval<const Fixed &>().max_size())
+                  && noexcept(std::declval<const Fixed &>().capacity()),
+                "the capacity queries must not throw");
+  static_assert(noexcept(std::declval<Fixed &>().reserve(0)) && noexcept(std::declval<Fixed &>().shrink_to_fit()),
+                "the capacity requests must not throw, where std::basic_string::reserve() throws std::length_error");
+
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().empty()), bool>,
+                "empty() must answer with a bool");
+  static_assert(std::is_same_v<decltype(std::declval<const Fixed &>().length()), Fixed::size_type>
+                  && std::is_same_v<decltype(std::declval<const Fixed &>().max_size()), Fixed::size_type>
+                  && std::is_same_v<decltype(std::declval<const Fixed &>().capacity()), Fixed::size_type>,
+                "the counting queries must return size_type, as size() does");
 }
 
 } // namespace toy

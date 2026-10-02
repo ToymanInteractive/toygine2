@@ -275,6 +275,16 @@ public:
   [[nodiscard]] constexpr size_t capacity() const noexcept;
 
   /*!
+    \brief Returns the longest string the buffer can hold.
+
+    \return The value capacity() returns, since the buffer never grows.
+
+    \sa capacity()
+    \sa reserve()
+  */
+  [[nodiscard]] constexpr size_t max_size() const noexcept;
+
+  /*!
     \brief Reports whether the buffer holds a string of the requested length.
 
     Allocates nothing and leaves the buffer as it was: the size is fixed at compile time, so the call answers the
@@ -293,6 +303,17 @@ public:
     \sa setSize()
   */
   [[nodiscard]] constexpr bool reserve(size_t newCapacity) noexcept;
+
+  /*!
+    \brief Does nothing, since the size of the buffer is fixed at compile time.
+
+    Satisfies \ref toy::StringStorage, where a storage that owns heap memory may release its unused bytes instead.
+
+    \post capacity() and size() are unchanged, no byte of the buffer changes, and data() returns the same pointer.
+
+    \sa reserve()
+  */
+  constexpr void shrink_to_fit() noexcept;
 
   /*!
     \brief Returns the length of the stored string.

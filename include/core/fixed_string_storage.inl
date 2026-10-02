@@ -94,9 +94,17 @@ constexpr size_t FixedStringStorage<AllocatedSize>::capacity() const noexcept {
 }
 
 template <size_t AllocatedSize>
+constexpr size_t FixedStringStorage<AllocatedSize>::max_size() const noexcept {
+  return capacity();
+}
+
+template <size_t AllocatedSize>
 constexpr bool FixedStringStorage<AllocatedSize>::reserve(size_t newCapacity) noexcept {
   return newCapacity <= capacity();
 }
+
+template <size_t AllocatedSize>
+constexpr void FixedStringStorage<AllocatedSize>::shrink_to_fit() noexcept {}
 
 template <size_t AllocatedSize>
 constexpr size_t FixedStringStorage<AllocatedSize>::size() const noexcept {
