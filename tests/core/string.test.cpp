@@ -327,6 +327,147 @@ constexpr const char * c_overwrittenEnds = "alayed";
   return string;
 }
 
+// Storage that moves its characters to a second buffer whenever it grows, as a storage that owns heap memory may.
+template <size_t MaxCapacity>
+class RelocatingStorage {
+public:
+  [[nodiscard]] constexpr char * data() noexcept {
+    return _buffers[_active].data();
+  }
+
+  [[nodiscard]] constexpr const char * data() const noexcept {
+    return _buffers[_active].data();
+  }
+
+  [[nodiscard]] constexpr size_t size() const noexcept {
+    return _size;
+  }
+
+  [[nodiscard]] constexpr size_t capacity() const noexcept {
+    return _capacity;
+  }
+
+  [[nodiscard]] constexpr size_t max_size() const noexcept {
+    return MaxCapacity;
+  }
+
+  [[nodiscard]] constexpr bool reserve(size_t newCapacity) noexcept {
+    if (newCapacity > MaxCapacity)
+      return false;
+
+    if (newCapacity > _capacity) {
+      const size_t target = 1 - _active;
+      std::ranges::copy_n(data(), static_cast<ptrdiff_t>(_size + 1), _buffers[target].data());
+      _active   = target;
+      _capacity = newCapacity;
+    }
+
+    return true;
+  }
+
+  constexpr void shrink_to_fit() noexcept {
+    _capacity = _size;
+  }
+
+  constexpr void setSize(size_t newSize) noexcept {
+    _size           = newSize;
+    data()[newSize] = '\0';
+  }
+
+private:
+  std::array<std::array<char, MaxCapacity + 1>, 2> _buffers{};
+  size_t                                           _active{0};
+  size_t                                           _size{0};
+  size_t                                           _capacity{0};
+};
+
+static_assert(StringStorage<RelocatingStorage<c_capacity>>, "the relocating stub must back a string");
+
+// String whose every growth moves the buffer, so an edit must find a source inside it again after the move.
+using Relocating = String<RelocatingStorage<c_capacity>>;
+
+// What firstDifference() returns when a string holds exactly the characters of expected.
+[[nodiscard]] constexpr size_t fullMatch(const char * expected) noexcept {
+  return std::char_traits<char>::length(expected) + 1;
+}
+
+// Where the sample string, after edit runs on it, first differs from expected.
+template <typename StringType = Fixed, typename Edit>
+[[nodiscard]] constexpr size_t editedDifference(Edit edit, const char * expected) noexcept {
+  StringType string(c_sample);
+  edit(string);
+
+  return firstDifference(string, expected, std::char_traits<char>::length(expected));
+}
+
+// Offset of the iterator that edit returns after it runs on the sample string.
+template <typename Edit>
+[[nodiscard]] constexpr size_t returnedOffset(Edit edit) noexcept {
+  Fixed string(c_sample);
+
+  return static_cast<size_t>(edit(string) - string.begin());
+}
+
+// The sample with count characters from offset of the sample itself copied in before position.
+[[nodiscard]] constexpr std::array<char, c_allocatedSize> selfInsertedSample(size_t position, size_t offset,
+                                                                             size_t count) noexcept {
+  std::array<char, c_allocatedSize> expected{};
+
+  auto output = std::ranges::copy_n(c_sample, static_cast<ptrdiff_t>(position), expected.begin()).out;
+  output      = std::ranges::copy_n(c_sample + offset, static_cast<ptrdiff_t>(count), output).out;
+  std::ranges::copy(c_sample + position, c_sample + c_sampleLength, output);
+
+  return expected;
+}
+
+// How many (position, offset, count) triples of a self-insertion leave anything but selfInsertedSample().
+template <typename StringType>
+[[nodiscard]] constexpr size_t selfInsertionFailures() noexcept {
+  size_t failures = 0;
+  for (const size_t position : std::views::iota(size_t{0}, c_sampleLength + 1)) {
+    for (const size_t offset : std::views::iota(size_t{0}, c_sampleLength)) {
+      for (const size_t count : std::views::iota(size_t{1}, c_sampleLength - offset + 1)) {
+        StringType string(c_sample);
+        string.insert(position, string.c_str() + offset, count);
+
+        const size_t length = c_sampleLength + count;
+        if (firstDifference(string, selfInsertedSample(position, offset, count).data(), length) != length + 1)
+          ++failures;
+      }
+    }
+  }
+
+  return failures;
+}
+
+// The sample with its characters from c_substringOffset on removed.
+constexpr const char * c_sampleHead = "pl";
+
+// The sample with c_substringLength characters removed from c_substringOffset.
+constexpr const char * c_sampleWithoutMiddle = "plr";
+
+// The sample with the fill characters inserted at c_substringOffset.
+constexpr const char * c_filledInside = "plxxxxxayer";
+
+// The sample with the fill characters inserted before its first character.
+constexpr const char * c_filledFront = "xxxxxplayer";
+
+// The sample with the fill characters inserted after its last character.
+constexpr const char * c_filledBack = "playerxxxxx";
+
+// The sample with the listed characters inserted at c_substringOffset.
+constexpr const char * c_listedInside = "plabcayer";
+
+// The sample with the listed characters, back to front, inserted at c_substringOffset.
+constexpr const char * c_listedReversedInside = "plcbaayer";
+
+// The sample with a copy of itself inserted at c_substringOffset.
+constexpr const char * c_sampleDoubledInside = "plplayerayer";
+
+// The sample with c_embeddedNull inserted at c_substringOffset, the null byte included.
+constexpr char   c_embeddedNullInside[]     = "plab\0cdayer";
+constexpr size_t c_embeddedNullInsideLength = sizeof(c_embeddedNullInside) - 1;
+
 } // namespace
 
 // What a default-constructed string holds: no characters and a terminator behind c_str().
@@ -1156,6 +1297,404 @@ TEST_CASE("string/capacity_signatures") {
                   && std::is_same_v<decltype(std::declval<const Fixed &>().max_size()), Fixed::size_type>
                   && std::is_same_v<decltype(std::declval<const Fixed &>().capacity()), Fixed::size_type>,
                 "the counting queries must return size_type, as size() does");
+}
+
+// clear() removes every character and keeps the buffer with its capacity.
+TEST_CASE("string/clear") {
+  constexpr auto clear = [](Fixed & string) {
+    string.clear();
+  };
+
+  Fixed        string(c_sample);
+  const char * buffer = string.c_str();
+  clear(string);
+
+  CHECK(firstDifference(string, "", 0) == 1);
+  CHECK(string.capacity() == c_capacity);
+  CHECK(string.c_str() == buffer);
+
+  static_assert(editedDifference(clear, "") == 1, "clear() must leave no characters and a terminator");
+}
+
+// Copies of one character go in before the given offset, at the front, inside, or after the last character.
+TEST_CASE("string/insertion_fill") {
+  constexpr auto front = [](Fixed & string) {
+    string.insert(0, c_fillCount, c_fillCharacter);
+  };
+  constexpr auto inside = [](Fixed & string) {
+    string.insert(c_substringOffset, c_fillCount, c_fillCharacter);
+  };
+  constexpr auto back = [](Fixed & string) {
+    string.insert(string.size(), c_fillCount, c_fillCharacter);
+  };
+  constexpr auto none = [](Fixed & string) {
+    string.insert(c_substringOffset, 0, c_fillCharacter);
+  };
+
+  CHECK(editedDifference(front, c_filledFront) == fullMatch(c_filledFront));
+  CHECK(editedDifference(inside, c_filledInside) == fullMatch(c_filledInside));
+  CHECK(editedDifference(back, c_filledBack) == fullMatch(c_filledBack));
+  CHECK(editedDifference(none, c_sample) == fullMatch(c_sample));
+
+  static_assert(editedDifference(front, c_filledFront) == fullMatch(c_filledFront),
+                "copies inserted at offset 0 must precede the old characters");
+  static_assert(editedDifference(inside, c_filledInside) == fullMatch(c_filledInside),
+                "copies inserted inside must split the old characters at the offset");
+  static_assert(editedDifference(back, c_filledBack) == fullMatch(c_filledBack),
+                "copies inserted at size() must follow the old characters");
+  static_assert(editedDifference(none, c_sample) == fullMatch(c_sample), "a count of zero must change nothing");
+}
+
+// A C string goes in up to its terminator; a counted copy takes exactly its count, a null byte included.
+TEST_CASE("string/insertion_from_pointer") {
+  constexpr auto terminated = [](Fixed & string) {
+    string.insert(c_substringOffset, c_listed);
+  };
+  constexpr auto counted = [](Fixed & string) {
+    string.insert(c_substringOffset, c_embeddedNull, c_embeddedNullLength);
+  };
+  constexpr auto empty = [](Fixed & string) {
+    string.insert(c_substringOffset, nullptr, 0);
+  };
+
+  CHECK(editedDifference(terminated, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(editedDifference(empty, c_sample) == fullMatch(c_sample));
+
+  Fixed string(c_sample);
+  counted(string);
+  CHECK(firstDifference(string, c_embeddedNullInside, c_embeddedNullInsideLength) == c_embeddedNullInsideLength + 1);
+
+  static_assert(editedDifference(terminated, c_listedInside) == fullMatch(c_listedInside),
+                "a C string must go in whole at the offset");
+  static_assert(editedDifference(empty, c_sample) == fullMatch(c_sample),
+                "a null pointer with a count of zero must change nothing");
+  static_assert(
+    [] {
+      Fixed string(c_sample);
+      string.insert(c_substringOffset, c_embeddedNull, c_embeddedNullLength);
+
+      return firstDifference(string, c_embeddedNullInside, c_embeddedNullInsideLength);
+    }()
+      == c_embeddedNullInsideLength + 1,
+    "a counted copy must take every byte, a null byte included"
+  );
+}
+
+// A view or a string over another storage goes in whole, or as the substring that starts at an offset into it.
+TEST_CASE("string/insertion_from_string_like") {
+  constexpr auto view = [](Fixed & string) {
+    string.insert(c_substringOffset, StringView{c_listed});
+  };
+  constexpr auto wide = [](Fixed & string) {
+    string.insert(c_substringOffset, Wide(c_listed));
+  };
+  constexpr auto substring = [](Fixed & string) {
+    string.insert(c_substringOffset, StringView{c_sample}, 0, c_substringOffset);
+  };
+  constexpr auto toEnd = [](Fixed & string) {
+    string.insert(string.size(), StringView{c_sample}, c_substringOffset);
+  };
+
+  CHECK(editedDifference(view, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(editedDifference(wide, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(editedDifference(substring, "plplayer") == fullMatch("plplayer"));
+  CHECK(editedDifference(toEnd, "playerayer") == fullMatch("playerayer"));
+
+  static_assert(editedDifference(view, c_listedInside) == fullMatch(c_listedInside), "a view must go in whole");
+  static_assert(editedDifference(wide, c_listedInside) == fullMatch(c_listedInside),
+                "a string over another storage must go in whole");
+  static_assert(editedDifference(substring, "plplayer") == fullMatch("plplayer"),
+                "a substring must take at most count bytes from the offset");
+  static_assert(editedDifference(toEnd, "playerayer") == fullMatch("playerayer"),
+                "the default count must take the source up to its end");
+}
+
+// Insertion at an iterator puts the characters where it pointed and returns an iterator to the first of them.
+TEST_CASE("string/insertion_at_iterator") {
+  constexpr auto single = [](Fixed & string) {
+    return string.insert(string.begin() + 1, c_fillCharacter);
+  };
+  constexpr auto filled = [](Fixed & string) {
+    return string.insert(string.cbegin() + c_substringOffset, c_fillCount, c_fillCharacter);
+  };
+  constexpr auto none = [](Fixed & string) {
+    return string.insert(string.end(), 0, c_fillCharacter);
+  };
+
+  CHECK(editedDifference(single, "pxlayer") == fullMatch("pxlayer"));
+  CHECK(returnedOffset(single) == 1);
+  CHECK(editedDifference(filled, c_filledInside) == fullMatch(c_filledInside));
+  CHECK(returnedOffset(filled) == c_substringOffset);
+  CHECK(editedDifference(none, c_sample) == fullMatch(c_sample));
+  CHECK(returnedOffset(none) == c_sampleLength);
+
+  static_assert(editedDifference(single, "pxlayer") == fullMatch("pxlayer"),
+                "one character must go in before the iterator");
+  static_assert(returnedOffset(single) == 1, "the result must point at the inserted character");
+  static_assert(editedDifference(filled, c_filledInside) == fullMatch(c_filledInside),
+                "a const_iterator must take copies before it");
+  static_assert(returnedOffset(filled) == c_substringOffset, "the result must point at the first copy");
+  static_assert(returnedOffset(none) == c_sampleLength, "a count of zero must return the position it was given");
+}
+
+// An iterator range goes in whole, whether it is contiguous, forward only, or single-pass.
+TEST_CASE("string/insertion_from_iterators") {
+  constexpr auto contiguous = [](Fixed & string) {
+    return string.insert(string.begin() + c_substringOffset, c_listed, c_listed + c_listedLength);
+  };
+  constexpr auto forward = [](Fixed & string) {
+    return string.insert(string.begin() + c_substringOffset, std::reverse_iterator(c_listed + c_listedLength),
+                         std::reverse_iterator(c_listed));
+  };
+  constexpr auto singlePass = [](Fixed & string) {
+    return string.insert(string.begin() + c_substringOffset, SinglePassIterator(c_listed),
+                         SinglePassIterator(c_listed + c_listedLength));
+  };
+  constexpr auto empty = [](Fixed & string) {
+    return string.insert(string.begin() + c_substringOffset, c_listed, c_listed);
+  };
+
+  CHECK(editedDifference(contiguous, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(editedDifference(forward, c_listedReversedInside) == fullMatch(c_listedReversedInside));
+  CHECK(editedDifference(singlePass, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(returnedOffset(singlePass) == c_substringOffset);
+  CHECK(editedDifference(empty, c_sample) == fullMatch(c_sample));
+  CHECK(returnedOffset(empty) == c_substringOffset);
+
+  static_assert(editedDifference(contiguous, c_listedInside) == fullMatch(c_listedInside),
+                "a pointer range must go in before the iterator");
+  static_assert(editedDifference(forward, c_listedReversedInside) == fullMatch(c_listedReversedInside),
+                "a forward range must go in in its own order");
+  static_assert(editedDifference(singlePass, c_listedInside) == fullMatch(c_listedInside),
+                "a single-pass range must be rotated into place");
+  static_assert(returnedOffset(singlePass) == c_substringOffset, "the result must point at the first inserted one");
+  static_assert(editedDifference(empty, c_sample) == fullMatch(c_sample), "an empty range must change nothing");
+}
+
+// A braced list goes in before the iterator, as the same characters in a pointer range would.
+TEST_CASE("string/insertion_from_initializer_list") {
+  constexpr auto listed = [](Fixed & string) {
+    return string.insert(string.begin() + c_substringOffset, {'a', 'b', 'c'});
+  };
+
+  CHECK(editedDifference(listed, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(returnedOffset(listed) == c_substringOffset);
+
+  static_assert(editedDifference(listed, c_listedInside) == fullMatch(c_listedInside),
+                "a braced list must go in before the iterator");
+  static_assert(returnedOffset(listed) == c_substringOffset, "the result must point at the first listed character");
+}
+
+// insert_range() takes a range whose end may have a type of its own, single-pass ranges included.
+TEST_CASE("string/insertion_from_range") {
+  constexpr auto view = [](Fixed & string) {
+    return string.insert_range(string.begin() + c_substringOffset, StringView{c_listed});
+  };
+  constexpr auto singlePass = [](Fixed & string) {
+    return string.insert_range(string.begin() + c_substringOffset,
+                               std::ranges::subrange(SinglePassIterator(c_listed),
+                                                     SinglePassIterator(c_listed + c_listedLength)));
+  };
+
+  CHECK(editedDifference(view, c_listedInside) == fullMatch(c_listedInside));
+  CHECK(returnedOffset(view) == c_substringOffset);
+  CHECK(editedDifference(singlePass, c_listedInside) == fullMatch(c_listedInside));
+
+  static_assert(editedDifference(view, c_listedInside) == fullMatch(c_listedInside),
+                "a contiguous range must go in before the iterator");
+  static_assert(returnedOffset(view) == c_substringOffset, "the result must point at the first inserted character");
+  static_assert(editedDifference(singlePass, c_listedInside) == fullMatch(c_listedInside),
+                "a single-pass range must be rotated into place");
+}
+
+// Characters read from the string itself go in unchanged, wherever they lie and even when the buffer moves to grow.
+TEST_CASE("string/insertion_from_itself") {
+  constexpr auto whole = [](Relocating & string) {
+    string.insert(c_substringOffset, string);
+  };
+  constexpr auto iterated = [](Relocating & string) {
+    string.insert(string.begin() + c_substringOffset, string.begin(), string.end());
+  };
+  constexpr auto ranged = [](Relocating & string) {
+    string.insert_range(string.begin() + c_substringOffset, StringView{string.c_str()});
+  };
+
+  Relocating   relocating(c_sample);
+  const char * buffer = relocating.c_str();
+  whole(relocating);
+  REQUIRE(relocating.c_str() != buffer);
+
+  CHECK(selfInsertionFailures<Fixed>() == 0);
+  CHECK(selfInsertionFailures<Relocating>() == 0);
+  CHECK(firstDifference(relocating, c_sampleDoubledInside, c_sampleLength * 2) == c_sampleLength * 2 + 1);
+  CHECK(editedDifference<Relocating>(iterated, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
+  CHECK(editedDifference<Relocating>(ranged, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside));
+
+  static_assert(selfInsertionFailures<Fixed>() == 0, "every slice of the string must survive insertion into itself");
+  static_assert(selfInsertionFailures<Relocating>() == 0, "every slice must survive a buffer that moves to grow");
+  static_assert(editedDifference<Relocating>(whole, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside),
+                "the string must go into itself whole");
+  static_assert(editedDifference<Relocating>(iterated, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside),
+                "an iterator range over the string must go into itself");
+  static_assert(editedDifference<Relocating>(ranged, c_sampleDoubledInside) == fullMatch(c_sampleDoubledInside),
+                "a view of the string must go into itself");
+}
+
+#if !defined(_DEBUG)
+// Without the debug checks a rejected insertion keeps the old contents, a single-pass range included.
+TEST_CASE("string/insertion_rejected") {
+  constexpr auto pastEnd = [](Fixed & string) {
+    string.insert(c_sampleLength + 1, c_listed);
+  };
+  constexpr auto filled = [](Fixed & string) {
+    string.insert(0, c_capacity, c_fillCharacter);
+  };
+  constexpr auto counted = [](Fixed & string) {
+    string.insert(0, c_long, c_longLength);
+  };
+  constexpr auto substring = [](Fixed & string) {
+    string.insert(0, StringView{c_listed}, c_listedLength + 1);
+  };
+  constexpr auto forward = [](Fixed & string) {
+    string.insert(string.begin(), std::reverse_iterator(c_long + c_longLength), std::reverse_iterator(c_long));
+  };
+  constexpr auto singlePass = [](Fixed & string) {
+    string.insert(string.begin(), SinglePassIterator(c_long), SinglePassIterator(c_long + c_longLength));
+  };
+
+  CHECK(editedDifference(pastEnd, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(filled, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(counted, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(substring, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(forward, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(singlePass, c_sample) == fullMatch(c_sample));
+
+  static_assert(editedDifference(pastEnd, c_sample) == fullMatch(c_sample),
+                "an offset past the end must keep the old contents");
+  static_assert(editedDifference(filled, c_sample) == fullMatch(c_sample),
+                "a rejected fill must keep the old contents");
+  static_assert(editedDifference(counted, c_sample) == fullMatch(c_sample),
+                "a rejected counted copy must keep the old contents");
+  static_assert(editedDifference(substring, c_sample) == fullMatch(c_sample),
+                "a substring offset past the end must keep the old contents");
+  static_assert(editedDifference(forward, c_sample) == fullMatch(c_sample),
+                "a rejected forward range must keep the old contents");
+  static_assert(editedDifference(singlePass, c_sample) == fullMatch(c_sample),
+                "a rejected single-pass range must roll back what it appended");
+}
+#endif // !_DEBUG
+
+// erase() takes up to count characters from an offset and stops at the end; the defaults take everything.
+TEST_CASE("string/erasure") {
+  constexpr auto middle = [](Fixed & string) {
+    string.erase(c_substringOffset, c_substringLength);
+  };
+  constexpr auto tail = [](Fixed & string) {
+    string.erase(c_substringOffset);
+  };
+  constexpr auto beyond = [](Fixed & string) {
+    string.erase(c_substringOffset, c_longLength);
+  };
+  constexpr auto atEnd = [](Fixed & string) {
+    string.erase(string.size(), c_substringLength);
+  };
+  constexpr auto all = [](Fixed & string) {
+    string.erase();
+  };
+
+  CHECK(editedDifference(middle, c_sampleWithoutMiddle) == fullMatch(c_sampleWithoutMiddle));
+  CHECK(editedDifference(tail, c_sampleHead) == fullMatch(c_sampleHead));
+  CHECK(editedDifference(beyond, c_sampleHead) == fullMatch(c_sampleHead));
+  CHECK(editedDifference(atEnd, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(all, "") == 1);
+
+  static_assert(editedDifference(middle, c_sampleWithoutMiddle) == fullMatch(c_sampleWithoutMiddle),
+                "the characters after the erased ones must close the gap");
+  static_assert(editedDifference(tail, c_sampleHead) == fullMatch(c_sampleHead),
+                "the default count must erase to the end");
+  static_assert(editedDifference(beyond, c_sampleHead) == fullMatch(c_sampleHead),
+                "a count past the end must stop at the end");
+  static_assert(editedDifference(atEnd, c_sample) == fullMatch(c_sample), "an offset of size() must erase nothing");
+  static_assert(editedDifference(all, "") == 1, "the defaults must erase every character");
+}
+
+// Erasure at an iterator or over an iterator range returns an iterator to the character that followed.
+TEST_CASE("string/erasure_at_iterator") {
+  constexpr auto single = [](Fixed & string) {
+    return string.erase(string.begin() + 1);
+  };
+  constexpr auto last = [](Fixed & string) {
+    return string.erase(string.cend() - 1);
+  };
+  constexpr auto range = [](Fixed & string) {
+    return string.erase(string.begin() + c_substringOffset, string.cbegin() + c_substringOffset + c_substringLength);
+  };
+  constexpr auto empty = [](Fixed & string) {
+    return string.erase(string.cbegin() + 1, string.cbegin() + 1);
+  };
+
+  CHECK(editedDifference(single, "payer") == fullMatch("payer"));
+  CHECK(returnedOffset(single) == 1);
+  CHECK(editedDifference(last, "playe") == fullMatch("playe"));
+  CHECK(returnedOffset(last) == c_sampleLength - 1);
+  CHECK(editedDifference(range, c_sampleWithoutMiddle) == fullMatch(c_sampleWithoutMiddle));
+  CHECK(returnedOffset(range) == c_substringOffset);
+  CHECK(editedDifference(empty, c_sample) == fullMatch(c_sample));
+
+  static_assert(editedDifference(single, "payer") == fullMatch("payer"), "the character at the iterator must go");
+  static_assert(returnedOffset(single) == 1, "the result must point at the character that followed");
+  static_assert(returnedOffset(last) == c_sampleLength - 1, "erasing the last character must return end()");
+  static_assert(editedDifference(range, c_sampleWithoutMiddle) == fullMatch(c_sampleWithoutMiddle),
+                "a mixed iterator pair must erase the range between them");
+  static_assert(returnedOffset(range) == c_substringOffset, "the result must point where the range began");
+  static_assert(editedDifference(empty, c_sample) == fullMatch(c_sample), "an empty range must erase nothing");
+}
+
+#if !defined(_DEBUG)
+// Without the debug checks an erasure past the end, at end(), or over a reversed range leaves the old contents.
+TEST_CASE("string/erasure_rejected") {
+  constexpr auto pastEnd = [](Fixed & string) {
+    string.erase(c_sampleLength + 1);
+  };
+  constexpr auto atEnd = [](Fixed & string) {
+    string.erase(string.end());
+  };
+  constexpr auto reversed = [](Fixed & string) {
+    string.erase(string.begin() + c_substringOffset, string.cbegin());
+  };
+
+  CHECK(editedDifference(pastEnd, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(atEnd, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(reversed, c_sample) == fullMatch(c_sample));
+
+  static_assert(editedDifference(pastEnd, c_sample) == fullMatch(c_sample),
+                "an offset past the end must keep the old contents");
+  static_assert(editedDifference(atEnd, c_sample) == fullMatch(c_sample), "end() must keep the old contents");
+  static_assert(editedDifference(reversed, c_sample) == fullMatch(c_sample),
+                "a reversed range must keep the old contents");
+}
+#endif // !_DEBUG
+
+// Which modifiers never throw, what each returns, and that a literal 0 picks the overload taking an index.
+TEST_CASE("string/modifier_signatures") {
+  static_assert(noexcept(std::declval<Fixed &>().clear()) && noexcept(std::declval<Fixed &>().erase())
+                  && noexcept(std::declval<Fixed &>().insert(0, c_listed))
+                  && noexcept(std::declval<Fixed &>().insert(std::declval<Fixed &>().begin(), c_fillCharacter)),
+                "the modifiers must not throw, where std::basic_string throws on a bad offset or length");
+
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().insert(0, 1, c_fillCharacter)), Fixed &>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().erase(0)), Fixed &>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().erase(0, 0)), Fixed &>,
+                "a literal 0 must select the overloads taking an index, which return the string");
+  static_assert(std::is_same_v<decltype(std::declval<Fixed &>().insert(std::declval<Fixed::const_iterator>(),
+                                                                       c_fillCharacter)),
+                               Fixed::iterator>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().erase(std::declval<Fixed::iterator>())),
+                                    Fixed::iterator>
+                  && std::is_same_v<decltype(std::declval<Fixed &>().insert_range(std::declval<Fixed::iterator>(),
+                                                                                  StringView{})),
+                                    Fixed::iterator>,
+                "the overloads taking an iterator must return a mutable iterator, as std::basic_string does");
 }
 
 } // namespace toy

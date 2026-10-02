@@ -1026,7 +1026,347 @@ public:
   */
   constexpr void shrink_to_fit() noexcept;
 
-  /// Count that stands for every character up to the end of the source in the substring constructors
+  /*!
+    \brief Removes every character and keeps the buffer.
+
+    \post size() returns \c 0, c_str() points at \c '\\0', and capacity() is unchanged.
+
+    \sa erase(size_t, size_t)
+  */
+  constexpr void clear() noexcept;
+
+  /*!
+    \brief Inserts \a count copies of \a ch before the character at \a index.
+
+    \param index Offset the first copy takes; size() appends.
+    \param count Number of characters to insert.
+    \param ch    Character written at every inserted position.
+
+    \return Reference to this string.
+
+    \pre \a index is not greater than size(), checked by assert_message in debug builds.
+    \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
+
+    \post size() grows by \a count, the characters before \a index stay where they were, and the rest follow the copies.
+
+    \note Pointers and iterators from \a index on read other characters after the call, and a storage that grows may
+          move the buffer, after which none of them is valid.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a index is past the end or the
+             storage rejects the new length, where \c std::basic_string throws \c std::out_of_range or
+             \c std::length_error.
+
+    \sa insert(PositionIterator, size_t, char)
+  */
+  constexpr String & insert(size_type index, size_type count, value_type ch) noexcept;
+
+  /*!
+    \brief Inserts a copy of the null-terminated byte string \a string before the character at \a index.
+
+    Measures \a string, then inserts it as insert(size_t, const char *, size_t) does.
+
+    \param index  Offset the first inserted byte takes; size() appends.
+    \param string Null-terminated byte string to insert; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre \a index and the length of \a string meet the preconditions of insert(size_t, const char *, size_t).
+
+    \post size() grows by the length of \a string, which now starts at \a index.
+
+    \sa insert(size_t, const char *, size_t)
+  */
+  constexpr String & insert(size_type index, const value_type * string) noexcept;
+
+  /*!
+    \brief Inserts a copy of \a count bytes starting at \a string before the character at \a index.
+
+    Copies exactly \a count bytes, so the source needs no terminator. The source may lie inside this string, before
+    \a index, after it, or across it; the inserted bytes are the ones it held before the call, even when the storage
+    moves the buffer to grow.
+
+    \param index  Offset the first inserted byte takes; size() appends.
+    \param string First byte to insert.
+    \param count  Number of bytes to insert.
+
+    \return Reference to this string.
+
+    \pre \a index is not greater than size(), checked by assert_message in debug builds.
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+    \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
+
+    \post size() grows by \a count, the bytes before \a index stay where they were, the copy starts at \a index, and the
+          rest follow it.
+
+    \note Pointers and iterators from \a index on read other characters after the call, and a storage that grows may
+          move the buffer, after which none of them is valid.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a index is past the end or the
+             storage rejects the new length, where \c std::basic_string throws \c std::out_of_range or
+             \c std::length_error.
+
+    \sa insert(size_t, const char *)
+  */
+  constexpr String & insert(size_type index, const value_type * string, size_type count) noexcept;
+
+  /*!
+    \brief Inserts a copy of the characters of \a string before the character at \a index.
+
+    Inserts size() bytes starting at c_str() of \a string, as insert(size_t, const char *, size_t) does.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param index  Offset the first inserted byte takes; size() appends.
+    \param string View or string to insert; may view this string.
+
+    \return Reference to this string.
+
+    \pre \a index and the length of \a string meet the preconditions of insert(size_t, const char *, size_t).
+
+    \post size() grows by the length of \a string, whose bytes now start at \a index.
+
+    \sa insert(size_t, const StringType &, size_t, size_t)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & insert(size_type index, const StringType & string) noexcept;
+
+  /*!
+    \brief Inserts a copy of the substring of \a string that starts at \a pos before the character at \a index.
+
+    Takes at most \a count bytes and stops at the end of \a string. Covers the \c std::basic_string substring overloads
+    for a string and for a string-view-like type.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param index  Offset the first inserted byte takes; size() appends.
+    \param string View or string to insert from; may view this string.
+    \param pos    Offset of the first byte to insert.
+    \param count  Most bytes to insert (default: \ref toy::String::npos, which inserts to the end of \a string).
+
+    \return Reference to this string.
+
+    \pre \a pos is not greater than the length of \a string, checked by assert_message in debug builds.
+    \pre \a index and the length of the substring meet the preconditions of insert(size_t, const char *, size_t).
+
+    \post size() grows by the smaller of \a count and the length of \a string minus \a pos, and those bytes now start at
+          \a index.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos is past the end of \a string,
+             where \c std::basic_string throws \c std::out_of_range.
+
+    \sa insert(size_t, const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & insert(size_type index, const StringType & string, size_type pos,
+                                         size_type count = npos) noexcept;
+
+  /*!
+    \brief Inserts \a ch before the character \a pos points at.
+
+    \tparam PositionIterator Type of \a pos; satisfies \c std::convertible_to with \c const \c char \c *, as
+                             \ref toy::String::iterator and \ref toy::String::const_iterator do. An integer type does
+    not, so a literal \c 0 selects the overload that takes an index.
+
+    \param pos Iterator to the character the new one goes before; end() appends.
+    \param ch  Character to insert.
+
+    \return Iterator to the inserted character, or one at the offset of \a pos when the call is rejected.
+
+    \pre \a pos and a count of \c 1 meet the preconditions of insert(PositionIterator, size_t, char).
+
+    \post size() grows by \c 1, and \a ch stands where \a pos pointed.
+
+    \sa insert(PositionIterator, size_t, char)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr iterator insert(PositionIterator pos, value_type ch) noexcept;
+
+  /*!
+    \brief Inserts \a count copies of \a ch before the character \a pos points at.
+
+    Converts \a pos to an offset, then inserts as insert(size_t, size_t, char) does.
+
+    \tparam PositionIterator Type of \a pos; satisfies \c std::convertible_to with \c const \c char \c *. An integer
+    type does not, so a literal \c 0 selects the overload that takes an index.
+
+    \param pos   Iterator to the character the copies go before; end() appends.
+    \param count Number of characters to insert.
+    \param ch    Character written at every inserted position.
+
+    \return Iterator to the first inserted character, or one at the offset of \a pos when \a count is \c 0 or the call
+    is rejected.
+
+    \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds.
+    \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
+
+    \post size() grows by \a count, and the copies start where \a pos pointed.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos lies outside the string or
+    the storage rejects the new length.
+
+    \sa insert(size_t, size_t, char)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr iterator insert(PositionIterator pos, size_type count, value_type ch) noexcept;
+
+  /*!
+    \brief Inserts a copy of the characters in [\a first, \a last) before the character \a pos points at.
+
+    A contiguous range goes through insert(size_t, const char *, size_t), so it may lie inside this string. A forward
+    range is measured first and copied in one step. A single-pass range is appended one character at a time, checked
+    against the storage whenever the buffer fills, and then rotated into place.
+
+    \tparam PositionIterator Type of \a pos; satisfies \c std::convertible_to with \c const \c char \c *. An integer
+    type does not, so a literal \c 0 selects the overload that takes an index.
+    \tparam InputIterator    Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its
+                             own \c std::sentinel_for.
+
+    \param pos   Iterator to the character the range goes before; end() appends.
+    \param first Iterator to the first character to insert.
+    \param last  Iterator past the last character to insert.
+
+    \return Iterator to the first inserted character, or one at the offset of \a pos when the range is empty or the call
+            is rejected.
+
+    \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds.
+    \pre \a last is reachable from \a first.
+    \pre A range that is not contiguous does not reference the characters of this string.
+    \pre The storage accepts size() plus the length of the range, checked by assert_message in debug builds.
+
+    \post size() grows by the length of the range, whose characters now start where \a pos pointed.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos lies outside the string or
+    the storage rejects the new length, a single-pass range included.
+
+    \sa insert_range()
+  */
+  template <std::convertible_to<const char *> PositionIterator, std::input_iterator InputIterator>
+    requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+  constexpr iterator insert(PositionIterator pos, InputIterator first, InputIterator last) noexcept;
+
+  /*!
+    \brief Inserts a copy of the characters in \a list before the character \a pos points at.
+
+    \tparam PositionIterator Type of \a pos; satisfies \c std::convertible_to with \c const \c char \c *.
+
+    \param pos  Iterator to the character the list goes before; end() appends.
+    \param list Characters to insert.
+
+    \return Iterator to the first inserted character, or one at the offset of \a pos when \a list is empty or the call
+    is rejected.
+
+    \pre \a pos and list.size() meet the preconditions of insert(PositionIterator, InputIterator, InputIterator).
+
+    \post size() grows by list.size(), and the characters of \a list start where \a pos pointed.
+
+    \sa insert(PositionIterator, InputIterator, InputIterator)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr iterator insert(PositionIterator pos, std::initializer_list<value_type> list) noexcept;
+
+  /*!
+    \brief Inserts a copy of the characters of \a range before the character \a pos points at.
+
+    Reads the range as insert(PositionIterator, InputIterator, InputIterator) reads an iterator pair, except that the
+    end of the range may have a type of its own, such as a sentinel that stops at a terminator.
+
+    \tparam PositionIterator Type of \a pos; satisfies \c std::convertible_to with \c const \c char \c *.
+    \tparam Range            Source range with \c char as its value type; satisfies \c std::ranges::input_range.
+
+    \param pos   Iterator to the character the range goes before; end() appends.
+    \param range Characters to insert.
+
+    \return Iterator to the first inserted character, or one at the offset of \a pos when \a range is empty or the call
+            is rejected.
+
+    \pre \a pos and the length of \a range meet the preconditions of
+         insert(PositionIterator, InputIterator, InputIterator).
+    \pre A range that is not contiguous does not reference the characters of this string.
+
+    \post size() grows by the length of \a range, whose characters now start where \a pos pointed.
+
+    \sa insert(PositionIterator, InputIterator, InputIterator)
+  */
+  template <std::convertible_to<const char *> PositionIterator, std::ranges::input_range Range>
+    requires std::same_as<std::ranges::range_value_t<Range>, char>
+  constexpr iterator insert_range(PositionIterator pos, Range && range) noexcept;
+
+  /*!
+    \brief Removes up to \a count characters starting at \a index.
+
+    Stops at the end of the string, so the defaults remove every character, as clear() does.
+
+    \param index Offset of the first character to remove (default: \c 0).
+    \param count Most characters to remove (default: \ref toy::String::npos, which removes to the end).
+
+    \return Reference to this string.
+
+    \pre \a index is not greater than size(), checked by assert_message in debug builds.
+
+    \post size() shrinks by the smaller of \a count and size() minus \a index, and the characters after the removed ones
+          now start at \a index.
+
+    \note Pointers and iterators from \a index on read other characters after the call; the buffer stays where it is.
+
+    \warning A shipping build skips the check and leaves the string unchanged when \a index is past the end, where
+             \c std::basic_string throws \c std::out_of_range.
+
+    \sa clear()
+    \sa erase(PositionIterator, const_iterator)
+  */
+  constexpr String & erase(size_type index = 0, size_type count = npos) noexcept;
+
+  /*!
+    \brief Removes the character \a pos points at.
+
+    \tparam PositionIterator Type of \a pos; satisfies \c std::convertible_to with \c const \c char \c *. An integer
+    type does not, so a literal \c 0 selects the overload that takes an index.
+
+    \param pos Iterator to the character to remove.
+
+    \return Iterator to the character that followed the removed one, or end() when it was the last.
+
+    \pre \a pos lies in [begin(), end()), checked by assert_message in debug builds.
+
+    \post size() shrinks by \c 1.
+
+    \warning A shipping build skips the check and leaves the string unchanged when \a pos is end() or lies outside the
+             string.
+
+    \sa erase(size_t, size_t)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr iterator erase(PositionIterator pos) noexcept;
+
+  /*!
+    \brief Removes the characters in [\a first, \a last).
+
+    Only \a first takes a deduced type, so the pair may mix \ref toy::String::iterator and
+    \ref toy::String::const_iterator, and a pair of integers still selects erase(size_t, size_t).
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+
+    \param first Iterator to the first character to remove.
+    \param last  Iterator past the last character to remove.
+
+    \return Iterator to the character that followed the removed ones, at the offset \a first had.
+
+    \pre \a first and \a last lie in [begin(), end()], checked by assert_message in debug builds.
+    \pre \a first does not follow \a last, checked by assert_message in debug builds.
+
+    \post size() shrinks by the length of the range.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a last precedes \a first or either
+             lies outside the string.
+
+    \sa erase(size_t, size_t)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr iterator erase(PositionIterator first, const_iterator last) noexcept;
+
+  /// Count that stands for every character up to the end of the source or of the string
   static constexpr const size_type npos = -1;
 
 private:
@@ -1096,6 +1436,105 @@ private:
   */
   template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
   constexpr void _copyExternalRange(InputIterator first, Sentinel last) noexcept;
+
+  /*!
+    \brief Converts an iterator into this string to the offset of the character it points at.
+
+    \param pos Iterator to convert.
+
+    \return Distance from begin() to \a pos.
+
+    \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds; a shipping build returns an offset
+         past size(), which the callers treat as a rejected call.
+  */
+  [[nodiscard]] constexpr size_type _indexOf(const_iterator pos) const noexcept;
+
+  /*!
+    \brief Finds the offset of \a pointer among the characters of this string.
+
+    Lets an edit that may move the buffer find a source inside this string again afterwards. Constant evaluation cannot
+    order pointers into unrelated objects, so there the search compares \a pointer for equality with the address of
+    each character in turn.
+
+    \param pointer Address to look for.
+
+    \return Offset of the character \a pointer points at, or \ref toy::String::npos when it points at none of the size()
+            characters.
+
+    \sa _mayOverlap()
+  */
+  [[nodiscard]] constexpr size_type _offsetOf(const_pointer pointer) const noexcept;
+
+  /*!
+    \brief Replaces \a removed characters at \a pos with \a count unwritten ones.
+
+    Shifts the characters after the removed ones to follow the new slots and records the new length; the caller writes
+    the slots afterwards.
+
+    \param pos     Offset of the first character to replace.
+    \param removed Number of characters to replace.
+    \param count   Number of slots to open in their place.
+
+    \return \c true when the storage accepts the new length; \c false when it rejects it, and the string is unchanged.
+
+    \pre \a pos plus \a removed is not greater than size().
+    \pre The storage accepts size() minus \a removed plus \a count, checked by assert_message in debug builds.
+
+    \post size() returns its old value minus \a removed plus \a count, and [\a pos, \a pos + \a count) holds
+          unspecified characters.
+
+    \note A storage that grows may move the buffer; a shrinking or same-size gap keeps it where it is.
+  */
+  [[nodiscard]] constexpr bool _openGap(size_type pos, size_type removed, size_type count) noexcept;
+
+  /*!
+    \brief Replaces \a removed characters at \a pos with a copy of \a count bytes starting at \a source.
+
+    Insertion and erasure go through this call. A source inside this string is located by its offset before the buffer
+    may move, then read from wherever its bytes lie once the gap is open.
+
+    \param pos     Offset of the first character to replace.
+    \param removed Number of characters to replace.
+    \param source  First byte to copy; may point into this string.
+    \param count   Number of bytes to copy.
+
+    \pre \a pos plus \a removed is not greater than size().
+    \pre \a source is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The storage accepts size() minus \a removed plus \a count, checked by assert_message in debug builds.
+
+    \post The characters before \a pos are unchanged, the copy starts at \a pos, and the characters that followed the
+          replaced ones follow it. When the storage rejects the new length, the string is unchanged.
+
+    \sa _openGap()
+  */
+  constexpr void _replace(size_type pos, size_type removed, const_pointer source, size_type count) noexcept;
+
+  /*!
+    \brief Replaces \a removed characters at \a pos with a copy of the characters in [\a first, \a last).
+
+    A contiguous range goes to _replace(), so it may lie inside this string. A forward range is measured and copied into
+    an open gap. A single-pass range is appended past the end, rotated into place, and the replaced characters are
+    removed last, so a storage that rejects the length leaves the string as it was.
+
+    \tparam InputIterator Iterator type; satisfies \c std::input_iterator.
+    \tparam Sentinel      End marker; satisfies \c std::sentinel_for with \a InputIterator.
+
+    \param pos     Offset of the first character to replace.
+    \param removed Number of characters to replace.
+    \param first   Iterator to the first character to copy.
+    \param last    Sentinel past the last character to copy.
+
+    \pre \a pos plus \a removed is not greater than size().
+    \pre A range that is not contiguous shares no bytes with the storage.
+    \pre The storage accepts the resulting length, checked by assert_message in debug builds.
+
+    \post The characters before \a pos are unchanged, the range starts at \a pos, and the characters that followed the
+          replaced ones follow it. When the storage rejects the resulting length, the string is unchanged.
+
+    \sa _replace()
+  */
+  template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
+  constexpr void _replaceRange(size_type pos, size_type removed, InputIterator first, Sentinel last) noexcept;
 };
 
 /*!

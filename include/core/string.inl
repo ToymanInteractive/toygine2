@@ -19,7 +19,7 @@
 //
 /*!
   \file   string.inl
-  \brief  Inline implementations for \ref toy::String constructors, assignment, and accessors.
+  \brief  Inline implementations for \ref toy::String constructors, assignment, accessors, and modifiers.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -393,6 +393,133 @@ constexpr void String<storageType>::shrink_to_fit() noexcept {
 }
 
 template <StringStorage storageType>
+constexpr void String<storageType>::clear() noexcept {
+  _storage.setSize(0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::insert(size_type index, size_type count, value_type ch) noexcept {
+  assert_message(index <= size(), "the insertion point must lie inside the string or at its end");
+  if (index <= size() && _openGap(index, 0, count))
+    traits_type::assign(data() + index, count, ch);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::insert(size_type index, const value_type * string) noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return insert(index, string, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::insert(size_type index, const value_type * string,
+                                                            size_type count) noexcept {
+  assert_message(index <= size(), "the insertion point must lie inside the string or at its end");
+  if (index <= size())
+    _replace(index, 0, string, count);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::insert(size_type index, const StringType & string) noexcept {
+  return insert(index, string.c_str(), string.size());
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::insert(size_type index, const StringType & string, size_type pos,
+                                                            size_type count) noexcept {
+  assert_message(pos <= string.size(), "the substring must start inside the source string");
+  if (pos > string.size())
+    return *this;
+
+  return insert(index, string.c_str() + pos, std::min(count, string.size() - pos));
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator pos, value_type ch) noexcept {
+  return insert(pos, size_type{1}, ch);
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator pos, size_type count,
+                                                                    value_type ch) noexcept {
+  const size_type index = _indexOf(pos);
+  insert(index, count, ch);
+
+  return begin() + index;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator, std::input_iterator InputIterator>
+  requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator pos, InputIterator first,
+                                                                    InputIterator last) noexcept {
+  const size_type index = _indexOf(pos);
+  if (index <= size())
+    _replaceRange(index, 0, std::move(first), std::move(last));
+
+  return begin() + index;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator                  pos,
+                                                                    std::initializer_list<value_type> list) noexcept {
+  return insert(pos, list.begin(), list.end());
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator, std::ranges::input_range Range>
+  requires std::same_as<std::ranges::range_value_t<Range>, char>
+constexpr String<storageType>::iterator String<storageType>::insert_range(PositionIterator pos,
+                                                                          Range &&         range) noexcept {
+  const size_type index = _indexOf(pos);
+  if (index <= size())
+    _replaceRange(index, 0, std::ranges::begin(range), std::ranges::end(range));
+
+  return begin() + index;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::erase(size_type index, size_type count) noexcept {
+  assert_message(index <= size(), "the erased range must start inside the string or at its end");
+  if (index <= size())
+    _replace(index, std::min(count, size() - index), nullptr, 0);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType>::iterator String<storageType>::erase(PositionIterator pos) noexcept {
+  const size_type index = _indexOf(pos);
+  assert_message(index < size(), "the erased iterator must point at a character of the string");
+  erase(index, 1);
+
+  return begin() + index;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType>::iterator String<storageType>::erase(PositionIterator first,
+                                                                   const_iterator   last) noexcept {
+  const size_type index = _indexOf(first);
+  const size_type end   = _indexOf(last);
+  assert_message(index <= end, "the erased range must not end before it starts");
+  if (index <= end)
+    erase(index, end - index);
+
+  return begin() + index;
+}
+
+template <StringStorage storageType>
 constexpr bool String<storageType>::_mayOverlap(const_pointer pointer) const noexcept {
   if consteval {
     return true;
@@ -462,6 +589,131 @@ constexpr void String<storageType>::_copyExternalRange(InputIterator first, Sent
     }
 
     _storage.setSize(count);
+  }
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::_indexOf(const_iterator pos) const noexcept {
+  assert_message(pos >= cbegin() && pos <= cend(), "the iterator must point into the string or at its end");
+
+  return static_cast<size_type>(pos - cbegin());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::_offsetOf(const_pointer pointer) const noexcept {
+  if consteval {
+    // Equality, unlike ordering, stays a constant expression for pointers into unrelated objects.
+    for (size_type index = 0; index != size(); ++index)
+      if (pointer == data() + index)
+        return index;
+
+    return npos;
+  } else {
+    const auto buffer  = std::bit_cast<uintptr_t>(data());
+    const auto address = std::bit_cast<uintptr_t>(pointer);
+
+    return address >= buffer && address < buffer + size() ? static_cast<size_type>(address - buffer) : npos;
+  }
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::_openGap(size_type pos, size_type removed, size_type count) noexcept {
+  const size_type kept     = size() - removed;
+  const bool      reserved = count <= max_size() - kept && _storage.reserve(kept + count);
+  assert_message(reserved, "the edited string must fit the storage");
+  if (!reserved)
+    return false;
+
+  if (const size_type tail = kept - pos; tail != 0 && removed != count)
+    traits_type::move(data() + pos + count, data() + pos + removed, tail);
+
+  _storage.setSize(kept + count);
+
+  return true;
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::_replace(size_type pos, size_type removed, const_pointer source,
+                                             size_type count) noexcept {
+  assert_message(source != nullptr || count == 0, "a null pointer names no characters to copy");
+
+  // Taken before _openGap(), which may move the buffer a source inside this string points into.
+  const size_type offset = count != 0 ? _offsetOf(source) : npos;
+  if (offset == npos) {
+    if (_openGap(pos, removed, count) && count != 0)
+      traits_type::copy(data() + pos, source, count);
+
+    return;
+  }
+
+  if (count <= removed) {
+    // Shrinking keeps the buffer, so the source moves into place before the tail closes up behind it.
+    traits_type::move(data() + pos, data() + offset, count);
+    [[maybe_unused]] const bool closed = _openGap(pos, removed, count);
+
+    return;
+  }
+
+  if (!_openGap(pos, removed, count))
+    return;
+
+  // Growing has shifted the old tail right, carrying along whatever part of the source lay in it.
+  const size_type tailStart = pos + removed;
+  const size_type growth    = count - removed;
+  if (offset + count <= tailStart)
+    traits_type::move(data() + pos, data() + offset, count);
+  else if (offset >= tailStart)
+    traits_type::copy(data() + pos, data() + offset + growth, count);
+  else {
+    const size_type head = tailStart - offset;
+    traits_type::move(data() + pos, data() + offset, head);
+    traits_type::copy(data() + pos + head, data() + pos + count, count - head);
+  }
+}
+
+template <StringStorage storageType>
+template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
+constexpr void String<storageType>::_replaceRange(size_type pos, size_type removed, InputIterator first,
+                                                  Sentinel last) noexcept {
+  if constexpr (std::contiguous_iterator<InputIterator>) {
+    const auto count = static_cast<size_type>(std::ranges::distance(first, last));
+
+    // An empty range may hold an end iterator that must not be dereferenced.
+    _replace(pos, removed, count != 0 ? &*first : nullptr, count);
+  } else if constexpr (std::forward_iterator<InputIterator>) {
+    // Overlap is supported for contiguous ranges only; any other range must lie outside this string.
+    const auto count = static_cast<size_type>(std::ranges::distance(first, last));
+    if (_openGap(pos, removed, count))
+      std::ranges::copy(std::move(first), std::move(last), data() + pos);
+  } else {
+    // A single pass reveals the length only at the end, so the characters go after the old ones and rotate into place.
+    const size_type oldSize  = size();
+    size_type       count    = oldSize;
+    size_type       capacity = _storage.capacity();
+    char *          buffer   = _storage.data();
+    for (; first != last; ++first, ++count) {
+      if (count == capacity) {
+        // reserve() may move the buffer and keeps only the characters size() reports.
+        _storage.setSize(count);
+
+        const bool reserved = _storage.reserve(count + 1);
+        assert_message(reserved, "the edited string must fit the storage");
+        if (!reserved) {
+          _storage.setSize(oldSize);
+
+          return;
+        }
+
+        capacity = _storage.capacity();
+        buffer   = _storage.data();
+      }
+
+      buffer[count] = *first;
+    }
+
+    _storage.setSize(count);
+    std::rotate(data() + pos + removed, data() + oldSize, data() + count);
+    _replace(pos, removed, nullptr, 0);
   }
 }
 
