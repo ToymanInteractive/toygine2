@@ -358,6 +358,7 @@ jobs:
        }}
     runs-on: ubuntu-26.04
     timeout-minutes: 30
+    container: ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest
     defaults:
       run:
         shell: bash
@@ -369,53 +370,14 @@ jobs:
           submodules: recursive
           persist-credentials: false
 
-      - name: Prepare APT staging dir
-        run: mkdir -p "$RUNNER_TEMP/apt-cache"
-
-      - name: APT cache restore
-        id: sonar-cloud-apt-cache
+      - name: Sonar C/C++ analysis cache restore
+        id: sonar-cfamily-cache
         uses: actions/cache/restore@v6.1.0
         with:
-          path: ${{ runner.temp }}/apt-cache
-          key: sonar-cloud-apt
+          path: .sonar-cfamily-cache
+          key: sonar-cfamily-${{ github.event_name == 'pull_request' && format('PR-{0}', github.event.pull_request.number) || github.ref_name }}-${{ github.sha }}
           restore-keys: |
-            sonar-cloud-apt
-
-      - name: Prepare CI
-        run: |
-          set -euo pipefail
-          export DEBIAN_FRONTEND=noninteractive
-
-          APT_CACHE="${APT_CACHE:-${RUNNER_TEMP:-/tmp}/apt-cache}"
-          sudo mkdir -p "$APT_CACHE"
-
-          sudo apt -yq -o Acquire::Retries=3 update
-          sudo apt -yq \
-            -o Dir::Cache::archives="$APT_CACHE" \
-            -o APT::Keep-Downloaded-Packages=true \
-            -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
-            install eatmydata
-
-          sudo eatmydata apt -yq --no-install-recommends \
-            -o Dir::Cache::archives="$APT_CACHE" \
-            -o APT::Keep-Downloaded-Packages=true \
-            -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
-            install \
-            gcc-16 g++-16
-
-          sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-16 100
-          sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-16 100
-
-          sudo rm -f  "$APT_CACHE/lock" || true
-          sudo rm -rf "$APT_CACHE/partial" || true
-          sudo chown -R "$USER:$USER" "$APT_CACHE"
-
-      - name: APT cache save
-        if: steps.sonar-cloud-apt-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v6.1.0
-        with:
-          path: ${{ runner.temp }}/apt-cache
-          key: ${{ steps.sonar-cloud-apt-cache.outputs.cache-primary-key }}
+            sonar-cfamily-
 
       - name: Prepare compile_commands.json
         run: |
@@ -431,3 +393,10 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_HOST_URL: https://sonarcloud.io
+
+      - name: Sonar C/C++ analysis cache save
+        if: steps.sonar-cfamily-cache.outputs.cache-hit != 'true'
+        uses: actions/cache/save@v6.1.0
+        with:
+          path: .sonar-cfamily-cache
+          key: ${{ steps.sonar-cfamily-cache.outputs.cache-primary-key }}
