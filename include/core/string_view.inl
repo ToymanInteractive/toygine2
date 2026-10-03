@@ -156,7 +156,9 @@ constexpr int StringView::compare(StringView v) const noexcept {
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v) const noexcept {
   assert_message(pos1 <= size(), "Range out of bounds");
 
-  return string_utils::compare(data() + pos1, std::min(count1, size() - pos1), v.data(), v.size());
+  const size_type offset = std::min(pos1, size());
+
+  return string_utils::compare(data() + offset, std::min(count1, size() - offset), v.data(), v.size());
 }
 
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v, size_type pos2,
@@ -164,8 +166,11 @@ constexpr int StringView::compare(size_type pos1, size_type count1, StringView v
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(pos2 <= v.size(), "Range out of bounds");
 
-  return string_utils::compare(data() + pos1, std::min(count1, size() - pos1), v.data() + pos2,
-                               std::min(count2, v.size() - pos2));
+  const size_type offset1 = std::min(pos1, size());
+  const size_type offset2 = std::min(pos2, v.size());
+
+  return string_utils::compare(data() + offset1, std::min(count1, size() - offset1), v.data() + offset2,
+                               std::min(count2, v.size() - offset2));
 }
 
 constexpr int StringView::compare(const value_type * s) const noexcept {
@@ -179,9 +184,11 @@ constexpr int StringView::compare(size_type pos1, size_type count1, const value_
 constexpr int StringView::compare(size_type pos1, size_type count1, const value_type * s,
                                   size_type count2) const noexcept {
   assert_message(pos1 <= size(), "Range out of bounds");
-  assert_message(s != nullptr, "C string must not be null");
+  assert_message(s != nullptr || count2 == 0, "a null pointer names no characters to compare with");
 
-  return string_utils::compare(data() + pos1, std::min(count1, size() - pos1), s, count2);
+  const size_type offset = std::min(pos1, size());
+
+  return string_utils::compare(data() + offset, std::min(count1, size() - offset), s, count2);
 }
 
 constexpr bool StringView::starts_with(StringView sv) const noexcept {

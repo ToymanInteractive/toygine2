@@ -495,9 +495,35 @@ TEST_CASE("string_view/compare_empty") {
   CHECK(empty.compare(0, c_npos, empty) == 0);
   CHECK(empty.compare(0, c_npos, empty, 0, c_npos) == 0);
 
+  // A null pointer with a count of zero names an empty part, as a counted std::string_view comparison accepts.
+  CHECK(view.compare(0, 0, nullptr, 0) == 0);
+  CHECK(view.compare(0, c_npos, nullptr, 0) > 0);
+
   static_assert(StringView().compare(StringView()) == 0, "two views holding no string must compare equal");
   static_assert(StringView().compare(c_sampleView) < 0, "a view holding no string must order before any string");
+  static_assert(c_sampleView.compare(0, 0, nullptr, 0) == 0, "a null pointer with a count of zero must be empty");
 }
+
+#if !defined(_DEBUG)
+// Without the debug checks an offset past the end is clamped to it, so the part it starts is empty and nothing past the
+// view is read.
+TEST_CASE("string_view/compare_rejected") {
+  const StringView view(c_sample);
+
+  CHECK(view.compare(c_sampleLength + 1, 1, StringView("")) == 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, StringView("a")) < 0);
+  CHECK(view.compare(0, c_npos, view, c_sampleLength + 1, 1) > 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, "") == 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, "a", 1) < 0);
+
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, StringView("")) == 0,
+                "an offset past the end must compare an empty part");
+  static_assert(c_sampleView.compare(0, c_npos, c_sampleView, c_sampleLength + 1, 1) > 0,
+                "an offset past the end of the other view must compare against an empty part");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, "a", 1) < 0,
+                "an offset past the end must compare an empty part against a counted string");
+}
+#endif // !_DEBUG
 
 // Whether two views hold the same characters, and what the synthesized inequality reports.
 TEST_CASE("string_view/equality") {

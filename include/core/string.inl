@@ -453,7 +453,8 @@ constexpr String<storageType>::iterator String<storageType>::insert(PositionIter
   const size_type index = _indexOf(pos);
   insert(index, count, ch);
 
-  return begin() + index;
+  // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
+  return begin() + std::min(index, size());
 }
 
 template <StringStorage storageType>
@@ -465,7 +466,8 @@ constexpr String<storageType>::iterator String<storageType>::insert(PositionIter
   if (index <= size())
     _replaceRange(index, 0, std::move(first), std::move(last));
 
-  return begin() + index;
+  // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
+  return begin() + std::min(index, size());
 }
 
 template <StringStorage storageType>
@@ -484,7 +486,8 @@ constexpr String<storageType>::iterator String<storageType>::insert_range(Positi
   if (index <= size())
     _replaceRange(index, 0, std::ranges::begin(range), std::ranges::end(range));
 
-  return begin() + index;
+  // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
+  return begin() + std::min(index, size());
 }
 
 template <StringStorage storageType>
@@ -503,7 +506,8 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
   assert_message(index < size(), "the erased iterator must point at a character of the string");
   erase(index, 1);
 
-  return begin() + index;
+  // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
+  return begin() + std::min(index, size());
 }
 
 template <StringStorage storageType>
@@ -516,7 +520,8 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
   if (index <= end && end <= size())
     erase(index, end - index);
 
-  return begin() + index;
+  // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
+  return begin() + std::min(index, size());
 }
 
 template <StringStorage storageType>

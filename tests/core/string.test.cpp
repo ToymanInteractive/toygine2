@@ -1692,6 +1692,9 @@ TEST_CASE("string/insertion_rejected") {
   constexpr auto singlePass = [](Fixed & string) {
     string.insert(string.begin(), SinglePassIterator(c_long), SinglePassIterator(c_long + c_longLength));
   };
+  constexpr auto pastEndIterator = [](Fixed & string) {
+    return string.insert(string.cend() + 1, c_fillCharacter);
+  };
 
   CHECK(editedDifference(pastEnd, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(filled, c_sample) == fullMatch(c_sample));
@@ -1712,6 +1715,14 @@ TEST_CASE("string/insertion_rejected") {
                 "a rejected forward range must keep the old contents");
   static_assert(editedDifference(singlePass, c_sample) == fullMatch(c_sample),
                 "a rejected single-pass range must roll back what it appended");
+
+  // A position past end() is rejected, and the iterator handed back is end() rather than one beyond it.
+  CHECK(editedDifference(pastEndIterator, c_sample) == fullMatch(c_sample));
+  CHECK(returnedOffset(pastEndIterator) == c_sampleLength);
+
+  static_assert(editedDifference(pastEndIterator, c_sample) == fullMatch(c_sample),
+                "a position past end() must keep the old contents");
+  static_assert(returnedOffset(pastEndIterator) == c_sampleLength, "a rejected position must hand back end()");
 }
 #endif // !_DEBUG
 
@@ -1796,6 +1807,12 @@ TEST_CASE("string/erasure_rejected") {
   constexpr auto overlong = [](Fixed & string) {
     string.erase(string.begin(), string.cend() + 1);
   };
+  constexpr auto pastEndIterator = [](Fixed & string) {
+    return string.erase(string.cend() + 1);
+  };
+  constexpr auto pastEndRange = [](Fixed & string) {
+    return string.erase(string.cend() + 1, string.cend() + 1);
+  };
 
   CHECK(editedDifference(pastEnd, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(atEnd, c_sample) == fullMatch(c_sample));
@@ -1809,6 +1826,16 @@ TEST_CASE("string/erasure_rejected") {
                 "a reversed range must keep the old contents");
   static_assert(editedDifference(overlong, c_sample) == fullMatch(c_sample),
                 "a range that ends past end() must keep the old contents");
+
+  // A position past end() is rejected, and the iterator handed back is end() rather than one beyond it.
+  CHECK(editedDifference(pastEndIterator, c_sample) == fullMatch(c_sample));
+  CHECK(returnedOffset(pastEndIterator) == c_sampleLength);
+  CHECK(returnedOffset(pastEndRange) == c_sampleLength);
+
+  static_assert(editedDifference(pastEndIterator, c_sample) == fullMatch(c_sample),
+                "a position past end() must keep the old contents");
+  static_assert(returnedOffset(pastEndIterator) == c_sampleLength && returnedOffset(pastEndRange) == c_sampleLength,
+                "a rejected position must hand back end()");
 }
 #endif // !_DEBUG
 
@@ -2835,6 +2862,7 @@ TEST_CASE("string/compare") {
   CHECK(c_sampleString.compare(2, 4, Wide(c_sample), 2) == 0);
   CHECK(c_sampleString.compare(2, 3, "aye") == 0);
   CHECK(c_sampleString.compare(2, 3, "ayes", 3) == 0);
+  CHECK(c_sampleString.compare(0, 0, nullptr, 0) == 0);
 
   // A range starting at the end is empty, and so equal to an empty string.
   CHECK(c_sampleString.compare(c_sampleLength, 1, "") == 0);
@@ -2850,6 +2878,7 @@ TEST_CASE("string/compare") {
   static_assert(c_sampleString.compare(2, 4, Wide(c_sample), 2) == 0,
                 "the default count must take the other string to its end");
   static_assert(c_sampleString.compare(2, 3, "ayes", 3) == 0, "the count must bound the counted pointer");
+  static_assert(c_sampleString.compare(0, 0, nullptr, 0) == 0, "a null pointer with a count of zero must be empty");
   static_assert(c_sampleString.compare(c_sampleLength, 1, "") == 0, "a range at the end must be empty");
 }
 

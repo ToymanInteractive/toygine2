@@ -509,6 +509,9 @@ public:
 
     \pre \a pos1 is at most size(), checked by assert_message in debug builds.
 
+    \warning A shipping build skips the check and compares an empty part when \a pos1 is past the end, where
+             \c std::string_view throws \c std::out_of_range.
+
     \sa compare(StringView)
   */
   [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, StringView v) const noexcept;
@@ -527,6 +530,9 @@ public:
 
     \pre \a pos1 is at most size(), checked by assert_message in debug builds.
     \pre \a pos2 is at most the size of \a v, checked by assert_message in debug builds.
+
+    \warning A shipping build skips the checks and compares an empty part for an offset past the end of its view,
+             where \c std::string_view throws \c std::out_of_range.
 
     \sa compare(StringView)
   */
@@ -562,6 +568,9 @@ public:
     \pre \a pos1 is at most size(), checked by assert_message in debug builds.
     \pre \a s is non-null, checked by assert_message in debug builds.
 
+    \warning A shipping build skips the check and compares an empty part when \a pos1 is past the end, where
+             \c std::string_view throws \c std::out_of_range.
+
     \sa compare(size_type, size_type, StringView)
   */
   [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * s) const noexcept;
@@ -581,8 +590,11 @@ public:
             a positive value when the part of \a s does.
 
     \pre \a pos1 is at most size(), checked by assert_message in debug builds.
-    \pre \a s is non-null, checked by assert_message in debug builds.
+    \pre \a s is non-null or \a count2 is \c 0, checked by assert_message in debug builds.
     \pre \a s addresses at least \a count2 characters.
+
+    \warning A shipping build skips the check and compares an empty part when \a pos1 is past the end, where
+             \c std::string_view throws \c std::out_of_range.
 
     \sa compare(size_type, size_type, StringView, size_type, size_type)
   */

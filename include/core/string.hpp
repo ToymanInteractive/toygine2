@@ -1248,7 +1248,8 @@ public:
     \param pos Iterator to the character the new one goes before; end() appends.
     \param ch  Character to insert.
 
-    \return Iterator to the inserted character, or one at the offset of \a pos when the call is rejected.
+    \return Iterator to the inserted character, or one at the offset of \a pos when the call is rejected; end() when
+            \a pos lies outside the string.
 
     \pre \a pos and a count of \c 1 meet the preconditions of insert(PositionIterator, size_t, char).
 
@@ -1272,7 +1273,7 @@ public:
     \param ch    Character written at every inserted position.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when \a count is \c 0 or the call
-    is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds.
     \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
@@ -1304,7 +1305,7 @@ public:
     \param last  Iterator past the last character to insert.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when the range is empty or the call
-            is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds.
     \pre \a last is reachable from \a first.
@@ -1331,7 +1332,7 @@ public:
     \param list Characters to insert.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when \a list is empty or the call
-    is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos and list.size() meet the preconditions of insert(PositionIterator, InputIterator, InputIterator).
 
@@ -1355,7 +1356,7 @@ public:
     \param range Characters to insert.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when \a range is empty or the call
-            is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos and the length of \a range meet the preconditions of
          insert(PositionIterator, InputIterator, InputIterator).
@@ -1402,7 +1403,8 @@ public:
 
     \param pos Iterator to the character to remove.
 
-    \return Iterator to the character that followed the removed one, or end() when it was the last.
+    \return Iterator to the character that followed the removed one, or end() when it was the last or the call is
+            rejected.
 
     \pre \a pos lies in [begin(), end()), checked by assert_message in debug builds.
 
@@ -1427,7 +1429,8 @@ public:
     \param first Iterator to the first character to remove.
     \param last  Iterator past the last character to remove.
 
-    \return Iterator to the character that followed the removed ones, at the offset \a first had.
+    \return Iterator to the character that followed the removed ones, at the offset \a first had; end() when \a first
+            lies outside the string.
 
     \pre \a first and \a last lie in [begin(), end()], checked by assert_message in debug builds.
     \pre \a first does not follow \a last, checked by assert_message in debug builds.
