@@ -2559,16 +2559,25 @@ TEST_CASE("string/resize_and_overwrite_rejected") {
       return -1;
     });
   };
+  constexpr auto overwrittenTerminator = [](Fixed & string) {
+    string.resize_and_overwrite(c_capacity, [](char * data, size_t count) {
+      std::char_traits<char>::assign(data + c_sampleLength, count - c_sampleLength, c_fillCharacter);
+      return count + 1;
+    });
+  };
 
   CHECK(editedDifference(oversized, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(overcounted, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(negative, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(overwrittenTerminator, c_sample) == fullMatch(c_sample));
 
   static_assert(editedDifference(oversized, c_sample) == fullMatch(c_sample),
                 "a count past the capacity must not run the operation");
   static_assert(editedDifference(overcounted, c_sample) == fullMatch(c_sample),
                 "a size past the requested count must keep the old size");
   static_assert(editedDifference(negative, c_sample) == fullMatch(c_sample), "a negative size must keep the old size");
+  static_assert(editedDifference(overwrittenTerminator, c_sample) == fullMatch(c_sample),
+                "a rejected size must write the terminator after the old size again");
 }
 #endif // !_DEBUG
 

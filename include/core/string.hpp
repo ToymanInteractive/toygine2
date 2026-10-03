@@ -2082,8 +2082,9 @@ public:
           and no pointer or iterator taken earlier is valid.
 
     \warning A shipping build skips the checks. It leaves the string unchanged without calling \a operation when the
-             storage rejects \a count, and keeps the old size() when the returned value falls outside [\c 0, \a count],
-             though any characters the operation wrote below that size stay written.
+             storage rejects \a count, and keeps the old size() when the returned value falls outside [\c 0, \a count]:
+             it writes the terminator after that size again, though any characters the operation wrote below it stay
+             written.
 
     \sa resize(size_t, char)
   */

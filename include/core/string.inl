@@ -768,8 +768,9 @@ constexpr void String<storageType>::resize_and_overwrite(size_type count, Operat
   const auto newSize = std::move(operation)(data(), count);
   const bool fits    = std::cmp_greater_equal(newSize, 0) && std::cmp_less_equal(newSize, count);
   assert_message(fits, "the operation must return a size between zero and the requested one");
-  if (fits)
-    _storage.setSize(static_cast<size_type>(newSize));
+
+  // The operation may have overwritten the old terminator; setSize() writes it again.
+  _storage.setSize(fits ? static_cast<size_type>(newSize) : size());
 }
 
 template <StringStorage storageType>
