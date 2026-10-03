@@ -2254,6 +2254,35 @@ TEST_CASE("string/replacement_from_iterators") {
                 "an empty range must only remove the run");
 }
 
+// A single-pass source shorter or longer than the run fits, and needs room only for the final length.
+TEST_CASE("string/replacement_from_single_pass") {
+  constexpr auto shorter = [](Fixed & string) {
+    string.replace(string.begin() + c_substringOffset, string.cbegin() + c_substringOffset + c_substringLength,
+                   SinglePassIterator(c_listed), SinglePassIterator(c_listed + 1));
+  };
+  constexpr auto longer = [](Fixed & string) {
+    string.replace(string.begin() + c_substringOffset, string.cbegin() + c_substringOffset + 1,
+                   SinglePassIterator(c_listed), SinglePassIterator(c_listed + c_listedLength));
+  };
+  constexpr auto nearlyFull = [](Fixed & string) {
+    string.assign(c_long, c_capacity);
+    string.replace_with_range(string.begin() + c_substringOffset, string.cbegin() + c_substringOffset + c_fillCount,
+                              std::ranges::subrange(SinglePassIterator(c_listed),
+                                                    SinglePassIterator(c_listed + c_listedLength)));
+  };
+
+  CHECK(editedDifference(shorter, "plar") == fullMatch("plar"));
+  CHECK(editedDifference(longer, "plabcyer") == fullMatch("plabcyer"));
+  CHECK(editedDifference(nearlyFull, "ababchijklmno") == fullMatch("ababchijklmno"));
+
+  static_assert(editedDifference(shorter, "plar") == fullMatch("plar"),
+                "a source that ends inside the run must close up the rest of it");
+  static_assert(editedDifference(longer, "plabcyer") == fullMatch("plabcyer"),
+                "what follows the run must make room for the rest of the source");
+  static_assert(editedDifference(nearlyFull, "ababchijklmno") == fullMatch("ababchijklmno"),
+                "a full string must take a shorter single-pass replacement");
+}
+
 // replace_with_range() takes a range whose end may have a type of its own, single-pass ranges included.
 TEST_CASE("string/replacement_from_range") {
   constexpr auto view = [](Fixed & string) {
@@ -2351,7 +2380,7 @@ TEST_CASE("string/replacement_rejected") {
   CHECK(editedDifference(substring, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(reversed, c_sample) == fullMatch(c_sample));
   CHECK(editedDifference(overlong, c_sample) == fullMatch(c_sample));
-  CHECK(editedDifference(singlePass, c_sample) == fullMatch(c_sample));
+  CHECK(editedDifference(singlePass, "alayer") == fullMatch("alayer"));
   CHECK(editedDifference(reversedRange, c_sample) == fullMatch(c_sample));
 
   static_assert(editedDifference(pastEnd, c_sample) == fullMatch(c_sample),
@@ -2366,8 +2395,8 @@ TEST_CASE("string/replacement_rejected") {
                 "a reversed range must keep the old contents");
   static_assert(editedDifference(overlong, c_sample) == fullMatch(c_sample),
                 "a range that ends past end() must keep the old contents");
-  static_assert(editedDifference(singlePass, c_sample) == fullMatch(c_sample),
-                "a rejected single-pass range must roll back what it read");
+  static_assert(editedDifference(singlePass, "alayer") == fullMatch("alayer"),
+                "a rejected single-pass range must keep the old length, its first character over the replaced one");
   static_assert(editedDifference(reversedRange, c_sample) == fullMatch(c_sample),
                 "replace_with_range() over a reversed range must keep the old contents");
 }

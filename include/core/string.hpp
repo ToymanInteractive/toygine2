@@ -1908,8 +1908,9 @@ public:
     \brief Replaces the characters in [\a first, \a last) with a copy of the characters in [\a first2, \a last2).
 
     A contiguous source goes through replace(size_t, size_t, const char *, size_t), so it may lie inside this string. A
-    forward source is measured first and copied in one step; a single-pass source is appended after the old characters
-    one at a time, checked against the storage whenever the buffer fills, and then rotated into place.
+    forward source is measured first and copied in one step. A single-pass source overwrites the replaced characters
+    first; what is left of it is appended one character at a time, checked against the storage whenever the buffer
+    fills, and rotated into place, so the string never grows past its final length.
 
     \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
     \tparam InputIterator    Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its
@@ -1932,7 +1933,9 @@ public:
           them.
 
     \warning A shipping build skips the checks and leaves the string unchanged when \a last precedes \a first, either
-             lies outside the string, or the storage rejects the new length, a single-pass source included.
+             lies outside the string, or the storage rejects the new length. A single-pass source is the exception to
+             the last case: the string keeps its old length, but the replaced characters stay overwritten by the first
+             characters of the source.
 
     \sa replace_with_range()
   */
@@ -1985,6 +1988,9 @@ public:
 
     \post The characters of \a range start where \a first pointed, and the characters that followed the range follow
           them.
+
+    \warning A shipping build that rejects the new length handles a single-pass range as
+             replace(PositionIterator, const_iterator, InputIterator, InputIterator) handles a single-pass source.
 
     \sa replace(PositionIterator, const_iterator, InputIterator, InputIterator)
   */
@@ -2250,8 +2256,8 @@ private:
     \brief Replaces \a removed characters at \a pos with a copy of the characters in [\a first, \a last).
 
     A contiguous range goes to _replace(), so it may lie inside this string. A forward range is measured and copied into
-    an open gap. A single-pass range is appended past the end, rotated into place, and the replaced characters are
-    removed last, so a storage that rejects the length leaves the string as it was.
+    an open gap. A single-pass range overwrites the replaced characters first, so the string never grows past its final
+    length; what is left of the range is appended past the end and rotated into place.
 
     \tparam InputIterator Iterator type; satisfies \c std::input_iterator.
     \tparam Sentinel      End marker; satisfies \c std::sentinel_for with \a InputIterator.
@@ -2266,7 +2272,9 @@ private:
     \pre The storage accepts the resulting length, checked by assert_message in debug builds.
 
     \post The characters before \a pos are unchanged, the range starts at \a pos, and the characters that followed the
-          replaced ones follow it. When the storage rejects the resulting length, the string is unchanged.
+          replaced ones follow it. When the storage rejects the resulting length, the string keeps its old length: a
+          single-pass range leaves the replaced characters overwritten by its first ones, and any other range leaves
+          the string unchanged.
 
     \sa _replace()
   */

@@ -944,7 +944,19 @@ constexpr void String<storageType>::_replaceRange(size_type pos, size_type remov
     if (_openGap(pos, removed, count))
       std::ranges::copy(std::move(first), std::move(last), data() + pos);
   } else {
-    // A single pass reveals the length only at the end, so the characters go after the old ones and rotate into place.
+    // Overwriting the replaced characters first keeps the peak length at the final one, which a full buffer may hold.
+    size_type overwritten = 0;
+    for (; overwritten != removed && first != last; ++first, ++overwritten)
+      data()[pos + overwritten] = *first;
+
+    if (overwritten != removed) {
+      erase(pos + overwritten, removed - overwritten);
+
+      return;
+    }
+
+    // A single pass reveals the length only at the end, so the rest goes after the old ones and rotates into place.
+    const size_type insertAt = pos + removed;
     const size_type oldSize  = size();
     size_type       count    = oldSize;
     size_type       capacity = _storage.capacity();
@@ -970,8 +982,7 @@ constexpr void String<storageType>::_replaceRange(size_type pos, size_type remov
     }
 
     _storage.setSize(count);
-    std::rotate(data() + pos + removed, data() + oldSize, data() + count);
-    _replace(pos, removed, nullptr, 0);
+    std::rotate(data() + insertAt, data() + oldSize, data() + count);
   }
 }
 
