@@ -21,6 +21,10 @@
   \file   string.hpp
   \brief  Owning string over a character buffer chosen by a template argument.
 
+  Defines \ref toy::String, which follows the \c std::basic_string interface over any \ref toy::StringStorage, and
+  \ref toy::FixedString, its form over a buffer inside the object. Used where text has to outlive the characters it was
+  built from, such as the message of a \ref toy::log::Record.
+
   \note Included by core.hpp only; do not include this file directly.
 */
 
@@ -92,9 +96,9 @@ namespace toy {
 
   \section string_safety Safety Guarantees
 
-  * **Contracts**: offsets, capacities, and null pointers are checked by assert_message in debug builds. A shipping
-    build skips the checks: an edit the storage rejects leaves the string unchanged, and an offset past the end selects
-    an empty range; each member states which.
+  * **Contracts**: offsets, capacities, and null pointers are checked by assert_message in debug builds. Every
+    postcondition assumes the preconditions of its member held. A shipping build skips the checks: an edit the storage
+    rejects leaves the string unchanged, and an offset past the end selects an empty range; each member states which.
   * **Allocation**: the string allocates only where its storage does; \ref toy::FixedString never does.
   * **Iterator validity**: a call that grows the string may move the buffer of a storage that reallocates;
     \ref toy::FixedStringStorage never moves it.

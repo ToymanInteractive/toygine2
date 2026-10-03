@@ -42,8 +42,8 @@ namespace toy::log {
   \section metadata_features Key Features
 
   * **Aggregate initialization**: no constructor, so designated initializers name the fields at the call site.
-  * **Constexpr support**: a record built from literals and constants evaluates in a constant expression.
-  * **No allocation**: two pointers, a line number, and a level; neither string belongs to the record.
+  * **Constexpr support**: metadata built from literals and constants evaluates in a constant expression.
+  * **No allocation**: two pointers, a line number, and a level; neither string belongs to the metadata.
   * **Trivially copyable**: a copy is a byte copy of the object, and both copies point at the same characters.
   * **Type safety**: the severity is a \ref toy::log::Level, so a bare number does not compile in its place.
   * **Exception safety**: no operation throws; exceptions are off in the build.
@@ -64,24 +64,30 @@ namespace toy::log {
 
   \section metadata_safety Safety Guarantees
 
-  * **Lifetime**: \a format and \a file point at characters the record does not own, so both have to outlive every copy
-    of it. A string literal covers that on its own; anything else lasts only as long as whoever built it.
+  * **Lifetime**: \ref toy::log::Metadata::format and \ref toy::log::Metadata::file point at characters the metadata
+    does not own, so both have to outlive every copy of it. A string literal covers that on its own; anything else
+    lasts only as long as whoever built it.
   * **Contracts**: none; neither pointer is checked, a null one included.
-  * **Memory safety**: nothing allocates, and the record owns nothing outside its own fields.
-  * **Thread safety**: nothing synchronizes a write. A record no one writes after building it reads from any thread, a
+  * **Memory safety**: nothing allocates, and the metadata owns nothing outside its own fields.
+  * **Thread safety**: nothing synchronizes a write. Metadata no one writes after building it reads from any thread, a
     job body or the mixer callback included.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \note Holds no message arguments: only the format string of a message reaches the record.
+  \section metadata_compatibility Compatibility
+
+  * Nothing allocates or calls into the platform, so the type suits embedded and retro targets.
+
+  \note Holds no message arguments: the formatted text of a message lives in \ref toy::log::Record.
 
   \sa \ref toy::log::Level
+  \sa \ref toy::log::Record
 */
 struct Metadata {
   const char * format; ///< Format string of the message
 
   const char * file;   ///< Source file the call is written in, typically \c __FILE__
 
-  uint32_t line;       ///< Line of the call within \a file, typically \c __LINE__
+  uint32_t line;       ///< Line of the call within \ref toy::log::Metadata::file, typically \c __LINE__
 
   Level level;         ///< Severity the call carries
 };

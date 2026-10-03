@@ -19,7 +19,7 @@
 //
 /*!
   \file   string.test.cpp
-  \brief  Unit tests for \ref toy::String constructors, assignment, and element access.
+  \brief  Unit tests for \ref toy::String and the free functions that take it.
 */
 
 #include "core.hpp"
@@ -71,8 +71,7 @@ constexpr size_t       c_fillCount     = std::char_traits<char>::length(c_filled
 constexpr const char * c_listed       = "abc";
 constexpr size_t       c_listedLength = std::char_traits<char>::length(c_listed);
 
-// Index of the first byte where the string differs from the count bytes of expected followed by a terminator; count + 1
-// when the size and every byte match.
+// Offset where the string first differs from count bytes of expected and a terminator; count + 1 on a full match.
 template <typename StringType>
 [[nodiscard]] constexpr size_t firstDifference(const StringType & string, const char * expected,
                                                size_t count) noexcept {
@@ -656,8 +655,7 @@ TEST_CASE("string/construction_from_range_tag") {
 }
 #endif // __cpp_lib_ranges_to_container
 
-// A counted construction copies exactly count bytes: it stops short of the source's terminator and copies a null inside
-// the range like any other byte.
+// A counted construction copies exactly count bytes: a null among them is copied, the source's terminator is not.
 TEST_CASE("string/construction_from_counted_pointer") {
   const Fixed prefix(c_sample, c_prefixLength);
   CHECK(firstDifference(prefix, c_sample, c_prefixLength) == c_prefixLength + 1);
@@ -745,8 +743,7 @@ TEST_CASE("string/construction_substring") {
                 "an offset at the end of the source must build an empty string");
 }
 
-// A substring of an lvalue string, the std::basic_string(const basic_string &, pos[, count]) shape, same storage or
-// not.
+// The std::basic_string(const basic_string &, pos[, count]) substring of an lvalue string, same storage or not.
 TEST_CASE("string/construction_substring_of_string") {
   const Fixed source(c_sample);
 
@@ -2696,8 +2693,7 @@ TEST_CASE("string/modifier_signatures") {
                 "append(), operator+= and replace() must return the string, and copy() the count it wrote");
 }
 
-// Where each overload of find() first matches, from a view, another storage, a counted or measured pointer, or a
-// character.
+// Where each overload of find() first matches: a view, another storage, a counted or measured pointer, or a character.
 TEST_CASE("string/find") {
   CHECK(c_repeatedString.find(StringView{"abra"}) == 0);
   CHECK(c_repeatedString.find(Wide("abra"), 1) == 7);
@@ -2848,8 +2844,7 @@ TEST_CASE("string/search_signatures") {
                 "every search must return an offset of size_type");
 }
 
-// What each overload of compare() reports: the whole string, a substring of it, against a view, another storage, a
-// substring of either, a measured pointer, or a counted one.
+// What compare() reports against a view, another storage, or a pointer, whole or by a substring of either side.
 TEST_CASE("string/compare") {
   CHECK(c_sampleString.compare(StringView{c_sample}) == 0);
   CHECK(c_sampleString.compare(Wide("playground")) < 0);
