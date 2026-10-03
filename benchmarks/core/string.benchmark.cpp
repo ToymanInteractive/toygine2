@@ -19,7 +19,7 @@
 //
 /*!
   \file   string.benchmark.cpp
-  \brief  Construction and assignment of \ref toy::String measured against std::string.
+  \brief  Construction, assignment, modifiers, search, and comparison of \ref toy::String measured against std::string.
 */
 
 #include <forward_list>
@@ -98,6 +98,36 @@ public:
 private:
   const char * _position{nullptr};
 };
+
+// Marker at the front of the search text and needle at its back; the alphabet cycle between holds neither.
+constexpr const char * c_marker = "0123";
+constexpr const char * c_needle = "summer";
+
+// Characters the search text does not hold, so a set search tests the whole set against every byte.
+constexpr const char * c_absentSet = "!?#%&";
+
+// Every character the search text holds, so a search for one outside the set crosses the whole text.
+constexpr const char * c_textSet = "0123456789abcdefghijklmnopqrstuvwxyz";
+
+// Text the search and comparison cases read: c_length bytes, the marker first, the needle last, the cycle between.
+// A forward search for the needle and a backward one for the marker each cross the whole text before they answer.
+[[nodiscard]] const char * searchText() noexcept {
+  static const std::array<char, c_length + 1> text = [] {
+    std::array<char, c_length + 1> buffer{};
+
+    const size_t markerLength = std::char_traits<char>::length(c_marker);
+    const size_t needleLength = std::char_traits<char>::length(c_needle);
+
+    std::char_traits<char>::copy(buffer.data(), c_marker, markerLength);
+    for (size_t index = markerLength; index < c_length - needleLength; ++index)
+      buffer[index] = static_cast<char>('a' + (index % 26));
+    std::char_traits<char>::copy(buffer.data() + c_length - needleLength, c_needle, needleLength);
+
+    return buffer;
+  }();
+
+  return text.data();
+}
 
 // End of a null-terminated string, found by reading rather than by subtraction, so a range ending in it has no size.
 struct NullTerminator {
@@ -516,5 +546,289 @@ BENCHMARK_CASE("core/string/move_assignment") {
     std::string source(referencePrototype);
     reference = std::move(source);
     toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/append") {
+  const char * const text  = opaque(sourceText());
+  const size_t       count = opaque(c_shortLength);
+  LongString         string;
+  std::string        reference;
+  reference.reserve(c_length);
+
+  bench.unit("append");
+
+  // A short run goes after the last character; a full string is cleared, once every c_length / c_shortLength runs.
+  bench.run("toy::FixedString", [&] {
+    if (string.size() + count > c_length)
+      string.clear();
+    string.append(text, count);
+    toy::benchmark::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    if (reference.size() + count > c_length)
+      reference.clear();
+    reference.append(text, count);
+    toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/push_back") {
+  const char  character = opaque('x');
+  LongString  string;
+  std::string reference;
+  reference.reserve(c_length);
+
+  bench.unit("push_back");
+
+  // One character after the last one; a full string is cleared, once every c_length runs.
+  bench.run("toy::FixedString", [&] {
+    if (string.size() == c_length)
+      string.clear();
+    string.push_back(character);
+    toy::benchmark::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    if (reference.size() == c_length)
+      reference.clear();
+    reference.push_back(character);
+    toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/insert") {
+  const char * const text  = opaque(sourceText());
+  const size_t       count = opaque(c_shortLength);
+  LongString         string(text, c_substringOffset);
+  std::string        reference(text, c_substringOffset);
+  reference.reserve(c_length);
+
+  bench.unit("insert");
+
+  // A short run goes into the middle and moves the tail behind it; a full string drops back to half its length.
+  bench.run("toy::FixedString", [&] {
+    if (string.size() + count > c_length)
+      string.resize(c_substringOffset);
+    string.insert(string.size() / 2, text, count);
+    toy::benchmark::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    if (reference.size() + count > c_length)
+      reference.resize(c_substringOffset);
+    reference.insert(reference.size() / 2, text, count);
+    toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/erase") {
+  const char * const text  = opaque(sourceText());
+  const size_t       count = opaque(c_shortLength);
+  LongString         string(text, c_length);
+  std::string        reference(text, c_length);
+
+  bench.unit("erase");
+
+  // A short run leaves the middle and the tail closes up; a string down to half is refilled, an amortized short copy.
+  bench.run("toy::FixedString", [&] {
+    if (string.size() < c_substringOffset + count)
+      string.append(text, c_length - string.size());
+    string.erase(string.size() / 2, count);
+    toy::benchmark::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    if (reference.size() < c_substringOffset + count)
+      reference.append(text, c_length - reference.size());
+    reference.erase(reference.size() / 2, count);
+    toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/replace") {
+  const char * const text   = opaque(sourceText());
+  const size_t       count  = opaque(c_shortLength);
+  const size_t       offset = opaque(c_substringOffset);
+  LongString         string(text, c_length);
+  std::string        reference(text, c_length);
+
+  bench.unit("replace");
+
+  // A short run in the middle swapped for one of the same length, so the tail stays in place and the length holds.
+  bench.run("toy::FixedString", [&] {
+    string.replace(offset, count, text, count);
+    toy::benchmark::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    reference.replace(offset, count, text, count);
+    toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/swap") {
+  LongString  string(opaque(sourceText()));
+  LongString  other(opaque(sourceText()), opaque(c_shortLength));
+  std::string reference(opaque(sourceText()));
+  std::string otherReference(opaque(sourceText()), opaque(c_shortLength));
+
+  bench.unit("swap");
+
+  // Fixed storage has no buffer to hand over, so the toy row copies characters where std::string exchanges pointers.
+  bench.run("toy::FixedString", [&] {
+    string.swap(other);
+    toy::benchmark::doNotOptimizeAway(string);
+  });
+  bench.run("std::string", [&] {
+    reference.swap(otherReference);
+    toy::benchmark::doNotOptimizeAway(reference);
+  });
+}
+
+BENCHMARK_CASE("core/string/find") {
+  const LongString  string(opaque(searchText()));
+  const std::string reference(opaque(searchText()));
+  const char *      needle = opaque(c_needle);
+
+  bench.unit("search");
+
+  // The needle sits at the end, and its first letter recurs every 26 bytes, each a candidate the search rejects.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string.find(needle));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.find(needle));
+  });
+}
+
+BENCHMARK_CASE("core/string/rfind") {
+  const LongString  string(opaque(searchText()));
+  const std::string reference(opaque(searchText()));
+  const char *      marker = opaque(c_marker);
+
+  bench.unit("search");
+
+  // The marker sits at the front, so a backward search crosses the whole text before it answers.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string.rfind(marker));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.rfind(marker));
+  });
+}
+
+BENCHMARK_CASE("core/string/find_first_of") {
+  const LongString  string(opaque(searchText()));
+  const std::string reference(opaque(searchText()));
+  const char *      set = opaque(c_absentSet);
+
+  bench.unit("search");
+
+  // No byte of the text is in the set, so every byte is tested against the whole set.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string.find_first_of(set));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.find_first_of(set));
+  });
+}
+
+BENCHMARK_CASE("core/string/find_first_not_of") {
+  const LongString  string(opaque(searchText()));
+  const std::string reference(opaque(searchText()));
+  const char *      set = opaque(c_textSet);
+
+  bench.unit("search");
+
+  // Every byte of the text is in the set, so the search crosses the text and finds every byte inside the set.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string.find_first_not_of(set));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.find_first_not_of(set));
+  });
+}
+
+BENCHMARK_CASE("core/string/compare") {
+  // The operands live in separate strings, so the comparison cannot answer from pointer identity.
+  const LongString  string(opaque(searchText()));
+  const LongString  same(opaque(searchText()));
+  const std::string reference(opaque(searchText()));
+  const std::string sameReference(opaque(searchText()));
+
+  bench.unit("comparison");
+
+  // Both operands hold the same text, so the comparison runs to the end.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string.compare(same));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.compare(sameReference));
+  });
+}
+
+BENCHMARK_CASE("core/string/equality") {
+  const LongString  string(opaque(searchText()));
+  const LongString  same(opaque(searchText()));
+  const std::string reference(opaque(searchText()));
+  const std::string sameReference(opaque(searchText()));
+
+  bench.unit("comparison");
+
+  // Equal lengths pass the first check, so operator== compares every byte.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string == same);
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference == sameReference);
+  });
+}
+
+BENCHMARK_CASE("core/string/substr") {
+  const LongString  string(opaque(sourceText()));
+  const std::string reference(opaque(sourceText()));
+  const size_t      offset = opaque(c_substringOffset);
+
+  bench.unit("substr");
+
+  // The second half becomes a new string: the toy row copies it into fixed storage, std::string allocates for it.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(string.substr(offset));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.substr(offset));
+  });
+}
+
+BENCHMARK_CASE("core/string/concatenation") {
+  const LongString  left(opaque(sourceText()), opaque(c_substringOffset));
+  const LongString  right(opaque(sourceText()), opaque(c_substringOffset));
+  const std::string leftReference(opaque(sourceText()), opaque(c_substringOffset));
+  const std::string rightReference(opaque(sourceText()), opaque(c_substringOffset));
+
+  bench.unit("concatenation");
+
+  // Two halves join into a new full string: the left one is copied, the right one appended after it.
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(left + right);
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(leftReference + rightReference);
+  });
+}
+
+BENCHMARK_CASE("core/string/erase_if") {
+  LongString  string(opaque(sourceText()));
+  std::string reference(opaque(sourceText()));
+
+  bench.unit("erase_if");
+
+  // The text holds no digit, so the predicate rejects every byte and the string keeps its length between runs.
+  const auto isDigit = [](char character) noexcept {
+    return character >= '0' && character <= '9';
+  };
+
+  bench.run("toy::FixedString", [&] {
+    toy::benchmark::doNotOptimizeAway(erase_if(string, isDigit));
+  });
+  bench.run("std::string", [&] {
+    toy::benchmark::doNotOptimizeAway(std::erase_if(reference, isDigit));
   });
 }

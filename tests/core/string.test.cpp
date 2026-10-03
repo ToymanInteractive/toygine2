@@ -574,6 +574,32 @@ constexpr const char * c_sampleSpliced = "plplayeryer";
 constexpr char   c_sampleWithNulls[]     = "player\0\0";
 constexpr size_t c_sampleWithNullsLength = sizeof(c_sampleWithNulls) - 1;
 
+// A literal whose groups repeat, so a search has more than one candidate to pick between, and the string holding it.
+constexpr const char * c_repeated       = "abracadabra";
+constexpr size_t       c_repeatedLength = std::char_traits<char>::length(c_repeated);
+constexpr Fixed        c_repeatedString(c_repeated);
+
+// c_embeddedNull as a string, so a search has to read past its null byte to reach the last two characters.
+constexpr Fixed c_embeddedNullString(c_embeddedNull, c_embeddedNullLength);
+
+// The run of c_embeddedNull that starts at its second byte and holds the null byte in the middle.
+constexpr size_t c_embeddedNullRunOffset = 1;
+constexpr size_t c_embeddedNullRunLength = 3;
+
+// Whether the string holds exactly the characters of the C string expected, followed by a terminator.
+template <typename StringType>
+[[nodiscard]] constexpr bool holds(const StringType & string, const char * expected) noexcept {
+  return firstDifference(string, expected, std::char_traits<char>::length(expected)) == fullMatch(expected);
+}
+
+// Whether a String deduces its storage from an argument of the type, so a rejected one reads as false.
+template <typename Source>
+concept DeducesString = requires(Source source) { String(source); };
+
+// Whether erase_if() accepts the type as its predicate, so a rejected one reads as false instead of a build error.
+template <typename Predicate>
+concept ErasableIf = requires(Fixed & string, Predicate predicate) { erase_if(string, predicate); };
+
 } // namespace
 
 // What a default-constructed string holds: no characters and a terminator behind c_str().
@@ -2641,6 +2667,569 @@ TEST_CASE("string/modifier_signatures") {
                                     Fixed &>
                   && std::is_same_v<decltype(std::declval<const Fixed &>().copy(nullptr, 0)), size_t>,
                 "append(), operator+= and replace() must return the string, and copy() the count it wrote");
+}
+
+// Where each overload of find() first matches, from a view, another storage, a counted or measured pointer, or a
+// character.
+TEST_CASE("string/find") {
+  CHECK(c_repeatedString.find(StringView{"abra"}) == 0);
+  CHECK(c_repeatedString.find(Wide("abra"), 1) == 7);
+  CHECK(c_repeatedString.find("abrasive", 1, 4) == 7);
+  CHECK(c_repeatedString.find("cad") == 4);
+  CHECK(c_repeatedString.find("cad", 5) == Fixed::npos);
+  CHECK(c_repeatedString.find('a') == 0);
+  CHECK(c_repeatedString.find('a', 1) == 3);
+
+  // A null pointer with a count of zero matches at the offset, as an empty pattern does.
+  CHECK(c_repeatedString.find(nullptr, 4, 0) == 4);
+
+  // An empty string holds no character, though an empty pattern still matches at its start.
+  CHECK(c_emptyString.find('a') == Fixed::npos);
+  CHECK(c_emptyString.find("") == 0);
+
+  static_assert(c_repeatedString.find(Wide("abra"), 1) == 7, "a string over another storage must pass its offset on");
+  static_assert(c_repeatedString.find("abrasive", 1, 4) == 7, "the count must bound what is read");
+  static_assert(c_repeatedString.find("cad") == 4, "the pointer overload must measure its argument");
+  static_assert(c_repeatedString.find('a', 1) == 3, "the character overload must pass its offset on");
+  static_assert(c_emptyString.find("") == 0, "an empty pattern must match at the start of an empty string");
+}
+
+// Where each overload of rfind() last matches, the default offset covering the whole string.
+TEST_CASE("string/rfind") {
+  CHECK(c_repeatedString.rfind(StringView{"abra"}) == 7);
+  CHECK(c_repeatedString.rfind(Wide("abra"), 6) == 0);
+  CHECK(c_repeatedString.rfind("abrasive", Fixed::npos, 4) == 7);
+  CHECK(c_repeatedString.rfind("cad") == 4);
+  CHECK(c_repeatedString.rfind("cad", 3) == Fixed::npos);
+  CHECK(c_repeatedString.rfind('a') == c_repeatedLength - 1);
+  CHECK(c_repeatedString.rfind('a', 9) == 7);
+
+  // An empty pattern matches at the end of the string.
+  CHECK(c_repeatedString.rfind("") == c_repeatedLength);
+
+  static_assert(c_repeatedString.rfind(Wide("abra"), 6) == 0, "a string over another storage must pass its offset on");
+  static_assert(c_repeatedString.rfind("abrasive", Fixed::npos, 4) == 7, "the count must bound what is read");
+  static_assert(c_repeatedString.rfind("cad") == 4, "the pointer overload must measure its argument");
+  static_assert(c_repeatedString.rfind('a', 9) == 7, "the character overload must pass its offset on");
+  static_assert(c_repeatedString.rfind("") == c_repeatedLength, "an empty pattern must match at the end");
+}
+
+// Where each overload of find_first_of() first meets a member of the set; a set of one reads as a character search.
+TEST_CASE("string/find_first_of") {
+  CHECK(c_repeatedString.find_first_of(StringView{"rc"}) == 2);
+  CHECK(c_repeatedString.find_first_of(Wide("rc"), 3) == 4);
+  CHECK(c_repeatedString.find_first_of("rcxyz", 3, 2) == 4);
+  CHECK(c_repeatedString.find_first_of("rc") == 2);
+  CHECK(c_repeatedString.find_first_of("rc", 10) == Fixed::npos);
+  CHECK(c_repeatedString.find_first_of('d') == 6);
+  CHECK(c_repeatedString.find_first_of('a', 1) == 3);
+
+  static_assert(c_repeatedString.find_first_of(Wide("rc"), 3) == 4,
+                "a string over another storage must pass its offset on");
+  static_assert(c_repeatedString.find_first_of("rcxyz", 3, 2) == 4, "the count must bound what is read");
+  static_assert(c_repeatedString.find_first_of("rc") == 2, "the pointer overload must measure its argument");
+  static_assert(c_repeatedString.find_first_of('d') == 6, "a set of one must be that character");
+}
+
+// Where each overload of find_last_of() last meets a member of the set.
+TEST_CASE("string/find_last_of") {
+  CHECK(c_repeatedString.find_last_of(StringView{"rc"}) == 9);
+  CHECK(c_repeatedString.find_last_of(Wide("rc"), 8) == 4);
+  CHECK(c_repeatedString.find_last_of("rcxyz", 8, 2) == 4);
+  CHECK(c_repeatedString.find_last_of("rc") == 9);
+  CHECK(c_repeatedString.find_last_of("rc", 1) == Fixed::npos);
+  CHECK(c_repeatedString.find_last_of('a') == c_repeatedLength - 1);
+  CHECK(c_repeatedString.find_last_of('a', 9) == 7);
+
+  static_assert(c_repeatedString.find_last_of(Wide("rc"), 8) == 4,
+                "a string over another storage must pass its offset on");
+  static_assert(c_repeatedString.find_last_of("rcxyz", 8, 2) == 4, "the count must bound what is read");
+  static_assert(c_repeatedString.find_last_of("rc") == 9, "the pointer overload must measure its argument");
+  static_assert(c_repeatedString.find_last_of('a') == c_repeatedLength - 1, "a set of one must be that character");
+}
+
+// Where each overload of find_first_not_of() first meets a character outside the set.
+TEST_CASE("string/find_first_not_of") {
+  CHECK(c_repeatedString.find_first_not_of(StringView{"ab"}) == 2);
+  CHECK(c_repeatedString.find_first_not_of(Wide("ab"), 3) == 4);
+  CHECK(c_repeatedString.find_first_not_of("abxyz", 3, 2) == 4);
+  CHECK(c_repeatedString.find_first_not_of("ab") == 2);
+  CHECK(c_repeatedString.find_first_not_of("ab", 10) == Fixed::npos);
+  CHECK(c_repeatedString.find_first_not_of('a') == 1);
+  CHECK(c_repeatedString.find_first_not_of('a', 3) == 4);
+
+  static_assert(c_repeatedString.find_first_not_of(Wide("ab"), 3) == 4,
+                "a string over another storage must pass its offset on");
+  static_assert(c_repeatedString.find_first_not_of("abxyz", 3, 2) == 4, "the count must bound what is read");
+  static_assert(c_repeatedString.find_first_not_of("ab") == 2, "the pointer overload must measure its argument");
+  static_assert(c_repeatedString.find_first_not_of('a', 3) == 4, "the character overload must pass its offset on");
+}
+
+// Where each overload of find_last_not_of() last meets a character outside the set.
+TEST_CASE("string/find_last_not_of") {
+  CHECK(c_repeatedString.find_last_not_of(StringView{"ab"}) == 9);
+  CHECK(c_repeatedString.find_last_not_of(Wide("ab"), 8) == 6);
+  CHECK(c_repeatedString.find_last_not_of("abxyz", 8, 2) == 6);
+  CHECK(c_repeatedString.find_last_not_of("ab") == 9);
+  CHECK(c_repeatedString.find_last_not_of("ab", 1) == Fixed::npos);
+  CHECK(c_repeatedString.find_last_not_of('a') == 9);
+  CHECK(c_repeatedString.find_last_not_of('a', 8) == 8);
+
+  static_assert(c_repeatedString.find_last_not_of(Wide("ab"), 8) == 6,
+                "a string over another storage must pass its offset on");
+  static_assert(c_repeatedString.find_last_not_of("abxyz", 8, 2) == 6, "the count must bound what is read");
+  static_assert(c_repeatedString.find_last_not_of("ab") == 9, "the pointer overload must measure its argument");
+  static_assert(c_repeatedString.find_last_not_of('a', 8) == 8, "the character overload must pass its offset on");
+}
+
+// A search covers size() characters, so a null byte inside the string neither ends it nor hides what follows.
+TEST_CASE("string/search_reads_past_embedded_null") {
+  CHECK(c_embeddedNullString.find('c') == 3);
+  CHECK(c_embeddedNullString.find('\0') == 2);
+  CHECK(c_embeddedNullString.rfind('a') == 0);
+  CHECK(c_embeddedNullString.find_first_of("dc") == 3);
+  CHECK(c_embeddedNullString.find_first_not_of("ab") == 2);
+  CHECK(c_embeddedNullString.find_last_not_of('d') == 3);
+
+  // A pattern holding the null byte matches through the counted pointer and through a string of the same characters.
+  CHECK(c_embeddedNullString.find(c_embeddedNull + c_embeddedNullRunOffset, 0, c_embeddedNullRunLength)
+        == c_embeddedNullRunOffset);
+  CHECK(c_embeddedNullString.find(Fixed(c_embeddedNull + c_embeddedNullRunOffset, c_embeddedNullRunLength))
+        == c_embeddedNullRunOffset);
+
+  static_assert(c_embeddedNullString.find('c') == 3, "a search must continue past the null byte");
+  static_assert(c_embeddedNullString.rfind('\0') == 2, "a backward search must start at the last character");
+  static_assert(c_embeddedNullString.find_last_not_of('d') == 3, "the last characters must stay reachable");
+  static_assert(c_embeddedNullString.find(Fixed(c_embeddedNull + c_embeddedNullRunOffset, c_embeddedNullRunLength))
+                  == c_embeddedNullRunOffset,
+                "a string pattern must keep its null byte");
+}
+
+// The searches never throw and report an offset of the string's own size type.
+TEST_CASE("string/search_signatures") {
+  static_assert(noexcept(c_repeatedString.find(StringView{})) && noexcept(c_repeatedString.find(c_listed, 0, 0))
+                  && noexcept(c_repeatedString.rfind(c_listed)) && noexcept(c_repeatedString.find_first_of('a'))
+                  && noexcept(c_repeatedString.find_last_of(c_listed))
+                  && noexcept(c_repeatedString.find_first_not_of(Wide{}))
+                  && noexcept(c_repeatedString.find_last_not_of(c_listed, 0, 0)),
+                "the searches must not throw");
+
+  static_assert(std::is_same_v<decltype(c_repeatedString.find('a')), Fixed::size_type>
+                  && std::is_same_v<decltype(c_repeatedString.rfind(StringView{})), Fixed::size_type>
+                  && std::is_same_v<decltype(c_repeatedString.find_first_of(c_listed)), Fixed::size_type>
+                  && std::is_same_v<decltype(c_repeatedString.find_last_not_of(c_listed, 0, 0)), Fixed::size_type>,
+                "every search must return an offset of size_type");
+}
+
+// What each overload of compare() reports: the whole string, a substring of it, against a view, another storage, a
+// substring of either, a measured pointer, or a counted one.
+TEST_CASE("string/compare") {
+  CHECK(c_sampleString.compare(StringView{c_sample}) == 0);
+  CHECK(c_sampleString.compare(Wide("playground")) < 0);
+  CHECK(c_sampleString.compare("play") > 0);
+  CHECK(c_sampleString.compare("plays") < 0);
+
+  CHECK(c_sampleString.compare(2, 3, StringView{"aye"}) == 0);
+  CHECK(c_sampleString.compare(2, Fixed::npos, Wide("ayer")) == 0);
+  CHECK(c_sampleString.compare(0, 4, StringView{"xxplayxx"}, 2, 4) == 0);
+  CHECK(c_sampleString.compare(2, 4, Wide(c_sample), 2) == 0);
+  CHECK(c_sampleString.compare(2, 3, "aye") == 0);
+  CHECK(c_sampleString.compare(2, 3, "ayes", 3) == 0);
+
+  // A range starting at the end is empty, and so equal to an empty string.
+  CHECK(c_sampleString.compare(c_sampleLength, 1, "") == 0);
+  CHECK(c_emptyString.compare("") == 0);
+  CHECK(c_emptyString.compare(c_sample) < 0);
+
+  static_assert(c_sampleString.compare(StringView{c_sample}) == 0, "a string must compare equal to its own characters");
+  static_assert(c_sampleString.compare(Wide("playground")) < 0, "the first differing character must decide");
+  static_assert(c_sampleString.compare("play") > 0, "a string must order after its prefix");
+  static_assert(c_sampleString.compare(2, Fixed::npos, Wide("ayer")) == 0, "a count past the end must stop there");
+  static_assert(c_sampleString.compare(0, 4, StringView{"xxplayxx"}, 2, 4) == 0,
+                "both substrings must start at their offsets");
+  static_assert(c_sampleString.compare(2, 4, Wide(c_sample), 2) == 0,
+                "the default count must take the other string to its end");
+  static_assert(c_sampleString.compare(2, 3, "ayes", 3) == 0, "the count must bound the counted pointer");
+  static_assert(c_sampleString.compare(c_sampleLength, 1, "") == 0, "a range at the end must be empty");
+}
+
+// Whether the string opens with a view, another storage, a measured pointer, or a character.
+TEST_CASE("string/starts_with") {
+  CHECK(c_sampleString.starts_with(StringView{"pla"}));
+  CHECK_FALSE(c_sampleString.starts_with(Wide("playground")));
+  CHECK(c_sampleString.starts_with(c_sample));
+  CHECK_FALSE(c_sampleString.starts_with("players"));
+  CHECK(c_sampleString.starts_with(""));
+  CHECK(c_sampleString.starts_with('p'));
+  CHECK_FALSE(c_sampleString.starts_with('l'));
+
+  // An empty string starts with the empty string and with no character.
+  CHECK(c_emptyString.starts_with(""));
+  CHECK_FALSE(c_emptyString.starts_with('p'));
+
+  static_assert(c_sampleString.starts_with(StringView{"pla"}), "a leading part must match");
+  static_assert(!c_sampleString.starts_with(Wide("playground")), "a longer string must not match");
+  static_assert(c_sampleString.starts_with(c_sample), "the whole string must match");
+  static_assert(c_sampleString.starts_with('p') && !c_sampleString.starts_with('l'),
+                "the character overload must read the first character only");
+  static_assert(!c_emptyString.starts_with('p'), "an empty string must start with no character");
+}
+
+// Whether the string closes with a view, another storage, a measured pointer, or a character.
+TEST_CASE("string/ends_with") {
+  CHECK(c_sampleString.ends_with(StringView{"yer"}));
+  CHECK(c_sampleString.ends_with(Wide("layer")));
+  CHECK_FALSE(c_sampleString.ends_with("aplayer"));
+  CHECK_FALSE(c_sampleString.ends_with("aye"));
+  CHECK(c_sampleString.ends_with(""));
+  CHECK(c_sampleString.ends_with('r'));
+  CHECK_FALSE(c_sampleString.ends_with('e'));
+
+  CHECK(c_emptyString.ends_with(""));
+  CHECK_FALSE(c_emptyString.ends_with('r'));
+
+  static_assert(c_sampleString.ends_with(StringView{"yer"}), "a trailing part must match");
+  static_assert(c_sampleString.ends_with(Wide("layer")), "a string over another storage must match");
+  static_assert(!c_sampleString.ends_with("aplayer"), "a longer string must not match");
+  static_assert(!c_sampleString.ends_with("aye"), "a part away from the end must not match");
+  static_assert(c_sampleString.ends_with('r') && !c_sampleString.ends_with('e'),
+                "the character overload must read the last character only");
+  static_assert(!c_emptyString.ends_with('r'), "an empty string must end with no character");
+}
+
+// Whether a view, another storage, a measured pointer, or a character appears anywhere in the string.
+TEST_CASE("string/contains") {
+  CHECK(c_sampleString.contains(StringView{"aye"}));
+  CHECK(c_sampleString.contains(Wide("ye")));
+  CHECK(c_sampleString.contains("lay"));
+  CHECK_FALSE(c_sampleString.contains("yay"));
+  CHECK(c_sampleString.contains(""));
+  CHECK(c_sampleString.contains('y'));
+  CHECK_FALSE(c_sampleString.contains('z'));
+
+  static_assert(c_sampleString.contains(StringView{"aye"}), "a view the string holds must be contained");
+  static_assert(c_sampleString.contains(Wide("ye")), "a string over another storage must be contained");
+  static_assert(!c_sampleString.contains("yay"), "characters the string lacks must not be contained");
+  static_assert(c_sampleString.contains('y') && !c_sampleString.contains('z'),
+                "the character overload must match the same characters");
+}
+
+// A comparison covers size() characters, so a null byte inside the string neither ends it nor hides what follows.
+TEST_CASE("string/comparison_reads_past_embedded_null") {
+  CHECK(c_embeddedNullString.compare(Fixed(c_embeddedNull, c_embeddedNullLength)) == 0);
+  CHECK(c_embeddedNullString.compare("ab") > 0);
+  CHECK(c_embeddedNullString.compare(3, 2, "cd") == 0);
+  CHECK(c_embeddedNullString.ends_with("cd"));
+  CHECK(c_embeddedNullString.ends_with('d'));
+  CHECK(c_embeddedNullString.contains('c'));
+
+  static_assert(c_embeddedNullString.compare(Fixed(c_embeddedNull, c_embeddedNullLength)) == 0,
+                "the null byte must compare as a character");
+  static_assert(c_embeddedNullString.compare("ab") > 0, "the characters past the null byte must count");
+  static_assert(c_embeddedNullString.ends_with("cd"), "the end must lie past the null byte");
+}
+
+// substr() copies up to count characters from an offset into a new string, from a string kept or one given up.
+TEST_CASE("string/substr") {
+  CHECK(firstDifference(c_sampleString.substr(c_substringOffset, c_substringLength), c_sample + c_substringOffset,
+                        c_substringLength)
+        == c_substringLength + 1);
+  CHECK(firstDifference(c_sampleString.substr(c_substringOffset), c_sample + c_substringOffset, c_tailLength)
+        == c_tailLength + 1);
+  CHECK(firstDifference(c_sampleString.substr(), c_sample, c_sampleLength) == c_sampleLength + 1);
+  CHECK(c_sampleString.substr(c_sampleLength).empty());
+
+  // A string given up hands its characters over instead of being copied from.
+  CHECK(firstDifference(Fixed(c_sample).substr(c_substringOffset, c_substringLength), c_sample + c_substringOffset,
+                        c_substringLength)
+        == c_substringLength + 1);
+
+  // The null byte travels with the characters around it.
+  CHECK(firstDifference(c_embeddedNullString.substr(c_embeddedNullRunOffset, c_embeddedNullRunLength),
+                        c_embeddedNull + c_embeddedNullRunOffset, c_embeddedNullRunLength)
+        == c_embeddedNullRunLength + 1);
+
+  static_assert(firstDifference(c_sampleString.substr(c_substringOffset, c_substringLength),
+                                c_sample + c_substringOffset, c_substringLength)
+                  == c_substringLength + 1,
+                "substr() must take count characters from the offset");
+  static_assert(firstDifference(c_sampleString.substr(c_substringOffset), c_sample + c_substringOffset, c_tailLength)
+                  == c_tailLength + 1,
+                "the default count must take the string to its end");
+  static_assert(c_sampleString.substr(c_sampleLength).empty(), "an offset of size() must yield an empty string");
+  static_assert(firstDifference(Fixed(c_sample).substr(c_substringOffset, c_substringLength),
+                                c_sample + c_substringOffset, c_substringLength)
+                  == c_substringLength + 1,
+                "a string given up must yield the same substring");
+  static_assert(firstDifference(c_embeddedNullString.substr(c_embeddedNullRunOffset, c_embeddedNullRunLength),
+                                c_embeddedNull + c_embeddedNullRunOffset, c_embeddedNullRunLength)
+                  == c_embeddedNullRunLength + 1,
+                "the null byte must stay in the substring");
+}
+
+// subview() views the string from an offset to its end, over the string's own characters.
+TEST_CASE("string/subview") {
+  CHECK(c_sampleString.subview(c_substringOffset) == StringView{c_sample + c_substringOffset});
+  CHECK(c_sampleString.subview(c_substringOffset).data() == c_sampleString.data() + c_substringOffset);
+  CHECK(c_sampleString.subview() == StringView{c_sample});
+  CHECK(c_sampleString.subview(c_sampleLength).empty());
+
+  static_assert(c_sampleString.subview(c_substringOffset) == StringView{c_sample + c_substringOffset},
+                "the view must hold the characters from the offset to the end");
+  static_assert(c_sampleString.subview(c_substringOffset).data() == c_sampleString.data() + c_substringOffset,
+                "the view must point into the string instead of a copy");
+  static_assert(c_sampleString.subview().size() == c_sampleLength, "the default offset must view the whole string");
+  static_assert(c_sampleString.subview(c_sampleLength).empty(), "an offset of size() must yield an empty view");
+}
+
+#if !defined(_DEBUG)
+// Without the debug checks an offset past the end is clamped to it: the range or the view starting there is empty.
+TEST_CASE("string/operations_rejected") {
+  CHECK(c_sampleString.compare(c_sampleLength + 1, 1, "") == 0);
+  CHECK(c_sampleString.compare(0, Fixed::npos, StringView{c_sample}, c_sampleLength + 1) > 0);
+  CHECK(c_sampleString.substr(c_sampleLength + 1).empty());
+  CHECK(c_sampleString.subview(c_sampleLength + 1).empty());
+
+  static_assert(c_sampleString.compare(c_sampleLength + 1, 1, "") == 0,
+                "an offset past the end must compare an empty range");
+  static_assert(c_sampleString.compare(0, Fixed::npos, StringView{c_sample}, c_sampleLength + 1) > 0,
+                "an offset past the end of the other string must compare against an empty range");
+  static_assert(c_sampleString.substr(c_sampleLength + 1).empty(), "an offset past the end must yield an empty string");
+  static_assert(c_sampleString.subview(c_sampleLength + 1).empty(), "an offset past the end must yield an empty view");
+}
+#endif // !_DEBUG
+
+// The operations never throw; compare() reports an int, the predicates a bool, substr() a string of the same storage.
+TEST_CASE("string/operation_signatures") {
+  static_assert(noexcept(c_sampleString.compare(StringView{})) && noexcept(c_sampleString.compare(0, 0, c_listed, 0))
+                  && noexcept(c_sampleString.starts_with('p')) && noexcept(c_sampleString.ends_with(c_listed))
+                  && noexcept(c_sampleString.contains(Wide{})) && noexcept(c_sampleString.substr())
+                  && noexcept(Fixed().substr()) && noexcept(c_sampleString.subview()),
+                "the operations must not throw");
+
+  static_assert(std::is_same_v<decltype(c_sampleString.compare(c_listed)), int>
+                  && std::is_same_v<decltype(c_sampleString.starts_with(c_listed)), bool>
+                  && std::is_same_v<decltype(c_sampleString.contains('a')), bool>
+                  && std::is_same_v<decltype(c_sampleString.substr()), Fixed>
+                  && std::is_same_v<decltype(Fixed().substr()), Fixed>
+                  && std::is_same_v<decltype(c_sampleString.subview()), StringView>,
+                "compare() must return an int, the predicates a bool, substr() a string, and subview() a view");
+}
+
+// operator+ joins a string with another string, a view, a pointer, or a character, on either side.
+TEST_CASE("string/concatenation") {
+  CHECK(holds(c_sampleString + Fixed(c_listed), "playerabc"));
+  CHECK(holds(c_sampleString + Wide(c_listed), "playerabc"));
+  CHECK(holds(c_sampleString + StringView{c_listed}, "playerabc"));
+  CHECK(holds(c_sampleString + c_listed, "playerabc"));
+  CHECK(holds(c_sampleString + c_fillCharacter, "playerx"));
+  CHECK(holds(c_listed + c_sampleString, "abcplayer"));
+  CHECK(holds(c_fillCharacter + c_sampleString, "xplayer"));
+  CHECK(holds(StringView{c_listed} + c_sampleString, "abcplayer"));
+
+  // A string given up takes the right operand in place, so a chain builds one string from left to right.
+  CHECK(holds(Fixed(c_listed) + c_sampleString, "abcplayer"));
+  CHECK(holds(Fixed(c_listed) + c_fillCharacter + c_sample, "abcxplayer"));
+
+  // The null byte travels with the characters around it.
+  CHECK(firstDifference(c_embeddedNullString + c_listed, "ab\0cdabc", c_embeddedNullLength + c_listedLength)
+        == c_embeddedNullLength + c_listedLength + 1);
+
+  static_assert(holds(c_sampleString + Wide(c_listed), "playerabc"), "a string over another storage must go after");
+  static_assert(holds(c_sampleString + c_listed, "playerabc"), "a pointer must go after");
+  static_assert(holds(c_sampleString + c_fillCharacter, "playerx"), "a character must go after");
+  static_assert(holds(c_listed + c_sampleString, "abcplayer"), "a pointer must go before");
+  static_assert(holds(c_fillCharacter + c_sampleString, "xplayer"), "a character must go before");
+  static_assert(holds(StringView{c_listed} + c_sampleString, "abcplayer"), "a view must go before");
+  static_assert(holds(Fixed(c_listed) + c_fillCharacter + c_sample, "abcxplayer"), "a chain must join left to right");
+  static_assert(firstDifference(c_embeddedNullString + c_listed, "ab\0cdabc", c_embeddedNullLength + c_listedLength)
+                  == c_embeddedNullLength + c_listedLength + 1,
+                "the null byte must stay in the joined string");
+
+  // The string operand picks the storage of the result, the left one when both are strings.
+  static_assert(std::is_same_v<decltype(c_sampleString + Wide{}), Fixed>
+                  && std::is_same_v<decltype(Wide{} + c_sampleString), Wide>
+                  && std::is_same_v<decltype(c_listed + c_sampleString), Fixed>
+                  && std::is_same_v<decltype(StringView{} + c_sampleString), Fixed>,
+                "the result must take the storage of its string operand");
+}
+
+// Whether a string holds the same characters as another string, a view, or a pointer, on either side.
+TEST_CASE("string/equality") {
+  CHECK(c_sampleString == Fixed(c_sample));
+  CHECK(c_sampleString == Wide(c_sample));
+  CHECK(c_sampleString == StringView{c_sample});
+  CHECK(c_sampleString == c_sample);
+  CHECK(c_sample == c_sampleString);
+  CHECK(StringView{c_sample} == c_sampleString);
+  CHECK(Wide(c_sample) == c_sampleString);
+
+  CHECK(c_sampleString != "play");
+  CHECK(c_sampleString != Wide("players"));
+  CHECK(c_emptyString == "");
+  CHECK(c_emptyString != c_sampleString);
+
+  // The lengths take part, so a null byte inside the string keeps it apart from its leading characters.
+  CHECK(c_embeddedNullString == Fixed(c_embeddedNull, c_embeddedNullLength));
+  CHECK(c_embeddedNullString != "ab");
+  CHECK(c_embeddedNullString != Fixed("ab"));
+
+  static_assert(c_sampleString == Wide(c_sample), "strings over different storages must compare equal");
+  static_assert(c_sampleString == c_sample && c_sample == c_sampleString, "a pointer must compare on either side");
+  static_assert(StringView{c_sample} == c_sampleString, "a view must compare on the left");
+  static_assert(c_sampleString != "play", "a prefix must not compare equal");
+  static_assert(c_embeddedNullString == Fixed(c_embeddedNull, c_embeddedNullLength),
+                "the null byte must compare as a character");
+  static_assert(c_embeddedNullString != "ab", "the characters past the null byte must count");
+}
+
+// Where a string sits in a lexicographic order against another string, a view, or a pointer, on either side.
+TEST_CASE("string/ordering") {
+  CHECK(c_sampleString < "plays");
+  CHECK(c_sampleString > "play");
+  CHECK(c_sampleString <= c_sample);
+  CHECK(c_sampleString >= Wide("pla"));
+  CHECK("play" < c_sampleString);
+  CHECK(StringView{"q"} > c_sampleString);
+  CHECK((c_sampleString <=> c_sample) == std::strong_ordering::equal);
+  CHECK((c_sampleString <=> Wide("playground")) == std::strong_ordering::less);
+
+  // Bytes order as unsigned char, so a byte above the ASCII range follows an ASCII one.
+  CHECK(Fixed("\xff") > Fixed("a"));
+
+  static_assert(c_sampleString < "plays" && c_sampleString > "play", "the first difference and length must decide");
+  static_assert("play" < c_sampleString, "a pointer must order on the left");
+  static_assert(StringView{"q"} > c_sampleString, "a view must order on the left");
+  static_assert((c_sampleString <=> Wide("playground")) == std::strong_ordering::less,
+                "strings over different storages must order");
+  static_assert(Fixed("\xff") > Fixed("a"), "a high byte must order after an ASCII one");
+  static_assert(std::is_same_v<decltype(c_sampleString <=> c_sample), std::strong_ordering>,
+                "the order must be strong, as for std::basic_string");
+}
+
+// The free swap() exchanges two strings and is the one found beside std::swap, the form generic code writes.
+TEST_CASE("string/non_member_swap") {
+  constexpr auto swapped = [] {
+    using std::swap;
+
+    Fixed sample(c_sample);
+    Fixed listed(c_listed);
+    swap(sample, listed);
+
+    return holds(sample, c_listed) && holds(listed, c_sample);
+  };
+
+  CHECK(swapped());
+
+  static_assert(swapped(), "the free swap() must exchange contents");
+}
+
+// erase() drops every copy of a character and reports how many it dropped.
+TEST_CASE("string/erase_value") {
+  constexpr auto erasedCount = [](char value) {
+    Fixed string(c_repeated);
+
+    return erase(string, value);
+  };
+  constexpr auto erasedLeaves = [](char value, const char * expected) {
+    Fixed                         string(c_repeated);
+    [[maybe_unused]] const size_t count = erase(string, value);
+
+    return holds(string, expected);
+  };
+  constexpr auto erasedNull = [] {
+    Fixed string(c_embeddedNull, c_embeddedNullLength);
+
+    return erase(string, '\0') == 1 && holds(string, "abcd");
+  };
+
+  CHECK(erasedCount('a') == 5);
+  CHECK(erasedLeaves('a', "brcdbr"));
+  CHECK(erasedCount('z') == 0);
+  CHECK(erasedLeaves('z', c_repeated));
+  CHECK(erasedNull());
+
+  static_assert(erasedCount('a') == 5 && erasedLeaves('a', "brcdbr"), "every copy of the character must go");
+  static_assert(erasedCount('z') == 0 && erasedLeaves('z', c_repeated), "an absent character must change nothing");
+  static_assert(erasedNull(), "a null byte must be erased like any other character");
+}
+
+// erase_if() drops every character the predicate accepts, asking it once per character, and reports the count.
+TEST_CASE("string/erase_if") {
+  constexpr auto isVowel = [](char ch) {
+    return ch == 'a' || ch == 'e' || ch == 'i' || ch == 'o' || ch == 'u';
+  };
+  constexpr auto erasedVowels = [isVowel] {
+    Fixed string(c_repeated);
+
+    return erase_if(string, isVowel) == 5 && holds(string, "brcdbr");
+  };
+  constexpr auto callsPerCharacter = [] {
+    Fixed                         string(c_repeated);
+    size_t                        calls = 0;
+    [[maybe_unused]] const size_t count = erase_if(string, [&calls](char) {
+      ++calls;
+
+      return false;
+    });
+
+    return calls == c_repeatedLength && count == 0 && holds(string, c_repeated);
+  };
+
+  CHECK(erasedVowels());
+  CHECK(callsPerCharacter());
+
+  static_assert(erasedVowels(), "every accepted character must go");
+  static_assert(callsPerCharacter(), "the predicate must run once per character and keep a rejected one");
+}
+
+// The free functions never throw, report what std::basic_string reports, and accept only a predicate.
+TEST_CASE("string/non_member_signatures") {
+  static_assert(noexcept(c_sampleString + c_listed) && noexcept(c_listed + c_sampleString)
+                  && noexcept(c_sampleString == c_listed) && noexcept(c_sampleString <=> c_listed)
+                  && noexcept(swap(std::declval<Fixed &>(), std::declval<Fixed &>()))
+                  && noexcept(erase(std::declval<Fixed &>(), c_fillCharacter))
+                  && noexcept(erase_if(std::declval<Fixed &>(),
+                                       [](char) {
+                                         return true;
+                                       })),
+                "the free functions must not throw");
+
+  static_assert(std::is_same_v<decltype(erase(std::declval<Fixed &>(), c_fillCharacter)), Fixed::size_type>
+                  && std::is_same_v<decltype(erase_if(std::declval<Fixed &>(),
+                                                      [](char) {
+                                                        return true;
+                                                      })),
+                                    Fixed::size_type>,
+                "erase() and erase_if() must return the count they dropped");
+
+  static_assert(ErasableIf<bool (*)(char)> && !ErasableIf<int>, "erase_if() must accept a predicate and nothing else");
+}
+
+// A string built from a character array deduces fixed storage sized to the array, the terminator included.
+TEST_CASE("string/deduction_from_array") {
+  constexpr String deduced("player");
+  constexpr String copied   = "player";
+  constexpr String embedded = "ab\0cd";
+
+  CHECK(holds(deduced, c_sample));
+  CHECK(holds(copied, c_sample));
+  CHECK(deduced.capacity() == c_sampleLength);
+
+  // The measuring constructor stops at a null byte inside the array; the storage still fits the whole array.
+  CHECK(holds(embedded, "ab"));
+  CHECK(embedded.capacity() == c_embeddedNullLength);
+
+  static_assert(std::is_same_v<decltype(String("player")), FixedString<sizeof("player")>>,
+                "an array must deduce fixed storage sized to it");
+  static_assert(holds(deduced, c_sample) && holds(copied, c_sample),
+                "direct and copy initialization must deduce the same string");
+  static_assert(holds(embedded, "ab") && embedded.capacity() == c_embeddedNullLength,
+                "a null byte must end the string but not shrink the storage");
+
+  // Without an array the length is not known at compile time, so nothing picks the storage.
+  static_assert(DeducesString<const char (&)[4]> && !DeducesString<const char *> && !DeducesString<StringView>,
+                "only a character array must deduce a string");
 }
 
 } // namespace toy

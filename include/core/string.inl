@@ -19,7 +19,7 @@
 //
 /*!
   \file   string.inl
-  \brief  Inline implementations for \ref toy::String constructors, assignment, accessors, and modifiers.
+  \brief  Inline implementations for \ref toy::String members and the free functions that take it.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -779,15 +779,300 @@ constexpr void String<storageType>::swap(String & other) noexcept {
 }
 
 template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::size_type String<storageType>::find(const StringType & string,
+                                                                   size_type          pos) const noexcept {
+  return find(string.c_str(), pos, string.size());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find(const value_type * string, size_type pos,
+                                                                   size_type count) const noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
+
+  return string_utils::find(data(), size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find(const value_type * string,
+                                                                   size_type          pos) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return find(string, pos, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find(value_type ch, size_type pos) const noexcept {
+  return string_utils::find(data(), size(), ch, pos);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::size_type String<storageType>::rfind(const StringType & string,
+                                                                    size_type          pos) const noexcept {
+  return rfind(string.c_str(), pos, string.size());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::rfind(const value_type * string, size_type pos,
+                                                                    size_type count) const noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
+
+  return string_utils::rfind(data(), size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::rfind(const value_type * string,
+                                                                    size_type          pos) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return rfind(string, pos, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::rfind(value_type ch, size_type pos) const noexcept {
+  return string_utils::rfind(data(), size(), ch, pos);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::size_type String<storageType>::find_first_of(const StringType & string,
+                                                                            size_type          pos) const noexcept {
+  return find_first_of(string.c_str(), pos, string.size());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_first_of(const value_type * string, size_type pos,
+                                                                            size_type count) const noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
+
+  return string_utils::findFirstOf(data(), size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_first_of(const value_type * string,
+                                                                            size_type          pos) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return find_first_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_first_of(value_type ch,
+                                                                            size_type  pos) const noexcept {
+  return find(ch, pos);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::size_type String<storageType>::find_first_not_of(const StringType & string,
+                                                                                size_type          pos) const noexcept {
+  return find_first_not_of(string.c_str(), pos, string.size());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_first_not_of(const value_type * string,
+                                                                                size_type          pos,
+                                                                                size_type count) const noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
+
+  return string_utils::findFirstNotOf(data(), size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_first_not_of(const value_type * string,
+                                                                                size_type          pos) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return find_first_not_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_first_not_of(value_type ch,
+                                                                                size_type  pos) const noexcept {
+  return string_utils::findFirstNotOf(data(), size(), ch, pos);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::size_type String<storageType>::find_last_of(const StringType & string,
+                                                                           size_type          pos) const noexcept {
+  return find_last_of(string.c_str(), pos, string.size());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_last_of(const value_type * string, size_type pos,
+                                                                           size_type count) const noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
+
+  return string_utils::findLastOf(data(), size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_last_of(const value_type * string,
+                                                                           size_type          pos) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return find_last_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_last_of(value_type ch,
+                                                                           size_type  pos) const noexcept {
+  return rfind(ch, pos);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType>::size_type String<storageType>::find_last_not_of(const StringType & string,
+                                                                               size_type          pos) const noexcept {
+  return find_last_not_of(string.c_str(), pos, string.size());
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_last_not_of(const value_type * string, size_type pos,
+                                                                               size_type count) const noexcept {
+  assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
+
+  return string_utils::findLastNotOf(data(), size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_last_not_of(const value_type * string,
+                                                                               size_type          pos) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return find_last_not_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::find_last_not_of(value_type ch,
+                                                                               size_type  pos) const noexcept {
+  return string_utils::findLastNotOf(data(), size(), ch, pos);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr int String<storageType>::compare(const StringType & string) const noexcept {
+  return compare(0, npos, string);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr int String<storageType>::compare(size_type pos1, size_type count1, const StringType & string) const noexcept {
+  return compare(pos1, count1, string.c_str(), string.size());
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr int String<storageType>::compare(size_type pos1, size_type count1, const StringType & string, size_type pos2,
+                                           size_type count2) const noexcept {
+  assert_message(pos2 <= string.size(), "the substring must start inside the compared string");
+
+  const size_type offset = std::min(pos2, string.size());
+
+  return compare(pos1, count1, string.c_str() + offset, std::min(count2, string.size() - offset));
+}
+
+template <StringStorage storageType>
+constexpr int String<storageType>::compare(const value_type * string) const noexcept {
+  return compare(0, npos, string);
+}
+
+template <StringStorage storageType>
+constexpr int String<storageType>::compare(size_type pos1, size_type count1, const value_type * string) const noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return compare(pos1, count1, string, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+constexpr int String<storageType>::compare(size_type pos1, size_type count1, const value_type * string,
+                                           size_type count2) const noexcept {
+  assert_message(pos1 <= size(), "the compared range must start inside the string or at its end");
+
+  const size_type offset = std::min(pos1, size());
+
+  return string_utils::compare(data() + offset, std::min(count1, size() - offset), string, count2);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr bool String<storageType>::starts_with(const StringType & string) const noexcept {
+  return compare(0, string.size(), string) == 0;
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::starts_with(value_type ch) const noexcept {
+  return !empty() && traits_type::eq(front(), ch);
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::starts_with(const value_type * string) const noexcept {
+  return starts_with(StringView(string));
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr bool String<storageType>::ends_with(const StringType & string) const noexcept {
+  return size() >= string.size() && compare(size() - string.size(), string.size(), string) == 0;
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::ends_with(value_type ch) const noexcept {
+  return !empty() && traits_type::eq(back(), ch);
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::ends_with(const value_type * string) const noexcept {
+  return ends_with(StringView(string));
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr bool String<storageType>::contains(const StringType & string) const noexcept {
+  return find(string) != npos;
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::contains(value_type ch) const noexcept {
+  return find(ch) != npos;
+}
+
+template <StringStorage storageType>
+constexpr bool String<storageType>::contains(const value_type * string) const noexcept {
+  return find(string) != npos;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> String<storageType>::substr(size_type pos, size_type count) const & noexcept {
+  return String(*this, pos, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> String<storageType>::substr(size_type pos, size_type count) && noexcept {
+  return String(std::move(*this), pos, count);
+}
+
+template <StringStorage storageType>
+constexpr StringView String<storageType>::subview(size_type pos) const noexcept {
+  assert_message(pos <= size(), "the view must start inside the string or at its end");
+
+  // StringView measures to the terminator, so a null byte inside the tail ends the view early.
+  return StringView(c_str() + std::min(pos, size()));
+}
+
+template <StringStorage storageType>
 constexpr bool String<storageType>::_mayOverlap(const_pointer pointer) const noexcept {
   if consteval {
     return true;
   } else {
-    // std::less would order unrelated pointers as well, but lives in <functional>, which the barrel does not include.
-    const auto buffer  = std::bit_cast<uintptr_t>(_storage.data());
-    const auto address = std::bit_cast<uintptr_t>(pointer);
+    // Built-in < leaves the order of pointers into unrelated objects unspecified; std::less defines one.
+    constexpr std::less<const_pointer> before;
+    const const_pointer                first = _storage.data();
+    const const_pointer                last  = first + _storage.capacity();
 
-    return address >= buffer && address <= buffer + _storage.capacity();
+    return !before(pointer, first) && !before(last, pointer);
   }
 }
 
@@ -985,6 +1270,95 @@ constexpr void String<storageType>::_replaceRange(size_type pos, size_type remov
     _storage.setSize(count);
     std::rotate(data() + insertAt, data() + oldSize, data() + count);
   }
+}
+
+template <StringStorage storageType, StringLike StringType>
+constexpr String<storageType> operator+(String<storageType> lhs, const StringType & rhs) noexcept {
+  lhs.append(rhs);
+
+  return lhs;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> operator+(String<storageType> lhs, const char * rhs) noexcept {
+  lhs.append(rhs);
+
+  return lhs;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> operator+(String<storageType> lhs, char rhs) noexcept {
+  lhs.push_back(rhs);
+
+  return lhs;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> operator+(const char * lhs, const String<storageType> & rhs) noexcept {
+  String<storageType> result(lhs);
+  result.append(rhs);
+
+  return result;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> operator+(char lhs, const String<storageType> & rhs) noexcept {
+  String<storageType> result(1, lhs);
+  result.append(rhs);
+
+  return result;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> operator+(StringView lhs, const String<storageType> & rhs) noexcept {
+  String<storageType> result(lhs);
+  result.append(rhs);
+
+  return result;
+}
+
+template <StringStorage storageType, StringLike StringType>
+constexpr bool operator==(const String<storageType> & lhs, const StringType & rhs) noexcept {
+  return lhs.size() == rhs.size() && lhs.compare(rhs) == 0;
+}
+
+template <StringStorage storageType>
+constexpr bool operator==(const String<storageType> & lhs, const char * rhs) noexcept {
+  return lhs.compare(rhs) == 0;
+}
+
+template <StringStorage storageType, StringLike StringType>
+constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
+                                                                  const StringType &          rhs) noexcept {
+  return lhs.compare(rhs) <=> 0;
+}
+
+template <StringStorage storageType>
+constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
+                                                                  const char *                rhs) noexcept {
+  return lhs.compare(rhs) <=> 0;
+}
+
+template <StringStorage storageType>
+constexpr void swap(String<storageType> & lhs, String<storageType> & rhs) noexcept {
+  lhs.swap(rhs);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type erase(String<storageType> & string, char value) noexcept {
+  const auto oldSize = string.size();
+  string.erase(std::remove(string.begin(), string.end(), value), string.end());
+
+  return oldSize - string.size();
+}
+
+template <StringStorage storageType, typename Predicate>
+  requires std::predicate<Predicate &, char &>
+constexpr String<storageType>::size_type erase_if(String<storageType> & string, Predicate predicate) noexcept {
+  const auto oldSize = string.size();
+  string.erase(std::remove_if(string.begin(), string.end(), std::ref(predicate)), string.end());
+
+  return oldSize - string.size();
 }
 
 } // namespace toy

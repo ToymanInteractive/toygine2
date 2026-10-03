@@ -27,6 +27,7 @@
 #ifndef INCLUDE_CORE_STRING_VIEW_INL_
 #define INCLUDE_CORE_STRING_VIEW_INL_
 
+#include "string_utils.hpp"
 #include "utils.hpp"
 
 namespace toy {
@@ -149,25 +150,13 @@ constexpr StringView::size_type StringView::copy(value_type * dest, size_type co
 }
 
 constexpr int StringView::compare(StringView v) const noexcept {
-  const auto commonSize = std::min(size(), v.size());
-  const int  retVal     = commonSize != 0 ? traits_type::compare(data(), v.data(), commonSize) : 0;
-  if (retVal == 0)
-    return size() == v.size() ? 0 : (size() < v.size() ? -1 : 1);
-
-  return retVal;
+  return string_utils::compare(data(), size(), v.data(), v.size());
 }
 
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v) const noexcept {
   assert_message(pos1 <= size(), "Range out of bounds");
 
-  const auto rCount1 = std::min(count1, size() - pos1);
-  const auto common  = std::min(rCount1, v.size());
-
-  const int retVal = common != 0 ? traits_type::compare(data() + pos1, v.data(), common) : 0;
-  if (retVal == 0)
-    return rCount1 == v.size() ? 0 : (rCount1 < v.size() ? -1 : 1);
-
-  return retVal;
+  return string_utils::compare(data() + pos1, std::min(count1, size() - pos1), v.data(), v.size());
 }
 
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v, size_type pos2,
@@ -175,15 +164,8 @@ constexpr int StringView::compare(size_type pos1, size_type count1, StringView v
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(pos2 <= v.size(), "Range out of bounds");
 
-  const auto rCount1 = std::min(count1, size() - pos1);
-  const auto rCount2 = std::min(count2, v.size() - pos2);
-  const auto common  = std::min(rCount1, rCount2);
-
-  const int retVal = common != 0 ? traits_type::compare(data() + pos1, v.data() + pos2, common) : 0;
-  if (retVal == 0)
-    return rCount1 == rCount2 ? 0 : (rCount1 < rCount2 ? -1 : 1);
-
-  return retVal;
+  return string_utils::compare(data() + pos1, std::min(count1, size() - pos1), v.data() + pos2,
+                               std::min(count2, v.size() - pos2));
 }
 
 constexpr int StringView::compare(const value_type * s) const noexcept {
@@ -199,14 +181,7 @@ constexpr int StringView::compare(size_type pos1, size_type count1, const value_
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(s != nullptr, "C string must not be null");
 
-  const auto rCount1 = std::min(count1, size() - pos1);
-  const auto common  = std::min(rCount1, count2);
-
-  const int retVal = common != 0 ? traits_type::compare(data() + pos1, s, common) : 0;
-  if (retVal == 0)
-    return rCount1 == count2 ? 0 : (rCount1 < count2 ? -1 : 1);
-
-  return retVal;
+  return string_utils::compare(data() + pos1, std::min(count1, size() - pos1), s, count2);
 }
 
 constexpr bool StringView::starts_with(StringView sv) const noexcept {
@@ -250,38 +225,11 @@ constexpr StringView::size_type StringView::find(StringView v, size_type pos) co
 }
 
 constexpr StringView::size_type StringView::find(value_type ch, size_type pos) const noexcept {
-  if (pos >= size())
-    return npos;
-
-  // memchr at runtime, a plain scan under constant evaluation; neither reads a byte before pos.
-  const value_type * found = traits_type::find(_data + pos, size() - pos, ch);
-
-  return found != nullptr ? static_cast<size_type>(found - _data) : npos;
+  return string_utils::find(data(), size(), ch, pos);
 }
 
 constexpr StringView::size_type StringView::find(const value_type * s, size_type pos, size_type count) const noexcept {
-  if (count == 0)
-    return pos <= size() ? pos : npos;
-  else if (count > size())
-    return npos;
-
-  const size_type last = size() - count;
-  for (size_type index = pos; index <= last;) {
-    // memchr at runtime: skips to the next position that can start a match instead of comparing at every one.
-    const value_type * candidate = traits_type::find(_data + index, last - index + 1, s[0]);
-    if (candidate == nullptr)
-      return npos;
-
-    index = static_cast<size_type>(candidate - _data);
-
-    // The first character matched already, so the comparison starts behind it.
-    if (traits_type::compare(candidate + 1, s + 1, count - 1) == 0)
-      return index;
-
-    ++index;
-  }
-
-  return npos;
+  return string_utils::find(data(), size(), s, pos, count);
 }
 
 constexpr StringView::size_type StringView::find(const value_type * s, size_type pos) const noexcept {
@@ -293,32 +241,11 @@ constexpr StringView::size_type StringView::rfind(StringView v, size_type pos) c
 }
 
 constexpr StringView::size_type StringView::rfind(value_type ch, size_type pos) const noexcept {
-  for (size_type remaining = pos < size() ? pos + 1 : size(); remaining > 0; --remaining)
-    if (traits_type::eq(_data[remaining - 1], ch))
-      return remaining - 1;
-
-  return npos;
+  return string_utils::rfind(data(), size(), ch, pos);
 }
 
 constexpr StringView::size_type StringView::rfind(const value_type * s, size_type pos, size_type count) const noexcept {
-  if (count == 0)
-    return std::min(pos, size());
-  else if (count > size())
-    return npos;
-
-  for (size_type remaining = std::min(pos, size() - count) + 1; remaining > 0; --remaining) {
-    const size_type index = remaining - 1;
-
-    // Ends reject most positions before compare(); the backward walk keeps the early exit a forward scan loses.
-    if (!traits_type::eq(_data[index], s[0]))
-      continue;
-    if (count > 1 && !traits_type::eq(_data[index + count - 1], s[count - 1]))
-      continue;
-    if (count <= 2 || traits_type::compare(_data + index + 1, s + 1, count - 2) == 0)
-      return index;
-  }
-
-  return npos;
+  return string_utils::rfind(data(), size(), s, pos, count);
 }
 
 constexpr StringView::size_type StringView::rfind(const value_type * s, size_type pos) const noexcept {
@@ -335,14 +262,7 @@ constexpr StringView::size_type StringView::find_first_of(value_type ch, size_ty
 
 constexpr StringView::size_type StringView::find_first_of(const value_type * s, size_type pos,
                                                           size_type count) const noexcept {
-  if (count == 0)
-    return npos;
-
-  for (size_type index = pos; index < size(); ++index)
-    if (traits_type::find(s, count, _data[index]) != nullptr)
-      return index;
-
-  return npos;
+  return string_utils::findFirstOf(data(), size(), s, pos, count);
 }
 
 constexpr StringView::size_type StringView::find_first_of(const value_type * s, size_type pos) const noexcept {
@@ -359,14 +279,7 @@ constexpr StringView::size_type StringView::find_last_of(value_type ch, size_typ
 
 constexpr StringView::size_type StringView::find_last_of(const value_type * s, size_type pos,
                                                          size_type count) const noexcept {
-  if (count == 0)
-    return npos;
-
-  for (size_type remaining = pos < size() ? pos + 1 : size(); remaining > 0; --remaining)
-    if (traits_type::find(s, count, _data[remaining - 1]) != nullptr)
-      return remaining - 1;
-
-  return npos;
+  return string_utils::findLastOf(data(), size(), s, pos, count);
 }
 
 constexpr StringView::size_type StringView::find_last_of(const value_type * s, size_type pos) const noexcept {
@@ -378,23 +291,12 @@ constexpr StringView::size_type StringView::find_first_not_of(StringView v, size
 }
 
 constexpr StringView::size_type StringView::find_first_not_of(value_type ch, size_type pos) const noexcept {
-  for (size_type index = pos; index < size(); ++index)
-    if (!traits_type::eq(_data[index], ch))
-      return index;
-
-  return npos;
+  return string_utils::findFirstNotOf(data(), size(), ch, pos);
 }
 
 constexpr StringView::size_type StringView::find_first_not_of(const value_type * s, size_type pos,
                                                               size_type count) const noexcept {
-  if (count == 0)
-    return pos < size() ? pos : npos;
-
-  for (size_type index = pos; index < size(); ++index)
-    if (traits_type::find(s, count, _data[index]) == nullptr)
-      return index;
-
-  return npos;
+  return string_utils::findFirstNotOf(data(), size(), s, pos, count);
 }
 
 constexpr StringView::size_type StringView::find_first_not_of(const value_type * s, size_type pos) const noexcept {
@@ -406,23 +308,12 @@ constexpr StringView::size_type StringView::find_last_not_of(StringView v, size_
 }
 
 constexpr StringView::size_type StringView::find_last_not_of(value_type ch, size_type pos) const noexcept {
-  for (size_type remaining = pos < size() ? pos + 1 : size(); remaining > 0; --remaining)
-    if (!traits_type::eq(_data[remaining - 1], ch))
-      return remaining - 1;
-
-  return npos;
+  return string_utils::findLastNotOf(data(), size(), ch, pos);
 }
 
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos,
                                                              size_type count) const noexcept {
-  if (count == 0)
-    return empty() ? npos : std::min(pos, size() - 1);
-
-  for (size_type remaining = pos < size() ? pos + 1 : size(); remaining > 0; --remaining)
-    if (traits_type::find(s, count, _data[remaining - 1]) == nullptr)
-      return remaining - 1;
-
-  return npos;
+  return string_utils::findLastNotOf(data(), size(), s, pos, count);
 }
 
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos) const noexcept {

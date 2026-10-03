@@ -43,21 +43,10 @@ constexpr char         c_countedPart[4]  = {'p', 'l', 'a', 'y'};
 constexpr char         c_embeddedNull[5] = {'p', 'l', '\0', 'a', 'y'};
 
 // A byte above the ASCII range, which orders after an ASCII one only where bytes compare as unsigned char.
-constexpr const char * c_highByte       = "\xff";
-// The same byte inside a string, so a character-set search meets a value that is negative as a plain char.
-constexpr const char * c_highByteInside = "a\xff"
-                                          "b";
+constexpr const char * c_highByte = "\xff";
 
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
-constexpr const char * c_repeated               = "abracadabra";
-constexpr const char * c_repeatedLonger         = "abracadabra and then some";
-// The same literal with its last character replaced, which only a comparison reading to the end can reject.
-constexpr const char * c_repeatedLastDiffers    = "abracadabrx";
-// The same again, differing in its first character and in one byte of its middle.
-constexpr const char * c_repeatedFirstDiffers   = "xbracadabra";
-constexpr const char * c_repeatedMiddleDiffers  = "abXacadabra";
-// And again, differing in the byte just before the last, which a middle comparison short by one would skip.
-constexpr const char * c_repeatedNearEndDiffers = "abracadabXa";
+constexpr const char * c_repeated = "abracadabra";
 
 // Views the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
 constexpr StringView c_sampleView(c_sample);
@@ -510,30 +499,6 @@ TEST_CASE("string_view/compare_empty") {
   static_assert(StringView().compare(c_sampleView) < 0, "a view holding no string must order before any string");
 }
 
-// The offset a search reports for a set that holds no character, which every character of the string lies outside.
-TEST_CASE("string_view/find_empty_set") {
-  const StringView empty;
-  const StringView view(c_sample);
-
-  CHECK(view.find_first_of(empty) == c_npos);
-  CHECK(view.find_last_of(empty) == c_npos);
-
-  CHECK(view.find_first_not_of(empty) == 0);
-  CHECK(view.find_first_not_of(empty, 2) == 2);
-  CHECK(view.find_first_not_of(empty, c_sampleLength) == c_npos);
-  CHECK(view.find_last_not_of(empty) == c_sampleLength - 1);
-  CHECK(view.find_last_not_of(empty, 2) == 2);
-
-  CHECK(empty.find_first_not_of(empty) == c_npos);
-  CHECK(empty.find_last_not_of(empty) == c_npos);
-
-  static_assert(c_sampleView.find_first_of(StringView()) == c_npos, "an empty set must match no character");
-  static_assert(c_sampleView.find_last_of(StringView()) == c_npos, "an empty set must match no character backwards");
-  static_assert(c_sampleView.find_first_not_of(StringView()) == 0, "an empty set must leave every character out");
-  static_assert(c_sampleView.find_last_not_of(StringView()) == c_sampleLength - 1,
-                "an empty set must leave the last character out too");
-}
-
 // Whether two views hold the same characters, and what the synthesized inequality reports.
 TEST_CASE("string_view/equality") {
   const StringView view(c_sample);
@@ -637,136 +602,40 @@ TEST_CASE("string_view/ends_with") {
   static_assert(c_sampleView.ends_with("yer"), "the pointer overload measures its argument");
 }
 
-// Where a forward search first matches the characters the argument names.
+// Which offset each overload reports; the search itself is covered by the toy::string_utils tests.
 TEST_CASE("string_view/find") {
   const StringView view(c_repeated);
 
   CHECK(view.find(StringView("abra")) == 0);
   CHECK(view.find(StringView("abra"), 1) == 7);
-  CHECK(view.find(StringView("abra"), 8) == c_npos);
-  CHECK(view.find(StringView("cad")) == 4);
-  CHECK(view.find(StringView("xyz")) == c_npos);
-
-  // A needle longer than the viewed string matches nowhere, decided on the lengths before any character is read.
-  CHECK(view.find(StringView(c_repeatedLonger)) == c_npos);
-  CHECK(view.find(c_repeatedLonger, 0, std::char_traits<char>::length(c_repeatedLonger)) == c_npos);
-
-  // An empty needle matches at the offset the search starts from; past the end it matches nowhere.
-  CHECK(view.find(StringView("")) == 0);
-  CHECK(view.find(StringView(""), c_repeatedLength) == c_repeatedLength);
-  CHECK(view.find(StringView(""), c_repeatedLength + 1) == c_npos);
-
-  // The counted overload reads only the leading characters its count names.
-  CHECK(view.find("abrasive", 0, 4) == 0);
   CHECK(view.find("abrasive", 1, 4) == 7);
-
-  // A count of one matches at the last position, where the comparison behind the matched character reads nothing.
-  CHECK(view.find("a", c_repeatedLength - 1, 1) == c_repeatedLength - 1);
-
-  // A candidate sharing only its first character must not end the scan.
-  CHECK(view.find("abz", 0, 3) == c_npos);
-
-  // A needle the size of the string leaves a single candidate, which its last byte decides.
-  CHECK(view.find(c_repeated, 0, c_repeatedLength) == 0);
-  CHECK(view.find(c_repeatedLastDiffers, 0, c_repeatedLength) == c_npos);
-
   CHECK(view.find("cad") == 4);
   CHECK(view.find("cad", 5) == c_npos);
-
-  // The character overload reads single characters rather than a sequence.
   CHECK(view.find('a') == 0);
   CHECK(view.find('a', 1) == 3);
-  CHECK(view.find('d') == 6);
-  CHECK(view.find('z') == c_npos);
 
-  // A start at or past the last character matches nowhere.
-  CHECK(view.find('a', c_repeatedLength) == c_npos);
-  CHECK(StringView("").find('a') == c_npos);
-
-  static_assert(c_repeatedView.find('a') == 0, "the first occurrence wins");
-  static_assert(c_repeatedView.find('a', 1) == 3, "the offset skips earlier matches");
-  static_assert(c_repeatedView.find('z') == c_npos, "an absent character reports npos");
-  static_assert(c_repeatedView.find(StringView("abra")) == 0, "the first match wins");
-  static_assert(c_repeatedView.find(StringView("abra"), 1) == 7, "the offset skips earlier matches");
-  static_assert(c_repeatedView.find(StringView("xyz")) == c_npos, "an absent needle reports npos");
-  static_assert(c_repeatedView.find(StringView(c_repeatedLonger)) == c_npos,
-                "a needle longer than the string reports npos");
-  static_assert(c_repeatedView.find(StringView("")) == 0, "an empty needle matches at the start offset");
+  static_assert(c_repeatedView.find(StringView("abra"), 1) == 7, "the view overload passes its offset on");
   static_assert(c_repeatedView.find("abrasive", 1, 4) == 7, "the count bounds what is read");
   static_assert(c_repeatedView.find("cad") == 4, "the pointer overload measures its argument");
-  static_assert(c_repeatedView.find("a", c_repeatedLength - 1, 1) == c_repeatedLength - 1,
-                "a count of one matches at the last position");
-  static_assert(c_repeatedView.find("abz", 0, 3) == c_npos, "a candidate sharing only its first character is rejected");
-  static_assert(c_repeatedView.find(c_repeated, 0, c_repeatedLength) == 0,
-                "a needle the size of the string matches at the front");
-  static_assert(c_repeatedView.find(c_repeatedLastDiffers, 0, c_repeatedLength) == c_npos,
-                "a needle differing in its last byte matches nowhere");
+  static_assert(c_repeatedView.find('a', 1) == 3, "the character overload passes its offset on");
 }
 
-// Where a backward search last matches the characters the argument names.
+// Which offset each overload of the backward search reports.
 TEST_CASE("string_view/rfind") {
   const StringView view(c_repeated);
 
   CHECK(view.rfind(StringView("abra")) == 7);
   CHECK(view.rfind(StringView("abra"), 6) == 0);
-  CHECK(view.rfind(StringView("abra"), 0) == 0);
-  CHECK(view.rfind(StringView("cad")) == 4);
-  CHECK(view.rfind(StringView("xyz")) == c_npos);
-  CHECK(view.rfind(StringView(c_repeatedLonger)) == c_npos);
-  CHECK(view.rfind(c_repeatedLonger, c_npos, std::char_traits<char>::length(c_repeatedLonger)) == c_npos);
-
-  // An empty needle matches at the offset the search starts from, capped at the length.
-  CHECK(view.rfind(StringView("")) == c_repeatedLength);
-  CHECK(view.rfind(StringView(""), 5) == 5);
-
   CHECK(view.rfind("abrasive", c_npos, 4) == 7);
-
-  // A needle the size of the string leaves one candidate, which any of its three parts can reject.
-  CHECK(view.rfind(c_repeated, c_npos, c_repeatedLength) == 0);
-  CHECK(view.rfind(c_repeatedFirstDiffers, c_npos, c_repeatedLength) == c_npos);
-  CHECK(view.rfind(c_repeatedMiddleDiffers, c_npos, c_repeatedLength) == c_npos);
-  CHECK(view.rfind(c_repeatedNearEndDiffers, c_npos, c_repeatedLength) == c_npos);
-  CHECK(view.rfind(c_repeatedLastDiffers, c_npos, c_repeatedLength) == c_npos);
-
-  // Counts of one and two, where the comparison behind the ends has nothing left to read.
-  CHECK(view.rfind("a", c_npos, 1) == c_repeatedLength - 1);
-  CHECK(view.rfind("ab", c_npos, 2) == 7);
   CHECK(view.rfind("cad") == 4);
   CHECK(view.rfind("cad", 3) == c_npos);
-
-  // The character overload reads single characters rather than a sequence.
   CHECK(view.rfind('a') == c_repeatedLength - 1);
   CHECK(view.rfind('a', 9) == 7);
-  CHECK(view.rfind('d') == 6);
-  CHECK(view.rfind('z') == c_npos);
 
-  // An offset of zero leaves the first character as the only candidate.
-  CHECK(view.rfind('b', 0) == c_npos);
-  CHECK(view.rfind('a', 0) == 0);
-  CHECK(StringView("").rfind('a') == c_npos);
-
-  static_assert(c_repeatedView.rfind('a') == c_repeatedLength - 1, "the last occurrence wins");
-  static_assert(c_repeatedView.rfind('a', 9) == 7, "the offset caps how far back a match may sit");
-  static_assert(c_repeatedView.rfind('z') == c_npos, "an absent character reports npos");
-  static_assert(c_repeatedView.rfind(StringView("abra")) == 7, "the last match wins");
-  static_assert(c_repeatedView.rfind(StringView("abra"), 6) == 0, "the offset caps where a match starts");
-  static_assert(c_repeatedView.rfind(StringView("xyz")) == c_npos, "an absent needle reports npos");
-  static_assert(c_repeatedView.rfind(StringView(c_repeatedLonger)) == c_npos,
-                "a needle longer than the string reports npos");
-  static_assert(c_repeatedView.rfind(StringView("")) == c_repeatedLength, "an empty needle matches at the end");
+  static_assert(c_repeatedView.rfind(StringView("abra"), 6) == 0, "the view overload passes its offset on");
   static_assert(c_repeatedView.rfind("abrasive", c_npos, 4) == 7, "the count bounds what is read");
   static_assert(c_repeatedView.rfind("cad") == 4, "the pointer overload measures its argument");
-  static_assert(c_repeatedView.rfind(c_repeated, c_npos, c_repeatedLength) == 0,
-                "a needle the size of the string matches at the front");
-  static_assert(c_repeatedView.rfind(c_repeatedFirstDiffers, c_npos, c_repeatedLength) == c_npos,
-                "a needle differing in its first byte matches nowhere");
-  static_assert(c_repeatedView.rfind(c_repeatedMiddleDiffers, c_npos, c_repeatedLength) == c_npos,
-                "a needle differing in its middle matches nowhere");
-  static_assert(c_repeatedView.rfind(c_repeatedNearEndDiffers, c_npos, c_repeatedLength) == c_npos,
-                "a needle differing just before its last byte matches nowhere");
-  static_assert(c_repeatedView.rfind(c_repeatedLastDiffers, c_npos, c_repeatedLength) == c_npos,
-                "a needle differing in its last byte matches nowhere");
-  static_assert(c_repeatedView.rfind("ab", c_npos, 2) == 7, "a count of two is decided by its ends alone");
+  static_assert(c_repeatedView.rfind('a', 9) == 7, "the character overload passes its offset on");
 }
 
 // Whether the characters the argument names appear anywhere in the viewed string.
@@ -789,155 +658,76 @@ TEST_CASE("string_view/contains") {
   static_assert(c_repeatedView.contains("dabra"), "the pointer overload measures its argument");
 }
 
-// Where a forward search first meets any character the argument's set holds.
-// A byte above the ASCII range reaches a character-set search, where a signed index would read outside the table.
-TEST_CASE("string_view/character_set_high_byte") {
-  const StringView view(c_highByteInside);
-
-  CHECK(view.find_first_of(StringView(c_highByte)) == 1);
-  CHECK(view.find_last_of(StringView(c_highByte)) == 1);
-  // Temporary: Clang 23 on x86_64 miscompiles memchr over a constant set; the static_asserts below still cover both.
-  // Upstream report: https://github.com/llvm/llvm-project/issues/228213
-#if !defined(__clang__) || defined(__apple_build_version__) || __clang_major__ != 23 || !defined(__x86_64__)
-  CHECK(view.find_first_not_of(StringView("a\xff")) == 2);
-  CHECK(view.find_last_not_of(StringView("b\xff")) == 0);
-#endif
-
-  static_assert(StringView(c_highByteInside).find_first_of(StringView(c_highByte)) == 1,
-                "a high byte is found in a set");
-  static_assert(StringView(c_highByteInside).find_last_of(StringView(c_highByte)) == 1,
-                "a high byte is found scanning backwards");
-  static_assert(StringView(c_highByteInside).find_first_not_of(StringView("a\xff")) == 2,
-                "a high byte counts as a member of the set");
-  static_assert(StringView(c_highByteInside).find_last_not_of(StringView("b\xff")) == 0,
-                "a high byte counts as a member scanning backwards");
-}
-
+// Which offset each overload reports for a set; a set of one character reads the same as a character search.
 TEST_CASE("string_view/find_first_of") {
   const StringView view(c_repeated);
 
   CHECK(view.find_first_of(StringView("rc")) == 2);
   CHECK(view.find_first_of(StringView("rc"), 3) == 4);
-  CHECK(view.find_first_of(StringView("xyz")) == c_npos);
-
-  // An empty set holds no character to match, unlike an empty needle in a substring search.
-  CHECK(view.find_first_of(StringView("")) == c_npos);
-  CHECK(StringView("").find_first_of(StringView("a")) == c_npos);
-
-  // A set of one character reads the same as a character search.
-  CHECK(view.find_first_of('d') == 6);
-  CHECK(view.find_first_of('a', 1) == 3);
-  CHECK(view.find_first_of('z') == c_npos);
-
-  CHECK(view.find_first_of("rcxyz", 0, 2) == 2);
   CHECK(view.find_first_of("rcxyz", 3, 2) == 4);
-
   CHECK(view.find_first_of("rc") == 2);
   CHECK(view.find_first_of("rc", 10) == c_npos);
+  CHECK(view.find_first_of('d') == 6);
+  CHECK(view.find_first_of('a', 1) == 3);
 
-  static_assert(c_repeatedView.find_first_of(StringView("rc")) == 2, "the first set member wins");
-  static_assert(c_repeatedView.find_first_of(StringView("rc"), 3) == 4, "the offset skips earlier matches");
-  static_assert(c_repeatedView.find_first_of(StringView("")) == c_npos, "an empty set matches nowhere");
-  static_assert(c_repeatedView.find_first_of('d') == 6, "a set of one is that character");
+  static_assert(c_repeatedView.find_first_of(StringView("rc"), 3) == 4, "the view overload passes its offset on");
   static_assert(c_repeatedView.find_first_of("rcxyz", 3, 2) == 4, "the count bounds what is read");
   static_assert(c_repeatedView.find_first_of("rc") == 2, "the pointer overload measures its argument");
+  static_assert(c_repeatedView.find_first_of('d') == 6, "a set of one is that character");
 }
 
-// Where a backward search last meets any character the argument's set holds.
+// Which offset each overload of the backward set search reports.
 TEST_CASE("string_view/find_last_of") {
   const StringView view(c_repeated);
 
   CHECK(view.find_last_of(StringView("rc")) == 9);
   CHECK(view.find_last_of(StringView("rc"), 8) == 4);
-  CHECK(view.find_last_of(StringView("xyz")) == c_npos);
-
-  CHECK(view.find_last_of(StringView("")) == c_npos);
-  CHECK(StringView("").find_last_of(StringView("a")) == c_npos);
-
-  CHECK(view.find_last_of('a') == c_repeatedLength - 1);
-  CHECK(view.find_last_of('a', 9) == 7);
-  CHECK(view.find_last_of('z') == c_npos);
-
-  CHECK(view.find_last_of("rcxyz", c_npos, 2) == 9);
   CHECK(view.find_last_of("rcxyz", 8, 2) == 4);
-
   CHECK(view.find_last_of("rc") == 9);
   CHECK(view.find_last_of("rc", 1) == c_npos);
+  CHECK(view.find_last_of('a') == c_repeatedLength - 1);
+  CHECK(view.find_last_of('a', 9) == 7);
 
-  static_assert(c_repeatedView.find_last_of(StringView("rc")) == 9, "the last set member wins");
-  static_assert(c_repeatedView.find_last_of(StringView("rc"), 8) == 4, "the offset caps how far back a match may sit");
-  static_assert(c_repeatedView.find_last_of(StringView("")) == c_npos, "an empty set matches nowhere");
-  static_assert(c_repeatedView.find_last_of('a') == c_repeatedLength - 1, "a set of one is that character");
+  static_assert(c_repeatedView.find_last_of(StringView("rc"), 8) == 4, "the view overload passes its offset on");
   static_assert(c_repeatedView.find_last_of("rcxyz", 8, 2) == 4, "the count bounds what is read");
   static_assert(c_repeatedView.find_last_of("rc") == 9, "the pointer overload measures its argument");
+  static_assert(c_repeatedView.find_last_of('a') == c_repeatedLength - 1, "a set of one is that character");
 }
 
-// Where a forward search first meets a character the argument's set does not hold.
+// Which offset each overload reports for the first character outside a set.
 TEST_CASE("string_view/find_first_not_of") {
   const StringView view(c_repeated);
 
   CHECK(view.find_first_not_of(StringView("ab")) == 2);
   CHECK(view.find_first_not_of(StringView("ab"), 3) == 4);
-  CHECK(view.find_first_not_of(StringView("abr")) == 4);
-
-  // A set holding every character the string uses leaves nothing to report.
-  CHECK(view.find_first_not_of(StringView("abcdr")) == c_npos);
-
-  // An empty set excludes no character, so the search stops where it starts.
-  CHECK(view.find_first_not_of(StringView("")) == 0);
-  CHECK(StringView("").find_first_not_of(StringView("")) == c_npos);
-
-  CHECK(view.find_first_not_of('a') == 1);
-  CHECK(view.find_first_not_of('a', 3) == 4);
-  CHECK(StringView("aaa").find_first_not_of('a') == c_npos);
-
-  CHECK(view.find_first_not_of("abxyz", 0, 2) == 2);
   CHECK(view.find_first_not_of("abxyz", 3, 2) == 4);
-
   CHECK(view.find_first_not_of("ab") == 2);
   CHECK(view.find_first_not_of("ab", 10) == c_npos);
+  CHECK(view.find_first_not_of('a') == 1);
+  CHECK(view.find_first_not_of('a', 3) == 4);
 
-  static_assert(c_repeatedView.find_first_not_of(StringView("ab")) == 2, "the first excluded character wins");
-  static_assert(c_repeatedView.find_first_not_of(StringView("ab"), 3) == 4, "the offset skips earlier matches");
-  static_assert(c_repeatedView.find_first_not_of(StringView("abcdr")) == c_npos,
-                "a set covering every character reports npos");
-  static_assert(c_repeatedView.find_first_not_of(StringView("")) == 0, "an empty set excludes nothing");
-  static_assert(c_repeatedView.find_first_not_of('a') == 1, "the character overload excludes one character");
+  static_assert(c_repeatedView.find_first_not_of(StringView("ab"), 3) == 4, "the view overload passes its offset on");
   static_assert(c_repeatedView.find_first_not_of("abxyz", 3, 2) == 4, "the count bounds what is read");
   static_assert(c_repeatedView.find_first_not_of("ab") == 2, "the pointer overload measures its argument");
+  static_assert(c_repeatedView.find_first_not_of('a', 3) == 4, "the character overload passes its offset on");
 }
 
-// Where a backward search last meets a character the argument's set does not hold.
+// Which offset each overload reports for the last character outside a set.
 TEST_CASE("string_view/find_last_not_of") {
   const StringView view(c_repeated);
 
   CHECK(view.find_last_not_of(StringView("ab")) == 9);
   CHECK(view.find_last_not_of(StringView("ab"), 8) == 6);
-  CHECK(view.find_last_not_of(StringView("abcdr")) == c_npos);
-
-  CHECK(view.find_last_not_of(StringView("")) == c_repeatedLength - 1);
-  CHECK(StringView("").find_last_not_of(StringView("")) == c_npos);
-
-  CHECK(view.find_last_not_of('a') == 9);
-  CHECK(view.find_last_not_of('a', 8) == 8);
-  CHECK(StringView("aaa").find_last_not_of('a') == c_npos);
-
-  CHECK(view.find_last_not_of("abxyz", c_npos, 2) == 9);
   CHECK(view.find_last_not_of("abxyz", 8, 2) == 6);
-
   CHECK(view.find_last_not_of("ab") == 9);
   CHECK(view.find_last_not_of("ab", 1) == c_npos);
+  CHECK(view.find_last_not_of('a') == 9);
+  CHECK(view.find_last_not_of('a', 8) == 8);
 
-  static_assert(c_repeatedView.find_last_not_of(StringView("ab")) == 9, "the last excluded character wins");
-  static_assert(c_repeatedView.find_last_not_of(StringView("ab"), 8) == 6,
-                "the offset caps how far back a match may sit");
-  static_assert(c_repeatedView.find_last_not_of(StringView("abcdr")) == c_npos,
-                "a set covering every character reports npos");
-  static_assert(c_repeatedView.find_last_not_of(StringView("")) == c_repeatedLength - 1,
-                "an empty set excludes nothing");
-  static_assert(c_repeatedView.find_last_not_of('a') == 9, "the character overload excludes one character");
+  static_assert(c_repeatedView.find_last_not_of(StringView("ab"), 8) == 6, "the view overload passes its offset on");
   static_assert(c_repeatedView.find_last_not_of("abxyz", 8, 2) == 6, "the count bounds what is read");
   static_assert(c_repeatedView.find_last_not_of("ab") == 9, "the pointer overload measures its argument");
+  static_assert(c_repeatedView.find_last_not_of('a', 8) == 8, "the character overload passes its offset on");
 }
 
 } // namespace toy
