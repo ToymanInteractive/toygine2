@@ -39,246 +39,244 @@ using traits_type = std::char_traits<char>;
 inline constexpr size_t c_npos = static_cast<size_t>(-1);
 
 /*!
-  \brief Finds the first occurrence of a character at or after an offset.
+  \brief Finds the first occurrence of \a ch at or after \a pos.
 
-  \param data  First character of the searched range.
-  \param size  Number of characters in the searched range.
-  \param ch    Character to look for.
-  \param pos   Offset the search starts from.
+  \param data First byte of the searched range.
+  \param size Number of bytes in the searched range.
+  \param ch   Character to look for.
+  \param pos  Offset the search starts from.
 
   \return Offset of the first \a ch at or after \a pos, or \ref toy::string_utils::c_npos when there is none; a \a pos
           at or past \a size always gives \ref toy::string_utils::c_npos.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
 
-  \sa toy::string_utils::rfind()
-  \sa toy::string_utils::findFirstNotOf()
+  \sa toy::string_utils::rfind(const char *, size_t, char, size_t)
 */
 [[nodiscard]] constexpr size_t find(const char * data, size_t size, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the first position at or after an offset where a character sequence starts.
+  \brief Finds the first position at or after \a pos where the \a count bytes starting at \a pattern start.
 
-  \param data     First character of the searched range.
-  \param size     Number of characters in the searched range.
-  \param pattern  First character of the sequence to look for.
-  \param pos      Offset the search starts from.
-  \param count    Number of characters in \a pattern.
+  Matches the bytes of \a pattern in order and next to each other; toy::string_utils::findFirstOf() matches any one of
+  them. Reads exactly \a count bytes of the pattern, so it needs no terminator and may hold \c '\\0'.
 
-  \return Offset where the first match starts, or \ref toy::string_utils::c_npos when there is none. An empty
-          \a pattern matches at \a pos while \a pos does not exceed \a size.
+  \param data    First byte of the searched range.
+  \param size    Number of bytes in the searched range.
+  \param pattern First byte of the pattern.
+  \param pos     Offset the search starts from.
+  \param count   Number of bytes in the pattern.
+
+  \return Offset where the first match starts, or \ref toy::string_utils::c_npos when there is none. An empty pattern
+          matches at \a pos while \a pos is not greater than \a size.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
   \pre \a pattern is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count characters starting at \a pattern are readable.
+  \pre The \a count bytes starting at \a pattern are readable.
 
-  \note Worst case O(\a size * \a count) character comparisons.
-
-  \sa toy::string_utils::rfind()
+  \sa toy::string_utils::rfind(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr size_t find(const char * data, size_t size, const char * pattern, size_t pos,
                                     size_t count) noexcept;
 
 /*!
-  \brief Finds the last occurrence of a character at or before an offset.
+  \brief Finds the last occurrence of \a ch at or before \a pos.
 
-  \param data  First character of the searched range.
-  \param size  Number of characters in the searched range.
-  \param ch    Character to look for.
-  \param pos   Last offset the search considers; any offset past the range covers all of it.
+  \param data First byte of the searched range.
+  \param size Number of bytes in the searched range.
+  \param ch   Character to look for.
+  \param pos  Last offset the search considers; any offset past the range covers all of it.
 
   \return Offset of the last \a ch at or before \a pos, or \ref toy::string_utils::c_npos when there is none.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
 
-  \sa toy::string_utils::find()
-  \sa toy::string_utils::findLastNotOf()
+  \sa toy::string_utils::find(const char *, size_t, char, size_t)
 */
 [[nodiscard]] constexpr size_t rfind(const char * data, size_t size, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the last position at or before an offset where a character sequence starts.
+  \brief Finds the last position at or before \a pos where the \a count bytes starting at \a pattern start.
 
-  \param data     First character of the searched range.
-  \param size     Number of characters in the searched range.
-  \param pattern  First character of the sequence to look for.
-  \param pos      Last offset a match may start at; any offset past the range covers all of it.
-  \param count    Number of characters in \a pattern.
+  Matches the bytes of \a pattern in order and next to each other; toy::string_utils::findLastOf() matches any one of
+  them. Reads exactly \a count bytes of the pattern, so it needs no terminator and may hold \c '\\0'.
 
-  \return Offset where the last match starts, or \ref toy::string_utils::c_npos when there is none. An empty
-          \a pattern matches at the smaller of \a pos and \a size.
+  \param data    First byte of the searched range.
+  \param size    Number of bytes in the searched range.
+  \param pattern First byte of the pattern.
+  \param pos     Last offset a match may start at; any offset past the range covers all of it.
+  \param count   Number of bytes in the pattern.
+
+  \return Offset where the last match starts, or \ref toy::string_utils::c_npos when there is none. An empty pattern
+          matches at the smaller of \a pos and \a size.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
   \pre \a pattern is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count characters starting at \a pattern are readable.
+  \pre The \a count bytes starting at \a pattern are readable.
 
-  \note Worst case O(\a size * \a count) character comparisons.
-
-  \sa toy::string_utils::find()
+  \sa toy::string_utils::find(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr size_t rfind(const char * data, size_t size, const char * pattern, size_t pos,
                                      size_t count) noexcept;
 
 /*!
-  \brief Finds the first character at or after an offset that belongs to a set.
+  \brief Finds the first character at or after \a pos that belongs to the \a count bytes starting at \a set.
 
-  \param data   First character of the searched range.
-  \param size   Number of characters in the searched range.
-  \param set    First character of the set.
-  \param pos    Offset the search starts from.
-  \param count  Number of characters in \a set.
+  Reads the bytes of \a set as a set, so their order carries no meaning; toy::string_utils::find() matches them as a
+  sequence.
 
-  \return Offset of the first character found in \a set, or \ref toy::string_utils::c_npos when there is none. An
-          empty \a set matches nothing.
+  \param data  First byte of the searched range.
+  \param size  Number of bytes in the searched range.
+  \param set   First byte of the set.
+  \param pos   Offset the search starts from.
+  \param count Number of bytes in the set.
+
+  \return Offset of the first character that belongs to the set, or \ref toy::string_utils::c_npos when there is none.
+          An empty set matches nothing.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
   \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count characters starting at \a set are readable.
+  \pre The \a count bytes starting at \a set are readable.
 
-  \note Worst case O(\a size * \a count) character comparisons.
-
-  \sa toy::string_utils::findLastOf()
-  \sa toy::string_utils::findFirstNotOf()
+  \sa toy::string_utils::findLastOf(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr size_t findFirstOf(const char * data, size_t size, const char * set, size_t pos,
                                            size_t count) noexcept;
 
 /*!
-  \brief Finds the last character at or before an offset that belongs to a set.
+  \brief Finds the last character at or before \a pos that belongs to the \a count bytes starting at \a set.
 
-  \param data   First character of the searched range.
-  \param size   Number of characters in the searched range.
-  \param set    First character of the set.
-  \param pos    Last offset the search considers; any offset past the range covers all of it.
-  \param count  Number of characters in \a set.
+  Reads the bytes of \a set as a set, so their order carries no meaning; toy::string_utils::rfind() matches them as a
+  sequence.
 
-  \return Offset of the last character found in \a set, or \ref toy::string_utils::c_npos when there is none. An
-          empty \a set matches nothing.
+  \param data  First byte of the searched range.
+  \param size  Number of bytes in the searched range.
+  \param set   First byte of the set.
+  \param pos   Last offset the search considers; any offset past the range covers all of it.
+  \param count Number of bytes in the set.
+
+  \return Offset of the last character that belongs to the set, or \ref toy::string_utils::c_npos when there is none. An
+          empty set matches nothing.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
   \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count characters starting at \a set are readable.
+  \pre The \a count bytes starting at \a set are readable.
 
-  \note Worst case O(\a size * \a count) character comparisons.
-
-  \sa toy::string_utils::findFirstOf()
-  \sa toy::string_utils::findLastNotOf()
+  \sa toy::string_utils::findFirstOf(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr size_t findLastOf(const char * data, size_t size, const char * set, size_t pos,
                                           size_t count) noexcept;
 
 /*!
-  \brief Finds the first character at or after an offset that differs from a given one.
+  \brief Finds the first character at or after \a pos that differs from \a ch.
 
-  \param data  First character of the searched range.
-  \param size  Number of characters in the searched range.
-  \param ch    Character to skip.
-  \param pos   Offset the search starts from.
+  \param data First byte of the searched range.
+  \param size Number of bytes in the searched range.
+  \param ch   Character to skip.
+  \param pos  Offset the search starts from.
 
-  \return Offset of the first character other than \a ch, or \ref toy::string_utils::c_npos when there is none.
+  \return Offset of the first character other than \a ch at or after \a pos, or \ref toy::string_utils::c_npos when
+          there is none.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
 
-  \sa toy::string_utils::find()
-  \sa toy::string_utils::findLastNotOf()
+  \sa toy::string_utils::findLastNotOf(const char *, size_t, char, size_t)
 */
 [[nodiscard]] constexpr size_t findFirstNotOf(const char * data, size_t size, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the first character at or after an offset that does not belong to a set.
+  \brief Finds the first character at or after \a pos that does not belong to the \a count bytes starting at \a set.
 
-  \param data   First character of the searched range.
-  \param size   Number of characters in the searched range.
-  \param set    First character of the set.
-  \param pos    Offset the search starts from.
-  \param count  Number of characters in \a set.
+  \param data  First byte of the searched range.
+  \param size  Number of bytes in the searched range.
+  \param set   First byte of the set.
+  \param pos   Offset the search starts from.
+  \param count Number of bytes in the set.
 
-  \return Offset of the first character missing from \a set, or \ref toy::string_utils::c_npos when there is none. No
-          character belongs to an empty \a set, so the result is then \a pos while \a pos is less than \a size.
+  \return Offset of the first character that does not belong to the set, or \ref toy::string_utils::c_npos when there is
+          none. No character belongs to an empty set, so the result is then \a pos while \a pos is less than \a size.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
   \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count characters starting at \a set are readable.
+  \pre The \a count bytes starting at \a set are readable.
 
-  \note Worst case O(\a size * \a count) character comparisons.
-
-  \sa toy::string_utils::findFirstOf()
-  \sa toy::string_utils::findLastNotOf()
+  \sa toy::string_utils::findLastNotOf(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set, size_t pos,
                                               size_t count) noexcept;
 
 /*!
-  \brief Finds the last character at or before an offset that differs from a given one.
+  \brief Finds the last character at or before \a pos that differs from \a ch.
 
-  \param data  First character of the searched range.
-  \param size  Number of characters in the searched range.
-  \param ch    Character to skip.
-  \param pos   Last offset the search considers; any offset past the range covers all of it.
+  \param data First byte of the searched range.
+  \param size Number of bytes in the searched range.
+  \param ch   Character to skip.
+  \param pos  Last offset the search considers; any offset past the range covers all of it.
 
-  \return Offset of the last character other than \a ch, or \ref toy::string_utils::c_npos when there is none.
+  \return Offset of the last character other than \a ch at or before \a pos, or \ref toy::string_utils::c_npos when
+          there is none.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
 
-  \sa toy::string_utils::rfind()
-  \sa toy::string_utils::findFirstNotOf()
+  \sa toy::string_utils::findFirstNotOf(const char *, size_t, char, size_t)
 */
 [[nodiscard]] constexpr size_t findLastNotOf(const char * data, size_t size, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the last character at or before an offset that does not belong to a set.
+  \brief Finds the last character at or before \a pos that does not belong to the \a count bytes starting at \a set.
 
-  \param data   First character of the searched range.
-  \param size   Number of characters in the searched range.
-  \param set    First character of the set.
-  \param pos    Last offset the search considers; any offset past the range covers all of it.
-  \param count  Number of characters in \a set.
+  \param data  First byte of the searched range.
+  \param size  Number of bytes in the searched range.
+  \param set   First byte of the set.
+  \param pos   Last offset the search considers; any offset past the range covers all of it.
+  \param count Number of bytes in the set.
 
-  \return Offset of the last character missing from \a set, or \ref toy::string_utils::c_npos when there is none. No
-          character belongs to an empty \a set, so the result is then the smaller of \a pos and the last offset, or
-          \ref toy::string_utils::c_npos for an empty range.
+  \return Offset of the last character that does not belong to the set, or \ref toy::string_utils::c_npos when there is
+          none. No character belongs to an empty set, so the result is then the smaller of \a pos and \a size minus one,
+          or \ref toy::string_utils::c_npos for an empty range.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size characters starting at \a data are readable.
+  \pre The \a size bytes starting at \a data are readable.
   \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count characters starting at \a set are readable.
+  \pre The \a count bytes starting at \a set are readable.
 
-  \note Worst case O(\a size * \a count) character comparisons.
-
-  \sa toy::string_utils::findLastOf()
-  \sa toy::string_utils::findFirstNotOf()
+  \sa toy::string_utils::findFirstNotOf(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr size_t findLastNotOf(const char * data, size_t size, const char * set, size_t pos,
                                              size_t count) noexcept;
 
 /*!
-  \brief Compares two character ranges in lexicographic order.
+  \brief Compares the \a lhsSize bytes starting at \a lhs with the \a rhsSize bytes starting at \a rhs in lexicographic
+         order.
 
   Compares bytes as \c unsigned \c char up to the shorter length; when one range is a prefix of the other, the shorter
-  one orders first.
+  one orders first. A \c '\\0' inside either range compares like any other byte.
 
-  \param lhs     First character of the left range.
-  \param lhsSize Number of characters in the left range.
-  \param rhs     First character of the right range.
-  \param rhsSize Number of characters in the right range.
+  \param lhs     First byte of the left range.
+  \param lhsSize Number of bytes in the left range.
+  \param rhs     First byte of the right range.
+  \param rhsSize Number of bytes in the right range.
 
   \return A negative value when the left range orders first, \c 0 when both hold the same characters, a positive value
-          when the right range orders first. Only the sign carries meaning.
+          when the right range orders first.
 
   \pre \a lhs is non-null or \a lhsSize is \c 0, checked by assert_message in debug builds.
+  \pre The \a lhsSize bytes starting at \a lhs are readable.
   \pre \a rhs is non-null or \a rhsSize is \c 0, checked by assert_message in debug builds.
-  \pre The \a lhsSize characters starting at \a lhs and the \a rhsSize characters starting at \a rhs are readable.
+  \pre The \a rhsSize bytes starting at \a rhs are readable.
 
-  \sa toy::string_utils::find()
+  \note Only the sign carries meaning; the magnitude is whatever the byte comparison produced.
+
+  \sa toy::string_utils::find(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t rhsSize) noexcept;
 

@@ -141,6 +141,8 @@ constexpr void StringView::swap(StringView & v) noexcept {
 
 constexpr StringView::size_type StringView::copy(value_type * dest, size_type count, size_type pos) const noexcept {
   assert_message(pos <= size(), "copy() can't copy past the end of the string");
+  if (pos > size())
+    return 0;
 
   const auto rLength = std::min(count, size() - pos);
   if (rLength != 0)

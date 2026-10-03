@@ -101,6 +101,11 @@ namespace toy {
   * **Type safety**: construction and assignment from \c nullptr are deleted, so the null case fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
+  \section string_compatibility Compatibility
+
+  * Over \ref toy::FixedString no operation allocates or calls into the platform, so the type suits embedded and retro
+    targets.
+
   \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
   \note The conversion to \ref toy::StringView and subview() measure to the first \c '\\0', so a null byte inside the
         string ends the view early.
@@ -2192,6 +2197,8 @@ public:
   /*!
     \brief Finds the first position at or after \a pos where the characters of \a string start.
 
+    Matches the characters of \a string in order and next to each other; find_first_of() matches any one of them.
+
     \tparam StringType Pattern type; satisfies \ref toy::StringLike.
 
     \param string View or string to look for.
@@ -2257,6 +2264,8 @@ public:
   /*!
     \brief Finds the last position at or before \a pos where the characters of \a string start.
 
+    Matches the characters of \a string in order and next to each other; find_last_of() matches any one of them.
+
     \tparam StringType Pattern type; satisfies \ref toy::StringLike.
 
     \param string View or string to look for.
@@ -2320,6 +2329,8 @@ public:
 
   /*!
     \brief Finds the first character at or after \a pos that belongs to the characters of \a string.
+
+    Reads the characters of \a string as a set, so their order carries no meaning; find() matches them as a sequence.
 
     \tparam StringType Set type; satisfies \ref toy::StringLike.
 
@@ -2449,6 +2460,8 @@ public:
 
   /*!
     \brief Finds the last character at or before \a pos that belongs to the characters of \a string.
+
+    Reads the characters of \a string as a set, so their order carries no meaning; rfind() matches them as a sequence.
 
     \tparam StringType Set type; satisfies \ref toy::StringLike.
 
@@ -2590,6 +2603,8 @@ public:
 
     \return A negative value when this string orders first, \c 0 when both hold the same characters, a positive value
             when \a string orders first.
+
+    \note Only the sign carries meaning; the magnitude is whatever the byte comparison produced.
 
     \sa compare(size_t, size_t, const StringType &)
     \sa toy::operator<=>()

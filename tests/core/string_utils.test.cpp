@@ -167,6 +167,8 @@ TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
 
   // An empty pattern matches at the offset, capped at the end of the range.
   CHECK(rfind(c_repeated, c_repeatedLength, "", 5, 0) == 5);
+  CHECK(rfind(c_repeated, c_repeatedLength, "", c_repeatedLength, 0) == c_repeatedLength);
+  CHECK(rfind(c_repeated, c_repeatedLength, "", c_repeatedLength + 1, 0) == c_repeatedLength);
   CHECK(rfind(c_repeated, c_repeatedLength, "", c_npos, 0) == c_repeatedLength);
 
   // The count bounds how much of the pattern is read.
@@ -188,6 +190,9 @@ TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
   static_assert(rfind(c_repeated, c_repeatedLength, "xyz", c_npos, 3) == c_npos, "an absent pattern reports npos");
   static_assert(rfind(c_repeated, c_repeatedLength, c_repeatedLonger, c_npos, c_repeatedLongerLength) == c_npos,
                 "a pattern longer than the range reports npos");
+  static_assert(rfind(c_repeated, c_repeatedLength, "", c_repeatedLength, 0) == c_repeatedLength
+                  && rfind(c_repeated, c_repeatedLength, "", c_repeatedLength + 1, 0) == c_repeatedLength,
+                "an empty pattern must match at the end for an offset at or past it");
   static_assert(rfind(c_repeated, c_repeatedLength, "", c_npos, 0) == c_repeatedLength,
                 "an empty pattern matches at the end of the range");
   static_assert(rfind(c_repeated, c_repeatedLength, "abrasive", c_npos, 4) == 7, "the count bounds what is read");

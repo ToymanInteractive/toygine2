@@ -107,11 +107,12 @@ using std::uint64_t;
 /*!
   \namespace toy::string_utils
 
-  \brief Searches over a character range that a pointer and a length describe.
+  \brief Search and comparison over a character range that a pointer and a length describe.
 
-  A search reads only the characters inside the range: it needs no terminator after them, and a \c '\0' inside counts
-  as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and
-  targets. Every function works in a constant expression and allocates nothing.
+  A function reads only the characters inside the range: it needs no terminator after them, and a \c '\\0' inside
+  counts as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and
+  targets. Every function works in a constant expression and allocates nothing. A sequence or set search takes
+  O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest take O(n).
 */
 
 //--------------------------------------------------------------------------------------------------------------------

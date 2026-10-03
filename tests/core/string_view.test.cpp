@@ -403,6 +403,19 @@ TEST_CASE("string_view/copy") {
   static_assert(copiedAt(c_sample, 4, 4) == c_sentinel, "a copy writes nothing past its count");
 }
 
+#if !defined(_DEBUG)
+// Without the debug check an offset past the end copies nothing, so nothing past the view is read.
+TEST_CASE("string_view/copy_rejected") {
+  const StringView view(c_sample);
+
+  std::array<char, 16> buffer = sentinelBuffer();
+  CHECK(view.copy(buffer.data(), 4, c_sampleLength + 1) == 0);
+  CHECK(buffer[0] == c_sentinel);
+
+  static_assert(copiedCount(c_sample, 4, c_sampleLength + 1) == 0, "an offset past the end must copy nothing");
+}
+#endif // !_DEBUG
+
 // The sign each comparison of two whole strings yields.
 TEST_CASE("string_view/compare") {
   const StringView view(c_sample);
