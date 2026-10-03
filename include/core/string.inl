@@ -1329,7 +1329,11 @@ constexpr bool operator==(const String<storageType> & lhs, const StringType & rh
 
 template <StringStorage storageType>
 constexpr bool operator==(const String<storageType> & lhs, const char * rhs) noexcept {
-  return lhs.compare(rhs) == 0;
+  assert_message(rhs != nullptr, "C string must not be null");
+
+  const size_t length = rhs != nullptr ? std::char_traits<char>::length(rhs) : 0;
+
+  return lhs.size() == length && lhs.compare(0, length, rhs, length) == 0;
 }
 
 template <StringStorage storageType, StringLike StringType>
