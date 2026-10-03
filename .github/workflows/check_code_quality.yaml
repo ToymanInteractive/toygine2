@@ -18,6 +18,7 @@ jobs:
     # Consider using larger runners or machines with greater resources for possible analysis time improvements.
     runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-26.04' }}
     timeout-minutes: 10
+    container: ${{ matrix.language == 'c-cpp' && 'ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest' || null }}
 
     strategy:
       fail-fast: false
@@ -44,7 +45,7 @@ jobs:
 
       - name: Ensure trapCaches directory exists
         if: ${{ matrix.language == 'c-cpp' }}
-        run: mkdir -p /home/runner/work/_temp/trapCaches/cpp/tarballs
+        run: mkdir -p "$RUNNER_TEMP/trapCaches/cpp/tarballs"
 
       # Initializes the CodeQL tools for scanning.
       - name: Initialize CodeQL
@@ -71,7 +72,6 @@ jobs:
           # fetched dependencies (doctest, nanobench) live outside the source root, so CodeQL drops their alerts
           cmake --preset linux-debug -DFETCHCONTENT_BASE_DIR=${{ runner.temp }}/_deps
           cmake --build --preset linux-debug --parallel
-          echo "CODEQL_CPP_COMPILATION_DATABASE=${{ github.workspace }}/out/build/compile_commands.json" >> $GITHUB_ENV
 
       - name: Perform CodeQL Analysis
         uses: github/codeql-action/analyze@v4.38.2

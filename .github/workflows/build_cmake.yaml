@@ -333,7 +333,6 @@ jobs:
           report_type: test_results
           files: out/junit/junit.xml
           disable_search: true
-          flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
       - name: Collect coverage
@@ -345,7 +344,6 @@ jobs:
         with:
           disable_search: true
           files: out/build/linux-debug/unit_tests_coverage.info
-          flags: units
           token: ${{ secrets.CODECOV_TOKEN }}
 
   sonar-cloud:

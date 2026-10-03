@@ -37,6 +37,7 @@
 #include <cstddef>
 #include <cstdint>
 #include <cstring>
+#include <functional>
 #include <initializer_list>
 #include <iterator>
 #include <limits>
@@ -101,6 +102,17 @@ using std::uint64_t;
   \namespace toy::platform
 
   \brief Constants whose values the active target platform supplies.
+*/
+
+/*!
+  \namespace toy::string_utils
+
+  \brief Search and comparison over a character range that a pointer and a length describe.
+
+  A function reads only the characters inside the range: it needs no terminator after them, and a \c '\\0' inside
+  counts as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and
+  targets. Every function works in a constant expression and allocates nothing. A sequence or set search takes
+  O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest take O(n).
 */
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -209,6 +221,7 @@ using std::uint64_t;
 #include "core/string.hpp"
 #include "core/string_like.hpp"
 #include "core/string_storage.hpp"
+#include "core/string_utils.hpp"
 #include "core/string_view.hpp"
 #include "core/utils.hpp"
 
@@ -217,6 +230,7 @@ using std::uint64_t;
 #include "core/bitwise_enum.inl"
 #include "core/fixed_string_storage.inl"
 #include "core/string.inl"
+#include "core/string_utils.inl"
 #include "core/string_view.inl"
 
 #endif // INCLUDE_CORE_HPP_

@@ -34,7 +34,88 @@
 
 namespace toy {
 
-/// String class template.
+/*!
+  \class String
+  \brief Owning, null-terminated byte string over a character buffer that a template argument chooses.
+
+  Follows the \c std::basic_string interface for \c char, with failure reported through assert_message instead of
+  exceptions. The storage decides where the characters live and whether the string can grow:
+  \ref toy::FixedString keeps them inside the object and allocates nothing.
+
+  \tparam storageType Buffer that holds the characters, the terminator, and the length; satisfies
+                      \ref toy::StringStorage.
+
+  \section string_features Key Features
+
+  * **Storage by template argument**: the same interface over a fixed buffer or any other \ref toy::StringStorage, so
+    the choice between a heap and none stays out of the calling code.
+  * **Standard interface**: construction, assignment, element access, modifiers, search, comparison, and the free
+    functions follow \c std::basic_string, with \ref toy::StringLike types taking the place of string views.
+  * **Counted length**: size() decides what every operation reads, so a \c '\\0' inside the string is an ordinary
+    character, as in \c std::basic_string.
+  * **Null-terminated**: c_str() always reaches a terminator, so the buffer goes to a C interface unchanged.
+  * **Constexpr support**: every operation evaluates in a constant expression.
+  * **Shared algorithms**: search and comparison run the \ref toy::string_utils functions that
+    \ref toy::StringView uses.
+  * **Exception safety**: no operation throws; exceptions are off in the build.
+
+  \section string_usage Usage Example
+
+  \code
+  #include "core.hpp"
+
+  toy::FixedString<32> name("player");
+  name += " one";
+
+  const size_t          space    = name.find(' ');
+  const bool            isPlayer = name.starts_with("player");
+  const auto            number   = name.substr(space + 1);
+  const toy::StringView tail     = name.subview(space + 1);
+
+  erase(name, ' ');
+  const bool joined = name == "playerone";
+  \endcode
+
+  \section string_performance Performance Characteristics
+
+  * **Element access, size(), and c_str()**: O(1).
+  * **Copy and move**: whatever the storage costs; \ref toy::FixedStringStorage copies the whole object up to
+    \ref toy::platform::c_inlineCopyMaxBytes and the characters in use above it, and has no buffer to hand over on a
+    move or a swap.
+  * **Append and push_back**: O(m) in the characters added, plus whatever growing the storage costs; nothing for
+    \ref toy::FixedStringStorage.
+  * **Insert, erase, and replace**: O(n) in the characters that move behind the edited range.
+  * **Substring and character-set search**: O(n * m) in the length of the string and of the pattern or set; nothing is
+    indexed between calls.
+  * **Comparison**: O(n) in the shorter length; equality stops on a length mismatch before reading a character.
+  * **Memory usage**: the size of \a storageType; for \ref toy::FixedString, its buffer and one length field.
+
+  \section string_safety Safety Guarantees
+
+  * **Contracts**: offsets, capacities, and null pointers are checked by assert_message in debug builds. A shipping
+    build skips the checks: an edit the storage rejects leaves the string unchanged, and an offset past the end selects
+    an empty range; each member states which.
+  * **Allocation**: the string allocates only where its storage does; \ref toy::FixedString never does.
+  * **Iterator validity**: a call that grows the string may move the buffer of a storage that reallocates;
+    \ref toy::FixedStringStorage never moves it.
+  * **Type safety**: construction and assignment from \c nullptr are deleted, so the null case fails to compile.
+  * **Exception safety**: no operation throws; exceptions are off in the build.
+
+  \section string_compatibility Compatibility
+
+  * Over \ref toy::FixedString no operation allocates or calls into the platform, so the type suits embedded and retro
+    targets.
+
+  \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
+  \note The conversion to \ref toy::StringView and subview() measure to the first \c '\\0', so a null byte inside the
+        string ends the view early.
+
+  \warning A shipping build drops an edit that does not fit a fixed buffer without a trace; a caller that cannot afford
+           that checks capacity() first.
+
+  \sa \ref toy::StringView
+  \sa \ref toy::FixedStringStorage
+*/
 template <StringStorage storageType>
 class String {
 public:
@@ -1172,7 +1253,8 @@ public:
     \param pos Iterator to the character the new one goes before; end() appends.
     \param ch  Character to insert.
 
-    \return Iterator to the inserted character, or one at the offset of \a pos when the call is rejected.
+    \return Iterator to the inserted character, or one at the offset of \a pos when the call is rejected; end() when
+            \a pos lies outside the string.
 
     \pre \a pos and a count of \c 1 meet the preconditions of insert(PositionIterator, size_t, char).
 
@@ -1196,7 +1278,7 @@ public:
     \param ch    Character written at every inserted position.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when \a count is \c 0 or the call
-    is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds.
     \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
@@ -1228,7 +1310,7 @@ public:
     \param last  Iterator past the last character to insert.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when the range is empty or the call
-            is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos lies in [begin(), end()], checked by assert_message in debug builds.
     \pre \a last is reachable from \a first.
@@ -1255,7 +1337,7 @@ public:
     \param list Characters to insert.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when \a list is empty or the call
-    is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos and list.size() meet the preconditions of insert(PositionIterator, InputIterator, InputIterator).
 
@@ -1279,7 +1361,7 @@ public:
     \param range Characters to insert.
 
     \return Iterator to the first inserted character, or one at the offset of \a pos when \a range is empty or the call
-            is rejected.
+            is rejected; end() when \a pos lies outside the string.
 
     \pre \a pos and the length of \a range meet the preconditions of
          insert(PositionIterator, InputIterator, InputIterator).
@@ -1326,7 +1408,8 @@ public:
 
     \param pos Iterator to the character to remove.
 
-    \return Iterator to the character that followed the removed one, or end() when it was the last.
+    \return Iterator to the character that followed the removed one, or end() when it was the last or the call is
+            rejected.
 
     \pre \a pos lies in [begin(), end()), checked by assert_message in debug builds.
 
@@ -1351,7 +1434,8 @@ public:
     \param first Iterator to the first character to remove.
     \param last  Iterator past the last character to remove.
 
-    \return Iterator to the character that followed the removed ones, at the offset \a first had.
+    \return Iterator to the character that followed the removed ones, at the offset \a first had; end() when \a first
+            lies outside the string.
 
     \pre \a first and \a last lie in [begin(), end()], checked by assert_message in debug builds.
     \pre \a first does not follow \a last, checked by assert_message in debug builds.
@@ -2110,6 +2194,721 @@ public:
   */
   constexpr void swap(String & other) noexcept;
 
+  /*!
+    \brief Finds the first position at or after \a pos where the characters of \a string start.
+
+    Matches the characters of \a string in order and next to each other; find_first_of() matches any one of them.
+
+    \tparam StringType Pattern type; satisfies \ref toy::StringLike.
+
+    \param string View or string to look for.
+    \param pos    Offset the search starts from (default: \c 0).
+
+    \return Offset where the first match starts, or \ref toy::String::npos when there is none. An empty pattern matches
+            at \a pos while \a pos is not greater than size().
+
+    \sa find(const char *, size_t, size_t)
+    \sa rfind(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr size_type find(const StringType & string, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first position at or after \a pos where the \a count bytes starting at \a string start.
+
+    Reads exactly \a count bytes of the pattern, so it needs no terminator and may hold \c '\\0'.
+
+    \param string First byte of the pattern.
+    \param pos    Offset the search starts from.
+    \param count  Number of bytes in the pattern.
+
+    \return Offset where the first match starts, or \ref toy::String::npos when there is none. An empty pattern matches
+            at \a pos while \a pos is not greater than size().
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+
+    \sa find(const char *, size_t)
+  */
+  [[nodiscard]] constexpr size_type find(const value_type * string, size_type pos, size_type count) const noexcept;
+
+  /*!
+    \brief Finds the first position at or after \a pos where the null-terminated byte string \a string starts.
+
+    Measures \a string, then searches as find(const char *, size_t, size_t) does.
+
+    \param string Null-terminated byte string to look for.
+    \param pos    Offset the search starts from (default: \c 0).
+
+    \return Offset where the first match starts, or \ref toy::String::npos when there is none.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa find(const char *, size_t, size_t)
+  */
+  [[nodiscard]] constexpr size_type find(const value_type * string, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of \a ch at or after \a pos.
+
+    \param ch  Character to look for.
+    \param pos Offset the search starts from (default: \c 0).
+
+    \return Offset of the first \a ch at or after \a pos, or \ref toy::String::npos when there is none; a \a pos at or
+            past size() always gives \ref toy::String::npos.
+
+    \sa rfind(char, size_t)
+  */
+  [[nodiscard]] constexpr size_type find(value_type ch, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the last position at or before \a pos where the characters of \a string start.
+
+    Matches the characters of \a string in order and next to each other; find_last_of() matches any one of them.
+
+    \tparam StringType Pattern type; satisfies \ref toy::StringLike.
+
+    \param string View or string to look for.
+    \param pos    Last offset a match may start at (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset where the last match starts, or \ref toy::String::npos when there is none. An empty pattern matches
+            at the smaller of \a pos and size().
+
+    \sa rfind(const char *, size_t, size_t)
+    \sa find(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr size_type rfind(const StringType & string, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last position at or before \a pos where the \a count bytes starting at \a string start.
+
+    Reads exactly \a count bytes of the pattern, so it needs no terminator and may hold \c '\\0'.
+
+    \param string First byte of the pattern.
+    \param pos    Last offset a match may start at; any offset past the string covers all of it.
+    \param count  Number of bytes in the pattern.
+
+    \return Offset where the last match starts, or \ref toy::String::npos when there is none. An empty pattern matches
+            at the smaller of \a pos and size().
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+
+    \sa rfind(const char *, size_t)
+  */
+  [[nodiscard]] constexpr size_type rfind(const value_type * string, size_type pos, size_type count) const noexcept;
+
+  /*!
+    \brief Finds the last position at or before \a pos where the null-terminated byte string \a string starts.
+
+    Measures \a string, then searches as rfind(const char *, size_t, size_t) does.
+
+    \param string Null-terminated byte string to look for.
+    \param pos    Last offset a match may start at (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset where the last match starts, or \ref toy::String::npos when there is none.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa rfind(const char *, size_t, size_t)
+  */
+  [[nodiscard]] constexpr size_type rfind(const value_type * string, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of \a ch at or before \a pos.
+
+    \param ch  Character to look for.
+    \param pos Last offset a match may start at (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last \a ch at or before \a pos, or \ref toy::String::npos when there is none.
+
+    \sa find(char, size_t)
+  */
+  [[nodiscard]] constexpr size_type rfind(value_type ch, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that belongs to the characters of \a string.
+
+    Reads the characters of \a string as a set, so their order carries no meaning; find() matches them as a sequence.
+
+    \tparam StringType Set type; satisfies \ref toy::StringLike.
+
+    \param string View or string holding the set.
+    \param pos    Offset the search starts from (default: \c 0).
+
+    \return Offset of the first character that belongs to the set, or \ref toy::String::npos when there is none. An
+            empty set matches nothing.
+
+    \sa find_first_of(const char *, size_t, size_t)
+    \sa find_last_of(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr size_type find_first_of(const StringType & string, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that belongs to the \a count bytes starting at \a string.
+
+    \param string First byte of the set.
+    \param pos    Offset the search starts from.
+    \param count  Number of bytes in the set.
+
+    \return Offset of the first character that belongs to the set, or \ref toy::String::npos when there is none. An
+            empty set matches nothing.
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+
+    \sa find_first_of(const char *, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_first_of(const value_type * string, size_type pos,
+                                                  size_type count) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that belongs to the null-terminated byte string \a string.
+
+    Measures \a string, then searches as find_first_of(const char *, size_t, size_t) does.
+
+    \param string Null-terminated byte string holding the set.
+    \param pos    Offset the search starts from (default: \c 0).
+
+    \return Offset of the first character that belongs to the set, or \ref toy::String::npos when there is none.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa find_first_of(const char *, size_t, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_first_of(const value_type * string, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first occurrence of \a ch at or after \a pos, as find(char, size_t) does.
+
+    \param ch  Character to look for.
+    \param pos Offset the search starts from (default: \c 0).
+
+    \return Offset of the first \a ch at or after \a pos, or \ref toy::String::npos when there is none.
+
+    \sa find_first_of(const StringType &, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_first_of(value_type ch, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that does not belong to the characters of \a string.
+
+    \tparam StringType Set type; satisfies \ref toy::StringLike.
+
+    \param string View or string holding the set.
+    \param pos    Offset the search starts from (default: \c 0).
+
+    \return Offset of the first character that does not belong to the set, or \ref toy::String::npos when there is none.
+            No character belongs to an empty set, so the result is then \a pos while \a pos is less than size().
+
+    \sa find_first_not_of(const char *, size_t, size_t)
+    \sa find_last_not_of(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr size_type find_first_not_of(const StringType & string, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that does not belong to the \a count bytes starting at
+           \a string.
+
+    \param string First byte of the set.
+    \param pos    Offset the search starts from.
+    \param count  Number of bytes in the set.
+
+    \return Offset of the first character that does not belong to the set, or \ref toy::String::npos when there is none.
+            No character belongs to an empty set, so the result is then \a pos while \a pos is less than size().
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+
+    \sa find_first_not_of(const char *, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_first_not_of(const value_type * string, size_type pos,
+                                                      size_type count) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that does not belong to the null-terminated byte string
+           \a string.
+
+    Measures \a string, then searches as find_first_not_of(const char *, size_t, size_t) does.
+
+    \param string Null-terminated byte string holding the set.
+    \param pos    Offset the search starts from (default: \c 0).
+
+    \return Offset of the first character that does not belong to the set, or \ref toy::String::npos when there is none.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa find_first_not_of(const char *, size_t, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_first_not_of(const value_type * string, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the first character at or after \a pos that differs from \a ch.
+
+    \param ch  Character to skip.
+    \param pos Offset the search starts from (default: \c 0).
+
+    \return Offset of the first character other than \a ch at or after \a pos, or \ref toy::String::npos when there is
+            none.
+
+    \sa find_first_not_of(const StringType &, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_first_not_of(value_type ch, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that belongs to the characters of \a string.
+
+    Reads the characters of \a string as a set, so their order carries no meaning; rfind() matches them as a sequence.
+
+    \tparam StringType Set type; satisfies \ref toy::StringLike.
+
+    \param string View or string holding the set.
+    \param pos    Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last character that belongs to the set, or \ref toy::String::npos when there is none. An empty
+            set matches nothing.
+
+    \sa find_last_of(const char *, size_t, size_t)
+    \sa find_first_of(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr size_type find_last_of(const StringType & string, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that belongs to the \a count bytes starting at \a string.
+
+    \param string First byte of the set.
+    \param pos    Last offset the search considers; any offset past the string covers all of it.
+    \param count  Number of bytes in the set.
+
+    \return Offset of the last character that belongs to the set, or \ref toy::String::npos when there is none. An empty
+            set matches nothing.
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+
+    \sa find_last_of(const char *, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_last_of(const value_type * string, size_type pos,
+                                                 size_type count) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that belongs to the null-terminated byte string \a string.
+
+    Measures \a string, then searches as find_last_of(const char *, size_t, size_t) does.
+
+    \param string Null-terminated byte string holding the set.
+    \param pos    Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last character that belongs to the set, or \ref toy::String::npos when there is none.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa find_last_of(const char *, size_t, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_last_of(const value_type * string, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last occurrence of \a ch at or before \a pos, as rfind(char, size_t) does.
+
+    \param ch  Character to look for.
+    \param pos Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last \a ch at or before \a pos, or \ref toy::String::npos when there is none.
+
+    \sa find_last_of(const StringType &, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_last_of(value_type ch, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that does not belong to the characters of \a string.
+
+    \tparam StringType Set type; satisfies \ref toy::StringLike.
+
+    \param string View or string holding the set.
+    \param pos    Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last character that does not belong to the set, or \ref toy::String::npos when there is none.
+            No character belongs to an empty set, so the result is then the smaller of \a pos and size() minus one, or
+            \ref toy::String::npos for an empty string.
+
+    \sa find_last_not_of(const char *, size_t, size_t)
+    \sa find_first_not_of(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr size_type find_last_not_of(const StringType & string, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that does not belong to the \a count bytes starting at
+           \a string.
+
+    \param string First byte of the set.
+    \param pos    Last offset the search considers; any offset past the string covers all of it.
+    \param count  Number of bytes in the set.
+
+    \return Offset of the last character that does not belong to the set, or \ref toy::String::npos when there is none.
+            No character belongs to an empty set, so the result is then the smaller of \a pos and size() minus one, or
+            \ref toy::String::npos for an empty string.
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+
+    \sa find_last_not_of(const char *, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_last_not_of(const value_type * string, size_type pos,
+                                                     size_type count) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that does not belong to the null-terminated byte string
+           \a string.
+
+    Measures \a string, then searches as find_last_not_of(const char *, size_t, size_t) does.
+
+    \param string Null-terminated byte string holding the set.
+    \param pos    Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last character that does not belong to the set, or \ref toy::String::npos when there is none.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa find_last_not_of(const char *, size_t, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_last_not_of(const value_type * string, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Finds the last character at or before \a pos that differs from \a ch.
+
+    \param ch  Character to skip.
+    \param pos Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
+
+    \return Offset of the last character other than \a ch at or before \a pos, or \ref toy::String::npos when there is
+            none.
+
+    \sa find_last_not_of(const StringType &, size_t)
+  */
+  [[nodiscard]] constexpr size_type find_last_not_of(value_type ch, size_type pos = npos) const noexcept;
+
+  /*!
+    \brief Compares this string with \a string in lexicographic order.
+
+    Compares bytes as \c unsigned \c char up to the shorter length; when one string is a prefix of the other, the
+    shorter one orders first. A \c '\\0' inside either string compares like any other byte.
+
+    \tparam StringType Type of the other side; satisfies \ref toy::StringLike.
+
+    \param string View or string to compare with.
+
+    \return A negative value when this string orders first, \c 0 when both hold the same characters, a positive value
+            when \a string orders first.
+
+    \note Only the sign carries meaning; the magnitude is whatever the byte comparison produced.
+
+    \sa compare(size_t, size_t, const StringType &)
+    \sa toy::operator<=>()
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr int compare(const StringType & string) const noexcept;
+
+  /*!
+    \brief Compares the substring that starts at \a pos1 with \a string.
+
+    The substring holds at most \a count1 characters and stops at the end of this string; the order is the one
+    compare(const StringType &) defines.
+
+    \tparam StringType Type of the other side; satisfies \ref toy::StringLike.
+
+    \param pos1   Offset of the first character of the substring.
+    \param count1 Most characters in the substring.
+    \param string View or string to compare with.
+
+    \return A negative value when the substring orders first, \c 0 when both hold the same characters, a positive value
+            when \a string orders first.
+
+    \pre \a pos1 is not greater than size(), checked by assert_message in debug builds.
+
+    \warning A shipping build skips the check and compares an empty substring when \a pos1 is past the end, where
+             \c std::basic_string throws \c std::out_of_range.
+
+    \sa compare(size_t, size_t, const StringType &, size_t, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const StringType & string) const noexcept;
+
+  /*!
+    \brief Compares the substring that starts at \a pos1 with the substring of \a string that starts at \a pos2.
+
+    Each substring stops at the end of its string; the order is the one compare(const StringType &) defines.
+
+    \tparam StringType Type of the other side; satisfies \ref toy::StringLike.
+
+    \param pos1   Offset of the first character of this substring.
+    \param count1 Most characters in this substring.
+    \param string View or string holding the other substring.
+    \param pos2   Offset of the first character of the other substring.
+    \param count2 Most characters in the other substring (default: \ref toy::String::npos, which takes \a string to its
+                  end).
+
+    \return A negative value when this substring orders first, \c 0 when both hold the same characters, a positive value
+            when the other substring orders first.
+
+    \pre \a pos1 is not greater than size(), checked by assert_message in debug builds.
+    \pre \a pos2 is not greater than the length of \a string, checked by assert_message in debug builds.
+
+    \warning A shipping build skips the checks and compares an empty substring for an offset past its end, where
+             \c std::basic_string throws \c std::out_of_range.
+
+    \sa compare(size_t, size_t, const StringType &)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const StringType & string, size_type pos2,
+                                      size_type count2 = npos) const noexcept;
+
+  /*!
+    \brief Compares this string with the null-terminated byte string \a string.
+
+    Measures \a string, then compares as compare(const StringType &) does.
+
+    \param string Null-terminated byte string to compare with.
+
+    \return A negative value when this string orders first, \c 0 when both hold the same characters, a positive value
+            when \a string orders first.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa compare(size_t, size_t, const char *, size_t)
+  */
+  [[nodiscard]] constexpr int compare(const value_type * string) const noexcept;
+
+  /*!
+    \brief Compares the substring that starts at \a pos1 with the null-terminated byte string \a string.
+
+    \param pos1   Offset of the first character of the substring.
+    \param count1 Most characters in the substring.
+    \param string Null-terminated byte string to compare with.
+
+    \return A negative value when the substring orders first, \c 0 when both hold the same characters, a positive value
+            when \a string orders first.
+
+    \pre \a pos1 is not greater than size(), checked by assert_message in debug builds.
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \warning A shipping build skips the position check and compares an empty substring when \a pos1 is past the end,
+             where \c std::basic_string throws \c std::out_of_range.
+
+    \sa compare(size_t, size_t, const char *, size_t)
+  */
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * string) const noexcept;
+
+  /*!
+    \brief Compares the substring that starts at \a pos1 with the \a count2 bytes starting at \a string.
+
+    Reads exactly \a count2 bytes of the other side, so it needs no terminator and may hold \c '\\0'.
+
+    \param pos1   Offset of the first character of the substring.
+    \param count1 Most characters in the substring.
+    \param string First byte of the other side.
+    \param count2 Number of bytes on the other side.
+
+    \return A negative value when the substring orders first, \c 0 when both hold the same characters, a positive value
+            when the other side orders first.
+
+    \pre \a pos1 is not greater than size(), checked by assert_message in debug builds.
+    \pre \a string is non-null or \a count2 is \c 0, checked by assert_message in debug builds.
+    \pre The \a count2 bytes starting at \a string are readable.
+
+    \warning A shipping build skips the position check and compares an empty substring when \a pos1 is past the end,
+             where \c std::basic_string throws \c std::out_of_range.
+
+    \sa compare(const char *)
+  */
+  [[nodiscard]] constexpr int compare(size_type pos1, size_type count1, const value_type * string,
+                                      size_type count2) const noexcept;
+
+  /*!
+    \brief Reports whether this string opens with the characters of \a string.
+
+    \tparam StringType Type of the other side; satisfies \ref toy::StringLike.
+
+    \param string View or string to look for.
+
+    \return \c true when \a string is no longer than this string and matches its leading characters; \c true for an
+            empty \a string.
+
+    \sa ends_with(const StringType &)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr bool starts_with(const StringType & string) const noexcept;
+
+  /*!
+    \brief Reports whether the first character of this string is \a ch.
+
+    \param ch Character to look for.
+
+    \return \c true when the string is non-empty and its first character equals \a ch.
+
+    \sa starts_with(const StringType &)
+  */
+  [[nodiscard]] constexpr bool starts_with(value_type ch) const noexcept;
+
+  /*!
+    \brief Reports whether this string opens with the null-terminated byte string \a string.
+
+    \param string Null-terminated byte string to look for.
+
+    \return \c true when this string opens with the characters of \a string; \c true for an empty one.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa starts_with(const StringType &)
+  */
+  [[nodiscard]] constexpr bool starts_with(const value_type * string) const noexcept;
+
+  /*!
+    \brief Reports whether this string closes with the characters of \a string.
+
+    \tparam StringType Type of the other side; satisfies \ref toy::StringLike.
+
+    \param string View or string to look for.
+
+    \return \c true when \a string is no longer than this string and matches its trailing characters; \c true for an
+            empty \a string.
+
+    \sa starts_with(const StringType &)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr bool ends_with(const StringType & string) const noexcept;
+
+  /*!
+    \brief Reports whether the last character of this string is \a ch.
+
+    \param ch Character to look for.
+
+    \return \c true when the string is non-empty and its last character equals \a ch.
+
+    \sa ends_with(const StringType &)
+  */
+  [[nodiscard]] constexpr bool ends_with(value_type ch) const noexcept;
+
+  /*!
+    \brief Reports whether this string closes with the null-terminated byte string \a string.
+
+    \param string Null-terminated byte string to look for.
+
+    \return \c true when this string closes with the characters of \a string; \c true for an empty one.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa ends_with(const StringType &)
+  */
+  [[nodiscard]] constexpr bool ends_with(const value_type * string) const noexcept;
+
+  /*!
+    \brief Reports whether the characters of \a string occur anywhere in this string.
+
+    \tparam StringType Type of the other side; satisfies \ref toy::StringLike.
+
+    \param string View or string to look for.
+
+    \return \c true when find(const StringType &, size_t) finds \a string; \c true for an empty one.
+
+    \sa find(const StringType &, size_t)
+  */
+  template <StringLike StringType>
+  [[nodiscard]] constexpr bool contains(const StringType & string) const noexcept;
+
+  /*!
+    \brief Reports whether \a ch occurs anywhere in this string.
+
+    \param ch Character to look for.
+
+    \return \c true when find(char, size_t) finds \a ch.
+
+    \sa find(char, size_t)
+  */
+  [[nodiscard]] constexpr bool contains(value_type ch) const noexcept;
+
+  /*!
+    \brief Reports whether the null-terminated byte string \a string occurs anywhere in this string.
+
+    \param string Null-terminated byte string to look for.
+
+    \return \c true when find(const char *, size_t) finds \a string; \c true for an empty one.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+
+    \sa find(const char *, size_t)
+  */
+  [[nodiscard]] constexpr bool contains(const value_type * string) const noexcept;
+
+  /*!
+    \brief Returns a copy of the substring that starts at \a pos.
+
+    Builds the result over the same storage type as String(const StringType &, size_t, size_t) does, so it allocates
+    only where that storage does.
+
+    \param pos   Offset of the first character to copy (default: \c 0).
+    \param count Most characters to copy (default: \ref toy::String::npos, which copies to the end of the string).
+
+    \return New string holding the smaller of \a count and size() minus \a pos characters.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+
+    \warning A shipping build skips the check and returns an empty string when \a pos is past the end, where
+             \c std::basic_string throws \c std::out_of_range.
+
+    \sa substr(size_t, size_t) &&
+    \sa subview()
+  */
+  [[nodiscard]] constexpr String substr(size_type pos = 0, size_type count = npos) const & noexcept;
+
+  /*!
+    \brief Returns the substring that starts at \a pos, taking over the storage of this string.
+
+    Builds the result as String(String &&, size_t, size_t) does, so a storage that owns heap memory reuses its buffer
+    instead of allocating.
+
+    \param pos   Offset of the first character to keep (default: \c 0).
+    \param count Most characters to keep (default: \ref toy::String::npos, which keeps everything to the end of the
+                 string).
+
+    \return New string holding the smaller of \a count and size() minus \a pos characters.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+
+    \post This string holds whatever the move constructor of the storage leaves; over \ref toy::FixedStringStorage, its
+          original characters.
+
+    \warning A shipping build skips the check and returns an empty string when \a pos is past the end.
+
+    \sa substr(size_t, size_t) const &
+  */
+  [[nodiscard]] constexpr String substr(size_type pos = 0, size_type count = npos) && noexcept;
+
+  /*!
+    \brief Returns a view of the characters from \a pos to the end of the string.
+
+    Copies nothing: the view points into the buffer of this string. \ref toy::StringView requires a terminator at its
+    end, so only a suffix can be viewed; for a substring in the middle, substr() makes a copy.
+
+    \param pos Offset of the first character in the view (default: \c 0).
+
+    \return View starting at \a pos and ending at the terminator.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds; a shipping build views the empty
+         tail instead.
+
+    \note The view measures its length up to the first \c '\\0', so a null byte inside the tail ends it early.
+
+    \warning The view dangles once the string is destroyed, and any call that changes the string may leave it reading
+             other characters.
+
+    \sa substr()
+  */
+  [[nodiscard]] constexpr StringView subview(size_type pos = 0) const noexcept;
+
   /// Count that stands for every character up to the end of the source or of the string
   static constexpr const size_type npos = -1;
 
@@ -2295,6 +3094,293 @@ private:
 */
 template <size_t Capacity>
 using FixedString = String<FixedStringStorage<Capacity>>;
+
+/*!
+  \brief Returns \a lhs followed by the characters of \a rhs.
+
+  Takes \a lhs by value: an lvalue is copied and an rvalue moved, so a chain such as \c a \c + \c b \c + \c c appends
+  into one string, as the rvalue overloads of \c std::basic_string do.
+
+  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::StringStorage.
+  \tparam StringType  Type of the right side; satisfies \ref toy::StringLike.
+
+  \param lhs String to append to.
+  \param rhs View or string to append.
+
+  \return \a lhs with the characters of \a rhs after its own.
+
+  \pre The storage accepts the joined length, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
+           the joined length, where \c std::basic_string throws \c std::length_error. A \ref toy::FixedString built from
+           a character array has no room left, so joining anything to it fails.
+
+  \sa toy::String::append()
+*/
+template <StringStorage storageType, StringLike StringType>
+[[nodiscard]] constexpr String<storageType> operator+(String<storageType> lhs, const StringType & rhs) noexcept;
+
+/*!
+  \brief Returns \a lhs followed by the null-terminated byte string \a rhs.
+
+  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::StringStorage.
+
+  \param lhs String to append to.
+  \param rhs Null-terminated byte string to append.
+
+  \return \a lhs with the characters of \a rhs after its own.
+
+  \pre \a rhs is non-null, checked by assert_message in debug builds.
+  \pre The storage accepts the joined length, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
+           the joined length, where \c std::basic_string throws \c std::length_error. A \ref toy::FixedString built from
+           a character array has no room left, so joining anything to it fails.
+
+  \sa toy::operator+(String<storageType>, const StringType &)
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr String<storageType> operator+(String<storageType> lhs, const char * rhs) noexcept;
+
+/*!
+  \brief Returns \a lhs followed by the character \a rhs.
+
+  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::StringStorage.
+
+  \param lhs String to append to.
+  \param rhs Character to append.
+
+  \return \a lhs with \a rhs after its last character.
+
+  \pre The storage accepts the joined length, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
+           the joined length, where \c std::basic_string throws \c std::length_error. A \ref toy::FixedString built from
+           a character array has no room left, so joining anything to it fails.
+
+  \sa toy::String::push_back()
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr String<storageType> operator+(String<storageType> lhs, char rhs) noexcept;
+
+/*!
+  \brief Returns a new string holding the null-terminated byte string \a lhs followed by \a rhs.
+
+  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::StringStorage.
+
+  \param lhs Null-terminated byte string that comes first.
+  \param rhs String whose characters follow.
+
+  \return String over the storage of \a rhs holding both sides in order.
+
+  \pre \a lhs is non-null, checked by assert_message in debug builds.
+  \pre The storage accepts the joined length, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
+           the joined length.
+
+  \sa toy::operator+(String<storageType>, const StringType &)
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr String<storageType> operator+(const char * lhs, const String<storageType> & rhs) noexcept;
+
+/*!
+  \brief Returns a new string holding the character \a lhs followed by \a rhs.
+
+  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::StringStorage.
+
+  \param lhs Character that comes first.
+  \param rhs String whose characters follow.
+
+  \return String over the storage of \a rhs holding both sides in order.
+
+  \pre The storage accepts the joined length, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
+           the joined length.
+
+  \sa toy::operator+(String<storageType>, const StringType &)
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr String<storageType> operator+(char lhs, const String<storageType> & rhs) noexcept;
+
+/*!
+  \brief Returns a new string holding the characters of \a lhs followed by \a rhs.
+
+  Takes a view rather than any string-like type on the left, as \c std::basic_string takes a \c std::basic_string_view,
+  so a string on both sides reaches the overload that copies the left one.
+
+  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::StringStorage.
+
+  \param lhs View whose characters come first.
+  \param rhs String whose characters follow.
+
+  \return String over the storage of \a rhs holding both sides in order.
+
+  \pre The storage accepts the joined length, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
+           the joined length.
+
+  \sa toy::operator+(String<storageType>, const StringType &)
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr String<storageType> operator+(StringView lhs, const String<storageType> & rhs) noexcept;
+
+/*!
+  \brief Reports whether \a lhs and \a rhs hold the same characters.
+
+  Compares the lengths first, then the bytes, so a \c '\\0' inside either side takes part. The compiler derives \c !=
+  and the reversed operand order from this operator.
+
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+  \tparam StringType  Type of the right side; satisfies \ref toy::StringLike.
+
+  \param lhs String to compare.
+  \param rhs View or string to compare with.
+
+  \return \c true when both sides have the same length and the same bytes.
+
+  \sa toy::operator<=>(const String<storageType> &, const StringType &)
+*/
+template <StringStorage storageType, StringLike StringType>
+[[nodiscard]] constexpr bool operator==(const String<storageType> & lhs, const StringType & rhs) noexcept;
+
+/*!
+  \brief Reports whether \a lhs holds the characters of the null-terminated byte string \a rhs.
+
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+
+  \param lhs String to compare.
+  \param rhs Null-terminated byte string to compare with.
+
+  \return \c true when \a lhs holds exactly the characters of \a rhs.
+
+  \pre \a rhs is non-null, checked by assert_message in debug builds.
+
+  \sa toy::operator==(const String<storageType> &, const StringType &)
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr bool operator==(const String<storageType> & lhs, const char * rhs) noexcept;
+
+/*!
+  \brief Orders \a lhs against \a rhs lexicographically.
+
+  Orders as toy::String::compare() does: bytes as \c unsigned \c char, then length. The compiler derives \c <, \c <=,
+  \c >, \c >=, and the reversed operand order from this operator.
+
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+  \tparam StringType  Type of the right side; satisfies \ref toy::StringLike.
+
+  \param lhs String to order.
+  \param rhs View or string to order against.
+
+  \return \c std::strong_ordering::less, \c equal, or \c greater as \a lhs orders before, with, or after \a rhs.
+
+  \sa toy::operator==(const String<storageType> &, const StringType &)
+*/
+template <StringStorage storageType, StringLike StringType>
+[[nodiscard]] constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
+                                                                                const StringType & rhs) noexcept;
+
+/*!
+  \brief Orders \a lhs against the null-terminated byte string \a rhs lexicographically.
+
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+
+  \param lhs String to order.
+  \param rhs Null-terminated byte string to order against.
+
+  \return \c std::strong_ordering::less, \c equal, or \c greater as \a lhs orders before, with, or after \a rhs.
+
+  \pre \a rhs is non-null, checked by assert_message in debug builds.
+
+  \sa toy::operator<=>(const String<storageType> &, const StringType &)
+*/
+template <StringStorage storageType>
+[[nodiscard]] constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
+                                                                                const char * rhs) noexcept;
+
+/*!
+  \brief Exchanges the contents of \a lhs and \a rhs.
+
+  Calls lhs.swap(rhs), and argument-dependent lookup finds it beside \c using \c std::swap, the form generic code
+  writes.
+
+  \tparam storageType Storage of both strings; satisfies \ref toy::StringStorage.
+
+  \param lhs First string.
+  \param rhs Second string.
+
+  \post Each string holds what the other held before the call.
+
+  \sa toy::String::swap()
+*/
+template <StringStorage storageType>
+constexpr void swap(String<storageType> & lhs, String<storageType> & rhs) noexcept;
+
+/*!
+  \brief Removes every character of \a string that equals \a value.
+
+  Keeps the order of the remaining characters and moves them toward the front in one pass.
+
+  \tparam storageType Storage of \a string; satisfies \ref toy::StringStorage.
+
+  \param string String to edit.
+  \param value  Character to remove.
+
+  \return Number of characters removed.
+
+  \post \a string holds no character equal to \a value, and size() fell by the returned count.
+
+  \note Pointers and iterators at or past the first removed character read other characters after the call.
+
+  \sa toy::erase_if()
+*/
+template <StringStorage storageType>
+constexpr String<storageType>::size_type erase(String<storageType> & string, char value) noexcept;
+
+/*!
+  \brief Removes every character of \a string that \a predicate accepts.
+
+  Keeps the order of the remaining characters and moves them toward the front in one pass. The predicate runs once per
+  character, through \c std::ref, so the copies the algorithm makes share one object.
+
+  \tparam storageType Storage of \a string; satisfies \ref toy::StringStorage.
+  \tparam Predicate   Callable on a \c char \c & that returns a value convertible to \c bool; satisfies
+                      \c std::predicate.
+
+  \param string    String to edit.
+  \param predicate Test a character must pass to be removed.
+
+  \return Number of characters removed.
+
+  \post \a string holds no character \a predicate accepts, and size() fell by the returned count.
+
+  \note Pointers and iterators at or past the first removed character read other characters after the call.
+
+  \sa toy::erase()
+*/
+template <StringStorage storageType, typename Predicate>
+  requires std::predicate<Predicate &, char &>
+constexpr String<storageType>::size_type erase_if(String<storageType> & string, Predicate predicate) noexcept;
+
+/*!
+  \brief Deduces a \ref toy::FixedString sized to a character array.
+
+  Lets \c String("player") and \c String \c s \c = \c "player" pick their storage: the capacity equals the array size
+  minus the terminator. Nothing else deduces a storage, since a pointer, a view, or an iterator range has no length
+  known at compile time.
+
+  \tparam Size Size of the array, the terminator included.
+
+  \param array Character array the string is built from.
+
+  \warning The string starts full: every call that adds a character fails. A string that has to grow names a larger
+           capacity, such as \c toy::FixedString<32>.
+*/
+template <size_t Size>
+String(const char (&array)[Size]) -> String<FixedStringStorage<Size>>;
 
 } // namespace toy
 
