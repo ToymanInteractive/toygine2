@@ -19,7 +19,7 @@
 //
 /*!
   \file   log_level.hpp
-  \brief  Severity scale of the logging module and the macro that trims it at build time.
+  \brief  Severity scale of log calls and the macro that trims it at build time.
 
   Defines \ref toy::log::Level, the scale every log call carries, and LOG_MAX_LEVEL, the number a call's level must not
   exceed to reach the binary.
@@ -45,6 +45,7 @@ namespace toy::log {
   \note \ref toy::log::Level::Off is a ceiling value only; no message carries it as its own severity.
 
   \sa LOG_MAX_LEVEL
+  \sa \ref toy::log::Metadata
 */
 enum class Level : int8_t {
   Off = 0,    ///< Nothing passes.

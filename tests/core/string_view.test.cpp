@@ -111,8 +111,7 @@ constexpr char c_sentinel = '#';
 
 } // namespace
 
-// What a copy and a scope exit cost the caller, the initializer form the call site may write, and what a
-// declaration without one leaves behind.
+// What copying and leaving scope cost, which initializer a call site may write, and what a bare declaration leaves.
 TEST_CASE("string_view/value_semantics") {
   static_assert(std::is_trivially_copyable_v<StringView>, "the view must copy as bytes");
   static_assert(std::is_trivially_destructible_v<StringView>, "leaving scope must run no destructor");
@@ -391,7 +390,7 @@ TEST_CASE("string_view/copy") {
   CHECK(view.copy(none.data(), 4, c_sampleLength) == 0);
   CHECK(none[0] == c_sentinel);
 
-  // A view holding no character can be copied from; there is simply nothing to write.
+  // A view holding no character can be copied from, and the call writes nothing.
   CHECK(StringView("").copy(none.data(), 4) == 0);
   CHECK(StringView().copy(none.data(), 4) == 0);
   CHECK(none[0] == c_sentinel);
@@ -518,8 +517,7 @@ TEST_CASE("string_view/compare_empty") {
 }
 
 #if !defined(_DEBUG)
-// Without the debug checks an offset past the end is clamped to it, so the part it starts is empty and nothing past the
-// view is read.
+// Without the debug checks an offset past the end clamps to it: the part is empty, and nothing past the view is read.
 TEST_CASE("string_view/compare_rejected") {
   const StringView view(c_sample);
 

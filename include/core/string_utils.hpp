@@ -19,10 +19,10 @@
 //
 /*!
   \file   string_utils.hpp
-  \brief  Character search over a range given as a pointer and a length.
+  \brief  Character search and comparison over a range given as a pointer and a length.
 
-  Defines the \ref toy::string_utils functions that the search methods of \ref toy::StringView and \ref toy::String
-  delegate to. The caller passes the length it already knows, so no search measures a terminator.
+  Defines the \ref toy::string_utils functions that the search and comparison methods of \ref toy::StringView and
+  \ref toy::String delegate to. The caller passes the length it already knows, so no function measures a terminator.
 
   \note Included by core.hpp only; do not include this file directly.
 */

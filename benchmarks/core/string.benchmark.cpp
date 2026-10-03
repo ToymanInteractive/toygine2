@@ -265,8 +265,7 @@ BENCHMARK_CASE("core/string/construction_substring_move") {
 
   bench.unit("construction");
 
-  // An rvalue source is consumed, so each row first copies a fresh one from its prototype; that copy is part of the
-  // measurement in both rows.
+  // An rvalue source is consumed, so each row copies a fresh one from its prototype, and that copy is measured too.
   bench.run("toy::FixedString", [&] {
     LongString       source(prototype);
     const LongString string(std::move(source), offset);

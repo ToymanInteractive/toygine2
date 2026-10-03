@@ -217,6 +217,7 @@ using std::uint64_t;
 #include "core/fixed_string_storage.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
+#include "core/log_record.hpp"
 #include "core/platform.hpp"
 #include "core/string.hpp"
 #include "core/string_like.hpp"

@@ -445,7 +445,7 @@ public:
 
     \note The terminator keeps its place, so the shortened view stays null-terminated and c_str() still reaches a C
           interface.
-    \note Nothing drops trailing characters: that would leave the view without a terminator.
+    \note No member drops trailing characters, since that would leave the view without a terminator.
 
     \sa swap()
   */

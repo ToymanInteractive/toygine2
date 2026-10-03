@@ -129,15 +129,18 @@ set(HDR_CORE_LIST
     include/core/fixed_string_storage.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
+    include/core/log_record.hpp
     include/core/platform.hpp
     include/core/string_like.hpp
     include/core/string_storage.hpp
+    include/core/string_utils.hpp
     include/core/string_view.hpp
     include/core/string.hpp
     include/core/utils.hpp)
 set(INL_CORE_LIST
     include/core/bitwise_enum.inl
     include/core/fixed_string_storage.inl
+    include/core/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)
 
