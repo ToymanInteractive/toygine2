@@ -306,6 +306,7 @@ jobs:
     name: Collect unit tests
     runs-on: ubuntu-26.04
     timeout-minutes: 30
+    container: ghcr.io/toymaninteractive/toygine2.gcc.toolchain:latest
     defaults:
       run:
         shell: bash
@@ -315,51 +316,6 @@ jobs:
         with:
           submodules: recursive
           persist-credentials: false
-
-      - name: Prepare APT staging dir
-        run: mkdir -p "$RUNNER_TEMP/apt-cache"
-
-      - name: APT cache restore
-        id: unit-test-apt-cache
-        uses: actions/cache/restore@v6.1.0
-        with:
-          path: ${{ runner.temp }}/apt-cache
-          key: unit-tests-apt
-          restore-keys: |
-            unit-tests-apt
-
-      - name: Prepare CI
-        run: |
-          set -euo pipefail
-          export DEBIAN_FRONTEND=noninteractive
-
-          APT_CACHE="${APT_CACHE:-${RUNNER_TEMP:-/tmp}/apt-cache}"
-          sudo mkdir -p "$APT_CACHE"
-
-          sudo apt -yq -o Acquire::Retries=3 update
-          sudo apt -yq \
-            -o Dir::Cache::archives="$APT_CACHE" \
-            -o APT::Keep-Downloaded-Packages=true \
-            -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
-            install eatmydata
-
-          sudo eatmydata apt -yq --no-install-recommends \
-            -o Dir::Cache::archives="$APT_CACHE" \
-            -o APT::Keep-Downloaded-Packages=true \
-            -o Acquire::Retries=3 -o Dpkg::Use-Pty=0 \
-            install \
-            lcov
-
-          sudo rm -f  "$APT_CACHE/lock" || true
-          sudo rm -rf "$APT_CACHE/partial" || true
-          sudo chown -R "$USER:$USER" "$APT_CACHE"
-
-      - name: APT cache save
-        if: steps.unit-test-apt-cache.outputs.cache-hit != 'true'
-        uses: actions/cache/save@v6.1.0
-        with:
-          path: ${{ runner.temp }}/apt-cache
-          key: ${{ steps.unit-test-apt-cache.outputs.cache-primary-key }}
 
       - name: Configure
         run: |
@@ -375,7 +331,7 @@ jobs:
         uses: codecov/codecov-action@v7.1.1
         with:
           report_type: test_results
-          files: ${{ github.workspace }}/out/junit/junit.xml
+          files: out/junit/junit.xml
           disable_search: true
           flags: units
           token: ${{ secrets.CODECOV_TOKEN }}

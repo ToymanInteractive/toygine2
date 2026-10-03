@@ -520,6 +520,265 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
 }
 
 template <StringStorage storageType>
+constexpr void String<storageType>::push_back(value_type ch) noexcept {
+  append(size_type{1}, ch);
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::pop_back() noexcept {
+  assert_message(!empty(), "the string must not be empty");
+  if (!empty())
+    _storage.setSize(size() - 1);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::append(size_type count, value_type ch) noexcept {
+  return insert(size(), count, ch);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::append(const value_type * string, size_type count) noexcept {
+  return insert(size(), string, count);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::append(const value_type * string) noexcept {
+  return insert(size(), string);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::append(const StringType & string) noexcept {
+  return insert(size(), string);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::append(const StringType & string, size_type pos,
+                                                            size_type count) noexcept {
+  return insert(size(), string, pos, count);
+}
+
+template <StringStorage storageType>
+template <std::input_iterator InputIterator>
+  requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+constexpr String<storageType> & String<storageType>::append(InputIterator first, InputIterator last) noexcept {
+  _replaceRange(size(), 0, std::move(first), std::move(last));
+
+  return *this;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::append(std::initializer_list<value_type> list) noexcept {
+  return append(list.begin(), list.size());
+}
+
+template <StringStorage storageType>
+template <std::ranges::input_range Range>
+  requires std::same_as<std::ranges::range_value_t<Range>, char>
+constexpr String<storageType> & String<storageType>::append_range(Range && range) noexcept {
+  _replaceRange(size(), 0, std::ranges::begin(range), std::ranges::end(range));
+
+  return *this;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::operator+=(value_type ch) noexcept {
+  return append(size_type{1}, ch);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::operator+=(const value_type * string) noexcept {
+  return append(string);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::operator+=(std::initializer_list<value_type> list) noexcept {
+  return append(list);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::operator+=(const StringType & string) noexcept {
+  return append(string);
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, const value_type * string,
+                                                             size_type count2) noexcept {
+  assert_message(pos <= size(), "the replaced range must start inside the string or at its end");
+  if (pos <= size())
+    _replace(pos, std::min(count, size() - pos), string, count2);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count,
+                                                             const value_type * string) noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return replace(pos, count, string, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count,
+                                                             const StringType & string) noexcept {
+  return replace(pos, count, string.c_str(), string.size());
+}
+
+template <StringStorage storageType>
+template <StringLike StringType>
+constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, const StringType & string,
+                                                             size_type pos2, size_type count2) noexcept {
+  assert_message(pos2 <= string.size(), "the substring must start inside the source string");
+  if (pos2 > string.size())
+    return *this;
+
+  return replace(pos, count, string.c_str() + pos2, std::min(count2, string.size() - pos2));
+}
+
+template <StringStorage storageType>
+constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, size_type count2,
+                                                             value_type ch) noexcept {
+  assert_message(pos <= size(), "the replaced range must start inside the string or at its end");
+  if (pos <= size() && _openGap(pos, std::min(count, size() - pos), count2))
+    traits_type::assign(data() + pos, count2, ch);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
+                                                             const value_type * string, size_type count2) noexcept {
+  const size_type index = _indexOf(first);
+  const size_type end   = _indexOf(last);
+  assert_message(index <= end, "the replaced range must not end before it starts");
+  if (index <= end && end <= size())
+    replace(index, end - index, string, count2);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
+                                                             const value_type * string) noexcept {
+  assert_message(string != nullptr, "C string must not be null");
+
+  return replace(first, last, string, string != nullptr ? traits_type::length(string) : 0);
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator, StringLike StringType>
+constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
+                                                             const StringType & string) noexcept {
+  return replace(first, last, string.c_str(), string.size());
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
+                                                             size_type count2, value_type ch) noexcept {
+  const size_type index = _indexOf(first);
+  const size_type end   = _indexOf(last);
+  assert_message(index <= end, "the replaced range must not end before it starts");
+  if (index <= end && end <= size())
+    replace(index, end - index, count2, ch);
+
+  return *this;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator, std::input_iterator InputIterator>
+  requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
+                                                             InputIterator first2, InputIterator last2) noexcept {
+  const size_type index = _indexOf(first);
+  const size_type end   = _indexOf(last);
+  assert_message(index <= end, "the replaced range must not end before it starts");
+  if (index <= end && end <= size())
+    _replaceRange(index, end - index, std::move(first2), std::move(last2));
+
+  return *this;
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator>
+constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
+                                                             std::initializer_list<value_type> list) noexcept {
+  return replace(first, last, list.begin(), list.size());
+}
+
+template <StringStorage storageType>
+template <std::convertible_to<const char *> PositionIterator, std::ranges::input_range Range>
+  requires std::same_as<std::ranges::range_value_t<Range>, char>
+constexpr String<storageType> & String<storageType>::replace_with_range(PositionIterator first, const_iterator last,
+                                                                        Range && range) noexcept {
+  const size_type index = _indexOf(first);
+  const size_type end   = _indexOf(last);
+  assert_message(index <= end, "the replaced range must not end before it starts");
+  if (index <= end && end <= size())
+    _replaceRange(index, end - index, std::ranges::begin(range), std::ranges::end(range));
+
+  return *this;
+}
+
+template <StringStorage storageType>
+constexpr String<storageType>::size_type String<storageType>::copy(value_type * destination, size_type count,
+                                                                   size_type pos) const noexcept {
+  assert_message(pos <= size(), "the copied range must start inside the string or at its end");
+  if (pos > size())
+    return 0;
+
+  const size_type copied = std::min(count, size() - pos);
+  assert_message(destination != nullptr || copied == 0, "a null pointer has no room for the copied characters");
+
+  // memmove behind std::char_traits::copy takes no null destination, even for an empty range.
+  if (copied != 0)
+    traits_type::copy(destination, data() + pos, copied);
+
+  return copied;
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::resize(size_type count) noexcept {
+  resize(count, value_type{});
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::resize(size_type count, value_type ch) noexcept {
+  if (count <= size())
+    erase(count);
+  else
+    append(count - size(), ch);
+}
+
+template <StringStorage storageType>
+template <typename Operation>
+  requires std::integral<std::invoke_result_t<Operation, char *, size_t>>
+constexpr void String<storageType>::resize_and_overwrite(size_type count, Operation operation) noexcept {
+  const bool reserved = _storage.reserve(count);
+  assert_message(reserved, "the requested size must fit the storage");
+  if (!reserved)
+    return;
+
+  const auto newSize = std::move(operation)(data(), count);
+  const bool fits    = std::cmp_greater_equal(newSize, 0) && std::cmp_less_equal(newSize, count);
+  assert_message(fits, "the operation must return a size between zero and the requested one");
+
+  // The operation may have overwritten the old terminator; setSize() writes it again.
+  _storage.setSize(fits ? static_cast<size_type>(newSize) : size());
+}
+
+template <StringStorage storageType>
+constexpr void String<storageType>::swap(String & other) noexcept {
+  std::ranges::swap(_storage, other._storage);
+}
+
+template <StringStorage storageType>
 constexpr bool String<storageType>::_mayOverlap(const_pointer pointer) const noexcept {
   if consteval {
     return true;
@@ -686,7 +945,19 @@ constexpr void String<storageType>::_replaceRange(size_type pos, size_type remov
     if (_openGap(pos, removed, count))
       std::ranges::copy(std::move(first), std::move(last), data() + pos);
   } else {
-    // A single pass reveals the length only at the end, so the characters go after the old ones and rotate into place.
+    // Overwriting the replaced characters first keeps the peak length at the final one, which a full buffer may hold.
+    size_type overwritten = 0;
+    for (; overwritten != removed && first != last; ++first, ++overwritten)
+      data()[pos + overwritten] = *first;
+
+    if (overwritten != removed) {
+      erase(pos + overwritten, removed - overwritten);
+
+      return;
+    }
+
+    // A single pass reveals the length only at the end, so the rest goes after the old ones and rotates into place.
+    const size_type insertAt = pos + removed;
     const size_type oldSize  = size();
     size_type       count    = oldSize;
     size_type       capacity = _storage.capacity();
@@ -712,8 +983,7 @@ constexpr void String<storageType>::_replaceRange(size_type pos, size_type remov
     }
 
     _storage.setSize(count);
-    std::rotate(data() + pos + removed, data() + oldSize, data() + count);
-    _replace(pos, removed, nullptr, 0);
+    std::rotate(data() + insertAt, data() + oldSize, data() + count);
   }
 }
 

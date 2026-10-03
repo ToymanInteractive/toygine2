@@ -1366,6 +1366,750 @@ public:
   template <std::convertible_to<const char *> PositionIterator>
   constexpr iterator erase(PositionIterator first, const_iterator last) noexcept;
 
+  /*!
+    \brief Appends \a ch after the last character.
+
+    \param ch Character to append.
+
+    \pre The storage accepts size() plus \c 1, checked by assert_message in debug builds.
+
+    \post size() grows by \c 1, and back() returns \a ch.
+
+    \note A storage that grows may move the buffer, after which no pointer or iterator into the string is valid.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects the new length,
+             where \c std::basic_string throws \c std::length_error.
+
+    \sa pop_back()
+    \sa append(size_t, char)
+  */
+  constexpr void push_back(value_type ch) noexcept;
+
+  /*!
+    \brief Removes the last character.
+
+    \pre The string is not empty, checked by assert_message in debug builds.
+
+    \post size() shrinks by \c 1, and \c '\\0' takes the place of the removed character.
+
+    \note The buffer stays where it is, so pointers and iterators to the remaining characters stay valid.
+
+    \warning A shipping build skips the check and leaves an empty string unchanged, where \c std::basic_string has
+             undefined behavior.
+
+    \sa push_back()
+  */
+  constexpr void pop_back() noexcept;
+
+  /*!
+    \brief Appends \a count copies of \a ch.
+
+    \param count Number of characters to append.
+    \param ch    Character written at every appended position.
+
+    \return Reference to this string.
+
+    \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
+
+    \post size() grows by \a count, and the copies follow the old characters.
+
+    \note A storage that grows may move the buffer, after which no pointer or iterator into the string is valid.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects the new length,
+             where \c std::basic_string throws \c std::length_error.
+
+    \sa insert(size_t, size_t, char)
+    \sa resize(size_t, char)
+  */
+  constexpr String & append(size_type count, value_type ch) noexcept;
+
+  /*!
+    \brief Appends a copy of \a count bytes starting at \a string.
+
+    Copies exactly \a count bytes, so the source needs no terminator. The source may lie inside this string; the
+    appended bytes are the ones it held before the call, even when the storage moves the buffer to grow.
+
+    \param string First byte to append.
+    \param count  Number of bytes to append.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
+    \pre The \a count bytes starting at \a string are readable.
+    \pre The storage accepts size() plus \a count, checked by assert_message in debug builds.
+
+    \post size() grows by \a count, and the copy follows the old characters.
+
+    \note A storage that grows may move the buffer, after which no pointer or iterator into the string is valid.
+
+    \warning A shipping build skips the capacity check and leaves the string unchanged when the storage rejects the new
+             length, where \c std::basic_string throws \c std::length_error.
+
+    \sa append(const char *)
+  */
+  constexpr String & append(const value_type * string, size_type count) noexcept;
+
+  /*!
+    \brief Appends a copy of the null-terminated byte string \a string.
+
+    Measures \a string, then appends it as append(const char *, size_t) does.
+
+    \param string Null-terminated byte string to append; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre The length of \a string meets the preconditions of append(const char *, size_t).
+
+    \post size() grows by the length of \a string, and the copy follows the old characters.
+
+    \sa append(const char *, size_t)
+    \sa operator+=(const char *)
+  */
+  constexpr String & append(const value_type * string) noexcept;
+
+  /*!
+    \brief Appends a copy of the characters of \a string.
+
+    Appends size() bytes starting at c_str() of \a string, as append(const char *, size_t) does.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string View or string to append; may view this string.
+
+    \return Reference to this string.
+
+    \pre The length of \a string meets the preconditions of append(const char *, size_t).
+
+    \post size() grows by the length of \a string, whose bytes follow the old characters.
+
+    \sa append(const StringType &, size_t, size_t)
+    \sa operator+=(const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & append(const StringType & string) noexcept;
+
+  /*!
+    \brief Appends a copy of the substring of \a string that starts at \a pos.
+
+    Takes at most \a count bytes and stops at the end of \a string. Covers the \c std::basic_string substring overloads
+    for a string and for a string-view-like type.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string View or string to append from; may view this string.
+    \param pos    Offset of the first byte to append.
+    \param count  Most bytes to append (default: \ref toy::String::npos, which appends to the end of \a string).
+
+    \return Reference to this string.
+
+    \pre \a pos is not greater than the length of \a string, checked by assert_message in debug builds.
+    \pre The length of the substring meets the preconditions of append(const char *, size_t).
+
+    \post size() grows by the smaller of \a count and the length of \a string minus \a pos, and those bytes follow the
+          old characters.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos is past the end of \a string,
+             where \c std::basic_string throws \c std::out_of_range.
+
+    \sa append(const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & append(const StringType & string, size_type pos, size_type count = npos) noexcept;
+
+  /*!
+    \brief Appends a copy of the characters in [\a first, \a last).
+
+    A contiguous range goes through append(const char *, size_t), so it may lie inside this string. A forward range is
+    measured first and copied in one step; a single-pass range is appended one character at a time and checked against
+    the storage whenever the buffer fills.
+
+    \tparam InputIterator Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its own
+                          \c std::sentinel_for.
+
+    \param first Iterator to the first character to append.
+    \param last  Iterator past the last character to append.
+
+    \return Reference to this string.
+
+    \pre \a last is reachable from \a first.
+    \pre A range that is not contiguous does not reference the characters of this string.
+    \pre The storage accepts size() plus the length of the range, checked by assert_message in debug builds.
+
+    \post size() grows by the length of the range, whose characters follow the old ones.
+
+    \note A storage that grows may move the buffer, after which no pointer or iterator into the string is valid.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects the new length,
+             a single-pass range included.
+
+    \sa append_range()
+  */
+  template <std::input_iterator InputIterator>
+    requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+  constexpr String<storageType> & append(InputIterator first, InputIterator last) noexcept;
+
+  /*!
+    \brief Appends a copy of the characters in \a list.
+
+    \param list Characters to append.
+
+    \return Reference to this string.
+
+    \pre list.size() meets the preconditions of append(const char *, size_t).
+
+    \post size() grows by list.size(), and the characters of \a list follow the old ones.
+
+    \sa operator+=(std::initializer_list<char>)
+  */
+  constexpr String & append(std::initializer_list<value_type> list) noexcept;
+
+  /*!
+    \brief Appends a copy of the characters of \a range.
+
+    Reads the range as append(InputIterator, InputIterator) reads an iterator pair, except that the end of the range may
+    have a type of its own, such as a sentinel that stops at a terminator.
+
+    \tparam Range Source range with \c char as its value type; satisfies \c std::ranges::input_range.
+
+    \param range Characters to append.
+
+    \return Reference to this string.
+
+    \pre A range that is not contiguous does not reference the characters of this string.
+    \pre The storage accepts size() plus the length of \a range, checked by assert_message in debug builds.
+
+    \post size() grows by the length of \a range, whose characters follow the old ones.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects the new length,
+             a single-pass range included.
+
+    \sa append(InputIterator, InputIterator)
+  */
+  template <std::ranges::input_range Range>
+    requires std::same_as<std::ranges::range_value_t<Range>, char>
+  constexpr String<storageType> & append_range(Range && range) noexcept;
+
+  /*!
+    \brief Appends \a ch, as push_back() does.
+
+    \param ch Character to append.
+
+    \return Reference to this string.
+
+    \pre The storage accepts size() plus \c 1, checked by assert_message in debug builds.
+
+    \post size() grows by \c 1, and back() returns \a ch.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects the new length.
+
+    \sa push_back()
+  */
+  constexpr String & operator+=(value_type ch) noexcept;
+
+  /*!
+    \brief Appends a copy of the null-terminated byte string \a string, as append(const char *) does.
+
+    \param string Null-terminated byte string to append; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string meets the preconditions of append(const char *).
+
+    \post size() grows by the length of \a string, and the copy follows the old characters.
+
+    \sa append(const char *)
+  */
+  constexpr String & operator+=(const value_type * string) noexcept;
+
+  /*!
+    \brief Appends a copy of the characters in \a list, as append(std::initializer_list<char>) does.
+
+    \param list Characters to append.
+
+    \return Reference to this string.
+
+    \pre list.size() meets the preconditions of append(const char *, size_t).
+
+    \post size() grows by list.size(), and the characters of \a list follow the old ones.
+
+    \sa append(std::initializer_list<char>)
+  */
+  constexpr String & operator+=(std::initializer_list<value_type> list) noexcept;
+
+  /*!
+    \brief Appends a copy of the characters of \a string, as append(const StringType &) does.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string View or string to append; may view this string.
+
+    \return Reference to this string.
+
+    \pre The length of \a string meets the preconditions of append(const char *, size_t).
+
+    \post size() grows by the length of \a string, whose bytes follow the old characters.
+
+    \sa append(const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & operator+=(const StringType & string) noexcept;
+
+  /*!
+    \brief Replaces up to \a count characters starting at \a pos with a copy of \a count2 bytes starting at \a string.
+
+    Removes the smaller of \a count and size() minus \a pos and puts the copy in their place, so the two lengths may
+    differ. The source needs no terminator and may lie anywhere inside this string, the replaced run included: the copy
+    holds the bytes the source had before the call, even when the storage moves the buffer to grow.
+
+    \param pos    Offset of the first character to replace; size() appends.
+    \param count  Most characters to replace.
+    \param string First byte of the replacement.
+    \param count2 Number of bytes in the replacement.
+
+    \return Reference to this string.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+    \pre \a string is non-null or \a count2 is \c 0, checked by assert_message in debug builds.
+    \pre The \a count2 bytes starting at \a string are readable.
+    \pre The storage accepts the new length, checked by assert_message in debug builds.
+
+    \post The characters before \a pos stay where they were, the copy starts at \a pos, and the characters that followed
+          the replaced run follow the copy.
+
+    \note Pointers and iterators from \a pos on read other characters after the call, and a storage that grows may
+          move the buffer, after which none of them is valid.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos is past the end or the
+             storage rejects the new length, where \c std::basic_string throws \c std::out_of_range or
+             \c std::length_error.
+
+    \sa replace(size_t, size_t, const char *)
+    \sa replace(PositionIterator, const_iterator, const char *, size_t)
+  */
+  constexpr String & replace(size_type pos, size_type count, const value_type * string, size_type count2) noexcept;
+
+  /*!
+    \brief Replaces up to \a count characters at \a pos with a copy of the null-terminated byte string \a string.
+
+    Measures \a string, then replaces as replace(size_t, size_t, const char *, size_t) does.
+
+    \param pos    Offset of the first character to replace; size() appends.
+    \param count  Most characters to replace.
+    \param string Null-terminated byte string to put in their place; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre \a pos, \a count, and the length of \a string meet the preconditions of
+         replace(size_t, size_t, const char *, size_t).
+
+    \post The copy of \a string starts at \a pos, and the characters that followed the replaced run follow it.
+
+    \sa replace(size_t, size_t, const char *, size_t)
+  */
+  constexpr String & replace(size_type pos, size_type count, const value_type * string) noexcept;
+
+  /*!
+    \brief Replaces up to \a count characters starting at \a pos with a copy of the characters of \a string.
+
+    Puts size() bytes starting at c_str() of \a string in their place, as replace(size_t, size_t, const char *, size_t)
+    does.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param pos    Offset of the first character to replace; size() appends.
+    \param count  Most characters to replace.
+    \param string View or string to put in their place; may view this string.
+
+    \return Reference to this string.
+
+    \pre \a pos, \a count, and the length of \a string meet the preconditions of
+         replace(size_t, size_t, const char *, size_t).
+
+    \post The bytes of \a string start at \a pos, and the characters that followed the replaced run follow them.
+
+    \sa replace(size_t, size_t, const StringType &, size_t, size_t)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & replace(size_type pos, size_type count, const StringType & string) noexcept;
+
+  /*!
+    \brief Replaces up to \a count characters at \a pos with the substring of \a string that starts at \a pos2.
+
+    Takes at most \a count2 bytes and stops at the end of \a string. Covers the \c std::basic_string substring overloads
+    for a string and for a string-view-like type.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param pos    Offset of the first character to replace; size() appends.
+    \param count  Most characters to replace.
+    \param string View or string to take the replacement from; may view this string.
+    \param pos2   Offset of the first byte of the replacement in \a string.
+    \param count2 Most bytes in the replacement (default: \ref toy::String::npos, which takes \a string to its end).
+
+    \return Reference to this string.
+
+    \pre \a pos2 is not greater than the length of \a string, checked by assert_message in debug builds.
+    \pre \a pos, \a count, and the length of the substring meet the preconditions of
+         replace(size_t, size_t, const char *, size_t).
+
+    \post The substring starts at \a pos, and the characters that followed the replaced run follow it.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos2 is past the end of
+             \a string, where \c std::basic_string throws \c std::out_of_range.
+
+    \sa replace(size_t, size_t, const StringType &)
+  */
+  template <StringLike StringType>
+  constexpr String<storageType> & replace(size_type pos, size_type count, const StringType & string, size_type pos2,
+                                          size_type count2 = npos) noexcept;
+
+  /*!
+    \brief Replaces up to \a count characters starting at \a pos with \a count2 copies of \a ch.
+
+    Removes the smaller of \a count and size() minus \a pos and writes the copies in their place.
+
+    \param pos    Offset of the first character to replace; size() appends.
+    \param count  Most characters to replace.
+    \param count2 Number of copies to write.
+    \param ch     Character written at every position of the replacement.
+
+    \return Reference to this string.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+    \pre The storage accepts the new length, checked by assert_message in debug builds.
+
+    \post The copies start at \a pos, and the characters that followed the replaced run follow them.
+
+    \note Pointers and iterators from \a pos on read other characters after the call, and a storage that grows may
+          move the buffer, after which none of them is valid.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a pos is past the end or the
+             storage rejects the new length, where \c std::basic_string throws \c std::out_of_range or
+             \c std::length_error.
+
+    \sa replace(PositionIterator, const_iterator, size_t, char)
+  */
+  constexpr String & replace(size_type pos, size_type count, size_type count2, value_type ch) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with a copy of \a count2 bytes starting at \a string.
+
+    Converts the range to an offset and a length, then replaces as replace(size_t, size_t, const char *, size_t) does.
+    Only \a first takes a deduced type, so the pair may mix \ref toy::String::iterator and
+    \ref toy::String::const_iterator, and integers still select the overloads that take an offset.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+
+    \param first  Iterator to the first character to replace.
+    \param last   Iterator past the last character to replace.
+    \param string First byte of the replacement; may point into this string.
+    \param count2 Number of bytes in the replacement.
+
+    \return Reference to this string.
+
+    \pre \a first and \a last lie in [begin(), end()], checked by assert_message in debug builds.
+    \pre \a first does not follow \a last, checked by assert_message in debug builds.
+    \pre \a string and \a count2 meet the preconditions of replace(size_t, size_t, const char *, size_t).
+
+    \post The copy starts where \a first pointed, and the characters that followed the range follow it.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a last precedes \a first or either
+             lies outside the string.
+
+    \sa replace(size_t, size_t, const char *, size_t)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr String<storageType> & replace(PositionIterator first, const_iterator last, const value_type * string,
+                                          size_type count2) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with a copy of the null-terminated byte string \a string.
+
+    Measures \a string, then replaces as replace(PositionIterator, const_iterator, const char *, size_t) does.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+
+    \param first  Iterator to the first character to replace.
+    \param last   Iterator past the last character to replace.
+    \param string Null-terminated byte string to put in their place; may point into this string.
+
+    \return Reference to this string.
+
+    \pre \a string is non-null, checked by assert_message in debug builds.
+    \pre \a first, \a last, and the length of \a string meet the preconditions of
+         replace(PositionIterator, const_iterator, const char *, size_t).
+
+    \post The copy of \a string starts where \a first pointed, and the characters that followed the range follow it.
+
+    \sa replace(size_t, size_t, const char *)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr String<storageType> & replace(PositionIterator first, const_iterator last,
+                                          const value_type * string) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with a copy of the characters of \a string.
+
+    Puts size() bytes starting at c_str() of \a string in their place, as
+    replace(PositionIterator, const_iterator, const char *, size_t) does.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+    \tparam StringType       Source type; satisfies \ref toy::StringLike.
+
+    \param first  Iterator to the first character to replace.
+    \param last   Iterator past the last character to replace.
+    \param string View or string to put in their place; may view this string.
+
+    \return Reference to this string.
+
+    \pre \a first, \a last, and the length of \a string meet the preconditions of
+         replace(PositionIterator, const_iterator, const char *, size_t).
+
+    \post The bytes of \a string start where \a first pointed, and the characters that followed the range follow them.
+
+    \sa replace(size_t, size_t, const StringType &)
+  */
+  template <std::convertible_to<const char *> PositionIterator, StringLike StringType>
+  constexpr String<storageType> & replace(PositionIterator first, const_iterator last,
+                                          const StringType & string) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with \a count2 copies of \a ch.
+
+    Converts the range to an offset and a length, then replaces as replace(size_t, size_t, size_t, char) does.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+
+    \param first  Iterator to the first character to replace.
+    \param last   Iterator past the last character to replace.
+    \param count2 Number of copies to write.
+    \param ch     Character written at every position of the replacement.
+
+    \return Reference to this string.
+
+    \pre \a first and \a last lie in [begin(), end()], checked by assert_message in debug builds.
+    \pre \a first does not follow \a last, checked by assert_message in debug builds.
+    \pre The storage accepts the new length, checked by assert_message in debug builds.
+
+    \post The copies start where \a first pointed, and the characters that followed the range follow them.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a last precedes \a first, either
+             lies outside the string, or the storage rejects the new length.
+
+    \sa replace(size_t, size_t, size_t, char)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr String<storageType> & replace(PositionIterator first, const_iterator last, size_type count2,
+                                          value_type ch) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with a copy of the characters in [\a first2, \a last2).
+
+    A contiguous source goes through replace(size_t, size_t, const char *, size_t), so it may lie inside this string. A
+    forward source is measured first and copied in one step. A single-pass source overwrites the replaced characters
+    first; what is left of it is appended one character at a time, checked against the storage whenever the buffer
+    fills, and rotated into place, so the string never grows past its final length.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+    \tparam InputIterator    Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its
+                             own \c std::sentinel_for.
+
+    \param first  Iterator to the first character to replace.
+    \param last   Iterator past the last character to replace.
+    \param first2 Iterator to the first character of the replacement.
+    \param last2  Iterator past the last character of the replacement.
+
+    \return Reference to this string.
+
+    \pre \a first and \a last lie in [begin(), end()], checked by assert_message in debug builds.
+    \pre \a first does not follow \a last, checked by assert_message in debug builds.
+    \pre \a last2 is reachable from \a first2.
+    \pre A source that is not contiguous does not reference the characters of this string.
+    \pre The storage accepts the new length, checked by assert_message in debug builds.
+
+    \post The characters of the source start where \a first pointed, and the characters that followed the range follow
+          them.
+
+    \warning A shipping build skips the checks and leaves the string unchanged when \a last precedes \a first, either
+             lies outside the string, or the storage rejects the new length. A single-pass source is the exception to
+             the last case: the string keeps its old length, but the replaced characters stay overwritten by the first
+             characters of the source.
+
+    \sa replace_with_range()
+  */
+  template <std::convertible_to<const char *> PositionIterator, std::input_iterator InputIterator>
+    requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
+  constexpr String<storageType> & replace(PositionIterator first, const_iterator last, InputIterator first2,
+                                          InputIterator last2) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with a copy of the characters in \a list.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+
+    \param first Iterator to the first character to replace.
+    \param last  Iterator past the last character to replace.
+    \param list  Characters to put in their place.
+
+    \return Reference to this string.
+
+    \pre \a first, \a last, and list.size() meet the preconditions of
+         replace(PositionIterator, const_iterator, const char *, size_t).
+
+    \post The characters of \a list start where \a first pointed, and the characters that followed the range follow
+          them.
+
+    \sa replace(PositionIterator, const_iterator, InputIterator, InputIterator)
+  */
+  template <std::convertible_to<const char *> PositionIterator>
+  constexpr String<storageType> & replace(PositionIterator first, const_iterator last,
+                                          std::initializer_list<value_type> list) noexcept;
+
+  /*!
+    \brief Replaces the characters in [\a first, \a last) with a copy of the characters of \a range.
+
+    Reads the range as replace(PositionIterator, const_iterator, InputIterator, InputIterator) reads an iterator pair,
+    except that the end of the range may have a type of its own, such as a sentinel that stops at a terminator.
+
+    \tparam PositionIterator Type of \a first; satisfies \c std::convertible_to with \c const \c char \c *.
+    \tparam Range            Source range with \c char as its value type; satisfies \c std::ranges::input_range.
+
+    \param first Iterator to the first character to replace.
+    \param last  Iterator past the last character to replace.
+    \param range Characters to put in their place.
+
+    \return Reference to this string.
+
+    \pre \a first, \a last, and the length of \a range meet the preconditions of
+         replace(PositionIterator, const_iterator, InputIterator, InputIterator).
+    \pre A range that is not contiguous does not reference the characters of this string.
+
+    \post The characters of \a range start where \a first pointed, and the characters that followed the range follow
+          them.
+
+    \warning A shipping build that rejects the new length handles a single-pass range as
+             replace(PositionIterator, const_iterator, InputIterator, InputIterator) handles a single-pass source.
+
+    \sa replace(PositionIterator, const_iterator, InputIterator, InputIterator)
+  */
+  template <std::convertible_to<const char *> PositionIterator, std::ranges::input_range Range>
+    requires std::same_as<std::ranges::range_value_t<Range>, char>
+  constexpr String<storageType> & replace_with_range(PositionIterator first, const_iterator last,
+                                                     Range && range) noexcept;
+
+  /*!
+    \brief Copies up to \a count characters starting at \a pos into \a destination.
+
+    Stops at the end of the string and writes no terminator.
+
+    \param destination First byte of the buffer to write into.
+    \param count       Most characters to copy.
+    \param pos         Offset of the first character to copy (default: \c 0).
+
+    \return Number of characters written: the smaller of \a count and size() minus \a pos.
+
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+    \pre \a destination is non-null or the call writes nothing, checked by assert_message in debug builds.
+    \pre \a destination has room for the characters written and does not overlap this string.
+
+    \warning A shipping build skips the checks, writes nothing, and returns \c 0 when \a pos is past the end, where
+             \c std::basic_string throws \c std::out_of_range.
+
+    \sa c_str()
+  */
+  constexpr size_type copy(value_type * destination, size_type count, size_type pos = 0) const noexcept;
+
+  /*!
+    \brief Sets the length to \a count, appending null characters when it grows.
+
+    Resizes as resize(size_t, char) does, with \c '\\0' as the appended character.
+
+    \param count New number of characters.
+
+    \pre \a count meets the preconditions of resize(size_t, char).
+
+    \post size() returns \a count, and every appended character is \c '\\0'.
+
+    \sa resize(size_t, char)
+  */
+  constexpr void resize(size_type count) noexcept;
+
+  /*!
+    \brief Sets the length to \a count, removing the characters past it or appending copies of \a ch.
+
+    \param count New number of characters.
+    \param ch    Character written at every appended position.
+
+    \pre The storage accepts \a count when it exceeds size(), checked by assert_message in debug builds.
+
+    \post size() returns \a count, the characters before the smaller of \a count and the old size() stay as they were,
+          and every appended one equals \a ch.
+
+    \note Shrinking keeps the buffer where it is; growing may move it, after which no pointer or iterator into the
+          string is valid.
+
+    \warning A shipping build skips the check and leaves the string unchanged when the storage rejects \a count, where
+             \c std::basic_string throws \c std::length_error.
+
+    \sa resize(size_t)
+    \sa resize_and_overwrite()
+  */
+  constexpr void resize(size_type count, value_type ch) noexcept;
+
+  /*!
+    \brief Makes room for \a count characters, lets \a operation write them, and takes the length it returns.
+
+    Calls \a operation once, as an rvalue, with data() and \a count. The buffer still holds the old characters, and the
+    operation may overwrite any of the first \a count positions; the string then keeps as many of them as the returned
+    value says and writes a terminator after them.
+
+    \tparam Operation Callable type invocable with \c char \c * and \c size_t; its result satisfies \c std::integral
+                      and is none of \c bool, \c char, \c wchar_t, \c char8_t, \c char16_t, and \c char32_t.
+
+    \param count     Number of characters the operation may write.
+    \param operation Callable that writes the characters and returns the new length.
+
+    \pre The storage accepts \a count, checked by assert_message in debug builds.
+    \pre \a operation returns a value in [\c 0, \a count], checked by assert_message in debug builds.
+    \pre \a operation writes nothing past the first \a count characters of the buffer.
+
+    \post size() returns the value \a operation returned, and c_str() reads that many characters of the buffer followed
+          by \c '\\0'.
+
+    \note A storage that grows to \a count may move the buffer before the call, so the operation gets the new address
+          and no pointer or iterator taken earlier is valid.
+
+    \warning A shipping build skips the checks. It leaves the string unchanged without calling \a operation when the
+             storage rejects \a count, and keeps the old size() when the returned value falls outside [\c 0, \a count]:
+             it writes the terminator after that size again, though any characters the operation wrote below it stay
+             written.
+
+    \sa resize(size_t, char)
+  */
+  template <typename Operation>
+    requires std::integral<std::invoke_result_t<Operation, char *, size_t>>
+  constexpr void resize_and_overwrite(size_type count, Operation operation) noexcept;
+
+  /*!
+    \brief Exchanges the contents of this string and \a other.
+
+    Swaps the two storages through \c std::ranges::swap: a free \c swap found for the storage type by argument-dependent
+    lookup, or else a move construction and two move assignments. \ref toy::FixedStringStorage has no such \c swap, so
+    its characters are copied both ways.
+
+    \param other String to exchange contents with; may be this string.
+
+    \post This string holds what \a other held before the call, and \a other holds what this string held.
+
+    \note With \ref toy::FixedStringStorage, pointers and iterators keep their addresses and read the other string's
+          characters after the call.
+
+    \sa assign(String &&)
+  */
+  constexpr void swap(String & other) noexcept;
+
   /// Count that stands for every character up to the end of the source or of the string
   static constexpr const size_type npos = -1;
 
@@ -1513,8 +2257,8 @@ private:
     \brief Replaces \a removed characters at \a pos with a copy of the characters in [\a first, \a last).
 
     A contiguous range goes to _replace(), so it may lie inside this string. A forward range is measured and copied into
-    an open gap. A single-pass range is appended past the end, rotated into place, and the replaced characters are
-    removed last, so a storage that rejects the length leaves the string as it was.
+    an open gap. A single-pass range overwrites the replaced characters first, so the string never grows past its final
+    length; what is left of the range is appended past the end and rotated into place.
 
     \tparam InputIterator Iterator type; satisfies \c std::input_iterator.
     \tparam Sentinel      End marker; satisfies \c std::sentinel_for with \a InputIterator.
@@ -1529,7 +2273,9 @@ private:
     \pre The storage accepts the resulting length, checked by assert_message in debug builds.
 
     \post The characters before \a pos are unchanged, the range starts at \a pos, and the characters that followed the
-          replaced ones follow it. When the storage rejects the resulting length, the string is unchanged.
+          replaced ones follow it. When the storage rejects the resulting length, the string keeps its old length: a
+          single-pass range leaves the replaced characters overwritten by its first ones, and any other range leaves
+          the string unchanged.
 
     \sa _replace()
   */
