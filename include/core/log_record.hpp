@@ -30,6 +30,7 @@
 #ifndef INCLUDE_CORE_LOG_RECORD_HPP_
 #define INCLUDE_CORE_LOG_RECORD_HPP_
 
+#include "log_metadata.hpp"
 #include "string.hpp"
 
 #ifndef LOG_MESSAGE_CAPACITY

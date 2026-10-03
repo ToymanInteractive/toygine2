@@ -30,6 +30,8 @@
 #ifndef INCLUDE_CORE_LOG_METADATA_HPP_
 #define INCLUDE_CORE_LOG_METADATA_HPP_
 
+#include "log_level.hpp"
+
 namespace toy::log {
 
 /*!
