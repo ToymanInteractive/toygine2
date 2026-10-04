@@ -27,8 +27,8 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_LOG_SINK_HPP_
-#define INCLUDE_CORE_LOG_SINK_HPP_
+#ifndef INCLUDE_CORE_LOG_ISINK_HPP_
+#define INCLUDE_CORE_LOG_ISINK_HPP_
 
 #include "log_record.hpp"
 
@@ -127,4 +127,4 @@ public:
 
 } // namespace toy::log
 
-#endif // INCLUDE_CORE_LOG_SINK_HPP_
+#endif // INCLUDE_CORE_LOG_ISINK_HPP_

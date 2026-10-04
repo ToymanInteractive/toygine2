@@ -121,6 +121,7 @@ endif ()
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST
+    src/core/log_isink.cpp
     src/core/utils.cpp)
 set(HDR_CORE_LIST
     include/core.hpp
