@@ -127,6 +127,7 @@ set(HDR_CORE_LIST
     include/core/assertion.hpp
     include/core/bitwise_enum.hpp
     include/core/fixed_string_storage.hpp
+    include/core/log_isink.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
     include/core/log_record.hpp

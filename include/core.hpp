@@ -210,11 +210,34 @@ using std::uint64_t;
 
 #endif // _DEBUG
 
+/*!
+  \def TOYGINE_NO_COPY_MOVE(ClassName)
+
+  \brief Deletes all four copy and move special member functions of \a ClassName.
+
+  Expands to deleted declarations of the copy constructor, copy assignment operator, move constructor, and move
+  assignment operator. A class derived from a non-copyable, non-movable base loses these members implicitly, and MSVC
+  reports that as C4625, C4626, C5026, and C5027; declaring the deletions explicitly silences them. The four warnings
+  are off by default and \c /Wall enables them.
+
+  Place it in the \c public section after the destructor declaration.
+
+  \param ClassName Unqualified name of the enclosing class.
+
+  \note Declares no destructor; the class declares it separately.
+*/
+#define TOYGINE_NO_COPY_MOVE(ClassName)                                                                                \
+  ClassName(const ClassName &)             = delete;                                                                   \
+  ClassName & operator=(const ClassName &) = delete;                                                                   \
+  ClassName(ClassName &&)                  = delete;                                                                   \
+  ClassName & operator=(ClassName &&)      = delete
+
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
 #include "core/fixed_string_storage.hpp"
+#include "core/log_isink.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
 #include "core/log_record.hpp"
