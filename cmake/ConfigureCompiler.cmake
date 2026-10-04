@@ -29,8 +29,8 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
-# Clang 21.1.0 documentation.    https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html
-# Clang 21.1.0 diagnostic flags. https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
+# Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
+# Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
 # last option is -Wbool-operation
 
 set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast                                           -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical -Wbitwise-op-parentheses -Wbool-operation")
@@ -65,6 +65,35 @@ set(CLANG_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
 
 set(CLANG_CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
 set(CLANG_CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
+
+# DevKitPro based on GCC version: 16.1
+# GCC 16.1.0 documentation.   https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/index.html
+# GCC 16.1.0 option summary.  https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/Option-Summary.html
+
+set(GCC_CMAKE_C_FLAGS                     "")
+set(GCC_CMAKE_CXX_FLAGS                   "")
+
+set(GCC_CMAKE_C_FLAGS_DEBUG               "")
+set(GCC_CMAKE_CXX_FLAGS_DEBUG             "")
+
+set(GCC_CMAKE_C_FLAGS_RELWITHDEBINFO      "")
+set(GCC_CMAKE_CXX_FLAGS_RELWITHDEBINFO    "")
+
+set(GCC_CMAKE_C_FLAGS_RELEASE             "")
+set(GCC_CMAKE_CXX_FLAGS_RELEASE           "")
+
+
+set(GCC_CMAKE_STATIC_LINKER_FLAGS                 "")
+set(GCC_CMAKE_EXE_LINKER_FLAGS                    "")
+
+set(GCC_CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
+set(GCC_CMAKE_EXE_LINKER_FLAGS_DEBUG              "")
+
+set(GCC_CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
+set(GCC_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
+
+set(GCC_CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
+set(GCC_CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
 
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
@@ -180,39 +209,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   endif ()
 
   if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-
-    set(CMAKE_C_FLAGS                     " ${CLANG_CMAKE_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS                   " ${CLANG_CMAKE_CXX_FLAGS}")
-    set(CMAKE_OBJC_FLAGS                  " ${CLANG_CMAKE_OBJC_FLAGS}")
-    set(CMAKE_OBJCXX_FLAGS                " ${CLANG_CMAKE_OBJCXX_FLAGS}")
-
-    set(CMAKE_C_FLAGS_DEBUG               " ${CLANG_CMAKE_C_FLAGS_DEBUG} -g")
-    set(CMAKE_CXX_FLAGS_DEBUG             " ${CLANG_CMAKE_CXX_FLAGS_DEBUG} -g")
-    set(CMAKE_OBJC_FLAGS_DEBUG            " ${CLANG_CMAKE_OBJC_FLAGS_DEBUG} -g")
-    set(CMAKE_OBJCXX_FLAGS_DEBUG          " ${CLANG_CMAKE_OBJCXX_FLAGS_DEBUG} -g")
-
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO      " ${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO    " ${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_OBJC_FLAGS_RELWITHDEBINFO   " ${CLANG_CMAKE_OBJC_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO " ${CLANG_CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-
-    set(CMAKE_C_FLAGS_RELEASE             " ${CLANG_CMAKE_C_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_CXX_FLAGS_RELEASE           " ${CLANG_CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_OBJC_FLAGS_RELEASE          " ${CLANG_CMAKE_OBJC_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_OBJCXX_FLAGS_RELEASE        " ${CLANG_CMAKE_OBJCXX_FLAGS_RELEASE} -O3 -DNDEBUG")
-
-
-    set(CMAKE_STATIC_LINKER_FLAGS                 " ${CLANG_CMAKE_STATIC_LINKER_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS                    " ${CLANG_CMAKE_EXE_LINKER_FLAGS}")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_DEBUG}")
-    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              " ${CLANG_CMAKE_EXE_LINKER_FLAGS_DEBUG}")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO}")
-    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     " ${CLANG_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_RELEASE}")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            " ${CLANG_CMAKE_EXE_LINKER_FLAGS_RELEASE}")
 
   else ()
 
