@@ -23,7 +23,8 @@
 
   Defines \ref toy::assertion. It holds the two handler types, the initialize() and deInitialize() calls that bound
   their registration, and assertion(), which the \c assert and \c assert_message macros call with the context of the
-  failing check. Reporting is compiled in only when \c _DEBUG is defined; no other build declares assertion() at all.
+  failing check. Reporting is compiled in only when \c TOYGINE_DEBUG is defined; no other build declares assertion() at
+  all.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -131,7 +132,7 @@ void deInitialize() noexcept;
 */
 void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback) noexcept;
 
-#ifdef _DEBUG
+#ifdef TOYGINE_DEBUG
 
 /*!
   \brief Reports a failed check through the registered \ref toy::assertion::AssertionCallback.
@@ -152,7 +153,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \pre initialize() must have been called.
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
-  \note Declared only when \c _DEBUG is defined. Every other build has no assertion() to call: the assert and
+  \note Declared only when \c TOYGINE_DEBUG is defined. Every other build has no assertion() to call: the assert and
         assert_message macros expand to \c ((void)0), so a failed check costs nothing in a shipping binary.
 
   \sa setCallbacks()
@@ -160,7 +161,7 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
 bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber) noexcept;
 
-#endif // _DEBUG
+#endif // TOYGINE_DEBUG
 
 /*!
   \brief Fails the build when reached during constant evaluation; does nothing at runtime.
