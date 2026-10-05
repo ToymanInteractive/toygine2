@@ -340,7 +340,7 @@ endforeach ()
 unset(REPORTED_CONFIG_UPPER)
 unset(REPORTED_CONFIGS)
 
-# Compiles in the engine's debug checks (assert, assert_message); Sega MD lacks the snprintf they report through
+# Enables assert and assert_message; skipped on Sega MD, which has no snprintf for assertion_stub.cpp
 if (NOT TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
   add_compile_definitions($<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
 endif ()

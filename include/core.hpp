@@ -131,8 +131,7 @@ using std::uint64_t;
   Expands to \c __FUNCSIG__ on MSVC, to \c __PRETTY_FUNCTION__ on GCC and Clang, and to \c __func__ elsewhere, so a
   failure report carries the full signature where the compiler offers one.
 
-  \note Defined only when \c TOYGINE_DEBUG is defined, and expanded by assert and assert_message; call sites never
-        spell it.
+  \note Exists only when \c TOYGINE_DEBUG is defined; assert and assert_message expand it, call sites never spell it.
 */
 #if defined(_MSC_VER)
 #define __FUNC_SIGNATURE__ __FUNCSIG__
