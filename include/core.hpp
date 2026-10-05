@@ -122,7 +122,7 @@ using std::uint64_t;
 #undef assert
 #endif
 
-#ifdef _DEBUG
+#ifdef TOYGINE_DEBUG
 
 /*!
   \def __FUNC_SIGNATURE__
@@ -131,7 +131,8 @@ using std::uint64_t;
   Expands to \c __FUNCSIG__ on MSVC, to \c __PRETTY_FUNCTION__ on GCC and Clang, and to \c __func__ elsewhere, so a
   failure report carries the full signature where the compiler offers one.
 
-  \note Defined only when \c _DEBUG is defined, and expanded by assert and assert_message; call sites never spell it.
+  \note Defined only when \c TOYGINE_DEBUG is defined, and expanded by assert and assert_message; call sites never
+        spell it.
 */
 #if defined(_MSC_VER)
 #define __FUNC_SIGNATURE__ __FUNCSIG__
@@ -157,8 +158,8 @@ using std::uint64_t;
   \note Execution continues past a failed check: the macro reports it and returns, so stopping is the registered
         handler's own decision.
   \note Replaces the \c assert macro of \c \<cassert\>, which this header undefines first.
-  \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so \a expression is
-        never evaluated and a side effect written inside it is lost.
+  \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build expands to \c ((void)0), so \a expression
+        is never evaluated and a side effect written inside it is lost.
 
   \sa assert_message
 */
@@ -186,8 +187,8 @@ using std::uint64_t;
 
   \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
 
-  \note Compiled in only when \c _DEBUG is defined. Every other build expands to \c ((void)0), so neither argument is
-        evaluated.
+  \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build expands to \c ((void)0), so neither
+        argument is evaluated.
 
   \sa assert
 */
@@ -202,13 +203,13 @@ using std::uint64_t;
     }                                                                                                                  \
   } while (0)
 
-#else // _DEBUG
+#else // TOYGINE_DEBUG
 
 #define assert(expression) ((void)0)
 
 #define assert_message(expression, message) ((void)0)
 
-#endif // _DEBUG
+#endif // TOYGINE_DEBUG
 
 /*!
   \def TOYGINE_NO_COPY_MOVE(ClassName)
