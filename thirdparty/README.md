@@ -62,7 +62,7 @@ Files extracted from upstream source:
 ## libpng
 
 - Upstream: <https://github.com/pnggroup/libpng>
-- Version: v1.6.58 (3061454d980de7d53608f594194cfac722721d2a, 2026)
+- Version: v1.6.59 (cd952f49f95bb27154ae77dbb103032d95f6e580, 2026)
 - License: libpng-2.0
 
 Files extracted from upstream source:
