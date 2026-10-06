@@ -6198,6 +6198,7 @@ VULKAN_HPP_EXPORT namespace VULKAN_HPP_NAMESPACE
       case StructureType::ePhysicalDeviceExtendedFlagsFeaturesKHR               : return "PhysicalDeviceExtendedFlagsFeaturesKHR";
       case StructureType::eImageStencilUsage2CreateInfoKHR                      : return "ImageStencilUsage2CreateInfoKHR";
       case StructureType::eSharedPresentSurfaceCapabilities2KHR                 : return "SharedPresentSurfaceCapabilities2KHR";
+      case StructureType::ePhysicalDeviceCooperativeMatrixLayoutsFeaturesARM    : return "PhysicalDeviceCooperativeMatrixLayoutsFeaturesARM";
       case StructureType::ePhysicalDeviceShaderOcpMicroscalingTypesFeaturesEXT  : return "PhysicalDeviceShaderOcpMicroscalingTypesFeaturesEXT";
       case StructureType::ePhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE: return "PhysicalDeviceShaderMixedFloatDotProductFeaturesVALVE";
       case StructureType::ePhysicalDeviceThrottleHintFeaturesSEC                : return "PhysicalDeviceThrottleHintFeaturesSEC";
@@ -6211,6 +6212,7 @@ VULKAN_HPP_EXPORT namespace VULKAN_HPP_NAMESPACE
       case StructureType::eImageTilingControlCreateInfoEXT                      : return "ImageTilingControlCreateInfoEXT";
       case StructureType::ePhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV: return "PhysicalDeviceCooperativeMatrixDecodeVectorFeaturesNV";
       case StructureType::ePhysicalDevicePrivateDataBaseHandleFeaturesNV        : return "PhysicalDevicePrivateDataBaseHandleFeaturesNV";
+      case StructureType::ePhysicalDeviceInfoPropertiesINTEL                    : return "PhysicalDeviceInfoPropertiesINTEL";
       case StructureType::ePhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE:
         return "PhysicalDeviceBufferDeviceAddressAllocationAlignmentFeaturesVALVE";
       case StructureType::ePhysicalDeviceBufferDeviceAddressAllocationAlignmentPropertiesVALVE:

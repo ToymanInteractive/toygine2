@@ -62,7 +62,7 @@ Files extracted from upstream source:
 ## libpng
 
 - Upstream: <https://github.com/pnggroup/libpng>
-- Version: v1.6.58 (3061454d980de7d53608f594194cfac722721d2a, 2026)
+- Version: v1.6.59 (cd952f49f95bb27154ae77dbb103032d95f6e580, 2026)
 - License: libpng-2.0
 
 Files extracted from upstream source:
@@ -93,7 +93,7 @@ Local patches:
 ## volk
 
 - Upstream: <https://github.com/zeux/volk>
-- Version: master, 1.4.362 (e640c6ea6420bdaf6248e85f736ab0b99491ae58, 2026)
+- Version: master, 1.4.365 (0dc3ce00bf98b9f0b6fe708ca0f7eb74e2830173, 2026)
 - License: MIT
 
 Files extracted from upstream source:
@@ -106,7 +106,7 @@ Files extracted from upstream source:
 ## vulkan
 
 - Upstream: <https://github.com/KhronosGroup/Vulkan-Headers>
-- Version: v1.4.362 (ee2ec5fd83dafce291024683b50dc89219333076, 2026)
+- Version: v1.4.365 (c46850864f4661461b0f6cb9922c058ffea4915e, 2026)
 - License: Apache 2.0 / MIT
 
 Files extracted from upstream source:
@@ -117,7 +117,7 @@ Files extracted from upstream source:
 ## zlib
 
 - Upstream: <https://github.com/madler/zlib>
-- Version: develop (98095f829266a1cab0360bc9b4164c81a71bda66, 2026)
+- Version: develop (767c4c947852e143f582c85f14cf573411df1b35, 2026)
 - License: zlib
 
 Files extracted from upstream source:
