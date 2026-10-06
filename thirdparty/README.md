@@ -106,7 +106,7 @@ Files extracted from upstream source:
 ## vulkan
 
 - Upstream: <https://github.com/KhronosGroup/Vulkan-Headers>
-- Version: v1.4.362 (ee2ec5fd83dafce291024683b50dc89219333076, 2026)
+- Version: v1.4.365 (c46850864f4661461b0f6cb9922c058ffea4915e, 2026)
 - License: Apache 2.0 / MIT
 
 Files extracted from upstream source:
