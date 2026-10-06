@@ -29,8 +29,8 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
-# Clang 21.1.0 documentation.    https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html
-# Clang 21.1.0 diagnostic flags. https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
+# Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
+# Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
 # last option is -Wbool-operation
 
 set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast                                           -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical -Wbitwise-op-parentheses -Wbool-operation")
