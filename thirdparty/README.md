@@ -93,7 +93,7 @@ Local patches:
 ## volk
 
 - Upstream: <https://github.com/zeux/volk>
-- Version: master, 1.4.362 (e640c6ea6420bdaf6248e85f736ab0b99491ae58, 2026)
+- Version: master, 1.4.365 (0dc3ce00bf98b9f0b6fe708ca0f7eb74e2830173, 2026)
 - License: MIT
 
 Files extracted from upstream source:
