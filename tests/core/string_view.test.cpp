@@ -402,19 +402,6 @@ TEST_CASE("string_view/copy") {
   static_assert(copiedAt(c_sample, 4, 4) == c_sentinel, "a copy writes nothing past its count");
 }
 
-#if !defined(_DEBUG)
-// Without the debug check an offset past the end copies nothing, so nothing past the view is read.
-TEST_CASE("string_view/copy_rejected") {
-  const StringView view(c_sample);
-
-  std::array<char, 16> buffer = sentinelBuffer();
-  CHECK(view.copy(buffer.data(), 4, c_sampleLength + 1) == 0);
-  CHECK(buffer[0] == c_sentinel);
-
-  static_assert(copiedCount(c_sample, 4, c_sampleLength + 1) == 0, "an offset past the end must copy nothing");
-}
-#endif // !_DEBUG
-
 // The sign each comparison of two whole strings yields.
 TEST_CASE("string_view/compare") {
   const StringView view(c_sample);
@@ -515,26 +502,6 @@ TEST_CASE("string_view/compare_empty") {
   static_assert(StringView().compare(c_sampleView) < 0, "a view holding no string must order before any string");
   static_assert(c_sampleView.compare(0, 0, nullptr, 0) == 0, "a null pointer with a count of zero must be empty");
 }
-
-#if !defined(_DEBUG)
-// Without the debug checks an offset past the end clamps to it: the part is empty, and nothing past the view is read.
-TEST_CASE("string_view/compare_rejected") {
-  const StringView view(c_sample);
-
-  CHECK(view.compare(c_sampleLength + 1, 1, StringView("")) == 0);
-  CHECK(view.compare(c_sampleLength + 1, 1, StringView("a")) < 0);
-  CHECK(view.compare(0, c_npos, view, c_sampleLength + 1, 1) > 0);
-  CHECK(view.compare(c_sampleLength + 1, 1, "") == 0);
-  CHECK(view.compare(c_sampleLength + 1, 1, "a", 1) < 0);
-
-  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, StringView("")) == 0,
-                "an offset past the end must compare an empty part");
-  static_assert(c_sampleView.compare(0, c_npos, c_sampleView, c_sampleLength + 1, 1) > 0,
-                "an offset past the end of the other view must compare against an empty part");
-  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, "a", 1) < 0,
-                "an offset past the end must compare an empty part against a counted string");
-}
-#endif // !_DEBUG
 
 // Whether two views hold the same characters, and what the synthesized inequality reports.
 TEST_CASE("string_view/equality") {

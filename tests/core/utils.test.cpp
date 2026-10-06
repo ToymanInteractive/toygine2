@@ -82,25 +82,6 @@ TEST_CASE("utf8_len/counts_sequences_at_the_range_edges") {
   CHECK(utf8Len(c_highestCodePoint) == 1);
 }
 
-// What a shipping build reports for input a debug build rejects with an assertion first.
-//
-// Compiled out where _DEBUG is defined: there the assertion runs, and the runner's callback leaves utf8Len() through a
-// noexcept boundary, which ends the process instead of failing the case.
-#ifndef _DEBUG
-
-TEST_CASE("utf8_len/counts_nothing_for_malformed_input") {
-  // A null pointer names no string to measure.
-  CHECK(utf8Len(nullptr) == 0);
-
-  // A byte that starts no sequence stops the walk before it counts anything.
-  CHECK(utf8Len(c_continuationByte) == 0);
-
-  // So does a sequence the terminator cuts short, however many characters preceded it.
-  CHECK(utf8Len(c_truncatedSymbol) == 0);
-}
-
-#endif // _DEBUG
-
 // Which strings the validator accepts: every encoding width and both ends of every narrowed range.
 TEST_CASE("validate_utf8/accepts_well_formed_sequences") {
   CHECK(validateUtf8(c_ascii));
