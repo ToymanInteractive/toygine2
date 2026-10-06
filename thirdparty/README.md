@@ -117,7 +117,7 @@ Files extracted from upstream source:
 ## zlib
 
 - Upstream: <https://github.com/madler/zlib>
-- Version: develop (98095f829266a1cab0360bc9b4164c81a71bda66, 2026)
+- Version: develop (767c4c947852e143f582c85f14cf573411df1b35, 2026)
 - License: zlib
 
 Files extracted from upstream source:

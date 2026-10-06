@@ -103,20 +103,6 @@
 #  endif
 #endif
 
-#ifdef EAGAIN
-#  ifdef EWOULDBLOCK
-#    define BLOCKED(e) ((e) == EAGAIN || (e) == EWOULDBLOCK)
-#  else
-#    define BLOCKED(e) ((e) == EAGAIN)
-#  endif
-#else
-#  ifdef EWOULDBLOCK
-#    define BLOCKED(e) ((e) == EWOULDBLOCK)
-#  else
-#    define BLOCKED(e) (0)
-#  endif
-#endif
-
 /* unlike snprintf (which is required in C99), _snprintf does not guarantee
    null termination of the result -- however this is only used in gzlib.c where
    the result is assured to fit in the space provided */
@@ -147,6 +133,20 @@
 #    define zstrerror() strerror(errno)
 #  else
 #    define zstrerror() "stdio error (consult errno)"
+#  endif
+#endif
+
+#ifdef EAGAIN
+#  ifdef EWOULDBLOCK
+#    define BLOCKED(e) ((e) == EAGAIN || (e) == EWOULDBLOCK)
+#  else
+#    define BLOCKED(e) ((e) == EAGAIN)
+#  endif
+#else
+#  ifdef EWOULDBLOCK
+#    define BLOCKED(e) ((e) == EWOULDBLOCK)
+#  else
+#    define BLOCKED(e) (0)
 #  endif
 #endif
 
@@ -228,3 +228,10 @@ char ZLIB_INTERNAL *gz_strwinerror(DWORD error);
    (possible z_off64_t types off_t, off64_t, and long are all signed) */
 unsigned ZLIB_INTERNAL gz_intmax(void);
 #define GT_OFF(x) (sizeof(int) == sizeof(z_off64_t) && (x) > gz_intmax())
+
+/* largest value representable in z_off64_t */
+#ifndef CHAR_BIT
+#  define CHAR_BIT 8
+#endif
+#define GZ_OFF_MAX \
+    ((((z_off64_t)1 << (sizeof(z_off64_t) * CHAR_BIT - 2)) - 1) * 2 + 1)
