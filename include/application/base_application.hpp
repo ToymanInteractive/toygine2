@@ -124,6 +124,7 @@ public:
 
     \param milliseconds Time to block, in milliseconds.
 
+    \note Returns at once on targets without a thread implementation.
     \warning Never call it from the frame loop, a job body, or the mixer callback.
 
     \sa yield()
