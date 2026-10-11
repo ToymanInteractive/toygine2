@@ -40,16 +40,16 @@ namespace toy::application {
   \class BaseApplication
   \brief Application object that holds the version of its build.
 
-  Takes a \ref toy::application::Version at construction and keeps a copy for its whole lifetime; no member replaces
-  it. The copy shares the revision characters with the caller, so the revision should come from a string literal or
-  other static storage.
+  Takes a \ref toy::application::Version at construction and keeps a copy. No setter changes the copy; assigning
+  another application replaces the whole object, version included. The copy shares the revision characters with the
+  caller, so the revision should come from a string literal or other static storage.
 
   \section base_application_features Key Features
 
   * **Constexpr support**: construction and version() evaluate in a constant expression, so the application can be a
     \c constexpr object.
   * **Explicit construction**: a \ref toy::application::Version never converts to an application implicitly.
-  * **Fixed version**: version() returns a \c const reference, and nothing changes the version after construction.
+  * **Read-only access**: version() returns a \c const reference, and no member sets the version on its own.
   * **No allocation**: the object holds one \ref toy::application::Version and nothing else.
 
   \section base_application_usage Usage Example
@@ -93,13 +93,16 @@ public:
   explicit constexpr BaseApplication(const Version & version) noexcept;
 
   /*!
-    \brief Returns the version passed at construction.
+    \brief Returns the version the application reports.
 
     \return Reference to the stored version, valid as long as the application exists.
+
+    \note Assigning another application changes the referenced value; the reference itself stays valid.
   */
   constexpr const Version & version() const noexcept;
 
 private:
+  /// Version the application reports; its revision views the caller's characters
   Version _version;
 };
 

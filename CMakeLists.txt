@@ -21,7 +21,7 @@
 cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 project(ToyGine2
-  VERSION 26.17.0
+  VERSION 26.20.0
   HOMEPAGE_URL https://github.com/ToymanInteractive/toygine2
   LANGUAGES C CXX)
 
