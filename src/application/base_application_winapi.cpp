@@ -42,7 +42,7 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
   assert_message(milliseconds <= std::numeric_limits<DWORD>::max() && milliseconds != INFINITE,
                  "milliseconds must fit in a DWORD and differ from INFINITE");
 
-  ::Sleep(static_cast<DWORD>(milliseconds));
+  ::Sleep(static_cast<DWORD>(std::min(std::numeric_limits<DWORD>::max() - 1, milliseconds)));
 }
 
 void BaseApplication::yield() noexcept {
