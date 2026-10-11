@@ -19,10 +19,13 @@
 //
 /*!
   \file   base_application_posix.cpp
-  \brief  Implementation of toy::application::BaseApplication::pid() for Linux and macOS.
+  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Linux and macOS.
 */
 
+#include <errno.h>
+#include <sched.h>
 #include <sys/types.h>
+#include <time.h>
 #include <unistd.h>
 
 #include "application.hpp"
@@ -32,7 +35,23 @@ namespace toy::application {
 uint32_t BaseApplication::pid() noexcept {
   static_assert(sizeof(uint32_t) >= sizeof(pid_t), "uint32_t must hold a POSIX process ID");
 
-  return static_cast<uint32_t>(::getpid());
+  return bit_cast<uint32_t>(::getpid());
+}
+
+void BaseApplication::sleep(size_t milliseconds) noexcept {
+  timespec ts = {.tv_sec  = static_cast<time_t>(milliseconds / 1000),
+                 .tv_nsec = static_cast<long>((milliseconds % 1000) * 1000000)};
+
+  while (::nanosleep(&ts, &ts) == -1) {
+    if (errno != EINTR) {
+      // Other errors end the sleep early and still need logging.
+      break;
+    }
+  }
+}
+
+void BaseApplication::yield() noexcept {
+  ::sched_yield();
 }
 
 } // namespace toy::application

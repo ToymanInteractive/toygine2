@@ -88,6 +88,9 @@ using std::uint32_t;
 /// Unsigned integer type with width of exactly 64 bits and no padding bits
 using std::uint64_t;
 
+/// Reinterprets the object representation of a value as another trivially copyable type of the same size
+using std::bit_cast;
+
 } // namespace toy
 
 //--------------------------------------------------------------------------------------------------------------------

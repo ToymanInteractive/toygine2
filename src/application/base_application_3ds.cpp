@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_3ds.cpp
-  \brief  Implementation of toy::application::BaseApplication::pid() for Nintendo 3DS.
+  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Nintendo 3DS.
 */
 
 // clang-format off
@@ -38,7 +38,15 @@ uint32_t BaseApplication::pid() noexcept {
   if (R_FAILED(result))
     return 0;
 
-  return static_cast<uint32_t>(id);
+  return bit_cast<uint32_t>(id);
+}
+
+void BaseApplication::sleep(size_t milliseconds) noexcept {
+  ::svcSleepThread(static_cast<s64>(milliseconds) * 1000000LL);
+}
+
+void BaseApplication::yield() noexcept {
+  ::svcSleepThread(0);
 }
 
 } // namespace toy::application

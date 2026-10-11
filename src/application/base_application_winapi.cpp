@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_winapi.cpp
-  \brief  Implementation of toy::application::BaseApplication::pid() for Windows.
+  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Windows.
 */
 
 #include <windows.h>
@@ -35,7 +35,18 @@ namespace toy::application {
 uint32_t BaseApplication::pid() noexcept {
   static_assert(sizeof(uint32_t) >= sizeof(DWORD), "uint32_t must hold a Windows process ID");
 
-  return static_cast<uint32_t>(::GetCurrentProcessId());
+  return bit_cast<uint32_t>(::GetCurrentProcessId());
+}
+
+void BaseApplication::sleep(size_t milliseconds) noexcept {
+  assert_message(milliseconds <= std::numeric_limits<DWORD>::max() && milliseconds != INFINITE,
+                 "milliseconds must fit in a DWORD and differ from INFINITE");
+
+  ::Sleep(static_cast<DWORD>(milliseconds));
+}
+
+void BaseApplication::yield() noexcept {
+  ::SwitchToThread();
 }
 
 } // namespace toy::application

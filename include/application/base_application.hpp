@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application.hpp
-  \brief  Application object that reports the version of its build and the ID of its process.
+  \brief  Application object that reports its build version and process ID, and suspends the calling thread.
 
   Defines \ref toy::application::BaseApplication, built once from a \ref toy::application::Version and read back where
   the application names its build, such as a startup log line.
@@ -51,6 +51,7 @@ namespace toy::application {
   * **Read-only access**: version() returns a \c const reference, and the class has no setter.
   * **No allocation**: the object holds one \ref toy::application::Version and nothing else.
   * **Process ID**: pid() reports the ID of the running process and needs no instance.
+  * **Thread suspension**: sleep() and yield() hand the calling thread back to the scheduler and need no instance.
 
   \section base_application_usage Usage Example
 
@@ -101,7 +102,7 @@ public:
 
     \note Assigning another application changes the referenced value; the reference itself stays valid.
   */
-  constexpr const Version & version() const noexcept;
+  [[nodiscard]] constexpr const Version & version() const noexcept;
 
   /*!
     \brief Returns the ID the operating system assigned to the running process.
@@ -114,7 +115,29 @@ public:
           Wii U, where the build links the stub implementation.
     \note On Nintendo Switch, the result holds only the low 32 bits of the 64-bit process ID.
   */
-  static uint32_t pid() noexcept;
+  [[nodiscard]] static uint32_t pid() noexcept;
+
+  /*!
+    \brief Blocks the calling thread for the given number of milliseconds.
+
+    The actual duration depends on the scheduler and the platform timer resolution; treat the argument as approximate.
+
+    \param milliseconds Time to block, in milliseconds.
+
+    \warning Never call it from the frame loop, a job body, or the mixer callback.
+
+    \sa yield()
+  */
+  static void sleep(size_t milliseconds) noexcept;
+
+  /*!
+    \brief Gives the rest of the calling thread's time slice to another thread that is ready to run.
+
+    Returns without waiting when no other thread is ready. Which threads qualify depends on the platform scheduler.
+
+    \sa sleep()
+  */
+  static void yield() noexcept;
 
 private:
   /// Version the application reports

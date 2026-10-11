@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_switch.cpp
-  \brief  Implementation of toy::application::BaseApplication::pid() for Nintendo Switch.
+  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Nintendo Switch.
 */
 
 #include <switch.h>
@@ -30,11 +30,19 @@ namespace toy::application {
 
 uint32_t BaseApplication::pid() noexcept {
   u64  id     = 0;
-  auto result = svcGetProcessId(&id, CUR_PROCESS_HANDLE);
+  auto result = ::svcGetProcessId(&id, CUR_PROCESS_HANDLE);
   if (R_FAILED(result))
     return 0;
 
   return static_cast<uint32_t>(id);
+}
+
+void BaseApplication::sleep(size_t milliseconds) noexcept {
+  ::svcSleepThread(static_cast<s64>(milliseconds) * 1000000LL);
+}
+
+void BaseApplication::yield() noexcept {
+  ::svcSleepThread(0);
 }
 
 } // namespace toy::application
