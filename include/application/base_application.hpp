@@ -41,15 +41,14 @@ namespace toy::application {
   \brief Application object that holds the version of its build.
 
   Takes a \ref toy::application::Version at construction and keeps a copy. No setter changes the copy; assigning
-  another application replaces the whole object, version included. The copy shares the revision characters with the
-  caller, so the revision should come from a string literal or other static storage.
+  another application replaces the whole object, version included.
 
   \section base_application_features Key Features
 
   * **Constexpr support**: construction and version() evaluate in a constant expression, so the application can be a
     \c constexpr object.
   * **Explicit construction**: a \ref toy::application::Version never converts to an application implicitly.
-  * **Read-only access**: version() returns a \c const reference, and no member sets the version on its own.
+  * **Read-only access**: version() returns a \c const reference, and the class has no setter.
   * **No allocation**: the object holds one \ref toy::application::Version and nothing else.
 
   \section base_application_usage Usage Example
@@ -72,8 +71,9 @@ namespace toy::application {
 
   \section base_application_safety Safety Guarantees
 
-  * **Lifetime**: the stored revision views characters the application does not own, so they have to outlive it.
-  * **Contracts**: none; any version is accepted, an empty revision included.
+  * **Lifetime**: the stored revision views characters the application does not own, so they have to outlive it; a
+    string literal or other static storage does.
+  * **Contracts**: none; the constructor accepts any version, an empty revision included.
   * **Memory safety**: nothing allocates; the version lives in the object itself.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -84,7 +84,7 @@ public:
   /*!
     \brief Creates an application that reports \a version.
 
-    \param version Version of the build; copied, while its revision characters stay with the caller.
+    \param version Version of the build to report.
 
     \post version() compares equal to \a version.
 
@@ -102,7 +102,7 @@ public:
   constexpr const Version & version() const noexcept;
 
 private:
-  /// Version the application reports; its revision views the caller's characters
+  /// Version the application reports
   Version _version;
 };
 
