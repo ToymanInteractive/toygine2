@@ -39,10 +39,15 @@ uint32_t BaseApplication::pid() noexcept {
 }
 
 void BaseApplication::sleep(size_t milliseconds) noexcept {
-  assert_message(milliseconds <= std::numeric_limits<DWORD>::max() && milliseconds != INFINITE,
-                 "milliseconds must fit in a DWORD and differ from INFINITE");
+  constexpr size_t maxSleepDuration = INFINITE - 1;
 
-  ::Sleep(static_cast<DWORD>(std::min(std::numeric_limits<DWORD>::max() - 1, milliseconds)));
+  do {
+    const auto interval = std::min(milliseconds, maxSleepDuration);
+
+    ::Sleep(static_cast<DWORD>(interval));
+
+    milliseconds -= interval;
+  } while (milliseconds > 0);
 }
 
 void BaseApplication::yield() noexcept {
