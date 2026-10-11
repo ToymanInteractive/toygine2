@@ -213,7 +213,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_wii_u.cpp)
 
 else ()
 
