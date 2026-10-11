@@ -33,6 +33,10 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
 # last option is -Wbool-operation
 
+# DevKitPro based on GCC version: 16.1
+# GCC 16.1.0 documentation.   https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/index.html
+# GCC 16.1.0 option summary.  https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/Option-Summary.html
+
 set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast                                           -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical -Wbitwise-op-parentheses -Wbool-operation")
 set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast -Wbinary-literal -Wbind-to-temporary-copy -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical -Wbitwise-op-parentheses -Wbool-operation")
 set(CLANG_CMAKE_OBJC_FLAGS                  "${CLANG_CMAKE_C_FLAGS}   -Warc-maybe-repeated-use-of-weak")

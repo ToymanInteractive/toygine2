@@ -31,6 +31,8 @@
 #ifndef INCLUDE_TOYGINE_HPP_
 #define INCLUDE_TOYGINE_HPP_
 
+#include "application.hpp"
 #include "core.hpp"
+#include "video.hpp"
 
 #endif // INCLUDE_TOYGINE_HPP_

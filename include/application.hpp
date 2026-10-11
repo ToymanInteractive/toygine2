@@ -38,10 +38,12 @@
   \brief Application-level types, among them the version a build reports about itself.
 */
 
+#include "application/base_application.hpp"
 #include "application/version.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
+#include "application/base_application.inl"
 #include "application/version.inl"
 
 //----------------------------------------------------------------------------------------------------------------------
