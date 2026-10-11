@@ -61,6 +61,9 @@ int main() {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   while (1)
     VBlankIntrWait();
@@ -82,6 +85,9 @@ int main() {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   while (pmMainLoop())
     swiWaitForVBlank();
@@ -107,6 +113,9 @@ int main() {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   // Main loop
   while (aptMainLoop()) {
@@ -140,6 +149,9 @@ int main() {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   while (appletMainLoop()) {
     padUpdate(&pad);
@@ -181,6 +193,9 @@ int main() {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -215,6 +230,9 @@ int main() {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -239,6 +257,9 @@ int main(int argc, char ** argv) {
   WHBLogPrintf("Hello world from Console sample app\n");
   WHBLogPrintf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
                app.version().revision.c_str());
+  WHBLogPrintf("\n");
+  if (app.pid() != 0)
+    WHBLogPrintf("Process ID: %u\n", app.pid());
 
   while (WHBProcIsRunning()) {
     WHBLogConsoleDraw();
@@ -266,6 +287,9 @@ int main(int argc, char * argv[]) noexcept {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
+  printf("\n");
+  if (app.pid() != 0)
+    printf("Process ID: %u\n", app.pid());
 
   return EXIT_SUCCESS;
 }

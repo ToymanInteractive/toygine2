@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application.hpp
-  \brief  Application object that reports the version of its build.
+  \brief  Application object that reports the version of its build and the ID of its process.
 
   Defines \ref toy::application::BaseApplication, built once from a \ref toy::application::Version and read back where
   the application names its build, such as a startup log line.
@@ -50,6 +50,7 @@ namespace toy::application {
   * **Explicit construction**: a \ref toy::application::Version never converts to an application implicitly.
   * **Read-only access**: version() returns a \c const reference, and the class has no setter.
   * **No allocation**: the object holds one \ref toy::application::Version and nothing else.
+  * **Process ID**: pid() reports the ID of the running process and needs no instance.
 
   \section base_application_usage Usage Example
 
@@ -61,6 +62,7 @@ namespace toy::application {
   };
 
   const uint32_t major = app.version().major;
+  const uint32_t processId = app.pid();
   \endcode
 
   \section base_application_performance Performance Characteristics
@@ -100,6 +102,19 @@ public:
     \note Assigning another application changes the referenced value; the reference itself stays valid.
   */
   constexpr const Version & version() const noexcept;
+
+  /*!
+    \brief Returns the ID the operating system assigned to the running process.
+
+    Each call queries the platform; read the ID once at startup and keep it.
+
+    \return Process ID, or \c 0 when the target has no implementation or the system call fails.
+
+    \note Returns \c 0 on Sega MD, Nintendo GBA, Nintendo DS, Nintendo 64, Nintendo GameCube, Nintendo Wii, and Nintendo
+          Wii U, where the build links the stub implementation.
+    \note On Nintendo Switch, the result holds only the low 32 bits of the 64-bit process ID.
+  */
+  static uint32_t pid() noexcept;
 
 private:
   /// Version the application reports
