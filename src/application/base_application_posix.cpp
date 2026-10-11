@@ -44,7 +44,7 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
 
   while (::nanosleep(&ts, &ts) == -1) {
     if (errno != EINTR) {
-      // Other errors end the sleep early and still need logging.
+      // Only EINTR is reachable: the timespec is always valid.
       break;
     }
   }
