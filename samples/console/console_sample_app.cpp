@@ -22,6 +22,12 @@
   \brief
 */
 
+#include "toygine.hpp"
+
+constexpr toy::application::BaseApplication app{
+  toy::application::Version{26, 20, 0, "f7e57d4"},
+};
+
 #ifdef __MEGA_DRIVE__
 
 #include <clownmdsdk.h>
@@ -52,7 +58,9 @@ int main() {
 
   consoleDemoInit();
 
-  printf("Hello world from Console sample app");
+  printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   while (1)
     VBlankIntrWait();
@@ -71,7 +79,9 @@ int main() {
 int main() {
   consoleDemoInit();
 
-  printf("Hello world from Console sample app");
+  printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   while (pmMainLoop())
     swiWaitForVBlank();
@@ -94,7 +104,9 @@ int main() {
 
   consoleInit(GFX_BOTTOM, NULL);
 
-  printf("Hello world from Console sample app");
+  printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   // Main loop
   while (aptMainLoop()) {
@@ -125,7 +137,9 @@ int main() {
   PadState pad;
   padInitializeDefault(&pad);
 
-  printf("Hello world from Console sample app");
+  printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   while (appletMainLoop()) {
     padUpdate(&pad);
@@ -164,7 +178,9 @@ int main() {
   if (rmode->viTVMode & VI_NON_INTERLACE)
     VIDEO_WaitVSync();
 
-  printf("Hello world from Console sample app");
+  printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -196,7 +212,9 @@ int main() {
   if (rmode->viTVMode & VI_NON_INTERLACE)
     VIDEO_WaitVSync();
 
-  printf("Hello world from Console sample app");
+  printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -217,7 +235,10 @@ int main() {
 int main(int argc, char ** argv) {
   WHBProcInit();
   WHBLogConsoleInit();
-  WHBLogPrintf("Hello world from Console sample app");
+
+  WHBLogPrintf("Hello world from Console sample app\n");
+  WHBLogPrintf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+               app.version().revision.c_str());
 
   while (WHBProcIsRunning()) {
     WHBLogConsoleDraw();
@@ -241,10 +262,10 @@ int main(int argc, char ** argv) {
 
 #include <iostream>
 
-#include "toygine.hpp"
-
 int main(int argc, char * argv[]) noexcept {
   printf("Hello world from Console sample app\n");
+  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
+         app.version().revision.c_str());
 
   return EXIT_SUCCESS;
 }

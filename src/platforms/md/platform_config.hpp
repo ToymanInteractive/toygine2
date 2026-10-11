@@ -30,6 +30,8 @@
 #ifndef SRC_PLATFORMS_MD_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_MD_PLATFORM_CONFIG_HPP_
 
+#include <clownmdsdk.h>
+
 namespace toy::platform::detail {
 
 // GCC for the 68000 copies objects up to 52 bytes inline and calls memcpy() above.
