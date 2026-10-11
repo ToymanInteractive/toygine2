@@ -38,7 +38,16 @@ uint32_t BaseApplication::pid() noexcept {
 }
 
 void BaseApplication::sleep(size_t milliseconds) noexcept {
-  ::svcSleepThread(static_cast<s64>(milliseconds) * 1000000LL);
+  constexpr s64    nanosecondsPerMillisecond = 1000000LL;
+  constexpr size_t maxSleepDuration          = std::numeric_limits<s64>::max() / nanosecondsPerMillisecond;
+
+  do {
+    const auto interval = std::min(milliseconds, maxSleepDuration);
+
+    ::svcSleepThread(static_cast<s64>(interval) * nanosecondsPerMillisecond);
+
+    milliseconds -= interval;
+  } while (milliseconds > 0);
 }
 
 void BaseApplication::yield() noexcept {
