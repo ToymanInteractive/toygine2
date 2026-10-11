@@ -146,18 +146,16 @@ set(INL_CORE_LIST
     include/core/string_view.inl
     include/core/string.inl)
 
-source_group("Core" FILES ${SRC_CORE_LIST} ${HDR_CORE_LIST} ${INL_CORE_LIST})
-
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_APPLICATION_LIST )
 set(HDR_APPLICATION_LIST
     include/application.hpp
+    include/application/base_application.hpp
     include/application/version.hpp)
 set(INL_APPLICATION_LIST
+    include/application/base_application.inl
     include/application/version.inl)
-
-source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -167,7 +165,67 @@ set(HDR_VIDEO_LIST
     include/video/color_32.hpp)
 set(INL_VIDEO_LIST )
 
-source_group("Video" FILES ${SRC_VIDEO_LIST} ${HDR_VIDEO_LIST} ${INL_VIDEO_LIST})
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_winapi.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_posix.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_posix.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_3ds.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_switch.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+else ()
+
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
+source_group("Core"        FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
+source_group("Video"       FILES ${SRC_VIDEO_LIST}       ${HDR_VIDEO_LIST}       ${INL_VIDEO_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
 
