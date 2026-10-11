@@ -33,7 +33,7 @@
 namespace toy::application {
 
 uint32_t BaseApplication::pid() noexcept {
-  static_assert(sizeof(uint32_t) >= sizeof(DWORD), "uint32_t must hold a Windows process ID");
+  static_assert(sizeof(uint32_t) == sizeof(DWORD), "uint32_t must hold a Windows process ID");
 
   return bit_cast<uint32_t>(::GetCurrentProcessId());
 }
