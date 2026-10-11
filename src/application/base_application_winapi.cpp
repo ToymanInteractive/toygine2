@@ -24,6 +24,10 @@
 
 #include <windows.h>
 
+// Undefine Windows macros that conflict with std:: functions
+#undef min
+#undef max
+
 #include "application.hpp"
 
 namespace toy::application {
