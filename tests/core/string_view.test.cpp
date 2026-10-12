@@ -323,6 +323,15 @@ TEST_CASE("string_view/utf8_size") {
 
   // A view over no string counts nothing, the way it reports no length.
   CHECK(StringView().utf8_size() == 0);
+
+  // A view that dropped a whole leading character counts only what it still holds.
+  StringView tail("привет");
+  tail.remove_prefix(2);
+  CHECK(tail.utf8_size() == 5);
+
+  static_assert(c_sampleView.utf8_size() == c_sampleView.size(), "an ASCII view counts one character per byte");
+  static_assert(StringView("привет").utf8_size() == 6, "a two-byte character counts once");
+  static_assert(StringView().utf8_size() == 0, "a view over no string counts nothing");
 }
 
 // Where the view starts reading after it drops leading characters.

@@ -114,8 +114,14 @@ constexpr StringView::size_type StringView::max_size() const noexcept {
   return std::numeric_limits<size_type>::max() / sizeof(value_type);
 }
 
-inline StringView::size_type StringView::utf8_size() const noexcept {
-  return _data != nullptr ? utf8Len(_data) : 0;
+constexpr StringView::size_type StringView::utf8_size() const noexcept {
+  if !consteval {
+    assert_message(validateUtf8(data(), size()), "the viewed bytes must hold well-formed UTF-8");
+  }
+
+  return static_cast<size_type>(std::count_if(begin(), end(), [](value_type byte) {
+    return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
+  }));
 }
 
 constexpr bool StringView::empty() const noexcept {

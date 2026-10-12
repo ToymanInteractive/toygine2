@@ -22,6 +22,7 @@
   \brief  Search and comparison of \ref toy::StringView; desktop adds std::string_view.
 */
 
+#include <algorithm>
 #include <string_view>
 
 #include "core.hpp"
@@ -47,6 +48,10 @@ constexpr const char * c_absentWideSet = "!?#%&@$^*()[]{}<>|~+";
 
 // Prefix the text carries, long enough that an answer takes more than the first character.
 constexpr const char * c_prefix = "the quick brown fox";
+
+// Text in three lead widths: ASCII, two-byte Cyrillic, three-byte Japanese, so a character count meets each of them.
+constexpr const char * c_utf8Text
+  = "the quick brown fox, съешь же ещё этих мягких французских булок, すばやい茶色の狐 jumps over the lazy dog";
 
 // Long text length: forty times the short one, inside the first cache level, so a case measures search not memory.
 constexpr size_t c_largeSize = 4096;
@@ -341,4 +346,21 @@ BENCHMARK_CASE("core/string_view/starts_with") {
     toy::benchmark::doNotOptimizeAway(reference.starts_with(prefixReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
+}
+
+BENCHMARK_CASE("core/string_view/utf8_size") {
+  const toy::StringView view(opaque(c_utf8Text));
+
+  bench.unit("count");
+
+  bench.run("toy::StringView", [&] {
+    toy::benchmark::doNotOptimizeAway(view.utf8_size());
+  });
+
+  // The standard algorithm alone: every byte outside the 10xxxxxx continuation form starts a character.
+  bench.run("std::count_if", [&] {
+    toy::benchmark::doNotOptimizeAway(std::count_if(view.begin(), view.end(), [](char byte) {
+      return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
+    }));
+  });
 }

@@ -22,7 +22,7 @@
   \brief  Utility functions the core module shares across its types.
 
   Declares toy::utf8Len(), which reads a byte string as UTF-8 and reports how many characters it encodes. Called where a
-  byte length has to become a character count, as \ref toy::StringView does.
+  byte length has to become a character count.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -75,6 +75,27 @@ namespace toy {
   \sa toy::utf8Len()
 */
 [[nodiscard]] bool validateUtf8(const char * str) noexcept;
+
+/*!
+  \brief Reports whether the \a size bytes starting at \a str are well-formed UTF-8.
+
+  Runs the checks of toy::validateUtf8(const char *) over a range that \a size bounds instead of a terminator. No byte
+  past \a size is read, and a \c '\\0' inside the range counts as a one-byte character.
+
+  \param str  First byte of the range.
+  \param size Number of bytes in the range.
+
+  \return \c true when every sequence is well-formed and ends inside the range, \c false at the first that is not. An
+          empty range is well-formed, a null \a str included; a null \a str with a non-zero \a size gives \c false.
+
+  \pre The \a size bytes starting at \a str are readable.
+
+  \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
+  \note Cost is O(n) in \a size, one pass.
+
+  \sa toy::validateUtf8(const char *)
+*/
+[[nodiscard]] bool validateUtf8(const char * str, size_t size) noexcept;
 
 } // namespace toy
 
