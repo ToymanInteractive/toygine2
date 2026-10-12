@@ -38,9 +38,8 @@ NAMED_COLUMNS = 5
 
 def read_rows(stream):
     """Yields the CSV rows of a run log as dictionaries, skipping everything else."""
-    # MSBuild indents the output of a custom target, so a CSV line does not always start at column one.
-    stripped = (line.lstrip() for line in stream)
-    lines = [line[len(CSV_PREFIX):] for line in stripped if line.startswith(CSV_PREFIX)]
+    # MSBuild indents a custom target's output and emulators prefix their log, so #csv may start mid-line.
+    lines = [line[line.index(CSV_PREFIX) + len(CSV_PREFIX):] for line in stream if CSV_PREFIX in line]
     rows = list(csv.reader(lines))
 
     if not rows:
