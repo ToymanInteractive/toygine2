@@ -25,6 +25,7 @@
 // nanobench keeps its implementation behind this macro, and exactly one translation unit may define it.
 #define ANKERL_NANOBENCH_IMPLEMENT
 
+#include <algorithm>
 #include <chrono>
 #include <cstddef>
 #include <cstdint>
@@ -41,16 +42,22 @@ namespace {
 // Picoseconds in a second: nanobench times an epoch in seconds, and the CSV carries whole picoseconds.
 constexpr double c_picosecondsPerSecond = 1e12;
 
-// A CSV field, quoted when the text carries a comma, a quote, a tab or a line break, with inner quotes doubled.
+// A CSV field: line breaks become spaces; a comma, a quote or a tab puts the field in quotes, inner quotes doubled.
 [[nodiscard]] std::string csvField(std::string_view text) {
-  if (text.find_first_of(",\"\n\r\t") == std::string_view::npos)
-    return std::string{text};
+  std::string field{text};
+
+  // The host parses one line at a time; LineBuffer::addField() replaces line breaks the same way on consoles.
+  std::ranges::replace(field, '\n', ' ');
+  std::ranges::replace(field, '\r', ' ');
+
+  if (field.find_first_of(",\"\t") == std::string::npos)
+    return field;
 
   std::string quoted;
-  quoted.reserve(text.size() + 2);
+  quoted.reserve(field.size() + 2);
   quoted.push_back('"');
 
-  for (const char character : text) {
+  for (const char character : field) {
     if (character == '"')
       quoted.push_back('"');
 
