@@ -29,7 +29,7 @@
 
 namespace toy::string_utils {
 
-namespace {
+namespace detail {
 
 /// Table with one entry per byte value, \c true where that byte belongs to a set.
 using membership_table_type = std::array<bool, 256>;
@@ -67,7 +67,7 @@ constexpr bool isMember(const membership_table_type & table, char ch) noexcept {
   return table[static_cast<unsigned char>(ch)];
 }
 
-} // namespace
+} // namespace detail
 
 constexpr size_t find(const char * data, size_t size, char ch, size_t pos) noexcept {
   assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
@@ -150,9 +150,9 @@ constexpr size_t findFirstOf(const char * data, size_t size, const char * set, s
   if (count == 0)
     return c_npos;
 
-  const auto members = membershipTable(set, count);
+  const auto members = detail::membershipTable(set, count);
   for (size_t index = pos; index < size; ++index)
-    if (isMember(members, data[index]))
+    if (detail::isMember(members, data[index]))
       return index;
 
   return c_npos;
@@ -165,9 +165,9 @@ constexpr size_t findLastOf(const char * data, size_t size, const char * set, si
   if (count == 0)
     return c_npos;
 
-  const auto members = membershipTable(set, count);
+  const auto members = detail::membershipTable(set, count);
   for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
-    if (isMember(members, data[remaining - 1]))
+    if (detail::isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return c_npos;
@@ -190,9 +190,9 @@ constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set
   if (count == 0)
     return pos < size ? pos : c_npos;
 
-  const auto members = membershipTable(set, count);
+  const auto members = detail::membershipTable(set, count);
   for (size_t index = pos; index < size; ++index)
-    if (!isMember(members, data[index]))
+    if (!detail::isMember(members, data[index]))
       return index;
 
   return c_npos;
@@ -215,9 +215,9 @@ constexpr size_t findLastNotOf(const char * data, size_t size, const char * set,
   if (count == 0)
     return size == 0 ? c_npos : std::min(pos, size - 1);
 
-  const auto members = membershipTable(set, count);
+  const auto members = detail::membershipTable(set, count);
   for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
-    if (!isMember(members, data[remaining - 1]))
+    if (!detail::isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return c_npos;
