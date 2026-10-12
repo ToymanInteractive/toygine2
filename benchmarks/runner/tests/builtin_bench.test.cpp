@@ -24,6 +24,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 #include <string>
 
 #include <doctest/doctest.h>
@@ -164,6 +165,32 @@ TEST_CASE("benchmark/bench/stalled_timer_names_the_limits") {
 
   CHECK(captured.text == "# no epoch reached 16 ticks within 4 calls: idle\n");
   CHECK(bench.failedRows() == 1);
+}
+
+// A timer wrapping past 2^32 inside an epoch still yields the epoch length: only differences carry meaning.
+TEST_CASE("benchmark/bench/epoch_across_the_timer_wrap") {
+  // Calibration takes 3 + 6 + 12 + 24 ticks, so the first timed epoch starts 10 ticks before the wrap.
+  ManualClock           clock{.ticks = std::numeric_limits<std::uint32_t>::max() - 54};
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+
+  const toy::benchmark::Clock timer{.now                = &readManualClock,
+                                    .clockData          = &clock,
+                                    .picosecondsPerTick = 1000,
+                                    .minEpochTicks      = 16,
+                                    .maxIterations      = 1024};
+
+  toy::benchmark::Bench bench{
+    timer, {.write = &captureLines, .writerData = &capturedPointer},
+     "core/fake/title"
+  };
+
+  bench.run("fast", [&clock] {
+    clock.ticks += 3;
+  });
+
+  CHECK(captured.text == "#csv core/fake/title,fast,op,1000,7,8,24,8,24,8,24,8,24,8,24,8,24,8,24\n");
+  CHECK(clock.ticks < 1024);
 }
 
 // Calibration stops at a limit that is not a power of two instead of doubling past it.
