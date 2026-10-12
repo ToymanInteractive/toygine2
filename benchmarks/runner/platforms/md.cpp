@@ -38,7 +38,7 @@ namespace {
 
 namespace vdp = ClownMDSDK::MainCPU::VDP;
 
-constexpr std::uint32_t c_minEpochLines = 1024;
+constexpr std::uint32_t c_minEpochLines = 2048;
 constexpr std::uint32_t c_maxIterations = 1UL << 31;
 
 // The vertical interrupt is level 6, so mask 5 lets it through; the horizontal one stays off at the VDP.
