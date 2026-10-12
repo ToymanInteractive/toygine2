@@ -26,11 +26,22 @@
 set(TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH ${TOYGINE_TARGET_PLATFORM_IS_DESKTOP})
 
 #-----------------------------------------------------------------------------------------------------------------------
-# Benchmarks translation units
+# Runner platform layer
 #-----------------------------------------------------------------------------------------------------------------------
 
-# The runner: the entry point that walks the registry and prints a table per benchmark, so no benchmark holds one.
-set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
+# The entry point, the timer and the output channels live in one file per target, so the runner has no target branches.
+if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
+  set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+  set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gba.cpp)
+else ()
+  # No other console has a runner timer yet: an emulator of a CPU with a cache gives timings that mean nothing.
+  return ()
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Benchmarks translation units
+#-----------------------------------------------------------------------------------------------------------------------
 
 # Benchmarks of engine modules: the glob adds a file to the target, BENCHMARK_CASE registers the cases inside it.
 file(GLOB_RECURSE TOYGINE_MODULE_BENCHMARKS_SRC CONFIGURE_DEPENDS RELATIVE "${CMAKE_CURRENT_SOURCE_DIR}" "${CMAKE_CURRENT_SOURCE_DIR}/*.benchmark.cpp")
@@ -64,6 +75,68 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
   # A generator expression names the binary but orders nothing, so the run target asks for the build itself.
   add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks-run ${TOYGINE_LIBRARY_NAME}-benchmarks)
   set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-run PROPERTIES FOLDER "benchmarks")
+else ()
+  #---------------------------------------------------------------------------------------------------------------------
+  # Benchmarks built with the runner written for consoles
+  #---------------------------------------------------------------------------------------------------------------------
+
+  find_package(Git QUIET)
+
+  set(TOYGINE_BENCHMARK_GENERATED_DIR ${CMAKE_CURRENT_BINARY_DIR}/generated)
+
+  # Runs on every build, so the report names the commit the ROM came from; the header changes only with that commit.
+  add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-build-id
+    COMMAND ${CMAKE_COMMAND} -DSOURCE_DIR=${CMAKE_SOURCE_DIR} -DGIT_EXECUTABLE=${GIT_EXECUTABLE}
+            -DOUTPUT=${TOYGINE_BENCHMARK_GENERATED_DIR}/benchmark_build_id.hpp
+            -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/build_id.cmake
+    BYPRODUCTS ${TOYGINE_BENCHMARK_GENERATED_DIR}/benchmark_build_id.hpp
+    COMMENT "Recording the commit of the benchmark ROM"
+    VERBATIM
+  )
+  set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-build-id PROPERTIES FOLDER "benchmarks")
+
+  add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${TOYGINE_BENCHMARK_RUNNER_SRC} ${TOYGINE_MODULE_BENCHMARKS_SRC})
+
+  add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks ${TOYGINE_LIBRARY_NAME}-benchmarks-build-id)
+
+  target_include_directories(${TOYGINE_LIBRARY_NAME}-benchmarks
+      PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include
+              ${TOYGINE_BENCHMARK_GENERATED_DIR})
+  target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE ${TOYGINE_LIBRARY_NAME})
+  set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks PROPERTIES FOLDER "benchmarks")
+
+  # The report heading names the target and the build type, so two reports on one flash cart cannot be confused.
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-benchmarks
+      PRIVATE "TOYGINE_BENCHMARKS_PLATFORM=\"${TOYGINE_TARGET_PLATFORM}\""
+              "TOYGINE_BENCHMARKS_BUILD_TYPE=\"${CMAKE_BUILD_TYPE}\"")
+
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+    # The console cannot load the ELF; flash carts and mGBA take the ROM.
+    gba_create_rom(${TOYGINE_LIBRARY_NAME}-benchmarks)
+
+    find_program(TOYGINE_MGBA_HEADLESS mgba-headless)
+
+    if (TOYGINE_MGBA_HEADLESS)
+      find_file(TOYGINE_GBA_BIOS gba_bios.bin HINTS /usr/local/share/emibios NO_CMAKE_FIND_ROOT_PATH)
+
+      if (TOYGINE_GBA_BIOS)
+        set(TOYGINE_MGBA_BIOS_ARGS -b ${TOYGINE_GBA_BIOS} -C skipBios=1)
+      endif ()
+
+      # The runner stops on SWI 3 and logs at info level; DKP_FILE is the ROM gba_create_rom wrote, not the ELF.
+      add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-run
+        COMMAND ${TOYGINE_MGBA_HEADLESS} ${TOYGINE_MGBA_BIOS_ARGS} -S 3 -R r0 -l 15
+                $<TARGET_PROPERTY:${TOYGINE_LIBRARY_NAME}-benchmarks,DKP_FILE>
+        COMMENT "Running benchmarks under mgba-headless"
+        VERBATIM
+      )
+
+      add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks-run ${TOYGINE_LIBRARY_NAME}-benchmarks)
+      set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-run PROPERTIES FOLDER "benchmarks")
+    else ()
+      message(STATUS "mgba-headless not found: the benchmark ROM is built without a target that runs it")
+    endif ()
+  endif ()
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
