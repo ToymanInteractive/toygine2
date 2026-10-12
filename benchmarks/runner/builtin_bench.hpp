@@ -54,7 +54,7 @@ struct Clock final {
   const void *      clockData;          ///< Passed to \a now unchanged; owned by the platform.
   std::uint64_t     picosecondsPerTick; ///< Length of one tick, the \c ps_per_tick field of a row.
   std::uint32_t     minEpochTicks;      ///< Shortest epoch calibration accepts, in ticks.
-  std::uint32_t     maxIterations;      ///< Calls per epoch, at most 2^31, at which calibration gives up.
+  std::uint32_t     maxIterations;      ///< Calls per epoch at which calibration gives up.
 };
 
 namespace detail {
@@ -95,15 +95,31 @@ void doNotOptimizeAway(T && value) noexcept;
   * **Allocation-free**: no container, no heap, no \c std::function
   * **Integers only**: ticks and call counts, no division and no fixed point on the device
   * **Timer outside the loop**: the clock is read only at epoch boundaries
-  * **Failed calibration reported**: a row that never reaches \c minEpochTicks prints a comment with both limits
+  * **Failed rows counted**: a row that never reaches \c minEpochTicks or does not fit the line prints a comment and
+    counts toward failedRows()
 
   \section usage Usage Example
 
   \code
+  #include "core.hpp"
   #include "toy_benchmark.hpp"
 
+  namespace {
+
+  const char * opaque(const char * string) noexcept {
+    toy::benchmark::doNotOptimizeAway(string);
+
+    return string;
+  }
+
+  } // namespace
+
   BENCHMARK_CASE("core/string_view/find") {
+    const toy::StringView view(opaque("the quick brown fox jumps over the lazy dog"));
+    const toy::StringView needle(opaque("lazy"));
+
     bench.unit("search");
+
     bench.run("toy::StringView", [&] { toy::benchmark::doNotOptimizeAway(view.find(needle)); });
   }
   \endcode
@@ -111,7 +127,8 @@ void doNotOptimizeAway(T && value) noexcept;
   \section performance Performance Characteristics
 
   * **run()**: calibration doubles the calls until an epoch lasts \c minEpochTicks, then seven epochs of that count
-  * **Memory usage**: the clock, the output, three words of state and seven pairs of epoch counters
+  * **Memory usage**: the clock, the output, two name pointers and the failed-row count; run() keeps seven 32-bit
+    epoch counters on the stack
 
   \section safety Safety Guarantees
 
@@ -131,7 +148,7 @@ public:
     \param output  Destination of the report lines.
     \param title   Benchmark name, the \c case field of every row; must outlive the object.
 
-    \post Nothing is printed yet and the unit is \c op.
+    \post Nothing is printed yet, the unit is \c op, and failedRows() is \c 0.
   */
   Bench(const Clock & clock, const Output & output, const char * title) noexcept;
 
@@ -161,28 +178,36 @@ public:
 
     \return This benchmark.
 
-    \post One line was written: the row for \a name, or a comment naming the epoch length and the call limit that
-          calibration could not reach.
+    \post One line was written: the row for \a name, or a comment saying why there is none. A comment adds one to
+          failedRows().
   */
   template <typename Callable>
     requires std::invocable<Callable &>
   Bench & run(const char * name, Callable && operation);
 
+  /*!
+    \brief Returns how many run() calls printed a comment instead of a CSV row.
+
+    \return Count of those rows, which the host script skips; \c 0 when every row reached the report.
+  */
+  [[nodiscard]] std::uint32_t failedRows() const noexcept;
+
 private:
   /// Returns the calls an epoch needs to reach \c minEpochTicks, or \c 0 when \c maxIterations is reached first.
   template <typename Epoch>
     requires std::invocable<Epoch &, std::uint32_t>
-  [[nodiscard]] std::uint32_t calibrate(Epoch & timeEpoch) const;
+  [[nodiscard]] std::uint32_t _calibrate(Epoch & timeEpoch) const;
 
-  void writeRow(const char * name, std::uint32_t iterations,
-                const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept;
-  void writeOverlongRow(const char * name) noexcept;
-  void writeUncalibrated(const char * name) noexcept;
+  void _writeRow(const char * name, std::uint32_t iterations,
+                 const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept;
+  void _writeOverlongRow(const char * name) noexcept;
+  void _writeUncalibrated(const char * name) noexcept;
 
-  Clock        _clock;
-  Output       _output;
-  const char * _title;
-  const char * _unit{"op"};
+  Clock         _clock;
+  Output        _output;
+  const char *  _title;
+  const char *  _unit{"op"};
+  std::uint32_t _failedRows{0};
 };
 
 } // namespace toy::benchmark

@@ -41,13 +41,16 @@ namespace toy::benchmark {
 
   Prints a heading comment, the CSV header, one CSV row per toy::benchmark::Bench::run() call with benchmarks in name
   order, and \c "# done". A repeated name stops the run before the first row with a comment naming both declarations.
+  After a row printed as a comment the run goes on, and the report ends in \c "# failed rows: N" instead of
+  \c "# done".
 
   \param clock    Platform timer and calibration limits for every benchmark.
   \param output   Destination of the report lines.
   \param heading  Words printed after \c "# toygine2 benchmarks:", such as the platform and the build id.
   \param head     Registry head; may be \c nullptr.
 
-  \return \c 0 when every benchmark ran, \c 1 when a repeated name stopped the run.
+  \return \c 0 when every row reached the report, \c 1 when a repeated name stopped the run or a row was printed as a
+          comment.
 */
 [[nodiscard]] int writeReport(const Clock & clock, const Output & output, std::span<const char * const> heading,
                               const CaseRegistrar * head) noexcept;

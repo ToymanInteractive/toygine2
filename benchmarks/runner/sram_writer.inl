@@ -45,7 +45,7 @@ inline void SramWriter::write(const char * text, std::size_t length) noexcept {
 
   // Every line leaves room for the truncation comment, so the report can always end on it.
   if (_length + length + _truncatedLength + 1 > _capacity) {
-    text       = _truncatedLine;
+    text       = _truncatedLine.data();
     length     = _truncatedLength;
     _truncated = true;
   }

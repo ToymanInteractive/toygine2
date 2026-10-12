@@ -33,26 +33,31 @@ namespace {
 using toy::benchmark::detail::c_ntscLinesPerFrame;
 using toy::benchmark::detail::c_palLinesPerFrame;
 using toy::benchmark::detail::c_verticalInterruptLine;
+using toy::benchmark::detail::isPinned;
 using toy::benchmark::detail::lineTimestamp;
 using toy::benchmark::detail::needsSettling;
 using toy::benchmark::detail::VdpSample;
 
-// Replays two frames line by line, with V counter values from Kabuto's hardware notes for 224-line mode.
+// Builds the sample of one line, with V counter values from Kabuto's hardware notes for 224-line mode.
+[[nodiscard]] constexpr VdpSample sampleAt(std::uint32_t line, std::uint32_t linesPerFrame,
+                                           std::uint32_t lastLineBeforeJump) noexcept {
+  const std::uint32_t inFrame = line % linesPerFrame;
+
+  // The interrupt on line 224 has run by the time the next sample is taken.
+  const std::uint32_t frames = (line + linesPerFrame - c_verticalInterruptLine) / linesPerFrame;
+
+  return {.frames        = frames,
+          .vCounter      = static_cast<std::uint8_t>(inFrame <= lastLineBeforeJump ? inFrame : inFrame - linesPerFrame),
+          .verticalBlank = inFrame >= c_verticalInterruptLine && inFrame != linesPerFrame - 1};
+}
+
+// Replays two frames line by line and checks that no timestamp is lower than the one before it.
 [[nodiscard]] constexpr bool walkNeverStepsBack(std::uint32_t linesPerFrame,
                                                 std::uint32_t lastLineBeforeJump) noexcept {
   std::uint32_t previous = 0;
 
   for (std::uint32_t line = 0; line < 2 * linesPerFrame; ++line) {
-    const std::uint32_t inFrame = line % linesPerFrame;
-
-    // The interrupt on line 224 has run by the time the next sample is taken.
-    const std::uint32_t frames = (line + linesPerFrame - c_verticalInterruptLine) / linesPerFrame;
-
-    const VdpSample sample{.frames        = frames,
-                           .vCounter      = static_cast<std::uint8_t>(inFrame <= lastLineBeforeJump
-                                                                        ? inFrame
-                                                                        : inFrame - linesPerFrame),
-                           .verticalBlank = inFrame >= c_verticalInterruptLine && inFrame != linesPerFrame - 1};
+    const VdpSample sample = sampleAt(line, linesPerFrame, lastLineBeforeJump);
 
     if (needsSettling(sample))
       continue;
@@ -63,6 +68,28 @@ using toy::benchmark::detail::VdpSample;
       return false;
 
     previous = timestamp;
+  }
+
+  return true;
+}
+
+// Replays two frames and checks each timestamp against the line it was taken on.
+[[nodiscard]] constexpr bool walkStaysOnTime(std::uint32_t linesPerFrame, std::uint32_t lastLineBeforeJump) noexcept {
+  // Line 0 of the walk follows a vertical blank, so its exact timestamp is the blank's length.
+  const std::uint32_t blankLength = linesPerFrame - c_verticalInterruptLine;
+
+  for (std::uint32_t line = 0; line < 2 * linesPerFrame; ++line) {
+    const VdpSample sample = sampleAt(line, linesPerFrame, lastLineBeforeJump);
+
+    if (needsSettling(sample))
+      continue;
+
+    const std::uint32_t exact     = line + blankLength;
+    const std::uint32_t timestamp = lineTimestamp(sample, linesPerFrame);
+
+    // An active line gets its exact timestamp; a pinned one lags, but by less than the whole blank.
+    if (isPinned(sample) ? timestamp > exact || exact - timestamp >= blankLength : timestamp != exact)
+      return false;
   }
 
   return true;
@@ -109,6 +136,15 @@ TEST_CASE("benchmark::detail/line_timestamp/never_steps_back_through_frames") {
 
   static_assert(walkNeverStepsBack(c_ntscLinesPerFrame, 0xEA), "NTSC timestamps never step back across a frame");
   static_assert(walkNeverStepsBack(c_palLinesPerFrame, 0x102), "PAL timestamps never step back across a frame");
+}
+
+// Active lines get their exact timestamp; a pinned line lags by at most 37 lines on NTSC and 88 on PAL.
+TEST_CASE("benchmark::detail/line_timestamp/stays_within_the_blank_of_the_true_line") {
+  CHECK(walkStaysOnTime(c_ntscLinesPerFrame, 0xEA));
+  CHECK(walkStaysOnTime(c_palLinesPerFrame, 0x102));
+
+  static_assert(walkStaysOnTime(c_ntscLinesPerFrame, 0xEA), "NTSC timestamps are exact or lag within the blank");
+  static_assert(walkStaysOnTime(c_palLinesPerFrame, 0x102), "PAL timestamps are exact or lag within the blank");
 }
 
 // Only the interrupt line asks for a retake.

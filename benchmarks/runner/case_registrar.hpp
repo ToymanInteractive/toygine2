@@ -68,7 +68,7 @@ using case_body_type = void (*)(Bench & bench);
 
   \section safety Safety Guarantees
 
-  * **Contracts**: none; every name is accepted, and a repeated one registers a second table under it
+  * **Contracts**: none; every name is accepted, and the runner stops before the first benchmark when two share one
   * **Memory safety**: no ownership; the name and file pointers refer to string literals
   * **Exception safety**: No operation throws; exceptions are off in the build
 

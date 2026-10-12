@@ -23,6 +23,7 @@
 */
 
 #include <initializer_list>
+#include <ostream>
 #include <string>
 #include <vector>
 
@@ -62,6 +63,8 @@ private:
   std::vector<char *>      _pointers;
 };
 
+void emptyBody([[maybe_unused]] toy::benchmark::Bench & bench) {}
+
 } // namespace
 
 // parseOptions() reads the leading options in any order, and the first pattern follows them.
@@ -70,10 +73,11 @@ TEST_CASE("benchmark::detail/parse_options/reads_options_in_any_order") {
 
   const auto options = toy::benchmark::detail::parseOptions(arguments.count(), arguments.data());
 
-  CHECK(options.csv);
-  CHECK(options.noTable);
-  CHECK(options.listOnly);
-  CHECK(options.firstPattern == 4);
+  REQUIRE(options.has_value());
+  CHECK(options->csv);
+  CHECK(options->noTable);
+  CHECK(options->listOnly);
+  CHECK(options->firstPattern == 4);
 }
 
 // Parsing stops at the first argument that is not an option, so a later option stays a pattern.
@@ -82,8 +86,9 @@ TEST_CASE("benchmark::detail/parse_options/stops_at_the_first_pattern") {
 
   const auto options = toy::benchmark::detail::parseOptions(arguments.count(), arguments.data());
 
-  CHECK_FALSE(options.csv);
-  CHECK(options.firstPattern == 1);
+  REQUIRE(options.has_value());
+  CHECK_FALSE(options->csv);
+  CHECK(options->firstPattern == 1);
 }
 
 // A run without options carries no pattern either.
@@ -92,10 +97,31 @@ TEST_CASE("benchmark::detail/parse_options/bare_run_has_no_pattern") {
 
   const auto options = toy::benchmark::detail::parseOptions(arguments.count(), arguments.data());
 
-  CHECK_FALSE(options.listOnly);
-  CHECK_FALSE(options.csv);
-  CHECK_FALSE(options.noTable);
-  CHECK(options.firstPattern == 1);
+  REQUIRE(options.has_value());
+  CHECK_FALSE(options->listOnly);
+  CHECK_FALSE(options->csv);
+  CHECK_FALSE(options->noTable);
+  CHECK(options->firstPattern == 1);
+}
+
+// A mistyped leading option is an error that names it.
+TEST_CASE("benchmark::detail/parse_options/rejects_an_unknown_option") {
+  Arguments arguments{"toygine-benchmarks", "--csv", "--cvs", "find"};
+
+  const auto options = toy::benchmark::detail::parseOptions(arguments.count(), arguments.data());
+
+  REQUIRE_FALSE(options.has_value());
+  CHECK(options.error() == "--cvs");
+}
+
+// After the first pattern a double dash means nothing special, so the argument stays a pattern.
+TEST_CASE("benchmark::detail/parse_options/keeps_an_unknown_option_after_a_pattern") {
+  Arguments arguments{"toygine-benchmarks", "find", "--cvs"};
+
+  const auto options = toy::benchmark::detail::parseOptions(arguments.count(), arguments.data());
+
+  REQUIRE(options.has_value());
+  CHECK(options->firstPattern == 1);
 }
 
 // No pattern selects every benchmark; a pattern selects the names carrying it as a substring.
@@ -106,4 +132,18 @@ TEST_CASE("benchmark::detail/selected/matches_names_by_substring") {
   CHECK(toy::benchmark::detail::selected("core/string_view/find_char_large", patterns.count(), patterns.data()));
   CHECK(toy::benchmark::detail::selected("core/string_view/starts_with", patterns.count(), patterns.data()));
   CHECK_FALSE(toy::benchmark::detail::selected("core/string_view/compare", patterns.count(), patterns.data()));
+}
+
+// selectsAny() tells a pattern that matches some benchmark from one that matches none.
+TEST_CASE("benchmark::detail/selects_any/finds_a_match_in_the_registry") {
+  toy::benchmark::CaseRegistrar * head = nullptr;
+  toy::benchmark::CaseRegistrar   find{head, "core/string_view/find", "a.cpp", 10, &emptyBody};
+  toy::benchmark::CaseRegistrar   compare{head, "core/string_view/compare", "a.cpp", 20, &emptyBody};
+  Arguments                       matching{"find"};
+  Arguments                       mistyped{"fnid"};
+
+  CHECK(toy::benchmark::detail::selectsAny(head, 0, matching.data()));
+  CHECK(toy::benchmark::detail::selectsAny(head, matching.count(), matching.data()));
+  CHECK_FALSE(toy::benchmark::detail::selectsAny(head, mistyped.count(), mistyped.data()));
+  CHECK_FALSE(toy::benchmark::detail::selectsAny(nullptr, 0, matching.data()));
 }

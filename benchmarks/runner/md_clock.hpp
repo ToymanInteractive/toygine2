@@ -90,6 +90,8 @@ struct VdpSample final {
           as \c 0. Wraps modulo 2^32.
 
   \pre needsSettling() is \c false for \a sample.
+
+  \note The timestamp of a pinned sample lags the true time by up to 37 lines on NTSC and 88 on PAL.
 */
 [[nodiscard]] constexpr std::uint32_t lineTimestamp(const VdpSample & sample, std::uint32_t linesPerFrame) noexcept;
 

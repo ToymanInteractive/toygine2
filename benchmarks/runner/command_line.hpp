@@ -24,17 +24,21 @@
   Defines \ref toy::benchmark::detail::Options: what the leading options of a run asked for, and where the patterns
   begin in \c argv. The functions beside it read the arguments and match a name against those patterns.
 
-  \note Included by main.cpp and by the runner's unit tests; a benchmark body needs toy_benchmark.hpp instead.
+  \note Included by platforms/desktop.cpp and by the runner's unit tests; a benchmark body needs toy_benchmark.hpp
+        instead.
 */
 
 #ifndef INCLUDE_BENCHMARKS_RUNNER_COMMAND_LINE_HPP_
 #define INCLUDE_BENCHMARKS_RUNNER_COMMAND_LINE_HPP_
 
+#include <expected>
 #include <string_view>
+
+#include "case_registrar.hpp"
 
 namespace toy::benchmark::detail {
 
-/// What the leading options asked for; the arguments from \ref firstPattern on are patterns.
+/// What the leading options asked for, and where in \c argv the patterns begin.
 struct Options final {
   bool listOnly     = false; ///< Print each selected name with its file and line instead of running it.
   bool csv          = false; ///< Print one CSV line per timed epoch beside the tables.
@@ -48,14 +52,15 @@ struct Options final {
   \param argc  Argument count as \c main() received it.
   \param argv  Argument vector as \c main() received it; read, never written.
 
-  \return Options the arguments asked for, and the index where the patterns start.
+  \return Options the arguments asked for and the index where the patterns start, or the first leading argument that
+          begins with \c -- but names no option.
 
-  \note Parsing stops at the first argument that is not one of the options, so an option after a pattern stays a
+  \note Parsing stops at the first argument that does not begin with \c --, so an option after a pattern stays a
         pattern.
 
   \sa selected()
 */
-[[nodiscard]] Options parseOptions(int argc, char ** argv) noexcept;
+[[nodiscard]] std::expected<Options, std::string_view> parseOptions(int argc, char ** argv) noexcept;
 
 /*!
   \brief Whether a benchmark name carries any of the patterns as a substring.
@@ -69,6 +74,19 @@ struct Options final {
   \sa parseOptions()
 */
 [[nodiscard]] bool selected(std::string_view name, int count, char ** patterns) noexcept;
+
+/*!
+  \brief Whether the patterns select at least one benchmark of the registry.
+
+  \param head      Registry head; may be \c nullptr.
+  \param count     Number of patterns; \c 0 or less selects every name.
+  \param patterns  Null-terminated patterns; read only when \a count is positive.
+
+  \return \c true when selected() accepts the name of some benchmark; \c false for an empty registry.
+
+  \sa selected()
+*/
+[[nodiscard]] bool selectsAny(const CaseRegistrar * head, int count, char ** patterns) noexcept;
 
 } // namespace toy::benchmark::detail
 

@@ -100,6 +100,28 @@ TEST_CASE("benchmark::detail/line_buffer/field_never_breaks_the_line") {
   CHECK(captured.calls == 1);
 }
 
+// The longest line that fits leaves the last byte to the newline; one character more is reported as cut.
+TEST_CASE("benchmark::detail/line_buffer/truncated_starts_one_past_the_longest_line") {
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+  const std::string     longestText(toy::benchmark::detail::LineBuffer::c_capacity - 1, 'x');
+  const std::string     overlongText(toy::benchmark::detail::LineBuffer::c_capacity, 'x');
+
+  toy::benchmark::detail::LineBuffer line{
+    {.write = &captureLines, .writerData = &capturedPointer}
+  };
+
+  line.addText(longestText.c_str());
+  CHECK_FALSE(line.truncated());
+  line.flush();
+  CHECK(captured.text == longestText + "\n");
+
+  line.addText(overlongText.c_str());
+  CHECK(line.truncated());
+  line.flush();
+  CHECK_FALSE(line.truncated());
+}
+
 // A line longer than the buffer is cut, and its last byte is still the newline.
 TEST_CASE("benchmark::detail/line_buffer/cut_line_keeps_its_newline") {
   CapturedLines         captured{};

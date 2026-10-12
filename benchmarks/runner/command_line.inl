@@ -19,7 +19,7 @@
 //
 /*!
   \file   command_line.inl
-  \brief  Inline implementations of toy::benchmark::detail::parseOptions() and selected().
+  \brief  Inline implementations of toy::benchmark::detail::parseOptions(), selected() and selectsAny().
 
   \note Included by command_line.hpp only; do not include this file directly.
 */
@@ -27,20 +27,22 @@
 #ifndef INCLUDE_BENCHMARKS_RUNNER_COMMAND_LINE_INL_
 #define INCLUDE_BENCHMARKS_RUNNER_COMMAND_LINE_INL_
 
-#include <cstring>
-
 namespace toy::benchmark::detail {
 
-inline Options parseOptions(int argc, char ** argv) noexcept {
+inline std::expected<Options, std::string_view> parseOptions(int argc, char ** argv) noexcept {
   Options options;
 
   while (options.firstPattern < argc) {
-    if (const char * argument = argv[options.firstPattern]; std::strcmp(argument, "--list") == 0)
+    const std::string_view argument = argv[options.firstPattern];
+
+    if (argument == "--list")
       options.listOnly = true;
-    else if (std::strcmp(argument, "--csv") == 0)
+    else if (argument == "--csv")
       options.csv = true;
-    else if (std::strcmp(argument, "--no-table") == 0)
+    else if (argument == "--no-table")
       options.noTable = true;
+    else if (argument.starts_with("--"))
+      return std::unexpected{argument};
     else
       break;
 
@@ -56,6 +58,14 @@ inline bool selected(std::string_view name, int count, char ** patterns) noexcep
 
   for (int index = 0; index < count; ++index)
     if (name.contains(patterns[index]))
+      return true;
+
+  return false;
+}
+
+inline bool selectsAny(const CaseRegistrar * head, int count, char ** patterns) noexcept {
+  for (const auto * benchmarkCase = head; benchmarkCase != nullptr; benchmarkCase = benchmarkCase->next())
+    if (selected(benchmarkCase->name(), count, patterns))
       return true;
 
   return false;

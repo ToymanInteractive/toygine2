@@ -30,6 +30,7 @@
 #ifndef INCLUDE_BENCHMARKS_RUNNER_SRAM_WRITER_HPP_
 #define INCLUDE_BENCHMARKS_RUNNER_SRAM_WRITER_HPP_
 
+#include <array>
 #include <cstddef>
 #include <cstdint>
 #include <span>
@@ -110,8 +111,8 @@ public:
   void write(const char * text, std::size_t length) noexcept;
 
 private:
-  static constexpr const char * _truncatedLine   = "# truncated\n";
-  static constexpr std::size_t  _truncatedLength = 12;
+  static constexpr auto        _truncatedLine   = std::to_array("# truncated\n");
+  static constexpr std::size_t _truncatedLength = _truncatedLine.size() - 1;
 
   void _put(std::size_t index, char character) noexcept;
 

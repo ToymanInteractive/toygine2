@@ -24,6 +24,7 @@
 
 #include <cstddef>
 #include <cstdint>
+#include <limits>
 #include <string>
 
 #include <doctest/doctest.h>
@@ -81,6 +82,7 @@ TEST_CASE("benchmark/bench/prints_one_csv_row_per_run") {
   CHECK(captured.text
         == "#csv core/fake/title,fast,search,1000,7,8,24,8,24,8,24,8,24,8,24,8,24,8,24\n"
            "#csv core/fake/title,slow,search,1000,7,4,24,4,24,4,24,4,24,4,24,4,24,4,24\n");
+  CHECK(bench.failedRows() == 0);
 }
 
 // A row name with a template argument list keeps the field count: the comma inside it is quoted.
@@ -108,6 +110,7 @@ TEST_CASE("benchmark/bench/quotes_a_row_name_with_a_comma") {
     captured.text
     == "#csv core/fixed_string/append,\"toy::FixedString<32, char>\",op,1000,7,1,16,1,16,1,16,1,16,1,16,1,16,1,16\n"
   );
+  CHECK(bench.failedRows() == 0);
 }
 
 // A row longer than the line becomes a comment: a cut CSV row would end the parse of the whole log.
@@ -138,6 +141,7 @@ TEST_CASE("benchmark/bench/overlong_row_becomes_a_comment") {
   CHECK(captured.text.starts_with(diagnostic));
   CHECK(captured.text.find("#csv ") == std::string::npos);
   CHECK(captured.text.back() == '\n');
+  CHECK(bench.failedRows() == 1);
 }
 
 // A timer standing still gets a comment naming both limits in place of the row.
@@ -160,6 +164,33 @@ TEST_CASE("benchmark/bench/stalled_timer_names_the_limits") {
   bench.run("idle", [] {});
 
   CHECK(captured.text == "# no epoch reached 16 ticks within 4 calls: idle\n");
+  CHECK(bench.failedRows() == 1);
+}
+
+// A timer wrapping past 2^32 inside an epoch still yields the epoch length: only differences carry meaning.
+TEST_CASE("benchmark/bench/epoch_across_the_timer_wrap") {
+  // Calibration takes 3 + 6 + 12 + 24 ticks, so the first timed epoch starts 10 ticks before the wrap.
+  ManualClock           clock{.ticks = std::numeric_limits<std::uint32_t>::max() - 54};
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+
+  const toy::benchmark::Clock timer{.now                = &readManualClock,
+                                    .clockData          = &clock,
+                                    .picosecondsPerTick = 1000,
+                                    .minEpochTicks      = 16,
+                                    .maxIterations      = 1024};
+
+  toy::benchmark::Bench bench{
+    timer, {.write = &captureLines, .writerData = &capturedPointer},
+     "core/fake/title"
+  };
+
+  bench.run("fast", [&clock] {
+    clock.ticks += 3;
+  });
+
+  CHECK(captured.text == "#csv core/fake/title,fast,op,1000,7,8,24,8,24,8,24,8,24,8,24,8,24,8,24\n");
+  CHECK(clock.ticks < 1024);
 }
 
 // Calibration stops at a limit that is not a power of two instead of doubling past it.
@@ -187,6 +218,7 @@ TEST_CASE("benchmark/bench/calibration_stays_within_the_limit") {
   // Epochs of one, two and three calls; a fourth epoch would have run four.
   CHECK(calls == 6);
   CHECK(captured.text == "# no epoch reached 16 ticks within 3 calls: idle\n");
+  CHECK(bench.failedRows() == 1);
 }
 
 // A limit below one call ends the row without running the operation.
@@ -213,6 +245,7 @@ TEST_CASE("benchmark/bench/zero_limit_runs_nothing") {
 
   CHECK(calls == 0);
   CHECK(captured.text == "# no epoch reached 16 ticks within 0 calls: idle\n");
+  CHECK(bench.failedRows() == 1);
 }
 
 // A timer that advances below the epoch length reports the same two limits, so the message stays true for it too.
@@ -241,4 +274,5 @@ TEST_CASE("benchmark/bench/short_epochs_name_the_limits") {
   // Epochs of one, two and four calls last one, two and four ticks, all short of sixteen.
   CHECK(calls == 7);
   CHECK(captured.text == "# no epoch reached 16 ticks within 4 calls: slow\n");
+  CHECK(bench.failedRows() == 1);
 }
