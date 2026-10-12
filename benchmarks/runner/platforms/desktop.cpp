@@ -31,6 +31,7 @@
 #include <cstdint>
 #include <cstdio>
 #include <iostream>
+#include <span>
 #include <string>
 #include <string_view>
 
@@ -115,11 +116,13 @@ int main(int argc, char ** argv) {
   char **   patterns = argv + options->firstPattern;
   const int count    = argc - options->firstPattern;
 
-  // A mistyped pattern would otherwise print nothing and exit as if the run had succeeded.
-  if (count > 0 && !toy::benchmark::detail::selectsAny(::toy::benchmark::detail::caseListHead, count, patterns)) {
-    std::fprintf(stderr, "no benchmark matches the patterns; --list prints every name\n");
+  // Each pattern is checked alone: a mistyped one beside a valid one would otherwise go unnoticed.
+  for (char *& pattern : std::span{patterns, static_cast<std::size_t>(count)}) {
+    if (!toy::benchmark::detail::selectsAny(::toy::benchmark::detail::caseListHead, 1, &pattern)) {
+      std::fprintf(stderr, "no benchmark matches the pattern %s; --list prints every name\n", pattern);
 
-    return 1;
+      return 1;
+    }
   }
 
   if (options->csv)

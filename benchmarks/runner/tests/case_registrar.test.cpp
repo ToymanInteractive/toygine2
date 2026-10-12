@@ -22,6 +22,7 @@
   \brief  Unit tests for the order of the benchmark registry and the search for a repeated name.
 */
 
+#include <ostream>
 #include <string_view>
 #include <vector>
 

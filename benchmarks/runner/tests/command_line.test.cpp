@@ -23,6 +23,7 @@
 */
 
 #include <initializer_list>
+#include <ostream>
 #include <string>
 #include <vector>
 
