@@ -124,7 +124,7 @@ constexpr ByteRange c_continuationRange{0x80, 0xBF};
     return 0;
 
   // The lead byte constrains the byte after it; the rest carry the plain 10xxxxxx form.
-  ByteRange range = secondByteRange(leadByte);
+  auto range = secondByteRange(leadByte);
   for (uint8_t offset = 1; offset < symbolLength; ++offset) {
     if (const auto trailingByte = std::bit_cast<uint8_t>(str[offset]);
         trailingByte < range.lowest || trailingByte > range.highest)
@@ -172,7 +172,7 @@ bool validateUtf8(const char * str) noexcept {
 
   // No length is known, so only the terminator bounds each sequence.
   while (*str != '\0') {
-    const uint8_t symbolLength = wellFormedLength(str, std::numeric_limits<size_t>::max());
+    const auto symbolLength = wellFormedLength(str, std::numeric_limits<size_t>::max());
     if (symbolLength == 0)
       return false;
 
@@ -187,7 +187,7 @@ bool validateUtf8(const char * str, size_t size) noexcept {
     return size == 0;
 
   for (size_t index = 0; index < size;) {
-    const uint8_t symbolLength = wellFormedLength(str + index, size - index);
+    const auto symbolLength = wellFormedLength(str + index, size - index);
     if (symbolLength == 0)
       return false;
 

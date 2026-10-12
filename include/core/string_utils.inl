@@ -47,7 +47,7 @@ using membership_table_type = std::array<bool, 256>;
 constexpr membership_table_type membershipTable(const char * set, size_t count) noexcept {
   membership_table_type table{};
 
-  for (const char ch : std::string_view(set, count))
+  for (const char ch : std::views::counted(set, count))
     table[static_cast<unsigned char>(ch)] = true;
 
   return table;
