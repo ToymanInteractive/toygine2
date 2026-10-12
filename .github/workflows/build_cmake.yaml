@@ -97,6 +97,7 @@ jobs:
           - name: Sega Mega Drive
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: md-release
             artifact_id: md
