@@ -93,6 +93,34 @@ TEST_CASE("benchmark/write_report/prints_rows_in_name_order") {
            "# done\n");
 }
 
+// Rows without numbers are summed across benchmarks into "# failed rows", which takes the place of "# done".
+TEST_CASE("benchmark/write_report/failed_rows_withhold_done") {
+  toy::benchmark::CaseRegistrar * head = nullptr;
+  toy::benchmark::CaseRegistrar   second{head, "core/b", "b.cpp", 20, &oneRow};
+  toy::benchmark::CaseRegistrar   first{head, "core/a", "a.cpp", 10, &oneRow};
+
+  SteppingClock         clock{.ticks = 0, .step = 0};
+  SteppingClock * const clockPointer = &clock;
+  CapturedLines         captured{};
+  CapturedLines * const capturedPointer = &captured;
+
+  const int code = toy::benchmark::writeReport({.now                = &readSteppingClock,
+                                                .clockData          = &clockPointer,
+                                                .picosecondsPerTick = 1000,
+                                                .minEpochTicks      = 4,
+                                                .maxIterations      = 16},
+                                               {.write = &captureLines, .writerData = &capturedPointer}, c_heading,
+                                               head);
+
+  CHECK(code == 1);
+  CHECK(captured.text
+        == "# toygine2 benchmarks: Test abc1234\n"
+           "#csv case,row,unit,ps_per_tick,epochs,iters,ticks\n"
+           "# no epoch reached 4 ticks within 16 calls: row\n"
+           "# no epoch reached 4 ticks within 16 calls: row\n"
+           "# failed rows: 2\n");
+}
+
 // A repeated name prints both declarations and stops before any row.
 TEST_CASE("benchmark/write_report/repeated_name_stops_before_rows") {
   toy::benchmark::CaseRegistrar * head = nullptr;

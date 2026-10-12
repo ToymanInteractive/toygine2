@@ -66,10 +66,22 @@ inline int writeReport(const Clock & clock, const Output & output, std::span<con
   line.addText("#csv case,row,unit,ps_per_tick,epochs,iters,ticks");
   line.flush();
 
+  std::uint32_t failedRows = 0;
+
   for (const auto * benchmarkCase = head; benchmarkCase != nullptr; benchmarkCase = benchmarkCase->next()) {
     Bench bench{clock, output, benchmarkCase->name()};
 
     benchmarkCase->body()(bench);
+    failedRows += bench.failedRows();
+  }
+
+  // The host skips comment lines, so a run that lost a row must not end in "# done".
+  if (failedRows != 0) {
+    line.addText("# failed rows: ");
+    line.addDecimal(failedRows);
+    line.flush();
+
+    return 1;
   }
 
   line.addText("# done");

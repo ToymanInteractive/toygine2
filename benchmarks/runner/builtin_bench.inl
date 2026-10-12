@@ -133,7 +133,13 @@ inline void Bench::writeRow(const char * name, std::uint32_t iterations,
   line.flush();
 }
 
+inline std::uint32_t Bench::failedRows() const noexcept {
+  return _failedRows;
+}
+
 inline void Bench::writeOverlongRow(const char * name) noexcept {
+  ++_failedRows;
+
   detail::LineBuffer line{_output};
 
   // The fixed part goes first: a name long enough to overflow the row would push the diagnostic out of the line too.
@@ -145,6 +151,8 @@ inline void Bench::writeOverlongRow(const char * name) noexcept {
 }
 
 inline void Bench::writeUncalibrated(const char * name) noexcept {
+  ++_failedRows;
+
   detail::LineBuffer line{_output};
 
   // The numbers go before the name for the same reason as in writeOverlongRow(): a long name would crowd them out.

@@ -95,7 +95,8 @@ void doNotOptimizeAway(T && value) noexcept;
   * **Allocation-free**: no container, no heap, no \c std::function
   * **Integers only**: ticks and call counts, no division and no fixed point on the device
   * **Timer outside the loop**: the clock is read only at epoch boundaries
-  * **Failed calibration reported**: a row that never reaches \c minEpochTicks prints a comment with both limits
+  * **Failed rows counted**: a row that never reaches \c minEpochTicks or does not fit the line prints a comment and
+    counts toward failedRows()
 
   \section usage Usage Example
 
@@ -131,7 +132,7 @@ public:
     \param output  Destination of the report lines.
     \param title   Benchmark name, the \c case field of every row; must outlive the object.
 
-    \post Nothing is printed yet and the unit is \c op.
+    \post Nothing is printed yet, the unit is \c op, and failedRows() is \c 0.
   */
   Bench(const Clock & clock, const Output & output, const char * title) noexcept;
 
@@ -161,12 +162,19 @@ public:
 
     \return This benchmark.
 
-    \post One line was written: the row for \a name, or a comment naming the epoch length and the call limit that
-          calibration could not reach.
+    \post One line was written: the row for \a name, or a comment saying why there is none. A comment adds one to
+          failedRows().
   */
   template <typename Callable>
     requires std::invocable<Callable &>
   Bench & run(const char * name, Callable && operation);
+
+  /*!
+    \brief Returns how many run() calls printed a comment instead of a CSV row.
+
+    \return Count of those rows, which the host script skips; \c 0 when every row reached the report.
+  */
+  [[nodiscard]] std::uint32_t failedRows() const noexcept;
 
 private:
   /// Returns the calls an epoch needs to reach \c minEpochTicks, or \c 0 when \c maxIterations is reached first.
@@ -179,10 +187,11 @@ private:
   void writeOverlongRow(const char * name) noexcept;
   void writeUncalibrated(const char * name) noexcept;
 
-  Clock        _clock;
-  Output       _output;
-  const char * _title;
-  const char * _unit{"op"};
+  Clock         _clock;
+  Output        _output;
+  const char *  _title;
+  const char *  _unit{"op"};
+  std::uint32_t _failedRows{0};
 };
 
 } // namespace toy::benchmark
