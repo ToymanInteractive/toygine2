@@ -34,6 +34,8 @@ if (TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
   set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/desktop.cpp)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/gba.cpp)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  set(TOYGINE_BENCHMARK_RUNNER_SRC ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md.cpp)
 else ()
   # No other console has a runner timer yet: an emulator of a CPU with a cache gives timings that mean nothing.
   return ()
@@ -63,6 +65,9 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
 
   # Bodies spell toy::benchmark::Bench; this define makes it nanobench's table rather than the console runner's.
   target_compile_definitions(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE TOYGINE_BENCHMARKS_USE_NANOBENCH)
+
+  # Rows timing the standard library are for comparing on a workstation; console builds leave them out.
+  target_compile_definitions(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE TOYGINE_BENCHMARKS_STD_REFERENCE)
 
   # The tables are for a human reading the log, the CSV lines for tools/builder/bmf_from_csv.py reading the same log.
   add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-run
@@ -95,7 +100,13 @@ else ()
   )
   set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-build-id PROPERTIES FOLDER "benchmarks")
 
-  add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${TOYGINE_BENCHMARK_RUNNER_SRC} ${TOYGINE_MODULE_BENCHMARKS_SRC})
+  # Sega MD has no plain executable: the cartridge linker script and its startup stub are what give the binary an entry.
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+    add_cartridge_executable(${TOYGINE_LIBRARY_NAME}-benchmarks
+        ${TOYGINE_BENCHMARK_RUNNER_SRC} ${TOYGINE_MODULE_BENCHMARKS_SRC})
+  else ()
+    add_executable(${TOYGINE_LIBRARY_NAME}-benchmarks ${TOYGINE_BENCHMARK_RUNNER_SRC} ${TOYGINE_MODULE_BENCHMARKS_SRC})
+  endif ()
 
   add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks ${TOYGINE_LIBRARY_NAME}-benchmarks-build-id)
 
@@ -135,6 +146,41 @@ else ()
       set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-run PROPERTIES FOLDER "benchmarks")
     else ()
       message(STATUS "mgba-headless not found: the benchmark ROM is built without a target that runs it")
+    endif ()
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+    find_program(TOYGINE_CLOWNMDSDK_ASL asl PATHS ${CLOWNMDSDK_ROOT}/bin NO_DEFAULT_PATH REQUIRED)
+    find_program(TOYGINE_CLOWNMDSDK_P2BIN p2bin PATHS ${CLOWNMDSDK_ROOT}/bin NO_DEFAULT_PATH REQUIRED)
+
+    # The crt0 header of ClownMDSDK declares no RAM; without the patch a flash cart would not save the report.
+    add_custom_command(TARGET ${TOYGINE_LIBRARY_NAME}-benchmarks POST_BUILD
+      COMMAND ${CMAKE_COMMAND} -DROM=$<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+              -DASL=${TOYGINE_CLOWNMDSDK_ASL} -DP2BIN=${TOYGINE_CLOWNMDSDK_P2BIN}
+              -DTEMPLATE=${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md_sram_header.asm
+              -P ${CMAKE_CURRENT_SOURCE_DIR}/cmake/md_sram_header.cmake
+      COMMENT "Declaring cartridge RAM in the benchmark ROM header"
+      VERBATIM
+    )
+
+    # A POST_BUILD step runs only with the link, so a change to the patch relinks the ROM.
+    set_property(TARGET ${TOYGINE_LIBRARY_NAME}-benchmarks APPEND PROPERTY LINK_DEPENDS
+        ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md_sram_header.asm
+        ${CMAKE_CURRENT_SOURCE_DIR}/cmake/md_sram_header.cmake)
+
+    find_program(TOYGINE_BLASTEM blastem)
+
+    if (TOYGINE_BLASTEM)
+      # BlastEm exits after -b frames whatever the ROM prints; 20000 is about four times what the report takes.
+      # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
+      add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-run
+        COMMAND ${TOYGINE_BLASTEM} -t -b 20000 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+        COMMENT "Running benchmarks under blastem"
+        VERBATIM
+      )
+
+      add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks-run ${TOYGINE_LIBRARY_NAME}-benchmarks)
+      set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-run PROPERTIES FOLDER "benchmarks")
+    else ()
+      message(STATUS "blastem not found: the benchmark ROM is built without a target that runs it")
     endif ()
   endif ()
 endif ()

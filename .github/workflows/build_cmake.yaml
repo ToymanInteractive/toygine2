@@ -97,6 +97,7 @@ jobs:
           - name: Sega Mega Drive
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
+            run_benchmarks: "true"
             run_test: "true"
             cmake_preset: md-release
             artifact_id: md
@@ -235,6 +236,8 @@ jobs:
         if: ${{ matrix.run_benchmarks == 'true' }}
         run: |
           cmake --build --preset ${{ matrix.cmake_preset }} --target toygine-benchmarks-run | tee benchmarks.log
+          # Emulators exit with 0 even when the runner dies, so a log without '# done' is a failed run.
+          grep -q '# done' benchmarks.log
           python3 tools/builder/bmf_from_csv.py benchmarks.log > benchmarks_bmf.json
           head -20 benchmarks_bmf.json
 
