@@ -165,6 +165,23 @@ else ()
     set_property(TARGET ${TOYGINE_LIBRARY_NAME}-benchmarks APPEND PROPERTY LINK_DEPENDS
         ${CMAKE_CURRENT_SOURCE_DIR}/runner/platforms/md_sram_header.asm
         ${CMAKE_CURRENT_SOURCE_DIR}/cmake/md_sram_header.cmake)
+
+    find_program(TOYGINE_BLASTEM blastem)
+
+    if (TOYGINE_BLASTEM)
+      # BlastEm exits after -b frames whatever the ROM prints; 20000 is about four times what the report takes.
+      # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
+      add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-run
+        COMMAND ${TOYGINE_BLASTEM} -t -b 20000 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+        COMMENT "Running benchmarks under blastem"
+        VERBATIM
+      )
+
+      add_dependencies(${TOYGINE_LIBRARY_NAME}-benchmarks-run ${TOYGINE_LIBRARY_NAME}-benchmarks)
+      set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks-run PROPERTIES FOLDER "benchmarks")
+    else ()
+      message(STATUS "blastem not found: the benchmark ROM is built without a target that runs it")
+    endif ()
   endif ()
 endif ()
 
