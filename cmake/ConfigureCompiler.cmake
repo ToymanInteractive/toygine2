@@ -37,192 +37,11 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # GCC 16.1.0 documentation.   https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/index.html
 # GCC 16.1.0 option summary.  https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/Option-Summary.html
 
-set(CLANG_CMAKE_C_FLAGS                     "-Werror                       -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast                                           -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical -Wbitwise-op-parentheses -Wbool-operation")
-set(CLANG_CMAKE_CXX_FLAGS                   "-Werror -Wabstract-vbase-init -Wall -Walloca -Wanon-enum-enum-conversion -Warray-bounds-pointer-arithmetic -Warray-parameter -Wassign-enum -Watomic-implicit-seq-cst -Watomic-properties -Wauto-decl-extensions -Wbad-function-cast -Wbinary-literal -Wbind-to-temporary-copy -Wbit-int-extension -Wbitfield-enum-conversion -Wbitwise-instead-of-logical -Wbitwise-op-parentheses -Wbool-operation")
-set(CLANG_CMAKE_OBJC_FLAGS                  "${CLANG_CMAKE_C_FLAGS}   -Warc-maybe-repeated-use-of-weak")
-set(CLANG_CMAKE_OBJCXX_FLAGS                "${CLANG_CMAKE_CXX_FLAGS} -Warc-maybe-repeated-use-of-weak")
-
-set(CLANG_CMAKE_C_FLAGS_DEBUG               "")
-set(CLANG_CMAKE_CXX_FLAGS_DEBUG             "")
-set(CLANG_CMAKE_OBJC_FLAGS_DEBUG            "${CLANG_CMAKE_C_FLAGS_DEBUG}")
-set(CLANG_CMAKE_OBJCXX_FLAGS_DEBUG          "${CLANG_CMAKE_CXX_FLAGS_DEBUG}")
-
-set(CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO      "")
-set(CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO    "")
-set(CLANG_CMAKE_OBJC_FLAGS_RELWITHDEBINFO   "${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO}")
-set(CLANG_CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO "${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
-
-set(CLANG_CMAKE_C_FLAGS_RELEASE             "")
-set(CLANG_CMAKE_CXX_FLAGS_RELEASE           "")
-set(CLANG_CMAKE_OBJC_FLAGS_RELEASE          "${CLANG_CMAKE_C_FLAGS_RELEASE}")
-set(CLANG_CMAKE_OBJCXX_FLAGS_RELEASE        "${CLANG_CMAKE_CXX_FLAGS_RELEASE}")
-
-
-set(CLANG_CMAKE_STATIC_LINKER_FLAGS                 "")
-set(CLANG_CMAKE_EXE_LINKER_FLAGS                    "")
-
-set(CLANG_CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
-set(CLANG_CMAKE_EXE_LINKER_FLAGS_DEBUG              "")
-
-set(CLANG_CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
-set(CLANG_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "")
-
-set(CLANG_CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
-set(CLANG_CMAKE_EXE_LINKER_FLAGS_RELEASE            "")
-
-
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
-
-  if (MSVC)
-
-    # MSVC Compiler Options
-    # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category?view=msvc-170#optimization
-    # last option is /FC
-
-    # MSVC Linker Options
-    # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options?view=msvc-170
-
-    set(CMAKE_C_FLAGS                  "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c17       /Zc:__STDC__                                                                 /Zc:forScope                                                     /Zc:inline                                                                                                                                                                                                                               /ZH:SHA_256         /utf-8")
-    set(CMAKE_CXX_FLAGS                "/EHsc /GA /GR- /GS /guard:cf /volatile:iso /DWIN32 /D_WINDOWS /DUNICODE /D_UNICODE /permissive- /std:c++latest /Zc:__cplusplus /Zc:alignedNew /Zc:enumTypes /Zc:externC /Zc:externConstexpr /Zc:forScope /Zc:gotoScope /Zc:hiddenFriend /Zc:implicitNoexcept /Zc:inline /Zc:lambda /Zc:noexceptTypes /Zc:nrvo /Zc:preprocessor /Zc:referenceBinding /Zc:rvalueCast /Zc:sizedDealloc /Zc:strictStrings /Zc:templateScope /Zc:ternary /Zc:threadSafeInit /Zc:tlsGuards /Zc:wchar_t /Zc:zeroSizeArrayNew /ZH:SHA_256 /bigobj /utf-8")
-
-    set(CMAKE_C_FLAGS_DEBUG            "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG     /Zf /MTd")
-    set(CMAKE_CXX_FLAGS_DEBUG          "/Od /Ob0 /Oi-     /Oy- /fp:strict /fp:except  /Gd /GF- /GL- /Gw- /Gy- /RTC1 /D_DEBUG     /Zf /MTd")
-
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO   "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi /Zf /MTd /FC")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO "/Ox /Ob3 /Oi  /Ot /Oy- /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /D_DEBUG /Zi /Zf /MTd /FC")
-
-    set(CMAKE_C_FLAGS_RELEASE          "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /DNDEBUG         /MT")
-    set(CMAKE_CXX_FLAGS_RELEASE        "/Ox /Ob3 /Oi  /Ot /Oy  /fp:fast   /fp:except-     /GF  /GL  /Gw  /Gy        /DNDEBUG         /MT")
-
-
-    set(CMAKE_STATIC_LINKER_FLAGS                 "")
-    set(CMAKE_EXE_LINKER_FLAGS                    "")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           "")
-    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              "/DEBUG:FULL /INCREMENTAL")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "")
-    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     "/DEBUG:FULL /INCREMENTAL:NO")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         "")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            "/DEBUG:NONE /INCREMENTAL:NO")
-
-    if (CMAKE_VS_PLATFORM_NAME STREQUAL "x64")
-
-      string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
-      string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
-
-      string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
-      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
-
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gv /homeparams /jumptablerdata /Zo")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gv /homeparams /jumptablerdata /Zo")
-
-      string(APPEND CMAKE_C_FLAGS_RELEASE           " /favor:blend /Gv             /jumptablerdata")
-      string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /favor:blend /Gv             /jumptablerdata")
-
-    elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "Win32")
-
-      string(APPEND CMAKE_C_FLAGS                   " /arch:SSE2 /fpcvt:IA")
-      string(APPEND CMAKE_CXX_FLAGS                 " /arch:SSE2 /fpcvt:IA")
-
-      string(APPEND CMAKE_C_FLAGS_DEBUG             " /ZI")
-      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /ZI")
-
-      string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /favor:blend /Gr")
-      string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /favor:blend /Gr")
-
-      string(APPEND CMAKE_C_FLAGS_RELEASE           " /favor:blend /Gr")
-      string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /favor:blend /Gr")
-
-    elseif (CMAKE_VS_PLATFORM_NAME STREQUAL "ARM64")
-
-      string(APPEND CMAKE_C_FLAGS   " /forceInterlockedFunctions")
-      string(APPEND CMAKE_CXX_FLAGS " /forceInterlockedFunctions")
-
-      string(APPEND CMAKE_C_FLAGS_DEBUG             " /Zi /FC")
-      string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /Zi /FC")
-
-    endif ()
-
-    # Temporary
-
-    set(CMAKE_MSVC_RUNTIME_LIBRARY "MultiThreaded$<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:Debug>")
-
-    string(APPEND CMAKE_C_FLAGS                   " /nologo")
-    string(APPEND CMAKE_CXX_FLAGS                 " /nologo")
-
-    string(APPEND CMAKE_C_FLAGS_DEBUG             " /diagnostics:caret   /sdl      /MP")
-    string(APPEND CMAKE_CXX_FLAGS_DEBUG           " /diagnostics:caret   /sdl      /MP")
-
-    string(APPEND CMAKE_C_FLAGS_RELWITHDEBINFO    " /diagnostics:column  /sdl  /GT")
-    string(APPEND CMAKE_CXX_FLAGS_RELWITHDEBINFO  " /diagnostics:column  /sdl  /GT")
-
-    string(APPEND CMAKE_C_FLAGS_RELEASE           " /diagnostics:classic /sdl- /GT")
-    string(APPEND CMAKE_CXX_FLAGS_RELEASE         " /diagnostics:classic /sdl- /GT")
-
-    string(APPEND CMAKE_STATIC_LINKER_FLAGS                 " /WX")
-    string(APPEND CMAKE_EXE_LINKER_FLAGS                    " /WX /MANIFEST /MANIFESTUAC:\"/level='asInvoker' /uiAccess='false'\" /ALLOWISOLATION /LARGEADDRESSAWARE /SAFESEH:NO")
-
-    string(APPEND CMAKE_STATIC_LINKER_FLAGS_DEBUG           "                 /LTCG:OFF")
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_DEBUG              " /INCREMENTAL    /LTCG:OFF /DEBUG:FULL /ASSEMBLYDEBUG")
-
-    string(APPEND CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  "                 /LTCG")
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     " /INCREMENTAL:NO /LTCG     /DEBUG:FULL /ASSEMBLYDEBUG")
-
-    string(APPEND CMAKE_STATIC_LINKER_FLAGS_RELEASE         "                 /LTCG")
-    string(APPEND CMAKE_EXE_LINKER_FLAGS_RELEASE            " /INCREMENTAL:NO /LTCG     /DEBUG:NONE /ASSEMBLYDEBUG:DISABLE")
-
-  endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
-
-  if (CMAKE_GENERATOR STREQUAL "Xcode")
-    message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
-  endif ()
-
-  if (CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-
-    set(CMAKE_C_FLAGS                     " ${CLANG_CMAKE_C_FLAGS}")
-    set(CMAKE_CXX_FLAGS                   " ${CLANG_CMAKE_CXX_FLAGS}")
-    set(CMAKE_OBJC_FLAGS                  " ${CLANG_CMAKE_OBJC_FLAGS}")
-    set(CMAKE_OBJCXX_FLAGS                " ${CLANG_CMAKE_OBJCXX_FLAGS}")
-
-    set(CMAKE_C_FLAGS_DEBUG               " ${CLANG_CMAKE_C_FLAGS_DEBUG} -g")
-    set(CMAKE_CXX_FLAGS_DEBUG             " ${CLANG_CMAKE_CXX_FLAGS_DEBUG} -g")
-    set(CMAKE_OBJC_FLAGS_DEBUG            " ${CLANG_CMAKE_OBJC_FLAGS_DEBUG} -g")
-    set(CMAKE_OBJCXX_FLAGS_DEBUG          " ${CLANG_CMAKE_OBJCXX_FLAGS_DEBUG} -g")
-
-    set(CMAKE_C_FLAGS_RELWITHDEBINFO      " ${CLANG_CMAKE_C_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_CXX_FLAGS_RELWITHDEBINFO    " ${CLANG_CMAKE_CXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_OBJC_FLAGS_RELWITHDEBINFO   " ${CLANG_CMAKE_OBJC_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-    set(CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO " ${CLANG_CMAKE_OBJCXX_FLAGS_RELWITHDEBINFO} -g -O2 -DNDEBUG")
-
-    set(CMAKE_C_FLAGS_RELEASE             " ${CLANG_CMAKE_C_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_CXX_FLAGS_RELEASE           " ${CLANG_CMAKE_CXX_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_OBJC_FLAGS_RELEASE          " ${CLANG_CMAKE_OBJC_FLAGS_RELEASE} -O3 -DNDEBUG")
-    set(CMAKE_OBJCXX_FLAGS_RELEASE        " ${CLANG_CMAKE_OBJCXX_FLAGS_RELEASE} -O3 -DNDEBUG")
-
-
-    set(CMAKE_STATIC_LINKER_FLAGS                 " ${CLANG_CMAKE_STATIC_LINKER_FLAGS}")
-    set(CMAKE_EXE_LINKER_FLAGS                    " ${CLANG_CMAKE_EXE_LINKER_FLAGS}")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_DEBUG           " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_DEBUG}")
-    set(CMAKE_EXE_LINKER_FLAGS_DEBUG              " ${CLANG_CMAKE_EXE_LINKER_FLAGS_DEBUG}")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO  " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_RELWITHDEBINFO}")
-    set(CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO     " ${CLANG_CMAKE_EXE_LINKER_FLAGS_RELWITHDEBINFO}")
-
-    set(CMAKE_STATIC_LINKER_FLAGS_RELEASE         " ${CLANG_CMAKE_STATIC_LINKER_FLAGS_RELEASE}")
-    set(CMAKE_EXE_LINKER_FLAGS_RELEASE            " ${CLANG_CMAKE_EXE_LINKER_FLAGS_RELEASE}")
-
-  else ()
-
-    message(FATAL_ERROR "Unsupported macOS compiler: ${CMAKE_CXX_COMPILER_ID}")
-
-  endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -309,6 +128,10 @@ else ()
 
   message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
 
+endif ()
+
+if (CMAKE_GENERATOR STREQUAL "Xcode")
+  message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
 endif ()
 
 message(STATUS "${CMAKE_CXX_COMPILER_ID} version: ${CMAKE_CXX_COMPILER_VERSION}")
