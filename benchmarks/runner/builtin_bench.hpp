@@ -54,7 +54,7 @@ struct Clock final {
   const void *      clockData;          ///< Passed to \a now unchanged; owned by the platform.
   std::uint64_t     picosecondsPerTick; ///< Length of one tick, the \c ps_per_tick field of a row.
   std::uint32_t     minEpochTicks;      ///< Shortest epoch calibration accepts, in ticks.
-  std::uint32_t     maxIterations;      ///< Calls per epoch, at most 2^31, at which calibration gives up.
+  std::uint32_t     maxIterations;      ///< Calls per epoch at which calibration gives up.
 };
 
 namespace detail {
@@ -101,10 +101,25 @@ void doNotOptimizeAway(T && value) noexcept;
   \section usage Usage Example
 
   \code
+  #include "core.hpp"
   #include "toy_benchmark.hpp"
 
+  namespace {
+
+  const char * opaque(const char * string) noexcept {
+    toy::benchmark::doNotOptimizeAway(string);
+
+    return string;
+  }
+
+  } // namespace
+
   BENCHMARK_CASE("core/string_view/find") {
+    const toy::StringView view(opaque("the quick brown fox jumps over the lazy dog"));
+    const toy::StringView needle(opaque("lazy"));
+
     bench.unit("search");
+
     bench.run("toy::StringView", [&] { toy::benchmark::doNotOptimizeAway(view.find(needle)); });
   }
   \endcode
@@ -112,7 +127,8 @@ void doNotOptimizeAway(T && value) noexcept;
   \section performance Performance Characteristics
 
   * **run()**: calibration doubles the calls until an epoch lasts \c minEpochTicks, then seven epochs of that count
-  * **Memory usage**: the clock, the output, three words of state and seven pairs of epoch counters
+  * **Memory usage**: the clock, the output, two name pointers and the failed-row count; run() keeps seven 32-bit
+    epoch counters on the stack
 
   \section safety Safety Guarantees
 

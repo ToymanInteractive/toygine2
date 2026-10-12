@@ -24,7 +24,8 @@
   Defines \ref toy::benchmark::detail::Options: what the leading options of a run asked for, and where the patterns
   begin in \c argv. The functions beside it read the arguments and match a name against those patterns.
 
-  \note Included by main.cpp and by the runner's unit tests; a benchmark body needs toy_benchmark.hpp instead.
+  \note Included by platforms/desktop.cpp and by the runner's unit tests; a benchmark body needs toy_benchmark.hpp
+        instead.
 */
 
 #ifndef INCLUDE_BENCHMARKS_RUNNER_COMMAND_LINE_HPP_
@@ -37,7 +38,7 @@
 
 namespace toy::benchmark::detail {
 
-/// What the leading options asked for; the arguments from \ref firstPattern on are patterns.
+/// What the leading options asked for, and where in \c argv the patterns begin.
 struct Options final {
   bool listOnly     = false; ///< Print each selected name with its file and line instead of running it.
   bool csv          = false; ///< Print one CSV line per timed epoch beside the tables.
