@@ -66,9 +66,9 @@ Bench & Bench::run(const char * name, Callable && operation) {
     return static_cast<std::uint32_t>(_clock.now(_clock.clockData) - start);
   };
 
-  const auto iterations = calibrate(timeEpoch);
+  const auto iterations = _calibrate(timeEpoch);
   if (iterations == 0) {
-    writeUncalibrated(name);
+    _writeUncalibrated(name);
 
     return *this;
   }
@@ -78,14 +78,14 @@ Bench & Bench::run(const char * name, Callable && operation) {
   for (std::uint32_t & epoch : epochs)
     epoch = timeEpoch(iterations);
 
-  writeRow(name, iterations, epochs);
+  _writeRow(name, iterations, epochs);
 
   return *this;
 }
 
 template <typename Epoch>
   requires std::invocable<Epoch &, std::uint32_t>
-std::uint32_t Bench::calibrate(Epoch & timeEpoch) const {
+std::uint32_t Bench::_calibrate(Epoch & timeEpoch) const {
   // The doubling stops at the limit instead of stepping over it, so no epoch runs more calls than the platform allows.
   for (std::uint32_t iterations = 1; iterations <= _clock.maxIterations;) {
     if (timeEpoch(iterations) >= _clock.minEpochTicks)
@@ -100,8 +100,8 @@ std::uint32_t Bench::calibrate(Epoch & timeEpoch) const {
   return 0;
 }
 
-inline void Bench::writeRow(const char * name, std::uint32_t iterations,
-                            const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept {
+inline void Bench::_writeRow(const char * name, std::uint32_t iterations,
+                             const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept {
   detail::LineBuffer line{_output};
 
   line.addText("#csv ");
@@ -125,7 +125,7 @@ inline void Bench::writeRow(const char * name, std::uint32_t iterations,
 
   // A cut row would reach the host with fields missing, and one such row ends the parse of the whole log.
   if (line.truncated()) {
-    writeOverlongRow(name);
+    _writeOverlongRow(name);
 
     return;
   }
@@ -137,7 +137,7 @@ inline std::uint32_t Bench::failedRows() const noexcept {
   return _failedRows;
 }
 
-inline void Bench::writeOverlongRow(const char * name) noexcept {
+inline void Bench::_writeOverlongRow(const char * name) noexcept {
   ++_failedRows;
 
   detail::LineBuffer line{_output};
@@ -150,12 +150,12 @@ inline void Bench::writeOverlongRow(const char * name) noexcept {
   line.flush();
 }
 
-inline void Bench::writeUncalibrated(const char * name) noexcept {
+inline void Bench::_writeUncalibrated(const char * name) noexcept {
   ++_failedRows;
 
   detail::LineBuffer line{_output};
 
-  // The numbers go before the name for the same reason as in writeOverlongRow(): a long name would crowd them out.
+  // The numbers go before the name for the same reason as in _writeOverlongRow(): a long name would crowd them out.
   line.addText("# no epoch reached ");
   line.addDecimal(_clock.minEpochTicks);
   line.addText(" ticks within ");

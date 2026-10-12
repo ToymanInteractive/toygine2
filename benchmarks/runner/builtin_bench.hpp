@@ -196,12 +196,12 @@ private:
   /// Returns the calls an epoch needs to reach \c minEpochTicks, or \c 0 when \c maxIterations is reached first.
   template <typename Epoch>
     requires std::invocable<Epoch &, std::uint32_t>
-  [[nodiscard]] std::uint32_t calibrate(Epoch & timeEpoch) const;
+  [[nodiscard]] std::uint32_t _calibrate(Epoch & timeEpoch) const;
 
-  void writeRow(const char * name, std::uint32_t iterations,
-                const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept;
-  void writeOverlongRow(const char * name) noexcept;
-  void writeUncalibrated(const char * name) noexcept;
+  void _writeRow(const char * name, std::uint32_t iterations,
+                 const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept;
+  void _writeOverlongRow(const char * name) noexcept;
+  void _writeUncalibrated(const char * name) noexcept;
 
   Clock         _clock;
   Output        _output;
