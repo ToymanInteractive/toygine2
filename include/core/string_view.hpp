@@ -87,7 +87,8 @@ namespace toy {
   * **Iterator access**: O(1); each iterator is a pointer into the viewed string, or a reverse adaptor over one.
   * **Substring search**: O(n * m) in the length of the view and the length of the needle; nothing is indexed or
     cached between calls.
-  * **Character-set search**: O(n * m) in the length of the view and the size of the set.
+  * **Character-set search**: O(n + m) in the length of the view and the size of the set; each call builds one
+    membership table, 256 bytes on the stack.
   * **Comparison**: O(n) in the shorter of the two lengths; equality stops on a length mismatch before reading a
     character.
   * **UTF-8 character count**: O(n) in the length of the string, one walk over the lead bytes; nothing is cached

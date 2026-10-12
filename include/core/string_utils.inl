@@ -29,6 +29,46 @@
 
 namespace toy::string_utils {
 
+namespace {
+
+/// Table with one entry per byte value, \c true where that byte belongs to a set.
+using membership_table_type = std::array<bool, 256>;
+
+/*!
+  \brief Builds the membership table of the \a count bytes starting at \a set.
+
+  \param set   First byte of the set.
+  \param count Number of bytes in the set.
+
+  \return Table holding \c true at every byte value found in the set and \c false elsewhere.
+
+  \pre The \a count bytes starting at \a set are readable; \a set may be \c nullptr only when \a count is \c 0.
+*/
+constexpr membership_table_type membershipTable(const char * set, size_t count) noexcept {
+  membership_table_type table{};
+
+  for (const char ch : std::string_view(set, count))
+    table[static_cast<unsigned char>(ch)] = true;
+
+  return table;
+}
+
+/*!
+  \brief Tests whether \a ch belongs to the set \a table was built from.
+
+  Reads \a ch as \c unsigned \c char, so a byte above \c 0x7f indexes the table at 128 to 255.
+
+  \param table Membership table from membershipTable().
+  \param ch    Character to test.
+
+  \return \c true when \a ch belongs to the set.
+*/
+constexpr bool isMember(const membership_table_type & table, char ch) noexcept {
+  return table[static_cast<unsigned char>(ch)];
+}
+
+} // namespace
+
 constexpr size_t find(const char * data, size_t size, char ch, size_t pos) noexcept {
   assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
 
@@ -110,8 +150,9 @@ constexpr size_t findFirstOf(const char * data, size_t size, const char * set, s
   if (count == 0)
     return c_npos;
 
+  const auto members = membershipTable(set, count);
   for (size_t index = pos; index < size; ++index)
-    if (traits_type::find(set, count, data[index]) != nullptr)
+    if (isMember(members, data[index]))
       return index;
 
   return c_npos;
@@ -124,8 +165,9 @@ constexpr size_t findLastOf(const char * data, size_t size, const char * set, si
   if (count == 0)
     return c_npos;
 
+  const auto members = membershipTable(set, count);
   for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
-    if (traits_type::find(set, count, data[remaining - 1]) != nullptr)
+    if (isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return c_npos;
@@ -148,8 +190,9 @@ constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set
   if (count == 0)
     return pos < size ? pos : c_npos;
 
+  const auto members = membershipTable(set, count);
   for (size_t index = pos; index < size; ++index)
-    if (traits_type::find(set, count, data[index]) == nullptr)
+    if (!isMember(members, data[index]))
       return index;
 
   return c_npos;
@@ -172,8 +215,9 @@ constexpr size_t findLastNotOf(const char * data, size_t size, const char * set,
   if (count == 0)
     return size == 0 ? c_npos : std::min(pos, size - 1);
 
+  const auto members = membershipTable(set, count);
   for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
-    if (traits_type::find(set, count, data[remaining - 1]) == nullptr)
+    if (!isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return c_npos;
