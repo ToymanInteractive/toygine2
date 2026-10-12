@@ -19,11 +19,14 @@
 //
 /*!
   \file   string.benchmark.cpp
-  \brief  Construction, assignment, modifiers, search, and comparison of \ref toy::String measured against std::string.
+  \brief  Construction, assignment, modifiers, search and comparison of \ref toy::String; desktop adds std::string.
 */
 
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
 #include <forward_list>
 #include <string>
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
+
 #include <string_view>
 
 #include "core.hpp"
@@ -149,12 +152,16 @@ BENCHMARK_CASE("core/string/construction_from_iterators") {
     const LongString string(first, last);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   bench.run("std::string", [&] {
     const std::string string(first, last);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
 BENCHMARK_CASE("core/string/construction_from_forward_list") {
   // Built once outside the loop: the list allocates a node per character, the rows only walk it.
   const std::forward_list<char> list(sourceText(), sourceText() + c_length);
@@ -171,6 +178,7 @@ BENCHMARK_CASE("core/string/construction_from_forward_list") {
     toy::benchmark::doNotOptimizeAway(string);
   });
 }
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 
 BENCHMARK_CASE("core/string/construction_from_single_pass") {
   const SinglePassIterator first(opaque(sourceText()));
@@ -183,10 +191,13 @@ BENCHMARK_CASE("core/string/construction_from_single_pass") {
     const LongString string(first, last);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   bench.run("std::string", [&] {
     const std::string string(first, last);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 #if defined(__cpp_lib_ranges_to_container) && defined(__cpp_lib_containers_ranges)
@@ -200,10 +211,13 @@ BENCHMARK_CASE("core/string/construction_from_range") {
     const LongString string(std::from_range, range);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   bench.run("std::string", [&] {
     const std::string string(std::from_range, range);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_from_range_null_terminated") {
@@ -216,16 +230,18 @@ BENCHMARK_CASE("core/string/construction_from_range_null_terminated") {
     const LongString string(std::from_range, range);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   bench.run("std::string", [&] {
     const std::string string(std::from_range, range);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 #endif // __cpp_lib_ranges_to_container && __cpp_lib_containers_ranges
 
 BENCHMARK_CASE("core/string/construction_from_string_like") {
-  const toy::StringView  view(opaque(sourceText()));
-  const std::string_view reference(opaque(sourceText()), c_length);
+  const toy::StringView view(opaque(sourceText()));
 
   bench.unit("construction");
 
@@ -234,16 +250,20 @@ BENCHMARK_CASE("core/string/construction_from_string_like") {
     const LongString string(view);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string_view reference(opaque(sourceText()), c_length);
+
   bench.run("std::string", [&] {
     const std::string string(reference);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_substring") {
-  const LongString  source(opaque(sourceText()));
-  const std::string reference(opaque(sourceText()));
-  const size_t      offset = opaque(c_substringOffset);
+  const LongString source(opaque(sourceText()));
+  const size_t     offset = opaque(c_substringOffset);
 
   bench.unit("construction");
 
@@ -252,16 +272,20 @@ BENCHMARK_CASE("core/string/construction_substring") {
     const LongString string(source, offset);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(sourceText()));
+
   bench.run("std::string", [&] {
     const std::string string(reference, offset);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_substring_move") {
-  const LongString  prototype(opaque(sourceText()));
-  const std::string referencePrototype(opaque(sourceText()));
-  const size_t      offset = opaque(c_substringOffset);
+  const LongString prototype(opaque(sourceText()));
+  const size_t     offset = opaque(c_substringOffset);
 
   bench.unit("construction");
 
@@ -271,11 +295,16 @@ BENCHMARK_CASE("core/string/construction_substring_move") {
     const LongString string(std::move(source), offset);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string referencePrototype(opaque(sourceText()));
+
   bench.run("std::string", [&] {
     std::string       source(referencePrototype);
     const std::string string(std::move(source), offset);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_fill") {
@@ -288,10 +317,13 @@ BENCHMARK_CASE("core/string/construction_fill") {
     const LongString string(count, 'x');
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   bench.run("std::string", [&] {
     const std::string string(count, 'x');
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_from_pointer") {
@@ -304,15 +336,17 @@ BENCHMARK_CASE("core/string/construction_from_pointer") {
     const LongString string(text);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   bench.run("std::string", [&] {
     const std::string string(text);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_copy") {
-  const LongString  prototype(opaque(sourceText()));
-  const std::string referencePrototype(opaque(sourceText()));
+  const LongString prototype(opaque(sourceText()));
 
   bench.unit("construction");
 
@@ -321,15 +355,19 @@ BENCHMARK_CASE("core/string/construction_copy") {
     const LongString string(prototype);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string referencePrototype(opaque(sourceText()));
+
   bench.run("std::string", [&] {
     const std::string string(referencePrototype);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/construction_copy_short") {
-  const LongString  prototype(opaque(sourceText()), opaque(c_shortLength));
-  const std::string referencePrototype(opaque(sourceText()), opaque(c_shortLength));
+  const LongString prototype(opaque(sourceText()), opaque(c_shortLength));
 
   bench.unit("construction");
 
@@ -338,17 +376,20 @@ BENCHMARK_CASE("core/string/construction_copy_short") {
     const LongString string(prototype);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string referencePrototype(opaque(sourceText()), opaque(c_shortLength));
+
   bench.run("std::string", [&] {
     const std::string string(referencePrototype);
     toy::benchmark::doNotOptimizeAway(string);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/assignment_fill") {
   const size_t count = opaque(c_length);
   LongString   string;
-  std::string  reference;
-  reference.reserve(c_length);
 
   bench.unit("assignment");
 
@@ -357,17 +398,21 @@ BENCHMARK_CASE("core/string/assignment_fill") {
     string.assign(count, 'x');
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference.assign(count, 'x');
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/assignment_from_pointer") {
   const char * const text = opaque(sourceText());
   LongString         string;
-  std::string        reference;
-  reference.reserve(c_length);
 
   bench.unit("assignment");
 
@@ -376,18 +421,21 @@ BENCHMARK_CASE("core/string/assignment_from_pointer") {
     string = text;
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference = text;
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/assignment_from_string_like") {
-  const toy::StringView  view(opaque(sourceText()));
-  const std::string_view referenceView(opaque(sourceText()), c_length);
-  LongString             string;
-  std::string            reference;
-  reference.reserve(c_length);
+  const toy::StringView view(opaque(sourceText()));
+  LongString            string;
 
   bench.unit("assignment");
 
@@ -396,19 +444,23 @@ BENCHMARK_CASE("core/string/assignment_from_string_like") {
     string = view;
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string_view referenceView(opaque(sourceText()), c_length);
+  std::string            reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference = referenceView;
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/assignment_substring") {
-  const LongString  source(opaque(sourceText()));
-  const std::string referenceSource(opaque(sourceText()));
-  const size_t      offset = opaque(c_substringOffset);
-  LongString        string;
-  std::string       reference;
-  reference.reserve(c_length);
+  const LongString source(opaque(sourceText()));
+  const size_t     offset = opaque(c_substringOffset);
+  LongString       string;
 
   bench.unit("assignment");
 
@@ -417,18 +469,23 @@ BENCHMARK_CASE("core/string/assignment_substring") {
     string.assign(source, offset);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string referenceSource(opaque(sourceText()));
+  std::string       reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference.assign(referenceSource, offset);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/assignment_from_iterators") {
   const char * const first = opaque(sourceText());
   const char * const last  = first + opaque(c_length);
   LongString         string;
-  std::string        reference;
-  reference.reserve(c_length);
 
   bench.unit("assignment");
 
@@ -437,18 +494,22 @@ BENCHMARK_CASE("core/string/assignment_from_iterators") {
     string.assign(first, last);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference.assign(first, last);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/assignment_from_single_pass") {
   const SinglePassIterator first(opaque(sourceText()));
   const SinglePassIterator last(opaque(sourceText()) + c_length);
   LongString               string;
-  std::string              reference;
-  reference.reserve(c_length);
 
   bench.unit("assignment");
 
@@ -457,18 +518,22 @@ BENCHMARK_CASE("core/string/assignment_from_single_pass") {
     string.assign(first, last);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference.assign(first, last);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 #if defined(__cpp_lib_containers_ranges)
 BENCHMARK_CASE("core/string/assignment_from_range") {
   const std::string_view range(opaque(sourceText()), opaque(c_length));
   LongString             string;
-  std::string            reference;
-  reference.reserve(c_length);
 
   bench.unit("assignment");
 
@@ -477,19 +542,22 @@ BENCHMARK_CASE("core/string/assignment_from_range") {
     string.assign_range(range);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     reference.assign_range(range);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 #endif // __cpp_lib_containers_ranges
 
 BENCHMARK_CASE("core/string/copy_assignment") {
-  LongString  source(opaque(sourceText()));
-  std::string referenceSource(opaque(sourceText()));
-  LongString  string;
-  std::string reference;
-  reference.reserve(c_length);
+  LongString source(opaque(sourceText()));
+  LongString string;
 
   bench.unit("assignment");
 
@@ -499,18 +567,23 @@ BENCHMARK_CASE("core/string/copy_assignment") {
     string = source;
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string referenceSource(opaque(sourceText()));
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(referenceSource);
     reference = referenceSource;
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/copy_assignment_short") {
-  LongString  source(opaque(sourceText()), opaque(c_shortLength));
-  std::string referenceSource(opaque(sourceText()), opaque(c_shortLength));
-  LongString  string;
-  std::string reference;
+  LongString source(opaque(sourceText()), opaque(c_shortLength));
+  LongString string;
 
   bench.unit("assignment");
 
@@ -520,18 +593,22 @@ BENCHMARK_CASE("core/string/copy_assignment_short") {
     string = source;
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string referenceSource(opaque(sourceText()), opaque(c_shortLength));
+  std::string reference;
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(referenceSource);
     reference = referenceSource;
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/move_assignment") {
-  const LongString  prototype(opaque(sourceText()));
-  const std::string referencePrototype(opaque(sourceText()));
-  LongString        string;
-  std::string       reference;
+  const LongString prototype(opaque(sourceText()));
+  LongString       string;
 
   bench.unit("assignment");
 
@@ -541,19 +618,23 @@ BENCHMARK_CASE("core/string/move_assignment") {
     string = std::move(source);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string referencePrototype(opaque(sourceText()));
+  std::string       reference;
+
   bench.run("std::string", [&] {
     std::string source(referencePrototype);
     reference = std::move(source);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/append") {
   const char * const text  = opaque(sourceText());
   const size_t       count = opaque(c_shortLength);
   LongString         string;
-  std::string        reference;
-  reference.reserve(c_length);
 
   bench.unit("append");
 
@@ -564,19 +645,23 @@ BENCHMARK_CASE("core/string/append") {
     string.append(text, count);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     if (reference.size() + count > c_length)
       reference.clear();
     reference.append(text, count);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/push_back") {
-  const char  character = opaque('x');
-  LongString  string;
-  std::string reference;
-  reference.reserve(c_length);
+  const char character = opaque('x');
+  LongString string;
 
   bench.unit("push_back");
 
@@ -587,20 +672,24 @@ BENCHMARK_CASE("core/string/push_back") {
     string.push_back(character);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference;
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     if (reference.size() == c_length)
       reference.clear();
     reference.push_back(character);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/insert") {
   const char * const text  = opaque(sourceText());
   const size_t       count = opaque(c_shortLength);
   LongString         string(text, c_substringOffset);
-  std::string        reference(text, c_substringOffset);
-  reference.reserve(c_length);
 
   bench.unit("insert");
 
@@ -611,19 +700,24 @@ BENCHMARK_CASE("core/string/insert") {
     string.insert(string.size() / 2, text, count);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference(text, c_substringOffset);
+  reference.reserve(c_length);
+
   bench.run("std::string", [&] {
     if (reference.size() + count > c_length)
       reference.resize(c_substringOffset);
     reference.insert(reference.size() / 2, text, count);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/erase") {
   const char * const text  = opaque(sourceText());
   const size_t       count = opaque(c_shortLength);
   LongString         string(text, c_length);
-  std::string        reference(text, c_length);
 
   bench.unit("erase");
 
@@ -634,12 +728,17 @@ BENCHMARK_CASE("core/string/erase") {
     string.erase(string.size() / 2, count);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference(text, c_length);
+
   bench.run("std::string", [&] {
     if (reference.size() < c_substringOffset + count)
       reference.append(text, c_length - reference.size());
     reference.erase(reference.size() / 2, count);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/replace") {
@@ -647,7 +746,6 @@ BENCHMARK_CASE("core/string/replace") {
   const size_t       count  = opaque(c_shortLength);
   const size_t       offset = opaque(c_substringOffset);
   LongString         string(text, c_length);
-  std::string        reference(text, c_length);
 
   bench.unit("replace");
 
@@ -656,17 +754,20 @@ BENCHMARK_CASE("core/string/replace") {
     string.replace(offset, count, text, count);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference(text, c_length);
+
   bench.run("std::string", [&] {
     reference.replace(offset, count, text, count);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/swap") {
-  LongString  string(opaque(sourceText()));
-  LongString  other(opaque(sourceText()), opaque(c_shortLength));
-  std::string reference(opaque(sourceText()));
-  std::string otherReference(opaque(sourceText()), opaque(c_shortLength));
+  LongString string(opaque(sourceText()));
+  LongString other(opaque(sourceText()), opaque(c_shortLength));
 
   bench.unit("swap");
 
@@ -675,16 +776,21 @@ BENCHMARK_CASE("core/string/swap") {
     string.swap(other);
     toy::benchmark::doNotOptimizeAway(string);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference(opaque(sourceText()));
+  std::string otherReference(opaque(sourceText()), opaque(c_shortLength));
+
   bench.run("std::string", [&] {
     reference.swap(otherReference);
     toy::benchmark::doNotOptimizeAway(reference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/find") {
-  const LongString  string(opaque(searchText()));
-  const std::string reference(opaque(searchText()));
-  const char *      needle = opaque(c_needle);
+  const LongString string(opaque(searchText()));
+  const char *     needle = opaque(c_needle);
 
   bench.unit("search");
 
@@ -692,15 +798,19 @@ BENCHMARK_CASE("core/string/find") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.find(needle));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(searchText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference.find(needle));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/rfind") {
-  const LongString  string(opaque(searchText()));
-  const std::string reference(opaque(searchText()));
-  const char *      marker = opaque(c_marker);
+  const LongString string(opaque(searchText()));
+  const char *     marker = opaque(c_marker);
 
   bench.unit("search");
 
@@ -708,15 +818,19 @@ BENCHMARK_CASE("core/string/rfind") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.rfind(marker));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(searchText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference.rfind(marker));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/find_first_of") {
-  const LongString  string(opaque(searchText()));
-  const std::string reference(opaque(searchText()));
-  const char *      set = opaque(c_absentSet);
+  const LongString string(opaque(searchText()));
+  const char *     set = opaque(c_absentSet);
 
   bench.unit("search");
 
@@ -724,15 +838,19 @@ BENCHMARK_CASE("core/string/find_first_of") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.find_first_of(set));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(searchText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference.find_first_of(set));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/find_first_not_of") {
-  const LongString  string(opaque(searchText()));
-  const std::string reference(opaque(searchText()));
-  const char *      set = opaque(c_textSet);
+  const LongString string(opaque(searchText()));
+  const char *     set = opaque(c_textSet);
 
   bench.unit("search");
 
@@ -740,17 +858,20 @@ BENCHMARK_CASE("core/string/find_first_not_of") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.find_first_not_of(set));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(searchText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference.find_first_not_of(set));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/compare") {
   // The operands live in separate strings, so the comparison cannot answer from pointer identity.
-  const LongString  string(opaque(searchText()));
-  const LongString  same(opaque(searchText()));
-  const std::string reference(opaque(searchText()));
-  const std::string sameReference(opaque(searchText()));
+  const LongString string(opaque(searchText()));
+  const LongString same(opaque(searchText()));
 
   bench.unit("comparison");
 
@@ -758,16 +879,20 @@ BENCHMARK_CASE("core/string/compare") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.compare(same));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(searchText()));
+  const std::string sameReference(opaque(searchText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference.compare(sameReference));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/equality") {
-  const LongString  string(opaque(searchText()));
-  const LongString  same(opaque(searchText()));
-  const std::string reference(opaque(searchText()));
-  const std::string sameReference(opaque(searchText()));
+  const LongString string(opaque(searchText()));
+  const LongString same(opaque(searchText()));
 
   bench.unit("comparison");
 
@@ -775,15 +900,20 @@ BENCHMARK_CASE("core/string/equality") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string == same);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(searchText()));
+  const std::string sameReference(opaque(searchText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference == sameReference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/substr") {
-  const LongString  string(opaque(sourceText()));
-  const std::string reference(opaque(sourceText()));
-  const size_t      offset = opaque(c_substringOffset);
+  const LongString string(opaque(sourceText()));
+  const size_t     offset = opaque(c_substringOffset);
 
   bench.unit("substr");
 
@@ -791,16 +921,19 @@ BENCHMARK_CASE("core/string/substr") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.substr(offset));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string reference(opaque(sourceText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(reference.substr(offset));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/concatenation") {
-  const LongString  left(opaque(sourceText()), opaque(c_substringOffset));
-  const LongString  right(opaque(sourceText()), opaque(c_substringOffset));
-  const std::string leftReference(opaque(sourceText()), opaque(c_substringOffset));
-  const std::string rightReference(opaque(sourceText()), opaque(c_substringOffset));
+  const LongString left(opaque(sourceText()), opaque(c_substringOffset));
+  const LongString right(opaque(sourceText()), opaque(c_substringOffset));
 
   bench.unit("concatenation");
 
@@ -808,14 +941,19 @@ BENCHMARK_CASE("core/string/concatenation") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(left + right);
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string leftReference(opaque(sourceText()), opaque(c_substringOffset));
+  const std::string rightReference(opaque(sourceText()), opaque(c_substringOffset));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(leftReference + rightReference);
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string/erase_if") {
-  LongString  string(opaque(sourceText()));
-  std::string reference(opaque(sourceText()));
+  LongString string(opaque(sourceText()));
 
   bench.unit("erase_if");
 
@@ -827,7 +965,12 @@ BENCHMARK_CASE("core/string/erase_if") {
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(erase_if(string, isDigit));
   });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  std::string reference(opaque(sourceText()));
+
   bench.run("std::string", [&] {
     toy::benchmark::doNotOptimizeAway(std::erase_if(reference, isDigit));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
