@@ -95,6 +95,13 @@ void printCsvRows(std::string_view caseName, const ankerl::nanobench::Bench & be
 int main(int argc, char ** argv) {
   const auto options = toy::benchmark::detail::parseOptions(argc, argv);
 
+  if (!options) {
+    std::fprintf(stderr, "unknown option: %.*s\nusage: %s [--list] [--csv] [--no-table] [pattern...]\n",
+                 static_cast<int>(options.error().size()), options.error().data(), argv[0]);
+
+    return 1;
+  }
+
   // A name titles its table and selects it on the command line, so two under one name cannot be told apart.
   if (const auto * duplicate = ::toy::benchmark::detail::findDuplicateName(::toy::benchmark::detail::caseListHead);
       duplicate != nullptr) {
@@ -105,10 +112,17 @@ int main(int argc, char ** argv) {
   }
 
   // Running one benchmark alone separates a surprising number from a benchmark that disturbs its neighbours.
-  char **   patterns = argv + options.firstPattern;
-  const int count    = argc - options.firstPattern;
+  char **   patterns = argv + options->firstPattern;
+  const int count    = argc - options->firstPattern;
 
-  if (options.csv)
+  // A mistyped pattern would otherwise print nothing and exit as if the run had succeeded.
+  if (count > 0 && !toy::benchmark::detail::selectsAny(::toy::benchmark::detail::caseListHead, count, patterns)) {
+    std::fprintf(stderr, "no benchmark matches the patterns; --list prints every name\n");
+
+    return 1;
+  }
+
+  if (options->csv)
     std::cout << "#csv case,row,unit,ps_per_tick,epochs,iters,ticks\n";
 
   for (const auto * benchmarkCase = ::toy::benchmark::detail::caseListHead; benchmarkCase != nullptr;
@@ -116,7 +130,7 @@ int main(int argc, char ** argv) {
     if (!toy::benchmark::detail::selected(benchmarkCase->name(), count, patterns))
       continue;
 
-    if (options.listOnly) {
+    if (options->listOnly) {
       std::printf("%s\t%s:%d\n", benchmarkCase->name(), benchmarkCase->file(), benchmarkCase->line());
       continue;
     }
@@ -127,12 +141,12 @@ int main(int argc, char ** argv) {
     bench.title(benchmarkCase->name()).relative(true).minEpochTime(std::chrono::milliseconds(1));
 
     // nanobench prints the table from run(), so taking its stream away suppresses it.
-    if (options.noTable)
+    if (options->noTable)
       bench.output(nullptr);
 
     benchmarkCase->body()(bench);
 
-    if (options.csv)
+    if (options->csv)
       printCsvRows(benchmarkCase->name(), bench);
   }
 
