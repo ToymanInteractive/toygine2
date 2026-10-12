@@ -35,6 +35,9 @@ if (GIT_EXECUTABLE)
   endif ()
 endif ()
 
+# Git allows a double quote in a tag name but not a backslash, so only the quote needs escaping.
+string(REPLACE "\"" "\\\"" TOYGINE_BUILD_ID "${TOYGINE_BUILD_ID}")
+
 set(TOYGINE_BUILD_ID_TEXT "#ifndef BENCHMARK_BUILD_ID_HPP_\n#define BENCHMARK_BUILD_ID_HPP_\n\n")
 string(APPEND TOYGINE_BUILD_ID_TEXT "#define TOYGINE_BENCHMARKS_BUILD_ID \"${TOYGINE_BUILD_ID}\"\n\n#endif\n")
 
