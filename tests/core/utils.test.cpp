@@ -59,6 +59,9 @@ constexpr char c_overlongSymbol[]  = {'\xE0', '\x80', '\xAF', '\0'};
 constexpr char c_surrogateSymbol[] = {'\xED', '\xA0', '\x80', '\0'};
 constexpr char c_aboveRange[]      = {'\xF4', '\x90', '\x80', '\x80', '\0'};
 
+// A terminator between two ASCII characters, which a counted range reads as one more character.
+constexpr char c_innerTerminator[] = {'a', '\0', 'b'};
+
 } // namespace
 
 // How many characters a UTF-8 string holds, against the bytes it occupies.
@@ -97,6 +100,11 @@ TEST_CASE("validate_utf8/accepts_well_formed_sequences") {
 
   // A string holding no character holds no ill-formed one either.
   CHECK(validateUtf8(""));
+
+  // The counted form accepts the same strings, measured by their length.
+  CHECK(validateUtf8(c_mixed, std::char_traits<char>::length(c_mixed)));
+  CHECK(validateUtf8(c_highestCodePoint, std::size(c_highestCodePoint) - 1));
+  CHECK(validateUtf8(nullptr, 0));
 }
 
 // Which strings it rejects, among them the sequences a lead byte alone admits.
@@ -114,6 +122,27 @@ TEST_CASE("validate_utf8/rejects_ill_formed_sequences") {
   CHECK_FALSE(validateUtf8(c_overlongSymbol));
   CHECK_FALSE(validateUtf8(c_surrogateSymbol));
   CHECK_FALSE(validateUtf8(c_aboveRange));
+
+  // The counted form rejects the same sequences, and a null pointer that names bytes.
+  CHECK_FALSE(validateUtf8(c_continuationByte, 1));
+  CHECK_FALSE(validateUtf8(c_lonelyLead, std::size(c_lonelyLead) - 1));
+  CHECK_FALSE(validateUtf8(c_overlongSymbol, std::size(c_overlongSymbol) - 1));
+  CHECK_FALSE(validateUtf8(c_surrogateSymbol, std::size(c_surrogateSymbol) - 1));
+  CHECK_FALSE(validateUtf8(c_aboveRange, std::size(c_aboveRange) - 1));
+  CHECK_FALSE(validateUtf8(nullptr, 1));
+}
+
+// A counted range ends at its length: bytes past it go unread, and a terminator inside it is an ordinary byte.
+TEST_CASE("validate_utf8/reads_only_the_counted_range") {
+  // The ill-formed tail sits past the length, so the range holds the leading 'a' alone.
+  CHECK(validateUtf8(c_truncatedSymbol, 1));
+
+  // A length ending inside a sequence cuts it short, even where the bytes after it would complete it.
+  CHECK_FALSE(validateUtf8(c_cyrillic, 1));
+  CHECK(validateUtf8(c_cyrillic, 2));
+
+  // A terminator inside the range is U+0000, a well-formed one-byte character.
+  CHECK(validateUtf8(c_innerTerminator, std::size(c_innerTerminator)));
 }
 
 } // namespace toy

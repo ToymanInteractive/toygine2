@@ -47,7 +47,7 @@ namespace toy {
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
   * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
-  * **Constexpr support**: every operation except utf8_size() evaluates in a constant expression.
+  * **Constexpr support**: every operation evaluates in a constant expression.
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
   * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
     view.
@@ -87,11 +87,11 @@ namespace toy {
   * **Iterator access**: O(1); each iterator is a pointer into the viewed string, or a reverse adaptor over one.
   * **Substring search**: O(n * m) in the length of the view and the length of the needle; nothing is indexed or
     cached between calls.
-  * **Character-set search**: O(n * m) in the length of the view and the size of the set.
+  * **Character-set search**: O(n + m) in the length of the view and the size of the set; each call builds one
+    membership table, 256 bytes on the stack.
   * **Comparison**: O(n) in the shorter of the two lengths; equality stops on a length mismatch before reading a
     character.
-  * **UTF-8 character count**: O(n) in the length of the string, one walk over the lead bytes; nothing is cached
-    between calls.
+  * **UTF-8 character count**: O(n) in the length of the view, one pass over its bytes; nothing is cached between calls.
   * **Memory usage**: one pointer and one length, 16 bytes on a 64-bit target and 8 bytes on a 32-bit one.
 
   \section string_view_safety Safety Guarantees
@@ -409,20 +409,20 @@ public:
   /*!
     \brief Counts the characters the viewed string encodes in UTF-8.
 
-    Reads the viewed bytes as UTF-8 and counts a character once, whatever width it is stored in, where size() reports
-    the bytes those characters occupy.
+    Counts the bytes of the view that fall outside the 10xxxxxx continuation form, so a character counts once whatever
+    width it is stored in. Reads no byte past size() and never looks for the terminator.
 
     \return Count of encoded characters, \c 0 over an empty string and \c 0 while the view holds no string.
 
-    \pre The viewed string holds well-formed UTF-8.
+    \pre The viewed bytes hold well-formed UTF-8, checked with toy::validateUtf8(const char *, size_t) by assert_message
+         in debug builds outside constant evaluation. A shipping build and a constant expression skip that check and
+         count every byte outside the continuation form, a stray lead byte included.
 
     \note The count matches size() only where every character is ASCII.
-    \note The count is a runtime one, unlike the rest of the view: it calls toy::utf8Len(), which is defined in a
-          translation unit.
 
     \sa size()
   */
-  [[nodiscard]] size_type utf8_size() const noexcept;
+  [[nodiscard]] constexpr size_type utf8_size() const noexcept;
 
   /*!
     \brief Reports whether the view holds no character.

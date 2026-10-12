@@ -89,8 +89,9 @@ namespace toy {
   * **Append and push_back**: O(m) in the characters added, plus whatever growing the storage costs; nothing for
     \ref toy::FixedStringStorage.
   * **Insert, erase, and replace**: O(n) in the characters that move behind the edited range.
-  * **Substring and character-set search**: O(n * m) in the length of the string and of the pattern or set; nothing is
-    indexed between calls.
+  * **Substring search**: O(n * m) in the length of the string and of the pattern; nothing is indexed between calls.
+  * **Character-set search**: O(n + m) in the length of the string and the size of the set; each call builds one
+    membership table, 256 bytes on the stack.
   * **Comparison**: O(n) in the shorter length; equality stops on a length mismatch before reading a character.
   * **Memory usage**: the size of \a storageType; for \ref toy::FixedString, its buffer and one length field.
 

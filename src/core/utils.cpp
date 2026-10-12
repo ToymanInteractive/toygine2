@@ -104,6 +104,38 @@ constexpr ByteRange c_continuationRange{0x80, 0xBF};
   }
 }
 
+/*!
+  \brief Measures the well-formed sequence that starts at \a str.
+
+  Checks the lead byte, the narrowed range of the byte after it, and the 10xxxxxx form of the rest. A terminator inside
+  the sequence falls outside every range, so a walk over a null-terminated string stops at it.
+
+  \param str       First byte of the sequence.
+  \param available Number of readable bytes starting at \a str.
+
+  \return Length of the sequence in bytes, or \c 0 when it is ill-formed or does not fit in \a available bytes.
+
+  \pre \a available is at least \c 1.
+*/
+[[nodiscard]] uint8_t wellFormedLength(const char * str, size_t available) noexcept {
+  const auto leadByte     = std::bit_cast<uint8_t>(*str);
+  const auto symbolLength = c_utf8CharSizeTable[leadByte];
+  if (symbolLength == 0 || symbolLength > available)
+    return 0;
+
+  // The lead byte constrains the byte after it; the rest carry the plain 10xxxxxx form.
+  ByteRange range = secondByteRange(leadByte);
+  for (uint8_t offset = 1; offset < symbolLength; ++offset) {
+    if (const auto trailingByte = std::bit_cast<uint8_t>(str[offset]);
+        trailingByte < range.lowest || trailingByte > range.highest)
+      return 0;
+
+    range = c_continuationRange;
+  }
+
+  return symbolLength;
+}
+
 } // namespace
 
 size_t utf8Len(const char * str) noexcept {
@@ -138,24 +170,28 @@ bool validateUtf8(const char * str) noexcept {
   if (str == nullptr)
     return false;
 
+  // No length is known, so only the terminator bounds each sequence.
   while (*str != '\0') {
-    const auto leadByte     = std::bit_cast<uint8_t>(*str);
-    const auto symbolLength = c_utf8CharSizeTable[leadByte];
+    const uint8_t symbolLength = wellFormedLength(str, std::numeric_limits<size_t>::max());
     if (symbolLength == 0)
       return false;
 
-    // The lead byte constrains the byte after it; the rest carry the plain 10xxxxxx form. A terminator inside the
-    // sequence falls outside either range, which is what stops the walk at the end of a string cut short.
-    ByteRange range = secondByteRange(leadByte);
-    for (uint8_t offset = 1; offset < symbolLength; ++offset) {
-      if (const auto trailingByte = std::bit_cast<uint8_t>(str[offset]);
-          trailingByte < range.lowest || trailingByte > range.highest)
-        return false;
-
-      range = c_continuationRange;
-    }
-
     str += symbolLength;
+  }
+
+  return true;
+}
+
+bool validateUtf8(const char * str, size_t size) noexcept {
+  if (str == nullptr)
+    return size == 0;
+
+  for (size_t index = 0; index < size;) {
+    const uint8_t symbolLength = wellFormedLength(str + index, size - index);
+    if (symbolLength == 0)
+      return false;
+
+    index += symbolLength;
   }
 
   return true;
