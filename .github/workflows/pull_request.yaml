@@ -69,7 +69,6 @@ jobs:
     name: Build with CMake
     needs:
       - documentation
-      - quality
       - style
     permissions:
       contents: read
