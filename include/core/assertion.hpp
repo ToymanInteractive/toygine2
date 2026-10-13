@@ -136,28 +136,29 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
 /*!
   \brief Reports a failed check through the registered \ref toy::assertion::AssertionCallback.
 
-  Called by the \c assert and \c assert_message macros, never directly. The macros pass no \a location, so the default
-  argument is evaluated inside their expansion, at the failing call site.
+  Called by the \c assert and \c assert_message macros with the context they capture at the failing call site, never
+  directly.
 
-  \param code     Failed expression as written at the call site (e.g. \c "pointer != nullptr").
-  \param message  Reason the condition must hold, in human-readable form, or \c nullptr when the call site supplies
-                  none.
-  \param location File, function, and line of the failed check (default: the call site).
+  \param code         Failed expression as written at the call site (e.g. \c "pointer != nullptr").
+  \param message      Reason the condition must hold, in human-readable form, or \c nullptr when the call site supplies
+                      none.
+  \param fileName     Source file of the failed check.
+  \param functionName Enclosing function of the failed check.
+  \param lineNumber   Source line of the failed check.
 
   \return \c true when the caller has to stop at the failing check, \c false when the handler dealt with the failure.
           Answers \c true with no handler registered as well, so a failed check never passes unnoticed.
 
   \pre initialize() must have been called.
-  \pre \a code is non-null and outlives the call.
+  \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
   \note Declared only when \c TOYGINE_DEBUG is defined. Every other build has no assertion() to call: the assert and
         assert_message macros expand to \c ((void)0), so a failed check costs nothing in a shipping binary.
-  \note The compiler spells the function name in the report; GCC leaves out the template arguments.
 
   \sa setCallbacks()
 */
-bool assertion(const char * code, const char * message,
-               std::source_location location = std::source_location::current()) noexcept;
+bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+               size_t lineNumber) noexcept;
 
 #endif // TOYGINE_DEBUG
 
