@@ -83,12 +83,7 @@ bool assertion(const char * code, const char * message, const char * fileName, c
   if (written >= static_cast<int>(c_stringBufferSize)) {
     constexpr const char * truncationMessage = "...[TRUNCATED]";
     constexpr auto         truncationLength  = std::char_traits<char>::length(truncationMessage) + 1;
-#if defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    strcpy_s(&assertionString[c_stringBufferSize - truncationLength], truncationLength, truncationMessage);
-#else // defined(_CRT_SECURE_CPP_OVERLOAD_STANDARD_NAMES)
-    std::strncpy(&assertionString[c_stringBufferSize - truncationLength], truncationMessage, truncationLength);
-    assertionString[c_stringBufferSize - 1] = '\0';
-#endif
+    std::memcpy(&assertionString[c_stringBufferSize - truncationLength], truncationMessage, truncationLength);
   }
 
   // An unregistered handler leaves the failure unreported, so the caller still has to stop at it.
