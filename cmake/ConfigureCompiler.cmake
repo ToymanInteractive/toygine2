@@ -167,6 +167,11 @@ endforeach ()
 unset(REPORTED_CONFIG_UPPER)
 unset(REPORTED_CONFIGS)
 
+# Enables assert and assert_message everywhere except Sega MD, which lacks the snprintf assertion_stub.cpp calls
+if (NOT TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+  add_compile_definitions($<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
+endif ()
+
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
 endif ()

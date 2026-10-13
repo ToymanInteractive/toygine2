@@ -36,12 +36,12 @@ namespace toy::assertion {
 
 namespace {
 
-#ifdef _DEBUG
+#ifdef TOYGINE_DEBUG
 
 /// Capacity of the buffer a failure description is formatted into, terminator included.
 constexpr size_t c_stringBufferSize = 4096;
 
-#endif // _DEBUG
+#endif // TOYGINE_DEBUG
 
 /// Handler last given to setCallbacks(), or \c nullptr while a failed check reports nothing.
 AssertionCallback _assertionCallback{nullptr};
@@ -60,7 +60,7 @@ void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWal
   _assertionCallback = assertionCallback;
 }
 
-#ifdef _DEBUG
+#ifdef TOYGINE_DEBUG
 
 bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber) noexcept {
@@ -99,6 +99,6 @@ bool assertion(const char * code, const char * message, const char * fileName, c
   return stop;
 }
 
-#endif // _DEBUG
+#endif // TOYGINE_DEBUG
 
 } // namespace toy::assertion
