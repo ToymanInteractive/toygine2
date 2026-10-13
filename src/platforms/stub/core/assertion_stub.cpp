@@ -62,13 +62,16 @@ void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWal
 
 #ifdef TOYGINE_DEBUG
 
-bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               size_t lineNumber) noexcept {
+bool assertion(const char * code, const char * message, std::source_location location) noexcept {
   static bool reEnter = false;
   if (reEnter)
     return false;
 
   reEnter = true;
+
+  const char * functionName = location.function_name();
+  const char * fileName     = location.file_name();
+  const size_t lineNumber   = location.line();
 
   char assertionString[c_stringBufferSize];
   int  written;

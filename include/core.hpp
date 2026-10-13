@@ -42,6 +42,7 @@
 #include <iterator>
 #include <limits>
 #include <ranges>
+#include <source_location>
 #include <string_view>
 #include <type_traits>
 #include <utility>
@@ -128,30 +129,14 @@ using std::bit_cast;
 #ifdef TOYGINE_DEBUG
 
 /*!
-  \def __FUNC_SIGNATURE__
-  \brief Name of the enclosing function, as the active compiler spells it.
-
-  Expands to \c __FUNCSIG__ on MSVC, to \c __PRETTY_FUNCTION__ on GCC and Clang, and to \c __func__ elsewhere, so a
-  failure report carries the full signature where the compiler offers one.
-
-  \note Exists only when \c TOYGINE_DEBUG is defined. Only assert and assert_message expand it, never a call site.
-*/
-#if defined(_MSC_VER)
-#define __FUNC_SIGNATURE__ __FUNCSIG__
-#elif defined(__GNUC__) || defined(__clang__)
-#define __FUNC_SIGNATURE__ __PRETTY_FUNCTION__
-#else
-#define __FUNC_SIGNATURE__ __func__
-#endif
-
-/*!
   \def assert
   \brief Checks \a expression in a debug build and reports a failure with its source location.
 
-  Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(), which
-  reports the failure through the registered \ref toy::assertion::AssertionCallback. A failure during constant
-  evaluation calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression
-  non-constant and fails the build.
+  Passes the expression as written to toy::assertion::assertion(), which takes the file, function, and line of the check
+  from its defaulted \c std::source_location argument and reports the failure through the registered
+  \ref toy::assertion::AssertionCallback. A failure during constant evaluation calls
+  toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression non-constant and fails
+  the build.
 
   \param expression Condition that must hold. Evaluated once, and only in a debug build.
 
@@ -171,7 +156,7 @@ using std::bit_cast;
       if (std::is_constant_evaluated()) {                                                                              \
         toy::assertion::assertCompileTimeError();                                                                      \
       } else {                                                                                                         \
-        toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+        toy::assertion::assertion(#expression, nullptr);                                                               \
       }                                                                                                                \
     }                                                                                                                  \
   } while (0)
@@ -200,7 +185,7 @@ using std::bit_cast;
       if (std::is_constant_evaluated()) {                                                                              \
         toy::assertion::assertCompileTimeError();                                                                      \
       } else {                                                                                                         \
-        toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+        toy::assertion::assertion(#expression, message);                                                               \
       }                                                                                                                \
     }                                                                                                                  \
   } while (0)
