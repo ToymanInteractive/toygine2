@@ -221,7 +221,7 @@ jobs:
 
       - name: Upload runtime artifact
         if: ${{ matrix.artifact_id != '' && github.event_name == 'pull_request' }}
-        uses: actions/upload-artifact@v7.0.1
+        uses: actions/upload-artifact@v7.0.2
         with:
           path: ${{ github.workspace }}/out/package/${{ matrix.cmake_preset }}/*.zip
           retention-days: 7
