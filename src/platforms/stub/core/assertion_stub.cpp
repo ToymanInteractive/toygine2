@@ -70,6 +70,7 @@ bool assertion(const char * code, const char * message, const char * fileName, c
 
   reEnter = true;
 
+#ifndef __MEGA_DRIVE__
   char assertionString[c_stringBufferSize];
   int  written;
 
@@ -92,6 +93,9 @@ bool assertion(const char * code, const char * message, const char * fileName, c
   reEnter = false;
 
   return stop;
+#else
+  return true;
+#endif // __MEGA_DRIVE__
 }
 
 #endif // TOYGINE_DEBUG
