@@ -114,6 +114,8 @@ constexpr size_t FixedStringStorage<AllocatedSize>::size() const noexcept {
 template <size_t AllocatedSize>
 constexpr void FixedStringStorage<AllocatedSize>::setSize(size_t newSize) noexcept {
   assert_message(newSize <= capacity(), "newSize must be less or equal than capacity");
+  if (newSize > capacity())
+    return;
 
   _size          = newSize;
   _buffer[_size] = '\0';

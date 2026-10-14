@@ -167,6 +167,14 @@ endforeach ()
 unset(REPORTED_CONFIG_UPPER)
 unset(REPORTED_CONFIGS)
 
+option(TOYGINE_ENABLE_WARNINGS          "Build engine targets with the engine warning set and warnings as errors" ${PROJECT_IS_TOP_LEVEL})
+option(TOYGINE_ENABLE_ABI_OPTIMIZATIONS "Build opted-in targets with optimizations that change the ABI" ${PROJECT_IS_TOP_LEVEL})
+
+# Reaches every target linking toygine; Sega MD gets no assert: it lacks the snprintf assertion_stub.cpp calls
+add_library(toygine-compile-defines INTERFACE)
+add_library(toygine::compile::defines ALIAS toygine-compile-defines)
+target_compile_definitions(toygine-compile-defines INTERFACE $<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
+
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
 endif ()
