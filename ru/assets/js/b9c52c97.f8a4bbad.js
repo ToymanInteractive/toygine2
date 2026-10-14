@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_=self.webpackChunk_||[]).push([["6542"],{62632(e){e.exports=JSON.parse('{"metadata":{"permalink":"/toygine2/ru/blog","page":1,"postsPerPage":10,"totalPages":1,"totalCount":6,"blogDescription":"\u0411\u043B\u043E\u0433","blogTitle":"\u0411\u043B\u043E\u0433"}}')}}]);

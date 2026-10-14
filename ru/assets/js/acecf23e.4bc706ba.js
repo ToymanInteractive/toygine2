@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunk_=self.webpackChunk_||[]).push([["3220"],{1912(e){e.exports=JSON.parse('{"blogBasePath":"/toygine2/ru/blog","blogTitle":"\u0411\u043B\u043E\u0433","authorsListPath":"/toygine2/ru/blog/authors"}')}}]);

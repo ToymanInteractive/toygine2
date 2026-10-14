@@ -1,0 +1,731 @@
+<!doctype html><html lang=en dir=ltr class="docs-wrapper plugin-docs plugin-id-default docs-version-current docs-doc-page docs-doc-id-api/files/include-include-core-string-hpp" data-has-hydrated=false><head><meta charset=UTF-8><meta name=generator content="Docusaurus v3.10.2"><title data-rh=true>include-include-core-string-hpp | ToyGine2</title><meta data-rh=true name=viewport content="width=device-width, initial-scale=1.0"/><meta data-rh=true name=twitter:card content=summary_large_image /><meta data-rh=true property=og:image content=https://ToymanInteractive.github.io/toygine2/img/docusaurus-social-card.jpg /><meta data-rh=true name=twitter:image content=https://ToymanInteractive.github.io/toygine2/img/docusaurus-social-card.jpg /><meta data-rh=true property=og:url content=https://ToymanInteractive.github.io/toygine2/docs/api/files/include/include/core/string-hpp/ /><meta data-rh=true property=og:locale content=en /><meta data-rh=true property=og:locale:alternate content=ru /><meta data-rh=true name=docusaurus_locale content=en /><meta data-rh=true name=docsearch:language content=en /><meta data-rh=true name=docusaurus_version content=current /><meta data-rh=true name=docusaurus_tag content=docs-default-current /><meta data-rh=true name=docsearch:version content=current /><meta data-rh=true name=docsearch:docusaurus_tag content=docs-default-current /><meta data-rh=true property=og:title content="include-include-core-string-hpp | ToyGine2"/><meta data-rh=true name=description content="Owning string over a character buffer chosen by a template argument. More..."/><meta data-rh=true property=og:description content="Owning string over a character buffer chosen by a template argument. More..."/><meta data-rh=true name=keywords content=doxygen,reference,file /><link data-rh=true rel=icon href=/toygine2/img/favicon.svg /><link data-rh=true rel=canonical href=https://ToymanInteractive.github.io/toygine2/docs/api/files/include/include/core/string-hpp/ /><link data-rh=true rel=alternate href=https://ToymanInteractive.github.io/toygine2/docs/api/files/include/include/core/string-hpp/ hreflang=en /><link data-rh=true rel=alternate href=https://ToymanInteractive.github.io/toygine2/ru/docs/api/files/include/include/core/string-hpp/ hreflang=ru /><link data-rh=true rel=alternate href=https://ToymanInteractive.github.io/toygine2/docs/api/files/include/include/core/string-hpp/ hreflang=x-default /><script data-rh=true type=application/ld+json>{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","item":"https://ToymanInteractive.github.io/toygine2/docs/api/","name":"API Reference","position":1},{"@type":"ListItem","item":"https://ToymanInteractive.github.io/toygine2/docs/api/files","name":"Files","position":2},{"@type":"ListItem","item":"https://ToymanInteractive.github.io/toygine2/docs/api/files","name":"Hierarchy","position":3},{"@type":"ListItem","item":"https://ToymanInteractive.github.io/toygine2/docs/api/folders/include","name":"include","position":4},{"@type":"ListItem","item":"https://ToymanInteractive.github.io/toygine2/docs/api/folders/include/include/core","name":"include/core","position":5},{"@type":"ListItem","item":"https://ToymanInteractive.github.io/toygine2/docs/api/files/include/include/core/string-hpp","name":"string.hpp","position":6}]}</script><link rel=alternate type=application/rss+xml href=/toygine2/blog/rss.xml title="ToyGine2 RSS Feed"><link rel=alternate type=application/atom+xml href=/toygine2/blog/atom.xml title="ToyGine2 Atom Feed"><link rel=stylesheet href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" type=text/css><link rel=stylesheet href=/toygine2/assets/css/styles.2a26c16b.css /><script src=/toygine2/assets/js/runtime~main.3600b8b9.js defer></script><script src=/toygine2/assets/js/main.4b201a58.js defer></script></head><body><svg style="display: none;"><defs>
+<symbol id=theme-svg-external-link viewBox="0 0 24 24"><path fill=currentColor d="M21 13v10h-21v-19h12v2h-10v15h17v-8h2zm3-12h-10.988l4.035 4-6.977 7.07 2.828 2.828 6.977-7.07 4.125 4.172v-11z"/></symbol>
+</defs></svg>
+<script>!function(){var t=function(){try{return new URLSearchParams(window.location.search).get("docusaurus-theme")}catch(t){}}()||function(){try{return window.localStorage.getItem("theme-f3f")}catch(t){}}();document.documentElement.setAttribute("data-theme",t||"dark"),document.documentElement.setAttribute("data-theme-choice",t||"dark")}(),function(){try{for(var[t,e]of new URLSearchParams(window.location.search).entries())if(t.startsWith("docusaurus-data-")){var a=t.replace("docusaurus-data-","data-");document.documentElement.setAttribute(a,e)}}catch(t){}}()</script><div id=__docusaurus><link rel=preload as=image href=/toygine2/img/logo.svg /><div role=region aria-label="Skip to main content"><a class=skipToContent_fXgn href=#__docusaurus_skipToContent_fallback>Skip to main content</a></div><nav aria-label=Main class="theme-layout-navbar navbar navbar--fixed-top"><div class=navbar__inner><div class="theme-layout-navbar-left navbar__items"><button aria-label="Toggle navigation bar" aria-expanded=false class="navbar__toggle clean-btn" type=button><svg width=30 height=30 viewBox="0 0 30 30" aria-hidden=true><path stroke=currentColor stroke-linecap=round stroke-miterlimit=10 stroke-width=2 d="M4 7h22M4 15h22M4 23h22"/></svg></button><a class=navbar__brand href=/toygine2/><div class=navbar__logo><img src=/toygine2/img/logo.svg alt="ToyGine2 Logo" class="themedComponent_mlkZ themedComponent--light_NVdE"/><img src=/toygine2/img/logo.svg alt="ToyGine2 Logo" class="themedComponent_mlkZ themedComponent--dark_xIcU"/></div><b class="navbar__title text--truncate">ToyGine2</b></a><a class="navbar__item navbar__link" href=/toygine2/docs/intro/>Docs</a><div class="navbar__item dropdown dropdown--hoverable"><a aria-current=page class="navbar__link active" aria-haspopup=true aria-expanded=false role=button href=/toygine2/docs/api/>API</a><ul class=dropdown__menu><li><a class=dropdown__link href=/toygine2/docs/api/namespaces/>Namespaces</a><li><a class=dropdown__link href=/toygine2/docs/api/concepts/>Concepts</a><li><a class=dropdown__link href=/toygine2/docs/api/classes/>Classes</a><li><a aria-current=page class="dropdown__link dropdown__link--active" href=/toygine2/docs/api/files/>Files</a></ul></div><a class="navbar__item navbar__link" href=/toygine2/blog/>Devlog</a></div><div class="theme-layout-navbar-right navbar__items navbar__items--right"><a href=https://github.com/ToymanInteractive/toygine2 target=_blank rel="noopener noreferrer" class="navbar__item navbar__link">GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a><div class="navbar__item dropdown dropdown--hoverable dropdown--right"><a href=# aria-haspopup=true aria-expanded=false role=button class=navbar__link><svg viewBox="0 0 24 24" width=20 height=20 aria-hidden=true class=iconLanguage_nlXk><path fill=currentColor d="M12.87 15.07l-2.54-2.51.03-.03c1.74-1.94 2.98-4.17 3.71-6.53H17V4h-7V2H8v2H1v1.99h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11.76-2.04zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2l-4.5-12zm-2.62 7l1.62-4.33L19.12 17h-3.24z"/></svg>English</a><ul class=dropdown__menu><li><a href=/toygine2/docs/api/files/include/include/core/string-hpp/ target=_self rel="noopener noreferrer" class="dropdown__link dropdown__link--active" lang=en>English</a><li><a href=/toygine2/ru/docs/api/files/include/include/core/string-hpp/ target=_self rel="noopener noreferrer" class=dropdown__link lang=ru>Русский</a></ul></div><div class="toggle_vylO colorModeToggle_DEke"><button class="clean-btn toggleButton_gllP toggleButtonDisabled_aARS" type=button disabled title="system mode" aria-label="Switch between dark and light mode (currently system mode)"><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_g3eP lightToggleIcon_pyhR"><path fill=currentColor d="M12,9c1.65,0,3,1.35,3,3s-1.35,3-3,3s-3-1.35-3-3S10.35,9,12,9 M12,7c-2.76,0-5,2.24-5,5s2.24,5,5,5s5-2.24,5-5 S14.76,7,12,7L12,7z M2,13l2,0c0.55,0,1-0.45,1-1s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S1.45,13,2,13z M20,13l2,0c0.55,0,1-0.45,1-1 s-0.45-1-1-1l-2,0c-0.55,0-1,0.45-1,1S19.45,13,20,13z M11,2v2c0,0.55,0.45,1,1,1s1-0.45,1-1V2c0-0.55-0.45-1-1-1S11,1.45,11,2z M11,20v2c0,0.55,0.45,1,1,1s1-0.45,1-1v-2c0-0.55-0.45-1-1-1C11.45,19,11,19.45,11,20z M5.99,4.58c-0.39-0.39-1.03-0.39-1.41,0 c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0s0.39-1.03,0-1.41L5.99,4.58z M18.36,16.95 c-0.39-0.39-1.03-0.39-1.41,0c-0.39,0.39-0.39,1.03,0,1.41l1.06,1.06c0.39,0.39,1.03,0.39,1.41,0c0.39-0.39,0.39-1.03,0-1.41 L18.36,16.95z M19.42,5.99c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06c-0.39,0.39-0.39,1.03,0,1.41 s1.03,0.39,1.41,0L19.42,5.99z M7.05,18.36c0.39-0.39,0.39-1.03,0-1.41c-0.39-0.39-1.03-0.39-1.41,0l-1.06,1.06 c-0.39,0.39-0.39,1.03,0,1.41s1.03,0.39,1.41,0L7.05,18.36z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_g3eP darkToggleIcon_wfgR"><path fill=currentColor d="M9.37,5.51C9.19,6.15,9.1,6.82,9.1,7.5c0,4.08,3.32,7.4,7.4,7.4c0.68,0,1.35-0.09,1.99-0.27C17.45,17.19,14.93,19,12,19 c-3.86,0-7-3.14-7-7C5,9.07,6.81,6.55,9.37,5.51z M12,3c-4.97,0-9,4.03-9,9s4.03,9,9,9s9-4.03,9-9c0-0.46-0.04-0.92-0.1-1.36 c-0.98,1.37-2.58,2.26-4.4,2.26c-2.98,0-5.4-2.42-5.4-5.4c0-1.81,0.89-3.42,2.26-4.4C12.92,3.04,12.46,3,12,3L12,3z"/></svg><svg viewBox="0 0 24 24" width=24 height=24 aria-hidden=true class="toggleIcon_g3eP systemToggleIcon_QzmC"><path fill=currentColor d="m12 21c4.971 0 9-4.029 9-9s-4.029-9-9-9-9 4.029-9 9 4.029 9 9 9zm4.95-13.95c1.313 1.313 2.05 3.093 2.05 4.95s-0.738 3.637-2.05 4.95c-1.313 1.313-3.093 2.05-4.95 2.05v-14c1.857 0 3.637 0.737 4.95 2.05z"/></svg></button></div><div class=navbarSearchContainer_Bca1><div class="navbar__search searchBarContainer_NW3z" dir=ltr><input placeholder=Search aria-label=Search class="navbar__search-input searchInput_YFbd" value="" /><div class="loadingRing_RJI3 searchBarLoadingRing_YnHq"><div></div><div></div><div></div><div></div></div></div></div></div></div><div role=presentation class=navbar-sidebar__backdrop></div></nav><div id=__docusaurus_skipToContent_fallback class="theme-layout-main main-wrapper mainWrapper_z2l0"><div class=docsWrapper_hBAB><button aria-label="Scroll back to top" class="clean-btn theme-back-to-top-button backToTopButton_sjWU" type=button></button><div class=docRoot_UBD9><aside class="theme-doc-sidebar-container docSidebarContainer_YfHR"><div class=sidebarViewport_aRkj><div class=sidebar_njMd><nav aria-label="Docs sidebar" class="menu thin-scrollbar menu_SIkG"><ul class="theme-doc-sidebar-menu menu__list"><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-1 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" href=/toygine2/docs/api/><span class=categoryLinkLabel_W154>API Reference</span></a><button aria-label="Collapse sidebar category 'API Reference'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex=0 href=/toygine2/docs/api/namespaces/><span class=categoryLinkLabel_W154>Namespaces</span></a><button aria-label="Expand sidebar category 'Namespaces'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex=0 href=/toygine2/docs/api/concepts/><span class=categoryLinkLabel_W154>Concepts</span></a><button aria-label="Expand sidebar category 'Concepts'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item menu__list-item--collapsed"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex=0 href=/toygine2/docs/api/classes/><span class=categoryLinkLabel_W154>Classes</span></a><button aria-label="Expand sidebar category 'Classes'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-2 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex=0 href=/toygine2/docs/api/files/><span class=categoryLinkLabel_W154>Files</span></a><button aria-label="Collapse sidebar category 'Files'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-3 menu__list-item"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex=0 href=/toygine2/docs/api/files/><span class=categoryLinkLabel_W154>Hierarchy</span></a><button aria-label="Collapse sidebar category 'Hierarchy'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item doxyEllipsis"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex=0 href=/toygine2/docs/api/folders/include/><span class=categoryLinkLabel_W154>include</span></a><button aria-label="Collapse sidebar category 'include'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-5 menu__list-item menu__list-item--collapsed doxyEllipsis"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex=0 href=/toygine2/docs/api/folders/include/include/application/><span class=categoryLinkLabel_W154>include/application</span></a><button aria-label="Expand sidebar category 'include/application'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-5 menu__list-item doxyEllipsis"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist menu__link--active" tabindex=0 href=/toygine2/docs/api/folders/include/include/core/><span class=categoryLinkLabel_W154>include/core</span></a><button aria-label="Collapse sidebar category 'include/core'" aria-expanded=true type=button class="clean-btn menu__caret"></button></div><ul class=menu__list><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/assertion-hpp/><span class=linkLabel_WmDU>assertion.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/bitwise-enum-hpp/><span class=linkLabel_WmDU>bitwise_enum.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/bitwise-enum-inl/><span class=linkLabel_WmDU>bitwise_enum.inl</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/fixed-string-storage-hpp/><span class=linkLabel_WmDU>fixed_string_storage.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/fixed-string-storage-inl/><span class=linkLabel_WmDU>fixed_string_storage.inl</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/log-isink-hpp/><span class=linkLabel_WmDU>log_isink.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/log-level-hpp/><span class=linkLabel_WmDU>log_level.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/log-metadata-hpp/><span class=linkLabel_WmDU>log_metadata.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/log-record-hpp/><span class=linkLabel_WmDU>log_record.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/platform-hpp/><span class=linkLabel_WmDU>platform.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class="menu__link menu__link--active" aria-current=page tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-hpp/><span class=linkLabel_WmDU>string.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-inl/><span class=linkLabel_WmDU>string.inl</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-like-hpp/><span class=linkLabel_WmDU>string_like.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-storage-hpp/><span class=linkLabel_WmDU>string_storage.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-utils-hpp/><span class=linkLabel_WmDU>string_utils.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-utils-inl/><span class=linkLabel_WmDU>string_utils.inl</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-view-hpp/><span class=linkLabel_WmDU>string_view.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/string-view-inl/><span class=linkLabel_WmDU>string_view.inl</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-6 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/include/core/utils-hpp/><span class=linkLabel_WmDU>utils.hpp</span></a></ul><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-5 menu__list-item menu__list-item--collapsed doxyEllipsis"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex=0 href=/toygine2/docs/api/folders/include/include/video/><span class=categoryLinkLabel_W154>include/video</span></a><button aria-label="Expand sidebar category 'include/video'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/application-hpp/><span class=linkLabel_WmDU>application.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/core-hpp/><span class=linkLabel_WmDU>core.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/toygine-hpp/><span class=linkLabel_WmDU>toygine.hpp</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-5 menu__list-item doxyEllipsis"><a class=menu__link tabindex=0 href=/toygine2/docs/api/files/include/video-hpp/><span class=linkLabel_WmDU>video.hpp</span></a></ul><li class="theme-doc-sidebar-item-category theme-doc-sidebar-item-category-level-4 menu__list-item menu__list-item--collapsed doxyEllipsis"><div class=menu__list-item-collapsible><a class="categoryLink_byQd menu__link menu__link--sublist" tabindex=0 href=/toygine2/docs/api/folders/src/><span class=categoryLinkLabel_W154>src</span></a><button aria-label="Expand sidebar category 'src'" aria-expanded=false type=button class="clean-btn menu__caret"></button></div></ul><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/all/><span class=linkLabel_WmDU>All</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/concepts/><span class=linkLabel_WmDU>Concepts</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/classes/><span class=linkLabel_WmDU>Classes</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/namespaces/><span class=linkLabel_WmDU>Namespaces</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/functions/><span class=linkLabel_WmDU>Functions</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/variables/><span class=linkLabel_WmDU>Variables</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/typedefs/><span class=linkLabel_WmDU>Typedefs</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/enums/><span class=linkLabel_WmDU>Enums</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/enumvalues/><span class=linkLabel_WmDU>Enum Values</span></a><li class="theme-doc-sidebar-item-link theme-doc-sidebar-item-link-level-3 menu__list-item"><a class=menu__link tabindex=0 href=/toygine2/docs/api/indices/files/defines/><span class=linkLabel_WmDU>Macro Definitions</span></a></ul></ul></ul></nav></div></div></aside><main class=docMainContainer_TBSr><div class="container padding-top--md padding-bottom--lg"><div class=row><div class="col docItemCol_VOVn"><div class=docItemContainer_Djhp><article><nav class="theme-doc-breadcrumbs breadcrumbsContainer_Z_bl" aria-label=Breadcrumbs><ul class=breadcrumbs><li class=breadcrumbs__item><a aria-label="Home page" class=breadcrumbs__link href=/toygine2/><svg viewBox="0 0 24 24" class=breadcrumbHomeIcon_YNFT><path d="M10 19v-5h4v5c0 .55.45 1 1 1h3c.55 0 1-.45 1-1v-7h1.7c.46 0 .68-.57.33-.87L12.67 3.6c-.38-.34-.96-.34-1.34 0l-8.36 7.53c-.34.3-.13.87.33.87H5v7c0 .55.45 1 1 1h3c.55 0 1-.45 1-1z" fill=currentColor /></svg></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/toygine2/docs/api/><span>API Reference</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/toygine2/docs/api/files/><span>Files</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/toygine2/docs/api/files/><span>Hierarchy</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/toygine2/docs/api/folders/include/><span>include</span></a><li class=breadcrumbs__item><a class=breadcrumbs__link href=/toygine2/docs/api/folders/include/include/core/><span>include/core</span></a><li class="breadcrumbs__item breadcrumbs__item--active"><span class=breadcrumbs__link>string.hpp</span></ul></nav><div class="tocCollapsible_ETCw theme-doc-toc-mobile tocMobile_ITEo"><button type=button class="clean-btn tocCollapsibleButton_TO0P">On this page</button></div><div class="theme-doc-markdown markdown"><div class=doxyPage>
+<header><h1><code>string.hpp</code> File</h1></header>
+<p>Owning string over a character buffer chosen by a template argument. <a href=#details class="">More...</a></p>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=included-headers>Included Headers<a href=#included-headers class=hash-link aria-label="Direct link to Included Headers" title="Direct link to Included Headers" translate=no>​</a></h2>
+<div class=doxyIncludesList>#include "<a class="" href=/toygine2/docs/api/files/include/include/core/fixed-string-storage-hpp/>fixed_string_storage.hpp</a>"
+#include "<a class="" href=/toygine2/docs/api/files/include/include/core/string-like-hpp/>string_like.hpp</a>"
+#include "<a class="" href=/toygine2/docs/api/files/include/include/core/string-storage-hpp/>string_storage.hpp</a>"
+#include "<a class="" href=/toygine2/docs/api/files/include/include/core/string-view-hpp/>string_view.hpp</a>"
+</div>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=namespaces-index>Namespaces Index<a href=#namespaces-index class=hash-link aria-label="Direct link to Namespaces Index" title="Direct link to Namespaces Index" translate=no>​</a></h2>
+
+
+<table class=doxyMembersIndex><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemType valign=top style=text-align:left>namespace<td class=doxyMemberIndexItemName valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/>toy</a><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Root namespace for every engine module. <a class="" href=/toygine2/docs/api/namespaces/toy/#details>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=classes-index>Classes Index<a href=#classes-index class=hash-link aria-label="Direct link to Classes Index" title="Direct link to Classes Index" translate=no>​</a></h2>
+
+
+<table class=doxyMembersIndex><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemType valign=top style=text-align:left>class<td class=doxyMemberIndexItemName valign=top style=text-align:left><a class="" href=/toygine2/docs/api/classes/toy/string/>String&lt;storageType></a><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Owning, null-terminated byte string over a character buffer that a template argument chooses. <a class="" href=/toygine2/docs/api/classes/toy/string/#details>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=typedefs-index>Typedefs Index<a href=#typedefs-index class=hash-link aria-label="Direct link to Typedefs Index" title="Direct link to Typedefs Index" translate=no>​</a></h2>
+
+
+<table class=doxyMembersIndex><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;size_t Capacity></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>using<td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>FixedString</a> = String&lt; FixedStringStorage&lt; Capacity > ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> whose characters live in a buffer of a compile-time size inside the object. <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=operators-index>Operators Index<a href=#operators-index class=hash-link aria-label="Direct link to Operators Index" title="Direct link to Operators Index" translate=no>​</a></h2>
+
+
+
+
+
+
+
+
+
+
+
+<table class=doxyMembersIndex><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType, StringLike StringType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>operator+</a> (String&lt; storageType > lhs, const StringType &rhs) noexcept -> String&lt; storageType ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Returns <em>lhs</em> followed by the characters of <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#ab1f62994dcc13b619065e6f4c1d0a2ba>operator+</a> (String&lt; storageType > lhs, const char *rhs) noexcept -> String&lt; storageType ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Returns <em>lhs</em> followed by the null-terminated byte string <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#ab1f62994dcc13b619065e6f4c1d0a2ba>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#aae2ab1796e307a4b16f26bbc949b43c4>operator+</a> (String&lt; storageType > lhs, char rhs) noexcept -> String&lt; storageType ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Returns <em>lhs</em> followed by the character <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#aae2ab1796e307a4b16f26bbc949b43c4>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#a69930736ac24d937b1162ab4edbbfe9d>operator+</a> (const char *lhs, const String&lt; storageType > &rhs) noexcept -> String&lt; storageType ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Returns a new string holding the null-terminated byte string <em>lhs</em> followed by <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#a69930736ac24d937b1162ab4edbbfe9d>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#a325569ec5c21967c3cccacf78b79375e>operator+</a> (char lhs, const String&lt; storageType > &rhs) noexcept -> String&lt; storageType ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Returns a new string holding the character <em>lhs</em> followed by <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#a325569ec5c21967c3cccacf78b79375e>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#a0407e66373d70955c6ddb3f60981bb02>operator+</a> (StringView lhs, const String&lt; storageType > &rhs) noexcept -> String&lt; storageType ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Returns a new string holding the characters of <em>lhs</em> followed by <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#a0407e66373d70955c6ddb3f60981bb02>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType, StringLike StringType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr bool<td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>operator==</a> (const String&lt; storageType > &lhs, const StringType &rhs) noexcept<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Reports whether <em>lhs</em> and <em>rhs</em> hold the same characters. <a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr bool<td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#af6103fba183b886b3d15d10b71da7d5e>operator==</a> (const String&lt; storageType > &lhs, const char *rhs) noexcept<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Reports whether <em>lhs</em> holds the characters of the null-terminated byte string <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#af6103fba183b886b3d15d10b71da7d5e>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType, StringLike StringType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>operator&lt;=></a> (const String&lt; storageType > &lhs, const StringType &rhs) noexcept -> std::char_traits&lt; char >::comparison_category<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Orders <em>lhs</em> against <em>rhs</em> lexicographically. <a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#adf00e01c7b808b74709f15720b988730>operator&lt;=></a> (const String&lt; storageType > &lhs, const char *rhs) noexcept -> std::char_traits&lt; char >::comparison_category<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Orders <em>lhs</em> against the null-terminated byte string <em>rhs</em> lexicographically. <a class="" href=/toygine2/docs/api/namespaces/toy/#adf00e01c7b808b74709f15720b988730>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=functions-index>Functions Index<a href=#functions-index class=hash-link aria-label="Direct link to Functions Index" title="Direct link to Functions Index" translate=no>​</a></h2>
+
+
+
+
+
+<table class=doxyMembersIndex><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr void<td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#ada8a44079e218c42374d9b1e9d554655>swap</a> (String&lt; storageType > &lhs, String&lt; storageType > &rhs) noexcept<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Exchanges the contents of <em>lhs</em> and <em>rhs</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#ada8a44079e218c42374d9b1e9d554655>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#af5ace326d0fae887d77ba0de1501b7b5>erase</a> (String&lt; storageType > &string, char value) noexcept -> String&lt; storageType >::size_type<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Removes every character of <em>string</em> that equals <em>value</em>. <a class="" href=/toygine2/docs/api/namespaces/toy/#af5ace326d0fae887d77ba0de1501b7b5>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;StringStorage storageType, typename Predicate></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemTypeTemplate valign=top style=text-align:left>constexpr auto <td class=doxyMemberIndexItemNameTemplate valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#ac0a24795033ed56d32960aa77ea4b22b>erase_if</a> (String&lt; storageType > &string, Predicate predicate) noexcept -> String&lt; storageType >::size_type<tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Removes every character of <em>string</em> that <em>predicate</em> accepts. <a class="" href=/toygine2/docs/api/namespaces/toy/#ac0a24795033ed56d32960aa77ea4b22b>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2><tr class=doxyMemberIndexTemplate><td class=doxyMemberIndexTemplate colspan=2><div>template &lt;size_t Size></div><tr class=doxyMemberIndexItem><td class=doxyMemberIndexItemNoTypeNameTemplate colspan=2 valign=top style=text-align:left><a class="" href=/toygine2/docs/api/namespaces/toy/#accd347e613cbf028b1d762e7ceb879bb>String</a> (const char(&array)[Size]) -> String&lt; FixedStringStorage&lt; Size > ><tr class=doxyMemberIndexDescription><td class=doxyMemberIndexDescriptionLeft><td class=doxyMemberIndexDescriptionRight>
+<p>Deduces a <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString</a> sized to a character array. <a class="" href=/toygine2/docs/api/namespaces/toy/#accd347e613cbf028b1d762e7ceb879bb>More...</a></p>
+<tr class=doxyMemberIndexSeparator><td class=doxyMemberIndexSeparator colspan=2></table>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=details>Description<a href=#details class=hash-link aria-label="Direct link to Description" title="Direct link to Description" translate=no>​</a></h2>
+<p>Owning string over a character buffer chosen by a template argument.</p>
+<p>Defines <a class="" href=/toygine2/docs/api/classes/toy/string/>toy::String</a>, which follows the <span class=doxyComputerOutput>std::basic_string</span> interface over any <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>, and <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString</a>, its form over a buffer inside the object. Used where text has to outlive the characters it was built from, such as the message of a <a class="" href=/toygine2/docs/api/structs/toy/log/record/>toy::log::Record</a>.</p>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 14 16"><path fill-rule=evenodd d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></span>info</div><div class=admonitionContent_BuS1><p>Included by <a class="" href=/toygine2/docs/api/files/include/core-hpp/>core.hpp</a> only; do not include this file directly.</div></div>
+<div class=doxySectionDef>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=typedefs>Typedefs<a href=#typedefs class=hash-link aria-label="Direct link to Typedefs" title="Direct link to Typedefs" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=a316021771aea869243d8448f36198ec4>FixedString<a href=#a316021771aea869243d8448f36198ec4 class=hash-link aria-label="Direct link to FixedString" title="Direct link to FixedString" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;size_t Capacity></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>using toy::FixedString = String&lt;FixedStringStorage&lt;Capacity>></table>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> whose characters live in a buffer of a compile-time size inside the object.</p>
+<p>Allocates nothing, so the type works on targets without a heap.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>Capacity<td class=doxyParamItemDescription><p>Size of the buffer in bytes, the terminator included; the string holds at most <em>Capacity</em> <span class=doxyComputerOutput>-</span> <span class=doxyComputerOutput>1</span> characters. Must be greater than <span class=doxyComputerOutput>0</span>, checked by a static assertion in <a class="" href=/toygine2/docs/api/classes/toy/fixedstringstorage/>toy::FixedStringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/>toy::String</a></dd>
+</dl>
+<p>Definition at line 3101 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-hpp/>string.hpp</a>.</p>
+</div>
+</div>
+</div>
+<div class=doxySectionDef>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=operators>Operators<a href=#operators class=hash-link aria-label="Direct link to Operators" title="Direct link to Operators" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=a313f82cacb0c19b0d2fc1b045b8b7f95>operator+()<a href=#a313f82cacb0c19b0d2fc1b045b8b7f95 class=hash-link aria-label="Direct link to operator+()" title="Direct link to operator+()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType, StringLike StringType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType > toy::operator+ (String&lt; storageType > lhs, const StringType & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Returns <em>lhs</em> followed by the characters of <em>rhs</em>.</p>
+<p>Takes <em>lhs</em> by value: an lvalue is copied and an rvalue moved, so a chain such as <span class=doxyComputerOutput>a</span> <span class=doxyComputerOutput>+</span> <span class=doxyComputerOutput>b</span> <span class=doxyComputerOutput>+</span> <span class=doxyComputerOutput>c</span> appends into one string, as the rvalue overloads of <span class=doxyComputerOutput>std::basic_string</span> do.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of the string operand and of the result; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.<tr class=doxyParamItem><td class=doxyParamItemName>StringType<td class=doxyParamItemDescription><p>Type of the right side; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringlike/>toy::StringLike</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to append to.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>View or string to append.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><em>lhs</em> with the characters of <em>rhs</em> after its own.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p>The storage accepts the joined length, checked by assert_message in debug builds.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects the joined length, where <span class=doxyComputerOutput>std::basic_string</span> throws <span class=doxyComputerOutput>std::length_error</span>. A <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString</a> built from a character array has no room left, so joining anything to it fails.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/#a35f925c5c5a01fdb24b085835e4b6350>toy::String::append()</a></dd>
+</dl>
+<p>Definition at line 1281 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a>.</p>
+<p>Referenced by <a class="" href=/toygine2/docs/api/namespaces/toy/#a325569ec5c21967c3cccacf78b79375e>toy::operator+</a>, <a class="" href=/toygine2/docs/api/namespaces/toy/#a69930736ac24d937b1162ab4edbbfe9d>toy::operator+</a>, <a class="" href=/toygine2/docs/api/namespaces/toy/#aae2ab1796e307a4b16f26bbc949b43c4>toy::operator+</a>, <a class="" href=/toygine2/docs/api/namespaces/toy/#ab1f62994dcc13b619065e6f4c1d0a2ba>toy::operator+</a>, <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#a0407e66373d70955c6ddb3f60981bb02>toy::operator+</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=ab1f62994dcc13b619065e6f4c1d0a2ba>operator+()<a href=#ab1f62994dcc13b619065e6f4c1d0a2ba class=hash-link aria-label="Direct link to operator+()" title="Direct link to operator+()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType > toy::operator+ (String&lt; storageType > lhs, const char * rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Returns <em>lhs</em> followed by the null-terminated byte string <em>rhs</em>.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of the string operand and of the result; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to append to.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>Null-terminated byte string to append.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><em>lhs</em> with the characters of <em>rhs</em> after its own.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p><em>rhs</em> is non-null, checked by assert_message in debug builds.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p>The storage accepts the joined length, checked by assert_message in debug builds.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects the joined length, where <span class=doxyComputerOutput>std::basic_string</span> throws <span class=doxyComputerOutput>std::length_error</span>. A <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString</a> built from a character array has no room left, so joining anything to it fails.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+(String&lt;storageType>, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1288 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=aae2ab1796e307a4b16f26bbc949b43c4>operator+()<a href=#aae2ab1796e307a4b16f26bbc949b43c4 class=hash-link aria-label="Direct link to operator+()" title="Direct link to operator+()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType > toy::operator+ (String&lt; storageType > lhs, char rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Returns <em>lhs</em> followed by the character <em>rhs</em>.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of the string operand and of the result; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to append to.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>Character to append.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><em>lhs</em> with <em>rhs</em> after its last character.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p>The storage accepts the joined length, checked by assert_message in debug builds.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects the joined length, where <span class=doxyComputerOutput>std::basic_string</span> throws <span class=doxyComputerOutput>std::length_error</span>. A <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString</a> built from a character array has no room left, so joining anything to it fails.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/#a94bf0330533cfbec4047e93aba404859>toy::String::push_back()</a></dd>
+</dl>
+<p>Definition at line 1295 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=a69930736ac24d937b1162ab4edbbfe9d>operator+()<a href=#a69930736ac24d937b1162ab4edbbfe9d class=hash-link aria-label="Direct link to operator+()" title="Direct link to operator+()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType > toy::operator+ (const char * lhs, const String&lt; storageType > & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Returns a new string holding the null-terminated byte string <em>lhs</em> followed by <em>rhs</em>.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>rhs</em> and of the result; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p>Null-terminated byte string that comes first.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> whose characters follow.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> over the storage of <em>rhs</em> holding both sides in order.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p><em>lhs</em> is non-null, checked by assert_message in debug builds.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p>The storage accepts the joined length, checked by assert_message in debug builds.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects the joined length.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+(String&lt;storageType>, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1302 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>References <a class="" href=/toygine2/docs/api/classes/toy/string/#a35f925c5c5a01fdb24b085835e4b6350>toy::String&lt; storageType >::append</a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=a325569ec5c21967c3cccacf78b79375e>operator+()<a href=#a325569ec5c21967c3cccacf78b79375e class=hash-link aria-label="Direct link to operator+()" title="Direct link to operator+()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType > toy::operator+ (char lhs, const String&lt; storageType > & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Returns a new string holding the character <em>lhs</em> followed by <em>rhs</em>.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>rhs</em> and of the result; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p>Character that comes first.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> whose characters follow.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> over the storage of <em>rhs</em> holding both sides in order.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p>The storage accepts the joined length, checked by assert_message in debug builds.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects the joined length.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+(String&lt;storageType>, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1310 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>References <a class="" href=/toygine2/docs/api/classes/toy/string/#a35f925c5c5a01fdb24b085835e4b6350>toy::String&lt; storageType >::append</a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=a0407e66373d70955c6ddb3f60981bb02>operator+()<a href=#a0407e66373d70955c6ddb3f60981bb02 class=hash-link aria-label="Direct link to operator+()" title="Direct link to operator+()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType > toy::operator+ (StringView lhs, const String&lt; storageType > & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Returns a new string holding the characters of <em>lhs</em> followed by <em>rhs</em>.</p>
+<p>Takes a view rather than any string-like type on the left, as <span class=doxyComputerOutput>std::basic_string</span> takes a <span class=doxyComputerOutput>std::basic_string_view</span>, so a string on both sides reaches the overload that copies the left one.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>rhs</em> and of the result; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p>View whose characters come first.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> whose characters follow.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> over the storage of <em>rhs</em> holding both sides in order.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p>The storage accepts the joined length, checked by assert_message in debug builds.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects the joined length.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+(String&lt;storageType>, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1318 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>References <a class="" href=/toygine2/docs/api/classes/toy/string/#a35f925c5c5a01fdb24b085835e4b6350>toy::String&lt; storageType >::append</a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#a313f82cacb0c19b0d2fc1b045b8b7f95>toy::operator+</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=a08698a6b48bf51572d080a5059880f4e>operator&lt;=>()<a href=#a08698a6b48bf51572d080a5059880f4e class=hash-link aria-label="Direct link to operator<=>()" title="Direct link to operator<=>()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType, StringLike StringType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>std::char_traits&lt; char >::comparison_category toy::operator&lt;=> (const String&lt; storageType > & lhs, const StringType & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Orders <em>lhs</em> against <em>rhs</em> lexicographically.</p>
+<p>Orders as <a class="" href=/toygine2/docs/api/classes/toy/string/#a2f6105000cfc12f97809fe6adf877012>toy::String::compare()</a> does: bytes as <span class=doxyComputerOutput>unsigned</span> <span class=doxyComputerOutput>char</span>, then length. The compiler derives <span class=doxyComputerOutput>&lt;</span>, <span class=doxyComputerOutput>&lt;=</span>, <span class=doxyComputerOutput>></span>, <span class=doxyComputerOutput>>=</span>, and the reversed operand order from this operator.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>lhs</em>; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.<tr class=doxyParamItem><td class=doxyParamItemName>StringType<td class=doxyParamItemDescription><p>Type of the right side; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringlike/>toy::StringLike</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to order.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>View or string to order against.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><span class=doxyComputerOutput>std::strong_ordering::less</span>, <span class=doxyComputerOutput>equal</span>, or <span class=doxyComputerOutput>greater</span> as <em>lhs</em> orders before, with, or after <em>rhs</em>.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>toy::operator==(const String&lt;storageType> &, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1340 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>toy::operator&lt;=></a>.</p>
+<p>Referenced by <a class="" href=/toygine2/docs/api/namespaces/toy/#adf00e01c7b808b74709f15720b988730>toy::operator&lt;=></a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>toy::operator&lt;=></a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=adf00e01c7b808b74709f15720b988730>operator&lt;=>()<a href=#adf00e01c7b808b74709f15720b988730 class=hash-link aria-label="Direct link to operator<=>()" title="Direct link to operator<=>()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>std::char_traits&lt; char >::comparison_category toy::operator&lt;=> (const String&lt; storageType > & lhs, const char * rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Orders <em>lhs</em> against the null-terminated byte string <em>rhs</em> lexicographically.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>lhs</em>; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to order.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>Null-terminated byte string to order against.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><span class=doxyComputerOutput>std::strong_ordering::less</span>, <span class=doxyComputerOutput>equal</span>, or <span class=doxyComputerOutput>greater</span> as <em>lhs</em> orders before, with, or after <em>rhs</em>.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p><em>rhs</em> is non-null, checked by assert_message in debug builds.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>toy::operator&lt;=>(const String&lt;storageType> &, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1346 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>toy::operator&lt;=></a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=acd1d7298184d82c1f7b037fbf363b3a3>operator==()<a href=#acd1d7298184d82c1f7b037fbf363b3a3 class=hash-link aria-label="Direct link to operator==()" title="Direct link to operator==()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType, StringLike StringType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>bool toy::operator== (const String&lt; storageType > & lhs, const StringType & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Reports whether <em>lhs</em> and <em>rhs</em> hold the same characters.</p>
+<p>Compares the lengths first, then the bytes, so a <span class=doxyComputerOutput>'\0'</span> inside either side takes part. The compiler derives <span class=doxyComputerOutput>!=</span> and the reversed operand order from this operator.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>lhs</em>; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.<tr class=doxyParamItem><td class=doxyParamItemName>StringType<td class=doxyParamItemDescription><p>Type of the right side; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringlike/>toy::StringLike</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to compare.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>View or string to compare with.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><span class=doxyComputerOutput>true</span> when both sides have the same length and the same bytes.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#a08698a6b48bf51572d080a5059880f4e>toy::operator&lt;=>(const String&lt;storageType> &, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1326 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>toy::operator==</a>.</p>
+<p>Referenced by <a class="" href=/toygine2/docs/api/namespaces/toy/#af6103fba183b886b3d15d10b71da7d5e>toy::operator==</a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>toy::operator==</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=af6103fba183b886b3d15d10b71da7d5e>operator==()<a href=#af6103fba183b886b3d15d10b71da7d5e class=hash-link aria-label="Direct link to operator==()" title="Direct link to operator==()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>bool toy::operator== (const String&lt; storageType > & lhs, const char * rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel nodiscard">nodiscard</span>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Reports whether <em>lhs</em> holds the characters of the null-terminated byte string <em>rhs</em>.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>lhs</em>; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to compare.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>Null-terminated byte string to compare with.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p><span class=doxyComputerOutput>true</span> when <em>lhs</em> holds exactly the characters of <em>rhs</em>.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Precondition</dt>
+<dd><p><em>rhs</em> is non-null, checked by assert_message in debug builds.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>toy::operator==(const String&lt;storageType> &, const StringType &)</a></dd>
+</dl>
+<p>Definition at line 1331 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>References <a class="" href=/toygine2/docs/api/files/include/core-hpp/#a672330c2fecd516f254162cd9611d91a>assert_message</a> and <a class="" href=/toygine2/docs/api/namespaces/toy/#acd1d7298184d82c1f7b037fbf363b3a3>toy::operator==</a>.</p>
+</div>
+</div>
+</div>
+<div class=doxySectionDef>
+<h2 class="anchor anchorTargetStickyNavbar_Vzrq" id=functions>Functions<a href=#functions class=hash-link aria-label="Direct link to Functions" title="Direct link to Functions" translate=no>​</a></h2>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=af5ace326d0fae887d77ba0de1501b7b5>erase()<a href=#af5ace326d0fae887d77ba0de1501b7b5 class=hash-link aria-label="Direct link to erase()" title="Direct link to erase()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType >::size_type toy::erase (String&lt; storageType > & string, char value)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Removes every character of <em>string</em> that equals <em>value</em>.</p>
+<p>Keeps the order of the remaining characters and moves them toward the front in one pass.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>string</em>; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>string<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to edit.<tr class=doxyParamItem><td class=doxyParamItemName>value<td class=doxyParamItemDescription><p>Character to remove.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p>Number of characters removed.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Postcondition</dt>
+<dd><p><em>string</em> holds no character equal to <em>value</em>, and size() fell by the returned count.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 14 16"><path fill-rule=evenodd d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></span>info</div><div class=admonitionContent_BuS1><p>Pointers and iterators at or past the first removed character read other characters after the call.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#ac0a24795033ed56d32960aa77ea4b22b>toy::erase_if()</a></dd>
+</dl>
+<p>Definition at line 1357 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#af5ace326d0fae887d77ba0de1501b7b5>toy::erase</a>.</p>
+<p>Referenced by <a class="" href=/toygine2/docs/api/namespaces/toy/#af5ace326d0fae887d77ba0de1501b7b5>toy::erase</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=ac0a24795033ed56d32960aa77ea4b22b>erase_if()<a href=#ac0a24795033ed56d32960aa77ea4b22b class=hash-link aria-label="Direct link to erase_if()" title="Direct link to erase_if()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType, typename Predicate></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>String&lt; storageType >::size_type toy::erase_if (String&lt; storageType > & string, Predicate predicate)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Removes every character of <em>string</em> that <em>predicate</em> accepts.</p>
+<p>Keeps the order of the remaining characters and moves them toward the front in one pass. The predicate runs once per character, through <span class=doxyComputerOutput>std::ref</span>, so the copies the algorithm makes share one object.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of <em>string</em>; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.<tr class=doxyParamItem><td class=doxyParamItemName>Predicate<td class=doxyParamItemDescription><p>Callable on a <span class=doxyComputerOutput>char</span> <span class=doxyComputerOutput>&</span> that returns a value convertible to <span class=doxyComputerOutput>bool</span>; satisfies <span class=doxyComputerOutput>std::predicate</span>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>string<td class=doxyParamItemDescription><p><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a> to edit.<tr class=doxyParamItem><td class=doxyParamItemName>predicate<td class=doxyParamItemDescription><p>Test a character must pass to be removed.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Returns</dt>
+<dd><p>Number of characters removed.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Postcondition</dt>
+<dd><p><em>string</em> holds no character <em>predicate</em> accepts, and size() fell by the returned count.</dd>
+</dl>
+<div class="theme-admonition theme-admonition-info admonition_xJq3 alert alert--info"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 14 16"><path fill-rule=evenodd d="M7 2.3c3.14 0 5.7 2.56 5.7 5.7s-2.56 5.7-5.7 5.7A5.71 5.71 0 0 1 1.3 8c0-3.14 2.56-5.7 5.7-5.7zM7 1C3.14 1 0 4.14 0 8s3.14 7 7 7 7-3.14 7-7-3.14-7-7-7zm1 3H6v5h2V4zm0 6H6v2h2v-2z"/></svg></span>info</div><div class=admonitionContent_BuS1><p>Pointers and iterators at or past the first removed character read other characters after the call.</div></div>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/namespaces/toy/#af5ace326d0fae887d77ba0de1501b7b5>toy::erase()</a></dd>
+</dl>
+<p>Definition at line 1366 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#ac0a24795033ed56d32960aa77ea4b22b>toy::erase_if</a>.</p>
+<p>Referenced by <a class="" href=/toygine2/docs/api/namespaces/toy/#ac0a24795033ed56d32960aa77ea4b22b>toy::erase_if</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=accd347e613cbf028b1d762e7ceb879bb>String()<a href=#accd347e613cbf028b1d762e7ceb879bb class=hash-link aria-label="Direct link to String()" title="Direct link to String()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;size_t Size></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>toy::String (const char(&) array=[Size])</table>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Deduces a <a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString</a> sized to a character array.</p>
+<p>Lets <span class=doxyComputerOutput><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a></span>("player") and <span class=doxyComputerOutput><a class="" href=/toygine2/docs/api/classes/toy/string/>String</a></span> <span class=doxyComputerOutput>s</span> <span class=doxyComputerOutput>=</span> <span class=doxyComputerOutput>"player"</span> pick their storage: the capacity equals the array size minus the terminator. Nothing else deduces a storage, since a pointer, a view, or an iterator range has no length known at compile time.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>Size<td class=doxyParamItemDescription><p>Size of the array, the terminator included.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>array<td class=doxyParamItemDescription><p>Character array the string is built from.</table>
+</dd>
+</dl>
+<div class="theme-admonition theme-admonition-warning admonition_xJq3 alert alert--warning"><div class=admonitionHeading_Gvgb><span class=admonitionIcon_Rf37><svg viewBox="0 0 16 16"><path fill-rule=evenodd d="M8.893 1.5c-.183-.31-.52-.5-.887-.5s-.703.19-.886.5L.138 13.499a.98.98 0 0 0 0 1.001c.193.31.53.501.886.501h13.964c.367 0 .704-.19.877-.5a1.03 1.03 0 0 0 .01-1.002L8.893 1.5zm.133 11.497H6.987v-2.003h2.039v2.003zm0-3.004H6.987V5.987h2.039v4.006z"/></svg></span>warning</div><div class=admonitionContent_BuS1><p>The string starts full: every call that adds a character fails. A string that has to grow names a larger capacity, such as <span class=doxyComputerOutput><a class="" href=/toygine2/docs/api/namespaces/toy/#a316021771aea869243d8448f36198ec4>toy::FixedString&lt;32></a></span>.</div></div>
+<p>Definition at line 3388 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-hpp/>string.hpp</a>.</p>
+</div>
+</div>
+<h3 class="anchor anchorTargetStickyNavbar_Vzrq" id=ada8a44079e218c42374d9b1e9d554655>swap()<a href=#ada8a44079e218c42374d9b1e9d554655 class=hash-link aria-label="Direct link to swap()" title="Direct link to swap()" translate=no>​</a></h3>
+<div class=doxyMemberItem>
+<div class=doxyMemberProto>
+<div class=doxyMemberTemplate>template &lt;StringStorage storageType></div>
+<table class=doxyMemberLabels><tr class=doxyMemberLabels><td class=doxyMemberLabelsLeft>
+<table class=doxyMemberName><tr><td class=doxyMemberName>void toy::swap (String&lt; storageType > & lhs, String&lt; storageType > & rhs)</table>
+<td class=doxyMemberLabelsRight>
+<span class=doxyMemberLabels>
+<span class="doxyMemberLabel constexpr">constexpr</span>
+<span class="doxyMemberLabel noexcept">noexcept</span>
+</span>
+</table>
+</div>
+<div class=doxyMemberDoc>
+<p>Exchanges the contents of <em>lhs</em> and <em>rhs</em>.</p>
+<p>Calls lhs.swap(rhs), and argument-dependent lookup finds it beside <span class=doxyComputerOutput>using</span> <span class=doxyComputerOutput>std::swap</span>, the form generic code writes.</p>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Template Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>storageType<td class=doxyParamItemDescription><p>Storage of both strings; satisfies <a class="" href=/toygine2/docs/api/concepts/toy/stringstorage/>toy::StringStorage</a>.</table>
+</dd>
+</dl>
+<dl class=doxyParamsList>
+<dt class=doxyParamsTableTitle>Parameters</dt>
+<dd>
+<table class=doxyParamsTable><tr class=doxyParamItem><td class=doxyParamItemName>lhs<td class=doxyParamItemDescription><p>First string.<tr class=doxyParamItem><td class=doxyParamItemName>rhs<td class=doxyParamItemDescription><p>Second string.</table>
+</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>Postcondition</dt>
+<dd><p>Each string holds what the other held before the call.</dd>
+</dl>
+<dl class=doxySectionUser>
+<dt>See Also</dt>
+<dd><p><a class="" href=/toygine2/docs/api/classes/toy/string/#ac87bc40e6b72a61654a89bd766baa2c1>toy::String::swap()</a></dd>
+</dl>
+<p>Definition at line 1352 of file <a class="" href=/toygine2/docs/api/files/include/include/core/string-inl/>string.inl</a>.</p>
+<p>Reference <a class="" href=/toygine2/docs/api/namespaces/toy/#ada8a44079e218c42374d9b1e9d554655>toy::swap</a>.</p>
+<p>Referenced by <a class="" href=/toygine2/docs/api/namespaces/toy/#ada8a44079e218c42374d9b1e9d554655>toy::swap</a>.</p>
+</div>
+</div>
+</div>
+<hr/>
+<p class=doxyGeneratedBy>Generated via <a href=https://xpack.github.io/doxygen2docusaurus target=_blank rel="noopener noreferrer" class="">doxygen2docusaurus</a> 2.2.1 by <a href=https://www.doxygen.nl target=_blank rel="noopener noreferrer" class="">Doxygen</a> 1.18.0.</p>
+</div></div></article><nav class="docusaurus-mt-lg pagination-nav" aria-label="Docs pages"><a class="pagination-nav__link pagination-nav__link--prev" href=/toygine2/docs/api/files/include/include/core/platform-hpp/><div class=pagination-nav__sublabel>Previous</div><div class=pagination-nav__label>platform.hpp</div></a><a class="pagination-nav__link pagination-nav__link--next" href=/toygine2/docs/api/files/include/include/core/string-inl/><div class=pagination-nav__sublabel>Next</div><div class=pagination-nav__label>string.inl</div></a></nav></div></div><div class="col col--3"><div class="tableOfContents_bqdL thin-scrollbar theme-doc-toc-desktop"><ul class="table-of-contents table-of-contents__left-border"><li><a href=#included-headers class="table-of-contents__link toc-highlight">Included Headers</a><li><a href=#namespaces-index class="table-of-contents__link toc-highlight">Namespaces Index</a><li><a href=#classes-index class="table-of-contents__link toc-highlight">Classes Index</a><li><a href=#typedefs-index class="table-of-contents__link toc-highlight">Typedefs Index</a><li><a href=#operators-index class="table-of-contents__link toc-highlight">Operators Index</a><li><a href=#functions-index class="table-of-contents__link toc-highlight">Functions Index</a><li><a href=#details class="table-of-contents__link toc-highlight">Description</a><li><a href=#typedefs class="table-of-contents__link toc-highlight">Typedefs</a><ul><li><a href=#a316021771aea869243d8448f36198ec4 class="table-of-contents__link toc-highlight">FixedString</a></ul><li><a href=#operators class="table-of-contents__link toc-highlight">Operators</a><ul><li><a href=#a313f82cacb0c19b0d2fc1b045b8b7f95 class="table-of-contents__link toc-highlight">operator+()</a><li><a href=#ab1f62994dcc13b619065e6f4c1d0a2ba class="table-of-contents__link toc-highlight">operator+()</a><li><a href=#aae2ab1796e307a4b16f26bbc949b43c4 class="table-of-contents__link toc-highlight">operator+()</a><li><a href=#a69930736ac24d937b1162ab4edbbfe9d class="table-of-contents__link toc-highlight">operator+()</a><li><a href=#a325569ec5c21967c3cccacf78b79375e class="table-of-contents__link toc-highlight">operator+()</a><li><a href=#a0407e66373d70955c6ddb3f60981bb02 class="table-of-contents__link toc-highlight">operator+()</a><li><a href=#a08698a6b48bf51572d080a5059880f4e class="table-of-contents__link toc-highlight">operator&lt;=>()</a><li><a href=#adf00e01c7b808b74709f15720b988730 class="table-of-contents__link toc-highlight">operator&lt;=>()</a><li><a href=#acd1d7298184d82c1f7b037fbf363b3a3 class="table-of-contents__link toc-highlight">operator==()</a><li><a href=#af6103fba183b886b3d15d10b71da7d5e class="table-of-contents__link toc-highlight">operator==()</a></ul><li><a href=#functions class="table-of-contents__link toc-highlight">Functions</a><ul><li><a href=#af5ace326d0fae887d77ba0de1501b7b5 class="table-of-contents__link toc-highlight">erase()</a><li><a href=#ac0a24795033ed56d32960aa77ea4b22b class="table-of-contents__link toc-highlight">erase_if()</a><li><a href=#accd347e613cbf028b1d762e7ceb879bb class="table-of-contents__link toc-highlight">String()</a><li><a href=#ada8a44079e218c42374d9b1e9d554655 class="table-of-contents__link toc-highlight">swap()</a></ul></ul></div></div></div></div></main></div></div></div><footer class="theme-layout-footer footer footer--dark"><div class="container container-fluid"><div class="row footer__links"><div class="theme-layout-footer-column col footer__col"><div class=footer__title>Docs</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/toygine2/docs/intro/>Introduction</a></ul></div><div class="theme-layout-footer-column col footer__col"><div class=footer__title>More</div><ul class="footer__items clean-list"><li class=footer__item><a class=footer__link-item href=/toygine2/blog/>Devlog</a><li class=footer__item><a href=https://github.com/ToymanInteractive/toygine2 target=_blank rel="noopener noreferrer" class=footer__link-item>GitHub<svg width=13.5 height=13.5 aria-label="(opens in new tab)" class=iconExternalLink_nPIU><use href=#theme-svg-external-link /></svg></a></ul></div></div><div class="footer__bottom text--center"><div class=footer__copyright>Copyright © 2026 Toyman Interactive. Built with Docusaurus.</div></div></div></footer></div></body>
