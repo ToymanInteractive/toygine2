@@ -173,9 +173,7 @@ option(TOYGINE_ENABLE_ABI_OPTIMIZATIONS "Build opted-in targets with optimizatio
 # Reaches every target linking toygine; Sega MD gets no assert: it lacks the snprintf assertion_stub.cpp calls
 add_library(toygine-compile-defines INTERFACE)
 add_library(toygine::compile::defines ALIAS toygine-compile-defines)
-if (NOT TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
-  target_compile_definitions(toygine-compile-defines INTERFACE $<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
-endif ()
+target_compile_definitions(toygine-compile-defines INTERFACE $<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
 
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
