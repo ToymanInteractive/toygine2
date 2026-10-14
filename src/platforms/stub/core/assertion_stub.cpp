@@ -64,13 +64,13 @@ void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWal
 
 bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                size_t lineNumber) noexcept {
+#ifndef __MEGA_DRIVE__
   static bool reEnter = false;
   if (reEnter)
     return false;
 
   reEnter = true;
 
-#ifndef __MEGA_DRIVE__
   char assertionString[c_stringBufferSize];
   int  written;
 
