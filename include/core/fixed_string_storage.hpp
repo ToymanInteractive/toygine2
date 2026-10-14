@@ -81,9 +81,9 @@ namespace toy {
 
   \section fixed_string_storage_safety Safety Guarantees
 
-  * **Contracts**: setSize() checks its argument against capacity() with assert_message in debug builds. A shipping
-    build skips the check, and a length past the buffer writes the terminator out of bounds; reserve() is how a caller
-    keeps that from happening.
+  * **Contracts**: setSize() checks its argument against capacity() with assert_message in debug builds. In every
+    build it ignores a length past capacity(), so the terminator stays inside the buffer. reserve() tells a caller
+    beforehand whether a length fits.
   * **Bounds safety**: what a caller writes through data() goes unchecked; staying inside capacity() is the caller's
     responsibility.
   * **Type safety**: an \a AllocatedSize of \c 0 fails to compile.
@@ -341,6 +341,7 @@ public:
 
     \note The buffer never grows: a length past capacity() breaks the precondition instead of reaching for memory, which
           is where a storage that owns heap memory parts ways with this one.
+    \note A length past capacity() leaves size() and every byte of the buffer as they were.
     \note A caller that cannot rule the length out beforehand asks reserve() first, which answers the same question over
           either storage.
 
