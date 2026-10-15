@@ -339,11 +339,9 @@ public:
 
     \post size() returns \a newSize, and the character at that index is \c '\\0'.
 
-    \note The buffer never grows: a length past capacity() breaks the precondition instead of reaching for memory, which
-          is where a storage that owns heap memory parts ways with this one.
     \note A length past capacity() leaves size() and every byte of the buffer as they were.
     \note A caller that cannot rule the length out beforehand asks reserve() first, which answers the same question over
-          either storage.
+          any storage.
 
     \sa size()
     \sa capacity()

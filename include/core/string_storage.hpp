@@ -62,7 +62,8 @@ namespace toy {
   * A default-constructed storage has a size() of \c 0 and \c '\\0' at data()[0].
   * Neither data() overload returns \c nullptr, and both point at the same bytes.
   * The character at index size() is \c '\\0', and size() never exceeds capacity().
-  * setSize() records the length and writes that terminator, and touches no other character.
+  * setSize() takes a length no greater than capacity() over every storage, records it, writes that terminator, and
+    touches no other character; a caller that needs more room asks reserve() first.
   * reserve() answers \c true only when a following setSize() of that length is within contract, and a \c false one
     leaves the storage as it was.
   * data() points at capacity() + 1 writable bytes, so a caller may write characters up to capacity() before it calls
@@ -106,11 +107,8 @@ namespace toy {
         contract.
   \note Copying is not required; a \ref toy::String over a storage without copy operations is not copyable either.
 
-  \warning What setSize() does past capacity() belongs to the type rather than to the concept: a buffer of a fixed size
-           treats such a call as a broken precondition, while a storage that owns heap memory grows to fit. A caller
-           that asks reserve() first stays within contract over either one.
-  \warning A caller that must not allocate reads capacity() instead, since reserve() and shrink_to_fit() are where such
-           a storage allocates.
+  \warning Only reserve() and shrink_to_fit() may allocate, so a caller that must not allocate checks capacity() instead
+           of calling reserve().
 
   \sa \ref toy::FixedStringStorage
   \sa \ref toy::StringLike
