@@ -241,23 +241,25 @@ private:
 */
 #define TOY_TEST_INFO(...) TOY_TEST_INFO_IMPL(TOY_TEST_UNIQUE(toyTestInfo), __VA_ARGS__)
 
+// The assertions are variadic, as in doctest, so a comma between template arguments stays inside the expression.
+
 /// Records an assertion and returns from the case body when it fails.
-#define TOY_TEST_REQUIRE(expression)                                                                                   \
+#define TOY_TEST_REQUIRE(...)                                                                                          \
   do {                                                                                                                 \
-    if (!toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__)) {                      \
+    if (!toyTestContext.record(static_cast<bool>(__VA_ARGS__), #__VA_ARGS__, __FILE__, __LINE__)) {                    \
       return;                                                                                                          \
     }                                                                                                                  \
   } while (false)
 
 /// Records an assertion and continues regardless of the outcome.
-#define TOY_TEST_CHECK(expression)                                                                                     \
-  static_cast<void>(toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__))
+#define TOY_TEST_CHECK(...)                                                                                            \
+  static_cast<void>(toyTestContext.record(static_cast<bool>(__VA_ARGS__), #__VA_ARGS__, __FILE__, __LINE__))
 
 /// Negated form of the returning assertion.
-#define TOY_TEST_REQUIRE_FALSE(expression) TOY_TEST_REQUIRE(!(expression))
+#define TOY_TEST_REQUIRE_FALSE(...) TOY_TEST_REQUIRE(!(__VA_ARGS__))
 
 /// Negated form of the continuing assertion.
-#define TOY_TEST_CHECK_FALSE(expression) TOY_TEST_CHECK(!(expression))
+#define TOY_TEST_CHECK_FALSE(...) TOY_TEST_CHECK(!(__VA_ARGS__))
 
 #if defined(TOYGINE_TESTS_USE_DOCTEST)
 
@@ -265,13 +267,13 @@ private:
 
 #else
 
-#define TEST_CASE(caseName)       TOY_TEST_CASE(caseName)
-#define SUBCASE(subcaseName)      TOY_TEST_SUBCASE(subcaseName)
-#define REQUIRE(expression)       TOY_TEST_REQUIRE(expression)
-#define REQUIRE_FALSE(expression) TOY_TEST_REQUIRE_FALSE(expression)
-#define CHECK(expression)         TOY_TEST_CHECK(expression)
-#define CHECK_FALSE(expression)   TOY_TEST_CHECK_FALSE(expression)
-#define INFO(...)                 TOY_TEST_INFO(__VA_ARGS__)
+#define TEST_CASE(caseName)  TOY_TEST_CASE(caseName)
+#define SUBCASE(subcaseName) TOY_TEST_SUBCASE(subcaseName)
+#define REQUIRE(...)         TOY_TEST_REQUIRE(__VA_ARGS__)
+#define REQUIRE_FALSE(...)   TOY_TEST_REQUIRE_FALSE(__VA_ARGS__)
+#define CHECK(...)           TOY_TEST_CHECK(__VA_ARGS__)
+#define CHECK_FALSE(...)     TOY_TEST_CHECK_FALSE(__VA_ARGS__)
+#define INFO(...)            TOY_TEST_INFO(__VA_ARGS__)
 
 #endif // TOYGINE_TESTS_USE_DOCTEST
 
