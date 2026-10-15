@@ -447,6 +447,8 @@ public:
           interface.
     \note No member drops trailing characters, since that would leave the view without a terminator.
 
+    \warning Drops every character when \a n exceeds size(), a case \c std::string_view leaves undefined.
+
     \sa swap()
   */
   constexpr void remove_prefix(size_type n) noexcept;

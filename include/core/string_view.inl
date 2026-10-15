@@ -130,9 +130,10 @@ constexpr bool StringView::empty() const noexcept {
 
 constexpr void StringView::remove_prefix(size_type n) noexcept {
   assert_message(n <= size(), "remove_prefix() can't remove more than size()");
+  const auto dropped = std::min(n, size());
 
-  _data += n;
-  _size -= n;
+  _data += dropped;
+  _size -= dropped;
 }
 
 constexpr void StringView::swap(StringView & v) noexcept {
