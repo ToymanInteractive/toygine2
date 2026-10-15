@@ -176,6 +176,13 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
   writer.addQuoted(failure.expression);
   writer.flush();
 
+  // Past the kept names a branch prints under the case name, so the failure block names its subcase.
+  if (failure.subcaseName != nullptr) {
+    writer.addText("      subcase: ");
+    writer.addQuoted(failure.subcaseName);
+    writer.flush();
+  }
+
   if (context.infoCount() > 0) {
     writer.addText("      info:");
     writer.flush();

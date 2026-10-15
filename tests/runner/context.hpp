@@ -106,7 +106,8 @@ public:
   /// Depth of the info stack; messages beyond it are dropped.
   static constexpr std::size_t c_maxInfoDepth = 8;
 
-  /// Number of subcase names kept for the report; a case with more still runs, and the names past it are lost.
+  /// Number of subcase names kept for the branch descriptions; a case with more still runs, and the branches past it
+  /// print the case name instead.
   static constexpr std::size_t c_maxSubcaseNames = 16;
 
   /*!

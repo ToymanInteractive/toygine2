@@ -99,6 +99,31 @@ void bodyFailsInsideSubcase(toy::test::Context & toyTestContext) {
   }
 }
 
+static_assert(toy::test::Context::c_maxSubcaseNames == 16, "the body below declares one branch past the kept names");
+
+// The seventeenth branch has no kept name, so only the failure block can say which subcase failed.
+void bodyFailsPastKeptSubcaseNames(toy::test::Context & toyTestContext) {
+  TOY_TEST_SUBCASE("b01") {}
+  TOY_TEST_SUBCASE("b02") {}
+  TOY_TEST_SUBCASE("b03") {}
+  TOY_TEST_SUBCASE("b04") {}
+  TOY_TEST_SUBCASE("b05") {}
+  TOY_TEST_SUBCASE("b06") {}
+  TOY_TEST_SUBCASE("b07") {}
+  TOY_TEST_SUBCASE("b08") {}
+  TOY_TEST_SUBCASE("b09") {}
+  TOY_TEST_SUBCASE("b10") {}
+  TOY_TEST_SUBCASE("b11") {}
+  TOY_TEST_SUBCASE("b12") {}
+  TOY_TEST_SUBCASE("b13") {}
+  TOY_TEST_SUBCASE("b14") {}
+  TOY_TEST_SUBCASE("b15") {}
+  TOY_TEST_SUBCASE("b16") {}
+  TOY_TEST_SUBCASE("b17") {
+    static_cast<void>(toyTestContext.record(false, "1 == 2", "many.cpp", 17));
+  }
+}
+
 // Compares the bytes handed over and requires the expected text to end there: a prefix is not the report.
 // Comparing to the terminator would ignore the captured length and pass a report whose writer miscounted it.
 [[nodiscard]] bool reportMatches(const CapturedReport & captured, const char * expected) noexcept {
@@ -235,12 +260,59 @@ TEST_CASE("test/write_report/failure_block_carries_info") {
                            "            file: 'info.cpp'\n"
                            "            line: 33\n"
                            "          expr: 'values[index] == 0'\n"
+                           "          subcase: 'branch'\n"
                            "          info:\n"
                            "            - text: 'index'\n"
                            "              value: 7\n"
                            "      ...\n"
                            "    1..1\n"
                            "not ok 1 - sample/info\n"
+                           "1..1\n"
+                           "# assertions passed=0 failed=1\n");
+}
+
+// A branch past the kept names prints the case name as its description, and the failure block still names the subcase.
+TEST_CASE("test/write_report/failure_block_names_a_subcase_past_the_kept_names") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/many", "a.cpp", 1, &bodyFailsPastKeptSubcaseNames};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 1);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/many\n"
+                           "    ok 1 - b01\n"
+                           "    ok 2 - b02\n"
+                           "    ok 3 - b03\n"
+                           "    ok 4 - b04\n"
+                           "    ok 5 - b05\n"
+                           "    ok 6 - b06\n"
+                           "    ok 7 - b07\n"
+                           "    ok 8 - b08\n"
+                           "    ok 9 - b09\n"
+                           "    ok 10 - b10\n"
+                           "    ok 11 - b11\n"
+                           "    ok 12 - b12\n"
+                           "    ok 13 - b13\n"
+                           "    ok 14 - b14\n"
+                           "    ok 15 - b15\n"
+                           "    ok 16 - b16\n"
+                           "    not ok 17 - sample/many\n"
+                           "      ---\n"
+                           "      severity: fail\n"
+                           "      failures:\n"
+                           "        - at:\n"
+                           "            file: 'many.cpp'\n"
+                           "            line: 17\n"
+                           "          expr: '1 == 2'\n"
+                           "          subcase: 'b17'\n"
+                           "      ...\n"
+                           "    1..17\n"
+                           "not ok 1 - sample/many\n"
                            "1..1\n"
                            "# assertions passed=0 failed=1\n");
 }
