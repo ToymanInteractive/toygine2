@@ -41,23 +41,30 @@ namespace {
 /// Capacity of the buffer a failure description is formatted into, terminator included.
 constexpr size_t c_stringBufferSize = 4096;
 
-#endif // TOYGINE_DEBUG
-
 /// Handler last given to setCallbacks(), or \c nullptr while a failed check reports nothing.
 AssertionCallback _assertionCallback{nullptr};
+
+#endif // TOYGINE_DEBUG
 
 } // namespace
 
 void initialize() noexcept {
+#ifdef TOYGINE_DEBUG
   _assertionCallback = nullptr;
+#endif // TOYGINE_DEBUG
 }
 
 void deInitialize() noexcept {
+#ifdef TOYGINE_DEBUG
   _assertionCallback = nullptr;
+#endif // TOYGINE_DEBUG
 }
 
-void setCallbacks(AssertionCallback assertionCallback, [[maybe_unused]] StackWalkCallback stackWalkCallback) noexcept {
+void setCallbacks([[maybe_unused]] AssertionCallback assertionCallback,
+                  [[maybe_unused]] StackWalkCallback stackWalkCallback) noexcept {
+#ifdef TOYGINE_DEBUG
   _assertionCallback = assertionCallback;
+#endif // TOYGINE_DEBUG
 }
 
 #ifdef TOYGINE_DEBUG

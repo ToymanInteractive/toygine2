@@ -732,18 +732,18 @@ constexpr String<storageType> & String<storageType>::replace_with_range(Position
 }
 
 template <StringStorage storageType>
-constexpr String<storageType>::size_type String<storageType>::copy(value_type * destination, size_type count,
+constexpr String<storageType>::size_type String<storageType>::copy(value_type * dest, size_type count,
                                                                    size_type pos) const noexcept {
   assert_message(pos <= size(), "the copied range must start inside the string or at its end");
   if (pos > size())
     return 0;
 
   const size_type copied = std::min(count, size() - pos);
-  assert_message(destination != nullptr || copied == 0, "a null pointer has no room for the copied characters");
+  assert_message(dest != nullptr || copied == 0, "a null pointer has no room for the copied characters");
 
   // memmove behind std::char_traits::copy takes no null destination, even for an empty range.
   if (copied != 0)
-    traits_type::copy(destination, data() + pos, copied);
+    traits_type::copy(dest, data() + pos, copied);
 
   return copied;
 }
@@ -1300,24 +1300,24 @@ constexpr String<storageType> operator+(String<storageType> lhs, char rhs) noexc
 
 template <StringStorage storageType>
 constexpr String<storageType> operator+(const char * lhs, const String<storageType> & rhs) noexcept {
-  String<storageType> result(lhs);
-  result.append(rhs);
+  String<storageType> result(rhs.c_str(), rhs.size());
+  result.insert(0, lhs);
 
   return result;
 }
 
 template <StringStorage storageType>
 constexpr String<storageType> operator+(char lhs, const String<storageType> & rhs) noexcept {
-  String<storageType> result(1, lhs);
-  result.append(rhs);
+  String<storageType> result(rhs.c_str(), rhs.size());
+  result.insert(0, 1, lhs);
 
   return result;
 }
 
 template <StringStorage storageType>
 constexpr String<storageType> operator+(StringView lhs, const String<storageType> & rhs) noexcept {
-  String<storageType> result(lhs);
-  result.append(rhs);
+  String<storageType> result(rhs.c_str(), rhs.size());
+  result.insert(0, lhs);
 
   return result;
 }

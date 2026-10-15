@@ -130,9 +130,10 @@ constexpr bool StringView::empty() const noexcept {
 
 constexpr void StringView::remove_prefix(size_type n) noexcept {
   assert_message(n <= size(), "remove_prefix() can't remove more than size()");
+  const auto dropped = std::min(n, size());
 
-  _data += n;
-  _size -= n;
+  _data += dropped;
+  _size -= dropped;
 }
 
 constexpr void StringView::swap(StringView & v) noexcept {
@@ -146,15 +147,18 @@ constexpr void StringView::swap(StringView & v) noexcept {
 }
 
 constexpr StringView::size_type StringView::copy(value_type * dest, size_type count, size_type pos) const noexcept {
-  assert_message(pos <= size(), "copy() can't copy past the end of the string");
+  assert_message(pos <= size(), "the copied range must start inside the string or at its end");
   if (pos > size())
     return 0;
 
-  const auto rLength = std::min(count, size() - pos);
-  if (rLength != 0)
-    traits_type::copy(dest, data() + pos, rLength);
+  const size_type copied = std::min(count, size() - pos);
+  assert_message(dest != nullptr || copied == 0, "a null pointer has no room for the copied characters");
 
-  return rLength;
+  // memmove behind std::char_traits::copy takes no null destination, even for an empty range.
+  if (copied != 0)
+    traits_type::copy(dest, data() + pos, copied);
+
+  return copied;
 }
 
 constexpr int StringView::compare(StringView v) const noexcept {
@@ -333,14 +337,6 @@ constexpr StringView::size_type StringView::find_last_not_of(const value_type * 
 
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos) const noexcept {
   return find_last_not_of(StringView(s), pos);
-}
-
-constexpr bool operator==(StringView lhs, StringView rhs) noexcept {
-  return lhs.size() == rhs.size() && lhs.compare(rhs) == 0;
-}
-
-constexpr StringView::traits_type::comparison_category operator<=>(StringView lhs, StringView rhs) noexcept {
-  return lhs.compare(rhs) <=> 0;
 }
 
 } // namespace toy

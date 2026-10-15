@@ -306,6 +306,7 @@ TEST_CASE("string_view/capacity") {
   static_assert(!c_sampleView.empty(), "a view over a non-empty literal holds characters");
   static_assert(c_npos == static_cast<StringView::size_type>(-1),
                 "npos must be the largest value the length type carries");
+  static_assert(c_npos == string_utils::c_npos, "npos must match the value the shared search functions return");
 }
 
 // How many characters the viewed string holds, against the bytes it measures.
@@ -356,6 +357,61 @@ TEST_CASE("string_view/remove_prefix") {
   static_assert(withoutPrefix(c_sample, c_sampleLength).empty(), "dropping the whole length must leave an empty view");
 }
 
+// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
+#if !defined(TOYGINE_DEBUG)
+// A count past the length drops every character and stops at the terminator.
+TEST_CASE("string_view/remove_prefix_past_end") {
+  StringView view(c_sample);
+  view.remove_prefix(c_sampleLength + 1);
+  CHECK(view.empty());
+  CHECK(view.data() == c_sample + c_sampleLength);
+
+  // A default view has no characters to drop, so its pointer stays null.
+  StringView defaulted;
+  defaulted.remove_prefix(1);
+  CHECK(defaulted.empty());
+  CHECK(defaulted.data() == nullptr);
+
+  constexpr auto defaultedDropped = [] {
+    StringView empty;
+    empty.remove_prefix(1);
+
+    return empty;
+  };
+
+  static_assert(withoutPrefix(c_sample, c_sampleLength + 1).empty(), "an oversized count must drop every character");
+  static_assert(withoutPrefix(c_sample, c_sampleLength + 1).data() == c_sample + c_sampleLength,
+                "an oversized count must leave the view over the terminator");
+  static_assert(defaultedDropped().data() == nullptr, "a default view must keep its null pointer");
+}
+
+// A read from an offset past the end sees an empty range.
+TEST_CASE("string_view/read_past_end") {
+  const StringView view(c_sample);
+
+  std::array<char, 16> buffer = sentinelBuffer();
+  CHECK(view.copy(buffer.data(), 4, c_sampleLength + 1) == 0);
+  CHECK(buffer[0] == c_sentinel);
+  CHECK(view.compare(c_sampleLength + 1, 1, StringView{}) == 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, StringView(c_sample)) < 0);
+  CHECK(view.compare(0, c_sampleLength, StringView(c_sample), c_sampleLength + 1, 1) > 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, c_sample) < 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, c_sample, c_sampleLength) < 0);
+
+  static_assert(copiedCount(c_sample, 4, c_sampleLength + 1) == 0, "a copy from past the end must write nothing");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, StringView{}) == 0,
+                "a part past the end must compare equal to an empty view");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, StringView(c_sample)) < 0,
+                "a part past the end must order before a non-empty view");
+  static_assert(c_sampleView.compare(0, c_sampleLength, StringView(c_sample), c_sampleLength + 1, 1) > 0,
+                "an argument part past its end must compare as empty");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, c_sample) < 0,
+                "a part past the end must order before a non-empty pointer");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, c_sample, c_sampleLength) < 0,
+                "a part past the end must order before a non-empty counted pointer");
+}
+#endif // !TOYGINE_DEBUG
+
 // Which string each of the two views reads after they exchange their contents.
 TEST_CASE("string_view/swap") {
   StringView left(c_sample);
@@ -404,11 +460,15 @@ TEST_CASE("string_view/copy") {
   CHECK(StringView().copy(none.data(), 4) == 0);
   CHECK(none[0] == c_sentinel);
 
+  // copy() takes a null destination when nothing is left to copy.
+  CHECK(view.copy(nullptr, 0) == 0);
+
   static_assert(copiedCount(c_sample, 4, 0) == 4, "a copy writes what the count names");
   static_assert(copiedCount(c_sample, 32, 2) == c_sampleLength - 2, "a copy stops at the end of the string");
   static_assert(copiedCount(c_sample, 4, c_sampleLength) == 0, "a copy starting at the end writes nothing");
   static_assert(copiedAt(c_sample, 4, 0) == 'p', "a copy writes the characters the view holds");
   static_assert(copiedAt(c_sample, 4, 4) == c_sentinel, "a copy writes nothing past its count");
+  static_assert(c_sampleView.copy(nullptr, 0) == 0, "a null destination with a count of zero must copy nothing");
 }
 
 // The sign each comparison of two whole strings yields.

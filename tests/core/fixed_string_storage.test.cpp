@@ -420,6 +420,26 @@ TEST_CASE("fixed_string_storage/set_size_shrink") {
                 "a character past the new length must survive the call");
 }
 
+// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
+#if !defined(TOYGINE_DEBUG)
+// A length past capacity() leaves the length and every byte of the buffer as they were.
+TEST_CASE("fixed_string_storage/set_size_past_capacity") {
+  constexpr auto pastCapacity = [] {
+    Storage storage = sampleStorage();
+    storage.setSize(storage.capacity() + 1);
+
+    return storage;
+  };
+
+  CHECK(pastCapacity().size() == c_sampleLength);
+  CHECK(firstDifference(pastCapacity(), c_sampleStorage) == c_allocatedSize);
+
+  static_assert(pastCapacity().size() == c_sampleLength, "a length past capacity() must keep the old length");
+  static_assert(firstDifference(pastCapacity(), c_sampleStorage) == c_allocatedSize,
+                "a length past capacity() must leave every byte of the buffer");
+}
+#endif // !TOYGINE_DEBUG
+
 // Assignments reproduce the source over both copy paths; the length-based one keeps the bytes past the terminator.
 TEST_CASE("fixed_string_storage/assignment") {
   CHECK(sampleDifference(copyAssigned<Storage>()) == c_sampleLength + 1);
