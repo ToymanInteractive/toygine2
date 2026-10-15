@@ -99,6 +99,36 @@ void bodyFailsInsideSubcase(toy::test::Context & toyTestContext) {
   }
 }
 
+// Only the middle branch fails, so the branches around it must keep their own verdicts.
+void bodyFailsInMiddleSubcase(toy::test::Context & toyTestContext) {
+  TOY_TEST_SUBCASE("first") {
+    static_cast<void>(toyTestContext.record(true, "1 == 1", "middle.cpp", 3));
+  }
+  TOY_TEST_SUBCASE("second") {
+    static_cast<void>(toyTestContext.record(false, "2 == 3", "middle.cpp", 6));
+  }
+  TOY_TEST_SUBCASE("third") {
+    static_cast<void>(toyTestContext.record(true, "3 == 3", "middle.cpp", 9));
+  }
+}
+
+// The failure sits before the subcases, so every run of the body repeats it.
+void bodyFailsInSharedPrefix(toy::test::Context & toyTestContext) {
+  static_cast<void>(toyTestContext.record(false, "setup()", "prefix.cpp", 2));
+
+  TOY_TEST_SUBCASE("a") {}
+  TOY_TEST_SUBCASE("b") {}
+}
+
+// Fails inside the outer subcase and then nests, so the report carries both diagnostics.
+void bodyFailsAndNestsSubcases(toy::test::Context & toyTestContext) {
+  TOY_TEST_SUBCASE("outer") {
+    static_cast<void>(toyTestContext.record(false, "1 == 2", "nest.cpp", 4));
+
+    TOY_TEST_SUBCASE("inner") {}
+  }
+}
+
 static_assert(toy::test::Context::c_maxSubcaseNames == 16, "the body below declares one branch past the kept names");
 
 // The seventeenth branch has no kept name, so only the failure block can say which subcase failed.
@@ -211,6 +241,112 @@ TEST_CASE("test/write_report/subcases_print_a_subtest_per_branch") {
                            "ok 1 - sample/subcases\n"
                            "1..1\n"
                            "# assertions passed=3 failed=0\n");
+}
+
+// A failing branch between passing ones fails alone, and its failure condemns the case.
+TEST_CASE("test/write_report/failing_middle_branch_keeps_its_neighbours_ok") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/middle", "a.cpp", 1, &bodyFailsInMiddleSubcase};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 1);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/middle\n"
+                           "    ok 1 - first\n"
+                           "    not ok 2 - second\n"
+                           "      ---\n"
+                           "      severity: fail\n"
+                           "      failures:\n"
+                           "        - at:\n"
+                           "            file: 'middle.cpp'\n"
+                           "            line: 6\n"
+                           "          expr: '2 == 3'\n"
+                           "          subcase: 'second'\n"
+                           "      ...\n"
+                           "    ok 3 - third\n"
+                           "    1..3\n"
+                           "not ok 1 - sample/middle\n"
+                           "1..1\n"
+                           "# assertions passed=2 failed=1\n");
+}
+
+// Code before the subcases runs on every branch, so its failure is reported under each one and names no subcase.
+TEST_CASE("test/write_report/shared_prefix_failure_repeats_under_every_branch") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/prefix", "a.cpp", 1, &bodyFailsInSharedPrefix};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 1);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/prefix\n"
+                           "    not ok 1 - a\n"
+                           "      ---\n"
+                           "      severity: fail\n"
+                           "      failures:\n"
+                           "        - at:\n"
+                           "            file: 'prefix.cpp'\n"
+                           "            line: 2\n"
+                           "          expr: 'setup()'\n"
+                           "      ...\n"
+                           "    not ok 2 - b\n"
+                           "      ---\n"
+                           "      severity: fail\n"
+                           "      failures:\n"
+                           "        - at:\n"
+                           "            file: 'prefix.cpp'\n"
+                           "            line: 2\n"
+                           "          expr: 'setup()'\n"
+                           "      ...\n"
+                           "    1..2\n"
+                           "not ok 1 - sample/prefix\n"
+                           "1..1\n"
+                           "# assertions passed=0 failed=2\n");
+}
+
+// A failure inside a branch and a nested subcase each keep their own diagnostic, under the branch and the case.
+TEST_CASE("test/write_report/nested_subcase_and_failure_both_reach_the_report") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/nest", "a.cpp", 1, &bodyFailsAndNestsSubcases};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 1);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "# Subtest: sample/nest\n"
+                           "    not ok 1 - outer\n"
+                           "      ---\n"
+                           "      severity: fail\n"
+                           "      failures:\n"
+                           "        - at:\n"
+                           "            file: 'nest.cpp'\n"
+                           "            line: 4\n"
+                           "          expr: '1 == 2'\n"
+                           "          subcase: 'outer'\n"
+                           "      ...\n"
+                           "    1..1\n"
+                           "not ok 1 - sample/nest\n"
+                           "  ---\n"
+                           "  severity: fail\n"
+                           "  error: 'nested subcase'\n"
+                           "  outer: 'outer'\n"
+                           "  inner: 'inner'\n"
+                           "  ...\n"
+                           "1..1\n"
+                           "# assertions passed=0 failed=1\n");
 }
 
 // A nested subcase condemns its case even though no assertion failed, and the run reports failure.
@@ -442,4 +578,28 @@ TEST_CASE("test/write_report/overlong_case_name_keeps_the_line_break") {
 
   // The plan line is what a missing terminator would swallow into the entry above it.
   REQUIRE(std::strncmp(captured.text + entryOffset + capacity, "1..1\n", 5) == 0);
+}
+
+// A scalar quoted near the end of a line is cut but still closes, and the line keeps its break.
+TEST_CASE("test::detail/report_writer/quoted_scalar_cut_at_the_capacity_still_closes") {
+  constexpr std::size_t capacity     = toy::test::detail::ReportWriter::c_lineCapacity;
+  constexpr std::size_t fillerLength = capacity - 4;
+
+  char filler[fillerLength + 1] = {};
+
+  for (std::size_t index = 0; index < fillerLength; ++index)
+    filler[index] = 'x';
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  toy::test::detail::ReportWriter writer{&captureWrite, &destination};
+
+  writer.addText(filler);
+  writer.addQuoted("abcdef");
+  writer.flush();
+
+  // Three bytes are left before the break: the opening quote, one character and the closing quote.
+  REQUIRE(captured.length == capacity);
+  REQUIRE(std::strncmp(captured.text + fillerLength, "'a'\n", 4) == 0);
 }

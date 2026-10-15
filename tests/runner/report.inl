@@ -74,8 +74,9 @@ inline void ReportWriter::addInteger(long long value) noexcept {
 }
 
 inline void ReportWriter::flush() noexcept {
-  if (_length == c_lineCapacity)
-    --_length;
+  // >= rather than ==: GCC cannot see that the append calls stop at the capacity, and warns of an overflow at -O2.
+  if (_length >= c_lineCapacity)
+    _length = c_lineCapacity - 1;
 
   _buffer[_length] = '\n';
   ++_length;
