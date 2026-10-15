@@ -203,10 +203,11 @@ private:
 
 } // namespace toy::test
 
-// Two levels of indirection are what makes __COUNTER__ expand before it is pasted.
+// Two levels of indirection make __LINE__ expand before it is pasted.
+// doctest also picks __LINE__ over __COUNTER__, which Clang 22 and newer flag under -Wpedantic as a C2y extension.
 #define TOY_TEST_CONCAT_INNER(lhs, rhs) lhs##rhs
 #define TOY_TEST_CONCAT(lhs, rhs)       TOY_TEST_CONCAT_INNER(lhs, rhs)
-#define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __COUNTER__)
+#define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __LINE__)
 
 // The registrar is not const: a later registration writes the link of an earlier node, see toy::test::CaseRegistrar.
 #define TOY_TEST_CASE_IMPL(caseName, bodyName, registrarName)                                                          \
@@ -234,6 +235,8 @@ private:
   \brief Pushes a message shown only if an assertion in this scope fails.
 
   Takes a string literal, optionally followed by one integer value; see \ref toy::test::detail::InfoGuard.
+
+  \note Two calls on one source line declare the same guard and fail to compile, as under doctest on Clang 22 and newer.
 
   \warning Narrower than doctest's \c INFO, which takes any number of streamable arguments: a call with two strings,
            with three arguments, or with a floating-point value compiles under doctest and fails to compile under the
