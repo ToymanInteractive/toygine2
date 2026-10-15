@@ -1085,7 +1085,7 @@ TEST_CASE("string/element_access") {
   const Fixed string(c_sample);
 
   for (size_t index = 0; index < c_sampleLength; ++index) {
-    INFO("index ", static_cast<long long>(index));
+    INFO("index ", index);
     CHECK(string[index] == c_sample[index]);
     CHECK(string.at(index) == c_sample[index]);
   }
@@ -1598,9 +1598,9 @@ TEST_CASE("string/insertion_from_itself") {
 
   // Names the triple that breaks, where the static_assert below only counts them.
   const auto checkSelfInsertion = [&](size_t position, size_t offset, size_t count, size_t difference, size_t match) {
-    INFO("position ", static_cast<long long>(position));
-    INFO("offset ", static_cast<long long>(offset));
-    INFO("count ", static_cast<long long>(count));
+    INFO("position ", position);
+    INFO("offset ", offset);
+    INFO("count ", count);
     CHECK(difference == match);
   };
 
@@ -2162,10 +2162,10 @@ TEST_CASE("string/replacement_from_itself") {
   // Names the quadruple that breaks, where the static_assert below only counts them.
   const auto checkSelfReplacement = [&](size_t position, size_t removed, size_t offset, size_t count, size_t difference,
                                         size_t match) {
-    INFO("position ", static_cast<long long>(position));
-    INFO("removed ", static_cast<long long>(removed));
-    INFO("offset ", static_cast<long long>(offset));
-    INFO("count ", static_cast<long long>(count));
+    INFO("position ", position);
+    INFO("removed ", removed);
+    INFO("offset ", offset);
+    INFO("count ", count);
     CHECK(difference == match);
   };
 

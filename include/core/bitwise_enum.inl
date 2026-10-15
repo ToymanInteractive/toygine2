@@ -19,8 +19,8 @@
 //
 /*!
   \file   bitwise_enum.inl
-  \brief  Inline implementations of the bitwise and compound-assignment operators constrained by
-          \ref toy::EnableBitwiseOperators.
+  \brief  Inline implementations of the bitwise operators and membership helpers constrained by
+          \ref toy::BitwiseEnum.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -76,6 +76,18 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept {
   lhs = lhs ^ rhs;
 
   return lhs;
+}
+
+template <typename T>
+  requires BitwiseEnum<T>
+[[nodiscard]] constexpr bool hasAny(T flags, T mask) noexcept {
+  return (flags & mask) != T{};
+}
+
+template <typename T>
+  requires BitwiseEnum<T>
+[[nodiscard]] constexpr bool hasAll(T flags, T mask) noexcept {
+  return (flags & mask) == mask;
 }
 
 } // namespace toy

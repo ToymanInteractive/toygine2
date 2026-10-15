@@ -50,16 +50,16 @@ namespace toy::test {
 
   \section safety Safety Guarantees
 
-  * **Type safety**: \ref hasValue states whether \ref value carries meaning
-  * **Memory safety**: no ownership; \ref text refers to a string literal
+  * **Type safety**: \ref toy::test::InfoEntry::hasValue states whether \ref toy::test::InfoEntry::value carries meaning
+  * **Memory safety**: no ownership; \ref toy::test::InfoEntry::text refers to a string literal
   * **Exception safety**: No operation throws; exceptions are off in the build
 
   \sa \ref toy::test::Context
 */
 struct InfoEntry final {
   const char * text;     ///< Message text.
-  long long    value;    ///< Companion value, meaningful when \ref hasValue is \c true.
-  bool         hasValue; ///< Whether \ref value carries a number.
+  long long    value;    ///< Companion value, meaningful when \ref toy::test::InfoEntry::hasValue is \c true.
+  bool         hasValue; ///< Whether \ref toy::test::InfoEntry::value carries a number.
 };
 
 } // namespace toy::test

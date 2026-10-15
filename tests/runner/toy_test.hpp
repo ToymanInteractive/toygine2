@@ -23,13 +23,14 @@
 
   Defines the case registry \ref toy::test::detail::caseListHead, \ref toy::test::detail::SubcaseGuard and the case
   loop, and pulls in the registration node, the run state, the tolerant comparison and the allocation-free helpers they
-  rest on. Grows into the shim every test translation unit includes in place of doctest; today it carries the pieces
-  that depend on neither runner.
+  rest on. Every test translation unit includes it in place of doctest: with \c TOYGINE_TESTS_USE_DOCTEST defined it
+  defers to doctest, otherwise it maps the doctest macro names onto the built-in runner.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 #define INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 
+#include <concepts>
 #include <cstddef>
 
 #include "approx.hpp"
@@ -174,8 +175,18 @@ public:
   /// Pushes a message without a companion value; see toy::test::Context::pushInfo().
   InfoGuard(Context & context, const char * text) noexcept;
 
-  /// Pushes a message carrying a number; see toy::test::Context::pushInfo().
-  InfoGuard(Context & context, const char * text, long long value) noexcept;
+  /*!
+    \brief Pushes a message carrying a number; see toy::test::Context::pushInfo().
+
+    Converts \a value to \c long long, the type the info stack stores, so an unsigned index needs no cast.
+
+    \param context Context whose info stack receives the message.
+    \param text    Message text.
+    \param value   Number shown beside the message.
+
+    \note An unsigned value above the \c long long maximum prints as a negative number.
+  */
+  InfoGuard(Context & context, const char * text, std::integral auto value) noexcept;
 
   ~InfoGuard() noexcept;
 
@@ -192,10 +203,11 @@ private:
 
 } // namespace toy::test
 
-// Two levels of indirection are what makes __COUNTER__ expand before it is pasted.
+// Two levels of indirection make __LINE__ expand before it is pasted.
+// doctest also picks __LINE__ over __COUNTER__, which Clang 22 and newer flag under -Wpedantic as a C2y extension.
 #define TOY_TEST_CONCAT_INNER(lhs, rhs) lhs##rhs
 #define TOY_TEST_CONCAT(lhs, rhs)       TOY_TEST_CONCAT_INNER(lhs, rhs)
-#define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __COUNTER__)
+#define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __LINE__)
 
 // The registrar is not const: a later registration writes the link of an earlier node, see toy::test::CaseRegistrar.
 #define TOY_TEST_CASE_IMPL(caseName, bodyName, registrarName)                                                          \
@@ -224,28 +236,33 @@ private:
 
   Takes a string literal, optionally followed by one integer value; see \ref toy::test::detail::InfoGuard.
 
+  \note Two calls on one source line declare the same guard and fail to compile, as under doctest on Clang 22 and newer.
+
   \warning Narrower than doctest's \c INFO, which takes any number of streamable arguments: a call with two strings,
-           or with three arguments, compiles under doctest and fails to compile under the built-in runner.
+           with three arguments, or with a floating-point value compiles under doctest and fails to compile under the
+           built-in runner.
 */
 #define TOY_TEST_INFO(...) TOY_TEST_INFO_IMPL(TOY_TEST_UNIQUE(toyTestInfo), __VA_ARGS__)
 
+// The assertions are variadic, as in doctest, so a comma between template arguments stays inside the expression.
+
 /// Records an assertion and returns from the case body when it fails.
-#define TOY_TEST_REQUIRE(expression)                                                                                   \
+#define TOY_TEST_REQUIRE(...)                                                                                          \
   do {                                                                                                                 \
-    if (!toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__)) {                      \
+    if (!toyTestContext.record(static_cast<bool>(__VA_ARGS__), #__VA_ARGS__, __FILE__, __LINE__)) {                    \
       return;                                                                                                          \
     }                                                                                                                  \
   } while (false)
 
 /// Records an assertion and continues regardless of the outcome.
-#define TOY_TEST_CHECK(expression)                                                                                     \
-  static_cast<void>(toyTestContext.record(static_cast<bool>(expression), #expression, __FILE__, __LINE__))
+#define TOY_TEST_CHECK(...)                                                                                            \
+  static_cast<void>(toyTestContext.record(static_cast<bool>(__VA_ARGS__), #__VA_ARGS__, __FILE__, __LINE__))
 
 /// Negated form of the returning assertion.
-#define TOY_TEST_REQUIRE_FALSE(expression) TOY_TEST_REQUIRE(!(expression))
+#define TOY_TEST_REQUIRE_FALSE(...) TOY_TEST_REQUIRE(!(__VA_ARGS__))
 
 /// Negated form of the continuing assertion.
-#define TOY_TEST_CHECK_FALSE(expression) TOY_TEST_CHECK(!(expression))
+#define TOY_TEST_CHECK_FALSE(...) TOY_TEST_CHECK(!(__VA_ARGS__))
 
 #if defined(TOYGINE_TESTS_USE_DOCTEST)
 
@@ -253,13 +270,13 @@ private:
 
 #else
 
-#define TEST_CASE(caseName)       TOY_TEST_CASE(caseName)
-#define SUBCASE(subcaseName)      TOY_TEST_SUBCASE(subcaseName)
-#define REQUIRE(expression)       TOY_TEST_REQUIRE(expression)
-#define REQUIRE_FALSE(expression) TOY_TEST_REQUIRE_FALSE(expression)
-#define CHECK(expression)         TOY_TEST_CHECK(expression)
-#define CHECK_FALSE(expression)   TOY_TEST_CHECK_FALSE(expression)
-#define INFO(...)                 TOY_TEST_INFO(__VA_ARGS__)
+#define TEST_CASE(caseName)  TOY_TEST_CASE(caseName)
+#define SUBCASE(subcaseName) TOY_TEST_SUBCASE(subcaseName)
+#define REQUIRE(...)         TOY_TEST_REQUIRE(__VA_ARGS__)
+#define REQUIRE_FALSE(...)   TOY_TEST_REQUIRE_FALSE(__VA_ARGS__)
+#define CHECK(...)           TOY_TEST_CHECK(__VA_ARGS__)
+#define CHECK_FALSE(...)     TOY_TEST_CHECK_FALSE(__VA_ARGS__)
+#define INFO(...)            TOY_TEST_INFO(__VA_ARGS__)
 
 #endif // TOYGINE_TESTS_USE_DOCTEST
 

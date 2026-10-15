@@ -70,9 +70,9 @@ inline InfoGuard::InfoGuard(Context & context, const char * text) noexcept
   context.pushInfo(text);
 }
 
-inline InfoGuard::InfoGuard(Context & context, const char * text, long long value) noexcept
+InfoGuard::InfoGuard(Context & context, const char * text, std::integral auto value) noexcept
   : _context{&context} {
-  context.pushInfo(text, value);
+  context.pushInfo(text, static_cast<long long>(value));
 }
 
 inline InfoGuard::~InfoGuard() noexcept {

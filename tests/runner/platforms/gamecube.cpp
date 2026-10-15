@@ -32,7 +32,7 @@
 
 namespace {
 
-// Columns per row, unknown until the video mode is picked; main() fills it in, this value is only a fallback.
+// Columns per row, unknown until the video mode is picked; main() sets it before the report writes a line.
 std::size_t consoleWidth = 0;
 
 // Caller data stdout has no use for; a line wider than one row is cut, so the summary stays on screen.

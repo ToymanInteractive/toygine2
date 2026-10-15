@@ -43,19 +43,23 @@ inline Context::Context(failure_reporter_type reporter, void * reporterData) noe
   , _subcaseCount{0}
   , _insideSubcase{false}
   , _nestedSubcase{false}
+  , _nestedOuterName{nullptr}
+  , _nestedInnerName{nullptr}
   , _infoStack{}
   , _subcaseNames{} {}
 
 inline void Context::beginCase(const char * name) noexcept {
-  _caseName      = name;
-  _subcaseName   = nullptr;
-  _caseFailed    = false;
-  _infoDepth     = 0;
-  _targetSubcase = 0;
-  _seenSubcases  = 0;
-  _subcaseCount  = 0;
-  _insideSubcase = false;
-  _nestedSubcase = false;
+  _caseName        = name;
+  _subcaseName     = nullptr;
+  _caseFailed      = false;
+  _infoDepth       = 0;
+  _targetSubcase   = 0;
+  _seenSubcases    = 0;
+  _subcaseCount    = 0;
+  _insideSubcase   = false;
+  _nestedSubcase   = false;
+  _nestedOuterName = nullptr;
+  _nestedInnerName = nullptr;
 
   _subcaseNames.fill(nullptr);
 }
@@ -112,6 +116,10 @@ inline std::size_t Context::infoCount() const noexcept {
   return std::min(_infoDepth, c_maxInfoDepth);
 }
 
+inline std::size_t Context::infoDropped() const noexcept {
+  return _infoDepth - infoCount();
+}
+
 inline const InfoEntry & Context::infoAt(std::size_t index) const noexcept {
   TOY_TEST_ASSERT(index < infoCount(), "index must be below the number of readable info entries");
 
@@ -136,6 +144,12 @@ inline void Context::beginRun(std::size_t targetSubcase) noexcept {
 
 inline bool Context::enterSubcase(const char * name) noexcept {
   if (_insideSubcase) {
+    // Only the first nesting is kept, since the report names one.
+    if (!_nestedSubcase) {
+      _nestedOuterName = _subcaseName;
+      _nestedInnerName = name;
+    }
+
     _nestedSubcase = true;
 
     return false;
@@ -175,6 +189,14 @@ inline std::size_t Context::subcaseCount() const noexcept {
 
 inline bool Context::nestedSubcaseDetected() const noexcept {
   return _nestedSubcase;
+}
+
+inline const char * Context::nestedOuterName() const noexcept {
+  return _nestedOuterName;
+}
+
+inline const char * Context::nestedInnerName() const noexcept {
+  return _nestedInnerName;
 }
 
 } // namespace toy::test

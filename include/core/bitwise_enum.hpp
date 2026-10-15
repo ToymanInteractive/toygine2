@@ -23,8 +23,8 @@
 
   Defines \ref toy::EnableBitwiseOperators, the trait admitting one enumeration to the operator overloads declared here,
   \ref toy::BitwiseEnum, the concept those overloads constrain on, and the \c ENABLE_BITWISE_OPERATORS macro that writes
-  the specialization. Used where a flag set is spelled as an \c enum class and callers combine, mask, and test its
-  enumerators without casting to the underlying integer.
+  the specialization and makes the operators visible to argument-dependent lookup. Used where a flag set is spelled as
+  an \c enum class and callers combine, mask, and test its enumerators without casting to the underlying integer.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -35,7 +35,7 @@
 namespace toy {
 
 /*!
-  \class EnableBitwiseOperators
+  \struct EnableBitwiseOperators
   \brief Marks \a T as a bit-flag enumeration the operators in this header accept; denies every type by default.
 
   The primary template leaves \c enable at \c false, so no operator applies to an arbitrary type. A full specialization
@@ -43,15 +43,18 @@ namespace toy {
   constrains on \ref toy::BitwiseEnum, which reads this value, so an enumeration that never opted in reports an unmet
   requirement instead of silently converting.
 
-  \tparam T Scoped enumeration whose enumerators name single bits. The primary template accepts any type; only a
-            specialization grants operators.
+  \tparam T Scoped enumeration over an unsigned underlying type other than \c bool, whose enumerators name single bits.
+            The primary template accepts any type; a specialization grants operators only to a type that
+            \ref toy::BitwiseEnum also accepts.
 
   \section features Key Features
 
   * **Opt-in per type**: One specialization enables the whole operator set for one enumeration.
-  * **Constexpr support**: Every operator evaluates in a constant expression.
+  * **Any named namespace**: \c ENABLE_BITWISE_OPERATORS makes the operators reachable by argument-dependent lookup, so
+    call sites need no using-directive.
   * **Type safety**: Operands and results keep type \a T; the underlying integer never reaches the call site.
-  * **Exception safety**: Every operator is \c noexcept.
+  * **Membership tests**: toy::hasAny() and toy::hasAll() test a mask without spelling the comparison against \c T{}.
+  * **Constexpr support**: Every operator evaluates in a constant expression.
   * **No allocation**: Each operator forwards to one integer operation on the underlying type.
 
   \section usage Usage Example
@@ -59,16 +62,17 @@ namespace toy {
   \code
   #include "core.hpp"
 
-  namespace toy {
+  namespace game {
 
-  enum class MyFlags : unsigned { none = 0u, a = 1u, b = 2u, c = 4u };
+  enum class Flags : unsigned { none = 0u, a = 1u, b = 2u, c = 4u };
 
-  } // namespace toy
+  } // namespace game
 
-  ENABLE_BITWISE_OPERATORS(toy::MyFlags)
+  ENABLE_BITWISE_OPERATORS(game, Flags)
 
-  constexpr toy::MyFlags combined = toy::MyFlags::a | toy::MyFlags::b;
-  constexpr bool carriesA = (combined & toy::MyFlags::a) != toy::MyFlags::none;
+  constexpr game::Flags combined = game::Flags::a | game::Flags::b;
+  constexpr bool carriesA = hasAny(combined, game::Flags::a);
+  constexpr bool carriesAAndC = hasAll(combined, game::Flags::a | game::Flags::c);
   \endcode
 
   \section performance Performance Characteristics
@@ -80,52 +84,46 @@ namespace toy {
 
   * **Contracts**: none checked. The trait does not test whether the enumerators of \a T occupy disjoint bits, so
     overlapping values stay a logic error no diagnostic reports.
-  * **Type safety**: participation is a \c requires clause, so an enumeration without a specialization fails to compile
-    at the call site.
+  * **Type safety**: participation is a \c requires clause, so an enumeration without a specialization, or over a signed
+    or \c bool underlying type, fails to compile at the call site.
   * **Value range**: a result may hold a bit pattern no enumerator names. That is well defined, because \a T fixes its
     underlying type.
-  * **Exception safety**: no operation throws; exceptions are off in the build.
+  * **Exception safety**: no operation throws; every operator is \c noexcept, and exceptions are off in the build.
 
-  \section compatibility Compatibility
-
-  * Requires C++23 for \c std::to_underlying and the constraint on each overload.
-  * Header-only, and no operator allocates or calls into the platform, so the facility suits embedded and retro
-    targets.
-
-  \note Give a flag enumeration an unsigned underlying type. Over a signed one, \c ~ yields a negative value whose
-        meaning as a flag set depends on the width of the type.
-
-  \warning The operators live in namespace \ref toy, so argument-dependent lookup finds them only for an enumeration
-           declared directly in \ref toy. Anywhere else, a nested namespace such as \c toy::gfx included, the call site
-           has to bring them into scope with \c using \c namespace \c toy; or a using-declaration per operator.
+  \warning The operators live in namespace \ref toy, and \c ENABLE_BITWISE_OPERATORS adds using-declarations of them to
+           the namespace of the enumeration, where argument-dependent lookup finds them. A specialization written by
+           hand adds none, so for an enumeration outside \ref toy the call site needs \c using \c namespace \c toy; or
+           a using-declaration per operator.
 
   \sa \ref toy::BitwiseEnum, ENABLE_BITWISE_OPERATORS
 */
 template <typename T>
-class EnableBitwiseOperators {
-public:
+struct EnableBitwiseOperators {
   /// \c true where the operators of this header accept \a T; the primary template leaves it \c false.
   static constexpr bool enable = false;
 };
 
 /*!
   \concept BitwiseEnum
-  \brief Concept satisfied when \a T is a scoped enumeration opted into the operators of this header.
+  \brief Concept satisfied when \a T is an opted-in scoped enumeration over an unsigned underlying type.
 
   Constrains every operator below. Splitting the scoped-enum requirement from the opt-in keeps an unscoped enumeration
   out of the overload set, where the template would otherwise beat the built-in operator and quietly change the result
-  type.
+  type. The unsigned requirement exists for \c ~: over a signed type its result is negative, over \c bool every
+  complement is \c true.
 
   \section bitwise_enum_requirements Requirements
 
   A type satisfies BitwiseEnum if and only if:
   * It is a scoped enumeration, as reported by \c std::is_scoped_enum_v.
+  * Its underlying type satisfies \c std::unsigned_integral and is not \c bool.
   * A specialization of \ref toy::EnableBitwiseOperators sets its \c enable to \c true.
 
   \sa \ref toy::EnableBitwiseOperators
 */
 template <typename T>
-concept BitwiseEnum = std::is_scoped_enum_v<T> && EnableBitwiseOperators<T>::enable;
+concept BitwiseEnum = std::is_scoped_enum_v<T> && std::unsigned_integral<std::underlying_type_t<T>>
+                      && !std::same_as<std::underlying_type_t<T>, bool> && EnableBitwiseOperators<T>::enable;
 
 /*!
   \brief Unites two flag sets.
@@ -153,10 +151,10 @@ template <typename T>
 
   \return Value of \a T carrying the bits set in \a lhs and in \a rhs alike.
 
-  \note An empty intersection equals the enumerator whose value is zero, so \a T needs one for a membership test to
-        compare against.
+  \note An empty intersection equals \c T{}, so a membership test compares against it or an enumerator whose value is
+        zero.
 
-  \sa toy::operator&=(), toy::operator|()
+  \sa toy::operator&=(), toy::operator|(), toy::hasAny()
 */
 template <typename T>
   requires BitwiseEnum<T>
@@ -250,40 +248,99 @@ template <typename T>
   requires BitwiseEnum<T>
 constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
+/*!
+  \brief Tests whether \a flags and \a mask share at least one flag.
+
+  \tparam T Type satisfying \ref toy::BitwiseEnum.
+
+  \param flags Flag set to test.
+  \param mask  Flags to look for.
+
+  \return \c true when \a flags carries any bit of \a mask; \c false when they share none or \a mask is empty.
+
+  \sa toy::hasAll(), toy::operator&()
+*/
+template <typename T>
+  requires BitwiseEnum<T>
+[[nodiscard]] constexpr bool hasAny(T flags, T mask) noexcept;
+
+/*!
+  \brief Tests whether \a flags carries every flag of \a mask.
+
+  \tparam T Type satisfying \ref toy::BitwiseEnum.
+
+  \param flags Flag set to test.
+  \param mask  Flags that must all be present.
+
+  \return \c true when \a flags carries every bit of \a mask or \a mask is empty; \c false when a bit of \a mask is
+          missing.
+
+  \sa toy::hasAny(), toy::operator&()
+*/
+template <typename T>
+  requires BitwiseEnum<T>
+[[nodiscard]] constexpr bool hasAll(T flags, T mask) noexcept;
+
 } // namespace toy
 
 /*!
   \def ENABLE_BITWISE_OPERATORS
   \brief Opts a scoped enumeration into the bitwise operators of this header.
 
-  Expands to a \c static_assert rejecting anything but a scoped enumeration, followed by a full specialization of
-  \ref toy::EnableBitwiseOperators, qualified with namespace \ref toy, whose \c enable is \c true. The expansion carries
-  its own semicolons, so the invocation needs no terminator.
+  Expands to a full specialization of \ref toy::EnableBitwiseOperators whose \c enable is \c true, a \c static_assert
+  that \ref toy::BitwiseEnum then accepts the enumeration, and using-declarations of the seven operators and of
+  toy::hasAny() and toy::hasAll() inside \a namespaceName. Argument-dependent lookup searches the namespace of the
+  enumeration, so they resolve at any call site without a using-directive. The expansion carries its own semicolons,
+  so the invocation needs no terminator.
 
-  \param ... Scoped enumeration to opt in, spelled with its namespace qualification. Taken variadically so a nested
-             template argument list keeps the commas the preprocessor would otherwise read as argument separators, as in
-             \c ENABLE_BITWISE_OPERATORS(toy::Flags<int, long>::Type).
+  \param namespaceName Innermost namespace enclosing the enumeration, as in \c toy::gfx.
+  \param ...           Enumeration named relative to \a namespaceName, through its enclosing classes for a member
+                       enumeration. Taken variadically so a nested template argument list keeps the commas the
+                       preprocessor would otherwise read as argument separators, as in
+                       \c ENABLE_BITWISE_OPERATORS(toy, Flags<int, long>::Type).
 
-  \pre The argument names one complete \c enum class. An unscoped enumeration or a non-enumeration type fails the
-       \c static_assert at the invocation, before any operator is instantiated.
-  \pre The invocation stands at global namespace scope, outside \ref toy, after the definition of the enumeration.
+  \pre The arguments name one complete \c enum class over an unsigned underlying type other than \c bool. Anything else
+       fails the \c static_assert at the invocation, including an \c enum class without a fixed type, which takes
+       \c int.
+  \pre \a namespaceName is the innermost namespace enclosing the enumeration, the one argument-dependent lookup
+       searches. Naming an outer namespace still compiles, but call sites then miss the operators; naming a class
+       fails as a redefinition of the class as a namespace.
+  \pre That namespace is named; an enumeration in an unnamed namespace cannot be opted in.
+  \pre The invocation stands at global namespace scope, after the definition of the enumeration.
   \pre No other specialization of \ref toy::EnableBitwiseOperators for that enumeration precedes it.
 
   \note Put the invocation in the header that defines the enumeration, right below it. Combining its flags where the
         specialization is not visible either fails to compile or, across translation units that disagree, is ill-formed
         with no diagnostic required.
+  \note Several enumerations of one namespace may each invoke it: namespace scope allows a repeated using-declaration.
+  \note The expansion adds \c hasAny and \c hasAll to \a namespaceName; a variable or type of either name there makes
+        the invocation ill-formed.
 
-  \warning A specialization written by hand skips this check. It still has to satisfy \ref toy::BitwiseEnum, so an
-           unscoped enumeration written that way silently keeps the built-in operators instead of these.
+  \warning A specialization written by hand skips this check and adds no using-declarations. The operators still
+           require \ref toy::BitwiseEnum. An unscoped enumeration that fails it silently keeps the built-in operators,
+           and any other fails to compile at the call site.
 
   \sa \ref toy::EnableBitwiseOperators, \ref toy::BitwiseEnum
 */
-#define ENABLE_BITWISE_OPERATORS(...)                                                                                  \
-  static_assert(std::is_scoped_enum_v<__VA_ARGS__>,                                                                    \
-                "ENABLE_BITWISE_OPERATORS requires a scoped enumeration (enum class)");                                \
+#define ENABLE_BITWISE_OPERATORS(namespaceName, ...)                                                                   \
   template <>                                                                                                          \
-  struct toy::EnableBitwiseOperators<__VA_ARGS__> {                                                                    \
+  struct toy::EnableBitwiseOperators<namespaceName::__VA_ARGS__> {                                                     \
     static constexpr bool enable = true;                                                                               \
-  };
+  };                                                                                                                   \
+  static_assert(toy::BitwiseEnum<namespaceName::__VA_ARGS__>,                                                          \
+                "ENABLE_BITWISE_OPERATORS requires an enum class with an unsigned underlying type other than bool");   \
+  namespace namespaceName {                                                                                            \
+                                                                                                                       \
+  using ::toy::operator|;                                                                                              \
+  using ::toy::operator&;                                                                                              \
+  using ::toy::operator^;                                                                                              \
+  using ::toy::operator~;                                                                                              \
+  using ::toy::operator|=;                                                                                             \
+  using ::toy::operator&=;                                                                                             \
+  using ::toy::operator^=;                                                                                             \
+  using ::toy::hasAny;                                                                                                 \
+  using ::toy::hasAll;                                                                                                 \
+                                                                                                                       \
+  }
 
 #endif // INCLUDE_CORE_BITWISE_ENUM_HPP_

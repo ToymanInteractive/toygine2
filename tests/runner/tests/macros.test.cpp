@@ -24,6 +24,7 @@
 
 #include <array>
 #include <cstddef>
+#include <type_traits>
 
 #include <doctest/doctest.h>
 
@@ -48,10 +49,37 @@ void bodyWithInfo(toy::test::Context & toyTestContext) {
   TOY_TEST_CHECK(1 == 2);
 }
 
+// Not constexpr: a constant that fits does not narrow, so only a runtime value exercises the conversion.
+std::size_t runtimeIndex() noexcept {
+  return 7;
+}
+
+void bodyWithUnsignedInfo(toy::test::Context & toyTestContext) {
+  TOY_TEST_INFO("index", runtimeIndex());
+  TOY_TEST_CHECK(1 == 2);
+}
+
 void bodyWithNegations(toy::test::Context & toyTestContext) {
   TOY_TEST_REQUIRE_FALSE(1 == 2);
   TOY_TEST_CHECK_FALSE(1 == 2);
   TOY_TEST_REQUIRE(1.0 == toy::test::Approx(1.0));
+}
+
+// Every form gets a comma outside parentheses, which a one-parameter macro would split into two arguments.
+void bodyWithTemplateCommas(toy::test::Context & toyTestContext) {
+  TOY_TEST_REQUIRE(std::is_same_v<int, int>);
+  TOY_TEST_CHECK(std::is_same_v<int, int>);
+  TOY_TEST_REQUIRE_FALSE(std::is_same_v<int, long>);
+  TOY_TEST_CHECK_FALSE(std::is_same_v<int, long>);
+  TOY_TEST_CHECK(std::is_same_v<int, long>);
+}
+
+// Source text of the last failed expression, written into storage the reading case owns.
+void captureExpression(const toy::test::Context & context, const toy::test::FailureRecord & failure,
+                       void * reporterData) noexcept {
+  static_cast<void>(context);
+
+  *static_cast<const char **>(reporterData) = failure.expression;
 }
 
 // The first info entry visible at the moment of the failure, written into storage the reading case owns.
@@ -163,6 +191,17 @@ TEST_CASE("test/macros/info_is_visible_during_failure_only") {
   REQUIRE(context.infoCount() == 0);
 }
 
+// An unsigned value, the usual type of an index, reaches the reporter unchanged.
+TEST_CASE("test/macros/info_takes_an_unsigned_value") {
+  CapturedInfo       captured;
+  toy::test::Context context{&captureInfo, &captured};
+
+  toy::test::runCase(context, "generated/case", &bodyWithUnsignedInfo);
+
+  REQUIRE(captured.text != nullptr);
+  REQUIRE(captured.value == 7);
+}
+
 // The negated forms and Approx pass through the macro layer.
 TEST_CASE("test/macros/negated_forms_and_approx") {
   toy::test::Context context{nullptr};
@@ -171,4 +210,17 @@ TEST_CASE("test/macros/negated_forms_and_approx") {
 
   REQUIRE(context.failedCount() == 0);
   REQUIRE(context.passedCount() == 3);
+}
+
+// An expression with a comma between template arguments is recorded whole, as doctest records it.
+TEST_CASE("test/macros/assertions_take_an_expression_with_commas") {
+  const char *       expression = nullptr;
+  toy::test::Context context{&captureExpression, &expression};
+
+  toy::test::runCase(context, "generated/case", &bodyWithTemplateCommas);
+
+  REQUIRE(context.passedCount() == 4);
+  REQUIRE(context.failedCount() == 1);
+  REQUIRE(expression != nullptr);
+  REQUIRE(toy::test::detail::compareNames(expression, "std::is_same_v<int, long>") == 0);
 }

@@ -93,7 +93,8 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
   \section safety Safety Guarantees
 
   * **Contracts**: infoAt() checks its index against infoCount() in a debug build
-  * **Bounds safety**: pushInfo() past the depth drops the surplus and keeps push and pop balanced
+  * **Bounds safety**: pushInfo() past the depth drops the surplus, counts it in infoDropped() and keeps push and pop
+    balanced
   * **Memory safety**: no dynamic allocation
   * **Exception safety**: No operation throws; exceptions are off in the build
 
@@ -103,10 +104,11 @@ using failure_reporter_type = void (*)(const Context & context, const FailureRec
 */
 class Context final {
 public:
-  /// Depth of the info stack; messages beyond it are dropped.
+  /// Depth of the info stack; messages beyond it are dropped and counted by infoDropped().
   static constexpr std::size_t c_maxInfoDepth = 8;
 
-  /// Number of subcase names kept for the report; a case with more still runs, and the names past it are lost.
+  /// Number of subcase names kept for the branch descriptions; a case with more still runs, and the branches past it
+  /// print the case name instead.
   static constexpr std::size_t c_maxSubcaseNames = 16;
 
   /*!
@@ -195,7 +197,8 @@ public:
     \post The name is readable through subcaseNameAt(), unless the subcase sits past
           \ref toy::test::Context::c_maxSubcaseNames.
 
-    \post On a nested entry the nested flag is raised and \c false is returned.
+    \post A nested entry raises the nested flag and returns \c false; the first nested entry of a case also records the
+          outer and inner names.
 
     \note Called by \ref toy::test::detail::SubcaseGuard, not from a test body.
 
@@ -232,6 +235,12 @@ public:
   /// Returns whether a subcase was entered from inside another subcase, which the rules forbid.
   [[nodiscard]] bool nestedSubcaseDetected() const noexcept;
 
+  /// Returns the name of the subcase open at the first nested entry of the case, or \c nullptr when none occurred.
+  [[nodiscard]] const char * nestedOuterName() const noexcept;
+
+  /// Returns the name of the subcase entered at the first nested entry of the case, or \c nullptr when none occurred.
+  [[nodiscard]] const char * nestedInnerName() const noexcept;
+
   /// Returns the number of assertions that passed during the run.
   [[nodiscard]] std::size_t passedCount() const noexcept;
 
@@ -243,6 +252,15 @@ public:
 
   /// Returns the number of messages currently on the info stack.
   [[nodiscard]] std::size_t infoCount() const noexcept;
+
+  /*!
+    \brief Returns the number of messages pushed past the depth and not yet popped.
+
+    \return Count of unpopped messages the stack could not store; \c 0 while the depth holds them all.
+
+    \sa infoCount()
+  */
+  [[nodiscard]] std::size_t infoDropped() const noexcept;
 
   /*!
     \brief Returns the message at \a index.
@@ -275,6 +293,8 @@ private:
   std::size_t                                 _subcaseCount;
   bool                                        _insideSubcase;
   bool                                        _nestedSubcase;
+  const char *                                _nestedOuterName;
+  const char *                                _nestedInnerName;
   std::array<InfoEntry, c_maxInfoDepth>       _infoStack;
   std::array<const char *, c_maxSubcaseNames> _subcaseNames;
 };

@@ -193,10 +193,11 @@ public:
   /*!
     \brief Sets the indent every following line opens with.
 
-    \param spaces  Number of leading spaces (default: \c 0 at construction).
+    \param spaces  Number of leading spaces.
 
     \post Lines started after this call carry \a spaces leading spaces.
 
+    \note A writer starts with no indent.
     \note A TAP subtest indents its document by four, and the YAML block inside it by two more.
   */
   void setIndent(std::size_t spaces) noexcept;
@@ -274,6 +275,7 @@ private:
 
   \note Matches \ref toy::test::failure_reporter_type, so toy::test::writeReport() installs it into the context it
         drives the run with.
+  \note Info entries past the depth of the context appear only as their count, under the \c info_dropped key.
 */
 void reportFailure(const Context & context, const FailureRecord & failure, void * reporterData) noexcept;
 

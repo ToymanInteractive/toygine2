@@ -74,8 +74,9 @@ inline void ReportWriter::addInteger(long long value) noexcept {
 }
 
 inline void ReportWriter::flush() noexcept {
-  if (_length == c_lineCapacity)
-    --_length;
+  // >= rather than ==: GCC cannot see that the append calls stop at the capacity, and warns of an overflow at -O2.
+  if (_length >= c_lineCapacity)
+    _length = c_lineCapacity - 1;
 
   _buffer[_length] = '\n';
   ++_length;
@@ -176,6 +177,13 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
   writer.addQuoted(failure.expression);
   writer.flush();
 
+  // Past the kept names a branch prints under the case name, so the failure block names its subcase.
+  if (failure.subcaseName != nullptr) {
+    writer.addText("      subcase: ");
+    writer.addQuoted(failure.subcaseName);
+    writer.flush();
+  }
+
   if (context.infoCount() > 0) {
     writer.addText("      info:");
     writer.flush();
@@ -193,6 +201,13 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
       writer.addInteger(entry.value);
       writer.flush();
     }
+  }
+
+  // The stack keeps the outer entries only, so the block says how many inner ones it could not print.
+  if (context.infoDropped() > 0) {
+    writer.addText("      info_dropped: ");
+    writer.addInteger(static_cast<long long>(context.infoDropped()));
+    writer.flush();
   }
 }
 
@@ -257,6 +272,14 @@ inline void reportCase(ReportWriter & writer, Context & context, const CaseRegis
     writer.openDiagnostics();
     writer.addText("  error: ");
     writer.addQuoted("nested subcase");
+    writer.flush();
+
+    writer.addText("  outer: ");
+    writer.addQuoted(context.nestedOuterName());
+    writer.flush();
+
+    writer.addText("  inner: ");
+    writer.addQuoted(context.nestedInnerName());
     writer.flush();
   }
 

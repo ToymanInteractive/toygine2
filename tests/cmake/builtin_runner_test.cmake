@@ -35,8 +35,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
     # BlastEm always exits with 0, so the verdict is read from the report it prints as KDEBUG MESSAGE lines.
     # The summary line prints last, so matching it also catches a run that died halfway through the report.
+    # A nested subcase marks its case not ok while all assertions pass, so any not-ok point or bail-out fails the test.
     set_tests_properties(units PROPERTIES TIMEOUT 60
-                                                  PASS_REGULAR_EXPRESSION "# assertions passed=[0-9]+ failed=0")
+                                                  PASS_REGULAR_EXPRESSION "# assertions passed=[0-9]+ failed=0"
+                                                  FAIL_REGULAR_EXPRESSION "not ok |Bail out!")
   else ()
     message(STATUS "blastem not found: the test ROM is built but no CTest test runs it")
   endif ()

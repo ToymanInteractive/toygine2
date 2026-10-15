@@ -168,7 +168,7 @@ using std::bit_cast;
 #define assert(expression)                                                                                             \
   do {                                                                                                                 \
     if (!(expression)) {                                                                                               \
-      if (std::is_constant_evaluated()) {                                                                              \
+      if consteval {                                                                                                   \
         toy::assertion::assertCompileTimeError();                                                                      \
       } else {                                                                                                         \
         toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
@@ -197,7 +197,7 @@ using std::bit_cast;
 #define assert_message(expression, message)                                                                            \
   do {                                                                                                                 \
     if (!(expression)) {                                                                                               \
-      if (std::is_constant_evaluated()) {                                                                              \
+      if consteval {                                                                                                   \
         toy::assertion::assertCompileTimeError();                                                                      \
       } else {                                                                                                         \
         toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \

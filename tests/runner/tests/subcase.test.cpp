@@ -68,6 +68,16 @@ void bodyFailingInTheFirstOfTwo(toy::test::Context & context) {
   }
 }
 
+// A failed REQUIRE in the first subcase returns from the body before the second subcase is declared.
+void bodyRequireFailsInTheFirstOfTwo(toy::test::Context & toyTestContext) {
+  TOY_TEST_SUBCASE("first") {
+    TOY_TEST_REQUIRE(1 == 2);
+  }
+  TOY_TEST_SUBCASE("second") {
+    TOY_TEST_CHECK(1 == 1);
+  }
+}
+
 // Writes the failing subcase's name into storage the reading case owns.
 void captureSubcaseName(const toy::test::Context & context, const toy::test::FailureRecord & failure,
                         void * reporterData) noexcept {
@@ -85,6 +95,18 @@ TEST_CASE("test/context/case_without_subcases_runs_once") {
 
   REQUIRE(context.passedCount() == 1);
   REQUIRE(context.subcaseCount() == 0);
+}
+
+// The early return hides the second subcase and the case runs once; it has already failed, so the verdict holds.
+TEST_CASE("test/run_case/failed_require_hides_the_later_subcases") {
+  toy::test::Context context{nullptr};
+
+  toy::test::runCase(context, "some/case", &bodyRequireFailsInTheFirstOfTwo);
+
+  REQUIRE(context.subcaseCount() == 1);
+  REQUIRE(context.passedCount() == 0);
+  REQUIRE(context.failedCount() == 1);
+  REQUIRE(context.caseFailed());
 }
 
 // Three subcases, three runs, in declaration order; the loop is local so a wrong branch is named, not counted.
@@ -146,6 +168,8 @@ TEST_CASE("test::detail/subcase_guard/nested_entry_is_diagnosed") {
   toy::test::runCase(context, "some/case", &bodyWithNestedSubcase);
 
   REQUIRE(context.nestedSubcaseDetected() == true);
+  REQUIRE(toy::test::detail::compareNames(context.nestedOuterName(), "outer") == 0);
+  REQUIRE(toy::test::detail::compareNames(context.nestedInnerName(), "inner") == 0);
   REQUIRE(context.subcaseCount() == 1);
   REQUIRE(context.passedCount() == 2);
   REQUIRE(context.failedCount() == 0);

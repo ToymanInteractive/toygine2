@@ -80,7 +80,7 @@ else ()
 endif ()
 
 target_include_directories(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner)
-target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${TOYGINE_LIBRARY_NAME})
+target_link_libraries(${TOYGINE_LIBRARY_NAME}-units PRIVATE ${TOYGINE_LIBRARY_NAME} toygine::compile::warnings)
 set_target_properties(${TOYGINE_LIBRARY_NAME}-units PROPERTIES FOLDER "tests")
 
 if (TOYGINE_TESTS_RUNNER STREQUAL "doctest")
