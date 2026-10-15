@@ -1300,7 +1300,7 @@ constexpr String<storageType> operator+(String<storageType> lhs, char rhs) noexc
 
 template <StringStorage storageType>
 constexpr String<storageType> operator+(const char * lhs, const String<storageType> & rhs) noexcept {
-  String<storageType> result(rhs);
+  String<storageType> result(rhs.c_str(), rhs.size());
   result.insert(0, lhs);
 
   return result;
@@ -1308,7 +1308,7 @@ constexpr String<storageType> operator+(const char * lhs, const String<storageTy
 
 template <StringStorage storageType>
 constexpr String<storageType> operator+(char lhs, const String<storageType> & rhs) noexcept {
-  String<storageType> result(rhs);
+  String<storageType> result(rhs.c_str(), rhs.size());
   result.insert(0, 1, lhs);
 
   return result;
@@ -1316,7 +1316,7 @@ constexpr String<storageType> operator+(char lhs, const String<storageType> & rh
 
 template <StringStorage storageType>
 constexpr String<storageType> operator+(StringView lhs, const String<storageType> & rhs) noexcept {
-  String<storageType> result(rhs);
+  String<storageType> result(rhs.c_str(), rhs.size());
   result.insert(0, lhs);
 
   return result;

@@ -385,6 +385,23 @@ static_assert(StringStorage<RelocatingStorage<c_capacity>>, "the relocating stub
 // String whose every growth moves the buffer, so an edit must find a source inside it again after the move.
 using Relocating = String<RelocatingStorage<c_capacity>>;
 
+// Fixed buffer that refuses to be copied, so a string over it moves but never copies.
+class MoveOnlyStorage : public FixedStringStorage<c_allocatedSize> {
+public:
+  constexpr MoveOnlyStorage() noexcept                                     = default;
+  constexpr MoveOnlyStorage(const MoveOnlyStorage & other)                 = delete;
+  constexpr MoveOnlyStorage(MoveOnlyStorage && other) noexcept             = default;
+  constexpr MoveOnlyStorage & operator=(const MoveOnlyStorage & other)     = delete;
+  constexpr MoveOnlyStorage & operator=(MoveOnlyStorage && other) noexcept = default;
+  constexpr ~MoveOnlyStorage() noexcept                                    = default;
+};
+
+static_assert(StringStorage<MoveOnlyStorage> && !std::copy_constructible<String<MoveOnlyStorage>>,
+              "the move-only stub must back a string that cannot be copied");
+
+// String over a storage that cannot be copied.
+using MoveOnly = String<MoveOnlyStorage>;
+
 // What firstDifference() returns when a string holds exactly the characters of expected.
 [[nodiscard]] constexpr size_t fullMatch(const char * expected) noexcept {
   return std::char_traits<char>::length(expected) + 1;
@@ -3093,6 +3110,33 @@ TEST_CASE("string/concatenation_from_right_operand") {
                 "a pointer into the right string must go before it");
   static_assert(holds(c_sampleString.subview(c_substringOffset) + c_sampleString, "ayerplayer"),
                 "a view into the right string must go before it");
+}
+
+// A string over a storage that cannot be copied still takes a pointer, a character, or a view on its left.
+TEST_CASE("string/concatenation_over_move_only_storage") {
+  constexpr auto joinedPointer = [] {
+    const MoveOnly right(c_sample);
+
+    return holds(c_listed + right, "abcplayer");
+  };
+  constexpr auto joinedCharacter = [] {
+    const MoveOnly right(c_sample);
+
+    return holds(c_fillCharacter + right, "xplayer");
+  };
+  constexpr auto joinedView = [] {
+    const MoveOnly right(c_sample);
+
+    return holds(StringView{c_listed} + right, "abcplayer");
+  };
+
+  CHECK(joinedPointer());
+  CHECK(joinedCharacter());
+  CHECK(joinedView());
+
+  static_assert(joinedPointer(), "a pointer must go before a string that cannot be copied");
+  static_assert(joinedCharacter(), "a character must go before a string that cannot be copied");
+  static_assert(joinedView(), "a view must go before a string that cannot be copied");
 }
 
 // A join that fills the storage to its capacity fits with the pointer, the character, or the view on the left.
