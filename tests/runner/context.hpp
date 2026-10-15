@@ -196,7 +196,8 @@ public:
     \post The name is readable through subcaseNameAt(), unless the subcase sits past
           \ref toy::test::Context::c_maxSubcaseNames.
 
-    \post On a nested entry the nested flag is raised and \c false is returned.
+    \post A nested entry raises the nested flag and returns \c false; the first nested entry of a case also records the
+          outer and inner names.
 
     \note Called by \ref toy::test::detail::SubcaseGuard, not from a test body.
 
@@ -232,6 +233,12 @@ public:
 
   /// Returns whether a subcase was entered from inside another subcase, which the rules forbid.
   [[nodiscard]] bool nestedSubcaseDetected() const noexcept;
+
+  /// Returns the name of the subcase open at the first nested entry of the case, or \c nullptr when none occurred.
+  [[nodiscard]] const char * nestedOuterName() const noexcept;
+
+  /// Returns the name of the subcase entered at the first nested entry of the case, or \c nullptr when none occurred.
+  [[nodiscard]] const char * nestedInnerName() const noexcept;
 
   /// Returns the number of assertions that passed during the run.
   [[nodiscard]] std::size_t passedCount() const noexcept;
@@ -276,6 +283,8 @@ private:
   std::size_t                                 _subcaseCount;
   bool                                        _insideSubcase;
   bool                                        _nestedSubcase;
+  const char *                                _nestedOuterName;
+  const char *                                _nestedInnerName;
   std::array<InfoEntry, c_maxInfoDepth>       _infoStack;
   std::array<const char *, c_maxSubcaseNames> _subcaseNames;
 };

@@ -265,6 +265,14 @@ inline void reportCase(ReportWriter & writer, Context & context, const CaseRegis
     writer.addText("  error: ");
     writer.addQuoted("nested subcase");
     writer.flush();
+
+    writer.addText("  outer: ");
+    writer.addQuoted(context.nestedOuterName());
+    writer.flush();
+
+    writer.addText("  inner: ");
+    writer.addQuoted(context.nestedInnerName());
+    writer.flush();
   }
 
   // Prints only for a point that reached here unprinted, since a failure inside the case wrote the verdict already.

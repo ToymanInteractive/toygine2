@@ -233,6 +233,8 @@ TEST_CASE("test/write_report/nested_subcase_condemns_the_case") {
                            "  ---\n"
                            "  severity: fail\n"
                            "  error: 'nested subcase'\n"
+                           "  outer: 'outer'\n"
+                           "  inner: 'inner'\n"
                            "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=0\n");

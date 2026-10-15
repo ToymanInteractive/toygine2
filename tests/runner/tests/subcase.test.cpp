@@ -146,6 +146,8 @@ TEST_CASE("test::detail/subcase_guard/nested_entry_is_diagnosed") {
   toy::test::runCase(context, "some/case", &bodyWithNestedSubcase);
 
   REQUIRE(context.nestedSubcaseDetected() == true);
+  REQUIRE(toy::test::detail::compareNames(context.nestedOuterName(), "outer") == 0);
+  REQUIRE(toy::test::detail::compareNames(context.nestedInnerName(), "inner") == 0);
   REQUIRE(context.subcaseCount() == 1);
   REQUIRE(context.passedCount() == 2);
   REQUIRE(context.failedCount() == 0);
