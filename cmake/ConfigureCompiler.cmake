@@ -197,6 +197,19 @@ add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
 
+# Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF
+add_library(toygine-compile-abi-optimizations INTERFACE)
+add_library(toygine::compile::abi-optimizations ALIAS toygine-compile-abi-optimizations)
+if (TOYGINE_ENABLE_ABI_OPTIMIZATIONS)
+  target_compile_options(toygine-compile-abi-optimizations INTERFACE
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,MSVC>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:>>")
+endif ()
+
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
 endif ()
