@@ -35,7 +35,7 @@
 namespace toy {
 
 /*!
-  \class EnableBitwiseOperators
+  \struct EnableBitwiseOperators
   \brief Marks \a T as a bit-flag enumeration the operators in this header accept; denies every type by default.
 
   The primary template leaves \c enable at \c false, so no operator applies to an arbitrary type. A full specialization
@@ -102,8 +102,7 @@ namespace toy {
   \sa \ref toy::BitwiseEnum, ENABLE_BITWISE_OPERATORS
 */
 template <typename T>
-class EnableBitwiseOperators {
-public:
+struct EnableBitwiseOperators {
   /// \c true where the operators of this header accept \a T; the primary template leaves it \c false.
   static constexpr bool enable = false;
 };
