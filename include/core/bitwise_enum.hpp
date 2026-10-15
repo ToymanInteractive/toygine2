@@ -53,6 +53,7 @@ namespace toy {
   * **Any named namespace**: \c ENABLE_BITWISE_OPERATORS makes the operators reachable by argument-dependent lookup, so
     call sites need no using-directive.
   * **Type safety**: Operands and results keep type \a T; the underlying integer never reaches the call site.
+  * **Membership tests**: toy::hasAny() and toy::hasAll() test a mask without spelling the comparison against \c T{}.
   * **Constexpr support**: Every operator evaluates in a constant expression.
   * **No allocation**: Each operator forwards to one integer operation on the underlying type.
 
@@ -70,7 +71,8 @@ namespace toy {
   ENABLE_BITWISE_OPERATORS(game, Flags)
 
   constexpr game::Flags combined = game::Flags::a | game::Flags::b;
-  constexpr bool carriesA = (combined & game::Flags::a) != game::Flags::none;
+  constexpr bool carriesA = hasAny(combined, game::Flags::a);
+  constexpr bool carriesAAndC = hasAll(combined, game::Flags::a | game::Flags::c);
   \endcode
 
   \section performance Performance Characteristics
@@ -152,7 +154,7 @@ template <typename T>
   \note An empty intersection equals \c T{}, so a membership test compares against it or an enumerator whose value is
         zero.
 
-  \sa toy::operator&=(), toy::operator|()
+  \sa toy::operator&=(), toy::operator|(), toy::hasAny()
 */
 template <typename T>
   requires BitwiseEnum<T>
@@ -246,6 +248,39 @@ template <typename T>
   requires BitwiseEnum<T>
 constexpr T & operator^=(T & lhs, T rhs) noexcept;
 
+/*!
+  \brief Tests whether \a flags and \a mask share at least one flag.
+
+  \tparam T Type satisfying \ref toy::BitwiseEnum.
+
+  \param flags Flag set to test.
+  \param mask  Flags to look for.
+
+  \return \c true when \a flags carries any bit of \a mask; \c false when they share none or \a mask is empty.
+
+  \sa toy::hasAll(), toy::operator&()
+*/
+template <typename T>
+  requires BitwiseEnum<T>
+[[nodiscard]] constexpr bool hasAny(T flags, T mask) noexcept;
+
+/*!
+  \brief Tests whether \a flags carries every flag of \a mask.
+
+  \tparam T Type satisfying \ref toy::BitwiseEnum.
+
+  \param flags Flag set to test.
+  \param mask  Flags that must all be present.
+
+  \return \c true when \a flags carries every bit of \a mask or \a mask is empty; \c false when a bit of \a mask is
+          missing.
+
+  \sa toy::hasAny(), toy::operator&()
+*/
+template <typename T>
+  requires BitwiseEnum<T>
+[[nodiscard]] constexpr bool hasAll(T flags, T mask) noexcept;
+
 } // namespace toy
 
 /*!
@@ -253,9 +288,10 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
   \brief Opts a scoped enumeration into the bitwise operators of this header.
 
   Expands to a full specialization of \ref toy::EnableBitwiseOperators whose \c enable is \c true, a \c static_assert
-  that \ref toy::BitwiseEnum then accepts the enumeration, and using-declarations of the seven operators inside
-  \a namespaceName. Argument-dependent lookup searches the namespace of the enumeration, so the operators resolve at any
-  call site without a using-directive. The expansion carries its own semicolons, so the invocation needs no terminator.
+  that \ref toy::BitwiseEnum then accepts the enumeration, and using-declarations of the seven operators and of
+  toy::hasAny() and toy::hasAll() inside \a namespaceName. Argument-dependent lookup searches the namespace of the
+  enumeration, so they resolve at any call site without a using-directive. The expansion carries its own semicolons,
+  so the invocation needs no terminator.
 
   \param namespaceName Innermost namespace enclosing the enumeration, as in \c toy::gfx.
   \param ...           Enumeration named relative to \a namespaceName, through its enclosing classes for a member
@@ -277,6 +313,8 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
         specialization is not visible either fails to compile or, across translation units that disagree, is ill-formed
         with no diagnostic required.
   \note Several enumerations of one namespace may each invoke it: namespace scope allows a repeated using-declaration.
+  \note The expansion adds \c hasAny and \c hasAll to \a namespaceName; a variable or type of either name there makes
+        the invocation ill-formed.
 
   \warning A specialization written by hand skips this check and adds no using-declarations. The operators still
            require \ref toy::BitwiseEnum. An unscoped enumeration that fails it silently keeps the built-in operators,
@@ -300,6 +338,8 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
   using ::toy::operator|=;                                                                                             \
   using ::toy::operator&=;                                                                                             \
   using ::toy::operator^=;                                                                                             \
+  using ::toy::hasAny;                                                                                                 \
+  using ::toy::hasAll;                                                                                                 \
                                                                                                                        \
   }
 

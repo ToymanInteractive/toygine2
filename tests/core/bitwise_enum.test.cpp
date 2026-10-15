@@ -113,6 +113,13 @@ template <typename Left, typename Right>
 concept HasMixedOperator = requires(Left lhs, Right rhs) { lhs | rhs; } || requires(Left lhs, Right rhs) { lhs & rhs; }
                            || requires(Left lhs, Right rhs) { lhs ^ rhs; };
 
+// Detects the membership helpers through a dependent call, as HasBitwiseOperators does for operator|.
+template <typename T>
+concept HasMembershipTests = requires(T flags, T mask) {
+  hasAny(flags, mask);
+  hasAll(flags, mask);
+};
+
 } // namespace
 
 // Trait EnableBitwiseOperators: enabled for specialized enum, disabled otherwise.
@@ -145,6 +152,8 @@ TEST_CASE("enable_bitwise_operators/trait") {
 
     static_assert(!BitwiseEnum<UnregisteredFlags>, "an enum without the opt-in must not satisfy BitwiseEnum");
     static_assert(!HasBitwiseOperators<UnregisteredFlags>, "operator| must be unavailable without the opt-in");
+    static_assert(!HasMembershipTests<UnregisteredFlags>,
+                  "hasAny() and hasAll() must be unavailable without the opt-in");
   }
 
   // An opt-in does not admit a signed or bool underlying type, whether spelled out or left to the int default.
@@ -324,9 +333,60 @@ TEST_CASE("enable_bitwise_operators/compound_assignment") {
   }
 }
 
+// hasAny() reports whether the flags share at least one bit with the mask.
+TEST_CASE("enable_bitwise_operators/has_any") {
+  // One shared bit is enough, even when the mask carries others the flags lack.
+  SUBCASE("true_for_a_shared_bit") {
+    REQUIRE(hasAny(TestFlags::A | TestFlags::B, TestFlags::B | TestFlags::C) == true);
+
+    static_assert(hasAny(TestFlags::A | TestFlags::B, TestFlags::B | TestFlags::C),
+                  "flags sharing bit B with the mask must report a shared bit");
+  }
+
+  // Disjoint bits share nothing.
+  SUBCASE("false_for_disjoint_bits") {
+    REQUIRE(hasAny(TestFlags::A, TestFlags::B | TestFlags::C) == false);
+
+    static_assert(!hasAny(TestFlags::A, TestFlags::B | TestFlags::C), "disjoint bits must report no shared bit");
+  }
+
+  // An empty mask has no bit to share.
+  SUBCASE("false_for_an_empty_mask") {
+    REQUIRE(hasAny(TestFlags::A | TestFlags::B, TestFlags::None) == false);
+
+    static_assert(!hasAny(TestFlags::A | TestFlags::B, TestFlags::None), "an empty mask must report no shared bit");
+  }
+}
+
+// hasAll() reports whether the flags carry every bit of the mask.
+TEST_CASE("enable_bitwise_operators/has_all") {
+  // Every bit of the mask is present, alongside bits the mask does not name.
+  SUBCASE("true_when_every_mask_bit_is_set") {
+    REQUIRE(hasAll(TestFlags::A | TestFlags::B | TestFlags::C, TestFlags::A | TestFlags::C) == true);
+
+    static_assert(hasAll(TestFlags::A | TestFlags::B | TestFlags::C, TestFlags::A | TestFlags::C),
+                  "flags carrying A and C must report the mask A | C as present");
+  }
+
+  // One missing bit is enough to fail.
+  SUBCASE("false_when_a_mask_bit_is_missing") {
+    REQUIRE(hasAll(TestFlags::A | TestFlags::B, TestFlags::A | TestFlags::C) == false);
+
+    static_assert(!hasAll(TestFlags::A | TestFlags::B, TestFlags::A | TestFlags::C),
+                  "flags lacking C must not report the mask A | C as present");
+  }
+
+  // An empty mask names no bit, so every value carries all of it.
+  SUBCASE("true_for_an_empty_mask") {
+    REQUIRE(hasAll(TestFlags::None, TestFlags::None) == true);
+
+    static_assert(hasAll(TestFlags::None, TestFlags::None), "an empty mask must be present in every value");
+  }
+}
+
 } // namespace toy
 
-// Every operator resolves for an enumeration outside namespace toy, called from the global namespace.
+// Operators and membership helpers resolve for an enumeration outside namespace toy, called from the global namespace.
 TEST_CASE("enable_bitwise_operators/operators_reach_an_enumeration_outside_toy") {
   using outside::OutsideFlags;
 
@@ -340,6 +400,8 @@ TEST_CASE("enable_bitwise_operators/operators_reach_an_enumeration_outside_toy")
   REQUIRE((OutsideFlags::A & OutsideFlags::B) == OutsideFlags::None);
   REQUIRE((OutsideFlags::A ^ OutsideFlags::A) == OutsideFlags::None);
   REQUIRE(std::to_underlying(~OutsideFlags::None) == 0xFF);
+  REQUIRE(hasAny(OutsideFlags::A | OutsideFlags::B, OutsideFlags::B) == true);
+  REQUIRE(hasAll(OutsideFlags::A | OutsideFlags::B, OutsideFlags::A | OutsideFlags::B) == true);
 
   static_assert(std::to_underlying(OutsideFlags::A | OutsideFlags::B) == 3,
                 "operator| must resolve for an enumeration outside namespace toy");
@@ -349,4 +411,8 @@ TEST_CASE("enable_bitwise_operators/operators_reach_an_enumeration_outside_toy")
                 "operator^ must resolve for an enumeration outside namespace toy");
   static_assert(std::to_underlying(~OutsideFlags::None) == 0xFF,
                 "operator~ must resolve for an enumeration outside namespace toy");
+  static_assert(hasAny(OutsideFlags::A, OutsideFlags::A),
+                "hasAny() must resolve for an enumeration outside namespace toy");
+  static_assert(hasAll(OutsideFlags::A, OutsideFlags::A),
+                "hasAll() must resolve for an enumeration outside namespace toy");
 }
