@@ -40,6 +40,39 @@ enum class UnregisteredFlags : uint8_t {
   A    = 1,
 };
 
+// Opted in by hand below, because the macro rejects a signed underlying type at the invocation.
+enum class SignedFlags : int8_t {
+  None = 0,
+  A    = 1,
+};
+
+// Opted in by hand below for the same reason; over bool the complement of every value is true.
+enum class BoolFlags : bool {
+  None = false,
+  A    = true,
+};
+
+// Opted in by hand below; an enum class without a fixed underlying type takes int, which is signed.
+enum class DefaultFlags {
+  None = 0,
+  A    = 1,
+};
+
+template <>
+struct EnableBitwiseOperators<SignedFlags> {
+  static constexpr bool enable = true;
+};
+
+template <>
+struct EnableBitwiseOperators<BoolFlags> {
+  static constexpr bool enable = true;
+};
+
+template <>
+struct EnableBitwiseOperators<DefaultFlags> {
+  static constexpr bool enable = true;
+};
+
 // Nested enum reached through a template argument list, so its spelling carries a comma into the macro.
 template <typename First, typename Second>
 struct TemplatedHolder {
@@ -75,6 +108,11 @@ namespace {
 template <typename T>
 concept HasBitwiseOperators = requires(T lhs, T rhs) { lhs | rhs; };
 
+// True when any binary operator accepts the pair, so a negative check catches each of the three.
+template <typename Left, typename Right>
+concept HasMixedOperator = requires(Left lhs, Right rhs) { lhs | rhs; } || requires(Left lhs, Right rhs) { lhs & rhs; }
+                           || requires(Left lhs, Right rhs) { lhs ^ rhs; };
+
 } // namespace
 
 // Trait EnableBitwiseOperators: enabled for specialized enum, disabled otherwise.
@@ -107,6 +145,29 @@ TEST_CASE("enable_bitwise_operators/trait") {
 
     static_assert(!BitwiseEnum<UnregisteredFlags>, "an enum without the opt-in must not satisfy BitwiseEnum");
     static_assert(!HasBitwiseOperators<UnregisteredFlags>, "operator| must be unavailable without the opt-in");
+  }
+
+  // An opt-in does not admit a signed or bool underlying type, whether spelled out or left to the int default.
+  SUBCASE("disabled_for_signed_or_bool_underlying_type") {
+    REQUIRE(EnableBitwiseOperators<SignedFlags>::enable == true);
+    REQUIRE(HasBitwiseOperators<SignedFlags> == false);
+    REQUIRE(HasBitwiseOperators<BoolFlags> == false);
+    REQUIRE(HasBitwiseOperators<DefaultFlags> == false);
+
+    static_assert(!BitwiseEnum<SignedFlags>, "a signed underlying type must not satisfy BitwiseEnum");
+    static_assert(!BitwiseEnum<BoolFlags>, "a bool underlying type must not satisfy BitwiseEnum");
+    static_assert(!BitwiseEnum<DefaultFlags>, "the default int underlying type must not satisfy BitwiseEnum");
+  }
+
+  // Operands of two types, or of a flag type and an integer, find no operator.
+  SUBCASE("disabled_for_mixed_operand_types") {
+    REQUIRE(HasMixedOperator<TestFlags, outside::OutsideFlags> == false);
+    REQUIRE(HasMixedOperator<TestFlags, uint8_t> == false);
+    REQUIRE(HasMixedOperator<uint8_t, TestFlags> == false);
+
+    static_assert(!HasMixedOperator<TestFlags, outside::OutsideFlags>, "two flag types must not combine");
+    static_assert(!HasMixedOperator<TestFlags, uint8_t>, "a flag type must not combine with an integer");
+    static_assert(!HasMixedOperator<uint8_t, TestFlags>, "an integer must not combine with a flag type");
   }
 }
 
@@ -179,9 +240,28 @@ TEST_CASE("enable_bitwise_operators/operator_xor") {
 // Bitwise NOT.
 TEST_CASE("enable_bitwise_operators/operator_not") {
   // ~TestFlags::None has all bits set for underlying type.
-  REQUIRE(std::to_underlying(~TestFlags::None) == 0xFF);
+  SUBCASE("not_none_sets_every_bit") {
+    REQUIRE(std::to_underlying(~TestFlags::None) == 0xFF);
 
-  static_assert(std::to_underlying(~TestFlags::None) == 0xFF, "~TestFlags::None must have all bits set for uint8_t");
+    static_assert(std::to_underlying(~TestFlags::None) == 0xFF, "~TestFlags::None must have all bits set for uint8_t");
+  }
+
+  // ~TestFlags::A clears bit A and sets every other bit, undeclared ones included.
+  SUBCASE("not_clears_the_operand_bits") {
+    REQUIRE(std::to_underlying(~TestFlags::A) == 0xFE);
+
+    static_assert(std::to_underlying(~TestFlags::A) == 0xFE, "~TestFlags::A must clear bit A only");
+  }
+
+  // Masked against the declared flags, the complement keeps the flags the operand lacks.
+  SUBCASE("not_masked_to_declared_flags") {
+    constexpr auto declared = TestFlags::A | TestFlags::B | TestFlags::C;
+
+    REQUIRE((~TestFlags::A & declared) == (TestFlags::B | TestFlags::C));
+
+    static_assert((~TestFlags::A & declared) == (TestFlags::B | TestFlags::C),
+                  "~TestFlags::A masked to the declared flags must equal TestFlags::B | TestFlags::C");
+  }
 }
 
 // Compound assignment operators.
@@ -193,22 +273,54 @@ TEST_CASE("enable_bitwise_operators/compound_assignment") {
 
     REQUIRE(f == (TestFlags::A | TestFlags::B));
     REQUIRE(&ref == &f);
+
+    static_assert(
+      [] {
+        auto flags  = TestFlags::A;
+        flags      |= TestFlags::B;
+        return flags;
+      }()
+        == (TestFlags::A | TestFlags::B),
+      "TestFlags::A |= TestFlags::B must yield TestFlags::A | TestFlags::B in a constant expression"
+    );
   }
 
-  // operator&= assigns lhs & rhs to lhs.
+  // operator&= assigns lhs & rhs to lhs and returns reference.
   SUBCASE("and_assign") {
-    auto f  = TestFlags::A | TestFlags::B;
-    f      &= TestFlags::A;
+    auto   f   = TestFlags::A | TestFlags::B;
+    auto & ref = (f &= TestFlags::A);
 
     REQUIRE(f == TestFlags::A);
+    REQUIRE(&ref == &f);
+
+    static_assert(
+      [] {
+        auto flags  = TestFlags::A | TestFlags::B;
+        flags      &= TestFlags::A;
+        return flags;
+      }()
+        == TestFlags::A,
+      "(TestFlags::A | TestFlags::B) &= TestFlags::A must yield TestFlags::A in a constant expression"
+    );
   }
 
-  // operator^= assigns lhs ^ rhs to lhs.
+  // operator^= assigns lhs ^ rhs to lhs and returns reference.
   SUBCASE("xor_assign") {
-    auto f  = TestFlags::A | TestFlags::B;
-    f      ^= TestFlags::B;
+    auto   f   = TestFlags::A | TestFlags::B;
+    auto & ref = (f ^= TestFlags::B);
 
     REQUIRE(f == TestFlags::A);
+    REQUIRE(&ref == &f);
+
+    static_assert(
+      [] {
+        auto flags  = TestFlags::A | TestFlags::B;
+        flags      ^= TestFlags::B;
+        return flags;
+      }()
+        == TestFlags::A,
+      "(TestFlags::A | TestFlags::B) ^= TestFlags::B must yield TestFlags::A in a constant expression"
+    );
   }
 }
 

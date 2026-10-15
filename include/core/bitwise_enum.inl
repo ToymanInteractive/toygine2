@@ -20,7 +20,7 @@
 /*!
   \file   bitwise_enum.inl
   \brief  Inline implementations of the bitwise and compound-assignment operators constrained by
-          \ref toy::EnableBitwiseOperators.
+          \ref toy::BitwiseEnum.
 
   \note Included by core.hpp only; do not include this file directly.
 */

@@ -43,15 +43,17 @@ namespace toy {
   constrains on \ref toy::BitwiseEnum, which reads this value, so an enumeration that never opted in reports an unmet
   requirement instead of silently converting.
 
-  \tparam T Scoped enumeration whose enumerators name single bits. The primary template accepts any type; only a
-            specialization grants operators.
+  \tparam T Scoped enumeration over an unsigned underlying type other than \c bool, whose enumerators name single bits.
+            The primary template accepts any type; a specialization grants operators only to a type that
+            \ref toy::BitwiseEnum also accepts.
 
   \section features Key Features
 
   * **Opt-in per type**: One specialization enables the whole operator set for one enumeration.
-  * **Constexpr support**: Every operator evaluates in a constant expression.
+  * **Any named namespace**: \c ENABLE_BITWISE_OPERATORS makes the operators reachable by argument-dependent lookup, so
+    call sites need no using-directive.
   * **Type safety**: Operands and results keep type \a T; the underlying integer never reaches the call site.
-  * **Exception safety**: Every operator is \c noexcept.
+  * **Constexpr support**: Every operator evaluates in a constant expression.
   * **No allocation**: Each operator forwards to one integer operation on the underlying type.
 
   \section usage Usage Example
@@ -80,20 +82,11 @@ namespace toy {
 
   * **Contracts**: none checked. The trait does not test whether the enumerators of \a T occupy disjoint bits, so
     overlapping values stay a logic error no diagnostic reports.
-  * **Type safety**: participation is a \c requires clause, so an enumeration without a specialization fails to compile
-    at the call site.
+  * **Type safety**: participation is a \c requires clause, so an enumeration without a specialization, or over a signed
+    or \c bool underlying type, fails to compile at the call site.
   * **Value range**: a result may hold a bit pattern no enumerator names. That is well defined, because \a T fixes its
     underlying type.
-  * **Exception safety**: no operation throws; exceptions are off in the build.
-
-  \section compatibility Compatibility
-
-  * Requires C++23 for \c std::to_underlying and the constraint on each overload.
-  * Header-only, and no operator allocates or calls into the platform, so the facility suits embedded and retro
-    targets.
-
-  \note Give a flag enumeration an unsigned underlying type. Over a signed one, \c ~ yields a negative value whose
-        meaning as a flag set depends on the width of the type.
+  * **Exception safety**: no operation throws; every operator is \c noexcept, and exceptions are off in the build.
 
   \warning The operators live in namespace \ref toy, and \c ENABLE_BITWISE_OPERATORS adds using-declarations of them to
            the namespace of the enumeration, where argument-dependent lookup finds them. A specialization written by
@@ -110,22 +103,25 @@ struct EnableBitwiseOperators {
 
 /*!
   \concept BitwiseEnum
-  \brief Concept satisfied when \a T is a scoped enumeration opted into the operators of this header.
+  \brief Concept satisfied when \a T is an opted-in scoped enumeration over an unsigned underlying type.
 
   Constrains every operator below. Splitting the scoped-enum requirement from the opt-in keeps an unscoped enumeration
   out of the overload set, where the template would otherwise beat the built-in operator and quietly change the result
-  type.
+  type. The unsigned requirement exists for \c ~: over a signed type its result is negative, over \c bool every
+  complement is \c true.
 
   \section bitwise_enum_requirements Requirements
 
   A type satisfies BitwiseEnum if and only if:
   * It is a scoped enumeration, as reported by \c std::is_scoped_enum_v.
+  * Its underlying type satisfies \c std::unsigned_integral and is not \c bool.
   * A specialization of \ref toy::EnableBitwiseOperators sets its \c enable to \c true.
 
   \sa \ref toy::EnableBitwiseOperators
 */
 template <typename T>
-concept BitwiseEnum = std::is_scoped_enum_v<T> && EnableBitwiseOperators<T>::enable;
+concept BitwiseEnum = std::is_scoped_enum_v<T> && std::unsigned_integral<std::underlying_type_t<T>>
+                      && !std::same_as<std::underlying_type_t<T>, bool> && EnableBitwiseOperators<T>::enable;
 
 /*!
   \brief Unites two flag sets.
@@ -153,8 +149,8 @@ template <typename T>
 
   \return Value of \a T carrying the bits set in \a lhs and in \a rhs alike.
 
-  \note An empty intersection equals the enumerator whose value is zero, so \a T needs one for a membership test to
-        compare against.
+  \note An empty intersection equals \c T{}, so a membership test compares against it or an enumerator whose value is
+        zero.
 
   \sa toy::operator&=(), toy::operator|()
 */
@@ -256,8 +252,8 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
   \def ENABLE_BITWISE_OPERATORS
   \brief Opts a scoped enumeration into the bitwise operators of this header.
 
-  Expands to a \c static_assert rejecting anything but a scoped enumeration, a full specialization of
-  \ref toy::EnableBitwiseOperators whose \c enable is \c true, and using-declarations of the seven operators inside
+  Expands to a full specialization of \ref toy::EnableBitwiseOperators whose \c enable is \c true, a \c static_assert
+  that \ref toy::BitwiseEnum then accepts the enumeration, and using-declarations of the seven operators inside
   \a namespaceName. Argument-dependent lookup searches the namespace of the enumeration, so the operators resolve at any
   call site without a using-directive. The expansion carries its own semicolons, so the invocation needs no terminator.
 
@@ -267,8 +263,9 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
                        preprocessor would otherwise read as argument separators, as in
                        \c ENABLE_BITWISE_OPERATORS(toy, Flags<int, long>::Type).
 
-  \pre The arguments name one complete \c enum class. An unscoped enumeration or a non-enumeration type fails the
-       \c static_assert at the invocation, before any operator is instantiated.
+  \pre The arguments name one complete \c enum class over an unsigned underlying type other than \c bool. Anything else
+       fails the \c static_assert at the invocation, including an \c enum class without a fixed type, which takes
+       \c int.
   \pre \a namespaceName is the innermost namespace enclosing the enumeration, the one argument-dependent lookup
        searches. Naming an outer namespace still compiles, but call sites then miss the operators; naming a class
        fails as a redefinition of the class as a namespace.
@@ -281,19 +278,19 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
         with no diagnostic required.
   \note Several enumerations of one namespace may each invoke it: namespace scope allows a repeated using-declaration.
 
-  \warning A specialization written by hand skips this check and adds no using-declarations. It still has to satisfy
-           \ref toy::BitwiseEnum, so an unscoped enumeration written that way silently keeps the built-in operators
-           instead of these.
+  \warning A specialization written by hand skips this check and adds no using-declarations. The operators still
+           require \ref toy::BitwiseEnum. An unscoped enumeration that fails it silently keeps the built-in operators,
+           and any other fails to compile at the call site.
 
   \sa \ref toy::EnableBitwiseOperators, \ref toy::BitwiseEnum
 */
 #define ENABLE_BITWISE_OPERATORS(namespaceName, ...)                                                                   \
-  static_assert(std::is_scoped_enum_v<namespaceName::__VA_ARGS__>,                                                     \
-                "ENABLE_BITWISE_OPERATORS requires a scoped enumeration (enum class)");                                \
   template <>                                                                                                          \
   struct toy::EnableBitwiseOperators<namespaceName::__VA_ARGS__> {                                                     \
     static constexpr bool enable = true;                                                                               \
   };                                                                                                                   \
+  static_assert(toy::BitwiseEnum<namespaceName::__VA_ARGS__>,                                                          \
+                "ENABLE_BITWISE_OPERATORS requires an enum class with an unsigned underlying type other than bool");   \
   namespace namespaceName {                                                                                            \
                                                                                                                        \
   using ::toy::operator|;                                                                                              \
