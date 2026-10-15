@@ -25,6 +25,8 @@ Local files, MIT like the engine:
 - `src/string.c` also replaces the SDK's `memcpy`, `memmove` and `memset`: the SDK's `memmove` always copies front to
   back and corrupts an overlapping move to a higher address, and all three share one object in its `libc.a`, so
   defining `memmove` alone collides with the SDK's copy at link time
+- `memcpy`, `memset` and `memcmp` in `src/string.c` are 68000 assembly that saves no registers; sizes of 64 KiB and
+  more fall back to the C functions `_MemcpyLarge`, `_MemsetLarge` and `_MemcmpLarge`
 
 Files extracted from GCC libstdc++:
 

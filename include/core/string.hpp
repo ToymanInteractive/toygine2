@@ -2915,7 +2915,7 @@ public:
   [[nodiscard]] constexpr StringView subview(size_type pos = 0) const noexcept;
 
   /// Count that stands for every character up to the end of the source or of the string
-  static constexpr const size_type npos = -1;
+  static constexpr const size_type npos = size_type(-1);
 
 private:
   /// Buffer holding the characters, the terminator, and the length

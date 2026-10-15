@@ -244,7 +244,8 @@ if (PREPROCESSOR_DEFINITIONS)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
 endif ()
 
-target_link_libraries(${TOYGINE_LIBRARY_NAME} PUBLIC ${LIB_LIST} toygine::compile::defines)
+target_link_libraries(${TOYGINE_LIBRARY_NAME} PUBLIC ${LIB_LIST} toygine::compile::defines toygine::compile::abi-optimizations
+                                              PRIVATE toygine::compile::warnings)
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks

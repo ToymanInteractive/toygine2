@@ -175,6 +175,41 @@ add_library(toygine-compile-defines INTERFACE)
 add_library(toygine::compile::defines ALIAS toygine-compile-defines)
 target_compile_definitions(toygine-compile-defines INTERFACE $<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
 
+# Reaches engine-owned targets that link it PRIVATE; empty when TOYGINE_ENABLE_WARNINGS is OFF
+add_library(toygine-compile-warnings INTERFACE)
+add_library(toygine::compile::warnings ALIAS toygine-compile-warnings)
+if (TOYGINE_ENABLE_WARNINGS)
+  target_compile_options(toygine-compile-warnings INTERFACE
+    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/W4;/WX>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
+    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>")
+endif ()
+
+# Reaches every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-O3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
+
+# Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF
+add_library(toygine-compile-abi-optimizations INTERFACE)
+add_library(toygine::compile::abi-optimizations ALIAS toygine-compile-abi-optimizations)
+if (TOYGINE_ENABLE_ABI_OPTIMIZATIONS)
+  target_compile_options(toygine-compile-abi-optimizations INTERFACE
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,MSVC>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:>>")
+endif ()
+
 if (ToyGine2_VERSION_MAJOR)
   add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
 endif ()

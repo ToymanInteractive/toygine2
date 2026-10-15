@@ -1092,7 +1092,7 @@ public:
   [[nodiscard]] constexpr size_type find_last_not_of(const value_type * s, size_type pos = npos) const noexcept;
 
   /// Offset no character sits at, returned by every search that matches nothing
-  static constexpr const size_type npos = -1;
+  static constexpr const size_type npos = size_type(-1);
 
   /*!
     \brief Reports whether two views read the same characters.
