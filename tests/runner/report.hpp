@@ -275,6 +275,7 @@ private:
 
   \note Matches \ref toy::test::failure_reporter_type, so toy::test::writeReport() installs it into the context it
         drives the run with.
+  \note Info entries past the depth of the context appear only as their count, under the \c info_dropped key.
 */
 void reportFailure(const Context & context, const FailureRecord & failure, void * reporterData) noexcept;
 

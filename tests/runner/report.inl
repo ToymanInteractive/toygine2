@@ -202,6 +202,13 @@ inline void reportFailure(const Context & context, const FailureRecord & failure
       writer.flush();
     }
   }
+
+  // The stack keeps the outer entries only, so the block says how many inner ones it could not print.
+  if (context.infoDropped() > 0) {
+    writer.addText("      info_dropped: ");
+    writer.addInteger(static_cast<long long>(context.infoDropped()));
+    writer.flush();
+  }
 }
 
 inline void reportSubtest(ReportWriter & writer, Context & context, const Context & probe,

@@ -154,6 +154,23 @@ void bodyFailsPastKeptSubcaseNames(toy::test::Context & toyTestContext) {
   }
 }
 
+static_assert(toy::test::Context::c_maxInfoDepth == 8, "the body below pushes two entries past the info depth");
+
+// Ten nested info entries, so the failure block keeps the outer eight and counts the two it lost.
+void bodyFailsPastTheInfoDepth(toy::test::Context & toyTestContext) {
+  TOY_TEST_INFO("i1");
+  TOY_TEST_INFO("i2");
+  TOY_TEST_INFO("i3");
+  TOY_TEST_INFO("i4");
+  TOY_TEST_INFO("i5");
+  TOY_TEST_INFO("i6");
+  TOY_TEST_INFO("i7");
+  TOY_TEST_INFO("i8");
+  TOY_TEST_INFO("i9");
+  TOY_TEST_INFO("i10");
+  static_cast<void>(toyTestContext.record(false, "1 == 2", "deep.cpp", 10));
+}
+
 // Compares the bytes handed over and requires the expected text to end there: a prefix is not the report.
 // Comparing to the terminator would ignore the captured length and pass a report whose writer miscounted it.
 [[nodiscard]] bool reportMatches(const CapturedReport & captured, const char * expected) noexcept {
@@ -405,6 +422,42 @@ TEST_CASE("test/write_report/failure_block_carries_info") {
                            "      ...\n"
                            "    1..1\n"
                            "not ok 1 - sample/info\n"
+                           "1..1\n"
+                           "# assertions passed=0 failed=1\n");
+}
+
+// Entries past the info depth are lost, so the failure block reports how many.
+TEST_CASE("test/write_report/failure_block_counts_dropped_info") {
+  toy::test::CaseRegistrar * head = nullptr;
+
+  toy::test::CaseRegistrar only{head, "sample/deep", "a.cpp", 1, &bodyFailsPastTheInfoDepth};
+
+  CapturedReport   captured;
+  CapturedReport * destination = &captured;
+
+  const int code = toy::test::writeReport(&captureWrite, &destination, head);
+
+  REQUIRE(code == 1);
+  REQUIRE_REPORT(captured, "TAP version 14\n"
+                           "not ok 1 - sample/deep\n"
+                           "  ---\n"
+                           "  severity: fail\n"
+                           "  failures:\n"
+                           "    - at:\n"
+                           "        file: 'deep.cpp'\n"
+                           "        line: 10\n"
+                           "      expr: '1 == 2'\n"
+                           "      info:\n"
+                           "        - text: 'i1'\n"
+                           "        - text: 'i2'\n"
+                           "        - text: 'i3'\n"
+                           "        - text: 'i4'\n"
+                           "        - text: 'i5'\n"
+                           "        - text: 'i6'\n"
+                           "        - text: 'i7'\n"
+                           "        - text: 'i8'\n"
+                           "      info_dropped: 2\n"
+                           "  ...\n"
                            "1..1\n"
                            "# assertions passed=0 failed=1\n");
 }

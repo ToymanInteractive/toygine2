@@ -156,7 +156,7 @@ TEST_CASE("test/context/info_without_value") {
   REQUIRE(context.infoAt(0).hasValue == false);
 }
 
-// Pushing past the fixed depth drops the surplus but keeps push and pop balanced.
+// Pushing past the fixed depth counts the surplus as dropped, and popping it leaves the kept entries untouched.
 TEST_CASE("test/context/info_stack_overflow_stays_balanced") {
   CapturedFailure    captured;
   toy::test::Context context{&captureFailure, &captured};
@@ -166,11 +166,21 @@ TEST_CASE("test/context/info_stack_overflow_stays_balanced") {
     context.pushInfo("entry", static_cast<long long>(index));
 
   REQUIRE(context.infoCount() == toy::test::Context::c_maxInfoDepth);
+  REQUIRE(context.infoDropped() == 4);
 
-  for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth + 4; ++index)
+  for (std::size_t index = 0; index < 4; ++index)
+    context.popInfo();
+
+  REQUIRE(context.infoCount() == toy::test::Context::c_maxInfoDepth);
+  REQUIRE(context.infoDropped() == 0);
+  REQUIRE(context.infoAt(toy::test::Context::c_maxInfoDepth - 1).value
+          == static_cast<long long>(toy::test::Context::c_maxInfoDepth - 1));
+
+  for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth; ++index)
     context.popInfo();
 
   REQUIRE(context.infoCount() == 0);
+  REQUIRE(context.infoDropped() == 0);
 }
 
 // beginCase clears the per-case verdict but keeps the totals, which span the whole run.

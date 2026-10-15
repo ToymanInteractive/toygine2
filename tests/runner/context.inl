@@ -116,6 +116,10 @@ inline std::size_t Context::infoCount() const noexcept {
   return std::min(_infoDepth, c_maxInfoDepth);
 }
 
+inline std::size_t Context::infoDropped() const noexcept {
+  return _infoDepth - infoCount();
+}
+
 inline const InfoEntry & Context::infoAt(std::size_t index) const noexcept {
   TOY_TEST_ASSERT(index < infoCount(), "index must be below the number of readable info entries");
 
