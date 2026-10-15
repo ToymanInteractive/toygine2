@@ -2724,6 +2724,58 @@ TEST_CASE("string/concatenation") {
                 "the result must take the storage of its string operand");
 }
 
+// The left operand may read the right string itself, since the result starts as a copy of the right one.
+TEST_CASE("string/concatenation_from_right_operand") {
+  CHECK(holds(c_sampleString.c_str() + c_sampleString, "playerplayer"));
+  CHECK(holds(c_sampleString.subview(c_substringOffset) + c_sampleString, "ayerplayer"));
+
+  static_assert(holds(c_sampleString.c_str() + c_sampleString, "playerplayer"),
+                "a pointer into the right string must go before it");
+  static_assert(holds(c_sampleString.subview(c_substringOffset) + c_sampleString, "ayerplayer"),
+                "a view into the right string must go before it");
+}
+
+// A join that fills the storage to its capacity fits with the pointer, the character, or the view on the left.
+TEST_CASE("string/concatenation_to_capacity") {
+  constexpr Fixed afterListed(c_long, c_capacity - c_listedLength);
+  constexpr Fixed afterCharacter(c_long, c_capacity - 1);
+
+  CHECK(holds(c_listed + afterListed, "abcabcdefghijkl"));
+  CHECK(holds(StringView{c_listed} + afterListed, "abcabcdefghijkl"));
+  CHECK(holds(c_fillCharacter + afterCharacter, "xabcdefghijklmn"));
+
+  static_assert(holds(c_listed + afterListed, "abcabcdefghijkl"), "a pointer must fill the storage exactly");
+  static_assert(holds(StringView{c_listed} + afterListed, "abcabcdefghijkl"), "a view must fill the storage exactly");
+  static_assert(holds(c_fillCharacter + afterCharacter, "xabcdefghijklmn"),
+                "a character must fill the storage exactly");
+}
+
+#if !defined(TOYGINE_DEBUG)
+// Without the debug check, a join the storage rejects leaves the string operand alone, on either side.
+TEST_CASE("string/concatenation_past_capacity") {
+  constexpr Fixed full(c_long, c_capacity);
+  constexpr Fixed nearlyFull(c_long, c_capacity - 1);
+  constexpr Fixed listed(c_listed);
+
+  // Each side fits on its own, and only the joined length overflows.
+  CHECK((full + c_listed) == full);
+  CHECK((nearlyFull.c_str() + listed) == listed);
+  CHECK((nearlyFull.subview() + listed) == listed);
+  CHECK((c_fillCharacter + full) == full);
+
+  // The left side alone overflows the storage.
+  CHECK((c_long + listed) == listed);
+  CHECK((StringView{c_long} + listed) == listed);
+
+  static_assert((full + c_listed) == full, "a rejected join must keep the left string");
+  static_assert((nearlyFull.c_str() + listed) == listed, "a rejected join must keep the right string");
+  static_assert((nearlyFull.subview() + listed) == listed, "a rejected join must keep the right string");
+  static_assert((c_fillCharacter + full) == full, "a rejected join must keep the right string");
+  static_assert((c_long + listed) == listed, "a pointer that overflows alone must leave the right string");
+  static_assert((StringView{c_long} + listed) == listed, "a view that overflows alone must leave the right string");
+}
+#endif // !TOYGINE_DEBUG
+
 // Whether a string holds the same characters as another string, a view, or a pointer, on either side.
 TEST_CASE("string/equality") {
   CHECK(c_sampleString == Fixed(c_sample));

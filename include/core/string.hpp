@@ -3181,8 +3181,8 @@ template <StringStorage storageType>
   \pre \a lhs is non-null, checked by assert_message in debug builds.
   \pre The storage accepts the joined length, checked by assert_message in debug builds.
 
-  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
-           the joined length.
+  \warning Returns a copy of \a rhs alone when the storage rejects the joined length, where \c std::basic_string
+           throws \c std::length_error.
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */
@@ -3201,8 +3201,8 @@ template <StringStorage storageType>
 
   \pre The storage accepts the joined length, checked by assert_message in debug builds.
 
-  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
-           the joined length.
+  \warning Returns a copy of \a rhs alone when the storage rejects the joined length, where \c std::basic_string
+           throws \c std::length_error.
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */
@@ -3224,8 +3224,8 @@ template <StringStorage storageType>
 
   \pre The storage accepts the joined length, checked by assert_message in debug builds.
 
-  \warning A shipping build skips the capacity check, and the result keeps the left side alone when the storage rejects
-           the joined length.
+  \warning Returns a copy of \a rhs alone when the storage rejects the joined length, where \c std::basic_string
+           throws \c std::length_error.
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */

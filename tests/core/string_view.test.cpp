@@ -356,6 +356,34 @@ TEST_CASE("string_view/remove_prefix") {
   static_assert(withoutPrefix(c_sample, c_sampleLength).empty(), "dropping the whole length must leave an empty view");
 }
 
+#if !defined(TOYGINE_DEBUG)
+// Without the debug check, a count past the length drops every character and stops at the terminator.
+TEST_CASE("string_view/remove_prefix_past_end") {
+  StringView view(c_sample);
+  view.remove_prefix(c_sampleLength + 1);
+  CHECK(view.empty());
+  CHECK(view.data() == c_sample + c_sampleLength);
+
+  // A default view has no characters to drop, so its pointer stays null.
+  StringView defaulted;
+  defaulted.remove_prefix(1);
+  CHECK(defaulted.empty());
+  CHECK(defaulted.data() == nullptr);
+
+  constexpr auto defaultedDropped = [] {
+    StringView empty;
+    empty.remove_prefix(1);
+
+    return empty;
+  };
+
+  static_assert(withoutPrefix(c_sample, c_sampleLength + 1).empty(), "an oversized count must drop every character");
+  static_assert(withoutPrefix(c_sample, c_sampleLength + 1).data() == c_sample + c_sampleLength,
+                "an oversized count must leave the view over the terminator");
+  static_assert(defaultedDropped().data() == nullptr, "a default view must keep its null pointer");
+}
+#endif // !TOYGINE_DEBUG
+
 // Which string each of the two views reads after they exchange their contents.
 TEST_CASE("string_view/swap") {
   StringView left(c_sample);
