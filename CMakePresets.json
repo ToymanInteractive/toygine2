@@ -337,6 +337,17 @@
             ]
         },
         {
+            "name": "macos-shipping-tests",
+            "displayName": "macOS shipping tests",
+            "description": "ToyGine 2 MacOS Shipping Build with unit tests (Release, no debug checks)",
+            "inherits": [
+                "type-shipping",
+                "platform-macos",
+                "with-tests",
+                "base"
+            ]
+        },
+        {
             "name": "linux-debug",
             "displayName": "Linux debug",
             "description": "ToyGine 2 Linux Debug Build",
@@ -371,6 +382,17 @@
             "inherits": [
                 "type-shipping",
                 "platform-linux",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-shipping-tests",
+            "displayName": "Linux shipping tests",
+            "description": "ToyGine 2 Linux Shipping Build with unit tests (Release, no debug checks)",
+            "inherits": [
+                "type-shipping",
+                "platform-linux",
+                "with-tests",
                 "base"
             ]
         },
@@ -771,6 +793,11 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "macos-shipping-tests",
+            "configurePreset": "macos-shipping-tests",
+            "inherits": "default-shipping"
+        },
+        {
             "name": "linux-debug",
             "configurePreset": "linux-debug",
             "inherits": "default-debug"
@@ -783,6 +810,11 @@
         {
             "name": "linux-shipping",
             "configurePreset": "linux-shipping",
+            "inherits": "default-shipping"
+        },
+        {
+            "name": "linux-shipping-tests",
+            "configurePreset": "linux-shipping-tests",
             "inherits": "default-shipping"
         },
         {
@@ -949,6 +981,12 @@
             "configuration": "RelWithDebInfo"
         },
         {
+            "name": "default-shipping",
+            "hidden": true,
+            "inherits": "default",
+            "configuration": "Release"
+        },
+        {
             "name": "windows-msvc-x64",
             "configurePreset": "windows-msvc-x64",
             "inherits": "default-release"
@@ -979,6 +1017,11 @@
             "inherits": "default-release"
         },
         {
+            "name": "macos-shipping-tests",
+            "configurePreset": "macos-shipping-tests",
+            "inherits": "default-shipping"
+        },
+        {
             "name": "linux-debug",
             "configurePreset": "linux-debug",
             "inherits": "default-debug"
@@ -987,6 +1030,11 @@
             "name": "linux-release",
             "configurePreset": "linux-release",
             "inherits": "default-release"
+        },
+        {
+            "name": "linux-shipping-tests",
+            "configurePreset": "linux-shipping-tests",
+            "inherits": "default-shipping"
         },
         {
             "name": "md-debug",

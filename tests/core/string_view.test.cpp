@@ -356,8 +356,9 @@ TEST_CASE("string_view/remove_prefix") {
   static_assert(withoutPrefix(c_sample, c_sampleLength).empty(), "dropping the whole length must leave an empty view");
 }
 
+// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
 #if !defined(TOYGINE_DEBUG)
-// Without the debug check, a count past the length drops every character and stops at the terminator.
+// A count past the length drops every character and stops at the terminator.
 TEST_CASE("string_view/remove_prefix_past_end") {
   StringView view(c_sample);
   view.remove_prefix(c_sampleLength + 1);
@@ -381,6 +382,32 @@ TEST_CASE("string_view/remove_prefix_past_end") {
   static_assert(withoutPrefix(c_sample, c_sampleLength + 1).data() == c_sample + c_sampleLength,
                 "an oversized count must leave the view over the terminator");
   static_assert(defaultedDropped().data() == nullptr, "a default view must keep its null pointer");
+}
+
+// A read from an offset past the end sees an empty range.
+TEST_CASE("string_view/read_past_end") {
+  const StringView view(c_sample);
+
+  std::array<char, 16> buffer = sentinelBuffer();
+  CHECK(view.copy(buffer.data(), 4, c_sampleLength + 1) == 0);
+  CHECK(buffer[0] == c_sentinel);
+  CHECK(view.compare(c_sampleLength + 1, 1, StringView{}) == 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, StringView(c_sample)) < 0);
+  CHECK(view.compare(0, c_sampleLength, StringView(c_sample), c_sampleLength + 1, 1) > 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, c_sample) < 0);
+  CHECK(view.compare(c_sampleLength + 1, 1, c_sample, c_sampleLength) < 0);
+
+  static_assert(copiedCount(c_sample, 4, c_sampleLength + 1) == 0, "a copy from past the end must write nothing");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, StringView{}) == 0,
+                "a part past the end must compare equal to an empty view");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, StringView(c_sample)) < 0,
+                "a part past the end must order before a non-empty view");
+  static_assert(c_sampleView.compare(0, c_sampleLength, StringView(c_sample), c_sampleLength + 1, 1) > 0,
+                "an argument part past its end must compare as empty");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, c_sample) < 0,
+                "a part past the end must order before a non-empty pointer");
+  static_assert(c_sampleView.compare(c_sampleLength + 1, 1, c_sample, c_sampleLength) < 0,
+                "a part past the end must order before a non-empty counted pointer");
 }
 #endif // !TOYGINE_DEBUG
 

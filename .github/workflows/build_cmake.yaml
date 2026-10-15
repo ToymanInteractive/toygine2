@@ -94,6 +94,12 @@ jobs:
             cmake_preset: linux-release
             artifact_id: linux-arm64-clang
 
+          - name: Linux Ninja x64 CLang shipping
+            os: ubuntu-26.04
+            container: ghcr.io/toymaninteractive/toygine2.clang.toolchain:latest
+            run_test: "true"
+            cmake_preset: linux-shipping-tests
+
           - name: Sega Mega Drive
             os: ubuntu-26.04
             container: ghcr.io/toymaninteractive/toygine2.md.toolchain:latest
