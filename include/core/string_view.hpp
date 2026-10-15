@@ -32,6 +32,7 @@
 #define INCLUDE_CORE_STRING_VIEW_HPP_
 
 #include "string_like.hpp"
+#include "string_utils.hpp"
 
 namespace toy {
 
@@ -96,8 +97,10 @@ namespace toy {
 
   \section string_view_safety Safety Guarantees
 
-  * **Contracts**: the pointer constructor checks its argument against \c nullptr with assert_message in debug builds.
-    A shipping build skips the check and stores the null pointer with a length of \c 0.
+  * **Contracts**: null pointers, offsets, and counts are checked by assert_message in debug builds, and utf8_size()
+    validates the bytes it counts. Every postcondition assumes the preconditions of its member held. A shipping build
+    skips the checks: a null pointer makes an empty view, an offset past the end selects an empty range, and an element
+    access past the characters reads outside them; each member states which.
   * **Lifetime**: the characters belong to whoever created them; the view neither owns them nor extends their
     lifetime.
   * **Type safety**: the deleted \c nullptr_t constructor rejects a literal \c nullptr during compilation.
@@ -305,6 +308,9 @@ public:
 
     \pre \a pos is less than size(), checked by assert_message in debug builds.
 
+    \warning An offset at or past size() reads past the viewed characters, and on a default view it dereferences
+             \c nullptr.
+
     \sa at()
     \sa front()
   */
@@ -322,6 +328,9 @@ public:
 
     \pre \a pos is less than size(), checked by assert_message in debug builds.
 
+    \warning An offset at or past size() reads past the viewed characters, and on a default view it dereferences
+             \c nullptr.
+
     \sa operator[]()
   */
   [[nodiscard]] constexpr const_reference at(size_type pos) const noexcept;
@@ -332,6 +341,8 @@ public:
     \return Reference to the character at offset \c 0.
 
     \pre The view holds at least one character, checked by assert_message in debug builds.
+
+    \warning An empty view yields its terminator, or dereferences \c nullptr on a default view.
 
     \sa back()
     \sa operator[]()
@@ -344,6 +355,8 @@ public:
     \return Reference to the character before the terminator.
 
     \pre The view holds at least one character, checked by assert_message in debug builds.
+
+    \warning An empty view yields a reference outside the viewed string.
 
     \sa front()
     \sa operator[]()
@@ -375,12 +388,11 @@ public:
   /*!
     \brief Returns the length of the viewed string.
 
-    \return Count of characters before the terminator, \c 0 while the view holds no string.
-
-    \note The count is in bytes, not characters; under a multi-byte encoding the two differ.
+    \return Count of bytes before the terminator, \c 0 while the view holds no string.
 
     \sa length()
     \sa empty()
+    \sa utf8_size()
   */
   [[nodiscard]] constexpr size_type size() const noexcept;
 
@@ -389,7 +401,7 @@ public:
 
     Repeats size() under the name string types use.
 
-    \return Count of characters before the terminator, \c 0 while the view holds no string.
+    \return Count of bytes before the terminator, \c 0 while the view holds no string.
 
     \sa size()
   */
@@ -476,9 +488,10 @@ public:
     \return Number of characters written: the smaller of \a count and size() minus \a pos.
 
     \pre \a pos is not greater than size(), checked by assert_message in debug builds.
+    \pre \a dest is non-null or the call writes nothing, checked by assert_message in debug builds.
     \pre \a dest has room for the characters written and does not overlap the viewed string.
 
-    \warning A shipping build skips the check, writes nothing, and returns \c 0 when \a pos is past the end, where
+    \warning A shipping build skips the checks, writes nothing, and returns \c 0 when \a pos is past the end, where
              \c std::string_view throws \c std::out_of_range.
 
     \sa c_str()
@@ -1093,8 +1106,13 @@ public:
   */
   [[nodiscard]] constexpr size_type find_last_not_of(const value_type * s, size_type pos = npos) const noexcept;
 
-  /// Offset no character sits at, returned by every search that matches nothing
-  static constexpr const size_type npos = size_type(-1);
+  /*!
+    \brief Offset no character sits at, the largest \c size_t.
+
+    Every search returns it when nothing matches. As a count it reaches the end of the view or of the other string, and
+    as the start of a backward search it covers the whole view.
+  */
+  static constexpr const size_type npos = string_utils::c_npos;
 
   /*!
     \brief Reports whether two views read the same characters.
@@ -1114,7 +1132,9 @@ public:
     \sa operator<=>()
     \sa compare(StringView)
   */
-  friend constexpr bool operator==(StringView lhs, StringView rhs) noexcept;
+  [[nodiscard]] friend constexpr bool operator==(StringView lhs, StringView rhs) noexcept {
+    return lhs.size() == rhs.size() && lhs.compare(rhs) == 0;
+  }
 
   /*!
     \brief Orders two views lexicographically.
@@ -1135,7 +1155,9 @@ public:
     \sa operator==()
     \sa compare(StringView)
   */
-  friend constexpr traits_type::comparison_category operator<=>(StringView lhs, StringView rhs) noexcept;
+  [[nodiscard]] friend constexpr traits_type::comparison_category operator<=>(StringView lhs, StringView rhs) noexcept {
+    return lhs.compare(rhs) <=> 0;
+  }
 
 private:
   /// First character of the viewed string, \c nullptr while the view holds none

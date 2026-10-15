@@ -45,14 +45,14 @@ namespace toy {
 
   A type satisfies StringStorage if and only if \a T with any reference stripped models \c std::default_initializable
   and \c std::movable, and, for an lvalue \a storage of that type, an lvalue \a constStorage of type \c const \a T, and
-  a \c size_t \a newSize, each expression below is well-formed and has exactly the type given:
+  \c size_t values \a newCapacity and \a newSize, each expression below is well-formed and has exactly the type given:
 
   * \c storage.data() has type \c char \c *.
   * \c constStorage.data() has type \c const \c char \c *.
   * \c constStorage.size() has type \c size_t.
   * \c constStorage.capacity() has type \c size_t.
   * \c constStorage.max_size() has type \c size_t.
-  * \c storage.reserve(\a newSize) has type \c bool.
+  * \c storage.reserve(\a newCapacity) has type \c bool.
   * \c storage.shrink_to_fit() has type \c void.
   * \c storage.setSize(\a newSize) has type \c void.
 
@@ -117,13 +117,14 @@ template <typename T>
 concept StringStorage = std::default_initializable<std::remove_reference_t<T>>
                         && std::movable<std::remove_reference_t<T>>
                         && requires(std::remove_reference_t<T> &       storage,
-                                    const std::remove_reference_t<T> & constStorage, size_t newSize) {
+                                    const std::remove_reference_t<T> & constStorage, size_t newCapacity,
+                                    size_t newSize) {
                              { storage.data() } -> std::same_as<char *>;
                              { constStorage.data() } -> std::same_as<const char *>;
                              { constStorage.size() } -> std::same_as<size_t>;
                              { constStorage.capacity() } -> std::same_as<size_t>;
                              { constStorage.max_size() } -> std::same_as<size_t>;
-                             { storage.reserve(newSize) } -> std::same_as<bool>;
+                             { storage.reserve(newCapacity) } -> std::same_as<bool>;
                              { storage.shrink_to_fit() } -> std::same_as<void>;
                              { storage.setSize(newSize) } -> std::same_as<void>;
                            };

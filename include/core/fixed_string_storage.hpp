@@ -318,9 +318,7 @@ public:
   /*!
     \brief Returns the length of the stored string.
 
-    \return Count of characters before the terminator, \c 0 for an empty buffer.
-
-    \note The count is in bytes, not characters; under a multi-byte encoding the two differ.
+    \return Count of bytes before the terminator, \c 0 for an empty buffer.
 
     \sa capacity()
     \sa setSize()

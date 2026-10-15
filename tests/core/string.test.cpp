@@ -2861,6 +2861,10 @@ TEST_CASE("string/search_signatures") {
                   && std::is_same_v<decltype(c_repeatedString.find_first_of(c_listed)), Fixed::size_type>
                   && std::is_same_v<decltype(c_repeatedString.find_last_not_of(c_listed, 0, 0)), Fixed::size_type>,
                 "every search must return an offset of size_type");
+
+  // The value every search reports for no match is the one the view and the shared search functions use.
+  static_assert(Fixed::npos == StringView::npos && Fixed::npos == string_utils::c_npos,
+                "npos must match StringView::npos and string_utils::c_npos");
 }
 
 // What compare() reports against a view, another storage, or a pointer, whole or by a substring of either side.

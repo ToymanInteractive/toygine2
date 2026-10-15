@@ -34,6 +34,7 @@
 #include "fixed_string_storage.hpp"
 #include "string_like.hpp"
 #include "string_storage.hpp"
+#include "string_utils.hpp"
 #include "string_view.hpp"
 
 namespace toy {
@@ -747,7 +748,7 @@ public:
 
     \pre \a pos is less than size(), checked by assert_message in debug builds.
 
-    \warning A shipping build skips the check, and an offset past the characters reads or writes outside them.
+    \warning An offset past the characters reads or writes outside them.
 
     \sa operator[](size_t)
   */
@@ -761,6 +762,8 @@ public:
     \return Reference to the character at \a pos.
 
     \pre \a pos is less than size(), checked by assert_message in debug builds.
+
+    \warning An offset past the characters reads outside them.
 
     \sa at(size_t)
   */
@@ -778,7 +781,7 @@ public:
     \pre \a pos is not greater than size(), checked by assert_message in debug builds.
 
     \warning Writing anything but \c '\\0' to the terminator leaves c_str() unterminated.
-    \warning A shipping build skips the check, and an offset past the terminator reads or writes outside the characters.
+    \warning An offset past the terminator reads or writes outside the characters.
 
     \sa at(size_t)
   */
@@ -793,6 +796,8 @@ public:
 
     \pre \a pos is not greater than size(), checked by assert_message in debug builds.
 
+    \warning An offset past the terminator reads outside the characters.
+
     \sa operator[](size_t)
   */
   [[nodiscard]] constexpr const_reference operator[](size_type pos) const noexcept;
@@ -803,6 +808,9 @@ public:
     \return Reference to the character at offset \c 0.
 
     \pre The string is not empty, checked by assert_message in debug builds.
+
+    \warning An empty string yields its terminator, and writing anything but \c '\\0' through it leaves c_str()
+             unterminated.
 
     \sa back()
   */
@@ -815,6 +823,8 @@ public:
 
     \pre The string is not empty, checked by assert_message in debug builds.
 
+    \note An empty string yields its terminator.
+
     \sa front()
   */
   [[nodiscard]] constexpr const_reference front() const noexcept;
@@ -826,7 +836,7 @@ public:
 
     \pre The string is not empty, checked by assert_message in debug builds.
 
-    \warning A shipping build skips the check, and an empty string yields a reference outside the buffer.
+    \warning An empty string yields a reference outside the buffer.
 
     \sa front()
   */
@@ -838,6 +848,8 @@ public:
     \return Reference to the character before the terminator.
 
     \pre The string is not empty, checked by assert_message in debug builds.
+
+    \warning An empty string yields a reference outside the buffer.
 
     \sa back()
   */
@@ -2089,26 +2101,26 @@ public:
                                                      Range && range) noexcept;
 
   /*!
-    \brief Copies up to \a count characters starting at \a pos into \a destination.
+    \brief Copies up to \a count characters starting at \a pos into \a dest.
 
     Stops at the end of the string and writes no terminator.
 
-    \param destination First byte of the buffer to write into.
-    \param count       Most characters to copy.
-    \param pos         Offset of the first character to copy (default: \c 0).
+    \param dest  First byte of the buffer to write into.
+    \param count Most characters to copy.
+    \param pos   Offset of the first character to copy (default: \c 0).
 
     \return Number of characters written: the smaller of \a count and size() minus \a pos.
 
     \pre \a pos is not greater than size(), checked by assert_message in debug builds.
-    \pre \a destination is non-null or the call writes nothing, checked by assert_message in debug builds.
-    \pre \a destination has room for the characters written and does not overlap this string.
+    \pre \a dest is non-null or the call writes nothing, checked by assert_message in debug builds.
+    \pre \a dest has room for the characters written and does not overlap this string.
 
     \warning A shipping build skips the checks, writes nothing, and returns \c 0 when \a pos is past the end, where
              \c std::basic_string throws \c std::out_of_range.
 
     \sa c_str()
   */
-  constexpr size_type copy(value_type * destination, size_type count, size_type pos = 0) const noexcept;
+  constexpr size_type copy(value_type * dest, size_type count, size_type pos = 0) const noexcept;
 
   /*!
     \brief Sets the length to \a count, appending null characters when it grows.
@@ -2902,20 +2914,25 @@ public:
 
     \return View starting at \a pos and ending at the terminator.
 
-    \pre \a pos is not greater than size(), checked by assert_message in debug builds; a shipping build views the empty
-         tail instead.
+    \pre \a pos is not greater than size(), checked by assert_message in debug builds.
 
     \note The view measures its length up to the first \c '\\0', so a null byte inside the tail ends it early.
 
     \warning The view dangles once the string is destroyed, and any call that changes the string may leave it reading
              other characters.
+    \warning An offset past the end views the empty tail.
 
     \sa substr()
   */
   [[nodiscard]] constexpr StringView subview(size_type pos = 0) const noexcept;
 
-  /// Count that stands for every character up to the end of the source or of the string
-  static constexpr const size_type npos = size_type(-1);
+  /*!
+    \brief Offset no character sits at, the largest \c size_t.
+
+    Every search returns it when nothing matches. As a count it reaches the end of the string or of the source, and as
+    the start of a backward search it covers the whole string.
+  */
+  static constexpr const size_type npos = string_utils::c_npos;
 
 private:
   /// Buffer holding the characters, the terminator, and the length
