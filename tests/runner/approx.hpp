@@ -21,7 +21,7 @@
   \file   approx.hpp
   \brief  Tolerant floating-point comparison shared by the doctest and built-in test runners.
 
-  Defines \ref toy::test::Approx: a value carrying a relative tolerance, compared through a free \c operator==. Used
+  Defines \ref toy::test::Approx, a value carrying a relative tolerance, compared through a free \c operator==. Used
   wherever a test asserts a floating-point result, under either runner.
 
   \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
@@ -71,10 +71,10 @@ concept ApproxOperand = std::convertible_to<T, double>;
 
   \section features Key Features
 
-  * **Constexpr support**: every operation is usable in a constant expression
+  * **Constexpr support**: every operation is usable in a constant expression whose arithmetic stays finite
   * **Relative tolerance**: the epsilon scales with the larger operand
   * **Mixed precision**: comparison against any floating-point type happens in their common type
-  * **Freestanding**: no dependency on \c <cmath> or any hosted header
+  * **Freestanding**: no dependency on \c \<cmath\> or any hosted header
 
   \section usage Usage Example
 
@@ -97,23 +97,36 @@ concept ApproxOperand = std::convertible_to<T, double>;
   \section safety Safety Guarantees
 
   * **Contracts**: none; every finite value of type \a T is a valid argument
-  * **Type safety**: uses C++23 concepts; a non-floating-point argument fails the constraint
+  * **Type safety**: a non-floating-point argument fails the \c std::floating_point constraint
   * **Memory safety**: no dynamic allocation
   * **Exception safety**: No operation throws; exceptions are off in the build
 
   \section compatibility Compatibility
 
-  Requires C++20 concepts. Allocates nothing and includes no hosted header, so it builds on every console and embedded
-  target the engine supports. Verdicts match DocTest on every value \c double represents; comparison happens in the
-  operands' own precision rather than in \c double, which DocTest always uses.
+  Allocates nothing and includes no hosted header, so it builds on every console and embedded target the engine
+  supports. Verdicts match DocTest on every value \c double represents; comparison happens in the operands' own
+  precision rather than in \c double, which DocTest always uses.
 
   \note A comparison involving NaN is false, matching the behaviour of the built-in operator.
+  \note A comparison involving infinity is false, even against an infinity of the same sign: the difference is NaN or
+        infinite, and neither falls below the tolerance. DocTest gives the same verdict.
+  \note In a constant expression, comparing two infinities of the same sign fails to compile under GCC and Clang, since
+        their difference is NaN; GCC also rejects a difference that overflows, and Clang a NaN operand.
   \note The default tolerance is the same constant for every \a T, deliberately: DocTest uses that one value regardless
         of type, and matching it keeps a test's verdict identical under both runners.
 */
 template <std::floating_point T>
 class Approx final {
 public:
+  /*!
+    \brief Wraps a value with the default tolerance.
+
+    \param value Value the comparison expects.
+
+    \post tolerance() returns \c 100 times the \c float epsilon, converted to \a T.
+
+    \sa epsilon()
+  */
   explicit constexpr Approx(T value) noexcept;
 
   /*!
@@ -129,10 +142,20 @@ public:
   template <ApproxOperand U>
   [[nodiscard]] constexpr Approx epsilon(U value) const noexcept;
 
-  /// Returns the compared value.
+  /*!
+    \brief Returns the compared value.
+
+    \return Value given at construction.
+  */
   [[nodiscard]] constexpr T value() const noexcept;
 
-  /// Returns the relative tolerance; see epsilon().
+  /*!
+    \brief Returns the relative tolerance.
+
+    \return Tolerance passed to the epsilon() call that made this copy, or the default set at construction.
+
+    \sa epsilon()
+  */
   [[nodiscard]] constexpr T tolerance() const noexcept;
 
 private:
@@ -171,7 +194,7 @@ Approx(T) -> Approx<double>;
   \note The form with the plain value on the left resolves through the reversed candidate C++20 synthesizes, so no
         second operator is declared.
 
-  \sa toy::test::Approx
+  \sa \ref toy::test::Approx
 */
 template <std::floating_point T, ApproxOperand U>
 [[nodiscard]] constexpr bool operator==(const Approx<T> & lhs, U rhs) noexcept;
