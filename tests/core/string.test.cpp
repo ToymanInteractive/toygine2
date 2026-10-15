@@ -1333,6 +1333,26 @@ TEST_CASE("string/max_size") {
   static_assert(FixedString<1>().max_size() == 0, "the smallest buffer must hold no characters at all");
 }
 
+// utf8_size() counts the characters every byte of the string encodes, a null byte inside it included.
+TEST_CASE("string/utf8_size") {
+  constexpr const char * c_cyrillic       = "привет";
+  constexpr size_t       c_cyrillicLength = std::char_traits<char>::length(c_cyrillic);
+
+  CHECK(c_sampleString.utf8_size() == c_sampleLength);
+  CHECK(Fixed(c_cyrillic).utf8_size() == c_cyrillicLength / 2);
+  CHECK(c_emptyString.utf8_size() == 0);
+
+  // The view stops at the null byte, while the string counts on to its end.
+  CHECK(c_embeddedNullString.utf8_size() == c_embeddedNullLength);
+  CHECK(StringView(c_embeddedNullString).utf8_size() < c_embeddedNullLength);
+
+  static_assert(c_sampleString.utf8_size() == c_sampleLength, "an ASCII string counts one character per byte");
+  static_assert(Fixed(c_cyrillic).utf8_size() == c_cyrillicLength / 2, "a two-byte character counts once");
+  static_assert(c_emptyString.utf8_size() == 0, "an empty string counts nothing");
+  static_assert(c_embeddedNullString.utf8_size() == c_embeddedNullLength,
+                "a null byte inside the string must count as a character");
+}
+
 // capacity() reports the characters the buffer takes, the terminator excluded, independent of the length.
 TEST_CASE("string/capacity") {
   CHECK(Fixed().capacity() == c_capacity);
@@ -3044,6 +3064,19 @@ TEST_CASE("string/subview") {
                 "the view must point into the string instead of a copy");
   static_assert(c_sampleString.subview().size() == c_sampleLength, "the default offset must view the whole string");
   static_assert(c_sampleString.subview(c_sampleLength).empty(), "an offset of size() must yield an empty view");
+}
+
+// The view measures up to the first null character, so a tail holding one is viewed only up to it.
+TEST_CASE("string/subview_embedded_null") {
+  constexpr size_t c_headLength = std::char_traits<char>::length(c_embeddedNull);
+
+  CHECK(c_embeddedNullString.subview().size() == c_headLength);
+  CHECK(c_embeddedNullString.subview(c_headLength + 1) == StringView{c_embeddedNull + c_headLength + 1});
+
+  static_assert(c_embeddedNullString.subview().size() == c_headLength,
+                "the view must stop at the first null character");
+  static_assert(c_embeddedNullString.subview(c_headLength + 1) == StringView{c_embeddedNull + c_headLength + 1},
+                "a view past the null character must hold the characters after it");
 }
 
 // The operations never throw; compare() reports an int, the predicates a bool, substr() a string of the same storage.

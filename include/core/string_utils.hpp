@@ -19,10 +19,10 @@
 //
 /*!
   \file   string_utils.hpp
-  \brief  Character search and comparison over a range given as a pointer and a length.
+  \brief  Character search, comparison, and UTF-8 counting over a range given as a pointer and a length.
 
-  Defines the \ref toy::string_utils functions that the search and comparison methods of \ref toy::StringView and
-  \ref toy::String delegate to. The caller passes the length it already knows, so no function measures a terminator.
+  Defines the \ref toy::string_utils functions behind the matching members of \ref toy::StringView and
+  \ref toy::String. The caller passes the length it already knows, so no function measures a terminator.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -241,8 +241,8 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param count Number of bytes in the set.
 
   \return Offset of the last character that does not belong to the set, or \ref toy::string_utils::c_npos when there is
-          none. No character belongs to an empty set, so the result is then the smaller of \a pos and \a size minus one,
-          or \ref toy::string_utils::c_npos for an empty range.
+          none. No character belongs to an empty set, so the result is then \a pos, or \a size minus one when \a pos is
+          past that, or \ref toy::string_utils::c_npos for an empty range.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
   \pre The \a size bytes starting at \a data are readable.
@@ -279,6 +279,28 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \sa toy::string_utils::find(const char *, size_t, const char *, size_t, size_t)
 */
 [[nodiscard]] constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t rhsSize) noexcept;
+
+/*!
+  \brief Counts the characters the \a size bytes starting at \a data encode in UTF-8.
+
+  Counts the bytes outside the 10xxxxxx continuation form, so a character counts once whatever width it is stored in.
+  Reads exactly \a size bytes, so it needs no terminator and counts a \c '\\0' inside the range as a character.
+
+  \param data First byte of the range.
+  \param size Number of bytes in the range.
+
+  \return Count of encoded characters, \c 0 for an empty range.
+
+  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
+  \pre The \a size bytes starting at \a data hold well-formed UTF-8, checked with toy::validateUtf8(const char *,
+  size_t) by assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
+       that check and count every byte outside the continuation form, a stray lead byte included.
+
+  \note The count matches \a size only where every character is ASCII.
+
+  \sa toy::string_utils::compare(const char *, size_t, const char *, size_t)
+*/
+[[nodiscard]] constexpr size_t utf8Size(const char * data, size_t size) noexcept;
 
 } // namespace toy::string_utils
 

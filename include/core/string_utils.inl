@@ -235,6 +235,17 @@ constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t
   return lhsSize == rhsSize ? 0 : (lhsSize < rhsSize ? -1 : 1);
 }
 
+constexpr size_t utf8Size(const char * data, size_t size) noexcept {
+  assert_message(data != nullptr || size == 0, "a null pointer names no characters to count");
+  if !consteval {
+    assert_message(validateUtf8(data, size), "the counted bytes must hold well-formed UTF-8");
+  }
+
+  return static_cast<size_t>(std::count_if(data, data + size, [](char byte) {
+    return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
+  }));
+}
+
 } // namespace toy::string_utils
 
 #endif // INCLUDE_CORE_STRING_UTILS_INL_

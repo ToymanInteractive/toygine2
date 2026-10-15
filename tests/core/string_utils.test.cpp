@@ -364,6 +364,32 @@ TEST_CASE("string_utils/search/reads_only_the_counted_range") {
                 "a backward search must start at the last character");
 }
 
+// What a search reads of its pattern or set: exactly the count, so either may end without a terminator.
+TEST_CASE("string_utils/search/reads_only_the_counted_pattern") {
+  // The pattern and the one-byte sets end where the array does, so a read past the count runs off it.
+  constexpr const char * c_lastByte = c_unterminated + std::size(c_unterminated) - 1;
+
+  CHECK(find(c_repeatedLonger, c_repeatedLongerLength, c_unterminated, 0, std::size(c_unterminated)) == 0);
+  CHECK(rfind(c_repeatedLonger, c_repeatedLongerLength, c_unterminated, c_npos, std::size(c_unterminated)) == 0);
+  CHECK(findFirstOf(c_repeated, c_repeatedLength, c_lastByte, 1, 1) == 3);
+  CHECK(findLastOf(c_repeated, c_repeatedLength, c_lastByte, c_npos, 1) == 10);
+  CHECK(findFirstNotOf(c_repeated, c_repeatedLength, c_lastByte, 0, 1) == 1);
+  CHECK(findLastNotOf(c_repeated, c_repeatedLength, c_lastByte, c_npos, 1) == 9);
+
+  static_assert(find(c_repeatedLonger, c_repeatedLongerLength, c_unterminated, 0, std::size(c_unterminated)) == 0,
+                "a forward search must read the pattern no further than its count");
+  static_assert(rfind(c_repeatedLonger, c_repeatedLongerLength, c_unterminated, c_npos, std::size(c_unterminated)) == 0,
+                "a backward search must read the pattern no further than its count");
+  static_assert(findFirstOf(c_repeated, c_repeatedLength, c_lastByte, 1, 1) == 3,
+                "a set search must read the set no further than its count");
+  static_assert(findLastOf(c_repeated, c_repeatedLength, c_lastByte, c_npos, 1) == 10,
+                "a backward set search must read the set no further than its count");
+  static_assert(findFirstNotOf(c_repeated, c_repeatedLength, c_lastByte, 0, 1) == 1,
+                "a search outside a set must read the set no further than its count");
+  static_assert(findLastNotOf(c_repeated, c_repeatedLength, c_lastByte, c_npos, 1) == 9,
+                "a backward search outside a set must read the set no further than its count");
+}
+
 // How a terminator inside the range compares: like any other character, in a pattern, in a set, and as a skip.
 TEST_CASE("string_utils/search/matches_embedded_null") {
   CHECK(find(c_embeddedNull, std::size(c_embeddedNull), '\0', 0) == 2);
@@ -402,6 +428,29 @@ TEST_CASE("string_utils/search/accepts_null_with_zero_length") {
   static_assert(rfind(nullptr, 0, 'a', c_npos) == c_npos, "an empty range holds no character");
   static_assert(findFirstNotOf(c_repeated, c_repeatedLength, nullptr, 2, 0) == 2,
                 "a null set with a zero count excludes nothing");
+}
+
+// How many characters a range encodes: one per byte outside the continuation form, read over exactly the range.
+TEST_CASE("string_utils/utf8_size/counts_characters_in_range") {
+  constexpr const char * c_cyrillic       = "привет";
+  constexpr size_t       c_cyrillicLength = std::char_traits<char>::length(c_cyrillic);
+
+  CHECK(utf8Size(c_repeated, c_repeatedLength) == c_repeatedLength);
+  CHECK(utf8Size(c_cyrillic, c_cyrillicLength) == c_cyrillicLength / 2);
+  CHECK(utf8Size(c_cyrillic, 4) == 2);
+  CHECK(utf8Size(nullptr, 0) == 0);
+
+  // A null byte inside the range is a character of its own, not an end.
+  CHECK(utf8Size(c_embeddedNull, std::size(c_embeddedNull)) == std::size(c_embeddedNull));
+
+  static_assert(utf8Size(c_repeated, c_repeatedLength) == c_repeatedLength, "an ASCII range counts one per byte");
+  static_assert(utf8Size(c_cyrillic, c_cyrillicLength) == c_cyrillicLength / 2, "a two-byte character counts once");
+  static_assert(utf8Size(c_cyrillic, 4) == 2, "only the bytes the size names must count");
+  static_assert(utf8Size(nullptr, 0) == 0, "an empty range must count nothing");
+  static_assert(utf8Size(c_embeddedNull, std::size(c_embeddedNull)) == std::size(c_embeddedNull),
+                "a null byte inside the range must count as a character");
+  static_assert(utf8Size(c_unterminated, std::size(c_unterminated)) == std::size(c_unterminated),
+                "the count must stop at the end of the range");
 }
 
 // Two ranges holding the same characters compare equal, whichever buffers hold them.

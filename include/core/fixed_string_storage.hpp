@@ -98,7 +98,7 @@ namespace toy {
 */
 template <size_t AllocatedSize>
 class FixedStringStorage {
-  static_assert(AllocatedSize > 0, "FixedStringStorage capacity must be greater than zero.");
+  static_assert(AllocatedSize > 0, "AllocatedSize must hold at least the byte the terminator takes");
 
   /// Bytes the object occupies: the buffer padded to the alignment of the length, then the length
   static constexpr size_t _objectSize = (AllocatedSize + alignof(size_t) - 1) / alignof(size_t) * alignof(size_t)

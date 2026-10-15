@@ -182,8 +182,8 @@ public:
     \brief Builds a string from a copy of the characters in [\a first, \a last).
 
     A forward range is measured first and copied in one step, so the storage is asked for the whole length once; a pair
-    of pointers is measured by subtraction and copied as one block. A single-pass range is read one character at a time,
-    each checked against the storage before it is written.
+    of pointers is measured by subtraction and copied as one block. A single-pass range is read one character at a time
+    and checked against the storage whenever the buffer fills.
 
     \tparam InputIterator Iterator type with \c char as its value type; satisfies \c std::input_iterator and is its
                           own \c std::sentinel_for.
@@ -1076,6 +1076,26 @@ public:
     \sa capacity()
   */
   [[nodiscard]] constexpr size_type max_size() const noexcept;
+
+  /*!
+    \brief Counts the characters the string encodes in UTF-8.
+
+    Counts the bytes outside the 10xxxxxx continuation form across all size() bytes, so a character counts once
+    whatever width it is stored in, and a \c '\\0' inside the string counts as one.
+
+    \return Count of encoded characters, \c 0 for an empty string.
+
+    \pre The bytes of the string hold well-formed UTF-8, checked with toy::validateUtf8(const char *, size_t) by
+         assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
+         that check and count every byte outside the continuation form, a stray lead byte included.
+
+    \note The count matches size() only where every character is ASCII.
+    \note A \ref toy::StringView made from the string stops at the first \c '\\0', so its utf8_size() can count fewer.
+
+    \sa size()
+    \sa toy::StringView::utf8_size()
+  */
+  [[nodiscard]] constexpr size_type utf8_size() const noexcept;
 
   /*!
     \brief Prepares the storage to hold \a newCapacity characters without growing again.
@@ -2549,8 +2569,8 @@ public:
     \param pos    Last offset the search considers (default: \ref toy::String::npos, which searches the whole string).
 
     \return Offset of the last character that does not belong to the set, or \ref toy::String::npos when there is none.
-            No character belongs to an empty set, so the result is then the smaller of \a pos and size() minus one, or
-            \ref toy::String::npos for an empty string.
+            No character belongs to an empty set, so the result is then \a pos, or size() minus one when \a pos is past
+            that, or \ref toy::String::npos for an empty string.
 
     \sa find_last_not_of(const char *, size_t, size_t)
     \sa find_first_not_of(const StringType &, size_t)
@@ -2567,8 +2587,8 @@ public:
     \param count  Number of bytes in the set.
 
     \return Offset of the last character that does not belong to the set, or \ref toy::String::npos when there is none.
-            No character belongs to an empty set, so the result is then the smaller of \a pos and size() minus one, or
-            \ref toy::String::npos for an empty string.
+            No character belongs to an empty set, so the result is then \a pos, or size() minus one when \a pos is past
+            that, or \ref toy::String::npos for an empty string.
 
     \pre \a string is non-null or \a count is \c 0, checked by assert_message in debug builds.
     \pre The \a count bytes starting at \a string are readable.
