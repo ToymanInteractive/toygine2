@@ -48,6 +48,16 @@ void bodyWithInfo(toy::test::Context & toyTestContext) {
   TOY_TEST_CHECK(1 == 2);
 }
 
+// Not constexpr: a constant that fits does not narrow, so only a runtime value exercises the conversion.
+std::size_t runtimeIndex() noexcept {
+  return 7;
+}
+
+void bodyWithUnsignedInfo(toy::test::Context & toyTestContext) {
+  TOY_TEST_INFO("index", runtimeIndex());
+  TOY_TEST_CHECK(1 == 2);
+}
+
 void bodyWithNegations(toy::test::Context & toyTestContext) {
   TOY_TEST_REQUIRE_FALSE(1 == 2);
   TOY_TEST_CHECK_FALSE(1 == 2);
@@ -161,6 +171,17 @@ TEST_CASE("test/macros/info_is_visible_during_failure_only") {
   REQUIRE(toy::test::detail::compareNames(captured.text, "index") == 0);
   REQUIRE(captured.value == 7);
   REQUIRE(context.infoCount() == 0);
+}
+
+// An unsigned value, the usual type of an index, reaches the reporter unchanged.
+TEST_CASE("test/macros/info_takes_an_unsigned_value") {
+  CapturedInfo       captured;
+  toy::test::Context context{&captureInfo, &captured};
+
+  toy::test::runCase(context, "generated/case", &bodyWithUnsignedInfo);
+
+  REQUIRE(captured.text != nullptr);
+  REQUIRE(captured.value == 7);
 }
 
 // The negated forms and Approx pass through the macro layer.

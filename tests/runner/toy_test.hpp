@@ -30,6 +30,7 @@
 #ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 #define INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_
 
+#include <concepts>
 #include <cstddef>
 
 #include "approx.hpp"
@@ -174,8 +175,18 @@ public:
   /// Pushes a message without a companion value; see toy::test::Context::pushInfo().
   InfoGuard(Context & context, const char * text) noexcept;
 
-  /// Pushes a message carrying a number; see toy::test::Context::pushInfo().
-  InfoGuard(Context & context, const char * text, long long value) noexcept;
+  /*!
+    \brief Pushes a message carrying a number; see toy::test::Context::pushInfo().
+
+    Converts \a value to \c long long, the type the info stack stores, so an unsigned index needs no cast.
+
+    \param context Context whose info stack receives the message.
+    \param text    Message text.
+    \param value   Number shown beside the message.
+
+    \note An unsigned value above the \c long long maximum prints as a negative number.
+  */
+  InfoGuard(Context & context, const char * text, std::integral auto value) noexcept;
 
   ~InfoGuard() noexcept;
 
@@ -225,7 +236,8 @@ private:
   Takes a string literal, optionally followed by one integer value; see \ref toy::test::detail::InfoGuard.
 
   \warning Narrower than doctest's \c INFO, which takes any number of streamable arguments: a call with two strings,
-           or with three arguments, compiles under doctest and fails to compile under the built-in runner.
+           with three arguments, or with a floating-point value compiles under doctest and fails to compile under the
+           built-in runner.
 */
 #define TOY_TEST_INFO(...) TOY_TEST_INFO_IMPL(TOY_TEST_UNIQUE(toyTestInfo), __VA_ARGS__)
 

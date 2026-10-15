@@ -195,7 +195,7 @@ TEST_CASE("string_view/iteration") {
   CHECK(view.cend() == view.end());
 
   for (size_t index = 0; index < c_sampleLength; ++index) {
-    INFO("index ", static_cast<long long>(index));
+    INFO("index ", index);
     CHECK(view.begin()[index] == c_sample[index]);
   }
 
@@ -222,7 +222,7 @@ TEST_CASE("string_view/iteration_reverse") {
   CHECK(view.crend() == view.rend());
 
   for (size_t index = 0; index < c_sampleLength; ++index) {
-    INFO("index ", static_cast<long long>(index));
+    INFO("index ", index);
     CHECK(view.rbegin()[index] == c_sampleReverse[index]);
   }
 
@@ -242,7 +242,7 @@ TEST_CASE("string_view/element_access") {
   const StringView view(c_sample);
 
   for (size_t index = 0; index < c_sampleLength; ++index) {
-    INFO("index ", static_cast<long long>(index));
+    INFO("index ", index);
     CHECK(view[index] == c_sample[index]);
     CHECK(view.at(index) == c_sample[index]);
   }
