@@ -23,8 +23,8 @@
 
   Defines the case registry \ref toy::test::detail::caseListHead, \ref toy::test::detail::SubcaseGuard and the case
   loop, and pulls in the registration node, the run state, the tolerant comparison and the allocation-free helpers they
-  rest on. Grows into the shim every test translation unit includes in place of doctest; today it carries the pieces
-  that depend on neither runner.
+  rest on. Every test translation unit includes it in place of doctest: with \c TOYGINE_TESTS_USE_DOCTEST defined it
+  defers to doctest, otherwise it maps the doctest macro names onto the built-in runner.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_TOY_TEST_HPP_

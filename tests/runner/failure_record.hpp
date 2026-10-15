@@ -42,7 +42,8 @@ namespace toy::test {
   \section usage Usage Example
 
   \code
-  void report(const toy::test::Context & context, const toy::test::FailureRecord & failure) noexcept;
+  void report(const toy::test::Context & context, const toy::test::FailureRecord & failure,
+              void * reporterData) noexcept;
   \endcode
 
   \section performance Performance Characteristics

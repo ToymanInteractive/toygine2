@@ -193,10 +193,11 @@ public:
   /*!
     \brief Sets the indent every following line opens with.
 
-    \param spaces  Number of leading spaces (default: \c 0 at construction).
+    \param spaces  Number of leading spaces.
 
     \post Lines started after this call carry \a spaces leading spaces.
 
+    \note A writer starts with no indent.
     \note A TAP subtest indents its document by four, and the YAML block inside it by two more.
   */
   void setIndent(std::size_t spaces) noexcept;
