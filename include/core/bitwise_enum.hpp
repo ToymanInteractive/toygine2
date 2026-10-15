@@ -23,8 +23,8 @@
 
   Defines \ref toy::EnableBitwiseOperators, the trait admitting one enumeration to the operator overloads declared here,
   \ref toy::BitwiseEnum, the concept those overloads constrain on, and the \c ENABLE_BITWISE_OPERATORS macro that writes
-  the specialization. Used where a flag set is spelled as an \c enum class and callers combine, mask, and test its
-  enumerators without casting to the underlying integer.
+  the specialization and makes the operators visible to argument-dependent lookup. Used where a flag set is spelled as
+  an \c enum class and callers combine, mask, and test its enumerators without casting to the underlying integer.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -59,16 +59,16 @@ namespace toy {
   \code
   #include "core.hpp"
 
-  namespace toy {
+  namespace game {
 
-  enum class MyFlags : unsigned { none = 0u, a = 1u, b = 2u, c = 4u };
+  enum class Flags : unsigned { none = 0u, a = 1u, b = 2u, c = 4u };
 
-  } // namespace toy
+  } // namespace game
 
-  ENABLE_BITWISE_OPERATORS(toy::MyFlags)
+  ENABLE_BITWISE_OPERATORS(game, Flags)
 
-  constexpr toy::MyFlags combined = toy::MyFlags::a | toy::MyFlags::b;
-  constexpr bool carriesA = (combined & toy::MyFlags::a) != toy::MyFlags::none;
+  constexpr game::Flags combined = game::Flags::a | game::Flags::b;
+  constexpr bool carriesA = (combined & game::Flags::a) != game::Flags::none;
   \endcode
 
   \section performance Performance Characteristics
@@ -95,9 +95,10 @@ namespace toy {
   \note Give a flag enumeration an unsigned underlying type. Over a signed one, \c ~ yields a negative value whose
         meaning as a flag set depends on the width of the type.
 
-  \warning The operators live in namespace \ref toy, so argument-dependent lookup finds them only for an enumeration
-           declared directly in \ref toy. Anywhere else, a nested namespace such as \c toy::gfx included, the call site
-           has to bring them into scope with \c using \c namespace \c toy; or a using-declaration per operator.
+  \warning The operators live in namespace \ref toy, and \c ENABLE_BITWISE_OPERATORS adds using-declarations of them to
+           the namespace of the enumeration, where argument-dependent lookup finds them. A specialization written by
+           hand adds none, so for an enumeration outside \ref toy the call site needs \c using \c namespace \c toy; or
+           a using-declaration per operator.
 
   \sa \ref toy::BitwiseEnum, ENABLE_BITWISE_OPERATORS
 */
@@ -255,34 +256,54 @@ constexpr T & operator^=(T & lhs, T rhs) noexcept;
   \def ENABLE_BITWISE_OPERATORS
   \brief Opts a scoped enumeration into the bitwise operators of this header.
 
-  Expands to a \c static_assert rejecting anything but a scoped enumeration, followed by a full specialization of
-  \ref toy::EnableBitwiseOperators, qualified with namespace \ref toy, whose \c enable is \c true. The expansion carries
-  its own semicolons, so the invocation needs no terminator.
+  Expands to a \c static_assert rejecting anything but a scoped enumeration, a full specialization of
+  \ref toy::EnableBitwiseOperators whose \c enable is \c true, and using-declarations of the seven operators inside
+  \a namespaceName. Argument-dependent lookup searches the namespace of the enumeration, so the operators resolve at any
+  call site without a using-directive. The expansion carries its own semicolons, so the invocation needs no terminator.
 
-  \param ... Scoped enumeration to opt in, spelled with its namespace qualification. Taken variadically so a nested
-             template argument list keeps the commas the preprocessor would otherwise read as argument separators, as in
-             \c ENABLE_BITWISE_OPERATORS(toy::Flags<int, long>::Type).
+  \param namespaceName Innermost namespace enclosing the enumeration, as in \c toy::gfx.
+  \param ...           Enumeration named relative to \a namespaceName, through its enclosing classes for a member
+                       enumeration. Taken variadically so a nested template argument list keeps the commas the
+                       preprocessor would otherwise read as argument separators, as in
+                       \c ENABLE_BITWISE_OPERATORS(toy, Flags<int, long>::Type).
 
-  \pre The argument names one complete \c enum class. An unscoped enumeration or a non-enumeration type fails the
+  \pre The arguments name one complete \c enum class. An unscoped enumeration or a non-enumeration type fails the
        \c static_assert at the invocation, before any operator is instantiated.
-  \pre The invocation stands at global namespace scope, outside \ref toy, after the definition of the enumeration.
+  \pre \a namespaceName is the innermost namespace enclosing the enumeration, the one argument-dependent lookup
+       searches. Naming an outer namespace still compiles, but call sites then miss the operators; naming a class
+       fails as a redefinition of the class as a namespace.
+  \pre That namespace is named; an enumeration in an unnamed namespace cannot be opted in.
+  \pre The invocation stands at global namespace scope, after the definition of the enumeration.
   \pre No other specialization of \ref toy::EnableBitwiseOperators for that enumeration precedes it.
 
   \note Put the invocation in the header that defines the enumeration, right below it. Combining its flags where the
         specialization is not visible either fails to compile or, across translation units that disagree, is ill-formed
         with no diagnostic required.
+  \note Several enumerations of one namespace may each invoke it: namespace scope allows a repeated using-declaration.
 
-  \warning A specialization written by hand skips this check. It still has to satisfy \ref toy::BitwiseEnum, so an
-           unscoped enumeration written that way silently keeps the built-in operators instead of these.
+  \warning A specialization written by hand skips this check and adds no using-declarations. It still has to satisfy
+           \ref toy::BitwiseEnum, so an unscoped enumeration written that way silently keeps the built-in operators
+           instead of these.
 
   \sa \ref toy::EnableBitwiseOperators, \ref toy::BitwiseEnum
 */
-#define ENABLE_BITWISE_OPERATORS(...)                                                                                  \
-  static_assert(std::is_scoped_enum_v<__VA_ARGS__>,                                                                    \
+#define ENABLE_BITWISE_OPERATORS(namespaceName, ...)                                                                   \
+  static_assert(std::is_scoped_enum_v<namespaceName::__VA_ARGS__>,                                                     \
                 "ENABLE_BITWISE_OPERATORS requires a scoped enumeration (enum class)");                                \
   template <>                                                                                                          \
-  struct toy::EnableBitwiseOperators<__VA_ARGS__> {                                                                    \
+  struct toy::EnableBitwiseOperators<namespaceName::__VA_ARGS__> {                                                     \
     static constexpr bool enable = true;                                                                               \
-  };
+  };                                                                                                                   \
+  namespace namespaceName {                                                                                            \
+                                                                                                                       \
+  using ::toy::operator|;                                                                                              \
+  using ::toy::operator&;                                                                                              \
+  using ::toy::operator^;                                                                                              \
+  using ::toy::operator~;                                                                                              \
+  using ::toy::operator|=;                                                                                             \
+  using ::toy::operator&=;                                                                                             \
+  using ::toy::operator^=;                                                                                             \
+                                                                                                                       \
+  }
 
 #endif // INCLUDE_CORE_BITWISE_ENUM_HPP_

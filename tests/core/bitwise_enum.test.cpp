@@ -52,8 +52,20 @@ struct TemplatedHolder {
 
 } // namespace toy
 
-ENABLE_BITWISE_OPERATORS(toy::TestFlags)
-ENABLE_BITWISE_OPERATORS(toy::TemplatedHolder<int, long>::Flags)
+// Outside namespace toy, as a gameplay flag set would be; argument-dependent lookup has to find the operators here.
+namespace outside {
+
+enum class OutsideFlags : uint8_t {
+  None = 0,
+  A    = 1,
+  B    = 2,
+};
+
+} // namespace outside
+
+ENABLE_BITWISE_OPERATORS(toy, TestFlags)
+ENABLE_BITWISE_OPERATORS(toy, TemplatedHolder<int, long>::Flags)
+ENABLE_BITWISE_OPERATORS(outside, OutsideFlags)
 
 namespace toy {
 
@@ -201,3 +213,28 @@ TEST_CASE("enable_bitwise_operators/compound_assignment") {
 }
 
 } // namespace toy
+
+// Every operator resolves for an enumeration outside namespace toy, called from the global namespace.
+TEST_CASE("enable_bitwise_operators/operators_reach_an_enumeration_outside_toy") {
+  using outside::OutsideFlags;
+
+  auto flags  = OutsideFlags::A;
+  flags      |= OutsideFlags::B;
+  flags      &= OutsideFlags::A | OutsideFlags::B;
+  flags      ^= OutsideFlags::B;
+
+  REQUIRE(flags == OutsideFlags::A);
+  REQUIRE(std::to_underlying(OutsideFlags::A | OutsideFlags::B) == 3);
+  REQUIRE((OutsideFlags::A & OutsideFlags::B) == OutsideFlags::None);
+  REQUIRE((OutsideFlags::A ^ OutsideFlags::A) == OutsideFlags::None);
+  REQUIRE(std::to_underlying(~OutsideFlags::None) == 0xFF);
+
+  static_assert(std::to_underlying(OutsideFlags::A | OutsideFlags::B) == 3,
+                "operator| must resolve for an enumeration outside namespace toy");
+  static_assert((OutsideFlags::A & OutsideFlags::B) == OutsideFlags::None,
+                "operator& must resolve for an enumeration outside namespace toy");
+  static_assert((OutsideFlags::A ^ OutsideFlags::A) == OutsideFlags::None,
+                "operator^ must resolve for an enumeration outside namespace toy");
+  static_assert(std::to_underlying(~OutsideFlags::None) == 0xFF,
+                "operator~ must resolve for an enumeration outside namespace toy");
+}
