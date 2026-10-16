@@ -31,7 +31,7 @@ if (TOYGINE_TESTS_ENABLE_COVERAGE AND NOT TOYGINE_COMPILER_SUPPORT_COVERAGE)
 endif ()
 
 if (TOYGINE_TESTS_ENABLE_COVERAGE AND TOYGINE_COMPILER_SUPPORT_COVERAGE)
-  include(CodeCoverage)
+  include(${CMAKE_SOURCE_DIR}/thirdparty/cmake-modules/CodeCoverage.cmake)
 
   # The directory-scope flags also reach the link line, which is what pulls in the gcov runtime under Clang
   append_coverage_compiler_flags()

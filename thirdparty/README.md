@@ -37,6 +37,23 @@ Files extracted from GCC libstdc++:
   ClownMDSDK omits it, and `<ranges>` fails to compile without it
 - Must match the GCC version of the SDK toolchain; update it together with ClownMDSDK
 
+## cmake-modules
+
+- Upstream: <https://github.com/bilke/cmake-modules>
+- Version: master (5b988b5beb64270cf68b7d6c20298ebc8236b580, 2026)
+- License: BSD-3-Clause, in the file header
+
+Files extracted from upstream source:
+
+- `CodeCoverage.cmake`
+
+Local patches:
+
+- 0001-lcov-version-suffix: the lcov version regex accepts a multi-digit package suffix and output without a trailing
+  newline
+- 0002-split-report-comments: the SonarQube report message gets its own `add_custom_command`; upstream passes two
+  `COMMENT` arguments to one call
+
 ## doctest
 
 - Upstream: <https://github.com/doctest/doctest>
