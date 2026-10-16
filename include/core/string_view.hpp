@@ -1049,8 +1049,8 @@ public:
     \param pos Last offset the search considers (default: \ref toy::StringView::npos, which searches the whole view).
 
     \return Offset of the last character that does not belong to the set, or \ref toy::StringView::npos when there is
-            none. No character belongs to an empty set, so the result is then the smaller of \a pos and size() minus
-            one, or \ref toy::StringView::npos for an empty view.
+            none. No character belongs to an empty set, so the result is then \a pos, or size() minus one when \a pos
+            is past that, or \ref toy::StringView::npos for an empty view.
 
     \sa find_last_not_of(const char *, size_t, size_t)
     \sa find_first_not_of(StringView, size_t)
@@ -1078,8 +1078,8 @@ public:
     \param count Number of bytes in the set.
 
     \return Offset of the last character that does not belong to the set, or \ref toy::StringView::npos when there is
-            none. No character belongs to an empty set, so the result is then the smaller of \a pos and size() minus
-            one, or \ref toy::StringView::npos for an empty view.
+            none. No character belongs to an empty set, so the result is then \a pos, or size() minus one when \a pos
+            is past that, or \ref toy::StringView::npos for an empty view.
 
     \pre \a s is non-null or \a count is \c 0, checked by assert_message in debug builds.
     \pre The \a count bytes starting at \a s are readable.

@@ -22,6 +22,11 @@
   \brief  Unit tests for \ref toy::StringLike.
 */
 
+// Sega MD ships no <string>, so the std::string check builds where the header exists.
+#if __has_include(<string>)
+#include <string>
+#endif
+
 #include "core.hpp"
 #include "toy_test.hpp"
 
@@ -86,6 +91,16 @@ TEST_CASE("string_like/requirements") {
 
   static_assert(!StringLike<const char *>, "const char * carries no length and must not satisfy StringLike");
   static_assert(!StringLike<int>, "a non-class type must not satisfy StringLike");
+}
+
+// The string types the engine and the standard library provide all satisfy the concept, by value and by reference.
+TEST_CASE("string_like/string_types") {
+#if __has_include(<string>)
+  static_assert(StringLike<std::string> && StringLike<const std::string &>, "std::string must satisfy StringLike");
+#endif
+  static_assert(StringLike<StringView> && StringLike<const StringView &>, "toy::StringView must satisfy StringLike");
+  static_assert(StringLike<FixedString<8>> && StringLike<const FixedString<8> &>,
+                "toy::String over a fixed buffer must satisfy StringLike");
 }
 
 } // namespace toy

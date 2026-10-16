@@ -274,7 +274,7 @@ BENCHMARK_CASE("core/string_view/find_first_of_wide_set") {
 
   bench.unit("search");
 
-  // Against the table above: a cost that follows the size of the set is what a lookup table would flatten.
+  // Against the case above: the set table is built once per call, so a wider set costs more setup, the same per byte.
   bench.run("toy::StringView", [&] {
     toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
@@ -357,10 +357,12 @@ BENCHMARK_CASE("core/string_view/utf8_size") {
     toy::benchmark::doNotOptimizeAway(view.utf8_size());
   });
 
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   // The standard algorithm alone: every byte outside the 10xxxxxx continuation form starts a character.
   bench.run("std::count_if", [&] {
     toy::benchmark::doNotOptimizeAway(std::count_if(view.begin(), view.end(), [](char byte) {
       return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
     }));
   });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }

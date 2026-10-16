@@ -88,7 +88,7 @@ void captureSubcaseName(const toy::test::Context & context, const toy::test::Fai
 } // namespace
 
 // A case without subcases runs once, because the loop is a do-while over a count that stays zero.
-TEST_CASE("test/context/case_without_subcases_runs_once") {
+TEST_CASE("test/run_case/case_without_subcases_runs_once") {
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "some/case", &bodyWithoutSubcases);
@@ -202,7 +202,7 @@ TEST_CASE("test/context/subcase_name_clears_on_exit") {
 }
 
 // A failing case keeps its verdict across runs; one bad subcase condemns the case even when a later run passes.
-TEST_CASE("test/context/verdict_survives_across_runs") {
+TEST_CASE("test/run_case/verdict_survives_across_runs") {
   toy::test::Context context{nullptr};
 
   toy::test::runCase(context, "some/case", &bodyFailingInTheFirstOfTwo);

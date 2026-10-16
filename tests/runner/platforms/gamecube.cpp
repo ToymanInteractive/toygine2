@@ -54,7 +54,7 @@ int main() {
 
   VIDEO_Configure(rmode);
   VIDEO_SetNextFramebuffer(framebuffer);
-  VIDEO_SetBlack(FALSE);
+  VIDEO_SetBlack(false);
   VIDEO_Flush();
   VIDEO_WaitVSync();
   if (rmode->viTVMode & VI_NON_INTERLACE)

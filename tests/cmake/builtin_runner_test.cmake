@@ -29,9 +29,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
   if (TOYGINE_BLASTEM)
     # -b runs headless and exits after the given frame count; the cartridge target file is the ROM itself.
+    # The frames run unthrottled; the count must cover the debug ROM, which needs the most frames to print its report.
     # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
     add_test(NAME units
-             COMMAND ${TOYGINE_BLASTEM} -t -b 1800 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-units>)
+             COMMAND ${TOYGINE_BLASTEM} -t -b 3600 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-units>)
 
     # BlastEm always exits with 0, so the verdict is read from the report it prints as KDEBUG MESSAGE lines.
     # The summary line prints last, so matching it also catches a run that died halfway through the report.

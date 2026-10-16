@@ -43,13 +43,13 @@ constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage() noexcept {
 template <size_t AllocatedSize>
 constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage(const FixedStringStorage & other) noexcept
   requires(_copiesByLength)
-  : _size(other._size) {
+  : _size(other.size()) {
   if consteval {
     // A constant expression may hold no indeterminate byte, so the tail the copy skips is cleared first.
     std::ranges::fill(_buffer, '\0');
   }
 
-  std::char_traits<char>::copy(_buffer, other._buffer, other._size + 1);
+  std::char_traits<char>::copy(_buffer, other.data(), other.size() + 1);
 }
 
 template <size_t AllocatedSize>
@@ -63,8 +63,8 @@ constexpr FixedStringStorage<AllocatedSize> & FixedStringStorage<AllocatedSize>:
 ) noexcept
   requires(_copiesByLength) {
   if (this != &other) {
-    std::char_traits<char>::copy(_buffer, other._buffer, other._size + 1);
-    _size = other._size;
+    std::char_traits<char>::copy(_buffer, other.data(), other.size() + 1);
+    _size = other.size();
   }
 
   return *this;
@@ -117,8 +117,8 @@ constexpr void FixedStringStorage<AllocatedSize>::setSize(size_t newSize) noexce
   if (newSize > capacity())
     return;
 
-  _size          = newSize;
-  _buffer[_size] = '\0';
+  _size            = newSize;
+  _buffer[newSize] = '\0';
 }
 
 } // namespace toy

@@ -186,7 +186,7 @@ BENCHMARK_CASE("core/string/construction_from_single_pass") {
 
   bench.unit("construction");
 
-  // The toy row checks the storage per character; the std::string row appends and regrows its heap buffer.
+  // The toy row checks the storage only when its buffer fills; the std::string row appends and regrows its heap buffer.
   bench.run("toy::FixedString", [&] {
     const LongString string(first, last);
     toy::benchmark::doNotOptimizeAway(string);
@@ -834,7 +834,7 @@ BENCHMARK_CASE("core/string/find_first_of") {
 
   bench.unit("search");
 
-  // No byte of the text is in the set, so every byte is tested against the whole set.
+  // No byte of the text is in the set, so the search reads every byte, each with one lookup in the table of the set.
   bench.run("toy::FixedString", [&] {
     toy::benchmark::doNotOptimizeAway(string.find_first_of(set));
   });

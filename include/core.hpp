@@ -191,6 +191,8 @@ using std::bit_cast;
 
   \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build expands to \c ((void)0), so neither
         argument is evaluated.
+  \note A comma outside parentheses in \a expression splits the macro arguments and fails the build; wrap such an
+        expression in parentheses.
 
   \sa assert
 */
