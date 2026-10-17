@@ -283,13 +283,13 @@ int main(int argc, char ** argv) {
 
 #include <iostream>
 
-int main(int argc, char * argv[]) noexcept {
+int main() noexcept {
   printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
   if (app.pid() != 0)
-    printf("Process ID: %i\n", app.pid());
+    printf("Process ID: %u\n", app.pid());
 
   return EXIT_SUCCESS;
 }
