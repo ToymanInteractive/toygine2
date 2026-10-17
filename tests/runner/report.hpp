@@ -25,6 +25,7 @@
   TAP document, subtests included, and \ref toy::test::write_function_type, the function it hands each finished line to.
   Sits on top of toy_test.hpp rather than inside it, because output is what consumes the runner, not part of it. Used by
   the runner's entry point and by its unit test, which reads the report back through a writer of its own.
+*/
 
 #ifndef INCLUDE_TESTS_RUNNER_REPORT_HPP_
 #define INCLUDE_TESTS_RUNNER_REPORT_HPP_

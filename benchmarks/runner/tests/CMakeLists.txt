@@ -38,7 +38,7 @@ add_executable(benchmarks-runner-units
 target_compile_definitions(benchmarks-runner-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS)
 
 target_include_directories(benchmarks-runner-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_link_libraries(benchmarks-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME})
+target_link_libraries(benchmarks-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME} toygine::compile::warnings)
 set_target_properties(benchmarks-runner-units PROPERTIES FOLDER "tests")
 
 # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.

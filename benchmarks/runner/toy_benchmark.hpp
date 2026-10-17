@@ -54,10 +54,11 @@ inline CaseRegistrar * caseListHead = nullptr;
 
 } // namespace toy::benchmark::detail
 
-// Two levels of indirection are what makes __COUNTER__ expand before it is pasted.
+// Two levels of indirection make __LINE__ expand before it is pasted.
+// __LINE__, as in toy_test.hpp: Clang 22 and newer flag __COUNTER__ under -Wpedantic as a C2y extension.
 #define TOY_BENCHMARK_CONCAT_INNER(lhs, rhs) lhs##rhs
 #define TOY_BENCHMARK_CONCAT(lhs, rhs)       TOY_BENCHMARK_CONCAT_INNER(lhs, rhs)
-#define TOY_BENCHMARK_UNIQUE(prefix)         TOY_BENCHMARK_CONCAT(prefix, __COUNTER__)
+#define TOY_BENCHMARK_UNIQUE(prefix)         TOY_BENCHMARK_CONCAT(prefix, __LINE__)
 
 // The registrar is not const: a later registration writes the link, see toy::benchmark::CaseRegistrar.
 #define TOY_BENCHMARK_CASE_IMPL(caseName, bodyName, registrarName)                                                     \
