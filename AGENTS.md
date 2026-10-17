@@ -282,7 +282,7 @@ Every header file (`.hpp` and `.inl`) carries a `\file` block; a translation uni
 
 * **`\file`** — file name only, as it appears under `include/` or `src/` (e.g. `window_show_state.hpp`), not a full path.
 * **`\brief`** — one line: what this file *is*, the role of the translation unit (see Do not restate the signature under **Writing Style**).
-* **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`:**) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
+* **`.hpp`** (including internal headers under `include/`): after `\brief`, add one short paragraph (often starting with **Defines `\ref ...`,** followed by what the symbol is) naming the primary type(s) or enum(s) and how they are used (call sites, platform API, etc.).
 * **`.inl`** — keep the `\brief` short: **Inline implementations for `\ref` …** plus a narrow scope (e.g. "constructors and accessors", "comparison operators"). Add the **`\note Included by …`** line exactly as in the template below, spelling the barrel per Barrel include policy under **Cross-References**.
 * **`.cpp`** — keep the `\brief` short: "Implementation of …" or "Definitions for …" with `\ref` to the declarations in the corresponding header when it helps navigation; not all `.cpp` files require the same depth.
 * **One paragraph, three lines at most:** a `\file` block orients; what a symbol is, guarantees, or costs belongs in that symbol's own block (see Say it once, then link under **Documentation Philosophy**).
@@ -295,7 +295,7 @@ Every header file (`.hpp` and `.inl`) carries a `\file` block; a translation uni
   \file   module_name.hpp
   \brief  One-line description of what this header declares (role, not the filename).
 
-  Defines \ref toy::namespace::MainSymbol: what it represents and how it fits the API. Used when <typical action> or
+  Defines \ref toy::namespace::MainSymbol, <what it represents and how it fits the API>. Used when <typical action> or
   <consumer context>.
 
   \note Included by module.hpp only; do not include this file directly.
@@ -523,6 +523,7 @@ concept ConceptName = /* ... */;
 ### Cross-References
 
 * When referencing types, classes, or other non-function symbols from the codebase in documentation, **always** use the Doxygen `\ref` tag with full namespace qualification — `\ref toy::math::Vector2`, never `\ref Vector2`. Do not rely on Doxygen auto-linking to resolve an unqualified name.
+* A colon right after a `\ref` target becomes part of the name: `\ref toy::Type:` asks for `toy::Type:` and fails the docs build. Follow the target with a space, a comma, or a period.
 * Use `\ref` **only** for non-function symbols (classes, types, enums, namespaces, concepts):
   * Class/struct names: `\ref toy::ClassName`
   * Type aliases: `\ref toy::TypeAlias`

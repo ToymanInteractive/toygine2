@@ -21,9 +21,9 @@
   \file   window.hpp
   \brief  Native macOS main window for the editor bootstrap.
 
-  Defines \ref toy::editor::Window: a single Cocoa window backed by a CAMetalLayer that a Vulkan
-  surface can be created from. The Objective-C++ backend is hidden behind an opaque pointer so this
-  header stays pure C++ and can be included from the plain C++ entry point.
+  Defines \ref toy::editor::Window, a single Cocoa window backed by a CAMetalLayer that a Vulkan surface can be created
+  from. The Objective-C++ backend is hidden behind an opaque pointer so this header stays pure C++ and can be included
+  from the plain C++ entry point.
 */
 
 #ifndef EDITOR_SRC_WINDOW_HPP_

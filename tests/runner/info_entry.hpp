@@ -21,8 +21,8 @@
   \file   info_entry.hpp
   \brief  One message on the test context's info stack.
 
-  Defines \ref toy::test::InfoEntry: the text a test attaches to a failure, with an optional companion number. Stored
-  by \ref toy::test::Context and read back by a reporter.
+  Defines \ref toy::test::InfoEntry, the text a test attaches to a failure, with an optional companion number. Stored by
+  \ref toy::test::Context and read back by a reporter.
 
   \note Included by context.hpp only; do not include this file directly.
 */

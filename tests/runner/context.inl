@@ -19,7 +19,7 @@
 //
 /*!
   \file   context.inl
-  \brief  Inline implementations for \ref toy::test::Context: assertion recording, the info stack and the subcase run.
+  \brief  Inline implementations for the assertion recording, info stack and subcase run of \ref toy::test::Context.
 
   \note Included by context.hpp only; do not include this file directly.
 */

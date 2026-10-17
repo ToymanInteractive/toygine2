@@ -19,7 +19,7 @@
 //
 /*!
   \file   context.test.cpp
-  \brief  Unit tests for \ref toy::test::Context: assertion counters, failure reporting and the info stack.
+  \brief  Unit tests for the assertion counters, failure reporting and info stack of \ref toy::test::Context.
 */
 
 #include <cstddef>

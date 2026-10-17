@@ -21,8 +21,8 @@
   \file   case_registrar.hpp
   \brief  Registration node linking one test case into the runner's name-sorted list.
 
-  Defines \ref toy::test::CaseRegistrar and \ref toy::test::case_body_type: what the \c TEST_CASE macro constructs as a
-  static object, and what the runner's \c main walks to execute the cases.
+  Defines \ref toy::test::CaseRegistrar, the static object a \c TEST_CASE macro constructs and the runner's \c main
+  walks to execute the cases, and \ref toy::test::case_body_type, the signature of a case body.
 
   \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
         type.

@@ -21,7 +21,7 @@
   \file   builtin_bench.hpp
   \brief  Benchmark rows of the console runner.
 
-  Defines \ref toy::benchmark::Clock and \ref toy::benchmark::Bench: the timer a console platform supplies, and the
+  Defines \ref toy::benchmark::Clock and \ref toy::benchmark::Bench, the timer a console platform supplies and the
   object a \c BENCHMARK_CASE body writes to where nanobench is unavailable.
 
   \note Reached through bench.hpp; included directly only by the runner's own headers and by its unit test.
