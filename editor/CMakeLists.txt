@@ -51,7 +51,9 @@ if (APPLE)
   set_source_files_properties(src/main_menu.mm src/window.mm PROPERTIES COMPILE_OPTIONS "-fobjc-arc")
 
   target_link_libraries(editor PRIVATE
+    toygine::compile::defines
     toygine::compile::warnings
+    toygine::compile::abi-optimizations
     volk::volk
     Vulkan::Headers
     "-framework Cocoa"

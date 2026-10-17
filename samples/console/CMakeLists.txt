@@ -24,7 +24,7 @@ else()
   add_executable(console-sample-app console_sample_app.cpp)
 endif()
 
-target_link_libraries(console-sample-app PRIVATE toygine)
+target_link_libraries(console-sample-app PRIVATE toygine toygine::compile::warnings)
 set_target_properties(console-sample-app PROPERTIES FOLDER "samples")
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")

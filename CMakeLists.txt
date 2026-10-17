@@ -38,10 +38,6 @@ set(CMAKE_SUPPRESS_REGENERATION TRUE)
 # Enable projects folders
 set_property(GLOBAL PROPERTY USE_FOLDERS ON)
 
-#-----------------------------------------------------------------------------------------------------------------------
-# User-provided options
-#-----------------------------------------------------------------------------------------------------------------------
-
 # Setup configuration types
 set(CMAKE_CONFIGURATION_TYPES "Debug;RelWithDebInfo;Release" CACHE STRING "")
 
@@ -50,12 +46,22 @@ if (NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 endif ()
 
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty")
+
+#-----------------------------------------------------------------------------------------------------------------------
+# User-provided options
+#-----------------------------------------------------------------------------------------------------------------------
+
+include(ConfigureEngine)
+
 if (PROJECT_IS_TOP_LEVEL)
   include(CMakeDependentOption)
 
   option(TOYGINE_BUILD_BENCHMARKS "Set when you want to build engine benchmarks" ON)
   option(TOYGINE_BUILD_DOCS "Set when you want to build engine documentation" OFF)
-  option(TOYGINE_BUILD_EDITOR "Set when you want to build engine editor (desktop only)" ON)
+  cmake_dependent_option(TOYGINE_BUILD_EDITOR "Set when you want to build engine editor (desktop only)" ON
+                         "TOYGINE_TARGET_PLATFORM_IS_DESKTOP" OFF)
   option(TOYGINE_BUILD_SAMPLES "Set when you want to build engine samples" ON)
   option(TOYGINE_BUILD_TESTS "Set when you want to build engine unit tests" ON)
   cmake_dependent_option(TOYGINE_TESTS_ENABLE_COVERAGE "Enable code coverage instrumentation for tests" OFF "TOYGINE_BUILD_TESTS" OFF)
@@ -65,10 +71,6 @@ endif ()
 # Compile and linking options
 #-----------------------------------------------------------------------------------------------------------------------
 
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/thirdparty")
-
-include(ConfigureEngine)
 include(ConfigureCompiler)
 
 # The target's directory name under src/platforms/; tests/runner/platforms/ names the console runners the same way.

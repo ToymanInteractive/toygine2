@@ -187,6 +187,21 @@ if (TOYGINE_ENABLE_WARNINGS)
     "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>")
 endif ()
 
+# Debug flags; reach every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,MSVC>>:>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>")
+
 # Reaches every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
