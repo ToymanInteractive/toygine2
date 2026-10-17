@@ -167,8 +167,9 @@ using std::bit_cast;
   \note \ref toy::assertion::Action::IgnoreAlways silences the call site, per template instantiation, through a
         \c static flag where \ref toy::platform::c_assertIgnoreAlways is \c true; elsewhere it acts as
         \ref toy::assertion::Action::Ignore. Either way \a expression is still evaluated.
-  \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build expands to \c ((void)0), so neither
-        argument is evaluated and a side effect written inside them is lost.
+  \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build places both arguments in unevaluated
+        \c sizeof operands. They must still compile, but neither is evaluated: a side effect written inside them is
+        lost, and a failed check during constant evaluation continues into the code that follows it.
   \note A comma outside parentheses in \a expression splits the macro arguments and fails the build; wrap such an
         expression in parentheses.
 
@@ -201,7 +202,7 @@ using std::bit_cast;
 
 #else // TOYGINE_DEBUG
 
-#define assert_message(expression, message) ((void)0)
+#define assert_message(expression, message) ((void)sizeof(!(expression)), (void)sizeof(message))
 
 #endif // TOYGINE_DEBUG
 

@@ -383,7 +383,7 @@ constexpr String<storageType>::size_type String<storageType>::utf8_size() const 
 
 template <StringStorage storageType>
 constexpr void String<storageType>::reserve(size_type newCapacity) noexcept {
-  [[maybe_unused]] const bool reserved = _storage.reserve(newCapacity);
+  const bool reserved = _storage.reserve(newCapacity);
   assert_message(reserved, "the requested capacity must fit the storage");
 }
 

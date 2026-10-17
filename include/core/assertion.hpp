@@ -167,7 +167,8 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
   \note Declared only when \c TOYGINE_DEBUG is defined. Every other build has no assertion() to call: the assert and
-        assert_message macros expand to \c ((void)0), so a failed check costs nothing in a shipping binary.
+        assert_message macros keep their arguments in unevaluated \c sizeof operands, so a failed check costs nothing
+        in a shipping binary.
 
   \sa setCallbacks()
 */
