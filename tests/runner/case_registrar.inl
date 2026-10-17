@@ -19,7 +19,7 @@
 //
 /*!
   \file   case_registrar.inl
-  \brief  Inline implementations for \ref toy::test::CaseRegistrar: registration and accessors.
+  \brief  Inline implementations for the registration and accessors of \ref toy::test::CaseRegistrar.
 
   \note Included by case_registrar.hpp only; do not include this file directly.
 */

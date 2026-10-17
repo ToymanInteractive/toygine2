@@ -21,8 +21,8 @@
   \file   failure_record.hpp
   \brief  Record of one failed assertion, as handed to a failure reporter.
 
-  Defines \ref toy::test::FailureRecord: what a reporter cannot recover on its own. Built by
-  \ref toy::test::Context on every failing assertion.
+  Defines \ref toy::test::FailureRecord, which carries what a reporter cannot recover on its own. Built by \ref
+  toy::test::Context on every failing assertion.
 
   \note Included by context.hpp only; do not include this file directly.
 */

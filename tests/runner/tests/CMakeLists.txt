@@ -30,18 +30,18 @@ file(GLOB_RECURSE TOYGINE_TEST_RUNNER_TESTS_SRC CONFIGURE_DEPENDS RELATIVE "${CM
 # Tests built with doctest and discovered by CTest
 #-----------------------------------------------------------------------------------------------------------------------
 
-# Declares doctest::doctest and doctest_discover_tests() over the vendored copy in thirdparty/doctest.
+# Declares doctest::doctest, doctest::doctest_with_main, and doctest_discover_tests() from thirdparty/doctest.
 include(doctest)
 
 add_executable(console-test-runner-units
-    ${TOYGINE_TEST_RUNNER_TESTS_SRC}
-    ctest_main.cpp)
+    ${TOYGINE_TEST_RUNNER_TESTS_SRC})
 
 # The shim resolves TEST_CASE to doctest's, leaving the TOY_TEST_ macros beside it as what these cases exercise.
 target_compile_definitions(console-test-runner-units PRIVATE DOCTEST_CONFIG_SUPER_FAST_ASSERTS TOYGINE_TESTS_USE_DOCTEST)
 
 target_include_directories(console-test-runner-units PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/..)
-target_link_libraries(console-test-runner-units PRIVATE doctest::doctest ${TOYGINE_LIBRARY_NAME} toygine::compile::warnings)
+target_link_libraries(console-test-runner-units
+    PRIVATE doctest::doctest doctest::doctest_with_main toygine::compile::warnings)
 set_target_properties(console-test-runner-units PROPERTIES FOLDER "tests")
 
 # arm64 macOS kills an unsigned binary, and Xcode signs only after the post-build phases, so the linker signs instead.

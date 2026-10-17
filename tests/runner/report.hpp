@@ -21,10 +21,10 @@
   \file   report.hpp
   \brief  Writer of the TAP version 14 report shared by every runner binary.
 
-  Defines \ref toy::test::write_function_type and \ref toy::test::detail::ReportWriter: the line buffer and the walk
-  over a case registry that turn a run into a TAP document, subtests included. Sits on top of toy_test.hpp rather than
-  inside it, because output is what consumes the runner, not part of it. Used by the runner's entry point and by its
-  unit test, which reads the report back through a writer of its own.
+  Defines \ref toy::test::detail::ReportWriter, the line buffer and the walk over a case registry that turn a run into a
+  TAP document, subtests included, and \ref toy::test::write_function_type, the function it hands each finished line to.
+  Sits on top of toy_test.hpp rather than inside it, because output is what consumes the runner, not part of it. Used by
+  the runner's entry point and by its unit test, which reads the report back through a writer of its own.
 */
 
 #ifndef INCLUDE_TESTS_RUNNER_REPORT_HPP_

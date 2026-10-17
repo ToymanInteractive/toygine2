@@ -35,6 +35,16 @@ namespace toy::platform::detail {
 // Assumed equal to desktop: GCC for the Cortex-A57 inlines copies up to 200 bytes, cost not measured.
 inline constexpr size_t c_inlineCopyMaxBytes = 128;
 
+// Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
+inline constexpr bool c_assertIgnoreAlways = false;
+
 } // namespace toy::platform::detail
+
+#ifdef TOYGINE_DEBUG
+
+// GCC emits brk, and the exception stops execution at the failing check.
+#define TOYGINE_DEBUG_BREAK() __builtin_trap()
+
+#endif // TOYGINE_DEBUG
 
 #endif // SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_

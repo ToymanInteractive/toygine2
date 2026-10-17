@@ -60,7 +60,8 @@ if (TOYGINE_TARGET_PLATFORM_SUPPORT_NANOBENCH)
 
   target_include_directories(${TOYGINE_LIBRARY_NAME}-benchmarks
       PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include)
-  target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE nanobench::nanobench ${TOYGINE_LIBRARY_NAME})
+  target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks
+      PRIVATE nanobench::nanobench ${TOYGINE_LIBRARY_NAME} toygine::compile::warnings)
   set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks PROPERTIES FOLDER "benchmarks")
 
   # Bodies spell toy::benchmark::Bench; this define makes it nanobench's table rather than the console runner's.
@@ -113,7 +114,7 @@ else ()
   target_include_directories(${TOYGINE_LIBRARY_NAME}-benchmarks
       PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/runner ${CMAKE_CURRENT_SOURCE_DIR}/../include
               ${TOYGINE_BENCHMARK_GENERATED_DIR})
-  target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE ${TOYGINE_LIBRARY_NAME})
+  target_link_libraries(${TOYGINE_LIBRARY_NAME}-benchmarks PRIVATE ${TOYGINE_LIBRARY_NAME} toygine::compile::warnings)
   set_target_properties(${TOYGINE_LIBRARY_NAME}-benchmarks PROPERTIES FOLDER "benchmarks")
 
   # The report heading names the target and the build type, so two reports on one flash cart cannot be confused.

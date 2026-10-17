@@ -21,9 +21,9 @@
   \file   assertion.hpp
   \brief  Assertion failure reporting and the handlers an application registers for it.
 
-  Defines \ref toy::assertion. It holds the two handler types, the initialize() and deInitialize() calls that bound
-  their registration, and assertion(), which the \c assert and \c assert_message macros call with the context of the
-  failing check. Only builds that define \c TOYGINE_DEBUG compile reporting in and declare assertion().
+  Defines \ref toy::assertion, which reports a failed assert or assert_message check to the handler the application
+  registers, and that handler decides what the check does next. Only builds that define \c TOYGINE_DEBUG compile
+  reporting in.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -37,9 +37,9 @@
   \brief Assertion failure reporting and the handlers that receive it.
 
   The application decides what a failed check does. setCallbacks() registers a handler that receives the failure
-  description and answers whether the caller has to stop at the failing check, plus a second handler that receives stack
-  frames. Registration is valid between initialize() and deInitialize(). With no handler registered, a failed check
-  reports nothing and answers that the caller has to stop.
+  description and answers with the \ref toy::assertion::Action the check takes, plus a second handler that receives
+  stack frames. Registration is valid between initialize() and deInitialize(). With no handler registered, a failed
+  check reports nothing and stops at the check.
 
   Typical wiring, from the composition root:
 
@@ -50,25 +50,43 @@
 
   namespace {
 
-  bool reportAssertion(const char * assertionString) noexcept {
+  toy::assertion::Action reportAssertion(const char * assertionString) noexcept {
     std::fputs(assertionString, stderr);
 
-    return true; // printed, not handled here; stop at the failing check
+    return toy::assertion::Action::Break;
   }
 
   } // namespace
 
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(reportAssertion, nullptr);
+  int main() {
+    toy::assertion::initialize();
+    toy::assertion::setCallbacks(reportAssertion, nullptr);
 
-  // ... run the application; failed checks reach reportAssertion in debug builds ...
+    // Run the application; in a debug build a failed check reaches reportAssertion() and then breaks.
 
-  toy::assertion::deInitialize();
+    toy::assertion::deInitialize();
+
+    return 0;
+  }
   \endcode
 
-  \note A check that must fail the build uses \c static_assert or assertCompileTimeError() instead of assertion().
+  \note A check that must fail the build uses \c static_assert.
 */
 namespace toy::assertion {
+
+/*!
+  \enum Action
+  \brief What a failed check does once its failure is reported.
+
+  Returned by the registered \ref toy::assertion::AssertionCallback and carried out by the \c assert and
+  \c assert_message macros at the failing call site.
+*/
+enum class Action : uint8_t {
+  Break,        ///< Stops at the failed check: a debugger breaks there, and without one the process ends.
+  Ignore,       ///< Continues past the failed check.
+  IgnoreAlways, ///< Continues and reports no later failure at the same call site; acts as Ignore on consoles.
+  Abort,        ///< Ends the process before toy::assertion::assertion() returns.
+};
 
 /*!
   \brief Handler invoked on a failed check; receives one preformatted failure description.
@@ -76,15 +94,14 @@ namespace toy::assertion {
   \param assertionString Description built from the failed expression, its message, and the source location. Valid only
                          for the duration of the call.
 
-  \return \c true to stop the caller at the failing check, \c false when the handler dealt with the failure and
-          execution may continue.
+  \return What the failed check does next.
 
   \note Registered with setCallbacks(); a null pointer disables reporting.
   \note Declared \c noexcept: the handler runs while a failure is already being reported.
 
   \sa \ref toy::assertion::StackWalkCallback
 */
-using AssertionCallback = bool (*)(const char * assertionString) noexcept;
+using AssertionCallback = Action (*)(const char * assertionString) noexcept;
 
 /*!
   \brief Handler invoked once per stack frame while a trace is walked.
@@ -146,19 +163,21 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \param functionName Enclosing function of the failed check.
   \param lineNumber   Source line of the failed check.
 
-  \return \c true when the caller has to stop at the failing check, \c false when the handler dealt with the failure.
-          Answers \c true with no handler registered as well, so a failed check never passes unnoticed.
+  \return What the failed check does next: the answer of the registered handler, \ref toy::assertion::Action::Break
+          with no handler registered, and \ref toy::assertion::Action::Ignore for a failure raised while another is
+          still being reported. Never \ref toy::assertion::Action::Abort, which ends the process inside the call.
 
   \pre initialize() must have been called.
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
   \note Declared only when \c TOYGINE_DEBUG is defined. Every other build has no assertion() to call: the assert and
-        assert_message macros expand to \c ((void)0), so a failed check costs nothing in a shipping binary.
+        assert_message macros keep their arguments in unevaluated \c sizeof operands, so a failed check costs nothing
+        in a shipping binary.
 
   \sa setCallbacks()
 */
-bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               size_t lineNumber) noexcept;
+Action assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+                 size_t lineNumber) noexcept;
 
 #endif // TOYGINE_DEBUG
 
@@ -174,7 +193,7 @@ bool assertion(const char * code, const char * message, const char * fileName, c
   \sa assertion()
 */
 inline void assertCompileTimeError() noexcept {
-  // Intentionally cause a compile-time error
+  // Empty on purpose: the call fails constant evaluation because the function is not constexpr.
 }
 
 } // namespace toy::assertion

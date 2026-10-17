@@ -35,6 +35,18 @@ namespace toy::platform::detail {
 // Assumed equal to macOS: not yet measured with GCC on x86.
 inline constexpr size_t c_inlineCopyMaxBytes = 128;
 
+// Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
+inline constexpr bool c_assertIgnoreAlways = true;
+
 } // namespace toy::platform::detail
+
+#ifdef TOYGINE_DEBUG
+
+#include <csignal>
+
+// GCC has no resumable trap builtin; SIGTRAP stops under gdb and ends the process without it.
+#define TOYGINE_DEBUG_BREAK() std::raise(SIGTRAP)
+
+#endif // TOYGINE_DEBUG
 
 #endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

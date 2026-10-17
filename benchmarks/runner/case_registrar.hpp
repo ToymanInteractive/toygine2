@@ -21,8 +21,9 @@
   \file   case_registrar.hpp
   \brief  Registration node linking one benchmark into the runner's name-sorted list.
 
-  Defines \ref toy::benchmark::CaseRegistrar and \ref toy::benchmark::case_body_type: what the \c BENCHMARK_CASE macro
-  constructs as a static object, and what the runner's \c main walks to print one table per benchmark.
+  Defines \ref toy::benchmark::CaseRegistrar, the static object a \c BENCHMARK_CASE macro constructs and the runner's
+  \c main walks to print one table per benchmark, and \ref toy::benchmark::case_body_type, the signature of a benchmark
+  body.
 
   \note Included by toy_benchmark.hpp only; do not include this file directly.
 */

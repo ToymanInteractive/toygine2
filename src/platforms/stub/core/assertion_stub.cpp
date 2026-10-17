@@ -23,12 +23,15 @@
 
   Formats the failure into a fixed 4096-byte buffer and hands it to the registered
   \ref toy::assertion::AssertionCallback, then answers what that handler decided. An unregistered handler answers
-  \c true, and a description that overruns the buffer ends in \c "...[TRUNCATED]". A failure raised while another is
-  still being reported answers \c false without a second report. Stack walking is absent, so the
-  \ref toy::assertion::StackWalkCallback passed to toy::assertion::setCallbacks() is ignored.
+  \ref toy::assertion::Action::Break, and a description that overruns the buffer ends in \c "...[TRUNCATED]". A failure
+  raised while another is still being reported answers \ref toy::assertion::Action::Ignore without a second report.
+  Stack walking is absent, so the \ref toy::assertion::StackWalkCallback passed to toy::assertion::setCallbacks() is
+  ignored.
 
   \note Selected by the platform CMake list of every target that carries no assertion backend of its own.
 */
+
+#include <cstdlib>
 
 #include "core.hpp"
 
@@ -69,12 +72,12 @@ void setCallbacks([[maybe_unused]] AssertionCallback assertionCallback,
 
 #ifdef TOYGINE_DEBUG
 
-bool assertion(const char * code, const char * message, const char * fileName, const char * functionName,
-               size_t lineNumber) noexcept {
+Action assertion(const char * code, const char * message, const char * fileName, const char * functionName,
+                 size_t lineNumber) noexcept {
 #ifndef __MEGA_DRIVE__
   static bool reEnter = false;
   if (reEnter)
-    return false;
+    return Action::Ignore;
 
   reEnter = true;
 
@@ -95,13 +98,16 @@ bool assertion(const char * code, const char * message, const char * fileName, c
   }
 
   // An unregistered handler leaves the failure unreported, so the caller still has to stop at it.
-  const bool stop = _assertionCallback != nullptr ? _assertionCallback(assertionString) : true;
+  const Action action = _assertionCallback != nullptr ? _assertionCallback(assertionString) : Action::Break;
 
   reEnter = false;
 
-  return stop;
+  if (action == Action::Abort)
+    std::abort();
+
+  return action;
 #else
-  return true;
+  return Action::Break;
 #endif // __MEGA_DRIVE__
 }
 

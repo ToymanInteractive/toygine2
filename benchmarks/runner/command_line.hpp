@@ -21,8 +21,8 @@
   \file   command_line.hpp
   \brief  Command line of the benchmark binary: the options it accepts and how a pattern selects a benchmark.
 
-  Defines \ref toy::benchmark::detail::Options: what the leading options of a run asked for, and where the patterns
-  begin in \c argv. The functions beside it read the arguments and match a name against those patterns.
+  Defines \ref toy::benchmark::detail::Options, which records what the leading options of a run asked for and where the
+  patterns begin in \c argv. The functions beside it read the arguments and match a name against those patterns.
 
   \note Included by platforms/desktop.cpp and by the runner's unit tests; a benchmark body needs toy_benchmark.hpp
         instead.

@@ -21,9 +21,9 @@
   \file   context.hpp
   \brief  Per-run state of the built-in test runner.
 
-  Defines \ref toy::test::Context and \ref toy::test::failure_reporter_type: the counters, the per-case verdict, the
-  subcase names and the info stack a reporter reads back. Driven by toy::test::runCase() and by the run that writes the
-  report; read back by whichever runner prints it.
+  Defines \ref toy::test::Context, the counters, per-case verdict, subcase names and info stack a reporter reads back,
+  and \ref toy::test::failure_reporter_type, the function called on a failure. Driven by toy::test::runCase() and by the
+  run that writes the report.
 
   \note Reached through toy_test.hpp; included directly only by the runner's own headers and by the unit test for this
         type.

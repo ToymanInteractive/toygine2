@@ -19,7 +19,7 @@
 //
 /*!
   \file   case_registrar.test.cpp
-  \brief  Unit tests for \ref toy::test::CaseRegistrar: name-sorted insertion and the fields it carries.
+  \brief  Unit tests for name-sorted insertion in \ref toy::test::CaseRegistrar and for the fields it carries.
 */
 
 #include <doctest/doctest.h>

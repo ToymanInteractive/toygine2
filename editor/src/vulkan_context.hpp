@@ -21,9 +21,9 @@
   \file   vulkan_context.hpp
   \brief  Minimal Vulkan/MoltenVK initialization for the editor bootstrap.
 
-  Defines \ref toy::editor::VulkanContext: creates a Vulkan instance through volk, a Metal surface
-  from a CAMetalLayer, selects a physical device with graphics + present support, and creates a
-  logical device with one queue. Swapchain and rendering are intentionally left out.
+  Defines \ref toy::editor::VulkanContext, which creates a Vulkan instance through volk, a Metal surface from a
+  CAMetalLayer, selects a physical device with graphics + present support, and creates a logical device with one queue.
+  Swapchain and rendering are intentionally left out.
 */
 
 #ifndef EDITOR_SRC_VULKAN_CONTEXT_HPP_
