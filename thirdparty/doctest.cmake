@@ -19,10 +19,10 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 # Unit test framework for the engine and editor test runners. doctest.h is the amalgamated single header, with the
-# definitions behind DOCTEST_CONFIG_IMPLEMENT; each runner's ctest_main.cpp defines it. The copy keeps that header, the
-# two CMake scripts behind doctest_discover_tests() and the license, and drops the upstream CMakeLists, which declares a
-# project of its own, builds the examples and tests, and installs a package config. thirdparty/README.md records the
-# upstream tag.
+# definitions behind DOCTEST_CONFIG_IMPLEMENT: tests/ctest_main.cpp defines it for the module tests, and
+# doctest::doctest_with_main below for every other test binary. The copy keeps that header, the two CMake scripts behind
+# doctest_discover_tests() and the license, and drops the upstream CMakeLists, which declares a project of its own,
+# builds the examples and tests, and installs a package config. thirdparty/README.md records the upstream tag.
 
 # Every test runner includes this file, and the target below must be created only once.
 include_guard(GLOBAL)
@@ -50,3 +50,16 @@ target_include_directories(doctest SYSTEM INTERFACE ${DOCTEST_DIR})
 target_compile_options(doctest INTERFACE $<$<CXX_COMPILER_ID:Clang,AppleClang>:-Wno-bind-to-temporary-copy>)
 
 add_library(doctest::doctest ALIAS doctest)
+
+# doctest's own main(), as upstream's doctest_with_main provides it, for test binaries with no setup of their own.
+# An interface source, so it counts as the consumer's own: Xcode links no executable whose sources all come from a
+# library, and the editor tests have no source of their own yet.
+set(DOCTEST_WITH_MAIN_SRC ${CMAKE_BINARY_DIR}/thirdparty/doctest/doctest_with_main.cpp)
+file(CONFIGURE OUTPUT ${DOCTEST_WITH_MAIN_SRC}
+     CONTENT "#define DOCTEST_CONFIG_IMPLEMENT_WITH_MAIN\n#include <doctest/doctest.h>\n")
+
+add_library(doctest_with_main INTERFACE)
+target_sources(doctest_with_main INTERFACE ${DOCTEST_WITH_MAIN_SRC})
+target_link_libraries(doctest_with_main INTERFACE doctest::doctest)
+
+add_library(doctest::doctest_with_main ALIAS doctest_with_main)
