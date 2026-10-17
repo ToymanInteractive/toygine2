@@ -21,9 +21,9 @@
   \file   assertion.hpp
   \brief  Assertion failure reporting and the handlers an application registers for it.
 
-  Defines \ref toy::assertion. It holds the two handler types, the initialize() and deInitialize() calls that bound
-  their registration, and assertion(), which the \c assert and \c assert_message macros call with the context of the
-  failing check. Only builds that define \c TOYGINE_DEBUG compile reporting in and declare assertion().
+  Defines \ref toy::assertion, which reports a failed assert or assert_message check to the handler the application
+  registers, and that handler decides what the check does next. Only builds that define \c TOYGINE_DEBUG compile
+  reporting in.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -53,20 +53,24 @@
   toy::assertion::Action reportAssertion(const char * assertionString) noexcept {
     std::fputs(assertionString, stderr);
 
-    return toy::assertion::Action::Break; // printed, not handled here; stop at the failing check
+    return toy::assertion::Action::Break;
   }
 
   } // namespace
 
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(reportAssertion, nullptr);
+  int main() {
+    toy::assertion::initialize();
+    toy::assertion::setCallbacks(reportAssertion, nullptr);
 
-  // ... run the application; failed checks reach reportAssertion in debug builds ...
+    // Run the application; in a debug build a failed check reaches reportAssertion() and then breaks.
 
-  toy::assertion::deInitialize();
+    toy::assertion::deInitialize();
+
+    return 0;
+  }
   \endcode
 
-  \note A check that must fail the build uses \c static_assert or assertCompileTimeError() instead of assertion().
+  \note A check that must fail the build uses \c static_assert.
 */
 namespace toy::assertion {
 
@@ -189,7 +193,7 @@ Action assertion(const char * code, const char * message, const char * fileName,
   \sa assertion()
 */
 inline void assertCompileTimeError() noexcept {
-  // Intentionally cause a compile-time error
+  // Empty on purpose: the call fails constant evaluation because the function is not constexpr.
 }
 
 } // namespace toy::assertion
