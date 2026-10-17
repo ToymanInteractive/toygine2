@@ -30,11 +30,27 @@
 #ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 
+#include <windows.h>
+
+// Undefine Windows macros that conflict with std:: functions
+#undef min
+#undef max
+
 namespace toy::platform::detail {
 
 // Assumed equal to macOS: not yet measured with MSVC on x86.
 inline constexpr size_t c_inlineCopyMaxBytes = 128;
 
+// Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
+inline constexpr bool c_assertIgnoreAlways = true;
+
 } // namespace toy::platform::detail
+
+#ifdef TOYGINE_DEBUG
+
+// Stops under the debugger and resumes on continue; without one, the breakpoint exception ends the process.
+#define TOYGINE_DEBUG_BREAK() __debugbreak()
+
+#endif // TOYGINE_DEBUG
 
 #endif // SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_

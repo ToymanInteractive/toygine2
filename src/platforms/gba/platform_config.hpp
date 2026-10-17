@@ -35,6 +35,16 @@ namespace toy::platform::detail {
 // GCC for Thumb on the ARM7TDMI copies objects up to 44 bytes inline and calls memcpy() above.
 inline constexpr size_t c_inlineCopyMaxBytes = 44;
 
+// Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
+inline constexpr bool c_assertIgnoreAlways = false;
+
 } // namespace toy::platform::detail
+
+#ifdef TOYGINE_DEBUG
+
+// GCC emits an undefined instruction, and the BIOS exception vector stops execution at the failing check.
+#define TOYGINE_DEBUG_BREAK() __builtin_trap()
+
+#endif // TOYGINE_DEBUG
 
 #endif // SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_

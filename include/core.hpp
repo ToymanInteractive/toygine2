@@ -120,6 +120,8 @@ using std::bit_cast;
 
 //--------------------------------------------------------------------------------------------------------------------
 
+#include "platform_config.hpp"
+
 #if defined(assert)
 // Undefine any existing assert macro to avoid conflicts
 #undef assert
@@ -145,43 +147,14 @@ using std::bit_cast;
 #endif
 
 /*!
-  \def assert
-  \brief Checks \a expression in a debug build and reports a failure with its source location.
-
-  Passes the expression as written, the file, the enclosing function, and the line to toy::assertion::assertion(), which
-  reports the failure through the registered \ref toy::assertion::AssertionCallback. A failure during constant
-  evaluation calls toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression
-  non-constant and fails the build.
-
-  \param expression Condition that must hold. Evaluated once, and only in a debug build.
-
-  \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
-
-  \note Execution continues past a failed check: the macro reports it and returns, so stopping is the registered
-        handler's own decision.
-  \note Replaces the \c assert macro of \c \<cassert\>, which this header undefines first.
-  \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build expands to \c ((void)0), so \a expression
-        is never evaluated and a side effect written inside it is lost.
-
-  \sa assert_message
-*/
-#define assert(expression)                                                                                             \
-  do {                                                                                                                 \
-    if (!(expression)) {                                                                                               \
-      if consteval {                                                                                                   \
-        toy::assertion::assertCompileTimeError();                                                                      \
-      } else {                                                                                                         \
-        toy::assertion::assertion(#expression, nullptr, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
-      }                                                                                                                \
-    }                                                                                                                  \
-  } while (0)
-
-/*!
   \def assert_message
   \brief Checks \a expression in a debug build and reports a failure with \a message and its source location.
 
-  Routes the failure exactly as assert does, with \a message carried into the description so that a report reads without
-  opening the source.
+  Passes the expression as written, \a message, the file, the enclosing function, and the line to
+  toy::assertion::assertion(), which reports the failure through the registered
+  \ref toy::assertion::AssertionCallback. A failure during constant evaluation calls
+  toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression non-constant and fails
+  the build.
 
   \param expression Condition that must hold. Evaluated once, and only in a debug build.
   \param message    Reason the condition must hold, in human-readable form, or \c nullptr for none. Read during the call
@@ -189,8 +162,13 @@ using std::bit_cast;
 
   \pre toy::assertion::initialize() has been called; without it a failure reports nothing.
 
+  \note Carries out the \ref toy::assertion::Action the handler answers at the call site;
+        \ref toy::assertion::Action::Break stops through \c TOYGINE_DEBUG_BREAK(), defined in each platform_config.hpp.
+  \note \ref toy::assertion::Action::IgnoreAlways silences the call site, per template instantiation, through a
+        \c static flag where \ref toy::platform::c_assertIgnoreAlways is \c true; elsewhere it acts as
+        \ref toy::assertion::Action::Ignore. Either way \a expression is still evaluated.
   \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build expands to \c ((void)0), so neither
-        argument is evaluated.
+        argument is evaluated and a side effect written inside them is lost.
   \note A comma outside parentheses in \a expression splits the macro arguments and fails the build; wrap such an
         expression in parentheses.
 
@@ -202,18 +180,44 @@ using std::bit_cast;
       if consteval {                                                                                                   \
         toy::assertion::assertCompileTimeError();                                                                      \
       } else {                                                                                                         \
-        toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__);                       \
+        if constexpr (toy::platform::c_assertIgnoreAlways) {                                                           \
+          static bool toyAssertIgnoredAlways = false;                                                                  \
+          if (!toyAssertIgnoredAlways) {                                                                               \
+            const auto toyAssertAction = toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, \
+                                                                   __LINE__);                                          \
+            if (toyAssertAction == toy::assertion::Action::Break) {                                                    \
+              TOYGINE_DEBUG_BREAK();                                                                                   \
+            } else if (toyAssertAction == toy::assertion::Action::IgnoreAlways) {                                      \
+              toyAssertIgnoredAlways = true;                                                                           \
+            }                                                                                                          \
+          }                                                                                                            \
+        } else if (toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, __LINE__)             \
+                   == toy::assertion::Action::Break) {                                                                 \
+          TOYGINE_DEBUG_BREAK();                                                                                       \
+        }                                                                                                              \
       }                                                                                                                \
     }                                                                                                                  \
   } while (0)
 
 #else // TOYGINE_DEBUG
 
-#define assert(expression) ((void)0)
-
 #define assert_message(expression, message) ((void)0)
 
 #endif // TOYGINE_DEBUG
+
+/*!
+  \def assert
+  \brief Checks \a expression in a debug build and reports a failure with its source location.
+
+  Expands to assert_message with \c nullptr as the message and behaves exactly as assert_message does.
+
+  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+
+  \note Replaces the \c assert macro of \c \<cassert\>, which this header undefines first.
+
+  \sa assert_message
+*/
+#define assert(expression) assert_message(expression, nullptr)
 
 /*!
   \def TOYGINE_NO_COPY_MOVE(ClassName)

@@ -21,16 +21,14 @@
   \file   platform.hpp
   \brief  Constants whose values depend on the target platform.
 
-  Defines \ref toy::platform::c_inlineCopyMaxBytes over the value the active platform supplies in its
-  platform_config.hpp, so engine code reads one documented name on every target.
+  Defines the \ref toy::platform constants over the values the active platform supplies in its platform_config.hpp, so
+  engine code reads one documented name on every target.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_PLATFORM_HPP_
 #define INCLUDE_CORE_PLATFORM_HPP_
-
-#include "platform_config.hpp"
 
 namespace toy::platform {
 
@@ -46,6 +44,16 @@ namespace toy::platform {
   \note Values not measured on the target are estimates, and the comment beside each one says so.
 */
 inline constexpr size_t c_inlineCopyMaxBytes = detail::c_inlineCopyMaxBytes;
+
+/*!
+  \brief Whether assert_message keeps a flag per call site for \ref toy::assertion::Action::IgnoreAlways.
+
+  \c true on the desktop targets. The consoles set \c false to save the flag and the code that reads it at every call
+  site, so \ref toy::assertion::Action::IgnoreAlways acts as \ref toy::assertion::Action::Ignore there.
+
+  \note Each target sets the value in the platform_config.hpp of its directory under src/platforms.
+*/
+inline constexpr bool c_assertIgnoreAlways = detail::c_assertIgnoreAlways;
 
 } // namespace toy::platform
 

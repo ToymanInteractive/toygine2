@@ -29,11 +29,10 @@
 #include "core.hpp"
 
 // Throwing here would terminate instead of reaching doctest: both callback types are noexcept.
-static bool assertionCallback(const char * message) noexcept {
+static toy::assertion::Action assertionCallback(const char * message) noexcept {
   ADD_FAIL_CHECK_AT(__FILE__, __LINE__, message);
 
-  // Stops the caller at the failing check, the same thing an unregistered handler does.
-  return true;
+  return toy::assertion::Action::Ignore;
 }
 
 // One frame of a stack trace: record it as a message so the walk adds no failures of its own.

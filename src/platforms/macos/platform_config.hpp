@@ -35,6 +35,16 @@ namespace toy::platform::detail {
 // Measured on Apple silicon: whole copies win up to 104 bytes and lose from 168.
 inline constexpr size_t c_inlineCopyMaxBytes = 128;
 
+// Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
+inline constexpr bool c_assertIgnoreAlways = true;
+
 } // namespace toy::platform::detail
+
+#ifdef TOYGINE_DEBUG
+
+// Stops under lldb and resumes on continue; without a debugger, SIGTRAP ends the process.
+#define TOYGINE_DEBUG_BREAK() __builtin_debugtrap()
+
+#endif // TOYGINE_DEBUG
 
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
