@@ -46,6 +46,8 @@
 #include <type_traits>
 #include <utility>
 
+#include "platform_config.hpp"
+
 //----------------------------------------------------------------------------------------------------------------------
 
 /*!
@@ -119,8 +121,6 @@ using std::bit_cast;
 */
 
 //--------------------------------------------------------------------------------------------------------------------
-
-#include "platform_config.hpp"
 
 #if defined(assert)
 // Undefine any existing assert macro to avoid conflicts
