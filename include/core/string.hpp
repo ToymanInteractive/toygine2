@@ -112,9 +112,9 @@ namespace toy {
   * Over \ref toy::FixedString no operation allocates or calls into the platform, so the type suits embedded and retro
     targets.
 
-  \note The length counts bytes, not characters; under a multi-byte encoding the two differ.
-  \note The conversion to \ref toy::StringView and subview() measure to the first \c '\\0', so a null byte inside the
-        string ends the view early.
+  \note The length counts bytes, not characters; under a multi-byte encoding the two differ, and utf8_size() counts
+        the characters of UTF-8 text.
+  \note subview() measures to the first \c '\\0', so a null byte inside the string ends the view early.
 
   \warning A shipping build drops an edit that does not fit a fixed buffer without a trace; a caller that cannot afford
            that checks capacity() first.
@@ -894,22 +894,6 @@ public:
   [[nodiscard]] constexpr const_pointer c_str() const noexcept;
 
   /*!
-    \brief Returns a view over the characters of the string.
-
-    Converts implicitly, as the \c std::basic_string conversion to \c std::basic_string_view does, so a string passes
-    where a \ref toy::StringView is taken. The view measures c_str() again, which costs a scan of the characters.
-
-    \return View over c_str() up to its first \c '\\0'.
-
-    \note The view owns nothing and stays valid as long as the pointer c_str() returns.
-
-    \warning A string holding \c '\\0' among its characters yields a view that stops there, shorter than size().
-
-    \sa c_str()
-  */
-  constexpr explicit(false) operator StringView() const noexcept;
-
-  /*!
     \brief Returns an iterator to the first character for writing.
 
     \return Iterator to the first character, equal to end() when the string is empty.
@@ -1090,7 +1074,7 @@ public:
          that check and count every byte outside the continuation form, a stray lead byte included.
 
     \note The count matches size() only where every character is ASCII.
-    \note A \ref toy::StringView made from the string stops at the first \c '\\0', so its utf8_size() can count fewer.
+    \note A view from subview() stops at the first \c '\\0', so its utf8_size() can count fewer.
 
     \sa size()
     \sa toy::StringView::utf8_size()

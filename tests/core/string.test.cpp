@@ -1178,18 +1178,15 @@ TEST_CASE("string/conversion_to_string_view") {
   static_assert(StringView(c_sampleString).size() == c_sampleLength, "the view must cover every character");
 }
 
-// The view measures up to the first null character, so a string holding one converts to a shorter view.
+// The view takes the length the string reports, so a null character inside the string stays inside the view.
 TEST_CASE("string/conversion_to_string_view_embedded_null") {
-  constexpr size_t c_viewLength = std::char_traits<char>::length(c_embeddedNull);
-
   const Fixed      string(c_embeddedNull, c_embeddedNullLength);
   const StringView view = string;
 
-  CHECK(string.size() == c_embeddedNullLength);
-  CHECK(view.size() == c_viewLength);
+  CHECK(view.size() == string.size());
 
-  static_assert(StringView(Fixed(c_embeddedNull, c_embeddedNullLength)).size() == c_viewLength,
-                "the view must stop at the first null character");
+  static_assert(StringView(Fixed(c_embeddedNull, c_embeddedNullLength)).size() == c_embeddedNullLength,
+                "the view must cover the characters past a null one");
 }
 
 // Which reference and pointer each access returns on a writable and on a read-only string, and how a view is reached.
@@ -1341,10 +1338,7 @@ TEST_CASE("string/utf8_size") {
   CHECK(c_sampleString.utf8_size() == c_sampleLength);
   CHECK(Fixed(c_cyrillic).utf8_size() == c_cyrillicLength / 2);
   CHECK(c_emptyString.utf8_size() == 0);
-
-  // The view stops at the null byte, while the string counts on to its end.
   CHECK(c_embeddedNullString.utf8_size() == c_embeddedNullLength);
-  CHECK(StringView(c_embeddedNullString).utf8_size() < c_embeddedNullLength);
 
   static_assert(c_sampleString.utf8_size() == c_sampleLength, "an ASCII string counts one character per byte");
   static_assert(Fixed(c_cyrillic).utf8_size() == c_cyrillicLength / 2, "a two-byte character counts once");
