@@ -30,6 +30,9 @@
 #ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
 
+#include <errno.h>
+#include <unistd.h>
+
 namespace toy::platform::detail {
 
 // Measured on Apple silicon: whole copies win up to 104 bytes and lose from 168.

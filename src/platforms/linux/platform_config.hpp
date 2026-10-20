@@ -30,6 +30,9 @@
 #ifndef SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 #define SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
 
+#include <errno.h>
+#include <unistd.h>
+
 namespace toy::platform::detail {
 
 // Assumed equal to macOS: not yet measured with GCC on x86.

@@ -24,7 +24,7 @@
 
 #include "toygine.hpp"
 
-constexpr toy::application::BaseApplication app{
+constexpr toy::application::ConsoleApplication app{
   toy::application::Version{26, 20, 0, "f7e57d4"},
 };
 
