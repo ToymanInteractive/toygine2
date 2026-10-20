@@ -22,11 +22,9 @@
   \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Linux and macOS.
 */
 
-#include <errno.h>
 #include <sched.h>
 #include <sys/types.h>
 #include <time.h>
-#include <unistd.h>
 
 #include "application.hpp"
 

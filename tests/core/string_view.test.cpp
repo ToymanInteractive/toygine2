@@ -42,6 +42,28 @@ constexpr char         c_countedPart[4]  = {'p', 'l', 'a', 'y'};
 // A terminator inside the counted range, which a measured length would stop at.
 constexpr char         c_embeddedNull[5] = {'p', 'l', '\0', 'a', 'y'};
 
+// The same characters followed by a terminator, as a StringLike source has to provide them.
+constexpr char   c_terminatedEmbeddedNull[]     = "pl\0ay";
+constexpr size_t c_terminatedEmbeddedNullLength = sizeof(c_terminatedEmbeddedNull) - 1;
+
+// The least a type exposes to satisfy StringLike: a C-string pointer and the length it reports.
+struct ReportedString {
+  const char * characters;
+  size_t       length;
+
+  [[nodiscard]] constexpr const char * c_str() const noexcept {
+    return characters;
+  }
+
+  [[nodiscard]] constexpr size_t size() const noexcept {
+    return length;
+  }
+};
+
+// A source whose reported length runs past a null character a scan would stop at.
+constexpr ReportedString c_reportedSource{.characters = c_terminatedEmbeddedNull,
+                                          .length     = c_terminatedEmbeddedNullLength};
+
 // A byte above the ASCII range, which orders after an ASCII one only where bytes compare as unsigned char.
 constexpr const char * c_highByte = "\xff";
 
@@ -184,6 +206,21 @@ TEST_CASE("string_view/construction_from_null") {
                 "the deleted overload must reject a literal nullptr during compilation");
 
   static_assert(std::is_nothrow_default_constructible_v<StringView>, "an empty view must be buildable without cost");
+}
+
+// A string-like source hands the view its pointer and its reported length, which may run past a null character.
+TEST_CASE("string_view/construction_from_string_like") {
+  const StringView view = c_reportedSource;
+
+  CHECK(view.begin() == c_terminatedEmbeddedNull);
+  CHECK(forwardLength(view) == c_terminatedEmbeddedNullLength);
+
+  static_assert(StringView(c_reportedSource).begin() == c_terminatedEmbeddedNull,
+                "the view must read the source's characters, not a copy");
+  static_assert(forwardLength(StringView(c_reportedSource)) == c_terminatedEmbeddedNullLength,
+                "the view must take the reported length instead of measuring to the first null character");
+  static_assert(std::is_nothrow_convertible_v<ReportedString, StringView>,
+                "a string-like argument must become a view without a cast");
 }
 
 // The range a forward walk covers and the characters it yields.

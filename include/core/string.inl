@@ -292,11 +292,6 @@ constexpr String<storageType>::const_pointer String<storageType>::c_str() const 
 }
 
 template <StringStorage storageType>
-constexpr String<storageType>::operator StringView() const noexcept {
-  return StringView(c_str());
-}
-
-template <StringStorage storageType>
 constexpr String<storageType>::iterator String<storageType>::begin() noexcept {
   return data();
 }

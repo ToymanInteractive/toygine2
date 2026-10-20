@@ -38,6 +38,14 @@ constexpr StringView::StringView(const value_type * string) noexcept
   assert_message(string != nullptr, "C string must not be null");
 }
 
+template <StringLike StringType>
+constexpr StringView::StringView(const StringType & string) noexcept
+  : _data(string.c_str())
+  , _size(string.size()) {
+  assert_message(_data != nullptr, "C string must not be null");
+  assert_message(_data == nullptr || _data[_size] == '\0', "C string must end in a terminator at its reported size");
+}
+
 constexpr StringView::const_iterator StringView::begin() const noexcept {
   return cbegin();
 }

@@ -22,7 +22,7 @@
   \brief  Non-owning view over a null-terminated byte string that carries its length.
 
   Defines \ref toy::StringView, a read-only view that holds the pointer to a null-terminated byte string and the length
-  measured when the view was built. Used where a call site hands the string to a C interface and still needs its length
+  fixed when the view was built. Used where a call site hands the string to a C interface and still needs its length
   without a second scan for the terminator.
 
   \note Included by core.hpp only; do not include this file directly.
@@ -38,7 +38,7 @@ namespace toy {
 
 /*!
   \class StringView
-  \brief Read-only view over a null-terminated byte string that keeps the pointer and its measured length.
+  \brief Read-only view over a null-terminated byte string that keeps the pointer and its length.
 
   Stores the pointer the caller supplies and copies neither the characters nor the terminator, so the viewed string has
   to outlive the view. Null-termination is part of the contract, unlike \c std::string_view: the pointer stays valid
@@ -47,7 +47,8 @@ namespace toy {
   \section string_view_features Key Features
 
   * **Null-terminated**: every viewed string ends in a null character, so its pointer reaches a C interface unchanged.
-  * **Length measured once**: the pointer constructor scans for the terminator, and the view holds the result.
+  * **Length fixed at construction**: the view stores the length once, scanned for by the pointer constructor or taken
+    from size() of a \ref toy::StringLike source.
   * **Constexpr support**: every operation evaluates in a constant expression.
   * **No allocation**: the view holds a pointer and a length, and owns no characters.
   * **Range access**: forward and reverse iterator pairs, so a range-based \c for and the standard algorithms read the
@@ -84,6 +85,7 @@ namespace toy {
   \section string_view_performance Performance Characteristics
 
   * **Construction from a pointer**: O(n) in the length of the string, one scan for the terminator.
+  * **Construction from a string-like source**: O(1); takes the length from size() of the source.
   * **Default construction and copying**: O(1).
   * **Iterator access**: O(1); each iterator is a pointer into the viewed string, or a reverse adaptor over one.
   * **Substring search**: O(n * m) in the length of the view and the length of the needle; nothing is indexed or
@@ -187,6 +189,27 @@ public:
     \sa StringView(const char *)
   */
   StringView(nullptr_t) = delete;
+
+  /*!
+    \brief Builds a view over the characters of a string-like object with the length it reports.
+
+    Converts implicitly, as \c std::basic_string converts to \c std::basic_string_view, so a \ref toy::String passes
+    where a view is taken. The length is size() of the source, so a \c '\\0' among the characters stays inside the
+    view.
+
+    \tparam StringType Source type; satisfies \ref toy::StringLike.
+
+    \param string String whose characters the view reads.
+
+    \pre \a string returns a non-null c_str() with \c '\\0' at offset size(), checked by assert_message in debug builds.
+    \pre \a string outlives the view and keeps its characters in place.
+
+    \post The view holds the pointer and the length \a string reports.
+
+    \sa StringView(const char *)
+  */
+  template <StringLike StringType>
+  constexpr explicit(false) StringView(const StringType & string) noexcept;
 
   /*!
     \brief Makes this view read the same string as \a view.
