@@ -35,23 +35,45 @@ constexpr const char * c_revision = "f7e57d4";
 // The build every case hands to an application.
 constexpr Version c_build{26, 20, 0, c_revision};
 
-// Built at compile time, the way the console sample declares its application.
-constexpr BaseApplication c_application{c_build};
+// Smallest concrete application: the base is abstract and its constructor is protected.
+class StubApplication final : public BaseApplication {
+public:
+  explicit constexpr StubApplication(const Version & version, bool result = true) noexcept
+    : BaseApplication(version)
+    , _result(result) {}
+
+  // How many times run() reached runInternal().
+  size_t runCount = 0;
+
+  // Argument count runInternal() read on its last call.
+  size_t argsCountInRun = 0;
+
+private:
+  bool runInternal() noexcept override {
+    ++runCount;
+    argsCountInRun = argsCount();
+
+    return _result;
+  }
+
+  bool _result;
+};
+
+// Built at compile time, so the cases can read version() in a constant expression.
+constexpr StubApplication c_application{c_build};
 
 } // namespace
 
-// How the call site may construct an application, and which forms it may not write.
+// The base exists only as part of a derived application that implements runInternal().
 TEST_CASE("application/base_application/construction") {
-  static_assert(std::is_nothrow_constructible_v<BaseApplication, const Version &>,
-                "construction from a version must be declared non-throwing");
-  static_assert(!std::is_convertible_v<Version, BaseApplication>,
-                "a version must not turn into an application without naming the type");
-  static_assert(!std::is_default_constructible_v<BaseApplication>, "an application must not exist without a version");
+  static_assert(std::is_abstract_v<BaseApplication>, "an application must implement runInternal() before it can exist");
+  static_assert(!std::is_constructible_v<BaseApplication, const Version &>,
+                "only a derived application may construct the base");
 }
 
 // What version() hands back, and that it reports the version passed at construction.
 TEST_CASE("application/base_application/version") {
-  const BaseApplication application{c_build};
+  const StubApplication application{c_build};
 
   CHECK(application.version() == c_build);
   CHECK(application.version().major == 26);
@@ -68,7 +90,7 @@ TEST_CASE("application/base_application/version") {
 // The application keeps its own copy of the version, while the revision characters stay with the caller.
 TEST_CASE("application/base_application/version_ownership") {
   Version               source{c_build};
-  const BaseApplication application{source};
+  const StubApplication application{source};
 
   source.patch = 1;
 
@@ -77,6 +99,52 @@ TEST_CASE("application/base_application/version_ownership") {
 
   static_assert(c_application.version().revision.data() == c_revision,
                 "the revision must view the caller's characters, not a copy");
+}
+
+// Before the first run(), the application holds no command-line arguments.
+TEST_CASE("application/base_application/arguments_before_run") {
+  StubApplication application{c_build};
+
+  CHECK(application.argsCount() == 0);
+  CHECK(application.args() == nullptr);
+
+  static_assert(noexcept(application.argsCount()), "the argument count accessor must be declared non-throwing");
+  static_assert(noexcept(application.args()), "the argument array accessor must be declared non-throwing");
+}
+
+// run() calls runInternal() once and returns its result.
+TEST_CASE("application/base_application/run_result") {
+  char   program[] = "toygine";
+  char * argv[]    = {program, nullptr};
+
+  StubApplication succeeding{c_build, true};
+  StubApplication failing{c_build, false};
+
+  CHECK(succeeding.run(1, argv));
+  CHECK_FALSE(failing.run(1, argv));
+  CHECK(succeeding.runCount == 1);
+  CHECK(failing.runCount == 1);
+
+  static_assert(noexcept(succeeding.run(1, argv)), "run() must be declared non-throwing");
+}
+
+// run() stores the arguments before runInternal() reads them and keeps the caller's array without copying it.
+TEST_CASE("application/base_application/arguments") {
+  char   program[] = "toygine";
+  char   flag[]    = "--verbose";
+  char * argv[]    = {program, flag, nullptr};
+
+  StubApplication application{c_build};
+
+  REQUIRE(application.run(2, argv));
+
+  CHECK(application.argsCountInRun == 2);
+  CHECK(application.argsCount() == 2);
+  CHECK(application.args() == argv);
+  CHECK(application.arg(0) == program);
+  CHECK(application.arg(1) == flag);
+
+  static_assert(noexcept(application.arg(0)), "the argument accessor must be declared non-throwing");
 }
 
 } // namespace toy::application

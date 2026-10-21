@@ -24,9 +24,23 @@
 
 #include "toygine.hpp"
 
-constexpr toy::application::ConsoleApplication app{
+#if !defined(__APPLE__)
+class SampleApp final : public toy::application::ConsoleApplication {
+public:
+  constexpr explicit SampleApp(const toy::application::Version & version) noexcept
+    : ConsoleApplication(version) {}
+
+private:
+  bool runInternal() noexcept override {
+    return true;
+  }
+};
+
+constexpr SampleApp app{
   toy::application::Version{26, 20, 0, "f7e57d4"},
 };
+
+#endif
 
 #ifdef __MEGA_DRIVE__
 
@@ -278,8 +292,41 @@ int main(int argc, char ** argv) {
 
 #endif // __WIIU__
 
+#ifdef __APPLE__
+
+class ConsoleSampleApp final : public toy::application::ConsoleApplication {
+public:
+  constexpr explicit ConsoleSampleApp(const toy::application::Version & version) noexcept
+    : ConsoleApplication(version) {}
+
+private:
+  bool runInternal() noexcept override;
+};
+
+bool ConsoleSampleApp::runInternal() noexcept {
+  writeOutputLine(toy::StringView{"Hello world from Console sample app"});
+
+  printf("v%i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
+  writeOutputLine(toy::StringView{""});
+  if (pid() != 0)
+    printf("Process ID: %u\n", pid());
+
+  if (argsCount() > 1) {
+    writeOutputLine(toy::StringView{""});
+    writeOutputLine(toy::StringView{"arguments:"});
+    for (size_t index = 1; index < argsCount(); ++index)
+      printf("- %s\n", arg(index));
+  }
+
+  return true;
+}
+
+IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
+
+#endif // __APPLE__
+
 #if !defined(__MEGA_DRIVE__) && !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__)    \
-  && !defined(__gamecube__) && !defined(__wii__) && !defined(__WIIU__)
+  && !defined(__gamecube__) && !defined(__wii__) && !defined(__WIIU__) && !defined(__APPLE__)
 
 #include <iostream>
 

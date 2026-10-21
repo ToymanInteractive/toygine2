@@ -29,9 +29,6 @@
 
 namespace toy::application {
 
-constexpr ConsoleApplication::ConsoleApplication(const Version & version) noexcept
-  : BaseApplication(version) {}
-
 void ConsoleApplication::writeOutput(const StringLike auto & text) noexcept {
   writeToSystemConsole(text, false, false);
 }
@@ -47,6 +44,9 @@ void ConsoleApplication::writeError(const StringLike auto & text) noexcept {
 void ConsoleApplication::writeErrorLine(const StringLike auto & text) noexcept {
   writeToSystemConsole(text, true, true);
 }
+
+constexpr ConsoleApplication::ConsoleApplication(const Version & version) noexcept
+  : BaseApplication(version) {}
 
 } // namespace toy::application
 

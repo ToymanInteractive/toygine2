@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application.inl
-  \brief  Inline implementations for \ref toy::application::BaseApplication construction and the version accessor.
+  \brief  Inline implementations for \ref toy::application::BaseApplication construction, run(), and the accessors.
 
   \note Included by application.hpp only; do not include this file directly.
 */
@@ -29,12 +29,33 @@
 
 namespace toy::application {
 
-constexpr BaseApplication::BaseApplication(const Version & version) noexcept
-  : _version(version) {}
-
 constexpr const Version & BaseApplication::version() const noexcept {
   return _version;
 }
+
+inline bool BaseApplication::run(size_t argc, char ** argv) noexcept {
+  _argC = argc;
+  _argV = argv;
+
+  return runInternal();
+}
+
+inline size_t BaseApplication::argsCount() const noexcept {
+  return _argC;
+}
+
+inline char ** BaseApplication::args() noexcept {
+  return _argV;
+}
+
+inline const char * BaseApplication::arg(size_t index) const noexcept {
+  assert_message(index < _argC, "index out of range");
+
+  return (index < _argC && _argV != nullptr) ? _argV[index] : nullptr;
+}
+
+constexpr BaseApplication::BaseApplication(const Version & version) noexcept
+  : _version(version) {}
 
 } // namespace toy::application
 

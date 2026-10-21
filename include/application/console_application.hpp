@@ -39,35 +39,51 @@ namespace toy::application {
 
 /*!
   \class ConsoleApplication
-  \brief Application object for a program that reports through the system console.
+  \brief Abstract application object for a program that reports through the system console.
 
   Extends \ref toy::application::BaseApplication with two pairs of write calls: one pair for the output stream, one for
-  the error stream. In each pair, one call writes the text as is and the other ends the line after it.
+  the error stream. In each pair, one call writes the text as is and the other ends the line after it. A program
+  derives from it, implements runInternal(), and expands IMPLEMENT_CONSOLE_APP to get main().
 
   \section console_application_features Key Features
 
-  * **Constexpr support**: construction evaluates in a constant expression, so the application can be a \c constexpr
-    object.
-  * **Explicit construction**: a \ref toy::application::Version never converts to an application implicitly.
+  * **Derived-only construction**: the constructor is protected and runInternal() stays pure virtual, so only a
+    derived application can exist.
+  * **Constexpr support**: construction evaluates in a constant expression, so a derived application can be a
+    \c constexpr object.
   * **Separate streams**: writeOutput() and writeError() keep regular output apart from diagnostics.
   * **Line variants**: writeOutputLine() and writeErrorLine() end the line after the text.
   * **Text input**: each write call takes any \ref toy::StringLike text, \ref toy::String and \ref toy::StringView
     included.
   * **Static output**: no write call needs an instance, so code without access to the application object can write.
-  * **Base services**: version(), pid(), sleep(), and yield() come from \ref toy::application::BaseApplication.
+  * **Base services**: version(), run(), the argument accessors, pid(), sleep(), and yield() come from
+    \ref toy::application::BaseApplication.
 
   \section console_application_usage Usage Example
 
   \code
   #include "application.hpp"
 
-  constexpr toy::application::ConsoleApplication app{
-    toy::application::Version{26, 20, 0, "f7e57d4"},
+  class ConsoleSampleApp final : public toy::application::ConsoleApplication {
+  public:
+    explicit ConsoleSampleApp(const toy::application::Version & version) noexcept
+      : ConsoleApplication(version) {}
+
+  private:
+    bool runInternal() noexcept override {
+      writeOutputLine(toy::StringView{"Hello world from Console sample app"});
+
+      if (argsCount() < 2) {
+        writeError(toy::StringView{"Missing config: "});
+        writeErrorLine(toy::StringView{"settings.cfg"});
+        return false;
+      }
+
+      return true;
+    }
   };
 
-  toy::application::ConsoleApplication::writeOutputLine(toy::StringView{"Hello world from Console sample app"});
-  toy::application::ConsoleApplication::writeError(toy::StringView{"Missing config: "});
-  toy::application::ConsoleApplication::writeErrorLine(toy::StringView{"settings.cfg"});
+  IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
   \endcode
 
   \section console_application_performance Performance Characteristics
@@ -81,21 +97,16 @@ namespace toy::application {
   * **Contracts**: the header checks none; the constructor accepts any version.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
+  \section console_application_compatibility Compatibility
+
+  * **Console output**: the write calls have an implementation on Linux and macOS only; on other targets a call fails
+    to link.
+  * **Entry point**: IMPLEMENT_CONSOLE_APP defines main() on macOS only; on other targets expanding it fails the build.
+
   \sa \ref toy::application::BaseApplication, \ref toy::StringLike
 */
-class ConsoleApplication final : public BaseApplication {
+class ConsoleApplication : public BaseApplication {
 public:
-  /*!
-    \brief Creates a console application that reports \a version.
-
-    \param version Version of the build to report.
-
-    \post version() compares equal to \a version.
-
-    \sa version()
-  */
-  explicit constexpr ConsoleApplication(const Version & version) noexcept;
-
   /*!
     \brief Writes \a text to the console output stream without ending the line.
 
@@ -131,6 +142,18 @@ public:
     \sa writeError(), writeOutputLine()
   */
   static void writeErrorLine(const StringLike auto & text) noexcept;
+
+protected:
+  /*!
+    \brief Creates a console application that reports \a version.
+
+    \param version Version of the build to report.
+
+    \post version() compares equal to \a version.
+
+    \sa version()
+  */
+  explicit constexpr ConsoleApplication(const Version & version) noexcept;
 
 private:
   /*!
