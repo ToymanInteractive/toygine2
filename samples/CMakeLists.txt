@@ -19,3 +19,7 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 add_subdirectory(console)
+
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+  add_subdirectory(tetris)
+endif()
