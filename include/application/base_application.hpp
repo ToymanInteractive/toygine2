@@ -99,13 +99,6 @@ namespace toy::application {
 class BaseApplication {
 public:
   /*!
-    \brief Destroys the application.
-
-    Destroying a derived application through a pointer to the base also runs the derived destructor.
-  */
-  virtual ~BaseApplication() = default;
-
-  /*!
     \brief Returns the version the application reports.
 
     \return Reference to the stored version, valid as long as the application exists.
@@ -210,6 +203,15 @@ protected:
     \sa version()
   */
   explicit constexpr BaseApplication(const Version & version) noexcept;
+
+  /*!
+    \brief Destroys the application.
+
+    Only a derived application can destroy the base: deleting an application through a pointer to the base does not
+    compile. Without a virtual destructor, the virtual table holds no call to operator delete, so targets without a heap
+    link without it.
+  */
+  ~BaseApplication() = default;
 
   /*!
     \brief Runs the application body; the derived application implements it.
