@@ -50,4 +50,24 @@ inline constexpr bool c_assertIgnoreAlways = true;
 
 #endif // TOYGINE_DEBUG
 
+/*!
+  \brief Defines main() that builds a console application and runs it with the command-line arguments.
+
+  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
+  APP_VERSION_REVISION. The process exits with \c EXIT_SUCCESS when run() returns \c true, \c EXIT_FAILURE otherwise.
+
+  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
+                      \ref toy::application::Version.
+*/
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  int main(int argc, char * argv[]) {                                                                                  \
+    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
+                                               .minor    = APP_VERSION_MINOR,                                          \
+                                               .patch    = APP_VERSION_PATCH,                                          \
+                                               .revision = APP_VERSION_REVISION});                                     \
+                                                                                                                       \
+    return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;                                                          \
+  }
+
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
