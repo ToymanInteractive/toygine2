@@ -119,12 +119,12 @@ public:
 
     Calls runInternal() once per call, after the arguments become readable through argsCount(), args(), and arg().
 
-    \param argc Number of entries in \a argv, as main() receives it.
+    \param argc Number of entries in \a argv.
     \param argv Command-line arguments, as main() receives them.
 
     \return Result of runInternal(): \c true when the application finished successfully, \c false otherwise.
 
-    \pre \a argc is not negative, and \a argv holds at least \a argc entries and outlives the application.
+    \pre \a argv holds at least \a argc entries and outlives the application.
 
     \post argsCount() returns \a argc, and args() returns \a argv.
 

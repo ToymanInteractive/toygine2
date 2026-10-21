@@ -67,7 +67,7 @@ inline constexpr bool c_assertIgnoreAlways = true;
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    return app.run(static_cast<size_t>(std::max(0, argc), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                         \
+    return app.run(static_cast<size_t>(std::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
   }
 
 #endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_

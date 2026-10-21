@@ -80,10 +80,7 @@
   \param appClassName Application class derived from \ref toy::application::ConsoleApplication.
 */
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
-                                                                                                                       \
-  int main() {                                                                                                         \
-    static_assert(false, "Target platform doesn't support console application");                                       \
-  }
+  static_assert(false, "the target platform has no console application entry point");
 
 #endif
 #endif // INCLUDE_APPLICATION_HPP_
