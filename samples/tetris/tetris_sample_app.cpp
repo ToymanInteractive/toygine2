@@ -18,11 +18,63 @@
 // DEALINGS IN THE SOFTWARE.
 //
 
-#if defined(__linux__) || defined(__APPLE__)
+#ifdef __APPLE__
 
-#include <cstdio>
+#include <cstring>
 
 #include <application.hpp>
+#include <unistd.h>
+
+#include "terminal_screen.hpp"
+
+namespace {
+
+toy::assertion::Action reportAssertion(const char * assertionString) noexcept {
+  terminal::leave();
+
+  const ssize_t written = write(STDERR_FILENO, assertionString, std::strlen(assertionString));
+  static_cast<void>(written);
+
+  return toy::assertion::Action::Break;
+}
+
+class TerminalGuard final {
+public:
+  TerminalGuard() noexcept = default;
+
+  TerminalGuard(const TerminalGuard &)             = delete;
+  TerminalGuard & operator=(const TerminalGuard &) = delete;
+  TerminalGuard(TerminalGuard &&)                  = delete;
+  TerminalGuard & operator=(TerminalGuard &&)      = delete;
+
+  ~TerminalGuard() noexcept {
+    terminal::leave();
+  }
+};
+
+void reportEnterFailure(terminal::EnterResult enterResult) noexcept {
+  switch (enterResult) {
+    case terminal::EnterResult::ok:
+      break;
+    case terminal::EnterResult::notATerminal:
+      toy::application::ConsoleApplication::writeErrorLine(
+        toy::StringView{"Tetris sample needs an interactive terminal"}
+      );
+      break;
+    case terminal::EnterResult::tooSmall:
+      toy::application::ConsoleApplication::writeErrorLine(
+        toy::StringView{"Terminal must fit between 48x24 and 160x60"}
+      );
+      break;
+    case terminal::EnterResult::setupFailed:
+      toy::application::ConsoleApplication::writeErrorLine(
+        toy::StringView{"Failed to switch the terminal to raw mode"}
+      );
+      break;
+  }
+}
+
+} // namespace
 
 class TetrisSampleApp final : public toy::application::ConsoleApplication {
 public:
@@ -34,12 +86,26 @@ private:
 };
 
 bool TetrisSampleApp::runInternal() noexcept {
-  writeOutputLine(toy::StringView{"Tetris sample app"});
-  printf("v%i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
+  toy::assertion::initialize();
+  toy::assertion::setCallbacks(reportAssertion, nullptr);
 
+  const terminal::EnterResult enterResult = terminal::enter();
+  if (enterResult != terminal::EnterResult::ok) {
+    reportEnterFailure(enterResult);
+    toy::assertion::deInitialize();
+    return false;
+  }
+
+  const TerminalGuard terminalGuard{};
+
+  char          byte{};
+  const ssize_t bytesRead = read(STDIN_FILENO, &byte, 1);
+  static_cast<void>(bytesRead);
+
+  toy::assertion::deInitialize();
   return true;
 }
 
 IMPLEMENT_CONSOLE_APP(TetrisSampleApp)
 
-#endif // defined(__linux__) || defined(__APPLE__)
+#endif // __APPLE__

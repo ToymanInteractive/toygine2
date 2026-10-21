@@ -21,6 +21,31 @@
 #ifndef SAMPLES_TETRIS_TERMINAL_SCREEN_HPP_
 #define SAMPLES_TETRIS_TERMINAL_SCREEN_HPP_
 
-namespace terminal {} // namespace terminal
+#include <cstdint>
 
-#endif                // SAMPLES_TETRIS_TERMINAL_SCREEN_HPP_
+namespace terminal {
+
+struct Size {
+  int32_t columns;
+  int32_t rows;
+};
+
+enum class EnterResult : uint8_t {
+  ok,
+  notATerminal,
+  tooSmall,
+  setupFailed,
+};
+
+inline constexpr int32_t c_maxColumns = 160;
+inline constexpr int32_t c_maxRows    = 60;
+inline constexpr int32_t c_minColumns = 48;
+inline constexpr int32_t c_minRows    = 24;
+
+Size        querySize() noexcept;
+EnterResult enter() noexcept;
+void        leave() noexcept;
+
+} // namespace terminal
+
+#endif // SAMPLES_TETRIS_TERMINAL_SCREEN_HPP_
