@@ -294,8 +294,6 @@ int main(int argc, char ** argv) {
 
 #ifdef __APPLE__
 
-#include <iostream>
-
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit ConsoleSampleApp(const toy::application::Version & version) noexcept
@@ -337,7 +335,7 @@ int main() noexcept {
 
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
-  toy::application::ConsoleApplication::writeOutputLine(toy::StringView{""});
+  printf("\n");
   if (app.pid() != 0)
     printf("Process ID: %u\n", app.pid());
 
