@@ -73,7 +73,7 @@ namespace toy::application {
   int main(int argc, char * argv[]) {
     ToolApplication app{toy::application::Version{26, 20, 0, "f7e57d4"}};
 
-    return app.run(argc, argv) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return app.run(static_cast<size_t>(std::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;
   }
   \endcode
 
@@ -161,7 +161,7 @@ public:
 
     \sa argsCount(), args()
   */
-  [[nodiscard]] const char * arg(size_t index) const;
+  [[nodiscard]] const char * arg(size_t index) const noexcept;
 
   /*!
     \brief Returns the ID the operating system assigned to the running process.

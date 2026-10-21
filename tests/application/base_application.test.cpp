@@ -143,6 +143,8 @@ TEST_CASE("application/base_application/arguments") {
   CHECK(application.args() == argv);
   CHECK(application.arg(0) == program);
   CHECK(application.arg(1) == flag);
+
+  static_assert(noexcept(application.arg(0)), "the argument accessor must be declared non-throwing");
 }
 
 } // namespace toy::application

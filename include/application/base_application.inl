@@ -48,7 +48,7 @@ inline char ** BaseApplication::args() noexcept {
   return _argV;
 }
 
-inline const char * BaseApplication::arg(size_t index) const {
+inline const char * BaseApplication::arg(size_t index) const noexcept {
   assert_message(index < _argC, "index out of range");
 
   return (index < _argC && _argV != nullptr) ? _argV[index] : nullptr;
