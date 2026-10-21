@@ -331,8 +331,7 @@ IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
 #include <iostream>
 
 int main() noexcept {
-  toy::application::ConsoleApplication::writeOutputLine(toy::StringView{"Hello world from Console sample app"});
-
+  printf("Hello world from Console sample app\n");
   printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
