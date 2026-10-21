@@ -33,7 +33,7 @@ constexpr const Version & BaseApplication::version() const noexcept {
   return _version;
 }
 
-inline bool BaseApplication::run(int argc, char ** argv) noexcept {
+inline bool BaseApplication::run(size_t argc, char ** argv) noexcept {
   _argC = argc;
   _argV = argv;
 

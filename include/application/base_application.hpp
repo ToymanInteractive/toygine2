@@ -130,7 +130,7 @@ public:
 
     \sa runInternal()
   */
-  [[nodiscard]] bool run(int argc, char ** argv) noexcept;
+  [[nodiscard]] bool run(size_t argc, char ** argv) noexcept;
 
   /*!
     \brief Returns the number of command-line arguments.
