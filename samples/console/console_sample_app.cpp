@@ -335,7 +335,7 @@ IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
 int main() noexcept {
   toy::application::ConsoleApplication::writeOutputLine(toy::StringView{"Hello world from Console sample app"});
 
-  printf("v%i.%i.%i (%s)\n", version.major, version.minor, version.patch, version.revision.c_str());
+  printf("v%i.%i.%i (%s)\n", app.version.major, app.version.minor, app.version.patch, app.version.revision.c_str());
   toy::application::ConsoleApplication::writeOutputLine(toy::StringView{""});
   if (app.pid() != 0)
     printf("Process ID: %u\n", app.pid());
