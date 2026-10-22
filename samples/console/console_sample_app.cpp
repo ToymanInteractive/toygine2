@@ -24,7 +24,7 @@
 
 #include "toygine.hpp"
 
-#if !defined(__APPLE__)
+#if !defined(__linux__) && !defined(__APPLE__)
 class SampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit SampleApp(const toy::application::Version & version) noexcept
@@ -40,7 +40,7 @@ constexpr SampleApp app{
   toy::application::Version{26, 20, 0, "f7e57d4"},
 };
 
-#endif
+#endif // !defined(__linux__) && !defined(__APPLE__)
 
 #ifdef __MEGA_DRIVE__
 
@@ -292,7 +292,7 @@ int main(int argc, char ** argv) {
 
 #endif // __WIIU__
 
-#ifdef __APPLE__
+#if defined(__linux__) || defined(__APPLE__)
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
@@ -305,17 +305,25 @@ private:
 
 bool ConsoleSampleApp::runInternal() noexcept {
   writeOutputLine(toy::StringView{"Hello world from Console sample app"});
-
-  printf("v%i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
+  writeOutputLine(toy::StringView{"Привет, мир из консольного тестового приложения"});
+  writeOutputLine(toy::StringView{"コンソールサンプルアプリからこんにちは世界"});
+  writeOutputLine(toy::StringView{"来自控制台示例应用的世界你好"});
+  writeOutputLine(toy::StringView{"콘솔 샘플 앱에서 안녕하세요 세계"});
+  writeOutputLine(toy::StringView{"कंसोल नमूना ऐप से हैलो वर्ल्ड"});
+  writeOutputLine(toy::StringView{"Γεια σου κόσμε από την εφαρμογή δείγματος κονσόλας"});
+  writeOutputLine(toy::StringView{"🌍👋 Hello World! 🎮🕹️👾🐛"});
   writeOutputLine(toy::StringView{""});
+
+  printf("ver: %i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
   if (pid() != 0)
-    printf("Process ID: %u\n", pid());
+    printf("pid: %u\n", pid());
 
   if (argsCount() > 1) {
     writeOutputLine(toy::StringView{""});
     writeOutputLine(toy::StringView{"arguments:"});
     for (size_t index = 1; index < argsCount(); ++index)
-      printf("- %s\n", arg(index));
+      if (const char * value = arg(index); value != nullptr)
+        printf("- %s\n", value);
   }
 
   return true;
@@ -323,10 +331,10 @@ bool ConsoleSampleApp::runInternal() noexcept {
 
 IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
 
-#endif // __APPLE__
+#endif // defined(__linux__) || defined(__APPLE__)
 
 #if !defined(__MEGA_DRIVE__) && !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__)    \
-  && !defined(__gamecube__) && !defined(__wii__) && !defined(__WIIU__) && !defined(__APPLE__)
+  && !defined(__gamecube__) && !defined(__wii__) && !defined(__WIIU__) && !defined(__linux__) && !defined(__APPLE__)
 
 #include <iostream>
 

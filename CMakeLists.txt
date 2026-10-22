@@ -177,7 +177,8 @@ if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_posix.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_posix.cpp
+                                   src/application/console_application_posix.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 

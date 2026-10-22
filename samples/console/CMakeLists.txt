@@ -18,63 +18,79 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
+include(ConsoleApplication)
+include(InstallApplication)
+
+set(SRC_LIST console_sample_app.cpp)
+set(HDR_LIST )
+set(INL_LIST )
+set(LIB_LIST )
+set(BINARY_NAME console-sample-app)
+
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
-  add_cartridge_executable(console-sample-app console_sample_app.cpp)
+  add_cartridge_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
+  target_link_libraries(${BINARY_NAME} PRIVATE toygine toygine::compile::warnings)
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+  console_application(${BINARY_NAME} SOURCES ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 else()
-  add_executable(console-sample-app console_sample_app.cpp)
+  add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
+  target_link_libraries(${BINARY_NAME} PRIVATE toygine toygine::compile::warnings)
 endif()
 
-target_link_libraries(console-sample-app PRIVATE toygine toygine::compile::warnings)
-set_target_properties(console-sample-app PROPERTIES FOLDER "samples")
+set_target_properties(${BINARY_NAME} PROPERTIES FOLDER "samples")
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.bin" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.bin" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
-  gba_create_rom(console-sample-app)
+  gba_create_rom(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.gba" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.gba" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
-  nds_create_rom(console-sample-app)
+  nds_create_rom(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.nds" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.nds" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 
-  ctr_create_3dsx(console-sample-app)
+  ctr_create_3dsx(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.3dsx" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.3dsx" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
-  nx_create_nro(console-sample-app)
+  nx_create_nro(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.nro" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.nro" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
-  ogc_create_dol(console-sample-app)
+  ogc_create_dol(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.dol" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.dol" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
-  ogc_create_dol(console-sample-app)
+  ogc_create_dol(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.dol" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.dol" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 
-  wut_create_rpx(console-sample-app)
+  wut_create_rpx(${BINARY_NAME})
 
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/console-sample-app.rpx" DESTINATION bin COMPONENT samples)
+  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.rpx" DESTINATION bin COMPONENT samples)
+
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+
+  install_application(${BINARY_NAME} COMPONENT samples)
 
 else ()
 
-  install(TARGETS console-sample-app RUNTIME DESTINATION bin COMPONENT samples)
+  install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION bin COMPONENT samples)
 
 endif ()
