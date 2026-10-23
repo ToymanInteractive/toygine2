@@ -36,6 +36,7 @@
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
+#include <cstdlib>
 #include <cstring>
 #include <functional>
 #include <initializer_list>
@@ -251,6 +252,7 @@ using std::bit_cast;
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"
 #include "core/log_record.hpp"
+#include "core/memory.hpp"
 #include "core/platform.hpp"
 #include "core/string.hpp"
 #include "core/string_like.hpp"
