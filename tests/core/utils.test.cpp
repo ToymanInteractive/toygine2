@@ -286,10 +286,12 @@ TEST_CASE("utf16_to_utf8/reads_only_the_counted_units") {
   CHECK(inner[3] == '\0');
 
   // Three units of a two-byte script encode three characters and leave the rest unread.
+  const auto prefixBytes = std::char_traits<char>::length("при");
+
   std::array<char, 16> prefix{};
   utf16ToUtf8(prefix.data(), prefix.size(), u"привет", 3);
-  CHECK(std::char_traits<char>::length(prefix.data()) == 6);
-  CHECK(std::char_traits<char>::compare(prefix.data(), c_cyrillic, 6) == 0);
+  CHECK(std::char_traits<char>::length(prefix.data()) == prefixBytes);
+  CHECK(std::char_traits<char>::compare(prefix.data(), "при", prefixBytes) == 0);
 
   // A count ending between the halves of a pair keeps what precedes the pair and stops there.
   std::array<char, 16> cut{c_sentinel, c_sentinel, c_sentinel, c_sentinel};
@@ -319,8 +321,10 @@ TEST_CASE("utf16_to_utf8/stops_before_a_character_that_does_not_fit") {
   utf16ToUtf8(single.data(), 1, u"привет", units);
   CHECK(single[0] == '\0');
   CHECK(single[1] == c_sentinel);
+}
 
-  // A surrogate pair goes in as one four-byte sequence or not at all.
+// A surrogate pair goes in as one four-byte sequence or not at all.
+TEST_CASE("utf16_to_utf8/writes_a_surrogate_pair_whole_or_not_at_all") {
   const auto pairBytes = std::char_traits<char>::length("🎮");
   const auto pairUnits = std::char_traits<char16_t>::length(u"🎮");
 
@@ -440,8 +444,10 @@ TEST_CASE("utf8_to_utf16/stops_when_the_buffer_is_full") {
   utf8ToUtf16(single.data(), 1, c_cyrillic, bytes);
   CHECK(single[0] == u'\0');
   CHECK(single[1] == c_utf16Sentinel);
+}
 
-  // A four-byte character goes in as a whole surrogate pair or not at all.
+// A four-byte character goes in as a whole surrogate pair or not at all.
+TEST_CASE("utf8_to_utf16/writes_a_surrogate_pair_whole_or_not_at_all") {
   const auto pairBytes = std::char_traits<char>::length("🎮");
   const auto pairUnits = std::char_traits<char16_t>::length(u"🎮");
 

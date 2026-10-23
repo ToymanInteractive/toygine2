@@ -28,6 +28,7 @@
 namespace {
 
 // Text in all four encoded widths, so a conversion meets each of them, a surrogate pair included.
+// About 100 units, under 600 bytes with the largest buffer, so a desktop run stays inside the L1 data cache.
 constexpr const char16_t * c_utf16Text
   = u"the quick brown fox, съешь же ещё этих мягких французских булок, すばやい茶色の狐 🎮🎲 jumps over the lazy dog";
 
