@@ -40,7 +40,7 @@ constexpr SampleApp app{
   toy::application::Version{26, 20, 0, "f7e57d4"},
 };
 
-#endif // !defined(__linux__) && !defined(__APPLE__)
+#endif
 
 #ifdef __MEGA_DRIVE__
 

@@ -29,6 +29,9 @@
 namespace toy::application {
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
+  if (text.empty() && !newLine)
+    return;
+
   FILE * const stream = isError ? stderr : stdout;
 
   ::flockfile(stream);

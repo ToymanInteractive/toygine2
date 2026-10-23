@@ -95,13 +95,18 @@ namespace toy::application {
   \section console_application_safety Safety Guarantees
 
   * **Contracts**: the header checks none; the constructor accepts any version.
+  * **Thread safety**: the write calls may run on several threads at once. Each call holds a lock while it writes the
+    text and the line end, so two calls on the same stream never interleave their output.
+  * **Real-time use**: a write call waits for the lock and for the console, so it does not belong in the frame loop
+    or the audio callback.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
   \section console_application_compatibility Compatibility
 
-  * **Console output**: the write calls have an implementation on Linux and macOS only; on other targets a call fails
-    to link.
-  * **Entry point**: IMPLEMENT_CONSOLE_APP defines main() on macOS only; on other targets expanding it fails the build.
+  * **Console output**: the write calls have an implementation on Linux and macOS; on other targets a call fails to
+    link.
+  * **Entry point**: IMPLEMENT_CONSOLE_APP defines the entry point on Linux and macOS; on other targets expanding it
+    fails the build.
 
   \sa \ref toy::application::BaseApplication, \ref toy::StringLike
 */

@@ -202,6 +202,11 @@ add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>")
 
+# MSVC-specific flags; reach every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8>"
+  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8>")
+
 # Reaches every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"

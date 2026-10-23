@@ -19,10 +19,11 @@
 //
 /*!
   \file   utils.hpp
-  \brief  Utility functions the core module shares across its types.
+  \brief  Text utilities the core module shares across its types.
 
-  Declares toy::utf8Len(), which reads a byte string as UTF-8 and reports how many characters it encodes. Called where a
-  byte length has to become a character count.
+  Counts and validates UTF-8 and UTF-16 text, and converts between the two in caller-supplied buffers without
+  allocating. Used where a byte length has to become a character count and where text crosses a platform API that takes
+  UTF-16.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -31,6 +32,72 @@
 #define INCLUDE_CORE_UTILS_HPP_
 
 namespace toy {
+
+/*!
+  \brief Largest number of UTF-8 bytes one UTF-16 code unit converts to.
+
+  Sizes buffers for converting UTF-16 text: a unit outside the surrogate range takes at most three bytes, and a
+  surrogate pair takes four for its two units.
+*/
+constexpr size_t c_utf16InUtf8MaxSize = 3;
+
+/*!
+  \brief Converts a range of UTF-8 bytes to a null-terminated UTF-16 string in a caller-supplied buffer.
+
+  Decodes a sequence of one to three bytes into one \c char16_t unit and a four-byte sequence into a surrogate pair.
+  Only \a count bounds the input, so a \c '\\0' inside the range comes out as \c u'\\0' in \a dest. Allocates nothing;
+  the result is always null-terminated.
+
+  \param dest     Buffer that receives the UTF-16 string.
+  \param destSize Size of \a dest in \c char16_t units, the terminator included.
+  \param src      UTF-8 bytes to convert, or \c nullptr for an empty result.
+  \param count    Number of bytes to read from \a src.
+
+  \return \a dest, or \c nullptr when \a dest is \c nullptr or \a destSize is \c 0; \a dest is then left untouched.
+
+  \pre The \a count bytes starting at \a src are readable.
+
+  \post \a dest holds the characters decoded from the start of \a src, followed by \c u'\\0'. Decoding stops at the end
+        of the range, before a character that does not fit whole, and before the first sequence toy::validateUtf8()
+        rejects, among them an overlong encoding, an encoded surrogate, and a code point past U+10FFFF.
+
+  \note Truncation and ill-formed input go unreported: a buffer of \a count + 1 units holds every character the call
+        decodes.
+  \note The conversion is a runtime one: the definition lives in a translation unit, out of reach of a constant
+        expression.
+
+  \sa toy::utf16ToUtf8(), toy::validateUtf8()
+*/
+char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_t count) noexcept;
+
+/*!
+  \brief Converts a range of UTF-16 units to a null-terminated UTF-8 string in a caller-supplied buffer.
+
+  Encodes a unit outside the surrogate range as one to three bytes and a surrogate pair as one four-byte sequence, so
+  the result is well-formed UTF-8. Only \a count bounds the input, so a \c u'\\0' inside the range comes out as
+  \c '\\0' in \a dest. Allocates nothing; the result is always null-terminated.
+
+  \param dest     Buffer that receives the UTF-8 string.
+  \param destSize Size of \a dest in bytes, the terminator included.
+  \param src      UTF-16 units to convert, or \c nullptr for an empty result.
+  \param count    Number of units to read from \a src.
+
+  \return \a dest, or \c nullptr when \a dest is \c nullptr or \a destSize is \c 0; \a dest is then left untouched.
+
+  \pre The \a count units starting at \a src are readable.
+
+  \post \a dest holds the encoded characters from the start of \a src, followed by \c '\\0'. Encoding stops at the end
+        of the range, before a character that does not fit whole in \a destSize - 1 bytes, and before a surrogate
+        whose pair does not lie whole inside the range.
+
+  \note Truncation and lone surrogates go unreported: a buffer of \ref toy::c_utf16InUtf8MaxSize bytes per unit of the
+        range, plus one for the terminator, holds every character the call encodes.
+  \note The conversion is a runtime one: the definition lives in a translation unit, out of reach of a constant
+        expression.
+
+  \sa toy::utf8ToUtf16(), toy::validateUtf8()
+*/
+char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t count) noexcept;
 
 /*!
   \brief Counts the characters a UTF-8 string encodes.
@@ -51,9 +118,31 @@ namespace toy {
   \note The count is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
   \note The walk stops at the terminator and never reads past it, whatever width a lead byte announces.
 
-  \sa toy::validateUtf8()
+  \sa toy::utf16Len(), toy::validateUtf8()
 */
 [[nodiscard]] size_t utf8Len(const char * str) noexcept;
+
+/*!
+  \brief Counts the characters a UTF-16 string encodes.
+
+  Walks the string one unit at a time and steps over a surrogate pair as a whole, so a character stored in one or two
+  units counts once. The walk checks each surrogate against the unit after it, so it needs no separate pass of
+  toy::validateUtf16().
+
+  \param str Null-terminated UTF-16 string to measure.
+
+  \return Count of encoded characters, \c 0 over an empty string, and \c 0 where the walk stops early.
+
+  \pre \a str is non-null, checked by assert_message in debug builds; a shipping build counts \c 0 instead.
+  \pre \a str holds well-formed UTF-16, checked by assert_message in debug builds. A shipping build skips that check:
+       a surrogate that is not half of a pair ends the count at \c 0.
+
+  \note The count is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
+  \note The walk stops at the terminator and never reads past it, even after a high surrogate that ends the string.
+
+  \sa toy::utf8Len(), toy::validateUtf16()
+*/
+[[nodiscard]] size_t utf16Len(const char16_t * str) noexcept;
 
 /*!
   \brief Reports whether a byte string is well-formed UTF-8.
@@ -72,7 +161,7 @@ namespace toy {
   \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
   \note Cost is O(n) in the length of the string, one pass, so a caller checking before a walk pays for two.
 
-  \sa toy::utf8Len()
+  \sa toy::utf8Len(), toy::validateUtf16()
 */
 [[nodiscard]] bool validateUtf8(const char * str) noexcept;
 
@@ -96,6 +185,46 @@ namespace toy {
   \sa toy::validateUtf8(const char *)
 */
 [[nodiscard]] bool validateUtf8(const char * str, size_t size) noexcept;
+
+/*!
+  \brief Reports whether a UTF-16 string is well-formed.
+
+  Checks that every surrogate is half of a pair, a high surrogate followed by a low one. A unit outside the surrogate
+  range is a whole character, so a surrogate outside a pair is the only ill-formed input.
+
+  \param str Null-terminated UTF-16 string to check.
+
+  \return \c true when every surrogate is half of a pair, \c false at the first that is not and \c false for a null
+          \a str. An empty string is well-formed.
+
+  \note Asserts nothing, so it reads as the condition of an assert_message check.
+  \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
+  \note Cost is O(n) in the length of the string, one pass.
+
+  \sa toy::utf16Len(), toy::validateUtf8()
+*/
+[[nodiscard]] bool validateUtf16(const char16_t * str) noexcept;
+
+/*!
+  \brief Reports whether the \a size units starting at \a str are well-formed UTF-16.
+
+  Runs the checks of toy::validateUtf16(const char16_t *) over a range that \a size bounds instead of a terminator. No
+  unit past \a size is read, and a \c u'\\0' inside the range counts as a one-unit character.
+
+  \param str  First unit of the range.
+  \param size Number of units in the range.
+
+  \return \c true when every surrogate is half of a pair inside the range, \c false at the first that is not. An empty
+          range is well-formed, a null \a str included; a null \a str with a non-zero \a size gives \c false.
+
+  \pre The \a size units starting at \a str are readable.
+
+  \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
+  \note Cost is O(n) in \a size, one pass.
+
+  \sa toy::validateUtf16(const char16_t *)
+*/
+[[nodiscard]] bool validateUtf16(const char16_t * str, size_t size) noexcept;
 
 } // namespace toy
 
