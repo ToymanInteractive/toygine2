@@ -316,6 +316,22 @@ TEST_CASE("utf16_to_utf8/stops_before_a_character_that_does_not_fit") {
   CHECK(std::char_traits<char>::length(shorter.data()) == length - 2);
   CHECK(std::char_traits<char>::compare(shorter.data(), c_cyrillic, length - 2) == 0);
 
+  // ASCII and a three-byte script each take their own branch of the encoder and stop at a full buffer the same way.
+  const auto asciiLength = std::char_traits<char>::length(c_ascii);
+
+  std::array<char, 16> asciiShorter{};
+  utf16ToUtf8(asciiShorter.data(), asciiLength, u"player", std::char_traits<char16_t>::length(u"player"));
+  CHECK(std::char_traits<char>::length(asciiShorter.data()) == asciiLength - 1);
+  CHECK(std::char_traits<char>::compare(asciiShorter.data(), c_ascii, asciiLength - 1) == 0);
+
+  const auto cjkLength    = std::char_traits<char>::length(c_cjk);
+  const auto cjkCharBytes = cjkLength / utf8Len(c_cjk);
+
+  std::array<char, 16> cjkShorter{};
+  utf16ToUtf8(cjkShorter.data(), cjkLength, u"日本語", std::char_traits<char16_t>::length(u"日本語"));
+  CHECK(std::char_traits<char>::length(cjkShorter.data()) == cjkLength - cjkCharBytes);
+  CHECK(std::char_traits<char>::compare(cjkShorter.data(), c_cjk, cjkLength - cjkCharBytes) == 0);
+
   // A single byte holds the terminator alone, and nothing past the size is written.
   std::array<char, 4> single{c_sentinel, c_sentinel, c_sentinel, c_sentinel};
   utf16ToUtf8(single.data(), 1, u"привет", units);
