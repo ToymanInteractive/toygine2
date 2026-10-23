@@ -53,4 +53,35 @@ inline constexpr bool c_assertIgnoreAlways = true;
 
 #endif // TOYGINE_DEBUG
 
+/*!
+  \brief Defines wmain() that converts the command line to UTF-8, builds a console application, and runs it.
+
+  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
+  APP_VERSION_REVISION. The process exits with \c EXIT_SUCCESS when run() returns \c true, \c EXIT_FAILURE otherwise.
+  When the conversion fails, the process exits with \c EXIT_FAILURE before constructing the application.
+
+  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
+                      \ref toy::application::Version.
+*/
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv);                                               \
+                                                                                                                       \
+  int __cdecl wmain(int argc, wchar_t * argw[]) {                                                                      \
+    char ** argv = nullptr;                                                                                            \
+    if (!convertEntryPointArgs(argc, argw, &argv))                                                                     \
+      return EXIT_FAILURE;                                                                                             \
+                                                                                                                       \
+    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
+                                               .minor    = APP_VERSION_MINOR,                                          \
+                                               .patch    = APP_VERSION_PATCH,                                          \
+                                               .revision = APP_VERSION_REVISION});                                     \
+                                                                                                                       \
+    const auto retValue = app.run(argc, argv);                                                                         \
+                                                                                                                       \
+    FREE(argv);                                                                                                        \
+                                                                                                                       \
+    return retValue ? EXIT_SUCCESS : EXIT_FAILURE;                                                                     \
+  }
+
 #endif // SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_

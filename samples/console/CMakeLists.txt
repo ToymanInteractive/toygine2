@@ -30,7 +30,7 @@ set(BINARY_NAME console-sample-app)
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
   add_cartridge_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
   target_link_libraries(${BINARY_NAME} PRIVATE toygine toygine::compile::warnings)
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
+elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop" )
   console_application(${BINARY_NAME} SOURCES ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 else()
   add_executable(${BINARY_NAME} ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
@@ -85,12 +85,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.rpx" DESTINATION bin COMPONENT samples)
 
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
-
-  install_application(${BINARY_NAME} COMPONENT samples)
-
 else ()
 
-  install(TARGETS ${BINARY_NAME} RUNTIME DESTINATION bin COMPONENT samples)
+  install_application(${BINARY_NAME} COMPONENT samples)
 
 endif ()
