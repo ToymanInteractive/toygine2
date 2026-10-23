@@ -43,7 +43,7 @@
 
   \sa CALLOC, FREE
 */
-#define MALLOC(allocSize) malloc(allocSize)
+#define MALLOC(allocSize) std::malloc(allocSize)
 
 /*!
   \brief Allocates a zero-filled heap block for \a count elements of \a allocSize bytes each.
@@ -57,7 +57,7 @@
 
   \sa MALLOC, FREE
 */
-#define CALLOC(count, allocSize) calloc(count, allocSize)
+#define CALLOC(count, allocSize) std::calloc(count, allocSize)
 
 /*!
   \brief Resizes a heap block, moving it when it cannot grow in place.
@@ -77,7 +77,7 @@
 
   \sa MALLOC, FREE
 */
-#define REALLOC(pointer, newSize) realloc(pointer, newSize)
+#define REALLOC(pointer, newSize) std::realloc(pointer, newSize)
 
 /*!
   \brief Releases a heap block.
@@ -90,6 +90,6 @@
 
   \sa MALLOC, REALLOC
 */
-#define FREE(pointer) free(pointer)
+#define FREE(pointer) std::free(pointer)
 
 #endif // INCLUDE_CORE_MEMORY_HPP_

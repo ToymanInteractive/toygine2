@@ -218,7 +218,7 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
   char *             destPointer = dest;
   const char * const utf8EndPos  = dest + (destSize - 1);
 
-  for (const char16_t * const end = src != nullptr ? src + count : src; src != end; ++src) {
+  for (const char16_t * const end = src != nullptr ? src + count : src; src != end;) {
     const auto symbol = static_cast<uint32_t>(*src);
     const auto room   = static_cast<size_t>(utf8EndPos - destPointer);
 
@@ -253,6 +253,8 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
       *destPointer++       = static_cast<char>((codePoint & 0x00003F) | 0x80);
       ++src;
     }
+
+    ++src;
   }
 
   *destPointer = '\0';
