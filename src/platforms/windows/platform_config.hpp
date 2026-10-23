@@ -72,12 +72,15 @@ inline constexpr bool c_assertIgnoreAlways = true;
     if (!convertEntryPointArgs(argc, argw, &argv))                                                                     \
       return EXIT_FAILURE;                                                                                             \
                                                                                                                        \
-    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
-                                               .minor    = APP_VERSION_MINOR,                                          \
-                                               .patch    = APP_VERSION_PATCH,                                          \
-                                               .revision = APP_VERSION_REVISION});                                     \
+    bool retValue = false;                                                                                             \
+    {                                                                                                                  \
+      appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                        \
+                                                 .minor    = APP_VERSION_MINOR,                                        \
+                                                 .patch    = APP_VERSION_PATCH,                                        \
+                                                 .revision = APP_VERSION_REVISION});                                   \
                                                                                                                        \
-    const auto retValue = app.run(argc, argv);                                                                         \
+      retValue = app.run(static_cast<size_t>(std::max(0, argc)), argv);                                                \
+    }                                                                                                                  \
                                                                                                                        \
     FREE(argv);                                                                                                        \
                                                                                                                        \
