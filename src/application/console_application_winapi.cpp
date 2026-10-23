@@ -61,9 +61,13 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       ::WriteConsoleW(handle, L"\n", 1, nullptr, nullptr);
   } else {
     DWORD written = 0;
-    if (!text.empty())
-      ::WriteFile(handle, text.data(), static_cast<DWORD>(text.size()), &written, nullptr);
-    if (newLine)
+    for (; !text.empty(); text.remove_prefix(written))
+      if (!::WriteFile(handle, text.data(), static_cast<DWORD>(std::min<size_t>(text.size(), MAXDWORD)), &written,
+                       nullptr)
+          || written == 0)
+        break;
+
+    if (newLine && text.empty())
       ::WriteFile(handle, "\n", 1, &written, nullptr);
   }
 
