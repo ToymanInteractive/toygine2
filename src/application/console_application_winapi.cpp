@@ -52,15 +52,12 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       auto length = std::min(text.size(), buffer.size() - 1);
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
         --length;
-      // A chunk ends at a '\0', where the measured length would stop; a leading '\0' is dropped.
-      if (const auto nul = string_utils::find(text.data(), length, '\0', 0); nul != string_utils::npos)
-        length = std::max<size_t>(nul, 1);
 
       utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
       auto units = std::char_traits<char16_t>::length(buffer.data());
-      // A byte the decoder stopped at, other than a dropped '\0', shows as U+FFFD and the chunk ends after it.
-      if (const auto consumed = utf16InUtf8Size(buffer.data(), units); consumed < length && text[consumed] != '\0') {
-        buffer[units++] = u'\uFFFD';
+      // At a decoded '\0' or an ill-formed byte the chunk ends; that byte goes out as U+0000 or U+FFFD.
+      if (const auto consumed = utf16InUtf8Size(buffer.data(), units); consumed < length) {
+        buffer[units++] = text[consumed] == '\0' ? u'\0' : u'\uFFFD';
         length          = consumed + 1;
       }
       std::ranges::transform(buffer.data(), buffer.data() + units, wideBuffer.data(), [](char16_t unit) noexcept {
