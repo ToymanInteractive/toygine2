@@ -33,10 +33,10 @@
 namespace toy::platform::detail {
 
 // GCC in ARM mode on the MPCore copies objects up to 60 bytes inline and calls memcpy() above.
-inline constexpr size_t c_inlineCopyMaxBytes = 60;
+inline constexpr size_t inlineCopyMaxBytes = 60;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
-inline constexpr bool c_assertIgnoreAlways = false;
+inline constexpr bool assertIgnoreAlways = false;
 
 } // namespace toy::platform::detail
 

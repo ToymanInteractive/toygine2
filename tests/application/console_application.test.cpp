@@ -30,10 +30,10 @@ namespace toy::application {
 namespace {
 
 // Static storage, so the revision outlives every application the cases build.
-constexpr const char * c_revision = "f7e57d4";
+constexpr const char * revision = "f7e57d4";
 
 // The build every case hands to an application.
-constexpr Version c_build{26, 20, 0, c_revision};
+constexpr Version build{26, 20, 0, revision};
 
 // Smallest concrete console application: the class is abstract and its constructor is protected.
 class StubConsoleApplication final : public ConsoleApplication {
@@ -48,15 +48,15 @@ private:
 };
 
 // Built at compile time, so the cases can read version() in a constant expression.
-constexpr StubConsoleApplication c_application{c_build};
+constexpr StubConsoleApplication compileTimeApplication{build};
 
 } // namespace
 
 // The class exists only as part of a derived application, and it passes the version on to the base.
 TEST_CASE("application/console_application/construction") {
-  const StubConsoleApplication application{c_build};
+  const StubConsoleApplication application{build};
 
-  CHECK(application.version() == c_build);
+  CHECK(application.version() == build);
 
   static_assert(std::is_base_of_v<BaseApplication, ConsoleApplication>,
                 "a console application must provide the base application services");
@@ -65,7 +65,7 @@ TEST_CASE("application/console_application/construction") {
   static_assert(!std::is_constructible_v<ConsoleApplication, const Version &>,
                 "only a derived application may construct a console application");
 
-  static_assert(c_application.version() == c_build, "a constexpr console application must report its version");
+  static_assert(compileTimeApplication.version() == build, "a constexpr console application must report its version");
 }
 
 // Every write call is static and non-throwing, and takes an owning string as well as a view.

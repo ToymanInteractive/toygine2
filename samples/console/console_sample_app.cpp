@@ -24,7 +24,7 @@
 
 #include "toygine.hpp"
 
-#if !defined(__linux__) && !defined(__APPLE__)
+#if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32)
 class SampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit SampleApp(const toy::application::Version & version) noexcept
@@ -292,7 +292,7 @@ int main(int argc, char ** argv) {
 
 #endif // __WIIU__
 
-#if defined(__linux__) || defined(__APPLE__)
+#if defined(__linux__) || defined(__APPLE__) || defined(_WIN32)
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
@@ -330,23 +330,5 @@ bool ConsoleSampleApp::runInternal() noexcept {
 }
 
 IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
-
-#endif // defined(__linux__) || defined(__APPLE__)
-
-#if !defined(__MEGA_DRIVE__) && !defined(__GBA__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__)    \
-  && !defined(__gamecube__) && !defined(__wii__) && !defined(__WIIU__) && !defined(__linux__) && !defined(__APPLE__)
-
-#include <iostream>
-
-int main() noexcept {
-  printf("Hello world from Console sample app\n");
-  printf("v%i.%i.%i (%s)\n", app.version().major, app.version().minor, app.version().patch,
-         app.version().revision.c_str());
-  printf("\n");
-  if (app.pid() != 0)
-    printf("Process ID: %u\n", app.pid());
-
-  return EXIT_SUCCESS;
-}
 
 #endif

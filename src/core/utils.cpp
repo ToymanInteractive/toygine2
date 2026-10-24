@@ -43,7 +43,7 @@ namespace {
   \note Range and overlong checks that depend on continuation bytes (e.g. for 0xE0, 0xED, 0xF0, 0xF4) are left to
         toy::validateUtf8(); this table validates only what the lead byte alone determines.
 */
-constexpr std::array<uint8_t, 256> c_utf8CharSizeTable{
+constexpr std::array<uint8_t, 256> utf8CharSizeTable{
   {
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
    0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01, 0x01,
@@ -76,7 +76,7 @@ struct ByteRange {
 };
 
 /// Values every trailing byte carries outside the sequences the lead byte constrains: the 10xxxxxx form
-constexpr ByteRange c_continuationRange{0x80, 0xBF};
+constexpr ByteRange continuationRange{0x80, 0xBF};
 
 /*!
   \brief Returns the range the byte after \a leadByte may take.
@@ -87,7 +87,7 @@ constexpr ByteRange c_continuationRange{0x80, 0xBF};
 
   \param leadByte First byte of the sequence.
 
-  \return Range of the second byte, \ref c_continuationRange for a lead byte that narrows nothing.
+  \return Range of the second byte, \ref continuationRange for a lead byte that narrows nothing.
 */
 [[nodiscard]] constexpr ByteRange secondByteRange(uint8_t leadByte) noexcept {
   switch (leadByte) {
@@ -100,7 +100,7 @@ constexpr ByteRange c_continuationRange{0x80, 0xBF};
     case 0xF4:
       return {0x80, 0x8F}; // a code point past U+10FFFF
     default:
-      return c_continuationRange;
+      return continuationRange;
   }
 }
 
@@ -119,7 +119,7 @@ constexpr ByteRange c_continuationRange{0x80, 0xBF};
 */
 [[nodiscard]] uint8_t wellFormedLength(const char * str, size_t available) noexcept {
   const auto leadByte     = std::bit_cast<uint8_t>(*str);
-  const auto symbolLength = c_utf8CharSizeTable[leadByte];
+  const auto symbolLength = utf8CharSizeTable[leadByte];
   if (symbolLength == 0 || symbolLength > available)
     return 0;
 
@@ -130,7 +130,7 @@ constexpr ByteRange c_continuationRange{0x80, 0xBF};
         trailingByte < range.lowest || trailingByte > range.highest)
       return 0;
 
-    range = c_continuationRange;
+    range = continuationRange;
   }
 
   return symbolLength;
@@ -262,6 +262,34 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
   return dest;
 }
 
+size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
+  size_t size     = 0;
+  bool   pairOpen = false;
+  for (const char16_t * const end = src != nullptr ? src + count : src; src != end; ++src) {
+    const auto unit = *src;
+    if (pairOpen) {
+      pairOpen = false;
+      continue;
+    }
+
+    if (unit <= 0x7F) {
+      size += 1;
+    } else if (unit <= 0x7FF) {
+      size += 2;
+    } else if (unit < 0xD800 || unit > 0xDFFF) {
+      size += 3;
+    } else {
+      // toy::utf16ToUtf8() encodes a surrogate only as half of a pair inside the range, so the count stops there too.
+      if (wellFormedLength(src, static_cast<size_t>(end - src)) != 2)
+        break;
+      size     += 4;
+      pairOpen  = true;
+    }
+  }
+
+  return size;
+}
+
 size_t utf8Len(const char * str) noexcept {
   assert_message(str != nullptr, "C string must not be null");
   if (str == nullptr)
@@ -278,7 +306,7 @@ size_t utf8Len(const char * str) noexcept {
       continue;
     }
 
-    const auto symbolLength = c_utf8CharSizeTable[std::bit_cast<uint8_t>(*str)];
+    const auto symbolLength = utf8CharSizeTable[std::bit_cast<uint8_t>(*str)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
     if (symbolLength == 0)
       return 0;

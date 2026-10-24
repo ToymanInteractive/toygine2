@@ -51,7 +51,7 @@
 namespace toy::log {
 
 /// Size in bytes of the message buffer of every \ref toy::log::Record, the terminator included
-inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
+inline constexpr size_t messageCapacity = LOG_MESSAGE_CAPACITY;
 
 /*!
   \struct Record
@@ -104,18 +104,18 @@ inline constexpr size_t c_messageCapacity = LOG_MESSAGE_CAPACITY;
 
   \note The message holds at most LOG_MESSAGE_CAPACITY minus one characters; a longer text is rejected as
         \ref toy::String rejects an edit that does not fit.
-  \note A copy is a byte copy only while the message storage fits \ref toy::platform::c_inlineCopyMaxBytes, and the
+  \note A copy is a byte copy only while the message storage fits \ref toy::platform::inlineCopyMaxBytes, and the
         default capacity does not.
 
   \sa \ref toy::log::Metadata
   \sa \ref toy::FixedString
 */
 struct Record {
-  const Metadata * meta{nullptr};         ///< Metadata of the call the message came from, \c nullptr until set
+  const Metadata * meta{nullptr};       ///< Metadata of the call the message came from, \c nullptr until set
 
-  uint32_t timestamp{0};                  ///< Time of the call in the unit of whoever fills the record, \c 0 until set
+  uint32_t timestamp{0};                ///< Time of the call in the unit of whoever fills the record, \c 0 until set
 
-  FixedString<c_messageCapacity> message; ///< Formatted text of the message
+  FixedString<messageCapacity> message; ///< Formatted text of the message
 };
 
 } // namespace toy::log

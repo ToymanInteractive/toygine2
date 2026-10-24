@@ -103,10 +103,10 @@ namespace toy::application {
 
   \section console_application_compatibility Compatibility
 
-  * **Console output**: the write calls have an implementation on Linux and macOS; on other targets a call fails to
-    link.
-  * **Entry point**: IMPLEMENT_CONSOLE_APP defines the entry point on Linux and macOS; on other targets expanding it
-    fails the build.
+  * **Console output**: the write calls have an implementation on Windows, Linux, and macOS; on other targets a call
+    fails to link.
+  * **Entry point**: IMPLEMENT_CONSOLE_APP defines the entry point on Windows, Linux, and macOS; on other targets
+    expanding it fails the build.
 
   \sa \ref toy::application::BaseApplication, \ref toy::StringLike
 */

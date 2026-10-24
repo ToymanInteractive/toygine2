@@ -60,7 +60,7 @@ struct Clock final {
 namespace detail {
 
 /// Epochs timed per row: seven pairs and the names fit the 256 bytes an mGBA log message carries.
-inline constexpr std::size_t c_epochCount = 7;
+inline constexpr std::size_t epochCount = 7;
 
 } // namespace detail
 
@@ -199,7 +199,7 @@ private:
   [[nodiscard]] std::uint32_t _calibrate(Epoch & timeEpoch) const;
 
   void _writeRow(const char * name, std::uint32_t iterations,
-                 const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept;
+                 const std::array<std::uint32_t, detail::epochCount> & epochs) noexcept;
   void _writeOverlongRow(const char * name) noexcept;
   void _writeUncalibrated(const char * name) noexcept;
 

@@ -73,7 +73,7 @@ Bench & Bench::run(const char * name, Callable && operation) {
     return *this;
   }
 
-  std::array<std::uint32_t, detail::c_epochCount> epochs{};
+  std::array<std::uint32_t, detail::epochCount> epochs{};
 
   for (std::uint32_t & epoch : epochs)
     epoch = timeEpoch(iterations);
@@ -101,7 +101,7 @@ std::uint32_t Bench::_calibrate(Epoch & timeEpoch) const {
 }
 
 inline void Bench::_writeRow(const char * name, std::uint32_t iterations,
-                             const std::array<std::uint32_t, detail::c_epochCount> & epochs) noexcept {
+                             const std::array<std::uint32_t, detail::epochCount> & epochs) noexcept {
   detail::LineBuffer line{_output};
 
   line.addText("#csv ");
@@ -113,7 +113,7 @@ inline void Bench::_writeRow(const char * name, std::uint32_t iterations,
   line.addText(",");
   line.addDecimal(_clock.picosecondsPerTick);
   line.addText(",");
-  line.addDecimal(detail::c_epochCount);
+  line.addDecimal(detail::epochCount);
 
   // The calls repeat per epoch because the host reads a pair at a time and never assumes they match.
   for (const std::uint32_t epoch : epochs) {
@@ -144,7 +144,7 @@ inline void Bench::_writeOverlongRow(const char * name) noexcept {
 
   // The fixed part goes first: a name long enough to overflow the row would push the diagnostic out of the line too.
   line.addText("# row does not fit ");
-  line.addDecimal(detail::LineBuffer::c_capacity);
+  line.addDecimal(detail::LineBuffer::capacity);
   line.addText(" characters: ");
   line.addField(name);
   line.flush();

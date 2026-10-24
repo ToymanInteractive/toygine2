@@ -35,10 +35,10 @@
 namespace toy::platform::detail {
 
 // GCC for the 68000 copies objects up to 52 bytes inline and calls memcpy() above.
-inline constexpr size_t c_inlineCopyMaxBytes = 52;
+inline constexpr size_t inlineCopyMaxBytes = 52;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
-inline constexpr bool c_assertIgnoreAlways = false;
+inline constexpr bool assertIgnoreAlways = false;
 
 } // namespace toy::platform::detail
 

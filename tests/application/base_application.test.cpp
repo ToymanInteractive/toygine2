@@ -30,10 +30,10 @@ namespace toy::application {
 namespace {
 
 // Static storage, so the revision outlives every application the cases build.
-constexpr const char * c_revision = "f7e57d4";
+constexpr const char * revision = "f7e57d4";
 
 // The build every case hands to an application.
-constexpr Version c_build{26, 20, 0, c_revision};
+constexpr Version build{26, 20, 0, revision};
 
 // Smallest concrete application: the base is abstract and its constructor is protected.
 class StubApplication final : public BaseApplication {
@@ -60,7 +60,7 @@ private:
 };
 
 // Built at compile time, so the cases can read version() in a constant expression.
-constexpr StubApplication c_application{c_build};
+constexpr StubApplication compileTimeApplication{build};
 
 } // namespace
 
@@ -73,37 +73,37 @@ TEST_CASE("application/base_application/construction") {
 
 // What version() hands back, and that it reports the version passed at construction.
 TEST_CASE("application/base_application/version") {
-  const StubApplication application{c_build};
+  const StubApplication application{build};
 
-  CHECK(application.version() == c_build);
+  CHECK(application.version() == build);
   CHECK(application.version().major == 26);
   CHECK(application.version().minor == 20);
   CHECK(application.version().patch == 0);
 
-  static_assert(std::is_same_v<decltype(c_application.version()), const Version &>,
+  static_assert(std::is_same_v<decltype(compileTimeApplication.version()), const Version &>,
                 "the accessor must return a read-only reference, not a copy");
-  static_assert(noexcept(c_application.version()), "the accessor must be declared non-throwing");
+  static_assert(noexcept(compileTimeApplication.version()), "the accessor must be declared non-throwing");
 
-  static_assert(c_application.version() == c_build, "a constexpr application must report its version");
+  static_assert(compileTimeApplication.version() == build, "a constexpr application must report its version");
 }
 
 // The application keeps its own copy of the version, while the revision characters stay with the caller.
 TEST_CASE("application/base_application/version_ownership") {
-  Version               source{c_build};
+  Version               source{build};
   const StubApplication application{source};
 
   source.patch = 1;
 
   CHECK(application.version().patch == 0);
-  CHECK(application.version().revision.data() == c_revision);
+  CHECK(application.version().revision.data() == revision);
 
-  static_assert(c_application.version().revision.data() == c_revision,
+  static_assert(compileTimeApplication.version().revision.data() == revision,
                 "the revision must view the caller's characters, not a copy");
 }
 
 // Before the first run(), the application holds no command-line arguments.
 TEST_CASE("application/base_application/arguments_before_run") {
-  StubApplication application{c_build};
+  StubApplication application{build};
 
   CHECK(application.argsCount() == 0);
   CHECK(application.args() == nullptr);
@@ -117,8 +117,8 @@ TEST_CASE("application/base_application/run_result") {
   char   program[] = "toygine";
   char * argv[]    = {program, nullptr};
 
-  StubApplication succeeding{c_build, true};
-  StubApplication failing{c_build, false};
+  StubApplication succeeding{build, true};
+  StubApplication failing{build, false};
 
   CHECK(succeeding.run(1, argv));
   CHECK_FALSE(failing.run(1, argv));
@@ -134,7 +134,7 @@ TEST_CASE("application/base_application/arguments") {
   char   flag[]    = "--verbose";
   char * argv[]    = {program, flag, nullptr};
 
-  StubApplication application{c_build};
+  StubApplication application{build};
 
   REQUIRE(application.run(2, argv));
 

@@ -174,7 +174,8 @@ set(INL_VIDEO_LIST )
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_winapi.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_winapi.cpp
+                                   src/application/console_application_winapi.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 

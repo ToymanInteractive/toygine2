@@ -30,16 +30,16 @@
 namespace toy::benchmark::detail {
 
 constexpr bool isPinned(const VdpSample & sample) noexcept {
-  return sample.verticalBlank || sample.vCounter >= c_verticalInterruptLine;
+  return sample.verticalBlank || sample.vCounter >= verticalInterruptLine;
 }
 
 constexpr bool needsSettling(const VdpSample & sample) noexcept {
-  return isPinned(sample) && sample.vCounter == c_verticalInterruptLine;
+  return isPinned(sample) && sample.vCounter == verticalInterruptLine;
 }
 
 constexpr std::uint32_t lineTimestamp(const VdpSample & sample, std::uint32_t linesPerFrame) noexcept {
   // An active line follows the whole vertical blank that began with the last interrupt.
-  const std::uint32_t sinceInterrupt = isPinned(sample) ? 0 : linesPerFrame - c_verticalInterruptLine + sample.vCounter;
+  const std::uint32_t sinceInterrupt = isPinned(sample) ? 0 : linesPerFrame - verticalInterruptLine + sample.vCounter;
 
   return sample.frames * linesPerFrame + sinceInterrupt;
 }

@@ -162,21 +162,21 @@ TEST_CASE("test/context/info_stack_overflow_stays_balanced") {
   toy::test::Context context{&captureFailure, &captured};
   context.beginCase("some/case");
 
-  for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth + 4; ++index)
+  for (std::size_t index = 0; index < toy::test::Context::maxInfoDepth + 4; ++index)
     context.pushInfo("entry", static_cast<long long>(index));
 
-  REQUIRE(context.infoCount() == toy::test::Context::c_maxInfoDepth);
+  REQUIRE(context.infoCount() == toy::test::Context::maxInfoDepth);
   REQUIRE(context.infoDropped() == 4);
 
   for (std::size_t index = 0; index < 4; ++index)
     context.popInfo();
 
-  REQUIRE(context.infoCount() == toy::test::Context::c_maxInfoDepth);
+  REQUIRE(context.infoCount() == toy::test::Context::maxInfoDepth);
   REQUIRE(context.infoDropped() == 0);
-  REQUIRE(context.infoAt(toy::test::Context::c_maxInfoDepth - 1).value
-          == static_cast<long long>(toy::test::Context::c_maxInfoDepth - 1));
+  REQUIRE(context.infoAt(toy::test::Context::maxInfoDepth - 1).value
+          == static_cast<long long>(toy::test::Context::maxInfoDepth - 1));
 
-  for (std::size_t index = 0; index < toy::test::Context::c_maxInfoDepth; ++index)
+  for (std::size_t index = 0; index < toy::test::Context::maxInfoDepth; ++index)
     context.popInfo();
 
   REQUIRE(context.infoCount() == 0);

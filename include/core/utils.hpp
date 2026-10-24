@@ -39,7 +39,7 @@ namespace toy {
   Sizes buffers for converting UTF-16 text: a unit outside the surrogate range takes at most three bytes, and a
   surrogate pair takes four for its two units.
 */
-constexpr size_t c_utf16InUtf8MaxSize = 3;
+constexpr size_t utf16InUtf8MaxSize = 3;
 
 /*!
   \brief Converts a range of UTF-8 bytes to a null-terminated UTF-16 string in a caller-supplied buffer.
@@ -90,7 +90,7 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
         of the range, before a character that does not fit whole in \a destSize - 1 bytes, and before a surrogate
         whose pair does not lie whole inside the range.
 
-  \note Truncation and lone surrogates go unreported: a buffer of \ref toy::c_utf16InUtf8MaxSize bytes per unit of the
+  \note Truncation and lone surrogates go unreported: a buffer of \ref toy::utf16InUtf8MaxSize bytes per unit of the
         range, plus one for the terminator, holds every character the call encodes.
   \note The conversion is a runtime one: the definition lives in a translation unit, out of reach of a constant
         expression.
@@ -98,6 +98,28 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
   \sa toy::utf8ToUtf16(), toy::validateUtf8()
 */
 char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t count) noexcept;
+
+/*!
+  \brief Counts the bytes the UTF-8 form of a range of UTF-16 units takes.
+
+  Measures what toy::utf16ToUtf8() writes for the same range into a buffer with room for all of it: one to three bytes
+  for a unit outside the surrogate range, four for a surrogate pair. For units that toy::utf8ToUtf16() decoded, the
+  count equals the bytes that call consumed. Allocates nothing.
+
+  \param src   UTF-16 units to measure, or \c nullptr for an empty range.
+  \param count Number of units to read from \a src.
+
+  \return Byte count of the UTF-8 form, the terminator excluded; \c 0 for an empty range.
+
+  \pre The \a count units starting at \a src are readable.
+
+  \note The count stops before a surrogate whose pair does not lie whole inside the range, where toy::utf16ToUtf8()
+        stops encoding.
+  \note The count is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
+
+  \sa toy::utf16ToUtf8(), toy::utf8ToUtf16()
+*/
+[[nodiscard]] size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept;
 
 /*!
   \brief Counts the characters a UTF-8 string encodes.

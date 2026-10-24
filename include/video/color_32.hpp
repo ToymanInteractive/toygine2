@@ -53,7 +53,7 @@ namespace toy::video {
   #include "video.hpp"
 
   constexpr toy::video::Color32 orange{.r = 255, .g = 128, .b = 0, .a = 255};
-  static_assert(orange != toy::video::c_white);
+  static_assert(orange != toy::video::white);
   \endcode
 
   \section color32_performance Performance Characteristics
@@ -88,13 +88,13 @@ public:
 };
 
 /// Opaque white.
-inline constexpr Color32 c_white{.r = 255, .g = 255, .b = 255, .a = 255};
+inline constexpr Color32 white{.r = 255, .g = 255, .b = 255, .a = 255};
 
 /// Opaque black.
-inline constexpr Color32 c_black{.r = 0, .g = 0, .b = 0, .a = 255};
+inline constexpr Color32 black{.r = 0, .g = 0, .b = 0, .a = 255};
 
 /// Transparent black; equal to \c Color32{}.
-inline constexpr Color32 c_transparent{.r = 0, .g = 0, .b = 0, .a = 0};
+inline constexpr Color32 transparent{.r = 0, .g = 0, .b = 0, .a = 0};
 
 } // namespace toy::video
 

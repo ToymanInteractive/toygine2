@@ -99,13 +99,13 @@ TEST_CASE("video/color32/named_colors") {
   constexpr Color32 opaqueWhite{.r = 255, .g = 255, .b = 255, .a = 255};
   constexpr Color32 opaqueBlack{.r = 0, .g = 0, .b = 0, .a = 255};
 
-  CHECK(c_white == opaqueWhite);
-  CHECK(c_black == opaqueBlack);
-  CHECK(c_transparent == Color32{});
+  CHECK(white == opaqueWhite);
+  CHECK(black == opaqueBlack);
+  CHECK(transparent == Color32{});
 
-  static_assert(c_white == opaqueWhite, "white must be opaque full intensity");
-  static_assert(c_black == opaqueBlack, "black must be opaque zero intensity");
-  static_assert(c_transparent == Color32{}, "transparent must equal a value-initialized color");
+  static_assert(white == opaqueWhite, "white must be opaque full intensity");
+  static_assert(black == opaqueBlack, "black must be opaque zero intensity");
+  static_assert(transparent == Color32{}, "transparent must equal a value-initialized color");
 }
 
 } // namespace toy::video

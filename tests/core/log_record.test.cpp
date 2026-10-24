@@ -30,7 +30,7 @@ namespace toy::log {
 // What a copy and a scope exit cost the caller, the initializer form the call site may write, and what a
 // declaration without one leaves behind.
 TEST_CASE("log/record/value_semantics") {
-  static_assert(std::is_trivially_copyable_v<Record> == std::is_trivially_copyable_v<FixedString<c_messageCapacity>>,
+  static_assert(std::is_trivially_copyable_v<Record> == std::is_trivially_copyable_v<FixedString<messageCapacity>>,
                 "the record must copy as bytes exactly when its message does");
   static_assert(std::is_trivially_destructible_v<Record>, "leaving scope must run no destructor");
 

@@ -36,7 +36,7 @@ namespace toy::string_utils {
 using traits_type = std::char_traits<char>;
 
 /// Offset a search returns when nothing matches.
-inline constexpr size_t c_npos = static_cast<size_t>(-1);
+inline constexpr size_t npos = static_cast<size_t>(-1);
 
 /*!
   \brief Finds the first occurrence of \a ch at or after \a pos.
@@ -46,8 +46,8 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param ch   Character to look for.
   \param pos  Offset the search starts from.
 
-  \return Offset of the first \a ch at or after \a pos, or \ref toy::string_utils::c_npos when there is none; a \a pos
-          at or past \a size always gives \ref toy::string_utils::c_npos.
+  \return Offset of the first \a ch at or after \a pos, or \ref toy::string_utils::npos when there is none; a \a pos
+          at or past \a size always gives \ref toy::string_utils::npos.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
   \pre The \a size bytes starting at \a data are readable.
@@ -68,7 +68,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param pos     Offset the search starts from.
   \param count   Number of bytes in the pattern.
 
-  \return Offset where the first match starts, or \ref toy::string_utils::c_npos when there is none. An empty pattern
+  \return Offset where the first match starts, or \ref toy::string_utils::npos when there is none. An empty pattern
           matches at \a pos while \a pos is not greater than \a size.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -89,7 +89,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param ch   Character to look for.
   \param pos  Last offset the search considers; any offset past the range covers all of it.
 
-  \return Offset of the last \a ch at or before \a pos, or \ref toy::string_utils::c_npos when there is none.
+  \return Offset of the last \a ch at or before \a pos, or \ref toy::string_utils::npos when there is none.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
   \pre The \a size bytes starting at \a data are readable.
@@ -110,7 +110,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param pos     Last offset a match may start at; any offset past the range covers all of it.
   \param count   Number of bytes in the pattern.
 
-  \return Offset where the last match starts, or \ref toy::string_utils::c_npos when there is none. An empty pattern
+  \return Offset where the last match starts, or \ref toy::string_utils::npos when there is none. An empty pattern
           matches at the smaller of \a pos and \a size.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -135,7 +135,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param pos   Offset the search starts from.
   \param count Number of bytes in the set.
 
-  \return Offset of the first character that belongs to the set, or \ref toy::string_utils::c_npos when there is none.
+  \return Offset of the first character that belongs to the set, or \ref toy::string_utils::npos when there is none.
           An empty set matches nothing.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -160,7 +160,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param pos   Last offset the search considers; any offset past the range covers all of it.
   \param count Number of bytes in the set.
 
-  \return Offset of the last character that belongs to the set, or \ref toy::string_utils::c_npos when there is none. An
+  \return Offset of the last character that belongs to the set, or \ref toy::string_utils::npos when there is none. An
           empty set matches nothing.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -181,7 +181,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param ch   Character to skip.
   \param pos  Offset the search starts from.
 
-  \return Offset of the first character other than \a ch at or after \a pos, or \ref toy::string_utils::c_npos when
+  \return Offset of the first character other than \a ch at or after \a pos, or \ref toy::string_utils::npos when
           there is none.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -200,7 +200,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param pos   Offset the search starts from.
   \param count Number of bytes in the set.
 
-  \return Offset of the first character that does not belong to the set, or \ref toy::string_utils::c_npos when there is
+  \return Offset of the first character that does not belong to the set, or \ref toy::string_utils::npos when there is
           none. No character belongs to an empty set, so the result is then \a pos while \a pos is less than \a size.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -221,7 +221,7 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param ch   Character to skip.
   \param pos  Last offset the search considers; any offset past the range covers all of it.
 
-  \return Offset of the last character other than \a ch at or before \a pos, or \ref toy::string_utils::c_npos when
+  \return Offset of the last character other than \a ch at or before \a pos, or \ref toy::string_utils::npos when
           there is none.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
@@ -240,9 +240,9 @@ inline constexpr size_t c_npos = static_cast<size_t>(-1);
   \param pos   Last offset the search considers; any offset past the range covers all of it.
   \param count Number of bytes in the set.
 
-  \return Offset of the last character that does not belong to the set, or \ref toy::string_utils::c_npos when there is
+  \return Offset of the last character that does not belong to the set, or \ref toy::string_utils::npos when there is
           none. No character belongs to an empty set, so the result is then \a pos, or \a size minus one when \a pos is
-          past that, or \ref toy::string_utils::c_npos for an empty range.
+          past that, or \ref toy::string_utils::npos for an empty range.
 
   \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
   \pre The \a size bytes starting at \a data are readable.

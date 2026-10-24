@@ -39,7 +39,7 @@ inline void ReportWriter::openLine() noexcept {
   if (_length != 0)
     return;
 
-  while (_length < _indent && _length < c_lineCapacity) {
+  while (_length < _indent && _length < lineCapacity) {
     _buffer[_length] = ' ';
     ++_length;
   }
@@ -48,18 +48,18 @@ inline void ReportWriter::openLine() noexcept {
 inline void ReportWriter::addText(const char * text) noexcept {
   openLine();
 
-  _length = appendText(_buffer, c_lineCapacity, _length, text);
+  _length = appendText(_buffer, lineCapacity, _length, text);
 }
 
 inline void ReportWriter::addDescription(const char * text) noexcept {
   openLine();
 
-  _length = appendEscaped(_buffer, c_lineCapacity, _length, text);
+  _length = appendEscaped(_buffer, lineCapacity, _length, text);
 }
 
 inline void ReportWriter::addQuoted(const char * text) noexcept {
   // flush() spends the last byte of a full line on the line break, which would take the closing quote with it.
-  constexpr std::size_t quotedCapacity = c_lineCapacity - 1;
+  constexpr std::size_t quotedCapacity = lineCapacity - 1;
 
   openLine();
 
@@ -70,13 +70,13 @@ inline void ReportWriter::addQuoted(const char * text) noexcept {
 inline void ReportWriter::addInteger(long long value) noexcept {
   openLine();
 
-  _length = appendInteger(_buffer, c_lineCapacity, _length, value);
+  _length = appendInteger(_buffer, lineCapacity, _length, value);
 }
 
 inline void ReportWriter::flush() noexcept {
   // >= rather than ==: GCC cannot see that the append calls stop at the capacity, and warns of an overflow at -O2.
-  if (_length >= c_lineCapacity)
-    _length = c_lineCapacity - 1;
+  if (_length >= lineCapacity)
+    _length = lineCapacity - 1;
 
   _buffer[_length] = '\n';
   ++_length;

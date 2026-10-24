@@ -42,7 +42,7 @@ namespace {
 #ifdef TOYGINE_DEBUG
 
 /// Capacity of the buffer a failure description is formatted into, terminator included.
-constexpr size_t c_stringBufferSize = 4096;
+constexpr size_t stringBufferSize = 4096;
 
 /// Handler last given to setCallbacks(), or \c nullptr while a failed check reports nothing.
 AssertionCallback _assertionCallback{nullptr};
@@ -81,20 +81,20 @@ Action assertion(const char * code, const char * message, const char * fileName,
 
   reEnter = true;
 
-  char assertionString[c_stringBufferSize];
+  char assertionString[stringBufferSize];
   int  written;
 
   if (message == nullptr)
-    written = snprintf(assertionString, c_stringBufferSize, "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
+    written = snprintf(assertionString, stringBufferSize, "%s @ %s (%zu):\r\n\r\n%s", functionName, fileName,
                        lineNumber, code);
   else
-    written = snprintf(assertionString, c_stringBufferSize, "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
+    written = snprintf(assertionString, stringBufferSize, "%s @ %s (%zu):\r\n\r\n%s: %s", functionName, fileName,
                        lineNumber, message, code);
 
-  if (written >= static_cast<int>(c_stringBufferSize)) {
+  if (written >= static_cast<int>(stringBufferSize)) {
     constexpr const char * truncationMessage = "...[TRUNCATED]";
     constexpr auto         truncationLength  = std::char_traits<char>::length(truncationMessage) + 1;
-    std::memcpy(&assertionString[c_stringBufferSize - truncationLength], truncationMessage, truncationLength);
+    std::memcpy(&assertionString[stringBufferSize - truncationLength], truncationMessage, truncationLength);
   }
 
   // An unregistered handler leaves the failure unreported, so the caller still has to stop at it.

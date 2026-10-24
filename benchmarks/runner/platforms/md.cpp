@@ -89,7 +89,7 @@ std::uint32_t nowLines(const void * clockData) noexcept {
       return toy::benchmark::detail::lineTimestamp(sample, linesPerFrame);
 
     // The interrupt raised on this line may not have run yet; by the next line it has.
-    while (vdp::v_counter == toy::benchmark::detail::c_verticalInterruptLine) {}
+    while (vdp::v_counter == toy::benchmark::detail::verticalInterruptLine) {}
   }
 }
 
@@ -110,8 +110,8 @@ void _VerticalInterruptHandler() {
 
 void _EntryPoint() {
   const bool          isPal         = ClownMDSDK::MainCPU::Unsafe::IsPAL();
-  const std::uint32_t linesPerFrame = isPal ? toy::benchmark::detail::c_palLinesPerFrame
-                                            : toy::benchmark::detail::c_ntscLinesPerFrame;
+  const std::uint32_t linesPerFrame = isPal ? toy::benchmark::detail::palLinesPerFrame
+                                            : toy::benchmark::detail::ntscLinesPerFrame;
 
   vdp::CRAM::Set(0, 0, vdp::CRAM::Colour{7, 7, 0});
   setUpVideo();
@@ -128,8 +128,8 @@ void _EntryPoint() {
   const int
     code = toy::benchmark::writeReport({.now                = &nowLines,
                                         .clockData          = &linesPerFrame,
-                                        .picosecondsPerTick = isPal ? toy::benchmark::detail::c_palPicosecondsPerLine
-                                                                    : toy::benchmark::detail::c_ntscPicosecondsPerLine,
+                                        .picosecondsPerTick = isPal ? toy::benchmark::detail::palPicosecondsPerLine
+                                                                    : toy::benchmark::detail::ntscPicosecondsPerLine,
                                         .minEpochTicks      = c_minEpochLines,
                                         .maxIterations      = c_maxIterations},
                                        {.write = &writeLine, .writerData = &channels}, heading,

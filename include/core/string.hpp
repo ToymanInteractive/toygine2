@@ -85,7 +85,7 @@ namespace toy {
 
   * **Element access, size(), and c_str()**: O(1).
   * **Copy and move**: whatever the storage costs; \ref toy::FixedStringStorage copies the whole object up to
-    \ref toy::platform::c_inlineCopyMaxBytes and the characters in use above it, and has no buffer to hand over on a
+    \ref toy::platform::inlineCopyMaxBytes and the characters in use above it, and has no buffer to hand over on a
     move or a swap.
   * **Append and push_back**: O(m) in the characters added, plus whatever growing the storage costs; nothing for
     \ref toy::FixedStringStorage.
@@ -340,7 +340,7 @@ public:
 
     Copies the storage through its copy constructor, so the two strings share no buffer and the copy allocates only if
     that storage does. \ref toy::FixedStringStorage copies the whole object up to
-    \ref toy::platform::c_inlineCopyMaxBytes and only the characters in use above it.
+    \ref toy::platform::inlineCopyMaxBytes and only the characters in use above it.
 
     \param other String to copy.
 
@@ -420,7 +420,7 @@ public:
     \brief Replaces the contents with a copy of \a other.
 
     Assigns the storage through its copy assignment, so the storage decides what the copy costs:
-    \ref toy::FixedStringStorage copies the whole object up to \ref toy::platform::c_inlineCopyMaxBytes and only the
+    \ref toy::FixedStringStorage copies the whole object up to \ref toy::platform::inlineCopyMaxBytes and only the
     characters in use above it.
 
     \param other String to copy; may be this string.
@@ -2936,7 +2936,7 @@ public:
     Every search returns it when nothing matches. As a count it reaches the end of the string or of the source, and as
     the start of a backward search it covers the whole string.
   */
-  static constexpr const size_type npos = string_utils::c_npos;
+  static constexpr const size_type npos = string_utils::npos;
 
 private:
   /// Buffer holding the characters, the terminator, and the length

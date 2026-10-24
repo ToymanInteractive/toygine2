@@ -166,7 +166,7 @@ using std::bit_cast;
   \note Carries out the \ref toy::assertion::Action the handler answers at the call site;
         \ref toy::assertion::Action::Break stops through \c TOYGINE_DEBUG_BREAK(), defined in each platform_config.hpp.
   \note \ref toy::assertion::Action::IgnoreAlways silences the call site, per template instantiation, through a
-        \c static flag where \ref toy::platform::c_assertIgnoreAlways is \c true; elsewhere it acts as
+        \c static flag where \ref toy::platform::assertIgnoreAlways is \c true; elsewhere it acts as
         \ref toy::assertion::Action::Ignore. Either way \a expression is still evaluated.
   \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build places both arguments in unevaluated
         \c sizeof operands. They must still compile, but neither is evaluated: a side effect written inside them is
@@ -182,7 +182,7 @@ using std::bit_cast;
       if consteval {                                                                                                   \
         toy::assertion::assertCompileTimeError();                                                                      \
       } else {                                                                                                         \
-        if constexpr (toy::platform::c_assertIgnoreAlways) {                                                           \
+        if constexpr (toy::platform::assertIgnoreAlways) {                                                             \
           static bool toyAssertIgnoredAlways = false;                                                                  \
           if (!toyAssertIgnoredAlways) {                                                                               \
             const auto toyAssertAction = toy::assertion::assertion(#expression, message, __FILE__, __FUNC_SIGNATURE__, \

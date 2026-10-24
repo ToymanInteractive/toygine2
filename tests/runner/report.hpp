@@ -99,7 +99,7 @@ namespace detail {
 class ReportWriter final {
 public:
   /// Capacity of one report line in bytes; a longer line is truncated.
-  static constexpr std::size_t c_lineCapacity = 256;
+  static constexpr std::size_t lineCapacity = 256;
 
   /*!
     \brief Builds a writer emitting through \a write.
@@ -259,7 +259,7 @@ private:
   std::size_t         _indent{0};
   bool                _pointReported{false};
   bool                _diagnosticsOpen{false};
-  char                _buffer[c_lineCapacity]{};
+  char                _buffer[lineCapacity]{};
   std::size_t         _length{0};
 };
 
@@ -294,7 +294,7 @@ void reportFailure(const Context & context, const FailureRecord & failure, void 
         yet.
 
   \note A branch the probe left unnamed takes the case name, which happens past
-        \ref toy::test::Context::c_maxSubcaseNames.
+        \ref toy::test::Context::maxSubcaseNames.
 */
 void reportSubtest(ReportWriter & writer, Context & context, const Context & probe, const CaseRegistrar & registrar,
                    std::size_t subcaseCount) noexcept;

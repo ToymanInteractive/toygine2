@@ -104,8 +104,8 @@ TEST_CASE("benchmark::detail/line_buffer/field_never_breaks_the_line") {
 TEST_CASE("benchmark::detail/line_buffer/truncated_starts_one_past_the_longest_line") {
   CapturedLines         captured{};
   CapturedLines * const capturedPointer = &captured;
-  const std::string     longestText(toy::benchmark::detail::LineBuffer::c_capacity - 1, 'x');
-  const std::string     overlongText(toy::benchmark::detail::LineBuffer::c_capacity, 'x');
+  const std::string     longestText(toy::benchmark::detail::LineBuffer::capacity - 1, 'x');
+  const std::string     overlongText(toy::benchmark::detail::LineBuffer::capacity, 'x');
 
   toy::benchmark::detail::LineBuffer line{
     {.write = &captureLines, .writerData = &capturedPointer}
@@ -135,7 +135,7 @@ TEST_CASE("benchmark::detail/line_buffer/cut_line_keeps_its_newline") {
   line.addText(longText.c_str());
   line.flush();
 
-  CHECK(captured.text.size() == toy::benchmark::detail::LineBuffer::c_capacity);
+  CHECK(captured.text.size() == toy::benchmark::detail::LineBuffer::capacity);
   CHECK(captured.text.back() == '\n');
-  CHECK(captured.text.find_first_not_of('x') == toy::benchmark::detail::LineBuffer::c_capacity - 1);
+  CHECK(captured.text.find_first_not_of('x') == toy::benchmark::detail::LineBuffer::capacity - 1);
 }

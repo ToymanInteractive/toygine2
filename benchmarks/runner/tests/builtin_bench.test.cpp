@@ -135,7 +135,7 @@ TEST_CASE("benchmark/bench/overlong_row_becomes_a_comment") {
     clock.ticks += 16;
   });
 
-  const std::string diagnostic = "# row does not fit " + std::to_string(toy::benchmark::detail::LineBuffer::c_capacity)
+  const std::string diagnostic = "# row does not fit " + std::to_string(toy::benchmark::detail::LineBuffer::capacity)
                                  + " characters: xxx";
 
   CHECK(captured.text.starts_with(diagnostic));
