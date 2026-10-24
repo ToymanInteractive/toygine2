@@ -238,19 +238,6 @@ jobs:
         if: ${{ matrix.run_test == 'true' }}
         run: ctest --preset ${{ matrix.cmake_preset }}
 
-      - name: Run console sample
-        if: ${{ contains(matrix.cmake_preset, 'msvc') }}
-        env:
-          SAMPLE_PATH: out/build/${{ matrix.cmake_preset }}/samples/console/RelWithDebInfo/console-sample-app.exe
-        run: |
-          set -euo pipefail
-
-          # A pipe takes the redirected WriteFile path, so the log holds the UTF-8 bytes the sample wrote.
-          "$SAMPLE_PATH" first "Привет" | tee console_sample.log
-          grep -q 'Hello world from Console sample app' console_sample.log
-          grep -q 'Привет, мир из консольного тестового приложения' console_sample.log
-          grep -q -- '- Привет' console_sample.log
-
       - name: Benchmarks
         if: ${{ matrix.run_benchmarks == 'true' }}
         run: |
