@@ -19,8 +19,10 @@
 //
 /*!
   \file   console_application_winapi.cpp
-  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Windows, and the helper
-          that IMPLEMENT_CONSOLE_APP calls to convert the wide-character command line to UTF-8.
+  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Windows.
+
+  Also defines convertEntryPointArgs(), which IMPLEMENT_CONSOLE_APP calls to convert the wide-character command line
+  to UTF-8.
 */
 
 #include "application.hpp"
