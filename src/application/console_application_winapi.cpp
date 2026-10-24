@@ -48,8 +48,11 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       auto length = std::min(text.size(), buffer.size() - 1);
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
         --length;
+      // A chunk ends at a '\0', where the measured length would stop; a leading '\0' is dropped.
+      if (const auto nul = string_utils::find(text.data(), length, '\0', 0); nul != string_utils::npos)
+        length = std::max<size_t>(nul, 1);
 
-      // A '\0' or an ill-formed sequence cuts this chunk's output short, and utf8ToUtf16() does not report it.
+      // An ill-formed sequence cuts this chunk's output short, and utf8ToUtf16() does not report it.
       utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
       const auto units = std::char_traits<char16_t>::length(buffer.data());
       ::WriteConsoleW(handle, bit_cast<const wchar_t *>(buffer.data()), static_cast<DWORD>(units), nullptr, nullptr);
@@ -105,7 +108,7 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
 
   // A string's slot holds its widest UTF-8 form and the terminator.
   constexpr auto slotSize = [](size_t units) noexcept {
-    return units * toy::c_utf16InUtf8MaxSize + 1;
+    return units * toy::utf16InUtf8MaxSize + 1;
   };
 
   const auto wideArgs  = std::ranges::subrange(argvw, argvw + argc);

@@ -76,7 +76,7 @@ namespace toy {
 
   * **Default construction**: O(1); only the first byte is written, except in constant evaluation.
   * **Access and length**: O(1) for data(), capacity(), size(), and setSize().
-  * **Copy and assignment**: a whole-object copy up to \ref toy::platform::c_inlineCopyMaxBytes, O(size()) above it.
+  * **Copy and assignment**: a whole-object copy up to \ref toy::platform::inlineCopyMaxBytes, O(size()) above it.
   * **Memory usage**: \a AllocatedSize bytes of characters and one length field, the object aligned as \c size_t.
 
   \section fixed_string_storage_safety Safety Guarantees
@@ -105,7 +105,7 @@ class FixedStringStorage {
                                         + sizeof(size_t);
 
   /// Whether copies and assignments take only the characters in use rather than the whole object
-  static constexpr bool _copiesByLength = _objectSize > platform::c_inlineCopyMaxBytes;
+  static constexpr bool _copiesByLength = _objectSize > platform::inlineCopyMaxBytes;
 
 public:
   /*!
@@ -125,7 +125,7 @@ public:
   /*!
     \brief Builds a copy of \a other byte for byte, the buffer past the terminator included.
 
-    Selected while the object is no larger than \ref toy::platform::c_inlineCopyMaxBytes, so the copy stays trivial and
+    Selected while the object is no larger than \ref toy::platform::inlineCopyMaxBytes, so the copy stays trivial and
     compiles to a few loads and stores.
 
     \param other Storage to copy.
@@ -137,7 +137,7 @@ public:
   /*!
     \brief Builds a copy of the characters of \a other.
 
-    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters and
+    Selected once the object is larger than \ref toy::platform::inlineCopyMaxBytes. Copies other.size() characters and
     the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
 
     \param other Storage to copy.
@@ -179,7 +179,7 @@ public:
   /*!
     \brief Replaces the contents with a copy of \a other by copying the whole object.
 
-    Selected while the object is no larger than \ref toy::platform::c_inlineCopyMaxBytes, so the copy stays trivial and
+    Selected while the object is no larger than \ref toy::platform::inlineCopyMaxBytes, so the copy stays trivial and
     compiles to a few loads and stores.
 
     \param other Storage to copy.
@@ -193,7 +193,7 @@ public:
   /*!
     \brief Replaces the contents with a copy of the characters of \a other.
 
-    Selected once the object is larger than \ref toy::platform::c_inlineCopyMaxBytes. Copies other.size() characters and
+    Selected once the object is larger than \ref toy::platform::inlineCopyMaxBytes. Copies other.size() characters and
     the terminator instead of the whole buffer, so the cost follows the length rather than \a AllocatedSize.
 
     \param other Storage to copy.

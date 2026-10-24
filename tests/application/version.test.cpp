@@ -30,12 +30,12 @@ namespace toy::application {
 namespace {
 
 // Two revisions the cases order against each other. The first byte settles it: '1' sits below '9' in the byte order,
-// so c_earlierRevision orders before c_revision without either string being a prefix of the other.
-constexpr const char * c_earlierRevision = "1f3c1ab";
-constexpr const char * c_revision        = "9f3c1ab";
+// so earlierRevision orders before revision without either string being a prefix of the other.
+constexpr const char * earlierRevision = "1f3c1ab";
+constexpr const char * revision        = "9f3c1ab";
 
 // The build every case compares against.
-constexpr Version c_build{1, 4, 2, c_revision};
+constexpr Version build{1, 4, 2, revision};
 
 } // namespace
 
@@ -78,40 +78,40 @@ TEST_CASE("application/version/defaults") {
 
 // The type-level contract the comparison operators rest on.
 TEST_CASE("application/version/traits") {
-  static_assert(std::is_same_v<decltype(c_build <=> c_build), std::strong_ordering>,
+  static_assert(std::is_same_v<decltype(build <=> build), std::strong_ordering>,
                 "the ordering must yield a strong ordering, not a weak or partial one");
-  static_assert(std::is_same_v<decltype(c_build == c_build), bool>, "equality must yield a plain bool");
+  static_assert(std::is_same_v<decltype(build == build), bool>, "equality must yield a plain bool");
 
-  static_assert(noexcept(c_build == c_build), "equality must be declared non-throwing");
-  static_assert(noexcept(c_build <=> c_build), "the ordering must be declared non-throwing");
+  static_assert(noexcept(build == build), "equality must be declared non-throwing");
+  static_assert(noexcept(build <=> build), "the ordering must be declared non-throwing");
 }
 
 // Which fields equality reads, and what the synthesized inequality reports.
 TEST_CASE("application/version/equality") {
-  constexpr Version same{1, 4, 2, c_revision};
-  constexpr Version higherMajor{2, 4, 2, c_revision};
-  constexpr Version higherMinor{1, 5, 2, c_revision};
-  constexpr Version higherPatch{1, 4, 3, c_revision};
-  constexpr Version otherRevision{1, 4, 2, c_earlierRevision};
+  constexpr Version same{1, 4, 2, revision};
+  constexpr Version higherMajor{2, 4, 2, revision};
+  constexpr Version higherMinor{1, 5, 2, revision};
+  constexpr Version higherPatch{1, 4, 3, revision};
+  constexpr Version otherRevision{1, 4, 2, earlierRevision};
   constexpr Version unnamed{1, 4, 2};
   constexpr Version alsoUnnamed{1, 4, 2};
 
-  CHECK(c_build == same);
-  CHECK(c_build != higherMajor);
-  CHECK(c_build != higherMinor);
-  CHECK(c_build != higherPatch);
+  CHECK(build == same);
+  CHECK(build != higherMajor);
+  CHECK(build != higherMinor);
+  CHECK(build != higherPatch);
 
   // The revision counts like any other field, compared by its bytes.
-  CHECK(c_build != otherRevision);
-  CHECK(c_build != unnamed);
+  CHECK(build != otherRevision);
+  CHECK(build != unnamed);
 
   // A version naming no revision equals only another one that names none.
   CHECK(unnamed == alsoUnnamed);
 
-  static_assert(c_build == same, "a version must compare equal to itself");
-  static_assert(c_build != higherPatch, "the synthesized inequality must negate the comparison");
-  static_assert(c_build != otherRevision, "a differing revision must break equality");
-  static_assert(c_build != unnamed, "a named revision must not equal an omitted one");
+  static_assert(build == same, "a version must compare equal to itself");
+  static_assert(build != higherPatch, "the synthesized inequality must negate the comparison");
+  static_assert(build != otherRevision, "a differing revision must break equality");
+  static_assert(build != unnamed, "a named revision must not equal an omitted one");
   static_assert(unnamed == alsoUnnamed, "two versions naming no revision must compare equal");
 }
 
@@ -133,7 +133,7 @@ TEST_CASE("application/version/ordering_numbers") {
   CHECK((minorRaised <=> patchRaised) == std::strong_ordering::greater);
   // The patch number decides last among the numbers.
   CHECK((release <=> releasePatched) == std::strong_ordering::less);
-  CHECK((c_build <=> c_build) == std::strong_ordering::equal);
+  CHECK((build <=> build) == std::strong_ordering::equal);
 
   CHECK(release < releasePatched);
   CHECK(releasePatched > release);
@@ -151,24 +151,24 @@ TEST_CASE("application/version/ordering_numbers") {
 
 // Where the revision enters the order, and where a version naming none lands.
 TEST_CASE("application/version/ordering_revision") {
-  constexpr Version earlier{1, 4, 2, c_earlierRevision};
+  constexpr Version earlier{1, 4, 2, earlierRevision};
   constexpr Version unnamed{1, 4, 2};
-  constexpr Version majorRaised{2, 0, 0, c_earlierRevision};
+  constexpr Version majorRaised{2, 0, 0, earlierRevision};
 
   // Three equal numbers hand the decision to the revision, ordered byte by byte.
-  CHECK((c_build <=> earlier) == std::strong_ordering::greater);
-  CHECK((earlier <=> c_build) == std::strong_ordering::less);
+  CHECK((build <=> earlier) == std::strong_ordering::greater);
+  CHECK((earlier <=> build) == std::strong_ordering::less);
 
   // An empty revision orders before every other, the reverse of semantic-versioning pre-release precedence.
-  CHECK(unnamed < c_build);
+  CHECK(unnamed < build);
 
   // A differing number settles the order before the revision is read.
-  CHECK(majorRaised > c_build);
+  CHECK(majorRaised > build);
 
-  static_assert((c_build <=> earlier) == std::strong_ordering::greater,
+  static_assert((build <=> earlier) == std::strong_ordering::greater,
                 "equal numbers must hand the order to the revision");
-  static_assert(unnamed < c_build, "an omitted revision must order before a named one");
-  static_assert(majorRaised > c_build, "a differing number must settle the order alone");
+  static_assert(unnamed < build, "an omitted revision must order before a named one");
+  static_assert(majorRaised > build, "a differing number must settle the order alone");
 }
 
 } // namespace toy::application

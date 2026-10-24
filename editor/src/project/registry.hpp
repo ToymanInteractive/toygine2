@@ -21,7 +21,7 @@
   \file   registry.hpp
   \brief  Compile-time declaration of every setting the editor knows.
 
-  Defines \ref toy::editor::project::c_registry, one \ref toy::editor::project::Descriptor per
+  Defines \ref toy::editor::project::registry, one \ref toy::editor::project::Descriptor per
   \ref toy::editor::project::Key. Adding a setting means adding an enumerator, a descriptor and the static_assert
   pinning the two together.
 */
@@ -36,12 +36,12 @@
 namespace toy::editor::project {
 
 /// Declaration of every setting, indexed by \ref toy::editor::project::Key.
-inline constexpr std::array c_registry{
+inline constexpr std::array registry{
   Descriptor{"name", Scope::Common, Type::String, "Untitled", 0, 0.0, false},
 };
 
-static_assert(c_registry.size() == c_keyCount, "every Key must have exactly one descriptor");
-static_assert(c_registry[std::to_underlying(Key::Name)].name == "name",
+static_assert(registry.size() == keyCount, "every Key must have exactly one descriptor");
+static_assert(registry[std::to_underlying(Key::Name)].name == "name",
               "descriptor order must match the Key enumeration");
 
 } // namespace toy::editor::project

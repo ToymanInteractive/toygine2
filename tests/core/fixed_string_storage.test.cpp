@@ -30,35 +30,35 @@ namespace toy {
 namespace {
 
 // Buffer size every case builds on, wide enough to leave bytes past the sample.
-constexpr size_t c_allocatedSize = 16;
+constexpr size_t allocatedSize = 16;
 
-using Storage = FixedStringStorage<c_allocatedSize>;
+using Storage = FixedStringStorage<allocatedSize>;
 
 // The literal the cases write. Its length is measured from the literal, not written out as a constant.
-constexpr const char * c_sample       = "player";
-constexpr size_t       c_sampleLength = std::char_traits<char>::length(c_sample);
+constexpr const char * sampleText   = "player";
+constexpr size_t       sampleLength = std::char_traits<char>::length(sampleText);
 
 // Length a shortened storage keeps, short enough to leave sample characters behind the new terminator.
-constexpr size_t c_shortLength = 2;
+constexpr size_t shortLength = 2;
 
 // Byte no operation writes, so whatever setSize() puts down shows up against it.
-constexpr char c_sentinel = '#';
+constexpr char sentinel = '#';
 
-// Buffer size above every target's c_inlineCopyMaxBytes, so assignment copies only the characters in use.
-constexpr size_t c_largeAllocatedSize = 256;
+// Buffer size above every target's inlineCopyMaxBytes, so assignment copies only the characters in use.
+constexpr size_t largeAllocatedSize = 256;
 
-using LargeStorage = FixedStringStorage<c_largeAllocatedSize>;
+using LargeStorage = FixedStringStorage<largeAllocatedSize>;
 
-static_assert(sizeof(Storage) <= platform::c_inlineCopyMaxBytes,
+static_assert(sizeof(Storage) <= platform::inlineCopyMaxBytes,
               "Storage must copy its whole object on every target, so the assignment case reaches that path");
-static_assert(sizeof(LargeStorage) > platform::c_inlineCopyMaxBytes,
+static_assert(sizeof(LargeStorage) > platform::inlineCopyMaxBytes,
               "LargeStorage must copy by length on every target, so the assignment case reaches that path");
 
 // Writes the sentinel into every byte of the buffer, so no byte a test compares is left indeterminate.
 template <typename StorageType>
 constexpr void fillWithSentinel(StorageType & storage) noexcept {
   for (size_t index = 0; index <= storage.capacity(); ++index)
-    storage.data()[index] = c_sentinel;
+    storage.data()[index] = sentinel;
 }
 
 // Storage holding the sample over a sentinel-filled buffer, the state a constant expression reads back.
@@ -67,9 +67,10 @@ template <typename StorageType = Storage>
   StorageType storage;
   fillWithSentinel(storage);
 
-  for (size_t index = 0; index < c_sampleLength; ++index)
-    storage.data()[index] = c_sample[index];
-  storage.setSize(c_sampleLength);
+  for (size_t index = 0; index < sampleLength; ++index)
+    storage.data()[index] = sampleText[index];
+
+  storage.setSize(sampleLength);
 
   return storage;
 }
@@ -82,10 +83,10 @@ template <typename StorageType = Storage>
   return storage;
 }
 
-// Index of the first byte where two buffers differ, c_allocatedSize when they hold the same bytes throughout.
+// Index of the first byte where two buffers differ, allocatedSize when they hold the same bytes throughout.
 [[nodiscard]] constexpr size_t firstDifference(const Storage & left, const Storage & right) noexcept {
   size_t index = 0;
-  while (index < c_allocatedSize && left.data()[index] == right.data()[index])
+  while (index < allocatedSize && left.data()[index] == right.data()[index])
     ++index;
 
   return index;
@@ -125,7 +126,7 @@ struct ReserveResult {
 // Byte at an index past a shortened length, which setSize() has no business clearing.
 [[nodiscard]] constexpr char byteAfterShrink(size_t index) noexcept {
   Storage storage = sampleStorage();
-  storage.setSize(c_shortLength);
+  storage.setSize(shortLength);
 
   return storage.data()[index];
 }
@@ -134,22 +135,22 @@ struct ReserveResult {
 [[nodiscard]] constexpr bool defaultBufferIsNull() noexcept {
   const Storage storage;
 
-  return std::ranges::all_of(storage.data(), storage.data() + c_allocatedSize, [](char character) {
+  return std::ranges::all_of(storage.data(), storage.data() + allocatedSize, [](char character) {
     return character == '\0';
   });
 }
 
-// First index where a storage differs from the sample and its terminator; c_sampleLength + 1 on a full match.
+// First index where a storage differs from the sample and its terminator; sampleLength + 1 on a full match.
 template <typename StorageType>
 [[nodiscard]] constexpr size_t sampleDifference(const StorageType & storage) noexcept {
-  if (storage.size() != c_sampleLength)
+  if (storage.size() != sampleLength)
     return 0;
 
   size_t index = 0;
-  while (index < c_sampleLength && storage.data()[index] == c_sample[index])
+  while (index < sampleLength && storage.data()[index] == sampleText[index])
     ++index;
 
-  if (index == c_sampleLength && storage.data()[c_sampleLength] == '\0')
+  if (index == sampleLength && storage.data()[sampleLength] == '\0')
     ++index;
 
   return index;
@@ -219,7 +220,7 @@ template <typename StorageType>
   fillWithSentinel(target);
   target = source;
 
-  return target.data()[c_sampleLength + 1];
+  return target.data()[sampleLength + 1];
 }
 
 // Where a full storage, copy-assigned over a shorter one, first differs from the alphabet cycle.
@@ -264,7 +265,7 @@ template <typename StorageType>
 }
 
 // Storage the compile-time assertions read, so a constant expression names one instead of rebuilding it each time.
-constexpr Storage c_sampleStorage = sampleStorage();
+constexpr Storage compileTimeStorage = sampleStorage();
 
 } // namespace
 
@@ -308,9 +309,9 @@ TEST_CASE("fixed_string_storage/default_state") {
 TEST_CASE("fixed_string_storage/capacity") {
   const Storage storage;
 
-  CHECK(storage.capacity() == c_allocatedSize - 1);
+  CHECK(storage.capacity() == allocatedSize - 1);
 
-  static_assert(Storage().capacity() == c_allocatedSize - 1, "capacity must be the buffer size less the terminator");
+  static_assert(Storage().capacity() == allocatedSize - 1, "capacity must be the buffer size less the terminator");
   static_assert(FixedStringStorage<1>().capacity() == 0, "the smallest buffer holds the terminator alone");
   static_assert(FixedStringStorage<256>().capacity() == 255, "capacity must follow AllocatedSize");
 }
@@ -319,7 +320,7 @@ TEST_CASE("fixed_string_storage/capacity") {
 TEST_CASE("fixed_string_storage/max_size") {
   const Storage storage = sampleStorage();
 
-  CHECK(storage.max_size() == c_allocatedSize - 1);
+  CHECK(storage.max_size() == allocatedSize - 1);
 
   static_assert(Storage().max_size() == Storage().capacity(),
                 "max_size must equal capacity, since the buffer never grows");
@@ -333,14 +334,15 @@ TEST_CASE("fixed_string_storage/data_access") {
 
   CHECK(constStorage.data() == storage.data());
 
-  storage.data()[0] = c_sample[0];
-  CHECK(constStorage.data()[0] == c_sample[0]);
+  storage.data()[0] = sampleText[0];
+  CHECK(constStorage.data()[0] == sampleText[0]);
 
   // Writing characters leaves the length where it was: the two move apart.
   CHECK(storage.size() == 0);
 
-  static_assert(c_sampleStorage.data()[0] == c_sample[0], "the const overload must read the characters written in");
-  static_assert(c_sampleStorage.data()[c_sampleLength - 1] == c_sample[c_sampleLength - 1],
+  static_assert(compileTimeStorage.data()[0] == sampleText[0],
+                "the const overload must read the characters written in");
+  static_assert(compileTimeStorage.data()[sampleLength - 1] == sampleText[sampleLength - 1],
                 "every written character must read back");
 }
 
@@ -349,23 +351,23 @@ TEST_CASE("fixed_string_storage/reserve") {
   Storage       storage = sampleStorage();
   const Storage before  = storage;
 
-  CHECK(storage.reserve(c_allocatedSize - 1));
-  CHECK(firstDifference(storage, before) == c_allocatedSize);
+  CHECK(storage.reserve(allocatedSize - 1));
+  CHECK(firstDifference(storage, before) == allocatedSize);
 
-  CHECK_FALSE(storage.reserve(c_allocatedSize));
-  CHECK(firstDifference(storage, before) == c_allocatedSize);
+  CHECK_FALSE(storage.reserve(allocatedSize));
+  CHECK(firstDifference(storage, before) == allocatedSize);
 
   // Asking changes nothing: the buffer is fixed, so neither answer moves the length or the bound.
-  CHECK(storage.size() == c_sampleLength);
-  CHECK(storage.capacity() == c_allocatedSize - 1);
+  CHECK(storage.size() == sampleLength);
+  CHECK(storage.capacity() == allocatedSize - 1);
 
   static_assert(reserveResult(0).answer, "an empty string must fit any buffer");
-  static_assert(reserveResult(c_allocatedSize - 1).answer, "a length at capacity must fit");
-  static_assert(!reserveResult(c_allocatedSize).answer, "a length past capacity must be refused, terminator included");
+  static_assert(reserveResult(allocatedSize - 1).answer, "a length at capacity must fit");
+  static_assert(!reserveResult(allocatedSize).answer, "a length past capacity must be refused, terminator included");
 
-  static_assert(reserveResult(c_allocatedSize - 1).difference == c_allocatedSize,
+  static_assert(reserveResult(allocatedSize - 1).difference == allocatedSize,
                 "an accepted length must leave every byte of the buffer as it was");
-  static_assert(reserveResult(c_allocatedSize).difference == c_allocatedSize,
+  static_assert(reserveResult(allocatedSize).difference == allocatedSize,
                 "a refused length must leave every byte of the buffer as it was");
 }
 
@@ -377,46 +379,45 @@ TEST_CASE("fixed_string_storage/shrink_to_fit") {
 
   storage.shrink_to_fit();
 
-  CHECK(firstDifference(storage, before) == c_allocatedSize);
+  CHECK(firstDifference(storage, before) == allocatedSize);
   CHECK(storage.data() == buffer);
-  CHECK(storage.size() == c_sampleLength);
-  CHECK(storage.capacity() == c_allocatedSize - 1);
+  CHECK(storage.size() == sampleLength);
+  CHECK(storage.capacity() == allocatedSize - 1);
 
-  static_assert(shrinkDifference() == c_allocatedSize,
-                "a shrink request must leave every byte of the buffer as it was");
+  static_assert(shrinkDifference() == allocatedSize, "a shrink request must leave every byte of the buffer as it was");
 }
 
 // What setSize() records, and where it puts the terminator.
 TEST_CASE("fixed_string_storage/set_size") {
   Storage storage = sampleStorage();
 
-  CHECK(storage.size() == c_sampleLength);
-  CHECK(storage.data()[c_sampleLength] == '\0');
+  CHECK(storage.size() == sampleLength);
+  CHECK(storage.data()[sampleLength] == '\0');
 
   // The length may reach capacity, where the terminator takes the last byte of the buffer.
   storage.setSize(storage.capacity());
-  CHECK(storage.size() == c_allocatedSize - 1);
-  CHECK(storage.data()[c_allocatedSize - 1] == '\0');
+  CHECK(storage.size() == allocatedSize - 1);
+  CHECK(storage.data()[allocatedSize - 1] == '\0');
 
-  static_assert(sampleStorage().size() == c_sampleLength, "setSize() must record the length it was given");
+  static_assert(sampleStorage().size() == sampleLength, "setSize() must record the length it was given");
   static_assert(terminatorAfter(0) == '\0', "a zero length must terminate the buffer at its first byte");
-  static_assert(terminatorAfter(c_allocatedSize - 1) == '\0', "a length at capacity must terminate the last byte");
+  static_assert(terminatorAfter(allocatedSize - 1) == '\0', "a length at capacity must terminate the last byte");
 }
 
 // Which characters a shorter length leaves behind it.
 TEST_CASE("fixed_string_storage/set_size_shrink") {
   Storage storage = sampleStorage();
 
-  storage.setSize(c_shortLength);
-  CHECK(storage.size() == c_shortLength);
-  CHECK(storage.data()[c_shortLength] == '\0');
+  storage.setSize(shortLength);
+  CHECK(storage.size() == shortLength);
+  CHECK(storage.data()[shortLength] == '\0');
 
   // The characters past the new terminator stay as they were: the call clears nothing.
-  CHECK(storage.data()[c_shortLength + 1] == c_sample[c_shortLength + 1]);
-  CHECK(storage.data()[c_sampleLength - 1] == c_sample[c_sampleLength - 1]);
+  CHECK(storage.data()[shortLength + 1] == sampleText[shortLength + 1]);
+  CHECK(storage.data()[sampleLength - 1] == sampleText[sampleLength - 1]);
 
-  static_assert(byteAfterShrink(c_shortLength) == '\0', "the terminator must move to the new length");
-  static_assert(byteAfterShrink(c_shortLength + 1) == c_sample[c_shortLength + 1],
+  static_assert(byteAfterShrink(shortLength) == '\0', "the terminator must move to the new length");
+  static_assert(byteAfterShrink(shortLength + 1) == sampleText[shortLength + 1],
                 "a character past the new length must survive the call");
 }
 
@@ -431,56 +432,56 @@ TEST_CASE("fixed_string_storage/set_size_past_capacity") {
     return storage;
   };
 
-  CHECK(pastCapacity().size() == c_sampleLength);
-  CHECK(firstDifference(pastCapacity(), c_sampleStorage) == c_allocatedSize);
+  CHECK(pastCapacity().size() == sampleLength);
+  CHECK(firstDifference(pastCapacity(), compileTimeStorage) == allocatedSize);
 
-  static_assert(pastCapacity().size() == c_sampleLength, "a length past capacity() must keep the old length");
-  static_assert(firstDifference(pastCapacity(), c_sampleStorage) == c_allocatedSize,
+  static_assert(pastCapacity().size() == sampleLength, "a length past capacity() must keep the old length");
+  static_assert(firstDifference(pastCapacity(), compileTimeStorage) == allocatedSize,
                 "a length past capacity() must leave every byte of the buffer");
 }
 #endif // !TOYGINE_DEBUG
 
 // Assignments reproduce the source over both copy paths; the length-based one keeps the bytes past the terminator.
 TEST_CASE("fixed_string_storage/assignment") {
-  CHECK(sampleDifference(copyAssigned<Storage>()) == c_sampleLength + 1);
-  CHECK(sampleDifference(copyAssigned<LargeStorage>()) == c_sampleLength + 1);
-  CHECK(sampleDifference(moveAssigned<Storage>()) == c_sampleLength + 1);
-  CHECK(sampleDifference(moveAssigned<LargeStorage>()) == c_sampleLength + 1);
-  CHECK(sampleDifference(selfAssigned<Storage>()) == c_sampleLength + 1);
-  CHECK(sampleDifference(selfAssigned<LargeStorage>()) == c_sampleLength + 1);
+  CHECK(sampleDifference(copyAssigned<Storage>()) == sampleLength + 1);
+  CHECK(sampleDifference(copyAssigned<LargeStorage>()) == sampleLength + 1);
+  CHECK(sampleDifference(moveAssigned<Storage>()) == sampleLength + 1);
+  CHECK(sampleDifference(moveAssigned<LargeStorage>()) == sampleLength + 1);
+  CHECK(sampleDifference(selfAssigned<Storage>()) == sampleLength + 1);
+  CHECK(sampleDifference(selfAssigned<LargeStorage>()) == sampleLength + 1);
 
-  CHECK(fullCopyAssignedDifference<LargeStorage>() == c_largeAllocatedSize);
-  CHECK(byteAfterCopyAssignment<LargeStorage>() == c_sentinel);
+  CHECK(fullCopyAssignedDifference<LargeStorage>() == largeAllocatedSize);
+  CHECK(byteAfterCopyAssignment<LargeStorage>() == sentinel);
 
-  static_assert(sampleDifference(copyAssigned<Storage>()) == c_sampleLength + 1,
+  static_assert(sampleDifference(copyAssigned<Storage>()) == sampleLength + 1,
                 "a whole-object copy assignment must reproduce the source");
-  static_assert(sampleDifference(copyAssigned<LargeStorage>()) == c_sampleLength + 1,
+  static_assert(sampleDifference(copyAssigned<LargeStorage>()) == sampleLength + 1,
                 "a length-based copy assignment must reproduce the source and its terminator");
-  static_assert(sampleDifference(moveAssigned<LargeStorage>()) == c_sampleLength + 1,
+  static_assert(sampleDifference(moveAssigned<LargeStorage>()) == sampleLength + 1,
                 "a length-based move assignment must reproduce the source");
-  static_assert(sampleDifference(selfAssigned<LargeStorage>()) == c_sampleLength + 1,
+  static_assert(sampleDifference(selfAssigned<LargeStorage>()) == sampleLength + 1,
                 "a length-based self-assignment must keep the contents");
-  static_assert(fullCopyAssignedDifference<LargeStorage>() == c_largeAllocatedSize,
+  static_assert(fullCopyAssignedDifference<LargeStorage>() == largeAllocatedSize,
                 "a full string must be copied by its length, terminator included");
-  static_assert(byteAfterCopyAssignment<LargeStorage>() == c_sentinel,
+  static_assert(byteAfterCopyAssignment<LargeStorage>() == sentinel,
                 "a length-based copy assignment must leave the bytes past the terminator as they were");
 }
 
 // Copy and move construction reproduce the source's characters, over a buffer copied whole and one copied by length.
 TEST_CASE("fixed_string_storage/copy_construction") {
-  CHECK(copyConstructedDifference<Storage>() == c_sampleLength + 1);
-  CHECK(copyConstructedDifference<LargeStorage>() == c_sampleLength + 1);
-  CHECK(moveConstructedDifference<Storage>() == c_sampleLength + 1);
-  CHECK(moveConstructedDifference<LargeStorage>() == c_sampleLength + 1);
-  CHECK(fullCopyConstructedDifference<LargeStorage>() == c_largeAllocatedSize);
+  CHECK(copyConstructedDifference<Storage>() == sampleLength + 1);
+  CHECK(copyConstructedDifference<LargeStorage>() == sampleLength + 1);
+  CHECK(moveConstructedDifference<Storage>() == sampleLength + 1);
+  CHECK(moveConstructedDifference<LargeStorage>() == sampleLength + 1);
+  CHECK(fullCopyConstructedDifference<LargeStorage>() == largeAllocatedSize);
 
-  static_assert(copyConstructedDifference<Storage>() == c_sampleLength + 1,
+  static_assert(copyConstructedDifference<Storage>() == sampleLength + 1,
                 "a whole-object copy construction must reproduce the source");
-  static_assert(copyConstructedDifference<LargeStorage>() == c_sampleLength + 1,
+  static_assert(copyConstructedDifference<LargeStorage>() == sampleLength + 1,
                 "a length-based copy construction must reproduce the source and its terminator");
-  static_assert(moveConstructedDifference<LargeStorage>() == c_sampleLength + 1,
+  static_assert(moveConstructedDifference<LargeStorage>() == sampleLength + 1,
                 "a length-based move construction must reproduce the source");
-  static_assert(fullCopyConstructedDifference<LargeStorage>() == c_largeAllocatedSize,
+  static_assert(fullCopyConstructedDifference<LargeStorage>() == largeAllocatedSize,
                 "a full string must be copied by its length, terminator included");
 }
 

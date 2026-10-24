@@ -43,7 +43,7 @@ namespace toy::platform {
         where the number comes from.
   \note Values not measured on the target are estimates, and the comment beside each one says so.
 */
-inline constexpr size_t c_inlineCopyMaxBytes = detail::c_inlineCopyMaxBytes;
+inline constexpr size_t inlineCopyMaxBytes = detail::inlineCopyMaxBytes;
 
 /*!
   \brief Whether assert_message keeps a flag per call site for \ref toy::assertion::Action::IgnoreAlways.
@@ -53,7 +53,7 @@ inline constexpr size_t c_inlineCopyMaxBytes = detail::c_inlineCopyMaxBytes;
 
   \note Each target sets the value in the platform_config.hpp of its directory under src/platforms.
 */
-inline constexpr bool c_assertIgnoreAlways = detail::c_assertIgnoreAlways;
+inline constexpr bool assertIgnoreAlways = detail::assertIgnoreAlways;
 
 } // namespace toy::platform
 

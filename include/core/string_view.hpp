@@ -1135,7 +1135,7 @@ public:
     Every search returns it when nothing matches. As a count it reaches the end of the view or of the other string, and
     as the start of a backward search it covers the whole view.
   */
-  static constexpr const size_type npos = string_utils::c_npos;
+  static constexpr const size_type npos = string_utils::npos;
 
   /*!
     \brief Reports whether two views read the same characters.

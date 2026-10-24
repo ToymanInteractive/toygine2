@@ -21,7 +21,7 @@
   \file   registry_descriptor.hpp
   \brief  Declaration of one setting: its name, section, type and default.
 
-  Defines \ref toy::editor::project::Descriptor, the element type of \ref toy::editor::project::c_registry.
+  Defines \ref toy::editor::project::Descriptor, the element type of \ref toy::editor::project::registry.
 */
 #ifndef EDITOR_SRC_PROJECT_REGISTRY_DESCRIPTOR_HPP_
 #define EDITOR_SRC_PROJECT_REGISTRY_DESCRIPTOR_HPP_

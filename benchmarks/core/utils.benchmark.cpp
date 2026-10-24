@@ -53,7 +53,7 @@ BENCHMARK_CASE("core/utils/utf16_to_utf8") {
   const char16_t * const text = opaque(c_utf16Text);
 
   // Room for every unit at its widest encoding plus the terminator, so the whole text converts every time.
-  std::array<char, c_utf16Length * toy::c_utf16InUtf8MaxSize + 1> buffer{};
+  std::array<char, c_utf16Length * toy::utf16InUtf8MaxSize + 1> buffer{};
 
   bench.unit("conversion");
 

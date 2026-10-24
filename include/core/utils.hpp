@@ -39,7 +39,7 @@ namespace toy {
   Sizes buffers for converting UTF-16 text: a unit outside the surrogate range takes at most three bytes, and a
   surrogate pair takes four for its two units.
 */
-constexpr size_t c_utf16InUtf8MaxSize = 3;
+constexpr size_t utf16InUtf8MaxSize = 3;
 
 /*!
   \brief Converts a range of UTF-8 bytes to a null-terminated UTF-16 string in a caller-supplied buffer.
@@ -90,7 +90,7 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
         of the range, before a character that does not fit whole in \a destSize - 1 bytes, and before a surrogate
         whose pair does not lie whole inside the range.
 
-  \note Truncation and lone surrogates go unreported: a buffer of \ref toy::c_utf16InUtf8MaxSize bytes per unit of the
+  \note Truncation and lone surrogates go unreported: a buffer of \ref toy::utf16InUtf8MaxSize bytes per unit of the
         range, plus one for the terminator, holds every character the call encodes.
   \note The conversion is a runtime one: the definition lives in a translation unit, out of reach of a constant
         expression.

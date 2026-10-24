@@ -81,14 +81,14 @@ inline bool Context::record(bool passed, const char * expression, const char * f
 }
 
 inline void Context::pushInfo(const char * text) noexcept {
-  if (_infoDepth < c_maxInfoDepth)
+  if (_infoDepth < maxInfoDepth)
     _infoStack[_infoDepth] = InfoEntry{text, 0, false};
 
   ++_infoDepth;
 }
 
 inline void Context::pushInfo(const char * text, long long value) noexcept {
-  if (_infoDepth < c_maxInfoDepth)
+  if (_infoDepth < maxInfoDepth)
     _infoStack[_infoDepth] = InfoEntry{text, value, true};
 
   ++_infoDepth;
@@ -113,7 +113,7 @@ inline bool Context::caseFailed() const noexcept {
 
 inline std::size_t Context::infoCount() const noexcept {
   // The depth counter grows past the fixed stack to keep pushes and pops balanced; only what is read is capped.
-  return std::min(_infoDepth, c_maxInfoDepth);
+  return std::min(_infoDepth, maxInfoDepth);
 }
 
 inline std::size_t Context::infoDropped() const noexcept {
@@ -162,7 +162,7 @@ inline bool Context::enterSubcase(const char * name) noexcept {
     _subcaseCount = index + 1;
 
   // Recorded on every run, including the ones that skip this subcase, so a single run reveals the whole layout.
-  if (index < c_maxSubcaseNames)
+  if (index < maxSubcaseNames)
     _subcaseNames[index] = name;
 
   if (index != _targetSubcase)
@@ -180,7 +180,7 @@ inline void Context::leaveSubcase() noexcept {
 }
 
 inline const char * Context::subcaseNameAt(std::size_t index) const noexcept {
-  return index < c_maxSubcaseNames ? _subcaseNames[index] : nullptr;
+  return index < maxSubcaseNames ? _subcaseNames[index] : nullptr;
 }
 
 inline std::size_t Context::subcaseCount() const noexcept {

@@ -73,12 +73,12 @@ constexpr size_t find(const char * data, size_t size, char ch, size_t pos) noexc
   assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
 
   if (pos >= size)
-    return c_npos;
+    return npos;
 
   // memchr at runtime, a plain scan under constant evaluation; neither reads a byte before pos.
   const char * found = traits_type::find(data + pos, size - pos, ch);
 
-  return found != nullptr ? static_cast<size_t>(found - data) : c_npos;
+  return found != nullptr ? static_cast<size_t>(found - data) : npos;
 }
 
 constexpr size_t find(const char * data, size_t size, const char * pattern, size_t pos, size_t count) noexcept {
@@ -86,16 +86,16 @@ constexpr size_t find(const char * data, size_t size, const char * pattern, size
   assert_message(pattern != nullptr || count == 0, "a null pointer names no characters to search for");
 
   if (count == 0)
-    return pos <= size ? pos : c_npos;
+    return pos <= size ? pos : npos;
   else if (count > size)
-    return c_npos;
+    return npos;
 
   const size_t last = size - count;
   for (size_t index = pos; index <= last;) {
     // memchr at runtime: skips to the next position that can start a match instead of comparing at every one.
     const char * candidate = traits_type::find(data + index, last - index + 1, pattern[0]);
     if (candidate == nullptr)
-      return c_npos;
+      return npos;
 
     index = static_cast<size_t>(candidate - data);
 
@@ -106,7 +106,7 @@ constexpr size_t find(const char * data, size_t size, const char * pattern, size
     ++index;
   }
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t rfind(const char * data, size_t size, char ch, size_t pos) noexcept {
@@ -116,7 +116,7 @@ constexpr size_t rfind(const char * data, size_t size, char ch, size_t pos) noex
     if (traits_type::eq(data[remaining - 1], ch))
       return remaining - 1;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t rfind(const char * data, size_t size, const char * pattern, size_t pos, size_t count) noexcept {
@@ -126,7 +126,7 @@ constexpr size_t rfind(const char * data, size_t size, const char * pattern, siz
   if (count == 0)
     return std::min(pos, size);
   else if (count > size)
-    return c_npos;
+    return npos;
 
   for (size_t remaining = std::min(pos, size - count) + 1; remaining > 0; --remaining) {
     const size_t index = remaining - 1;
@@ -140,7 +140,7 @@ constexpr size_t rfind(const char * data, size_t size, const char * pattern, siz
       return index;
   }
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t findFirstOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
@@ -148,14 +148,14 @@ constexpr size_t findFirstOf(const char * data, size_t size, const char * set, s
   assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
 
   if (count == 0)
-    return c_npos;
+    return npos;
 
   const auto members = detail::membershipTable(set, count);
   for (size_t index = pos; index < size; ++index)
     if (detail::isMember(members, data[index]))
       return index;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t findLastOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
@@ -163,14 +163,14 @@ constexpr size_t findLastOf(const char * data, size_t size, const char * set, si
   assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
 
   if (count == 0)
-    return c_npos;
+    return npos;
 
   const auto members = detail::membershipTable(set, count);
   for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
     if (detail::isMember(members, data[remaining - 1]))
       return remaining - 1;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t findFirstNotOf(const char * data, size_t size, char ch, size_t pos) noexcept {
@@ -180,7 +180,7 @@ constexpr size_t findFirstNotOf(const char * data, size_t size, char ch, size_t 
     if (!traits_type::eq(data[index], ch))
       return index;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
@@ -188,14 +188,14 @@ constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set
   assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
 
   if (count == 0)
-    return pos < size ? pos : c_npos;
+    return pos < size ? pos : npos;
 
   const auto members = detail::membershipTable(set, count);
   for (size_t index = pos; index < size; ++index)
     if (!detail::isMember(members, data[index]))
       return index;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t findLastNotOf(const char * data, size_t size, char ch, size_t pos) noexcept {
@@ -205,7 +205,7 @@ constexpr size_t findLastNotOf(const char * data, size_t size, char ch, size_t p
     if (!traits_type::eq(data[remaining - 1], ch))
       return remaining - 1;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr size_t findLastNotOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
@@ -213,14 +213,14 @@ constexpr size_t findLastNotOf(const char * data, size_t size, const char * set,
   assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
 
   if (count == 0)
-    return size == 0 ? c_npos : std::min(pos, size - 1);
+    return size == 0 ? npos : std::min(pos, size - 1);
 
   const auto members = detail::membershipTable(set, count);
   for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
     if (!detail::isMember(members, data[remaining - 1]))
       return remaining - 1;
 
-  return c_npos;
+  return npos;
 }
 
 constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t rhsSize) noexcept {

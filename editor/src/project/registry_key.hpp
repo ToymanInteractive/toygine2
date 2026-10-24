@@ -21,7 +21,7 @@
   \file   registry_key.hpp
   \brief  Identifiers of the settings the editor knows.
 
-  Defines \ref toy::editor::project::Key and \ref toy::editor::project::c_keyCount, the number of settings it
+  Defines \ref toy::editor::project::Key and \ref toy::editor::project::keyCount, the number of settings it
   enumerates. A setting is always named by its key, so a typo in a setting name fails to compile.
 */
 #ifndef EDITOR_SRC_PROJECT_REGISTRY_KEY_HPP_
@@ -35,7 +35,7 @@ namespace toy::editor::project {
   \enum   Key
   \brief  Every setting the editor knows, and the slot each one occupies.
 
-  An enumerator's value is the index of its descriptor in \ref toy::editor::project::c_registry and of its value in
+  An enumerator's value is the index of its descriptor in \ref toy::editor::project::registry and of its value in
   \ref toy::editor::project::Project.
 */
 enum class Key : size_t {
@@ -44,7 +44,7 @@ enum class Key : size_t {
 };
 
 /// Number of settings in the registry.
-inline constexpr size_t c_keyCount = std::to_underlying(Key::Count);
+inline constexpr size_t keyCount = std::to_underlying(Key::Count);
 
 } // namespace toy::editor::project
 

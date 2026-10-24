@@ -129,7 +129,7 @@ void bodyFailsAndNestsSubcases(toy::test::Context & toyTestContext) {
   }
 }
 
-static_assert(toy::test::Context::c_maxSubcaseNames == 16, "the body below declares one branch past the kept names");
+static_assert(toy::test::Context::maxSubcaseNames == 16, "the body below declares one branch past the kept names");
 
 // The seventeenth branch has no kept name, so only the failure block can say which subcase failed.
 void bodyFailsPastKeptSubcaseNames(toy::test::Context & toyTestContext) {
@@ -154,7 +154,7 @@ void bodyFailsPastKeptSubcaseNames(toy::test::Context & toyTestContext) {
   }
 }
 
-static_assert(toy::test::Context::c_maxInfoDepth == 8, "the body below pushes two entries past the info depth");
+static_assert(toy::test::Context::maxInfoDepth == 8, "the body below pushes two entries past the info depth");
 
 // Ten nested info entries, so the failure block keeps the outer eight and counts the two it lost.
 void bodyFailsPastTheInfoDepth(toy::test::Context & toyTestContext) {
@@ -606,7 +606,7 @@ TEST_CASE("test/write_report/empty_registry_reports_an_empty_plan") {
 
 // An over-long case name is cut and the line keeps its newline: two report lines run together are unreadable.
 TEST_CASE("test/write_report/overlong_case_name_keeps_the_line_break") {
-  constexpr std::size_t capacity   = toy::test::detail::ReportWriter::c_lineCapacity;
+  constexpr std::size_t capacity   = toy::test::detail::ReportWriter::lineCapacity;
   constexpr std::size_t nameLength = capacity * 2;
 
   char name[nameLength + 1] = {};
@@ -635,7 +635,7 @@ TEST_CASE("test/write_report/overlong_case_name_keeps_the_line_break") {
 
 // A scalar quoted near the end of a line is cut but still closes, and the line keeps its break.
 TEST_CASE("test::detail/report_writer/quoted_scalar_cut_at_the_capacity_still_closes") {
-  constexpr std::size_t capacity     = toy::test::detail::ReportWriter::c_lineCapacity;
+  constexpr std::size_t capacity     = toy::test::detail::ReportWriter::lineCapacity;
   constexpr std::size_t fillerLength = capacity - 4;
 
   char filler[fillerLength + 1] = {};

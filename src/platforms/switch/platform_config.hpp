@@ -33,10 +33,10 @@
 namespace toy::platform::detail {
 
 // Assumed equal to desktop: GCC for the Cortex-A57 inlines copies up to 200 bytes, cost not measured.
-inline constexpr size_t c_inlineCopyMaxBytes = 128;
+inline constexpr size_t inlineCopyMaxBytes = 128;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
-inline constexpr bool c_assertIgnoreAlways = false;
+inline constexpr bool assertIgnoreAlways = false;
 
 } // namespace toy::platform::detail
 

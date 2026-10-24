@@ -35,19 +35,19 @@
 namespace toy::benchmark::detail {
 
 /// Line on which the VDP raises the vertical interrupt in 224-line mode; the V counter reads the same value there.
-inline constexpr std::uint8_t c_verticalInterruptLine = 0xE0;
+inline constexpr std::uint8_t verticalInterruptLine = 0xE0;
 
 /// Scanlines in an NTSC frame.
-inline constexpr std::uint32_t c_ntscLinesPerFrame = 262;
+inline constexpr std::uint32_t ntscLinesPerFrame = 262;
 
 /// Scanlines in a PAL frame.
-inline constexpr std::uint32_t c_palLinesPerFrame = 313;
+inline constexpr std::uint32_t palLinesPerFrame = 313;
 
 /// Length of an NTSC scanline in picoseconds: 3420 cycles of the 53.693175 MHz master clock.
-inline constexpr std::uint64_t c_ntscPicosecondsPerLine = 63'695'246;
+inline constexpr std::uint64_t ntscPicosecondsPerLine = 63'695'246;
 
 /// Length of a PAL scanline in picoseconds: 3420 cycles of the 53.203424 MHz master clock.
-inline constexpr std::uint64_t c_palPicosecondsPerLine = 64'281'577;
+inline constexpr std::uint64_t palPicosecondsPerLine = 64'281'577;
 
 /// One reading of the frame counter and the VDP, taken together for a timestamp.
 struct VdpSample final {
@@ -83,8 +83,8 @@ struct VdpSample final {
   \brief Converts a sample to scanlines since power-on.
 
   \param sample         Reading during which the frame counter did not change.
-  \param linesPerFrame  \ref toy::benchmark::detail::c_ntscLinesPerFrame or
-                        \ref toy::benchmark::detail::c_palLinesPerFrame.
+  \param linesPerFrame  \ref toy::benchmark::detail::ntscLinesPerFrame or
+                        \ref toy::benchmark::detail::palLinesPerFrame.
 
   \return Frames times lines per frame, plus the lines since the last vertical interrupt, which a pinned sample counts
           as \c 0. Wraps modulo 2^32.

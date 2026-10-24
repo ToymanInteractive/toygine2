@@ -98,7 +98,7 @@ namespace detail {
 class LineBuffer final {
 public:
   /// Capacity of one line in bytes, newline included; the mGBA log carries no more in one message.
-  static constexpr std::size_t c_capacity = 256;
+  static constexpr std::size_t capacity = 256;
 
   /*!
     \brief Builds an empty line that flushes into \a output.
@@ -172,9 +172,9 @@ public:
   void flush() noexcept;
 
 private:
-  Output                       _output;
-  std::array<char, c_capacity> _buffer{};
-  std::size_t                  _length{0};
+  Output                     _output;
+  std::array<char, capacity> _buffer{};
+  std::size_t                _length{0};
 };
 
 } // namespace detail

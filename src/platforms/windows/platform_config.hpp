@@ -39,10 +39,10 @@
 namespace toy::platform::detail {
 
 // Assumed equal to macOS: not yet measured with MSVC on x86.
-inline constexpr size_t c_inlineCopyMaxBytes = 128;
+inline constexpr size_t inlineCopyMaxBytes = 128;
 
 // Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
-inline constexpr bool c_assertIgnoreAlways = true;
+inline constexpr bool assertIgnoreAlways = true;
 
 } // namespace toy::platform::detail
 
