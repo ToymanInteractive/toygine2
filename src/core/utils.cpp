@@ -263,9 +263,16 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 }
 
 size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
-  size_t size = 0;
+  size_t size     = 0;
+  bool   pairOpen = false;
   for (const char16_t * const end = src != nullptr ? src + count : src; src != end; ++src) {
-    if (const auto unit = *src; unit <= 0x7F) {
+    const auto unit = *src;
+    if (pairOpen) {
+      pairOpen = false;
+      continue;
+    }
+
+    if (unit <= 0x7F) {
       size += 1;
     } else if (unit <= 0x7FF) {
       size += 2;
@@ -275,8 +282,8 @@ size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
       // toy::utf16ToUtf8() encodes a surrogate only as half of a pair inside the range, so the count stops there too.
       if (wellFormedLength(src, static_cast<size_t>(end - src)) != 2)
         break;
-      size += 4;
-      ++src;
+      size     += 4;
+      pairOpen  = true;
     }
   }
 
