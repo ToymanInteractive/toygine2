@@ -262,6 +262,27 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
   return dest;
 }
 
+size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
+  size_t size = 0;
+  for (const char16_t * const end = src != nullptr ? src + count : src; src != end; ++src) {
+    if (const auto unit = *src; unit <= 0x7F) {
+      size += 1;
+    } else if (unit <= 0x7FF) {
+      size += 2;
+    } else if (unit < 0xD800 || unit > 0xDFFF) {
+      size += 3;
+    } else {
+      // toy::utf16ToUtf8() encodes a surrogate only as half of a pair inside the range, so the count stops there too.
+      if (wellFormedLength(src, static_cast<size_t>(end - src)) != 2)
+        break;
+      size += 4;
+      ++src;
+    }
+  }
+
+  return size;
+}
+
 size_t utf8Len(const char * str) noexcept {
   assert_message(str != nullptr, "C string must not be null");
   if (str == nullptr)

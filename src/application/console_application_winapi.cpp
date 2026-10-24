@@ -56,9 +56,13 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       if (const auto nul = string_utils::find(text.data(), length, '\0', 0); nul != string_utils::npos)
         length = std::max<size_t>(nul, 1);
 
-      // An ill-formed sequence cuts this chunk's output short, and utf8ToUtf16() does not report it.
       utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
-      const auto units = std::char_traits<char16_t>::length(buffer.data());
+      auto units = std::char_traits<char16_t>::length(buffer.data());
+      // A byte the decoder stopped at, other than a dropped '\0', shows as U+FFFD and the chunk ends after it.
+      if (const auto consumed = utf16InUtf8Size(buffer.data(), units); consumed < length && text[consumed] != '\0') {
+        buffer[units++] = u'\uFFFD';
+        length          = consumed + 1;
+      }
       std::ranges::transform(buffer.data(), buffer.data() + units, wideBuffer.data(), [](char16_t unit) noexcept {
         return static_cast<wchar_t>(unit);
       });

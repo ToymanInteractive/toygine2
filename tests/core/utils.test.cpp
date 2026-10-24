@@ -383,6 +383,76 @@ TEST_CASE("utf16_to_utf8/handles_null_and_empty_arguments") {
   CHECK(fromEmpty[0] == '\0');
 }
 
+// Every width measures the byte length of the matching UTF-8 literal.
+TEST_CASE("utf16_in_utf8_size/matches_every_width") {
+  for (size_t index = 0; index < utf16Samples.size(); ++index) {
+    INFO("index ", index);
+    const auto & [utf16, utf8] = utf16Samples[index];
+
+    CHECK(utf16InUtf8Size(utf16, std::char_traits<char16_t>::length(utf16)) == std::char_traits<char>::length(utf8));
+  }
+}
+
+// Each width boundary counts on its side: U+007F one byte, U+0080 and U+07FF two, U+0800 three, a pair four.
+TEST_CASE("utf16_in_utf8_size/counts_the_width_edges") {
+  constexpr char16_t widthEdges[] = {0x7F, 0x80, 0x7FF, 0x800};
+
+  CHECK(utf16InUtf8Size(&widthEdges[0], 1) == 1);
+  CHECK(utf16InUtf8Size(&widthEdges[1], 1) == 2);
+  CHECK(utf16InUtf8Size(&widthEdges[2], 1) == 2);
+  CHECK(utf16InUtf8Size(&widthEdges[3], 1) == 3);
+  CHECK(utf16InUtf8Size(utf16BeforeSurrogates, 1) == 3);
+  CHECK(utf16InUtf8Size(utf16AfterSurrogates, 1) == 3);
+  CHECK(utf16InUtf8Size(utf16LowestPair, 2) == 4);
+  CHECK(utf16InUtf8Size(utf16HighestCodePoint, 2) == 4);
+}
+
+// The unit count bounds the input: a terminator inside it counts one byte, and a pair it cuts short ends the count.
+TEST_CASE("utf16_in_utf8_size/reads_only_the_counted_units") {
+  CHECK(utf16InUtf8Size(utf16InnerTerminator, std::size(utf16InnerTerminator)) == 3);
+  CHECK(utf16InUtf8Size(u"привет", 3) == std::char_traits<char>::length("при"));
+  CHECK(utf16InUtf8Size(u"a🎮", 2) == 1);
+}
+
+// A surrogate outside a pair ends the count where toy::utf16ToUtf8() stops encoding.
+TEST_CASE("utf16_in_utf8_size/stops_before_a_lone_surrogate") {
+  for (size_t index = 0; index < loneSurrogates.size(); ++index) {
+    INFO("index ", index);
+
+    const char16_t * const units = loneSurrogates[index].data();
+    const auto             count = std::char_traits<char16_t>::length(units);
+
+    std::array<char, 16> buffer{};
+    utf16ToUtf8(buffer.data(), buffer.size(), units, count);
+    CHECK(utf16InUtf8Size(units, count) == std::char_traits<char>::length(buffer.data()));
+    CHECK(utf16InUtf8Size(units, count) == 1);
+  }
+}
+
+// Over the units a decode wrote, the count gives the bytes the decode consumed before an ill-formed sequence.
+TEST_CASE("utf16_in_utf8_size/measures_the_bytes_a_decode_consumed") {
+  for (size_t index = 0; index < rejectedSequences.size(); ++index) {
+    INFO("index ", index);
+    const char * const rejected = rejectedSequences[index];
+
+    std::array<char, 64> input{};
+    const auto           prefixLength = std::char_traits<char>::length(mixed);
+    std::char_traits<char>::copy(input.data(), mixed, prefixLength);
+    std::char_traits<char>::copy(input.data() + prefixLength, rejected, std::char_traits<char>::length(rejected));
+
+    std::array<char16_t, 64> decoded{};
+    utf8ToUtf16(decoded.data(), decoded.size(), input.data(), std::char_traits<char>::length(input.data()));
+    CHECK(utf16InUtf8Size(decoded.data(), std::char_traits<char16_t>::length(decoded.data())) == prefixLength);
+  }
+}
+
+// A null or empty source measures nothing, whatever the count.
+TEST_CASE("utf16_in_utf8_size/handles_null_and_empty_arguments") {
+  CHECK(utf16InUtf8Size(nullptr, 0) == 0);
+  CHECK(utf16InUtf8Size(nullptr, 4) == 0);
+  CHECK(utf16InUtf8Size(u"player", 0) == 0);
+}
+
 // Every width decodes to the matching UTF-16 literal, a pair for four bytes, and the call hands back its buffer.
 TEST_CASE("utf8_to_utf16/decodes_every_width") {
   for (size_t index = 0; index < utf16Samples.size(); ++index) {
