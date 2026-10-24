@@ -25,7 +25,7 @@
 
 #include "application.hpp"
 
-// The console API and wmain() hold UTF-16 in wchar_t, so it bit_casts to the char16_t the core utilities take.
+// The console API and wmain() hold UTF-16 in wchar_t, so a unit-by-unit copy to char16_t keeps the text intact.
 static_assert(sizeof(wchar_t) == sizeof(char16_t), "wchar_t must hold UTF-16 code units on Windows");
 
 namespace toy::application {
@@ -43,7 +43,9 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
   ::AcquireSRWLockExclusive(&lock);
 
   if (isConsole) {
-    std::array<char16_t, 512> buffer;
+    constexpr size_t                 chunkUnits = 512;
+    std::array<char16_t, chunkUnits> buffer;
+    std::array<wchar_t, chunkUnits>  wideBuffer;
     while (!text.empty()) {
       auto length = std::min(text.size(), buffer.size() - 1);
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
@@ -55,7 +57,10 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       // An ill-formed sequence cuts this chunk's output short, and utf8ToUtf16() does not report it.
       utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
       const auto units = std::char_traits<char16_t>::length(buffer.data());
-      ::WriteConsoleW(handle, bit_cast<const wchar_t *>(buffer.data()), static_cast<DWORD>(units), nullptr, nullptr);
+      std::ranges::transform(buffer.data(), buffer.data() + units, wideBuffer.data(), [](char16_t unit) noexcept {
+        return static_cast<wchar_t>(unit);
+      });
+      ::WriteConsoleW(handle, wideBuffer.data(), static_cast<DWORD>(units), nullptr, nullptr);
 
       text.remove_prefix(length);
     }
@@ -114,22 +119,33 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
   const auto wideArgs  = std::ranges::subrange(argvw, argvw + argc);
   const auto arraySize = (wideArgs.size() + 1) * sizeof(char *);
 
-  // One block: the pointer array with its nullptr entry, then a slot for every string.
-  auto blockSize = arraySize;
-  for (const wchar_t * wideArg : wideArgs)
-    blockSize += slotSize(std::char_traits<wchar_t>::length(wideArg));
+  // One block: the pointer array with its nullptr entry, a char16_t copy of the longest string, then a slot per string.
+  size_t longestUnits = 0;
+  auto   blockSize    = arraySize;
+  for (const wchar_t * wideArg : wideArgs) {
+    const auto units = std::char_traits<wchar_t>::length(wideArg);
+
+    longestUnits  = std::max(longestUnits, units);
+    blockSize    += slotSize(units);
+  }
+  const auto copySize  = longestUnits * sizeof(char16_t);
+  blockSize           += copySize;
 
   void * const block = MALLOC(blockSize);
   if (block == nullptr)
     return false;
 
-  auto ** slot = static_cast<char **>(block);
-  char *  text = static_cast<char *>(block) + arraySize;
+  auto ** slot     = static_cast<char **>(block);
+  auto *  wideCopy = static_cast<char16_t *>(static_cast<void *>(static_cast<char *>(block) + arraySize));
+  char *  text     = static_cast<char *>(block) + arraySize + copySize;
   for (const wchar_t * wideArg : wideArgs) {
     const auto units = std::char_traits<wchar_t>::length(wideArg);
     const auto size  = slotSize(units);
 
-    *slot++  = toy::utf16ToUtf8(text, size, toy::bit_cast<const char16_t *>(wideArg), units);
+    std::ranges::transform(wideArg, wideArg + units, wideCopy, [](wchar_t unit) noexcept {
+      return static_cast<char16_t>(unit);
+    });
+    *slot++  = toy::utf16ToUtf8(text, size, wideCopy, units);
     text    += size;
   }
   *slot = nullptr;
