@@ -26,6 +26,14 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options
 # https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
+# last option
+# https://learn.microsoft.com/en-nz/cpp/build/reference/favor-optimize-for-architecture-specifics
+
+# DevKitPro based on GCC version: 16.2
+# GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
+# GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C-Dialect-Options.html
+# GCC 16.2.0 Options Controlling C Dialect - last option: -fsigned-char
+
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
@@ -33,13 +41,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
 # last option is -Wbool-operation
 
-# DevKitPro based on GCC version: 16.1
-# GCC 16.1.0 documentation.   https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/index.html
-# GCC 16.1.0 option summary.  https://gcc.gnu.org/onlinedocs/gcc-16.1.0/gcc/Option-Summary.html
-
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
-
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
@@ -130,6 +132,123 @@ else ()
 
 endif ()
 
+#-----------------------------------------------------------------------------------------------------------------------
+# Build options
+#-----------------------------------------------------------------------------------------------------------------------
+
+option(TOYGINE_ENABLE_WARNINGS          "Build engine targets with the engine warning set and warnings as errors" ${PROJECT_IS_TOP_LEVEL})
+option(TOYGINE_ENABLE_ABI_OPTIMIZATIONS "Build opted-in targets with optimizations that change the ABI" ${PROJECT_IS_TOP_LEVEL})
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Compile definitions
+#-----------------------------------------------------------------------------------------------------------------------
+
+add_library(toygine-compile-defines INTERFACE)
+add_library(toygine::compile::defines ALIAS toygine-compile-defines)
+target_compile_definitions(toygine-compile-defines INTERFACE $<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Warning flags
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Reaches engine-owned targets that link it PRIVATE; empty when TOYGINE_ENABLE_WARNINGS is OFF
+add_library(toygine-compile-warnings INTERFACE)
+add_library(toygine::compile::warnings ALIAS toygine-compile-warnings)
+if (TOYGINE_ENABLE_WARNINGS)
+  target_compile_options(toygine-compile-warnings INTERFACE
+    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/W4;/WX>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
+    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>")
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Debug flags
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Reaches every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,MSVC>>:>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>")
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Compiler-specific flags
+#-----------------------------------------------------------------------------------------------------------------------
+
+# MSVC-specific flags; reach every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8>"
+  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8>")
+
+# GCC-specific flags; reach every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<COMPILE_LANG_AND_ID:C,GNU>:-fsigned-char>"
+  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char>")
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Optimization flags
+#-----------------------------------------------------------------------------------------------------------------------
+
+# Reaches every target created in the engine source tree, third-party ones included
+add_compile_options(
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-O3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
+
+if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID MATCHES "^(x64|X86)$")
+  add_compile_options(
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/favor:blend>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/favor:blend>")
+endif ()
+
+# Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF
+add_library(toygine-compile-abi-optimizations INTERFACE)
+add_library(toygine::compile::abi-optimizations ALIAS toygine-compile-abi-optimizations)
+if (TOYGINE_ENABLE_ABI_OPTIMIZATIONS)
+  target_compile_options(toygine-compile-abi-optimizations INTERFACE
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,MSVC>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:>>"
+    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:>>")
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Version definitions
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (ToyGine2_VERSION_MAJOR)
+  add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
+endif ()
+
+if (ToyGine2_VERSION_MINOR)
+  add_compile_definitions(TOYGINE_VERSION_MINOR=${ToyGine2_VERSION_MINOR})
+endif ()
+
+if (ToyGine2_VERSION_PATCH)
+  add_compile_definitions(TOYGINE_VERSION_PATCH=${ToyGine2_VERSION_PATCH})
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
+# Compiler and flag report
+#-----------------------------------------------------------------------------------------------------------------------
+
 if (CMAKE_GENERATOR STREQUAL "Xcode")
   message(STATUS "Compiler: Xcode, version: " ${XCODE_VERSION})
 endif ()
@@ -166,77 +285,3 @@ endforeach ()
 
 unset(REPORTED_CONFIG_UPPER)
 unset(REPORTED_CONFIGS)
-
-option(TOYGINE_ENABLE_WARNINGS          "Build engine targets with the engine warning set and warnings as errors" ${PROJECT_IS_TOP_LEVEL})
-option(TOYGINE_ENABLE_ABI_OPTIMIZATIONS "Build opted-in targets with optimizations that change the ABI" ${PROJECT_IS_TOP_LEVEL})
-
-add_library(toygine-compile-defines INTERFACE)
-add_library(toygine::compile::defines ALIAS toygine-compile-defines)
-target_compile_definitions(toygine-compile-defines INTERFACE $<$<CONFIG:Debug,RelWithDebInfo>:TOYGINE_DEBUG>)
-
-# Reaches engine-owned targets that link it PRIVATE; empty when TOYGINE_ENABLE_WARNINGS is OFF
-add_library(toygine-compile-warnings INTERFACE)
-add_library(toygine::compile::warnings ALIAS toygine-compile-warnings)
-if (TOYGINE_ENABLE_WARNINGS)
-  target_compile_options(toygine-compile-warnings INTERFACE
-    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/W4;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>")
-endif ()
-
-# Debug flags; reach every target created in the engine source tree, third-party ones included
-add_compile_options(
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/JMC>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/JMC>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,MSVC>>:>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>")
-
-# MSVC-specific flags; reach every target created in the engine source tree, third-party ones included
-add_compile_options(
-  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8>")
-
-# Reaches every target created in the engine source tree, third-party ones included
-add_compile_options(
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
-
-# Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF
-add_library(toygine-compile-abi-optimizations INTERFACE)
-add_library(toygine::compile::abi-optimizations ALIAS toygine-compile-abi-optimizations)
-if (TOYGINE_ENABLE_ABI_OPTIMIZATIONS)
-  target_compile_options(toygine-compile-abi-optimizations INTERFACE
-    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:>>"
-    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:C,MSVC>:>>"
-    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:>>"
-    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:>>"
-    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:>>"
-    "$<$<CONFIG:RelWithDebInfo,Release>:$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:>>")
-endif ()
-
-if (ToyGine2_VERSION_MAJOR)
-  add_compile_definitions(TOYGINE_VERSION_MAJOR=${ToyGine2_VERSION_MAJOR})
-endif ()
-
-if (ToyGine2_VERSION_MINOR)
-  add_compile_definitions(TOYGINE_VERSION_MINOR=${ToyGine2_VERSION_MINOR})
-endif ()
-
-if (ToyGine2_VERSION_PATCH)
-  add_compile_definitions(TOYGINE_VERSION_PATCH=${ToyGine2_VERSION_PATCH})
-endif ()
