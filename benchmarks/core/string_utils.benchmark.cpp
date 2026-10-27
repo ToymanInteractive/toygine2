@@ -39,12 +39,12 @@ constexpr const char * c_utf8Text
 constexpr size_t c_utf16Length = std::char_traits<char16_t>::length(c_utf16Text);
 constexpr size_t c_utf8Length  = std::char_traits<char>::length(c_utf8Text);
 
-// Hands a pointer through an opaque barrier, so a measured call reads the text instead of a folded constant.
-template <typename Char>
-[[nodiscard]] const Char * opaque(const Char * string) noexcept {
-  toy::benchmark::doNotOptimizeAway(string);
+// Hands a value through an opaque barrier, so a measured call reads it instead of a folded constant.
+template <typename T>
+[[nodiscard]] T opaque(T value) noexcept {
+  toy::benchmark::doNotOptimizeAway(value);
 
-  return string;
+  return value;
 }
 
 } // namespace
@@ -138,4 +138,24 @@ BENCHMARK_CASE("core/string_utils/validate_utf16") {
   bench.run("toy::string_utils::validateUtf16(const char16_t *, size_t)", [&] {
     toy::benchmark::doNotOptimizeAway(toy::string_utils::validateUtf16(text, c_utf16Length));
   });
+}
+
+BENCHMARK_CASE("core/string_utils/reverse_string") {
+  // The UTF-8 text as a mutable buffer; each call undoes the one before, so the bytes alternate between two orders.
+  std::array<char, c_utf8Length> buffer{};
+  std::char_traits<char>::copy(buffer.data(), opaque(c_utf8Text), buffer.size());
+  const size_t count = opaque(c_utf8Length);
+
+  bench.unit("reversal");
+
+  bench.run("toy::string_utils::reverseString", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::reverseString(buffer.data(), count));
+  });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  bench.run("std::reverse", [&] {
+    std::reverse(buffer.data(), buffer.data() + count);
+    toy::benchmark::doNotOptimizeAway(buffer.data());
+  });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }

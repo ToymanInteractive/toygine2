@@ -91,6 +91,9 @@ using std::uint32_t;
 /// Unsigned integer type with width of exactly 64 bits and no padding bits
 using std::uint64_t;
 
+/// Byte type that accesses the object representation of other objects and supports only bitwise operators
+using std::byte;
+
 /// Reinterprets the object representation of a value as another trivially copyable type of the same size
 using std::bit_cast;
 

@@ -521,6 +521,30 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 */
 [[nodiscard]] bool validateUtf16(const char16_t * str, size_t size) noexcept;
 
+/*!
+  \brief Reverses the order of the \a count bytes starting at \a str in place.
+
+  Treats the range as bytes: a multi-byte UTF-8 character comes out with its bytes reversed, which leaves the range
+  ill-formed UTF-8 wherever it holds one. Reads and writes exactly \a count bytes, so it needs no terminator and moves a
+  \c '\\0' inside the range like any other byte. Allocates nothing.
+
+  \param str   First byte of the range.
+  \param count Number of bytes in the range.
+
+  \return \a str.
+
+  \pre \a str is non-null or \a count is \c 0, checked by assert_message in debug builds.
+  \pre The \a count bytes starting at \a str are readable and writable.
+
+  \post The \a count bytes starting at \a str hold their previous values in reverse order; the bytes past the range keep
+        theirs.
+
+  \note Works in a constant expression.
+
+  \sa toy::string_utils::validateUtf8(const char *, size_t)
+*/
+constexpr char * reverseString(char * str, size_t count) noexcept;
+
 } // namespace toy::string_utils
 
 #endif // INCLUDE_CORE_STRING_UTILS_HPP_

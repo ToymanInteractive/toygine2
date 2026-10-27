@@ -1056,4 +1056,121 @@ TEST_CASE("string_utils/utf8_to_utf16/handles_null_and_empty_arguments") {
   CHECK(fromEmpty[0] == u'\0');
 }
 
+namespace {
+
+// Odd and even literals with their reversals: one turns around a middle byte, the other between two.
+constexpr char oddText[]      = "abcde";
+constexpr char oddReversed[]  = "edcba";
+constexpr char evenText[]     = "abcdef";
+constexpr char evenReversed[] = "fedcba";
+
+// The even literal with only its first three bytes reversed.
+constexpr char evenPrefixReversed[] = "cbadef";
+
+// innerTerminator reversed, its terminator still in the middle.
+constexpr char innerTerminatorReversed[] = {'b', '\0', 'a'};
+
+// A two-byte character and the same two bytes swapped, which no longer form a sequence.
+constexpr char twoByteCharacter[] = "п";
+constexpr char twoByteSwapped[]   = {'\xBF', '\xD0', '\0'};
+
+// Reverses the first count bytes of a copy of source, so a constant expression can read what the call wrote.
+template <size_t Size>
+[[nodiscard]] constexpr std::array<char, Size> reversedCopy(const char (&source)[Size], size_t count) noexcept {
+  std::array<char, Size> buffer{};
+  std::char_traits<char>::copy(buffer.data(), source, Size);
+  reverseString(buffer.data(), count);
+
+  return buffer;
+}
+
+} // namespace
+
+// The counted bytes come back in reverse order, around a middle byte or between two.
+TEST_CASE("string_utils/reverse_string/reverses_the_counted_bytes") {
+  const auto odd  = reversedCopy(oddText, std::size(oddText) - 1);
+  const auto even = reversedCopy(evenText, std::size(evenText) - 1);
+
+  CHECK(std::char_traits<char>::compare(odd.data(), oddReversed, std::size(oddReversed)) == 0);
+  CHECK(std::char_traits<char>::compare(even.data(), evenReversed, std::size(evenReversed)) == 0);
+
+  static_assert(std::char_traits<char>::compare(reversedCopy(oddText, std::size(oddText) - 1).data(), oddReversed,
+                                                std::size(oddReversed))
+                  == 0,
+                "an odd count must turn around the middle byte");
+  static_assert(std::char_traits<char>::compare(reversedCopy(evenText, std::size(evenText) - 1).data(), evenReversed,
+                                                std::size(evenReversed))
+                  == 0,
+                "an even count must swap every byte");
+}
+
+// Bytes past the count stay where they were, the terminator among them.
+TEST_CASE("string_utils/reverse_string/leaves_bytes_past_the_count_untouched") {
+  const auto prefix = reversedCopy(evenText, 3);
+  const auto single = reversedCopy(evenText, 1);
+
+  CHECK(std::char_traits<char>::compare(prefix.data(), evenPrefixReversed, std::size(evenPrefixReversed)) == 0);
+  CHECK(std::char_traits<char>::compare(single.data(), evenText, std::size(evenText)) == 0);
+
+  static_assert(std::char_traits<char>::compare(reversedCopy(evenText, 3).data(), evenPrefixReversed,
+                                                std::size(evenPrefixReversed))
+                  == 0,
+                "only the counted bytes must move");
+  static_assert(std::char_traits<char>::compare(reversedCopy(evenText, 1).data(), evenText, std::size(evenText)) == 0,
+                "a single byte must stay in place");
+}
+
+// A count of zero changes nothing, so even a null pointer comes back as it went in.
+TEST_CASE("string_utils/reverse_string/changes_nothing_for_a_zero_count") {
+  const auto untouched = reversedCopy(oddText, 0);
+
+  CHECK(std::char_traits<char>::compare(untouched.data(), oddText, std::size(oddText)) == 0);
+  CHECK(reverseString(nullptr, 0) == nullptr);
+
+  static_assert(std::char_traits<char>::compare(reversedCopy(oddText, 0).data(), oddText, std::size(oddText)) == 0,
+                "a zero count must leave the buffer as it was");
+  static_assert(reverseString(nullptr, 0) == nullptr, "a zero count must accept a null pointer");
+}
+
+// A terminator inside the count moves like any other byte, where a measured length would stop at it.
+TEST_CASE("string_utils/reverse_string/moves_an_inner_terminator") {
+  const auto reversed = reversedCopy(innerTerminator, std::size(innerTerminator));
+
+  CHECK(std::char_traits<char>::compare(reversed.data(), innerTerminatorReversed, std::size(innerTerminatorReversed))
+        == 0);
+
+  static_assert(std::char_traits<char>::compare(reversedCopy(innerTerminator, std::size(innerTerminator)).data(),
+                                                innerTerminatorReversed, std::size(innerTerminatorReversed))
+                  == 0,
+                "a terminator inside the count must move like any byte");
+}
+
+// The call reverses bytes, not characters, so a multi-byte sequence comes out with its bytes swapped.
+TEST_CASE("string_utils/reverse_string/reverses_bytes_not_characters") {
+  const auto swapped = reversedCopy(twoByteCharacter, std::size(twoByteCharacter) - 1);
+
+  CHECK(std::char_traits<char>::compare(swapped.data(), twoByteSwapped, std::size(twoByteSwapped)) == 0);
+
+  static_assert(std::char_traits<char>::compare(reversedCopy(twoByteCharacter, std::size(twoByteCharacter) - 1).data(),
+                                                twoByteSwapped, std::size(twoByteSwapped))
+                  == 0,
+                "a two-byte sequence must come out with its bytes swapped");
+}
+
+// The call hands back the buffer it reversed, so it can sit inside a larger expression.
+TEST_CASE("string_utils/reverse_string/returns_the_buffer") {
+  std::array<char, std::size(oddText)> buffer{};
+  std::char_traits<char>::copy(buffer.data(), oddText, buffer.size());
+
+  CHECK(reverseString(buffer.data(), buffer.size() - 1) == buffer.data());
+
+  static_assert(
+    [] {
+      std::array<char, std::size(oddText)> constantBuffer{};
+      return reverseString(constantBuffer.data(), constantBuffer.size() - 1) == constantBuffer.data();
+    }(),
+    "the call must return the pointer it was given"
+  );
+}
+
 } // namespace toy::string_utils

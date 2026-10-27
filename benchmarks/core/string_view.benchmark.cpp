@@ -40,6 +40,18 @@ constexpr const char * c_needle = "summer";
 // Character the text does not hold, so a search for it scans every byte before it answers.
 constexpr char c_missing = '!';
 
+// Character that fills the padded text.
+constexpr char c_padding = ' ';
+
+// Padding alone, as long as the text, so a search for its last other character scans every byte before it answers.
+constexpr auto c_paddedText = [] {
+  std::array<char, std::char_traits<char>::length(c_haystack) + 1> text{};
+  text.fill(c_padding);
+  text.back() = '\0';
+
+  return text;
+}();
+
 // Characters the text does not hold, so a set search scans every byte and tests the whole set against each one.
 constexpr const char * c_absentSet = "!?#%&";
 
@@ -324,6 +336,24 @@ BENCHMARK_CASE("core/string_view/rfind_char") {
 
   bench.run("std::string_view", [&] {
     toy::benchmark::doNotOptimizeAway(reference.rfind(c_missing));
+  });
+#endif // TOYGINE_BENCHMARKS_STD_REFERENCE
+}
+
+BENCHMARK_CASE("core/string_view/find_last_not_of_char") {
+  const toy::StringView view(opaque(c_paddedText.data()));
+
+  bench.unit("search");
+
+  bench.run("toy::StringView", [&] {
+    toy::benchmark::doNotOptimizeAway(view.find_last_not_of(c_padding));
+  });
+
+#if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
+  const std::string_view reference(opaque(c_paddedText.data()));
+
+  bench.run("std::string_view", [&] {
+    toy::benchmark::doNotOptimizeAway(reference.find_last_not_of(c_padding));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }

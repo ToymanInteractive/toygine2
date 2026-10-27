@@ -186,9 +186,9 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
       break;
 
     // The mask keeps the zero bit that ends the length prefix, so one shift serves every width.
-    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<std::byte>(*src) & (std::byte{0xFF} >> symbolLength));
+    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<byte>(*src) & (byte{0xFF} >> symbolLength));
     for (uint8_t offset = 1; offset < symbolLength; ++offset)
-      codePoint = (codePoint << 6) | std::to_integer<uint32_t>(std::bit_cast<std::byte>(src[offset]) & std::byte{0x3F});
+      codePoint = (codePoint << 6) | std::to_integer<uint32_t>(std::bit_cast<byte>(src[offset]) & byte{0x3F});
 
     const auto room = static_cast<size_t>(utf16EndPos - destPointer);
     if (codePoint <= 0xFFFF) {

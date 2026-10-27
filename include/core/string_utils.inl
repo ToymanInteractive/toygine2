@@ -112,9 +112,14 @@ constexpr size_t find(const char * data, size_t size, const char * pattern, size
 constexpr size_t rfind(const char * data, size_t size, char ch, size_t pos) noexcept {
   assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
 
-  for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
-    if (traits_type::eq(data[remaining - 1], ch))
-      return remaining - 1;
+  if (size == 0)
+    return npos;
+
+  size_t index = std::min(pos, size - 1);
+  do {
+    if (traits_type::eq(data[index], ch))
+      return index;
+  } while (index-- != 0);
 
   return npos;
 }
@@ -201,9 +206,14 @@ constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set
 constexpr size_t findLastNotOf(const char * data, size_t size, char ch, size_t pos) noexcept {
   assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
 
-  for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
-    if (!traits_type::eq(data[remaining - 1], ch))
-      return remaining - 1;
+  if (size == 0)
+    return npos;
+
+  size_t index = std::min(pos, size - 1);
+  do {
+    if (!traits_type::eq(data[index], ch))
+      return index;
+  } while (index-- != 0);
 
   return npos;
 }
@@ -244,6 +254,21 @@ constexpr size_t utf8Size(const char * data, size_t size) noexcept {
   return static_cast<size_t>(std::count_if(data, data + size, [](char byte) {
     return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
   }));
+}
+
+constexpr char * reverseString(char * str, size_t count) noexcept {
+  if (count > 0) {
+    assert_message(str != nullptr, "The source string must not be null.");
+
+    if consteval {
+      std::reverse(str, str + count);
+    } else {
+      auto * const bytes = reinterpret_cast<byte *>(str);
+      std::reverse(bytes, bytes + count);
+    }
+  }
+
+  return str;
 }
 
 } // namespace toy::string_utils
