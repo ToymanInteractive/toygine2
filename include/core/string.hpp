@@ -1069,9 +1069,10 @@ public:
 
     \return Count of encoded characters, \c 0 for an empty string.
 
-    \pre The bytes of the string hold well-formed UTF-8, checked with toy::validateUtf8(const char *, size_t) by
-         assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
-         that check and count every byte outside the continuation form, a stray lead byte included.
+    \pre The bytes of the string hold well-formed UTF-8, checked with
+         toy::string_utils::validateUtf8(const char *, size_t) by assert_message in debug builds outside constant
+         evaluation. A shipping build and a constant expression skip that check and count every byte outside the
+         continuation form, a stray lead byte included.
 
     \note The count matches size() only where every character is ASCII.
     \note A view from subview() stops at the first \c '\\0', so its utf8_size() can count fewer.

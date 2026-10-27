@@ -53,10 +53,10 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
         --length;
 
-      utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
+      string_utils::utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
       auto units = std::char_traits<char16_t>::length(buffer.data());
       // At a decoded '\0' or an ill-formed byte the chunk ends; that byte goes out as U+0000 or U+FFFD.
-      if (const auto consumed = utf16InUtf8Size(buffer.data(), units); consumed < length) {
+      if (const auto consumed = string_utils::utf16InUtf8Size(buffer.data(), units); consumed < length) {
         buffer[units++] = text[consumed] == '\0' ? u'\0' : u'\uFFFD';
         length          = consumed + 1;
       }
@@ -143,7 +143,7 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
 
   // A string's slot holds its widest UTF-8 form and the terminator.
   constexpr auto slotSize = [](size_t units) noexcept {
-    return units * toy::utf16InUtf8MaxSize + 1;
+    return units * toy::string_utils::utf16InUtf8MaxSize + 1;
   };
 
   const auto wideArgs  = std::ranges::subrange(argvw, argvw + argc);
@@ -176,7 +176,7 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
       return static_cast<char16_t>(unit);
     });
     replaceLoneSurrogates(wideCopy, units);
-    *slot++  = toy::utf16ToUtf8(text, size, wideCopy, units);
+    *slot++  = toy::string_utils::utf16ToUtf8(text, size, wideCopy, units);
     text    += size;
   }
   *slot = nullptr;

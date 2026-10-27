@@ -113,12 +113,14 @@ using std::bit_cast;
 /*!
   \namespace toy::string_utils
 
-  \brief Search and comparison over a character range that a pointer and a length describe.
+  \brief Search and comparison over a character range, plus UTF-8 and UTF-16 counting, validation, and conversion.
 
-  A function reads only the characters inside the range: it needs no terminator after them, and a \c '\\0' inside
-  counts as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and
-  targets. Every function works in a constant expression and allocates nothing. A sequence or set search takes
-  O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest take O(n).
+  Search, comparison, and utf8Size() read only the characters inside a range that a pointer and a length describe: they
+  need no terminator after them, and a \c '\\0' inside counts as an ordinary character. Characters compare as bytes
+  with no locale, so a result is identical across runs and targets. These functions also work in a constant
+  expression, while the UTF-8 and UTF-16 functions run only at runtime. No function allocates. A sequence or set search
+  takes O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest take
+  O(n).
 */
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -277,7 +279,6 @@ using std::bit_cast;
 #include "core/string_storage.hpp"
 #include "core/string_utils.hpp"
 #include "core/string_view.hpp"
-#include "core/utils.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 

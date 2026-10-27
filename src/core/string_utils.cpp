@@ -18,15 +18,15 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   utils.cpp
-  \brief  Implementations for the UTF-8 and UTF-16 utilities declared in utils.hpp.
+  \file   string_utils.cpp
+  \brief  Implementations for the UTF-8 and UTF-16 functions of \ref toy::string_utils.
 
   The validator and the UTF-8 decoder share one well-formedness check, so they accept the same sequences.
 */
 
 #include "core.hpp"
 
-namespace toy {
+namespace toy::string_utils {
 
 namespace {
 
@@ -41,7 +41,7 @@ namespace {
         that can never start a valid sequence — continuation bytes (0x80-0xBF), overlong 2-byte leads (0xC0-0xC1), and
         out-of-range leads (0xF5-0xFF).
   \note Range and overlong checks that depend on continuation bytes (e.g. for 0xE0, 0xED, 0xF0, 0xF4) are left to
-        toy::validateUtf8(); this table validates only what the lead byte alone determines.
+        toy::string_utils::validateUtf8(); this table validates only what the lead byte alone determines.
 */
 constexpr std::array<uint8_t, 256> utf8CharSizeTable{
   {
@@ -82,8 +82,8 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
   \brief Returns the range the byte after \a leadByte may take.
 
   Four lead bytes narrow that range, which is what rejects the ill-formed sequences the lead byte alone admits
-  (Unicode table 3-7). Read through wellFormedLength() by toy::validateUtf8() and toy::utf8ToUtf16(); the counting walk
-  does no range check.
+  (Unicode table 3-7). Read through wellFormedLength() by toy::string_utils::validateUtf8() and
+  toy::string_utils::utf8ToUtf16(); the counting walk does no range check.
 
   \param leadByte First byte of the sequence.
 
@@ -279,7 +279,7 @@ size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
     } else if (unit < 0xD800 || unit > 0xDFFF) {
       size += 3;
     } else {
-      // toy::utf16ToUtf8() encodes a surrogate only as half of a pair inside the range, so the count stops there too.
+      // utf16ToUtf8() encodes a surrogate only as half of a pair inside the range, so the count stops there too.
       if (wellFormedLength(src, static_cast<size_t>(end - src)) != 2)
         break;
       size     += 4;
@@ -414,4 +414,4 @@ bool validateUtf16(const char16_t * str, size_t size) noexcept {
   return true;
 }
 
-} // namespace toy
+} // namespace toy::string_utils
