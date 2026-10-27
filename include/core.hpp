@@ -133,14 +133,14 @@ using std::bit_cast;
   \def TOYGINE_ASSERTIONS_ENABLED
   \brief Defined when assert and assert_message check their expressions and report failures.
 
-  Defined in a build that defines \c TOYGINE_DEBUG and not \c TOYGINE_ASSERTIONS_DISABLE. CMake passes both through the
-  \c toygine::compile::defines target, so the engine and every target that links it agree on the value.
+  Requires \c TOYGINE_DEBUG and no \c TOYGINE_ASSERTIONS_DISABLE. Defining \c TOYGINE_ASSERTIONS_DISABLE compiles the
+  checks out of a Debug or RelWithDebInfo build and keeps the rest of \c TOYGINE_DEBUG.
 
-  \note Configuring with \c -DTOYGINE_ASSERTIONS_DISABLE=ON compiles the checks out of a Debug or RelWithDebInfo build
-        and keeps the rest of \c TOYGINE_DEBUG.
-  \warning A target that includes core.hpp without linking \c toygine::compile::defines must define
-           \c TOYGINE_ASSERTIONS_DISABLE exactly when the engine was built with it: a consumer that keeps the checks
-           calls toy::assertion::assertion(), which an engine built without them lacks, and the link fails.
+  \note CMake has no option for it: the benchmark presets, such as \c gba-benchmarks, pass it in the \c CXXFLAGS
+        environment variable, which adds to the toolchain flags, where \c -DCMAKE_CXX_FLAGS replaces them.
+  \warning Define \c TOYGINE_ASSERTIONS_DISABLE for the engine and every target that includes core.hpp, or for none: a
+           consumer that keeps the checks calls toy::assertion::assertion(), which an engine built without them lacks,
+           and the link fails.
 */
 #define TOYGINE_ASSERTIONS_ENABLED
 #endif
