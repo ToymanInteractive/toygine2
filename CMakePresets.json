@@ -346,7 +346,7 @@
         {
             "name": "macos-benchmarks",
             "displayName": "macOS benchmarks",
-            "description": "ToyGine 2 MacOS Benchmarks Build (Release, assertions compiled out)",
+            "description": "ToyGine 2 MacOS Benchmarks Build (RelWithDebInfo, assertions compiled out)",
             "inherits": [
                 "type-release",
                 "platform-macos",
@@ -396,7 +396,7 @@
         {
             "name": "linux-benchmarks",
             "displayName": "Linux benchmarks",
-            "description": "ToyGine 2 Linux Benchmarks Build (Release, assertions compiled out)",
+            "description": "ToyGine 2 Linux Benchmarks Build (RelWithDebInfo, assertions compiled out)",
             "inherits": [
                 "type-release",
                 "platform-linux",
@@ -444,7 +444,7 @@
         {
             "name": "md-benchmarks",
             "displayName": "Sega MegaDrive benchmarks",
-            "description": "ToyGine 2 Sega MegaDrive Benchmarks Build (Release, assertions compiled out)",
+            "description": "ToyGine 2 Sega MegaDrive Benchmarks Build (RelWithDebInfo, assertions compiled out)",
             "inherits": [
                 "type-release",
                 "platform-md",
@@ -492,7 +492,7 @@
         {
             "name": "gba-benchmarks",
             "displayName": "Nintendo GBA benchmarks",
-            "description": "ToyGine 2 Nintendo GBA Benchmarks Build (Release, assertions compiled out)",
+            "description": "ToyGine 2 Nintendo GBA Benchmarks Build (RelWithDebInfo, assertions compiled out)",
             "inherits": [
                 "type-release",
                 "platform-gba",
