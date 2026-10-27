@@ -421,8 +421,8 @@ TEST_CASE("fixed_string_storage/set_size_shrink") {
                 "a character past the new length must survive the call");
 }
 
-// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
-#if !defined(TOYGINE_DEBUG)
+// With assertions compiled out, the cases below reach the documented fallbacks.
+#if !defined(TOYGINE_ASSERTIONS_ENABLED)
 // A length past capacity() leaves the length and every byte of the buffer as they were.
 TEST_CASE("fixed_string_storage/set_size_past_capacity") {
   constexpr auto pastCapacity = [] {
@@ -439,7 +439,7 @@ TEST_CASE("fixed_string_storage/set_size_past_capacity") {
   static_assert(firstDifference(pastCapacity(), compileTimeStorage) == allocatedSize,
                 "a length past capacity() must leave every byte of the buffer");
 }
-#endif // !TOYGINE_DEBUG
+#endif // !TOYGINE_ASSERTIONS_ENABLED
 
 // Assignments reproduce the source over both copy paths; the length-based one keeps the bytes past the terminator.
 TEST_CASE("fixed_string_storage/assignment") {

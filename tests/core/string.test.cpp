@@ -2209,8 +2209,8 @@ TEST_CASE("string/replacement_from_itself") {
                 "a view of the string must take the place of a run of itself");
 }
 
-// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
-#if !defined(TOYGINE_DEBUG)
+// With assertions compiled out, the cases below reach the documented fallbacks.
+#if !defined(TOYGINE_ASSERTIONS_ENABLED)
 // A construction the storage rejects leaves the string empty, whatever the source.
 TEST_CASE("string/construction_past_capacity") {
   CHECK(holds(Fixed(capacity + 1, fillCharacter), ""));
@@ -2564,7 +2564,7 @@ TEST_CASE("string/resize_and_overwrite_out_of_range") {
   static_assert(editedDifference(negative, "xlayer") == fullMatch("xlayer"),
                 "a negative size must keep the old size over the written characters");
 }
-#endif // !TOYGINE_DEBUG
+#endif // !TOYGINE_ASSERTIONS_ENABLED
 
 // copy() writes up to count characters from an offset, stops at the end, adds no terminator, and returns the count.
 TEST_CASE("string/copy") {
@@ -3174,8 +3174,8 @@ TEST_CASE("string/concatenation_to_capacity") {
   static_assert(holds(fillCharacter + afterCharacter, "xabcdefghijklmn"), "a character must fill the storage exactly");
 }
 
-// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
-#if !defined(TOYGINE_DEBUG)
+// With assertions compiled out, the cases below reach the documented fallbacks.
+#if !defined(TOYGINE_ASSERTIONS_ENABLED)
 // A join the storage rejects leaves the string operand alone, on either side.
 TEST_CASE("string/concatenation_past_capacity") {
   constexpr Fixed full(longText, capacity);
@@ -3199,7 +3199,7 @@ TEST_CASE("string/concatenation_past_capacity") {
   static_assert((longText + listed) == listed, "a pointer that overflows alone must leave the right string");
   static_assert((StringView{longText} + listed) == listed, "a view that overflows alone must leave the right string");
 }
-#endif // !TOYGINE_DEBUG
+#endif // !TOYGINE_ASSERTIONS_ENABLED
 
 // Whether a string holds the same characters as another string, a view, or a pointer, on either side.
 TEST_CASE("string/equality") {
