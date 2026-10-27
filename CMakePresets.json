@@ -203,6 +203,13 @@
             }
         },
         {
+            "name": "no-assertions",
+            "hidden": true,
+            "environment": {
+                "CXXFLAGS": "$penv{CXXFLAGS} -DTOYGINE_ASSERTIONS_DISABLE"
+            }
+        },
+        {
             "name": "windows-msvc-x64",
             "displayName": "Windows x64",
             "description": "ToyGine 2 Windows MSVC Build",
@@ -337,6 +344,18 @@
             ]
         },
         {
+            "name": "macos-benchmarks",
+            "displayName": "macOS benchmarks",
+            "description": "ToyGine 2 MacOS Benchmarks Build (RelWithDebInfo, assertions compiled out)",
+            "inherits": [
+                "type-release",
+                "platform-macos",
+                "with-benchmarks",
+                "no-assertions",
+                "base"
+            ]
+        },
+        {
             "name": "linux-debug",
             "displayName": "Linux debug",
             "description": "ToyGine 2 Linux Debug Build",
@@ -371,6 +390,18 @@
             "inherits": [
                 "type-shipping",
                 "platform-linux",
+                "base"
+            ]
+        },
+        {
+            "name": "linux-benchmarks",
+            "displayName": "Linux benchmarks",
+            "description": "ToyGine 2 Linux Benchmarks Build (RelWithDebInfo, assertions compiled out)",
+            "inherits": [
+                "type-release",
+                "platform-linux",
+                "with-benchmarks",
+                "no-assertions",
                 "base"
             ]
         },
@@ -411,6 +442,18 @@
             ]
         },
         {
+            "name": "md-benchmarks",
+            "displayName": "Sega MegaDrive benchmarks",
+            "description": "ToyGine 2 Sega MegaDrive Benchmarks Build (RelWithDebInfo, assertions compiled out)",
+            "inherits": [
+                "type-release",
+                "platform-md",
+                "with-benchmarks",
+                "no-assertions",
+                "base"
+            ]
+        },
+        {
             "name": "gba-debug",
             "displayName": "Nintendo GBA debug",
             "description": "ToyGine 2 Nintendo GBA Debug Build",
@@ -443,6 +486,18 @@
             "inherits": [
                 "type-shipping",
                 "platform-gba",
+                "base"
+            ]
+        },
+        {
+            "name": "gba-benchmarks",
+            "displayName": "Nintendo GBA benchmarks",
+            "description": "ToyGine 2 Nintendo GBA Benchmarks Build (RelWithDebInfo, assertions compiled out)",
+            "inherits": [
+                "type-release",
+                "platform-gba",
+                "with-benchmarks",
+                "no-assertions",
                 "base"
             ]
         },
@@ -771,6 +826,11 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "macos-benchmarks",
+            "configurePreset": "macos-benchmarks",
+            "inherits": "default-release"
+        },
+        {
             "name": "linux-debug",
             "configurePreset": "linux-debug",
             "inherits": "default-debug"
@@ -784,6 +844,11 @@
             "name": "linux-shipping",
             "configurePreset": "linux-shipping",
             "inherits": "default-shipping"
+        },
+        {
+            "name": "linux-benchmarks",
+            "configurePreset": "linux-benchmarks",
+            "inherits": "default-release"
         },
         {
             "name": "md-debug",
@@ -801,6 +866,11 @@
             "inherits": "default-shipping"
         },
         {
+            "name": "md-benchmarks",
+            "configurePreset": "md-benchmarks",
+            "inherits": "default-release"
+        },
+        {
             "name": "gba-debug",
             "configurePreset": "gba-debug",
             "inherits": "default-debug"
@@ -814,6 +884,11 @@
             "name": "gba-shipping",
             "configurePreset": "gba-shipping",
             "inherits": "default-shipping"
+        },
+        {
+            "name": "gba-benchmarks",
+            "configurePreset": "gba-benchmarks",
+            "inherits": "default-release"
         },
         {
             "name": "nds-debug",

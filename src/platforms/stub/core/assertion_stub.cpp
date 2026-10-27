@@ -39,7 +39,7 @@ namespace toy::assertion {
 
 namespace {
 
-#ifdef TOYGINE_DEBUG
+#ifdef TOYGINE_ASSERTIONS_ENABLED
 
 /// Capacity of the buffer a failure description is formatted into, terminator included.
 constexpr size_t stringBufferSize = 4096;
@@ -47,30 +47,30 @@ constexpr size_t stringBufferSize = 4096;
 /// Handler last given to setCallbacks(), or \c nullptr while a failed check reports nothing.
 AssertionCallback _assertionCallback{nullptr};
 
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 
 } // namespace
 
 void initialize() noexcept {
-#ifdef TOYGINE_DEBUG
+#ifdef TOYGINE_ASSERTIONS_ENABLED
   _assertionCallback = nullptr;
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 }
 
 void deInitialize() noexcept {
-#ifdef TOYGINE_DEBUG
+#ifdef TOYGINE_ASSERTIONS_ENABLED
   _assertionCallback = nullptr;
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 }
 
 void setCallbacks([[maybe_unused]] AssertionCallback assertionCallback,
                   [[maybe_unused]] StackWalkCallback stackWalkCallback) noexcept {
-#ifdef TOYGINE_DEBUG
+#ifdef TOYGINE_ASSERTIONS_ENABLED
   _assertionCallback = assertionCallback;
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 }
 
-#ifdef TOYGINE_DEBUG
+#ifdef TOYGINE_ASSERTIONS_ENABLED
 
 Action assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                  size_t lineNumber) noexcept {
@@ -111,6 +111,6 @@ Action assertion(const char * code, const char * message, const char * fileName,
 #endif // __MEGA_DRIVE__
 }
 
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 
 } // namespace toy::assertion

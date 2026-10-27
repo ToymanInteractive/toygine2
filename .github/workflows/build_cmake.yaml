@@ -281,7 +281,8 @@ jobs:
       - name: Benchmarks
         if: ${{ matrix.run_benchmarks == 'true' }}
         run: |
-          cmake --build --preset "$CMAKE_PRESET" --target toygine-benchmarks-run | tee benchmarks.log
+          cmake --preset "${{ matrix.cmake_preset_group }}-benchmarks"
+          cmake --build --preset "${{ matrix.cmake_preset_group }}-benchmarks" --target toygine-benchmarks-run | tee benchmarks.log
           # Emulators exit with 0 even when the runner dies, so a log without '# done' is a failed run.
           grep -q '# done' benchmarks.log
           python3 tools/builder/bmf_from_csv.py benchmarks.log > benchmarks_bmf.json

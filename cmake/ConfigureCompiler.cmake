@@ -22,30 +22,22 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # Minimum CPU Architecture select based on https://store.steampowered.com/hwsurvey/
 
-# MSVC Compiler Options
-# https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
-# MSVC Linker Options
-# https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option
-# https://learn.microsoft.com/en-nz/cpp/build/reference/favor-optimize-for-architecture-specifics
+# MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
+# MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
+# last option:          /arch
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
-# GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -fsigned-char
-
+# GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
+# GCC 16.2.0 Options Controlling C Dialect - last option: -fchar8_t
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option is -Wbool-operation
+# last option:                    -W
 
-if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop" OR TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
-
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
-
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
   if (NOT CLOWNMDSDK_FOUND)
     message(FATAL_ERROR "ClownMDSDK not found. Install ClownMDSDK and ensure CLOWNMDSDK is set.")
@@ -126,10 +118,6 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
     message(FATAL_ERROR "Nintendo Wii U support not found. Install the devkitPro wut package.")
   endif ()
 
-else ()
-
-  message(FATAL_ERROR "Unsupported platform: ${TOYGINE_TARGET_PLATFORM}")
-
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -156,12 +144,14 @@ add_library(toygine-compile-warnings INTERFACE)
 add_library(toygine::compile::warnings ALIAS toygine-compile-warnings)
 if (TOYGINE_ENABLE_WARNINGS)
   target_compile_options(toygine-compile-warnings INTERFACE
-    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:C,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/W4;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>:-Wall;-Wpedantic;-Werror>")
+    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -195,7 +185,7 @@ add_compile_options(
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,GNU>:-fsigned-char>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char>")
+  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t>")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Optimization flags
@@ -214,6 +204,16 @@ if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID MATCHES "^(x64|X86)$")
   add_compile_options(
     "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/favor:blend>"
     "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/favor:blend>")
+endif ()
+
+if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "X86")
+  add_compile_options(
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:SSE2>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:SSE2>")
+elseif (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
+  add_compile_options(
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:AVX2>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:AVX2>")
 endif ()
 
 # Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF

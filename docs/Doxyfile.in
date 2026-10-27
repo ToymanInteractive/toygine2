@@ -2558,6 +2558,7 @@ INCLUDE_FILE_PATTERNS  =
 # TOYGINE_NO_COPY_MOVE repeats the macro body from include/core.hpp; change both together.
 
 PREDEFINED             = TOYGINE_DEBUG \
+                         TOYGINE_ASSERTIONS_ENABLED \
                          "TOYGINE_NO_COPY_MOVE(ClassName)=ClassName(const ClassName &) = delete; ClassName & operator=(const ClassName &) = delete; ClassName(ClassName &&) = delete; ClassName & operator=(ClassName &&) = delete" \
                          explicit(x)=
 

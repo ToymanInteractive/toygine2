@@ -160,6 +160,16 @@ protected:
   */
   explicit constexpr ConsoleApplication(const Version & version) noexcept;
 
+  /*!
+    \brief Destroys the console application.
+
+    Only a derived application can destroy it: deleting an application through a pointer to this class does not
+    compile, as with the base class.
+
+    \sa \ref toy::application::BaseApplication
+  */
+  ~ConsoleApplication() = default;
+
 private:
   /*!
     \brief Passes \a text to the platform console; all four public write calls forward here.

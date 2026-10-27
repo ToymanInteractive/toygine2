@@ -22,8 +22,8 @@
   \brief  Assertion failure reporting and the handlers an application registers for it.
 
   Defines \ref toy::assertion, which reports a failed assert or assert_message check to the handler the application
-  registers, and that handler decides what the check does next. Only builds that define \c TOYGINE_DEBUG compile
-  reporting in.
+  registers, and that handler decides what the check does next. Reporting compiles in only where
+  \c TOYGINE_ASSERTIONS_ENABLED is defined.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -148,7 +148,7 @@ void deInitialize() noexcept;
 */
 void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWalkCallback) noexcept;
 
-#ifdef TOYGINE_DEBUG
+#ifdef TOYGINE_ASSERTIONS_ENABLED
 
 /*!
   \brief Reports a failed check through the registered \ref toy::assertion::AssertionCallback.
@@ -170,16 +170,16 @@ void setCallbacks(AssertionCallback assertionCallback, StackWalkCallback stackWa
   \pre initialize() must have been called.
   \pre \a code, \a fileName, and \a functionName are non-null and outlive the call.
 
-  \note Declared only when \c TOYGINE_DEBUG is defined. Every other build has no assertion() to call: the assert and
-        assert_message macros keep their arguments in unevaluated \c sizeof operands, so a failed check costs nothing
-        in a shipping binary.
+  \note Declared only when \c TOYGINE_ASSERTIONS_ENABLED is defined. Every other build has no assertion() to call: the
+        assert and assert_message macros keep their arguments in unevaluated \c sizeof operands, so a failed check
+        costs nothing there.
 
   \sa setCallbacks()
 */
 Action assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                  size_t lineNumber) noexcept;
 
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 
 /*!
   \brief Fails the build when reached during constant evaluation; does nothing at runtime.

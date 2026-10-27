@@ -64,6 +64,8 @@ TEST_CASE("application/console_application/construction") {
                 "a console application must implement runInternal() before it can exist");
   static_assert(!std::is_constructible_v<ConsoleApplication, const Version &>,
                 "only a derived application may construct a console application");
+  static_assert(!std::is_destructible_v<ConsoleApplication>,
+                "only a derived application may destroy a console application");
 
   static_assert(compileTimeApplication.version() == build, "a constexpr console application must report its version");
 }

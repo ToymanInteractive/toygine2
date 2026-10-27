@@ -392,8 +392,8 @@ TEST_CASE("string_view/remove_prefix") {
   static_assert(withoutPrefix(sampleText, sampleLength).empty(), "dropping the whole length must leave an empty view");
 }
 
-// The debug checks compile out without TOYGINE_DEBUG, so the cases below reach the documented fallbacks.
-#if !defined(TOYGINE_DEBUG)
+// With assertions compiled out, the cases below reach the documented fallbacks.
+#if !defined(TOYGINE_ASSERTIONS_ENABLED)
 // A count past the length drops every character and stops at the terminator.
 TEST_CASE("string_view/remove_prefix_past_end") {
   StringView view(sampleText);
@@ -445,7 +445,7 @@ TEST_CASE("string_view/read_past_end") {
   static_assert(sampleView.compare(sampleLength + 1, 1, sampleText, sampleLength) < 0,
                 "a part past the end must order before a non-empty counted pointer");
 }
-#endif // !TOYGINE_DEBUG
+#endif // !TOYGINE_ASSERTIONS_ENABLED
 
 // Which string each of the two views reads after they exchange their contents.
 TEST_CASE("string_view/swap") {

@@ -128,7 +128,24 @@ using std::bit_cast;
 #undef assert
 #endif
 
-#ifdef TOYGINE_DEBUG
+#if defined(TOYGINE_DEBUG) && !defined(TOYGINE_ASSERTIONS_DISABLE)
+/*!
+  \def TOYGINE_ASSERTIONS_ENABLED
+  \brief Defined when assert and assert_message check their expressions and report failures.
+
+  Requires \c TOYGINE_DEBUG and no \c TOYGINE_ASSERTIONS_DISABLE. Defining \c TOYGINE_ASSERTIONS_DISABLE compiles the
+  checks out of a Debug or RelWithDebInfo build and keeps the rest of \c TOYGINE_DEBUG.
+
+  \note CMake has no option for it: the benchmark presets, such as \c gba-benchmarks, pass it in the \c CXXFLAGS
+        environment variable, which adds to the toolchain flags, where \c -DCMAKE_CXX_FLAGS replaces them.
+  \warning Define \c TOYGINE_ASSERTIONS_DISABLE for the engine and every target that includes core.hpp, or for none: a
+           consumer that keeps the checks calls toy::assertion::assertion(), which an engine built without them lacks,
+           and the link fails.
+*/
+#define TOYGINE_ASSERTIONS_ENABLED
+#endif
+
+#ifdef TOYGINE_ASSERTIONS_ENABLED
 
 /*!
   \def __FUNC_SIGNATURE__
@@ -137,7 +154,8 @@ using std::bit_cast;
   Expands to \c __FUNCSIG__ on MSVC, to \c __PRETTY_FUNCTION__ on GCC and Clang, and to \c __func__ elsewhere, so a
   failure report carries the full signature where the compiler offers one.
 
-  \note Exists only when \c TOYGINE_DEBUG is defined. Only assert and assert_message expand it, never a call site.
+  \note Exists only when \c TOYGINE_ASSERTIONS_ENABLED is defined. Only assert and assert_message expand it, never a
+        call site.
 */
 #if defined(_MSC_VER)
 #define __FUNC_SIGNATURE__ __FUNCSIG__
@@ -157,7 +175,7 @@ using std::bit_cast;
   toy::assertion::assertCompileTimeError() instead, which makes the enclosing constant expression non-constant and fails
   the build.
 
-  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+  \param expression Condition that must hold. Evaluated once, and only where checks are compiled in.
   \param message    Reason the condition must hold, in human-readable form, or \c nullptr for none. Read during the call
                     only.
 
@@ -168,9 +186,9 @@ using std::bit_cast;
   \note \ref toy::assertion::Action::IgnoreAlways silences the call site, per template instantiation, through a
         \c static flag where \ref toy::platform::assertIgnoreAlways is \c true; elsewhere it acts as
         \ref toy::assertion::Action::Ignore. Either way \a expression is still evaluated.
-  \note Compiled in only when \c TOYGINE_DEBUG is defined. Every other build places both arguments in unevaluated
-        \c sizeof operands. They must still compile, but neither is evaluated: a side effect written inside them is
-        lost, and a failed check during constant evaluation continues into the code that follows it.
+  \note Compiled in only when \c TOYGINE_ASSERTIONS_ENABLED is defined. Every other build places both arguments in
+        unevaluated \c sizeof operands. They must still compile, but neither is evaluated: a side effect written inside
+        them is lost, and a failed check during constant evaluation continues into the code that follows it.
   \note A comma outside parentheses in \a expression splits the macro arguments and fails the build; wrap such an
         expression in parentheses.
 
@@ -201,11 +219,11 @@ using std::bit_cast;
     }                                                                                                                  \
   } while (0)
 
-#else // TOYGINE_DEBUG
+#else // TOYGINE_ASSERTIONS_ENABLED
 
 #define assert_message(expression, message) ((void)sizeof(!(expression)), (void)sizeof(message))
 
-#endif // TOYGINE_DEBUG
+#endif // TOYGINE_ASSERTIONS_ENABLED
 
 /*!
   \def assert
@@ -213,7 +231,7 @@ using std::bit_cast;
 
   Expands to assert_message with \c nullptr as the message and behaves exactly as assert_message does.
 
-  \param expression Condition that must hold. Evaluated once, and only in a debug build.
+  \param expression Condition that must hold. Evaluated once, and only where checks are compiled in.
 
   \note Replaces the \c assert macro of \c \<cassert\>, which this header undefines first.
 

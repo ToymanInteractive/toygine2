@@ -37,6 +37,12 @@
 
 #include "line_buffer.hpp"
 
+#if __has_cpp_attribute(gnu::cold)
+#define TOY_BENCHMARK_COLD [[gnu::cold]]
+#else
+#define TOY_BENCHMARK_COLD
+#endif
+
 namespace toy::benchmark {
 
 /*!
@@ -198,10 +204,10 @@ private:
     requires std::invocable<Epoch &, std::uint32_t>
   [[nodiscard]] std::uint32_t _calibrate(Epoch & timeEpoch) const;
 
-  void _writeRow(const char * name, std::uint32_t iterations,
-                 const std::array<std::uint32_t, detail::epochCount> & epochs) noexcept;
-  void _writeOverlongRow(const char * name) noexcept;
-  void _writeUncalibrated(const char * name) noexcept;
+  void                    _writeRow(const char * name, std::uint32_t iterations,
+                                    const std::array<std::uint32_t, detail::epochCount> & epochs) noexcept;
+  void                    _writeOverlongRow(const char * name) noexcept;
+  TOY_BENCHMARK_COLD void _writeUncalibrated(const char * name) noexcept;
 
   Clock         _clock;
   Output        _output;
