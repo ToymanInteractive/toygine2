@@ -45,6 +45,6 @@ jobs:
           bash tools/builder/check_test_conventions.sh
 
       - name: Check format of markdown files
-        uses: DavidAnson/markdownlint-cli2-action@v24.2.0
+        uses: DavidAnson/markdownlint-cli2-action@v25.0.0
         with:
           globs: "**/*.md"
