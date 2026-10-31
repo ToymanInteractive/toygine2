@@ -66,7 +66,7 @@ constexpr size_t utf16InUtf8MaxSize = 3;
 
   \sa toy::utf16ToUtf8(), toy::validateUtf8()
 */
-char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noexcept;
+char16_t * utf8ToUtf16(span<char16_t> dest, span<const char> src) noexcept;
 
 /*!
   \brief Converts a range of UTF-16 units to a null-terminated UTF-8 string in a caller-supplied buffer.
@@ -93,7 +93,7 @@ char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noex
 
   \sa toy::utf8ToUtf16(), toy::validateUtf8()
 */
-char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept;
+char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
 
 /*!
   \brief Counts the bytes the UTF-8 form of a range of UTF-16 units takes.
@@ -114,7 +114,7 @@ char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept
 
   \sa toy::utf16ToUtf8(), toy::utf8ToUtf16()
 */
-[[nodiscard]] size_t utf16InUtf8Size(std::span<const char16_t> units) noexcept;
+[[nodiscard]] size_t utf16InUtf8Size(span<const char16_t> units) noexcept;
 
 /*!
   \brief Counts the characters a UTF-8 string encodes.
@@ -200,7 +200,7 @@ char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept
 
   \sa toy::validateUtf8(const char *)
 */
-[[nodiscard]] bool validateUtf8(std::span<const char> str) noexcept;
+[[nodiscard]] bool validateUtf8(span<const char> str) noexcept;
 
 /*!
   \brief Reports whether a UTF-16 string is well-formed.
@@ -239,7 +239,7 @@ char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept
 
   \sa toy::validateUtf16(const char16_t *)
 */
-[[nodiscard]] bool validateUtf16(std::span<const char16_t> str) noexcept;
+[[nodiscard]] bool validateUtf16(span<const char16_t> str) noexcept;
 
 } // namespace toy
 

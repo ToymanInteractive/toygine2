@@ -60,22 +60,22 @@ constexpr char unterminated[] = {'a', 'b', 'r', 'a', 'c', 'a', 'd', 'a', 'b', 'r
 constexpr char embeddedNull[] = {'p', 'l', '\0', 'a', 'y'};
 
 // The same ranges as spans, so the length travels with the pointer and a call cannot pair them wrongly.
-constexpr std::span<const char> repeatedRange{repeated, repeatedLength};
-constexpr std::span<const char> runOfARange{runOfA, runOfALength};
-constexpr std::span<const char> unterminatedRange{unterminated};
-constexpr std::span<const char> embeddedNullRange{embeddedNull};
-constexpr std::span<const char> highByteInsideRange{highByteInside, highByteInsideLength};
+constexpr span repeatedRange{repeated, repeatedLength};
+constexpr span runOfARange{runOfA, runOfALength};
+constexpr span unterminatedRange{unterminated};
+constexpr span embeddedNullRange{embeddedNull};
+constexpr span highByteInsideRange{highByteInside, highByteInsideLength};
 
 // A literal as a measured range, its terminator left out, which is what a pattern or a set argument reads.
-constexpr std::span<const char> asRange(const char * text) noexcept {
+constexpr span<const char> asRange(const char * text) noexcept {
   return {text, std::char_traits<char>::length(text)};
 }
 
-constexpr std::span<const char> repeatedLongerRange         = asRange(repeatedLonger);
-constexpr std::span<const char> repeatedFirstDiffersRange   = asRange(repeatedFirstDiffers);
-constexpr std::span<const char> repeatedMiddleDiffersRange  = asRange(repeatedMiddleDiffers);
-constexpr std::span<const char> repeatedNearEndDiffersRange = asRange(repeatedNearEndDiffers);
-constexpr std::span<const char> repeatedLastDiffersRange    = asRange(repeatedLastDiffers);
+constexpr span repeatedLongerRange         = asRange(repeatedLonger);
+constexpr span repeatedFirstDiffersRange   = asRange(repeatedFirstDiffers);
+constexpr span repeatedMiddleDiffersRange  = asRange(repeatedMiddleDiffers);
+constexpr span repeatedNearEndDiffersRange = asRange(repeatedNearEndDiffers);
+constexpr span repeatedLastDiffersRange    = asRange(repeatedLastDiffers);
 
 } // namespace
 
@@ -96,7 +96,7 @@ TEST_CASE("string_utils/find/first_character_at_or_after_offset") {
   static_assert(string_utils::find(repeatedRange, 'z', 0) == npos, "an absent character reports npos");
   static_assert(string_utils::find(repeatedRange, 'a', repeatedLength) == npos, "a start at the end matches nowhere");
   static_assert(string_utils::find(repeatedRange, 'c', 0) == 4, "'c' sits at offset 4 of \"abracadabra\"");
-  static_assert(string_utils::find(std::span<const char>{}, 'a', 0) == npos, "a range with no data holds no character");
+  static_assert(string_utils::find(span<const char>{}, 'a', 0) == npos, "a range with no data holds no character");
 }
 
 // Where the first match of a character sequence starts, counting from the offset the search starts at.
@@ -150,7 +150,7 @@ TEST_CASE("string_utils/find/first_sequence_at_or_after_offset") {
                 "a pattern differing in its last character matches nowhere");
 
   // The range ends where its length says, so a terminator inside it is just another byte to match.
-  static_assert(string_utils::find(embeddedNullRange, std::span<const char>{"\0", 1}, 0) == 2,
+  static_assert(string_utils::find(embeddedNullRange, span{"\0", 1}, 0) == 2,
                 "a pattern holding one terminator byte matches inside the range");
 }
 
@@ -176,8 +176,7 @@ TEST_CASE("string_utils/rfind/last_character_at_or_before_offset") {
   static_assert(string_utils::rfind(repeatedRange, 'b', 0) == npos,
                 "an offset of zero leaves only the first character");
   static_assert(string_utils::rfind(repeatedRange, 'c', npos) == 4, "'c' occurs once, at offset 4 of \"abracadabra\"");
-  static_assert(string_utils::rfind(std::span<const char>{}, 'a', npos) == npos,
-                "a range with no data holds no character");
+  static_assert(string_utils::rfind(span<const char>{}, 'a', npos) == npos, "a range with no data holds no character");
 }
 
 // Where the last match of a character sequence starts, at or before the offset the search starts at.
@@ -260,7 +259,7 @@ TEST_CASE("string_utils/find_first_of/first_member_of_set") {
   static_assert(string_utils::findFirstOf(repeatedRange, asRange("rcxyz").first(2), 3) == 4,
                 "the count bounds what is read");
   static_assert(string_utils::findFirstOf(repeatedRange, asRange(""), 0) == npos, "an empty set matches nothing");
-  static_assert(string_utils::findFirstOf(repeatedRange, std::span<const char>{}, 0) == npos,
+  static_assert(string_utils::findFirstOf(repeatedRange, span<const char>{}, 0) == npos,
                 "a set with no data holds no character");
 }
 
@@ -315,7 +314,7 @@ TEST_CASE("string_utils/find_first_not_of/first_character_outside") {
                 "the first character other than the skipped one wins");
   static_assert(string_utils::findFirstNotOf(runOfARange, 'a', 0) == npos,
                 "a range of the skipped character reports npos");
-  static_assert(string_utils::findFirstNotOf(std::span<const char>{}, 'a', 0) == npos,
+  static_assert(string_utils::findFirstNotOf(span<const char>{}, 'a', 0) == npos,
                 "a range with no data has no character to report");
   static_assert(string_utils::findFirstNotOf(repeatedRange, asRange("ab"), 3) == 4,
                 "the offset skips earlier characters");
@@ -324,7 +323,7 @@ TEST_CASE("string_utils/find_first_not_of/first_character_outside") {
   static_assert(string_utils::findFirstNotOf(repeatedRange, asRange("abxyz").first(2), 3) == 4,
                 "the count bounds what is read");
   static_assert(string_utils::findFirstNotOf(repeatedRange, asRange(""), 2) == 2, "an empty set excludes nothing");
-  static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 0) == 0,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, span<const char>{}, 0) == 0,
                 "a set with no data excludes nothing either");
 }
 
@@ -350,7 +349,7 @@ TEST_CASE("string_utils/find_last_not_of/last_character_outside") {
 
   static_assert(string_utils::findLastNotOf(repeatedRange, 'a', npos) == 9,
                 "the last character other than the skipped one wins");
-  static_assert(string_utils::findLastNotOf(std::span<const char>{}, 'a', npos) == npos,
+  static_assert(string_utils::findLastNotOf(span<const char>{}, 'a', npos) == npos,
                 "a range with no data has no last character");
   static_assert(string_utils::findLastNotOf(repeatedRange, asRange("ab"), 8) == 6,
                 "the offset caps how far back a match may sit");
@@ -412,22 +411,22 @@ TEST_CASE("string_utils/search/reads_only_the_counted_pattern") {
 
   CHECK(string_utils::find(repeatedLongerRange, unterminatedRange, 0) == 0);
   CHECK(string_utils::rfind(repeatedLongerRange, unterminatedRange, npos) == 0);
-  CHECK(string_utils::findFirstOf(repeatedRange, std::span<const char>{lastByte, 1}, 1) == 3);
-  CHECK(string_utils::findLastOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 10);
-  CHECK(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{lastByte, 1}, 0) == 1);
-  CHECK(string_utils::findLastNotOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 9);
+  CHECK(string_utils::findFirstOf(repeatedRange, span{lastByte, 1}, 1) == 3);
+  CHECK(string_utils::findLastOf(repeatedRange, span{lastByte, 1}, npos) == 10);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, span{lastByte, 1}, 0) == 1);
+  CHECK(string_utils::findLastNotOf(repeatedRange, span{lastByte, 1}, npos) == 9);
 
   static_assert(string_utils::find(repeatedLongerRange, unterminatedRange, 0) == 0,
                 "a forward search must read the pattern no further than its count");
   static_assert(string_utils::rfind(repeatedLongerRange, unterminatedRange, npos) == 0,
                 "a backward search must read the pattern no further than its count");
-  static_assert(string_utils::findFirstOf(repeatedRange, std::span<const char>{lastByte, 1}, 1) == 3,
+  static_assert(string_utils::findFirstOf(repeatedRange, span{lastByte, 1}, 1) == 3,
                 "a set search must read the set no further than its count");
-  static_assert(string_utils::findLastOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 10,
+  static_assert(string_utils::findLastOf(repeatedRange, span{lastByte, 1}, npos) == 10,
                 "a backward set search must read the set no further than its count");
-  static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{lastByte, 1}, 0) == 1,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, span{lastByte, 1}, 0) == 1,
                 "a search outside a set must read the set no further than its count");
-  static_assert(string_utils::findLastNotOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 9,
+  static_assert(string_utils::findLastNotOf(repeatedRange, span{lastByte, 1}, npos) == 9,
                 "a backward search outside a set must read the set no further than its count");
 }
 
@@ -435,35 +434,35 @@ TEST_CASE("string_utils/search/reads_only_the_counted_pattern") {
 TEST_CASE("string_utils/search/matches_embedded_null") {
   CHECK(string_utils::find(embeddedNullRange, '\0', 0) == 2);
   CHECK(string_utils::find(embeddedNullRange, 'a', 0) == 3);
-  CHECK(string_utils::rfind(embeddedNullRange, std::span<const char>{"\0a", 2}, npos) == 2);
-  CHECK(string_utils::findFirstOf(embeddedNullRange, std::span<const char>{"y\0", 2}, 0) == 2);
+  CHECK(string_utils::rfind(embeddedNullRange, span{"\0a", 2}, npos) == 2);
+  CHECK(string_utils::findFirstOf(embeddedNullRange, span{"y\0", 2}, 0) == 2);
   CHECK(string_utils::findFirstNotOf(embeddedNullRange, asRange("pl"), 0) == 2);
   CHECK(string_utils::findLastNotOf(embeddedNullRange, 'y', npos) == 3);
 
   static_assert(string_utils::find(embeddedNullRange, 'a', 0) == 3,
                 "a search must continue past a terminator inside the range");
-  static_assert(string_utils::rfind(embeddedNullRange, std::span<const char>{"\0a", 2}, npos) == 2,
+  static_assert(string_utils::rfind(embeddedNullRange, span{"\0a", 2}, npos) == 2,
                 "a terminator must match inside a sequence");
-  static_assert(string_utils::findFirstOf(embeddedNullRange, std::span<const char>{"y\0", 2}, 0) == 2,
+  static_assert(string_utils::findFirstOf(embeddedNullRange, span{"y\0", 2}, 0) == 2,
                 "a terminator must count as a member of a set");
 }
 
 // What a null pointer with a zero length yields: the empty-range or empty-set answer, with nothing read.
 TEST_CASE("string_utils/search/accepts_null_with_zero_length") {
-  CHECK(string_utils::find(std::span<const char>{}, asRange("a"), 0) == npos);
-  CHECK(string_utils::find(std::span<const char>{}, std::span<const char>{}, 0) == 0);
-  CHECK(string_utils::rfind(std::span<const char>{}, std::span<const char>{}, npos) == 0);
-  CHECK(string_utils::findLastOf(std::span<const char>{}, asRange("a"), npos) == npos);
-  CHECK(string_utils::findLastNotOf(std::span<const char>{}, std::span<const char>{}, npos) == npos);
+  CHECK(string_utils::find(span<const char>{}, asRange("a"), 0) == npos);
+  CHECK(string_utils::find(span<const char>{}, span<const char>{}, 0) == 0);
+  CHECK(string_utils::rfind(span<const char>{}, span<const char>{}, npos) == 0);
+  CHECK(string_utils::findLastOf(span<const char>{}, asRange("a"), npos) == npos);
+  CHECK(string_utils::findLastNotOf(span<const char>{}, span<const char>{}, npos) == npos);
 
   // A null pattern or set with a zero count, searched for in a non-empty range.
-  CHECK(string_utils::find(repeatedRange, std::span<const char>{}, 4) == 4);
-  CHECK(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 2) == 2);
-  CHECK(string_utils::findLastNotOf(repeatedRange, std::span<const char>{}, npos) == repeatedLength - 1);
+  CHECK(string_utils::find(repeatedRange, span<const char>{}, 4) == 4);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, span<const char>{}, 2) == 2);
+  CHECK(string_utils::findLastNotOf(repeatedRange, span<const char>{}, npos) == repeatedLength - 1);
 
-  static_assert(string_utils::find(std::span<const char>{}, std::span<const char>{}, 0) == 0,
+  static_assert(string_utils::find(span<const char>{}, span<const char>{}, 0) == 0,
                 "an empty pattern matches at the start of an empty range");
-  static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 2) == 2,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, span<const char>{}, 2) == 2,
                 "a null set with a zero count excludes nothing");
 }
 
@@ -475,7 +474,7 @@ TEST_CASE("string_utils/utf8_size/counts_characters_in_range") {
   CHECK(string_utils::utf8Size(repeatedRange) == repeatedLength);
   CHECK(string_utils::utf8Size(asRange(cyrillic)) == cyrillicLength / 2);
   CHECK(string_utils::utf8Size(asRange(cyrillic).first(4)) == 2);
-  CHECK(string_utils::utf8Size(std::span<const char>{}) == 0);
+  CHECK(string_utils::utf8Size(span<const char>{}) == 0);
 
   // A null byte inside the range is a character of its own, not an end.
   CHECK(string_utils::utf8Size(embeddedNullRange) == std::size(embeddedNull));
@@ -483,7 +482,7 @@ TEST_CASE("string_utils/utf8_size/counts_characters_in_range") {
   static_assert(string_utils::utf8Size(repeatedRange) == repeatedLength, "an ASCII range counts one per byte");
   static_assert(string_utils::utf8Size(asRange(cyrillic)) == cyrillicLength / 2, "a two-byte character counts once");
   static_assert(string_utils::utf8Size(asRange(cyrillic).first(4)) == 2, "only the bytes the range names must count");
-  static_assert(string_utils::utf8Size(std::span<const char>{}) == 0, "an empty range must count nothing");
+  static_assert(string_utils::utf8Size(span<const char>{}) == 0, "an empty range must count nothing");
   static_assert(string_utils::utf8Size(embeddedNullRange) == std::size(embeddedNull),
                 "a null byte inside the range must count as a character");
   static_assert(string_utils::utf8Size(unterminatedRange) == std::size(unterminated),
@@ -497,11 +496,11 @@ TEST_CASE("string_utils/compare/equal_ranges") {
 
   // Two empty ranges compare equal, a null pointer with a zero length among them.
   CHECK(string_utils::compare(repeatedRange.first(0), asRange("")) == 0);
-  CHECK(string_utils::compare(std::span<const char>{}, std::span<const char>{}) == 0);
+  CHECK(string_utils::compare(span<const char>{}, span<const char>{}) == 0);
 
   static_assert(string_utils::compare(repeatedRange, unterminatedRange) == 0,
                 "the same characters in another buffer must compare equal");
-  static_assert(string_utils::compare(std::span<const char>{}, std::span<const char>{}) == 0,
+  static_assert(string_utils::compare(span<const char>{}, span<const char>{}) == 0,
                 "two empty ranges must compare equal");
 }
 
@@ -516,8 +515,7 @@ TEST_CASE("string_utils/compare/first_difference_decides") {
   CHECK(string_utils::compare(asRange("b"), repeatedRange) > 0);
 
   // Bytes order as unsigned char, so a byte above the ASCII range follows an ASCII one.
-  CHECK(string_utils::compare(std::span<const char>{highByteInside + 1, 1}, std::span<const char>{highByteInside, 1})
-        > 0);
+  CHECK(string_utils::compare(span{highByteInside + 1, 1}, span{highByteInside, 1}) > 0);
 
   static_assert(string_utils::compare(repeatedRange, repeatedFirstDiffersRange) < 0,
                 "a smaller first character must order first");
@@ -527,9 +525,7 @@ TEST_CASE("string_utils/compare/first_difference_decides") {
                 "a difference in the last character must still decide");
   static_assert(string_utils::compare(asRange("b"), repeatedRange) > 0,
                 "the first difference must outweigh the lengths");
-  static_assert(string_utils::compare(std::span<const char>{highByteInside + 1, 1},
-                                      std::span<const char>{highByteInside, 1})
-                  > 0,
+  static_assert(string_utils::compare(span{highByteInside + 1, 1}, span{highByteInside, 1}) > 0,
                 "a high byte must order after an ASCII one");
 }
 
@@ -540,14 +536,14 @@ TEST_CASE("string_utils/compare/shorter_prefix_orders_first") {
   CHECK(string_utils::compare(repeatedRange.first(leadingLength), repeatedRange) < 0);
 
   // An empty range is a prefix of every other one.
-  CHECK(string_utils::compare(std::span<const char>{}, repeatedRange) < 0);
+  CHECK(string_utils::compare(span<const char>{}, repeatedRange) < 0);
   CHECK(string_utils::compare(repeatedRange, asRange("")) > 0);
 
   static_assert(string_utils::compare(repeatedRange, repeatedLongerRange) < 0,
                 "a prefix must order before the longer range");
   static_assert(string_utils::compare(repeatedLongerRange, repeatedRange) > 0,
                 "the longer range must order after its prefix");
-  static_assert(string_utils::compare(std::span<const char>{}, repeatedRange) < 0, "an empty range must order first");
+  static_assert(string_utils::compare(span<const char>{}, repeatedRange) < 0, "an empty range must order first");
 }
 
 // What a comparison sees of its ranges: the counted characters only, a null byte among them included.

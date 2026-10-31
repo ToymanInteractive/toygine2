@@ -41,7 +41,7 @@ struct AppendResult final {
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendTextInto(const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendText(std::span<char>{result.buffer}.first(Capacity), 0, text);
+  result.written = toy::test::detail::appendText(std::span{result.buffer}.first(Capacity), 0, text);
 
   return result;
 }
@@ -49,7 +49,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendIntegerInto(long long value) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendInteger(std::span<char>{result.buffer}.first(Capacity), 0, value);
+  result.written = toy::test::detail::appendInteger(std::span{result.buffer}.first(Capacity), 0, value);
 
   return result;
 }
@@ -57,7 +57,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendEscapedInto(const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendEscaped(std::span<char>{result.buffer}.first(Capacity), 0, text);
+  result.written = toy::test::detail::appendEscaped(std::span{result.buffer}.first(Capacity), 0, text);
 
   return result;
 }
@@ -65,7 +65,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendQuotedInto(const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendQuoted(std::span<char>{result.buffer}.first(Capacity), 0, text);
+  result.written = toy::test::detail::appendQuoted(std::span{result.buffer}.first(Capacity), 0, text);
 
   return result;
 }
@@ -74,7 +74,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendTextAt(std::size_t offset, const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendText(std::span<char>{result.buffer}.first(Capacity), offset, text);
+  result.written = toy::test::detail::appendText(std::span{result.buffer}.first(Capacity), offset, text);
 
   return result;
 }
@@ -82,7 +82,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendIntegerAt(std::size_t offset, long long value) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendInteger(std::span<char>{result.buffer}.first(Capacity), offset, value);
+  result.written = toy::test::detail::appendInteger(std::span{result.buffer}.first(Capacity), offset, value);
 
   return result;
 }

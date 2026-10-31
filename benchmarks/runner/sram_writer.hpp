@@ -60,7 +60,7 @@ namespace toy::benchmark::detail {
   const std::span<volatile std::uint8_t> sram{reinterpret_cast<volatile std::uint8_t *>(0x0E000000), 0x8000};
   toy::benchmark::detail::SramWriter    writer{sram, 1};
 
-  writer.write(std::span<const char>{"# done\n", 7});
+  writer.write(std::span{"# done\n", 7});
   \endcode
 
   \section performance Performance Characteristics

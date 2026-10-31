@@ -127,7 +127,6 @@ void writeLine(std::span<const char> text, const void * writerData) noexcept {
   const auto & channels = *static_cast<const Channels *>(writerData);
 
   if (channels.mGBADetected)
-    // The emulator debug channel is a C API: pointer and length apart.
     mGBAWriteToDebugLog(text.data(), text.size());
 
   channels.sram->write(text);
@@ -145,9 +144,9 @@ int main() {
   REG_DISPCNT   = MODE_0;
   BG_PALETTE[0] = c_colorRunning;
 
-  const std::span<volatile std::uint8_t> sram{reinterpret_cast<volatile std::uint8_t *>(0x0E000000), 0x8000};
-  toy::benchmark::detail::SramWriter     sramWriter{sram, 1};
-  const Channels                         channels{.mGBADetected = mGBAProbe(), .sram = &sramWriter};
+  const std::span                    sram{reinterpret_cast<volatile std::uint8_t *>(0x0E000000), 0x8000};
+  toy::benchmark::detail::SramWriter sramWriter{sram, 1};
+  const Channels                     channels{.mGBADetected = mGBAProbe(), .sram = &sramWriter};
 
   const std::array<const char *, 3> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
                                             TOYGINE_BENCHMARKS_BUILD_ID};

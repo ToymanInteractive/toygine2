@@ -118,9 +118,9 @@ void _EntryPoint() {
   static_cast<void>(ClownMDSDK::MainCPU::M68k::SetInterruptMask(c_interruptMask));
 
   // 8-bit cartridge RAM on odd addresses from 0x200001, as the patched ROM header declares it.
-  const std::span<volatile std::uint8_t> sram{reinterpret_cast<volatile std::uint8_t *>(0x200001), 0xFFFF};
-  toy::benchmark::detail::SramWriter     sramWriter{sram, 2};
-  const Channels                         channels{.sram = &sramWriter};
+  const std::span                    sram{reinterpret_cast<volatile std::uint8_t *>(0x200001), 0xFFFF};
+  toy::benchmark::detail::SramWriter sramWriter{sram, 2};
+  const Channels                     channels{.sram = &sramWriter};
 
   const std::array<const char *, 4> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
                                             isPal ? "PAL" : "NTSC", TOYGINE_BENCHMARKS_BUILD_ID};

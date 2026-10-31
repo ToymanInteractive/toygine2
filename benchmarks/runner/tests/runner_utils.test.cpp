@@ -48,7 +48,7 @@ struct Formatted final {
 [[nodiscard]] constexpr Formatted formatText(std::size_t capacity, const char * text) noexcept {
   Formatted result{};
 
-  result.length = toy::benchmark::detail::appendText(std::span<char>{result.buffer}.first(capacity), 0, text);
+  result.length = toy::benchmark::detail::appendText(std::span{result.buffer}.first(capacity), 0, text);
 
   return result;
 }

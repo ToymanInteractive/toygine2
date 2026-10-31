@@ -43,7 +43,7 @@ using membership_table_type = std::array<bool, 256>;
 
   \pre The characters of \a set are readable; a null \a set comes with an empty range.
 */
-constexpr membership_table_type membershipTable(std::span<const char> set) noexcept {
+constexpr membership_table_type membershipTable(span<const char> set) noexcept {
   membership_table_type table{};
 
   for (const char ch : set)
@@ -68,7 +68,7 @@ constexpr bool isMember(const membership_table_type & table, char ch) noexcept {
 
 } // namespace detail
 
-constexpr size_t find(std::span<const char> data, char ch, size_t pos) noexcept {
+constexpr size_t find(span<const char> data, char ch, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
   if (pos >= data.size())
@@ -80,7 +80,7 @@ constexpr size_t find(std::span<const char> data, char ch, size_t pos) noexcept 
   return found != nullptr ? static_cast<size_t>(found - data.data()) : npos;
 }
 
-constexpr size_t find(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept {
+constexpr size_t find(span<const char> data, span<const char> pattern, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
   assert_message(pattern.data() != nullptr || pattern.empty(), "a null pointer names no characters to search for");
 
@@ -111,7 +111,7 @@ constexpr size_t find(std::span<const char> data, std::span<const char> pattern,
   return npos;
 }
 
-constexpr size_t rfind(std::span<const char> data, char ch, size_t pos) noexcept {
+constexpr size_t rfind(span<const char> data, char ch, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
   for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
@@ -121,7 +121,7 @@ constexpr size_t rfind(std::span<const char> data, char ch, size_t pos) noexcept
   return npos;
 }
 
-constexpr size_t rfind(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept {
+constexpr size_t rfind(span<const char> data, span<const char> pattern, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
   assert_message(pattern.data() != nullptr || pattern.empty(), "a null pointer names no characters to search for");
 
@@ -148,7 +148,7 @@ constexpr size_t rfind(std::span<const char> data, std::span<const char> pattern
   return npos;
 }
 
-constexpr size_t findFirstOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+constexpr size_t findFirstOf(span<const char> data, span<const char> set, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
   assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
@@ -163,7 +163,7 @@ constexpr size_t findFirstOf(std::span<const char> data, std::span<const char> s
   return npos;
 }
 
-constexpr size_t findLastOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+constexpr size_t findLastOf(span<const char> data, span<const char> set, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
   assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
@@ -178,7 +178,7 @@ constexpr size_t findLastOf(std::span<const char> data, std::span<const char> se
   return npos;
 }
 
-constexpr size_t findFirstNotOf(std::span<const char> data, char ch, size_t pos) noexcept {
+constexpr size_t findFirstNotOf(span<const char> data, char ch, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
   for (size_t index = pos; index < data.size(); ++index)
@@ -188,7 +188,7 @@ constexpr size_t findFirstNotOf(std::span<const char> data, char ch, size_t pos)
   return npos;
 }
 
-constexpr size_t findFirstNotOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+constexpr size_t findFirstNotOf(span<const char> data, span<const char> set, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
   assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
@@ -203,7 +203,7 @@ constexpr size_t findFirstNotOf(std::span<const char> data, std::span<const char
   return npos;
 }
 
-constexpr size_t findLastNotOf(std::span<const char> data, char ch, size_t pos) noexcept {
+constexpr size_t findLastNotOf(span<const char> data, char ch, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
   for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
@@ -213,7 +213,7 @@ constexpr size_t findLastNotOf(std::span<const char> data, char ch, size_t pos) 
   return npos;
 }
 
-constexpr size_t findLastNotOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+constexpr size_t findLastNotOf(span<const char> data, span<const char> set, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
   assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
@@ -228,7 +228,7 @@ constexpr size_t findLastNotOf(std::span<const char> data, std::span<const char>
   return npos;
 }
 
-constexpr int compare(std::span<const char> lhs, std::span<const char> rhs) noexcept {
+constexpr int compare(span<const char> lhs, span<const char> rhs) noexcept {
   assert_message(lhs.data() != nullptr || lhs.empty(), "a null pointer names no characters to compare");
   assert_message(rhs.data() != nullptr || rhs.empty(), "a null pointer names no characters to compare with");
 
@@ -240,7 +240,7 @@ constexpr int compare(std::span<const char> lhs, std::span<const char> rhs) noex
   return lhs.size() == rhs.size() ? 0 : (lhs.size() < rhs.size() ? -1 : 1);
 }
 
-constexpr size_t utf8Size(std::span<const char> data) noexcept {
+constexpr size_t utf8Size(span<const char> data) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to count");
   if !consteval {
     assert_message(validateUtf8(data), "the counted bytes must hold well-formed UTF-8");

@@ -84,7 +84,7 @@ namespace toy {
   static_assert(toy::StringStorage<toy::FixedStringStorage<8>>);
 
   template <toy::StringStorage T>
-  [[nodiscard]] bool assign(T & storage, std::span<const char> text) noexcept {
+  [[nodiscard]] bool assign(T & storage, toy::span<const char> text) noexcept {
     if (!storage.reserve(text.size())) {
       return false;
     }
@@ -97,7 +97,7 @@ namespace toy {
   }
 
   toy::FixedStringStorage<32> storage;
-  const bool assigned = assign(storage, std::span<const char>{"hi", 2});
+  const bool assigned = assign(storage, toy::span{"hi", 2});
 
   const size_t length = assigned ? storage.size() : 0;
   \endcode

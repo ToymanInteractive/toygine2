@@ -57,9 +57,8 @@ BENCHMARK_CASE("core/utils/utf16_to_utf8") {
 
   bench.unit("conversion");
 
-  // The spans are arguments, not the subject of the measurement: built once, outside the timed body.
-  const std::span<char>           out{buffer};
-  const std::span<const char16_t> in{text, c_utf16Length};
+  const toy::span out{buffer};
+  const toy::span in{text, c_utf16Length};
 
   bench.run("toy::utf16ToUtf8", [&] {
     toy::benchmark::doNotOptimizeAway(toy::utf16ToUtf8(out, in));
@@ -74,9 +73,8 @@ BENCHMARK_CASE("core/utils/utf8_to_utf16") {
 
   bench.unit("conversion");
 
-  // The spans are arguments, not the subject of the measurement: built once, outside the timed body.
-  const std::span<char16_t>   out{buffer};
-  const std::span<const char> in{text, c_utf8Length};
+  const toy::span out{buffer};
+  const toy::span in{text, c_utf8Length};
 
   bench.run("toy::utf8ToUtf16", [&] {
     toy::benchmark::doNotOptimizeAway(toy::utf8ToUtf16(out, in));
@@ -127,9 +125,9 @@ BENCHMARK_CASE("core/utils/validate_utf8") {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf8(text));
   });
 
-  const std::span<const char> range{text, c_utf8Length};
+  const toy::span range{text, c_utf8Length};
 
-  bench.run("toy::validateUtf8(std::span<const char>)", [&] {
+  bench.run("toy::validateUtf8(toy::span<const char>)", [&] {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf8(range));
   });
 }
@@ -144,9 +142,9 @@ BENCHMARK_CASE("core/utils/validate_utf16") {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf16(text));
   });
 
-  const std::span<const char16_t> range{text, c_utf16Length};
+  const toy::span range{text, c_utf16Length};
 
-  bench.run("toy::validateUtf16(std::span<const char16_t>)", [&] {
+  bench.run("toy::validateUtf16(toy::span<const char16_t>)", [&] {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf16(range));
   });
 }

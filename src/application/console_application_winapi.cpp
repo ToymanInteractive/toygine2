@@ -53,10 +53,10 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
         --length;
 
-      utf8ToUtf16(std::span<char16_t>{buffer}, std::span<const char>{text.data(), length});
+      utf8ToUtf16(span{buffer}, span{text.data(), length});
       auto units = std::char_traits<char16_t>::length(buffer.data());
       // At a decoded '\0' or an ill-formed byte the chunk ends; that byte goes out as U+0000 or U+FFFD.
-      if (const auto consumed = utf16InUtf8Size(std::span<const char16_t>{buffer.data(), units}); consumed < length) {
+      if (const auto consumed = utf16InUtf8Size(span{buffer.data(), units}); consumed < length) {
         buffer[units++] = text[consumed] == '\0' ? u'\0' : u'\uFFFD';
         length          = consumed + 1;
       }
@@ -96,7 +96,7 @@ namespace {
 
   \post Each surrogate in the range is half of a pair or has become U+FFFD; every other unit keeps its value.
 */
-void replaceLoneSurrogates(std::span<char16_t> units) noexcept {
+void replaceLoneSurrogates(toy::span<char16_t> units) noexcept {
   constexpr auto isHigh = [](char16_t unit) noexcept {
     return unit >= 0xD800 && unit <= 0xDBFF;
   };
@@ -176,8 +176,8 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
     std::ranges::transform(wideArg, wideArg + units, wideCopy, [](wchar_t unit) noexcept {
       return static_cast<char16_t>(unit);
     });
-    replaceLoneSurrogates(std::span<char16_t>{wideCopy, units});
-    *slot++  = toy::utf16ToUtf8(std::span<char>{text, size}, std::span<const char16_t>{wideCopy, units});
+    replaceLoneSurrogates(toy::span{wideCopy, units});
+    *slot++  = toy::utf16ToUtf8(toy::span{text, size}, toy::span{wideCopy, units});
     text    += size;
   }
   *slot = nullptr;

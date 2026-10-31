@@ -117,7 +117,6 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
   \pre \a available is at least \c 1.
 */
-// Pointer and remaining length, not a span: the converters call this per sequence inside their hot loop.
 [[nodiscard]] uint8_t wellFormedLength(const char * str, size_t available) noexcept {
   const auto leadByte     = std::bit_cast<uint8_t>(*str);
   const auto symbolLength = utf8CharSizeTable[leadByte];
@@ -150,7 +149,6 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
   \pre \a available is at least \c 1.
 */
-// Pointer and remaining length, not a span: the converters call this per sequence inside their hot loop.
 [[nodiscard]] uint8_t wellFormedLength(const char16_t * str, size_t available) noexcept {
   const auto unit = *str;
   if (unit < 0xD800 || unit > 0xDFFF)
@@ -167,7 +165,7 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
 } // namespace
 
-char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noexcept {
+char16_t * utf8ToUtf16(span<char16_t> dest, span<const char> src) noexcept {
   if (dest.empty() || dest.data() == nullptr)
     return nullptr;
 
@@ -215,21 +213,21 @@ char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noex
   return dest.data();
 }
 
-char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept {
+char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept {
   if (dest.empty() || dest.data() == nullptr)
     return nullptr;
 
   char *             destPointer = dest.data();
   const char * const utf8EndPos  = destPointer + (dest.size() - 1);
 
-  const char16_t * cursor = src.data();
-  for (const char16_t * const end = cursor != nullptr ? cursor + src.size() : cursor; cursor != end;) {
+  const char16_t *       cursor = src.data();
+  const char16_t * const end    = cursor != nullptr ? cursor + src.size() : cursor;
+
+  while (cursor != end && destPointer != utf8EndPos) {
     const auto symbol = static_cast<uint32_t>(*cursor);
     const auto room   = static_cast<size_t>(utf8EndPos - destPointer);
 
     if (symbol <= 0x7F) {
-      if (room < 1)
-        break;
       *destPointer++ = static_cast<char>(symbol);
 
     } else if (symbol <= 0x7FF) {
@@ -267,11 +265,10 @@ char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept
   return dest.data();
 }
 
-size_t utf16InUtf8Size(std::span<const char16_t> units) noexcept {
+size_t utf16InUtf8Size(span<const char16_t> units) noexcept {
   size_t size     = 0;
   bool   pairOpen = false;
 
-  // The cursor is local, and an empty range keeps its null data out of pointer arithmetic.
   for (const char16_t *src = units.data(), * const end = src != nullptr ? src + units.size() : src; src != end; ++src) {
     const auto unit = *src;
     if (pairOpen) {
@@ -375,11 +372,10 @@ bool validateUtf8(const char * str) noexcept {
   return true;
 }
 
-bool validateUtf8(std::span<const char> str) noexcept {
+bool validateUtf8(span<const char> str) noexcept {
   if (str.data() == nullptr)
     return str.empty();
 
-  // The walk owns its cursor, so the range the caller passed stays whole for the next step.
   for (const char *current = str.data(), * const end = current + str.size(); current != end;) {
     const auto symbolLength = wellFormedLength(current, static_cast<size_t>(end - current));
     if (symbolLength == 0)
@@ -407,11 +403,10 @@ bool validateUtf16(const char16_t * str) noexcept {
   return true;
 }
 
-bool validateUtf16(std::span<const char16_t> str) noexcept {
+bool validateUtf16(span<const char16_t> str) noexcept {
   if (str.data() == nullptr)
     return str.empty();
 
-  // The walk owns its cursor, so the range the caller passed stays whole for the next step.
   for (const char16_t *current = str.data(), * const end = current + str.size(); current != end;) {
     const auto symbolLength = wellFormedLength(current, static_cast<size_t>(end - current));
     if (symbolLength == 0)
