@@ -31,6 +31,7 @@
 #define INCLUDE_TESTS_RUNNER_REPORT_HPP_
 
 #include <cstddef>
+#include <span>
 
 #include "toy_test.hpp"
 
@@ -39,8 +40,7 @@ namespace toy::test {
 /*!
   \brief Function receiving the report one line at a time.
 
-  \param text        Bytes to write; not null-terminated and ending in a newline.
-  \param length      Number of bytes.
+  \param text        Bytes to write, the whole range; not null-terminated and ending in a newline.
   \param writerData  Pointer handed to toy::test::writeReport(); \c nullptr when none was given.
 
   \note A writer is a plain function pointer, so a destination it must remember between calls arrives through
@@ -48,7 +48,7 @@ namespace toy::test {
 
   \sa \ref toy::test::detail::ReportWriter
 */
-using write_function_type = void (*)(const char * text, std::size_t length, const void * writerData) noexcept;
+using write_function_type = void (*)(std::span<const char> text, const void * writerData) noexcept;
 
 namespace detail {
 

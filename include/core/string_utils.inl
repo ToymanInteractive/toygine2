@@ -35,19 +35,18 @@ namespace detail {
 using membership_table_type = std::array<bool, 256>;
 
 /*!
-  \brief Builds the membership table of the \a count bytes starting at \a set.
+  \brief Builds the membership table of \a set.
 
-  \param set   First byte of the set.
-  \param count Number of bytes in the set.
+  \param set Characters to mark.
 
   \return Table holding \c true at every byte value found in the set and \c false elsewhere.
 
-  \pre The \a count bytes starting at \a set are readable; \a set may be \c nullptr only when \a count is \c 0.
+  \pre The characters of \a set are readable; a null \a set comes with an empty range.
 */
-constexpr membership_table_type membershipTable(const char * set, size_t count) noexcept {
+constexpr membership_table_type membershipTable(std::span<const char> set) noexcept {
   membership_table_type table{};
 
-  for (const char ch : std::views::counted(set, count))
+  for (const char ch : set)
     table[static_cast<unsigned char>(ch)] = true;
 
   return table;
@@ -69,21 +68,24 @@ constexpr bool isMember(const membership_table_type & table, char ch) noexcept {
 
 } // namespace detail
 
-constexpr size_t find(const char * data, size_t size, char ch, size_t pos) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
+constexpr size_t find(std::span<const char> data, char ch, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
-  if (pos >= size)
+  if (pos >= data.size())
     return npos;
 
   // memchr at runtime, a plain scan under constant evaluation; neither reads a byte before pos.
-  const char * found = traits_type::find(data + pos, size - pos, ch);
+  const char * found = traits_type::find(data.data() + pos, data.size() - pos, ch);
 
-  return found != nullptr ? static_cast<size_t>(found - data) : npos;
+  return found != nullptr ? static_cast<size_t>(found - data.data()) : npos;
 }
 
-constexpr size_t find(const char * data, size_t size, const char * pattern, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(pattern != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t find(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(pattern.data() != nullptr || pattern.empty(), "a null pointer names no characters to search for");
+
+  const size_t size  = data.size();
+  const size_t count = pattern.size();
 
   if (count == 0)
     return pos <= size ? pos : npos;
@@ -93,14 +95,14 @@ constexpr size_t find(const char * data, size_t size, const char * pattern, size
   const size_t last = size - count;
   for (size_t index = pos; index <= last;) {
     // memchr at runtime: skips to the next position that can start a match instead of comparing at every one.
-    const char * candidate = traits_type::find(data + index, last - index + 1, pattern[0]);
+    const char * candidate = traits_type::find(data.data() + index, last - index + 1, pattern[0]);
     if (candidate == nullptr)
       return npos;
 
-    index = static_cast<size_t>(candidate - data);
+    index = static_cast<size_t>(candidate - data.data());
 
     // The first character matched already, so the comparison starts behind it.
-    if (traits_type::compare(candidate + 1, pattern + 1, count - 1) == 0)
+    if (traits_type::compare(candidate + 1, pattern.data() + 1, count - 1) == 0)
       return index;
 
     ++index;
@@ -109,19 +111,22 @@ constexpr size_t find(const char * data, size_t size, const char * pattern, size
   return npos;
 }
 
-constexpr size_t rfind(const char * data, size_t size, char ch, size_t pos) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
+constexpr size_t rfind(std::span<const char> data, char ch, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
-  for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
+  for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
     if (traits_type::eq(data[remaining - 1], ch))
       return remaining - 1;
 
   return npos;
 }
 
-constexpr size_t rfind(const char * data, size_t size, const char * pattern, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(pattern != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t rfind(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(pattern.data() != nullptr || pattern.empty(), "a null pointer names no characters to search for");
+
+  const size_t size  = data.size();
+  const size_t count = pattern.size();
 
   if (count == 0)
     return std::min(pos, size);
@@ -136,112 +141,112 @@ constexpr size_t rfind(const char * data, size_t size, const char * pattern, siz
       continue;
     if (count > 1 && !traits_type::eq(data[index + count - 1], pattern[count - 1]))
       continue;
-    if (count <= 2 || traits_type::compare(data + index + 1, pattern + 1, count - 2) == 0)
+    if (count <= 2 || traits_type::compare(data.data() + index + 1, pattern.data() + 1, count - 2) == 0)
       return index;
   }
 
   return npos;
 }
 
-constexpr size_t findFirstOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t findFirstOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
-  if (count == 0)
+  if (set.empty())
     return npos;
 
-  const auto members = detail::membershipTable(set, count);
-  for (size_t index = pos; index < size; ++index)
+  const auto members = detail::membershipTable(set);
+  for (size_t index = pos; index < data.size(); ++index)
     if (detail::isMember(members, data[index]))
       return index;
 
   return npos;
 }
 
-constexpr size_t findLastOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t findLastOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
-  if (count == 0)
+  if (set.empty())
     return npos;
 
-  const auto members = detail::membershipTable(set, count);
-  for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
+  const auto members = detail::membershipTable(set);
+  for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
     if (detail::isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return npos;
 }
 
-constexpr size_t findFirstNotOf(const char * data, size_t size, char ch, size_t pos) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
+constexpr size_t findFirstNotOf(std::span<const char> data, char ch, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
-  for (size_t index = pos; index < size; ++index)
+  for (size_t index = pos; index < data.size(); ++index)
     if (!traits_type::eq(data[index], ch))
       return index;
 
   return npos;
 }
 
-constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t findFirstNotOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
-  if (count == 0)
-    return pos < size ? pos : npos;
+  if (set.empty())
+    return pos < data.size() ? pos : npos;
 
-  const auto members = detail::membershipTable(set, count);
-  for (size_t index = pos; index < size; ++index)
+  const auto members = detail::membershipTable(set);
+  for (size_t index = pos; index < data.size(); ++index)
     if (!detail::isMember(members, data[index]))
       return index;
 
   return npos;
 }
 
-constexpr size_t findLastNotOf(const char * data, size_t size, char ch, size_t pos) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
+constexpr size_t findLastNotOf(std::span<const char> data, char ch, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
 
-  for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
+  for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
     if (!traits_type::eq(data[remaining - 1], ch))
       return remaining - 1;
 
   return npos;
 }
 
-constexpr size_t findLastNotOf(const char * data, size_t size, const char * set, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(set != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t findLastNotOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
-  if (count == 0)
-    return size == 0 ? npos : std::min(pos, size - 1);
+  if (set.empty())
+    return data.empty() ? npos : std::min(pos, data.size() - 1);
 
-  const auto members = detail::membershipTable(set, count);
-  for (size_t remaining = pos < size ? pos + 1 : size; remaining > 0; --remaining)
+  const auto members = detail::membershipTable(set);
+  for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
     if (!detail::isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return npos;
 }
 
-constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t rhsSize) noexcept {
-  assert_message(lhs != nullptr || lhsSize == 0, "a null pointer names no characters to compare");
-  assert_message(rhs != nullptr || rhsSize == 0, "a null pointer names no characters to compare with");
+constexpr int compare(std::span<const char> lhs, std::span<const char> rhs) noexcept {
+  assert_message(lhs.data() != nullptr || lhs.empty(), "a null pointer names no characters to compare");
+  assert_message(rhs.data() != nullptr || rhs.empty(), "a null pointer names no characters to compare with");
 
   // memcmp behind std::char_traits::compare takes no null pointer, even for an empty range.
-  const size_t common = std::min(lhsSize, rhsSize);
-  if (const int result = common != 0 ? traits_type::compare(lhs, rhs, common) : 0; result != 0)
+  const size_t common = std::min(lhs.size(), rhs.size());
+  if (const int result = common != 0 ? traits_type::compare(lhs.data(), rhs.data(), common) : 0; result != 0)
     return result;
 
-  return lhsSize == rhsSize ? 0 : (lhsSize < rhsSize ? -1 : 1);
+  return lhs.size() == rhs.size() ? 0 : (lhs.size() < rhs.size() ? -1 : 1);
 }
 
-constexpr size_t utf8Size(const char * data, size_t size) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to count");
+constexpr size_t utf8Size(std::span<const char> data) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to count");
   if !consteval {
-    assert_message(validateUtf8(data, size), "the counted bytes must hold well-formed UTF-8");
+    assert_message(validateUtf8(data), "the counted bytes must hold well-formed UTF-8");
   }
 
-  return static_cast<size_t>(std::count_if(data, data + size, [](char byte) {
+  return static_cast<size_t>(std::count_if(data.begin(), data.end(), [](char byte) {
     return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
   }));
 }

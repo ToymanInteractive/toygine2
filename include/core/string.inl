@@ -373,7 +373,7 @@ constexpr String<storageType>::size_type String<storageType>::max_size() const n
 
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::utf8_size() const noexcept {
-  return string_utils::utf8Size(data(), size());
+  return string_utils::utf8Size(std::span<const char>{data(), size()});
 }
 
 template <StringStorage storageType>
@@ -795,7 +795,7 @@ constexpr String<storageType>::size_type String<storageType>::find(const value_t
                                                                    size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::find(data(), size(), string, pos, count);
+  return string_utils::find(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -808,7 +808,7 @@ constexpr String<storageType>::size_type String<storageType>::find(const value_t
 
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find(value_type ch, size_type pos) const noexcept {
-  return string_utils::find(data(), size(), ch, pos);
+  return string_utils::find(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -823,7 +823,7 @@ constexpr String<storageType>::size_type String<storageType>::rfind(const value_
                                                                     size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::rfind(data(), size(), string, pos, count);
+  return string_utils::rfind(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -836,7 +836,7 @@ constexpr String<storageType>::size_type String<storageType>::rfind(const value_
 
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::rfind(value_type ch, size_type pos) const noexcept {
-  return string_utils::rfind(data(), size(), ch, pos);
+  return string_utils::rfind(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -851,7 +851,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_of(cons
                                                                             size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findFirstOf(data(), size(), string, pos, count);
+  return string_utils::findFirstOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -881,7 +881,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_not_of(
                                                                                 size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findFirstNotOf(data(), size(), string, pos, count);
+  return string_utils::findFirstNotOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -895,7 +895,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_not_of(
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_not_of(value_type ch,
                                                                                 size_type  pos) const noexcept {
-  return string_utils::findFirstNotOf(data(), size(), ch, pos);
+  return string_utils::findFirstNotOf(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -910,7 +910,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_of(const
                                                                            size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findLastOf(data(), size(), string, pos, count);
+  return string_utils::findLastOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -939,7 +939,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_not_of(c
                                                                                size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findLastNotOf(data(), size(), string, pos, count);
+  return string_utils::findLastNotOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -953,7 +953,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_not_of(c
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_not_of(value_type ch,
                                                                                size_type  pos) const noexcept {
-  return string_utils::findLastNotOf(data(), size(), ch, pos);
+  return string_utils::findLastNotOf(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -998,7 +998,8 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
 
   const size_type offset = std::min(pos1, size());
 
-  return string_utils::compare(data() + offset, std::min(count1, size() - offset), string, count2);
+  return string_utils::compare(std::span<const char>{data() + offset, std::min(count1, size() - offset)},
+                               std::span<const char>{string, count2});
 }
 
 template <StringStorage storageType>

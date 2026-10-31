@@ -25,6 +25,7 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <span>
 #include <string>
 
 #include <doctest/doctest.h>
@@ -51,10 +52,10 @@ struct CapturedLines final {
   std::string text;
 };
 
-void captureLines(const char * text, std::size_t length, const void * writerData) noexcept {
+void captureLines(std::span<const char> text, const void * writerData) noexcept {
   CapturedLines & captured = **static_cast<CapturedLines * const *>(writerData);
 
-  captured.text.append(text, length);
+  captured.text.append(text.data(), text.size());
 }
 
 void oneRow(toy::benchmark::Bench & bench) {

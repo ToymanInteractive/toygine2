@@ -45,8 +45,8 @@ TEST_CASE("benchmark::detail/sram_writer/appends_lines_and_terminates") {
 
   toy::benchmark::detail::SramWriter writer{memory, 1};
 
-  writer.write("ab\n", 3);
-  writer.write("c\n", 2);
+  writer.write(std::span<const char>{"ab\n", 3});
+  writer.write(std::span<const char>{"c\n", 2});
 
   CHECK(std::string_view{reinterpret_cast<const char *>(memory.data())} == "ab\nc\n");
 }
@@ -58,7 +58,7 @@ TEST_CASE("benchmark::detail/sram_writer/stride_skips_bytes_between_characters")
 
   toy::benchmark::detail::SramWriter writer{memory, 2};
 
-  writer.write("ab\n", 3);
+  writer.write(std::span<const char>{"ab\n", 3});
 
   CHECK(memory[0] == 'a');
   CHECK(memory[1] == c_untouched);
@@ -75,9 +75,9 @@ TEST_CASE("benchmark::detail/sram_writer/full_window_ends_with_truncation_commen
 
   toy::benchmark::detail::SramWriter writer{memory, 1};
 
-  writer.write("abc\n", 4);
-  writer.write("defghij\n", 8);
-  writer.write("x\n", 2);
+  writer.write(std::span<const char>{"abc\n", 4});
+  writer.write(std::span<const char>{"defghij\n", 8});
+  writer.write(std::span<const char>{"x\n", 2});
 
   CHECK(std::string_view{reinterpret_cast<const char *>(memory.data())} == "abc\n# truncated\n");
 }

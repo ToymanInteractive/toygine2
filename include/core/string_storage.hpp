@@ -84,19 +84,20 @@ namespace toy {
   static_assert(toy::StringStorage<toy::FixedStringStorage<8>>);
 
   template <toy::StringStorage T>
-  [[nodiscard]] bool assign(T & storage, const char * text, size_t length) noexcept {
-    if (!storage.reserve(length)) {
+  [[nodiscard]] bool assign(T & storage, std::span<const char> text) noexcept {
+    if (!storage.reserve(text.size())) {
       return false;
     }
 
-    storage.setSize(length);
-    std::strncpy(storage.data(), text, length);
+    storage.setSize(text.size());
+    std::memcpy(storage.data(), text.data(), text.size());
+    storage.data()[text.size()] = '\0';
 
     return true;
   }
 
   toy::FixedStringStorage<32> storage;
-  const bool assigned = assign(storage, "hi", 2);
+  const bool assigned = assign(storage, std::span<const char>{"hi", 2});
 
   const size_t length = assigned ? storage.size() : 0;
   \endcode

@@ -48,13 +48,13 @@ inline void ReportWriter::openLine() noexcept {
 inline void ReportWriter::addText(const char * text) noexcept {
   openLine();
 
-  _length = appendText(_buffer, lineCapacity, _length, text);
+  _length = appendText(std::span<char>{_buffer}, _length, text);
 }
 
 inline void ReportWriter::addDescription(const char * text) noexcept {
   openLine();
 
-  _length = appendEscaped(_buffer, lineCapacity, _length, text);
+  _length = appendEscaped(std::span<char>{_buffer}, _length, text);
 }
 
 inline void ReportWriter::addQuoted(const char * text) noexcept {
@@ -64,13 +64,13 @@ inline void ReportWriter::addQuoted(const char * text) noexcept {
   openLine();
 
   if (_length <= quotedCapacity)
-    _length = appendQuoted(_buffer, quotedCapacity, _length, text);
+    _length = appendQuoted(std::span<char>{_buffer}.first(quotedCapacity), _length, text);
 }
 
 inline void ReportWriter::addInteger(long long value) noexcept {
   openLine();
 
-  _length = appendInteger(_buffer, lineCapacity, _length, value);
+  _length = appendInteger(std::span<char>{_buffer}, _length, value);
 }
 
 inline void ReportWriter::flush() noexcept {
@@ -81,7 +81,7 @@ inline void ReportWriter::flush() noexcept {
   _buffer[_length] = '\n';
   ++_length;
 
-  _write(_buffer, _length, _writerData);
+  _write(std::span<const char>{_buffer, _length}, _writerData);
 
   _length = 0;
 }

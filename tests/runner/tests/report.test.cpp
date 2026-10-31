@@ -24,6 +24,7 @@
 
 #include <cstddef>
 #include <cstring>
+#include <span>
 #include <string>
 
 #include <doctest/doctest.h>
@@ -41,10 +42,10 @@ struct CapturedReport final {
 };
 
 // The capture lives in the case that reads it; the seam carries its address, the buffer behind it is the target.
-void captureWrite(const char * text, std::size_t length, const void * writerData) noexcept {
+void captureWrite(std::span<const char> text, const void * writerData) noexcept {
   CapturedReport & captured = **static_cast<CapturedReport * const *>(writerData);
 
-  for (std::size_t index = 0; index < length && captured.length + 1 < c_captureCapacity; ++index) {
+  for (std::size_t index = 0; index < text.size() && captured.length + 1 < c_captureCapacity; ++index) {
     captured.text[captured.length] = text[index];
     ++captured.length;
   }
