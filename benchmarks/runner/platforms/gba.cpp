@@ -129,7 +129,7 @@ void writeLine(const char * text, std::size_t length, const void * writerData) n
   if (channels.mGBADetected)
     mGBAWriteToDebugLog(text, length);
 
-  channels.sram->write(text, length);
+  channels.sram->write(std::span<const char>{text, length});
 }
 
 } // namespace

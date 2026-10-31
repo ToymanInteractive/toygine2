@@ -39,21 +39,21 @@ inline SramWriter::SramWriter(std::span<volatile std::uint8_t> memory, std::size
   _put(0, '\0');
 }
 
-inline void SramWriter::write(const char * text, std::size_t length) noexcept {
+inline void SramWriter::write(std::span<const char> text) noexcept {
   if (_truncated)
     return;
 
   // Every line leaves room for the truncation comment, so the report can always end on it.
-  if (_length + length + _truncatedLength + 1 > _capacity) {
-    text       = _truncatedLine.data();
-    length     = _truncatedLength;
+  if (_length + text.size() + _truncatedLength + 1 > _capacity) {
+    // The array holds its terminator, so the comment goes in cut to the length without it.
+    text       = std::span<const char>{_truncatedLine}.first(_truncatedLength);
     _truncated = true;
   }
 
-  for (std::size_t index = 0; index < length; ++index)
+  for (std::size_t index = 0; index < text.size(); ++index)
     _put(_length + index, text[index]);
 
-  _length += length;
+  _length += text.size();
   _put(_length, '\0');
 }
 

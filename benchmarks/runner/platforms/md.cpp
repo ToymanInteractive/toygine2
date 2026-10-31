@@ -98,7 +98,7 @@ void writeLine(const char * text, std::size_t length, const void * writerData) n
   for (std::size_t index = 0; index < length; ++index)
     ClownMDSDK::MainCPU::Debug::Print(text[index] == '\n' ? '\0' : text[index]);
 
-  static_cast<const Channels *>(writerData)->sram->write(text, length);
+  static_cast<const Channels *>(writerData)->sram->write(std::span<const char>{text, length});
 }
 
 } // namespace
