@@ -92,18 +92,19 @@ namespace {
 /*!
   \brief Replaces every surrogate outside a pair in a range of UTF-16 units with U+FFFD.
 
-  \param units First unit of the range.
-  \param count Number of units in the range.
+  \param units Code units to fix in place.
 
   \post Each surrogate in the range is half of a pair or has become U+FFFD; every other unit keeps its value.
 */
-void replaceLoneSurrogates(char16_t * units, size_t count) noexcept {
+void replaceLoneSurrogates(std::span<char16_t> units) noexcept {
   constexpr auto isHigh = [](char16_t unit) noexcept {
     return unit >= 0xD800 && unit <= 0xDBFF;
   };
   constexpr auto isLow = [](char16_t unit) noexcept {
     return unit >= 0xDC00 && unit <= 0xDFFF;
   };
+
+  const size_t count = units.size();
 
   for (size_t index = 0; index < count; ++index)
     if (isHigh(units[index]) && index + 1 < count && isLow(units[index + 1]))
@@ -175,7 +176,7 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
     std::ranges::transform(wideArg, wideArg + units, wideCopy, [](wchar_t unit) noexcept {
       return static_cast<char16_t>(unit);
     });
-    replaceLoneSurrogates(wideCopy, units);
+    replaceLoneSurrogates(std::span<char16_t>{wideCopy, units});
     *slot++  = toy::utf16ToUtf8(std::span<char>{text, size}, std::span<const char16_t>{wideCopy, units});
     text    += size;
   }
