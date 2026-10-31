@@ -90,8 +90,8 @@ namespace toy {
     }
 
     storage.setSize(text.size());
-    std::memcpy(storage.data(), text.data(), text.size());
-    storage.data()[text.size()] = '\0';
+    if (!text.empty())
+      std::memcpy(storage.data(), text.data(), text.size());
 
     return true;
   }

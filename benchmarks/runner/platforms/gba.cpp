@@ -127,7 +127,8 @@ void writeLine(std::span<const char> text, const void * writerData) noexcept {
   const auto & channels = *static_cast<const Channels *>(writerData);
 
   if (channels.mGBADetected)
-    mGBAWriteToDebugLog(text.data(), text.size()); // The emulator debug channel is a C API: pointer and length apart.
+    // The emulator debug channel is a C API: pointer and length apart.
+    mGBAWriteToDebugLog(text.data(), text.size());
 
   channels.sram->write(text);
 }

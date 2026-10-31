@@ -114,12 +114,15 @@ using std::bit_cast;
 /*!
   \namespace toy::string_utils
 
-  \brief Search and comparison over a character range that a pointer and a length describe.
+  \brief Search and comparison over a character range given as a std::span.
 
   A function reads only the characters inside the range: it needs no terminator after them, and a \c '\\0' inside
   counts as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and
   targets. Every function works in a constant expression and allocates nothing. A sequence or set search takes
   O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest take O(n).
+
+  \note Call these functions qualified: an unqualified \c find or \c rfind taking two ranges also matches
+        \c std::find through ADL, which wins whenever the start offset is a literal \c int.
 */
 
 //--------------------------------------------------------------------------------------------------------------------

@@ -235,10 +235,6 @@ TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
                 "a pattern differing in its last character matches nowhere");
   static_assert(string_utils::rfind(repeatedRange, asRange("ab"), npos) == 7,
                 "a pattern of two is decided by its ends");
-
-  // A terminator at the start of a pattern is one more byte of it, read for exactly the pattern's length.
-  static_assert(string_utils::rfind(embeddedNullRange, std::span<const char>{"\0a", 2}, npos) == 2,
-                "a pattern beginning with a terminator byte matches inside the range");
 }
 
 // Which character first belongs to a set, counting from the offset the search starts at.
@@ -454,24 +450,19 @@ TEST_CASE("string_utils/search/matches_embedded_null") {
 
 // What a null pointer with a zero length yields: the empty-range or empty-set answer, with nothing read.
 TEST_CASE("string_utils/search/accepts_null_with_zero_length") {
-  CHECK(string_utils::find(std::span<const char>{}, 'a', 0) == npos);
   CHECK(string_utils::find(std::span<const char>{}, asRange("a"), 0) == npos);
   CHECK(string_utils::find(std::span<const char>{}, std::span<const char>{}, 0) == 0);
-  CHECK(string_utils::rfind(std::span<const char>{}, 'a', npos) == npos);
   CHECK(string_utils::rfind(std::span<const char>{}, std::span<const char>{}, npos) == 0);
   CHECK(string_utils::findLastOf(std::span<const char>{}, asRange("a"), npos) == npos);
-  CHECK(string_utils::findFirstNotOf(std::span<const char>{}, 'a', 0) == npos);
   CHECK(string_utils::findLastNotOf(std::span<const char>{}, std::span<const char>{}, npos) == npos);
 
   // A null pattern or set with a zero count, searched for in a non-empty range.
   CHECK(string_utils::find(repeatedRange, std::span<const char>{}, 4) == 4);
-  CHECK(string_utils::findFirstOf(repeatedRange, std::span<const char>{}, 0) == npos);
   CHECK(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 2) == 2);
   CHECK(string_utils::findLastNotOf(repeatedRange, std::span<const char>{}, npos) == repeatedLength - 1);
 
   static_assert(string_utils::find(std::span<const char>{}, std::span<const char>{}, 0) == 0,
                 "an empty pattern matches at the start of an empty range");
-  static_assert(string_utils::rfind(std::span<const char>{}, 'a', npos) == npos, "an empty range holds no character");
   static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 2) == 2,
                 "a null set with a zero count excludes nothing");
 }

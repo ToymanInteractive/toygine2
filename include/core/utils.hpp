@@ -49,7 +49,7 @@ constexpr size_t utf16InUtf8MaxSize = 3;
   Allocates nothing; the result is always null-terminated.
 
   \param dest Buffer that receives the UTF-16 string; its size is the capacity, terminator included.
-  \param src  UTF-8 bytes to convert; an empty range gives an empty result.
+  \param src  UTF-8 bytes to convert. An empty range, or one whose data pointer is \c nullptr, converts nothing.
 
   \return \a dest.data(), or \c nullptr when \a dest is empty or names no data; \a dest is then left untouched.
 
@@ -76,7 +76,7 @@ char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noex
   out as \c '\\0' in \a dest. Allocates nothing; the result is always null-terminated.
 
   \param dest Buffer that receives the UTF-8 string; its size is the capacity, terminator included.
-  \param src  UTF-16 units to convert; an empty range gives an empty result.
+  \param src  UTF-16 units to convert. An empty range, or one whose data pointer is \c nullptr, encodes nothing.
 
   \return \a dest.data(), or \c nullptr when \a dest is empty or names no data; \a dest is then left untouched.
 

@@ -185,6 +185,7 @@ constexpr int StringView::compare(size_type pos1, size_type count1, StringView v
   const size_type offset1 = std::min(pos1, size());
   const size_type offset2 = std::min(pos2, v.size());
 
+  // Shifted span rather than subspan(): the measurement is noted in the compare() above.
   return string_utils::compare(std::span<const char>{data() + offset1, std::min(count1, size() - offset1)},
                                std::span<const char>{v.data() + offset2, std::min(count2, v.size() - offset2)});
 }
@@ -204,6 +205,7 @@ constexpr int StringView::compare(size_type pos1, size_type count1, const value_
 
   const size_type offset = std::min(pos1, size());
 
+  // Shifted span rather than subspan(): the measurement is noted in the compare() above.
   return string_utils::compare(std::span<const char>{data() + offset, std::min(count1, size() - offset)},
                                std::span<const char>{s, count2});
 }

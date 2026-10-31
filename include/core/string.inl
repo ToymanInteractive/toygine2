@@ -998,6 +998,7 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
 
   const size_type offset = std::min(pos1, size());
 
+  // Shifted span rather than subspan(): the measurement is noted in StringView::compare().
   return string_utils::compare(std::span<const char>{data() + offset, std::min(count1, size() - offset)},
                                std::span<const char>{string, count2});
 }

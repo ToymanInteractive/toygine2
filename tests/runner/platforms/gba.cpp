@@ -88,7 +88,7 @@ void writeLine(std::span<const char> text, const void * writerData) noexcept {
   printf("%.*s", static_cast<int>(count), text.data());
 
   if (const bool mGBADetected = *static_cast<const bool *>(writerData); mGBADetected)
-    // The emulator debug channel is a C API: it keeps the pointer and the length apart.
+    // The emulator debug channel is a C API: pointer and length apart.
     mGBAWriteToDebugLog(text.data(), text.size());
 }
 

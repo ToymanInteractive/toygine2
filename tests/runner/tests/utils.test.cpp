@@ -293,3 +293,18 @@ TEST_CASE("test::detail/append_integer/writes_nothing_at_a_full_buffer") {
   static_assert(full.written == 4, "an append at capacity must return the capacity");
   static_assert(full.buffer[0] == '\0', "an append at capacity must leave the buffer untouched");
 }
+
+// A span naming no storage at all: every append sees no room, writes nothing, and hands the offset back.
+TEST_CASE("test::detail/append/writes_nothing_into_an_empty_buffer") {
+  constexpr std::span<char> empty{};
+
+  REQUIRE(toy::test::detail::appendText(empty, 0, "ok") == 0);
+  REQUIRE(toy::test::detail::appendEscaped(empty, 0, "#x") == 0);
+  REQUIRE(toy::test::detail::appendQuoted(empty, 0, "ok") == 0);
+  REQUIRE(toy::test::detail::appendInteger(empty, 0, -42) == 0);
+
+  static_assert(toy::test::detail::appendText(empty, 0, "ok") == 0, "a span with no storage takes no text");
+  static_assert(toy::test::detail::appendEscaped(empty, 0, "#x") == 0, "a span with no storage takes no escape");
+  static_assert(toy::test::detail::appendQuoted(empty, 0, "ok") == 0, "a span with no storage takes no quotes");
+  static_assert(toy::test::detail::appendInteger(empty, 0, -42) == 0, "a span with no storage takes no digits");
+}

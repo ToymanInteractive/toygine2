@@ -19,10 +19,10 @@
 //
 /*!
   \file   string_utils.hpp
-  \brief  Character search, comparison, and UTF-8 counting over a range given as a pointer and a length.
+  \brief  Character search, comparison, and UTF-8 counting over a std::span of characters.
 
   Defines the \ref toy::string_utils functions behind the matching members of \ref toy::StringView and
-  \ref toy::String. The caller passes the length it already knows, so no function measures a terminator.
+  \ref toy::String. The caller passes the range it already knows, so no function measures a terminator.
 
   \note Included by core.hpp only; do not include this file directly.
 */
