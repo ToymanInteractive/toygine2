@@ -56,7 +56,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
       auto units = std::char_traits<char16_t>::length(buffer.data());
       // At a decoded '\0' or an ill-formed byte the chunk ends; that byte goes out as U+0000 or U+FFFD.
-      if (const auto consumed = utf16InUtf8Size(buffer.data(), units); consumed < length) {
+      if (const auto consumed = utf16InUtf8Size(std::span<const char16_t>{buffer.data(), units}); consumed < length) {
         buffer[units++] = text[consumed] == '\0' ? u'\0' : u'\uFFFD';
         length          = consumed + 1;
       }

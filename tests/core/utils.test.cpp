@@ -403,7 +403,7 @@ TEST_CASE("utf16_in_utf8_size/matches_every_width") {
     INFO("index ", index);
     const auto & [utf16, utf8] = utf16Samples[index];
 
-    CHECK(utf16InUtf8Size(utf16, std::char_traits<char16_t>::length(utf16)) == std::char_traits<char>::length(utf8));
+    CHECK(utf16InUtf8Size(unitsRange(utf16)) == std::char_traits<char>::length(utf8));
   }
 }
 
@@ -411,21 +411,21 @@ TEST_CASE("utf16_in_utf8_size/matches_every_width") {
 TEST_CASE("utf16_in_utf8_size/counts_the_width_edges") {
   constexpr char16_t widthEdges[] = {0x7F, 0x80, 0x7FF, 0x800};
 
-  CHECK(utf16InUtf8Size(&widthEdges[0], 1) == 1);
-  CHECK(utf16InUtf8Size(&widthEdges[1], 1) == 2);
-  CHECK(utf16InUtf8Size(&widthEdges[2], 1) == 2);
-  CHECK(utf16InUtf8Size(&widthEdges[3], 1) == 3);
-  CHECK(utf16InUtf8Size(utf16BeforeSurrogates, 1) == 3);
-  CHECK(utf16InUtf8Size(utf16AfterSurrogates, 1) == 3);
-  CHECK(utf16InUtf8Size(utf16LowestPair, 2) == 4);
-  CHECK(utf16InUtf8Size(utf16HighestCodePoint, 2) == 4);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{&widthEdges[0], 1}) == 1);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{&widthEdges[1], 1}) == 2);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{&widthEdges[2], 1}) == 2);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{&widthEdges[3], 1}) == 3);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{utf16BeforeSurrogates}.first(1)) == 3);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{utf16AfterSurrogates}.first(1)) == 3);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{utf16LowestPair}.first(2)) == 4);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{utf16HighestCodePoint}.first(2)) == 4);
 }
 
 // The unit count bounds the input: a terminator inside it counts one byte, and a pair it cuts short ends the count.
 TEST_CASE("utf16_in_utf8_size/reads_only_the_counted_units") {
-  CHECK(utf16InUtf8Size(utf16InnerTerminator, std::size(utf16InnerTerminator)) == 3);
-  CHECK(utf16InUtf8Size(u"привет", 3) == std::char_traits<char>::length("при"));
-  CHECK(utf16InUtf8Size(u"a🎮", 2) == 1);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{utf16InnerTerminator}) == 3);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{u"привет", 3}) == std::char_traits<char>::length("при"));
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{u"a🎮", 2}) == 1);
 }
 
 // A surrogate outside a pair ends the count where toy::utf16ToUtf8() stops encoding.
@@ -438,8 +438,8 @@ TEST_CASE("utf16_in_utf8_size/stops_before_a_lone_surrogate") {
 
     std::array<char, 16> buffer{};
     utf16ToUtf8(buffer.data(), buffer.size(), units, count);
-    CHECK(utf16InUtf8Size(units, count) == std::char_traits<char>::length(buffer.data()));
-    CHECK(utf16InUtf8Size(units, count) == 1);
+    CHECK(utf16InUtf8Size(std::span<const char16_t>{units, count}) == std::char_traits<char>::length(buffer.data()));
+    CHECK(utf16InUtf8Size(std::span<const char16_t>{units, count}) == 1);
   }
 }
 
@@ -456,15 +456,15 @@ TEST_CASE("utf16_in_utf8_size/measures_the_bytes_a_decode_consumed") {
 
     std::array<char16_t, 64> decoded{};
     utf8ToUtf16(decoded.data(), decoded.size(), input.data(), std::char_traits<char>::length(input.data()));
-    CHECK(utf16InUtf8Size(decoded.data(), std::char_traits<char16_t>::length(decoded.data())) == prefixLength);
+    CHECK(utf16InUtf8Size(unitsRange(decoded.data())) == prefixLength);
   }
 }
 
 // A null or empty source measures nothing, whatever the count.
 TEST_CASE("utf16_in_utf8_size/handles_null_and_empty_arguments") {
-  CHECK(utf16InUtf8Size(nullptr, 0) == 0);
-  CHECK(utf16InUtf8Size(nullptr, 4) == 0);
-  CHECK(utf16InUtf8Size(u"player", 0) == 0);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{}) == 0);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{nullUtf16, 4}) == 0);
+  CHECK(utf16InUtf8Size(std::span<const char16_t>{u"player", 0}) == 0);
 }
 
 // Every width decodes to the matching UTF-16 literal, a pair for four bytes, and the call hands back its buffer.

@@ -262,10 +262,12 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
   return dest;
 }
 
-size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
+size_t utf16InUtf8Size(std::span<const char16_t> units) noexcept {
   size_t size     = 0;
   bool   pairOpen = false;
-  for (const char16_t * const end = src != nullptr ? src + count : src; src != end; ++src) {
+
+  // The cursor is local, and an empty range keeps its null data out of pointer arithmetic.
+  for (const char16_t *src = units.data(), * const end = src != nullptr ? src + units.size() : src; src != end; ++src) {
     const auto unit = *src;
     if (pairOpen) {
       pairOpen = false;

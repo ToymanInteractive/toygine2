@@ -106,12 +106,11 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
   for a unit outside the surrogate range, four for a surrogate pair. For units that toy::utf8ToUtf16() decoded, the
   count equals the bytes that call consumed. Allocates nothing.
 
-  \param src   UTF-16 units to measure, or \c nullptr for an empty range.
-  \param count Number of units to read from \a src.
+  \param units UTF-16 units to measure.
 
   \return Byte count of the UTF-8 form, the terminator excluded; \c 0 for an empty range.
 
-  \pre The \a count units starting at \a src are readable.
+  \pre Every code unit of \a units is readable.
 
   \note The count stops before a surrogate whose pair does not lie whole inside the range, where toy::utf16ToUtf8()
         stops encoding.
@@ -119,7 +118,7 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 
   \sa toy::utf16ToUtf8(), toy::utf8ToUtf16()
 */
-[[nodiscard]] size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept;
+[[nodiscard]] size_t utf16InUtf8Size(std::span<const char16_t> units) noexcept;
 
 /*!
   \brief Counts the characters a UTF-8 string encodes.
