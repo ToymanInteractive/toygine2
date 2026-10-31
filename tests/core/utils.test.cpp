@@ -29,7 +29,6 @@ namespace toy {
 
 namespace {
 
-// Literals of one encoding width each, so an expected count derives from the byte length instead of a hand count.
 // A null pointer that names bytes or units, which a span cannot be built from by literal.
 constexpr const char *     nullUtf8  = nullptr;
 constexpr const char16_t * nullUtf16 = nullptr;
@@ -46,6 +45,7 @@ constexpr std::span<const char16_t> unitsRange(const char16_t * units) noexcept 
   return {units, std::char_traits<char16_t>::length(units)};
 }
 
+// Literals of one encoding width each, so an expected count derives from the byte length instead of a hand count.
 constexpr const char * ascii    = "player";
 constexpr const char * cyrillic = "привет";
 constexpr const char * cjk      = "日本語";
