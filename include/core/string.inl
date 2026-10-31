@@ -808,7 +808,7 @@ constexpr String<storageType>::size_type String<storageType>::find(const value_t
 
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find(value_type ch, size_type pos) const noexcept {
-  return string_utils::find(data(), size(), ch, pos);
+  return string_utils::find(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -836,7 +836,7 @@ constexpr String<storageType>::size_type String<storageType>::rfind(const value_
 
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::rfind(value_type ch, size_type pos) const noexcept {
-  return string_utils::rfind(data(), size(), ch, pos);
+  return string_utils::rfind(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -895,7 +895,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_not_of(
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_not_of(value_type ch,
                                                                                 size_type  pos) const noexcept {
-  return string_utils::findFirstNotOf(data(), size(), ch, pos);
+  return string_utils::findFirstNotOf(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>
@@ -953,7 +953,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_not_of(c
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_not_of(value_type ch,
                                                                                size_type  pos) const noexcept {
-  return string_utils::findLastNotOf(data(), size(), ch, pos);
+  return string_utils::findLastNotOf(std::span<const char>{data(), size()}, ch, pos);
 }
 
 template <StringStorage storageType>

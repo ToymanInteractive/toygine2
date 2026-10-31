@@ -41,20 +41,19 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 /*!
   \brief Finds the first occurrence of \a ch at or after \a pos.
 
-  \param data First byte of the searched range.
-  \param size Number of bytes in the searched range.
+  \param data Characters to search.
   \param ch   Character to look for.
   \param pos  Offset the search starts from.
 
   \return Offset of the first \a ch at or after \a pos, or \ref toy::string_utils::npos when there is none; a \a pos
-          at or past \a size always gives \ref toy::string_utils::npos.
+          at or past the range length always gives \ref toy::string_utils::npos.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
+  \pre Every character of \a data is readable.
+  \pre A null \a data comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::rfind(const char *, size_t, char, size_t)
+  \sa toy::string_utils::rfind(std::span<const char>, char, size_t)
 */
-[[nodiscard]] constexpr size_t find(const char * data, size_t size, char ch, size_t pos) noexcept;
+[[nodiscard]] constexpr size_t find(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
   \brief Finds the first position at or after \a pos where the \a count bytes starting at \a pattern start.
@@ -84,19 +83,18 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 /*!
   \brief Finds the last occurrence of \a ch at or before \a pos.
 
-  \param data First byte of the searched range.
-  \param size Number of bytes in the searched range.
+  \param data Characters to search.
   \param ch   Character to look for.
   \param pos  Last offset the search considers; any offset past the range covers all of it.
 
   \return Offset of the last \a ch at or before \a pos, or \ref toy::string_utils::npos when there is none.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
+  \pre Every character of \a data is readable.
+  \pre A null \a data comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::find(const char *, size_t, char, size_t)
+  \sa toy::string_utils::find(std::span<const char>, char, size_t)
 */
-[[nodiscard]] constexpr size_t rfind(const char * data, size_t size, char ch, size_t pos) noexcept;
+[[nodiscard]] constexpr size_t rfind(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
   \brief Finds the last position at or before \a pos where the \a count bytes starting at \a pattern start.
@@ -176,20 +174,19 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 /*!
   \brief Finds the first character at or after \a pos that differs from \a ch.
 
-  \param data First byte of the searched range.
-  \param size Number of bytes in the searched range.
+  \param data Characters to search.
   \param ch   Character to skip.
   \param pos  Offset the search starts from.
 
   \return Offset of the first character other than \a ch at or after \a pos, or \ref toy::string_utils::npos when
           there is none.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
+  \pre Every character of \a data is readable.
+  \pre A null \a data comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::findLastNotOf(const char *, size_t, char, size_t)
+  \sa toy::string_utils::findLastNotOf(std::span<const char>, char, size_t)
 */
-[[nodiscard]] constexpr size_t findFirstNotOf(const char * data, size_t size, char ch, size_t pos) noexcept;
+[[nodiscard]] constexpr size_t findFirstNotOf(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
   \brief Finds the first character at or after \a pos that does not belong to the \a count bytes starting at \a set.
@@ -216,20 +213,19 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 /*!
   \brief Finds the last character at or before \a pos that differs from \a ch.
 
-  \param data First byte of the searched range.
-  \param size Number of bytes in the searched range.
+  \param data Characters to search.
   \param ch   Character to skip.
   \param pos  Last offset the search considers; any offset past the range covers all of it.
 
   \return Offset of the last character other than \a ch at or before \a pos, or \ref toy::string_utils::npos when
           there is none.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
+  \pre Every character of \a data is readable.
+  \pre A null \a data comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::findFirstNotOf(const char *, size_t, char, size_t)
+  \sa toy::string_utils::findFirstNotOf(std::span<const char>, char, size_t)
 */
-[[nodiscard]] constexpr size_t findLastNotOf(const char * data, size_t size, char ch, size_t pos) noexcept;
+[[nodiscard]] constexpr size_t findLastNotOf(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
   \brief Finds the last character at or before \a pos that does not belong to the \a count bytes starting at \a set.

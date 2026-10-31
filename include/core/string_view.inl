@@ -246,7 +246,7 @@ constexpr StringView::size_type StringView::find(StringView v, size_type pos) co
 }
 
 constexpr StringView::size_type StringView::find(value_type ch, size_type pos) const noexcept {
-  return string_utils::find(data(), size(), ch, pos);
+  return string_utils::find(std::span<const char>{data(), size()}, ch, pos);
 }
 
 constexpr StringView::size_type StringView::find(const value_type * s, size_type pos, size_type count) const noexcept {
@@ -262,7 +262,7 @@ constexpr StringView::size_type StringView::rfind(StringView v, size_type pos) c
 }
 
 constexpr StringView::size_type StringView::rfind(value_type ch, size_type pos) const noexcept {
-  return string_utils::rfind(data(), size(), ch, pos);
+  return string_utils::rfind(std::span<const char>{data(), size()}, ch, pos);
 }
 
 constexpr StringView::size_type StringView::rfind(const value_type * s, size_type pos, size_type count) const noexcept {
@@ -312,7 +312,7 @@ constexpr StringView::size_type StringView::find_first_not_of(StringView v, size
 }
 
 constexpr StringView::size_type StringView::find_first_not_of(value_type ch, size_type pos) const noexcept {
-  return string_utils::findFirstNotOf(data(), size(), ch, pos);
+  return string_utils::findFirstNotOf(std::span<const char>{data(), size()}, ch, pos);
 }
 
 constexpr StringView::size_type StringView::find_first_not_of(const value_type * s, size_type pos,
@@ -329,7 +329,7 @@ constexpr StringView::size_type StringView::find_last_not_of(StringView v, size_
 }
 
 constexpr StringView::size_type StringView::find_last_not_of(value_type ch, size_type pos) const noexcept {
-  return string_utils::findLastNotOf(data(), size(), ch, pos);
+  return string_utils::findLastNotOf(std::span<const char>{data(), size()}, ch, pos);
 }
 
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos,
