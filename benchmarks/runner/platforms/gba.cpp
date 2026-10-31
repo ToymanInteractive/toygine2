@@ -123,13 +123,13 @@ std::uint32_t readTimer([[maybe_unused]] const void * clockData) noexcept {
   }
 }
 
-void writeLine(const char * text, std::size_t length, const void * writerData) noexcept {
+void writeLine(std::span<const char> text, const void * writerData) noexcept {
   const auto & channels = *static_cast<const Channels *>(writerData);
 
   if (channels.mGBADetected)
-    mGBAWriteToDebugLog(text, length);
+    mGBAWriteToDebugLog(text.data(), text.size()); // The emulator debug channel is a C API: pointer and length apart.
 
-  channels.sram->write(std::span<const char>{text, length});
+  channels.sram->write(text);
 }
 
 } // namespace

@@ -73,7 +73,7 @@ inline void LineBuffer::flush() noexcept {
   const auto newline = _length < capacity ? _length : capacity - 1;
 
   _buffer[newline] = '\n';
-  _output.write(_buffer.data(), newline + 1, _output.writerData);
+  _output.write(std::span<const char>{_buffer.data(), newline + 1}, _output.writerData);
   _length = 0;
 }
 

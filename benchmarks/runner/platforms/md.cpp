@@ -93,12 +93,12 @@ std::uint32_t nowLines(const void * clockData) noexcept {
   }
 }
 
-void writeLine(const char * text, std::size_t length, const void * writerData) noexcept {
+void writeLine(std::span<const char> text, const void * writerData) noexcept {
   // The debug port ends a line on a null byte, so the newline goes out as one.
-  for (std::size_t index = 0; index < length; ++index)
+  for (std::size_t index = 0; index < text.size(); ++index)
     ClownMDSDK::MainCPU::Debug::Print(text[index] == '\n' ? '\0' : text[index]);
 
-  static_cast<const Channels *>(writerData)->sram->write(std::span<const char>{text, length});
+  static_cast<const Channels *>(writerData)->sram->write(text);
 }
 
 } // namespace
