@@ -117,6 +117,7 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
   \pre \a available is at least \c 1.
 */
+// Pointer and remaining length, not a span: the converters call this per sequence inside their hot loop.
 [[nodiscard]] uint8_t wellFormedLength(const char * str, size_t available) noexcept {
   const auto leadByte     = std::bit_cast<uint8_t>(*str);
   const auto symbolLength = utf8CharSizeTable[leadByte];
@@ -149,6 +150,7 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
   \pre \a available is at least \c 1.
 */
+// Pointer and remaining length, not a span: the converters call this per sequence inside their hot loop.
 [[nodiscard]] uint8_t wellFormedLength(const char16_t * str, size_t available) noexcept {
   const auto unit = *str;
   if (unit < 0xD800 || unit > 0xDFFF)
@@ -165,30 +167,32 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
 } // namespace
 
-char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_t count) noexcept {
-  if (dest == nullptr || destSize == 0)
+char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noexcept {
+  if (dest.empty() || dest.data() == nullptr)
     return nullptr;
 
-  char16_t *             destPointer = dest;
-  const char16_t * const utf16EndPos = dest + (destSize - 1);
+  char16_t *             destPointer = dest.data();
+  const char16_t * const utf16EndPos = destPointer + (dest.size() - 1);
 
-  for (const char * const end = src != nullptr ? src + count : src; src != end;) {
-    if (const auto lead = std::bit_cast<uint8_t>(*src); lead <= 0x7F) {
+  const char * cursor = src.data();
+  for (const char * const end = cursor != nullptr ? cursor + src.size() : cursor; cursor != end;) {
+    if (const auto lead = std::bit_cast<uint8_t>(*cursor); lead <= 0x7F) {
       if (destPointer == utf16EndPos)
         break;
       *destPointer++ = lead;
-      ++src;
+      ++cursor;
       continue;
     }
 
-    const auto symbolLength = wellFormedLength(src, static_cast<size_t>(end - src));
+    const auto symbolLength = wellFormedLength(cursor, static_cast<size_t>(end - cursor));
     if (symbolLength == 0)
       break;
 
     // The mask keeps the zero bit that ends the length prefix, so one shift serves every width.
-    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<std::byte>(*src) & (std::byte{0xFF} >> symbolLength));
+    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<std::byte>(*cursor) & (std::byte{0xFF} >> symbolLength));
     for (uint8_t offset = 1; offset < symbolLength; ++offset)
-      codePoint = (codePoint << 6) | std::to_integer<uint32_t>(std::bit_cast<std::byte>(src[offset]) & std::byte{0x3F});
+      codePoint = (codePoint << 6)
+                  | std::to_integer<uint32_t>(std::bit_cast<std::byte>(cursor[offset]) & std::byte{0x3F});
 
     const auto room = static_cast<size_t>(utf16EndPos - destPointer);
     if (codePoint <= 0xFFFF) {
@@ -203,23 +207,24 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
       *destPointer++ = static_cast<char16_t>(0xDC00 + ((codePoint - 0x10000) & 0x03FF));
     }
 
-    src += symbolLength;
+    cursor += symbolLength;
   }
 
   *destPointer = u'\0';
 
-  return dest;
+  return dest.data();
 }
 
-char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t count) noexcept {
-  if (dest == nullptr || destSize == 0)
+char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept {
+  if (dest.empty() || dest.data() == nullptr)
     return nullptr;
 
-  char *             destPointer = dest;
-  const char * const utf8EndPos  = dest + (destSize - 1);
+  char *             destPointer = dest.data();
+  const char * const utf8EndPos  = destPointer + (dest.size() - 1);
 
-  for (const char16_t * const end = src != nullptr ? src + count : src; src != end;) {
-    const auto symbol = static_cast<uint32_t>(*src);
+  const char16_t * cursor = src.data();
+  for (const char16_t * const end = cursor != nullptr ? cursor + src.size() : cursor; cursor != end;) {
+    const auto symbol = static_cast<uint32_t>(*cursor);
     const auto room   = static_cast<size_t>(utf8EndPos - destPointer);
 
     if (symbol <= 0x7F) {
@@ -242,7 +247,7 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 
     } else {
       // A pair needs its low surrogate inside the range; the zero standing in past the range never matches.
-      const auto low = src + 1 != end ? static_cast<uint32_t>(src[1]) : uint32_t{0};
+      const auto low = cursor + 1 != end ? static_cast<uint32_t>(cursor[1]) : uint32_t{0};
       if (symbol > 0xDBFF || low < 0xDC00 || low > 0xDFFF || room < 4)
         break;
 
@@ -251,15 +256,15 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
       *destPointer++       = static_cast<char>(((codePoint & 0x03F000) >> 12) | 0x80);
       *destPointer++       = static_cast<char>(((codePoint & 0x000FC0) >> 6) | 0x80);
       *destPointer++       = static_cast<char>((codePoint & 0x00003F) | 0x80);
-      ++src;
+      ++cursor;
     }
 
-    ++src;
+    ++cursor;
   }
 
   *destPointer = '\0';
 
-  return dest;
+  return dest.data();
 }
 
 size_t utf16InUtf8Size(std::span<const char16_t> units) noexcept {

@@ -53,7 +53,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
         --length;
 
-      utf8ToUtf16(buffer.data(), buffer.size(), text.data(), length);
+      utf8ToUtf16(std::span<char16_t>{buffer}, std::span<const char>{text.data(), length});
       auto units = std::char_traits<char16_t>::length(buffer.data());
       // At a decoded '\0' or an ill-formed byte the chunk ends; that byte goes out as U+0000 or U+FFFD.
       if (const auto consumed = utf16InUtf8Size(std::span<const char16_t>{buffer.data(), units}); consumed < length) {
@@ -176,7 +176,7 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
       return static_cast<char16_t>(unit);
     });
     replaceLoneSurrogates(wideCopy, units);
-    *slot++  = toy::utf16ToUtf8(text, size, wideCopy, units);
+    *slot++  = toy::utf16ToUtf8(std::span<char>{text, size}, std::span<const char16_t>{wideCopy, units});
     text    += size;
   }
   *slot = nullptr;

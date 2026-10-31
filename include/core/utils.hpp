@@ -48,47 +48,43 @@ constexpr size_t utf16InUtf8MaxSize = 3;
   Only \a count bounds the input, so a \c '\\0' inside the range comes out as \c u'\\0' in \a dest. Allocates nothing;
   the result is always null-terminated.
 
-  \param dest     Buffer that receives the UTF-16 string.
-  \param destSize Size of \a dest in \c char16_t units, the terminator included.
-  \param src      UTF-8 bytes to convert, or \c nullptr for an empty result.
-  \param count    Number of bytes to read from \a src.
+  \param dest Buffer that receives the UTF-16 string; its size is the capacity, terminator included.
+  \param src  UTF-8 bytes to convert; an empty range gives an empty result.
 
-  \return \a dest, or \c nullptr when \a dest is \c nullptr or \a destSize is \c 0; \a dest is then left untouched.
+  \return \a dest.data(), or \c nullptr when \a dest is empty or names no data; \a dest is then left untouched.
 
-  \pre The \a count bytes starting at \a src are readable.
+  \pre Every byte of \a src is readable.
 
   \post \a dest holds the characters decoded from the start of \a src, followed by \c u'\\0'. Decoding stops at the end
         of the range, before a character that does not fit whole, and before the first sequence toy::validateUtf8()
         rejects, among them an overlong encoding, an encoded surrogate, and a code point past U+10FFFF.
 
-  \note Truncation and ill-formed input go unreported: a buffer of \a count + 1 units holds every character the call
-        decodes.
+  \note Truncation and ill-formed input go unreported: a buffer of \a src.size() + 1 units holds every character the
+        call decodes.
   \note The conversion is a runtime one: the definition lives in a translation unit, out of reach of a constant
         expression.
 
   \sa toy::utf16ToUtf8(), toy::validateUtf8()
 */
-char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_t count) noexcept;
+char16_t * utf8ToUtf16(std::span<char16_t> dest, std::span<const char> src) noexcept;
 
 /*!
   \brief Converts a range of UTF-16 units to a null-terminated UTF-8 string in a caller-supplied buffer.
 
   Encodes a unit outside the surrogate range as one to three bytes and a surrogate pair as one four-byte sequence, so
-  the result is well-formed UTF-8. Only \a count bounds the input, so a \c u'\\0' inside the range comes out as
-  \c '\\0' in \a dest. Allocates nothing; the result is always null-terminated.
+  the result is well-formed UTF-8. Only the length of \a src bounds the input, so a \c u'\\0' inside the range comes
+  out as \c '\\0' in \a dest. Allocates nothing; the result is always null-terminated.
 
-  \param dest     Buffer that receives the UTF-8 string.
-  \param destSize Size of \a dest in bytes, the terminator included.
-  \param src      UTF-16 units to convert, or \c nullptr for an empty result.
-  \param count    Number of units to read from \a src.
+  \param dest Buffer that receives the UTF-8 string; its size is the capacity, terminator included.
+  \param src  UTF-16 units to convert; an empty range gives an empty result.
 
-  \return \a dest, or \c nullptr when \a dest is \c nullptr or \a destSize is \c 0; \a dest is then left untouched.
+  \return \a dest.data(), or \c nullptr when \a dest is empty or names no data; \a dest is then left untouched.
 
-  \pre The \a count units starting at \a src are readable.
+  \pre Every code unit of \a src is readable.
 
   \post \a dest holds the encoded characters from the start of \a src, followed by \c '\\0'. Encoding stops at the end
-        of the range, before a character that does not fit whole in \a destSize - 1 bytes, and before a surrogate
-        whose pair does not lie whole inside the range.
+        of the range, before a character that does not fit whole in one less than the capacity of \a dest, and before a
+        surrogate whose pair does not lie whole inside the range.
 
   \note Truncation and lone surrogates go unreported: a buffer of \ref toy::utf16InUtf8MaxSize bytes per unit of the
         range, plus one for the terminator, holds every character the call encodes.
@@ -97,7 +93,7 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
 
   \sa toy::utf8ToUtf16(), toy::validateUtf8()
 */
-char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t count) noexcept;
+char * utf16ToUtf8(std::span<char> dest, std::span<const char16_t> src) noexcept;
 
 /*!
   \brief Counts the bytes the UTF-8 form of a range of UTF-16 units takes.
