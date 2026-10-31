@@ -112,54 +112,44 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 [[nodiscard]] constexpr size_t rfind(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept;
 
 /*!
-  \brief Finds the first character at or after \a pos that belongs to the \a count bytes starting at \a set.
+  \brief Finds the first character at or after \a pos that belongs to \a set.
 
-  Reads the bytes of \a set as a set, so their order carries no meaning; toy::string_utils::find() matches them as a
+  Reads \a set as a set, so the order of its characters carries no meaning; toy::string_utils::find() matches them as a
   sequence.
 
-  \param data  First byte of the searched range.
-  \param size  Number of bytes in the searched range.
-  \param set   First byte of the set.
-  \param pos   Offset the search starts from.
-  \param count Number of bytes in the set.
+  \param data Characters to search.
+  \param set  Characters a match may equal.
+  \param pos  Offset the search starts from.
 
   \return Offset of the first character that belongs to the set, or \ref toy::string_utils::npos when there is none.
           An empty set matches nothing.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
-  \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count bytes starting at \a set are readable.
+  \pre Every character of \a data and of \a set is readable.
+  \pre A null \a data or \a set comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::findLastOf(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::findLastOf(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr size_t findFirstOf(const char * data, size_t size, const char * set, size_t pos,
-                                           size_t count) noexcept;
+[[nodiscard]] constexpr size_t findFirstOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept;
 
 /*!
-  \brief Finds the last character at or before \a pos that belongs to the \a count bytes starting at \a set.
+  \brief Finds the last character at or before \a pos that belongs to \a set.
 
-  Reads the bytes of \a set as a set, so their order carries no meaning; toy::string_utils::rfind() matches them as a
+  Reads \a set as a set, so the order of its characters carries no meaning; toy::string_utils::rfind() matches them as a
   sequence.
 
-  \param data  First byte of the searched range.
-  \param size  Number of bytes in the searched range.
-  \param set   First byte of the set.
-  \param pos   Last offset the search considers; any offset past the range covers all of it.
-  \param count Number of bytes in the set.
+  \param data Characters to search.
+  \param set  Characters a match may equal.
+  \param pos  Last offset the search considers; any offset past the range covers all of it.
 
   \return Offset of the last character that belongs to the set, or \ref toy::string_utils::npos when there is none. An
           empty set matches nothing.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
-  \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count bytes starting at \a set are readable.
+  \pre Every character of \a data and of \a set is readable.
+  \pre A null \a data or \a set comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::findFirstOf(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::findFirstOf(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr size_t findLastOf(const char * data, size_t size, const char * set, size_t pos,
-                                          size_t count) noexcept;
+[[nodiscard]] constexpr size_t findLastOf(std::span<const char> data, std::span<const char> set, size_t pos) noexcept;
 
 /*!
   \brief Finds the first character at or after \a pos that differs from \a ch.
@@ -179,26 +169,23 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 [[nodiscard]] constexpr size_t findFirstNotOf(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the first character at or after \a pos that does not belong to the \a count bytes starting at \a set.
+  \brief Finds the first character at or after \a pos that does not belong to \a set.
 
-  \param data  First byte of the searched range.
-  \param size  Number of bytes in the searched range.
-  \param set   First byte of the set.
-  \param pos   Offset the search starts from.
-  \param count Number of bytes in the set.
+  \param data Characters to search.
+  \param set  Characters to exclude.
+  \param pos  Offset the search starts from.
 
   \return Offset of the first character that does not belong to the set, or \ref toy::string_utils::npos when there is
-          none. No character belongs to an empty set, so the result is then \a pos while \a pos is less than \a size.
+          none. No character belongs to an empty set, so the result is then \a pos while \a pos is less than the range
+          length.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
-  \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count bytes starting at \a set are readable.
+  \pre Every character of \a data and of \a set is readable.
+  \pre A null \a data or \a set comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::findLastNotOf(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::findLastNotOf(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr size_t findFirstNotOf(const char * data, size_t size, const char * set, size_t pos,
-                                              size_t count) noexcept;
+[[nodiscard]] constexpr size_t findFirstNotOf(std::span<const char> data, std::span<const char> set,
+                                              size_t pos) noexcept;
 
 /*!
   \brief Finds the last character at or before \a pos that differs from \a ch.
@@ -218,27 +205,23 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 [[nodiscard]] constexpr size_t findLastNotOf(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the last character at or before \a pos that does not belong to the \a count bytes starting at \a set.
+  \brief Finds the last character at or before \a pos that does not belong to \a set.
 
-  \param data  First byte of the searched range.
-  \param size  Number of bytes in the searched range.
-  \param set   First byte of the set.
-  \param pos   Last offset the search considers; any offset past the range covers all of it.
-  \param count Number of bytes in the set.
+  \param data Characters to search.
+  \param set  Characters to exclude.
+  \param pos  Last offset the search considers; any offset past the range covers all of it.
 
   \return Offset of the last character that does not belong to the set, or \ref toy::string_utils::npos when there is
-          none. No character belongs to an empty set, so the result is then \a pos, or \a size minus one when \a pos is
-          past that, or \ref toy::string_utils::npos for an empty range.
+          none. No character belongs to an empty set, so the result is then \a pos, or one before the range end when
+          \a pos is past that, or \ref toy::string_utils::npos for an empty range.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
-  \pre \a set is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count bytes starting at \a set are readable.
+  \pre Every character of \a data and of \a set is readable.
+  \pre A null \a data or \a set comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::findFirstNotOf(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::findFirstNotOf(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr size_t findLastNotOf(const char * data, size_t size, const char * set, size_t pos,
-                                             size_t count) noexcept;
+[[nodiscard]] constexpr size_t findLastNotOf(std::span<const char> data, std::span<const char> set,
+                                             size_t pos) noexcept;
 
 /*!
   \brief Compares the \a lhsSize bytes starting at \a lhs with the \a rhsSize bytes starting at \a rhs in lexicographic

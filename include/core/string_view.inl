@@ -283,7 +283,7 @@ constexpr StringView::size_type StringView::find_first_of(value_type ch, size_ty
 
 constexpr StringView::size_type StringView::find_first_of(const value_type * s, size_type pos,
                                                           size_type count) const noexcept {
-  return string_utils::findFirstOf(data(), size(), s, pos, count);
+  return string_utils::findFirstOf(std::span<const char>{data(), size()}, std::span<const char>{s, count}, pos);
 }
 
 constexpr StringView::size_type StringView::find_first_of(const value_type * s, size_type pos) const noexcept {
@@ -300,7 +300,7 @@ constexpr StringView::size_type StringView::find_last_of(value_type ch, size_typ
 
 constexpr StringView::size_type StringView::find_last_of(const value_type * s, size_type pos,
                                                          size_type count) const noexcept {
-  return string_utils::findLastOf(data(), size(), s, pos, count);
+  return string_utils::findLastOf(std::span<const char>{data(), size()}, std::span<const char>{s, count}, pos);
 }
 
 constexpr StringView::size_type StringView::find_last_of(const value_type * s, size_type pos) const noexcept {
@@ -317,7 +317,7 @@ constexpr StringView::size_type StringView::find_first_not_of(value_type ch, siz
 
 constexpr StringView::size_type StringView::find_first_not_of(const value_type * s, size_type pos,
                                                               size_type count) const noexcept {
-  return string_utils::findFirstNotOf(data(), size(), s, pos, count);
+  return string_utils::findFirstNotOf(std::span<const char>{data(), size()}, std::span<const char>{s, count}, pos);
 }
 
 constexpr StringView::size_type StringView::find_first_not_of(const value_type * s, size_type pos) const noexcept {
@@ -334,7 +334,7 @@ constexpr StringView::size_type StringView::find_last_not_of(value_type ch, size
 
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos,
                                                              size_type count) const noexcept {
-  return string_utils::findLastNotOf(data(), size(), s, pos, count);
+  return string_utils::findLastNotOf(std::span<const char>{data(), size()}, std::span<const char>{s, count}, pos);
 }
 
 constexpr StringView::size_type StringView::find_last_not_of(const value_type * s, size_type pos) const noexcept {

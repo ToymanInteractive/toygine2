@@ -851,7 +851,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_of(cons
                                                                             size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findFirstOf(data(), size(), string, pos, count);
+  return string_utils::findFirstOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -881,7 +881,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_not_of(
                                                                                 size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findFirstNotOf(data(), size(), string, pos, count);
+  return string_utils::findFirstNotOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -910,7 +910,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_of(const
                                                                            size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findLastOf(data(), size(), string, pos, count);
+  return string_utils::findLastOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -939,7 +939,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_not_of(c
                                                                                size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::findLastNotOf(data(), size(), string, pos, count);
+  return string_utils::findLastNotOf(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>

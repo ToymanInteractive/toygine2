@@ -65,6 +65,7 @@ constexpr std::span<const char> repeatedRange{repeated, repeatedLength};
 constexpr std::span<const char> runOfARange{runOfA, runOfALength};
 constexpr std::span<const char> unterminatedRange{unterminated};
 constexpr std::span<const char> embeddedNullRange{embeddedNull};
+constexpr std::span<const char> highByteInsideRange{highByteInside, highByteInsideLength};
 
 // A literal as a measured range, its terminator left out, which is what a pattern or a set argument reads.
 constexpr std::span<const char> asRange(const char * text) noexcept {
@@ -243,54 +244,52 @@ TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
 
 // Which character first belongs to a set, counting from the offset the search starts at.
 TEST_CASE("string_utils/find_first_of/first_member_of_set") {
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "rc", 0, 2) == 2);
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "rc", 3, 2) == 4);
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "rc", 10, 2) == npos);
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "xyz", 0, 3) == npos);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("rc"), 0) == 2);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("rc"), 3) == 4);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("rc"), 10) == npos);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("xyz"), 0) == npos);
 
   // The count bounds how much of the set is read.
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "rcxyz", 0, 2) == 2);
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "rcxyz", 3, 2) == 4);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("rcxyz").first(2), 0) == 2);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("rcxyz").first(2), 3) == 4);
 
   // An empty set holds no character to match, unlike an empty pattern in a sequence search.
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "", 0, 0) == npos);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange(""), 0) == npos);
 
   // Neither does a start past the end, nor an empty range.
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, "a", repeatedLength, 1) == npos);
-  CHECK(string_utils::findFirstOf(repeated, 0, "a", 0, 1) == npos);
+  CHECK(string_utils::findFirstOf(repeatedRange, asRange("a"), repeatedLength) == npos);
+  CHECK(string_utils::findFirstOf(repeatedRange.first(0), asRange("a"), 0) == npos);
 
-  static_assert(string_utils::findFirstOf(repeated, repeatedLength, "rc", 0, 2) == 2,
-                "the first member of the set wins");
-  static_assert(string_utils::findFirstOf(repeated, repeatedLength, "rc", 3, 2) == 4,
-                "the offset skips earlier matches");
-  static_assert(string_utils::findFirstOf(repeated, repeatedLength, "rcxyz", 3, 2) == 4,
+  static_assert(string_utils::findFirstOf(repeatedRange, asRange("rc"), 0) == 2, "the first member of the set wins");
+  static_assert(string_utils::findFirstOf(repeatedRange, asRange("rc"), 3) == 4, "the offset skips earlier matches");
+  static_assert(string_utils::findFirstOf(repeatedRange, asRange("rcxyz").first(2), 3) == 4,
                 "the count bounds what is read");
-  static_assert(string_utils::findFirstOf(repeated, repeatedLength, "", 0, 0) == npos, "an empty set matches nothing");
+  static_assert(string_utils::findFirstOf(repeatedRange, asRange(""), 0) == npos, "an empty set matches nothing");
+  static_assert(string_utils::findFirstOf(repeatedRange, std::span<const char>{}, 0) == npos,
+                "a set with no data holds no character");
 }
 
 // Which character last belongs to a set, at or before the offset the search starts at.
 TEST_CASE("string_utils/find_last_of/last_member_of_set") {
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "rc", npos, 2) == 9);
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "rc", 8, 2) == 4);
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "rc", 1, 2) == npos);
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "xyz", npos, 3) == npos);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange("rc"), npos) == 9);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange("rc"), 8) == 4);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange("rc"), 1) == npos);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange("xyz"), npos) == npos);
 
   // The count bounds how much of the set is read.
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "rcxyz", npos, 2) == 9);
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "rcxyz", 8, 2) == 4);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange("rcxyz").first(2), npos) == 9);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange("rcxyz").first(2), 8) == 4);
 
   // An empty set matches nothing, and an empty range holds nothing to match.
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, "", npos, 0) == npos);
-  CHECK(string_utils::findLastOf(repeated, 0, "a", npos, 1) == npos);
+  CHECK(string_utils::findLastOf(repeatedRange, asRange(""), npos) == npos);
+  CHECK(string_utils::findLastOf(repeatedRange.first(0), asRange("a"), npos) == npos);
 
-  static_assert(string_utils::findLastOf(repeated, repeatedLength, "rc", npos, 2) == 9,
-                "the last member of the set wins");
-  static_assert(string_utils::findLastOf(repeated, repeatedLength, "rc", 8, 2) == 4,
+  static_assert(string_utils::findLastOf(repeatedRange, asRange("rc"), npos) == 9, "the last member of the set wins");
+  static_assert(string_utils::findLastOf(repeatedRange, asRange("rc"), 8) == 4,
                 "the offset caps how far back a match may sit");
-  static_assert(string_utils::findLastOf(repeated, repeatedLength, "rcxyz", 8, 2) == 4,
+  static_assert(string_utils::findLastOf(repeatedRange, asRange("rcxyz").first(2), 8) == 4,
                 "the count bounds what is read");
-  static_assert(string_utils::findLastOf(repeated, repeatedLength, "", npos, 0) == npos,
-                "an empty set matches nothing");
+  static_assert(string_utils::findLastOf(repeatedRange, asRange(""), npos) == npos, "an empty set matches nothing");
 }
 
 // Which character first falls outside a single character or a set, counting from the start offset.
@@ -299,23 +298,23 @@ TEST_CASE("string_utils/find_first_not_of/first_character_outside") {
   CHECK(string_utils::findFirstNotOf(repeatedRange, 'a', 3) == 4);
   CHECK(string_utils::findFirstNotOf(runOfARange, 'a', 0) == npos);
 
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "ab", 0, 2) == 2);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "ab", 3, 2) == 4);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "abr", 0, 3) == 4);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "ab", 10, 2) == npos);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("ab"), 0) == 2);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("ab"), 3) == 4);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("abr"), 0) == 4);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("ab"), 10) == npos);
 
   // A set holding every character the range uses leaves nothing to report.
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "abcdr", 0, 5) == npos);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("abcdr"), 0) == npos);
 
   // The count bounds how much of the set is read.
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "abxyz", 0, 2) == 2);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "abxyz", 3, 2) == 4);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("abxyz").first(2), 0) == 2);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange("abxyz").first(2), 3) == 4);
 
   // No character belongs to an empty set, so the start offset matches while it lies inside the range.
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "", 0, 0) == 0);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "", 2, 0) == 2);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, "", repeatedLength, 0) == npos);
-  CHECK(string_utils::findFirstNotOf(repeated, 0, "", 0, 0) == npos);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange(""), 0) == 0);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange(""), 2) == 2);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, asRange(""), repeatedLength) == npos);
+  CHECK(string_utils::findFirstNotOf(repeatedRange.first(0), asRange(""), 0) == npos);
 
   static_assert(string_utils::findFirstNotOf(repeatedRange, 'a', 0) == 1,
                 "the first character other than the skipped one wins");
@@ -323,13 +322,15 @@ TEST_CASE("string_utils/find_first_not_of/first_character_outside") {
                 "a range of the skipped character reports npos");
   static_assert(string_utils::findFirstNotOf(std::span<const char>{}, 'a', 0) == npos,
                 "a range with no data has no character to report");
-  static_assert(string_utils::findFirstNotOf(repeated, repeatedLength, "ab", 3, 2) == 4,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, asRange("ab"), 3) == 4,
                 "the offset skips earlier characters");
-  static_assert(string_utils::findFirstNotOf(repeated, repeatedLength, "abcdr", 0, 5) == npos,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, asRange("abcdr"), 0) == npos,
                 "a set covering every character reports npos");
-  static_assert(string_utils::findFirstNotOf(repeated, repeatedLength, "abxyz", 3, 2) == 4,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, asRange("abxyz").first(2), 3) == 4,
                 "the count bounds what is read");
-  static_assert(string_utils::findFirstNotOf(repeated, repeatedLength, "", 2, 0) == 2, "an empty set excludes nothing");
+  static_assert(string_utils::findFirstNotOf(repeatedRange, asRange(""), 2) == 2, "an empty set excludes nothing");
+  static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 0) == 0,
+                "a set with no data excludes nothing either");
 }
 
 // Which character last falls outside a single character or a set, at or before the start offset.
@@ -338,49 +339,50 @@ TEST_CASE("string_utils/find_last_not_of/last_character_outside") {
   CHECK(string_utils::findLastNotOf(repeatedRange, 'a', 8) == 8);
   CHECK(string_utils::findLastNotOf(runOfARange, 'a', npos) == npos);
 
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "ab", npos, 2) == 9);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "ab", 8, 2) == 6);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "ab", 1, 2) == npos);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "abcdr", npos, 5) == npos);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange("ab"), npos) == 9);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange("ab"), 8) == 6);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange("ab"), 1) == npos);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange("abcdr"), npos) == npos);
 
   // The count bounds how much of the set is read.
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "abxyz", npos, 2) == 9);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "abxyz", 8, 2) == 6);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange("abxyz").first(2), npos) == 9);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange("abxyz").first(2), 8) == 6);
 
   // No character belongs to an empty set, so the offset matches, capped at the last character of the range.
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "", npos, 0) == repeatedLength - 1);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, "", 2, 0) == 2);
-  CHECK(string_utils::findLastNotOf(repeated, 0, "", npos, 0) == npos);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange(""), npos) == repeatedLength - 1);
+  CHECK(string_utils::findLastNotOf(repeatedRange, asRange(""), 2) == 2);
+  CHECK(string_utils::findLastNotOf(repeatedRange.first(0), asRange(""), npos) == npos);
 
   static_assert(string_utils::findLastNotOf(repeatedRange, 'a', npos) == 9,
                 "the last character other than the skipped one wins");
   static_assert(string_utils::findLastNotOf(std::span<const char>{}, 'a', npos) == npos,
                 "a range with no data has no last character");
-  static_assert(string_utils::findLastNotOf(repeated, repeatedLength, "ab", 8, 2) == 6,
+  static_assert(string_utils::findLastNotOf(repeatedRange, asRange("ab"), 8) == 6,
                 "the offset caps how far back a match may sit");
-  static_assert(string_utils::findLastNotOf(repeated, repeatedLength, "abcdr", npos, 5) == npos,
+  static_assert(string_utils::findLastNotOf(repeatedRange, asRange("abcdr"), npos) == npos,
                 "a set covering every character reports npos");
-  static_assert(string_utils::findLastNotOf(repeated, repeatedLength, "abxyz", 8, 2) == 6,
+  static_assert(string_utils::findLastNotOf(repeatedRange, asRange("abxyz").first(2), 8) == 6,
                 "the count bounds what is read");
-  static_assert(string_utils::findLastNotOf(repeated, repeatedLength, "", npos, 0) == repeatedLength - 1,
+  static_assert(string_utils::findLastNotOf(repeatedRange, asRange(""), npos) == repeatedLength - 1,
                 "an empty set excludes nothing");
-  static_assert(string_utils::findLastNotOf(repeated, 0, "", npos, 0) == npos, "an empty range has no last character");
+  static_assert(string_utils::findLastNotOf(repeatedRange.first(0), asRange(""), npos) == npos,
+                "an empty range has no last character");
 }
 
 // A byte above the ASCII range reaches a character-set search, where a signed index would read outside the table.
 TEST_CASE("string_utils/search/matches_high_byte_in_set") {
-  CHECK(string_utils::findFirstOf(highByteInside, highByteInsideLength, "\xff", 0, 1) == 1);
-  CHECK(string_utils::findLastOf(highByteInside, highByteInsideLength, "\xff", npos, 1) == 1);
-  CHECK(string_utils::findFirstNotOf(highByteInside, highByteInsideLength, "a\xff", 0, 2) == 2);
-  CHECK(string_utils::findLastNotOf(highByteInside, highByteInsideLength, "b\xff", npos, 2) == 0);
+  CHECK(string_utils::findFirstOf(highByteInsideRange, asRange("\xff"), 0) == 1);
+  CHECK(string_utils::findLastOf(highByteInsideRange, asRange("\xff"), npos) == 1);
+  CHECK(string_utils::findFirstNotOf(highByteInsideRange, asRange("a\xff"), 0) == 2);
+  CHECK(string_utils::findLastNotOf(highByteInsideRange, asRange("b\xff"), npos) == 0);
 
-  static_assert(string_utils::findFirstOf(highByteInside, highByteInsideLength, "\xff", 0, 1) == 1,
+  static_assert(string_utils::findFirstOf(highByteInsideRange, asRange("\xff"), 0) == 1,
                 "a high byte is found in a set");
-  static_assert(string_utils::findLastOf(highByteInside, highByteInsideLength, "\xff", npos, 1) == 1,
+  static_assert(string_utils::findLastOf(highByteInsideRange, asRange("\xff"), npos) == 1,
                 "a high byte is found scanning backwards");
-  static_assert(string_utils::findFirstNotOf(highByteInside, highByteInsideLength, "a\xff", 0, 2) == 2,
+  static_assert(string_utils::findFirstNotOf(highByteInsideRange, asRange("a\xff"), 0) == 2,
                 "a high byte counts as a member of the set");
-  static_assert(string_utils::findLastNotOf(highByteInside, highByteInsideLength, "b\xff", npos, 2) == 0,
+  static_assert(string_utils::findLastNotOf(highByteInsideRange, asRange("b\xff"), npos) == 0,
                 "a high byte counts as a member scanning backwards");
 }
 
@@ -391,10 +393,10 @@ TEST_CASE("string_utils/search/reads_only_the_counted_range") {
   CHECK(string_utils::find(repeatedRange.first(leadingLength), asRange("abra"), 1) == npos);
   CHECK(string_utils::rfind(repeatedRange.first(leadingLength), 'a', npos) == 5);
   CHECK(string_utils::rfind(repeatedRange.first(leadingLength), asRange("abra"), npos) == 0);
-  CHECK(string_utils::findFirstOf(repeated, leadingLength, "r", 3, 1) == npos);
-  CHECK(string_utils::findLastOf(repeated, leadingLength, "br", npos, 2) == 2);
-  CHECK(string_utils::findFirstNotOf(runOfA, runOfALength, "a", 0, 1) == npos);
-  CHECK(string_utils::findLastNotOf(runOfA, runOfALength, "a", npos, 1) == npos);
+  CHECK(string_utils::findFirstOf(repeatedRange.first(leadingLength), asRange("r"), 3) == npos);
+  CHECK(string_utils::findLastOf(repeatedRange.first(leadingLength), asRange("br"), npos) == 2);
+  CHECK(string_utils::findFirstNotOf(runOfARange, asRange("a"), 0) == npos);
+  CHECK(string_utils::findLastNotOf(runOfARange, asRange("a"), npos) == npos);
 
   // Constant evaluation rejects a read past the array, so each assertion proves the search stays inside it.
   static_assert(string_utils::find(unterminatedRange, 'z', 0) == npos, "a full scan must stop at the end of the range");
@@ -402,7 +404,7 @@ TEST_CASE("string_utils/search/reads_only_the_counted_range") {
                 "a sequence search must stop at the end of the range");
   static_assert(string_utils::rfind(unterminatedRange, asRange("bra"), npos) == 8,
                 "a backward sequence search must start inside the range");
-  static_assert(string_utils::findFirstOf(unterminated, std::size(unterminated), "z", 0, 1) == npos,
+  static_assert(string_utils::findFirstOf(unterminatedRange, asRange("z"), 0) == npos,
                 "a set search must stop at the end of the range");
   static_assert(string_utils::findLastNotOf(unterminatedRange, 'a', npos) == 9,
                 "a backward search must start at the last character");
@@ -415,22 +417,22 @@ TEST_CASE("string_utils/search/reads_only_the_counted_pattern") {
 
   CHECK(string_utils::find(repeatedLongerRange, unterminatedRange, 0) == 0);
   CHECK(string_utils::rfind(repeatedLongerRange, unterminatedRange, npos) == 0);
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, lastByte, 1, 1) == 3);
-  CHECK(string_utils::findLastOf(repeated, repeatedLength, lastByte, npos, 1) == 10);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, lastByte, 0, 1) == 1);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, lastByte, npos, 1) == 9);
+  CHECK(string_utils::findFirstOf(repeatedRange, std::span<const char>{lastByte, 1}, 1) == 3);
+  CHECK(string_utils::findLastOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 10);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{lastByte, 1}, 0) == 1);
+  CHECK(string_utils::findLastNotOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 9);
 
   static_assert(string_utils::find(repeatedLongerRange, unterminatedRange, 0) == 0,
                 "a forward search must read the pattern no further than its count");
   static_assert(string_utils::rfind(repeatedLongerRange, unterminatedRange, npos) == 0,
                 "a backward search must read the pattern no further than its count");
-  static_assert(string_utils::findFirstOf(repeated, repeatedLength, lastByte, 1, 1) == 3,
+  static_assert(string_utils::findFirstOf(repeatedRange, std::span<const char>{lastByte, 1}, 1) == 3,
                 "a set search must read the set no further than its count");
-  static_assert(string_utils::findLastOf(repeated, repeatedLength, lastByte, npos, 1) == 10,
+  static_assert(string_utils::findLastOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 10,
                 "a backward set search must read the set no further than its count");
-  static_assert(string_utils::findFirstNotOf(repeated, repeatedLength, lastByte, 0, 1) == 1,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{lastByte, 1}, 0) == 1,
                 "a search outside a set must read the set no further than its count");
-  static_assert(string_utils::findLastNotOf(repeated, repeatedLength, lastByte, npos, 1) == 9,
+  static_assert(string_utils::findLastNotOf(repeatedRange, std::span<const char>{lastByte, 1}, npos) == 9,
                 "a backward search outside a set must read the set no further than its count");
 }
 
@@ -439,15 +441,15 @@ TEST_CASE("string_utils/search/matches_embedded_null") {
   CHECK(string_utils::find(embeddedNullRange, '\0', 0) == 2);
   CHECK(string_utils::find(embeddedNullRange, 'a', 0) == 3);
   CHECK(string_utils::rfind(embeddedNullRange, std::span<const char>{"\0a", 2}, npos) == 2);
-  CHECK(string_utils::findFirstOf(embeddedNull, std::size(embeddedNull), "y\0", 0, 2) == 2);
-  CHECK(string_utils::findFirstNotOf(embeddedNull, std::size(embeddedNull), "pl", 0, 2) == 2);
+  CHECK(string_utils::findFirstOf(embeddedNullRange, std::span<const char>{"y\0", 2}, 0) == 2);
+  CHECK(string_utils::findFirstNotOf(embeddedNullRange, asRange("pl"), 0) == 2);
   CHECK(string_utils::findLastNotOf(embeddedNullRange, 'y', npos) == 3);
 
   static_assert(string_utils::find(embeddedNullRange, 'a', 0) == 3,
                 "a search must continue past a terminator inside the range");
   static_assert(string_utils::rfind(embeddedNullRange, std::span<const char>{"\0a", 2}, npos) == 2,
                 "a terminator must match inside a sequence");
-  static_assert(string_utils::findFirstOf(embeddedNull, std::size(embeddedNull), "y\0", 0, 2) == 2,
+  static_assert(string_utils::findFirstOf(embeddedNullRange, std::span<const char>{"y\0", 2}, 0) == 2,
                 "a terminator must count as a member of a set");
 }
 
@@ -458,20 +460,20 @@ TEST_CASE("string_utils/search/accepts_null_with_zero_length") {
   CHECK(string_utils::find(std::span<const char>{}, std::span<const char>{}, 0) == 0);
   CHECK(string_utils::rfind(std::span<const char>{}, 'a', npos) == npos);
   CHECK(string_utils::rfind(std::span<const char>{}, std::span<const char>{}, npos) == 0);
-  CHECK(string_utils::findLastOf(nullptr, 0, "a", npos, 1) == npos);
+  CHECK(string_utils::findLastOf(std::span<const char>{}, asRange("a"), npos) == npos);
   CHECK(string_utils::findFirstNotOf(std::span<const char>{}, 'a', 0) == npos);
-  CHECK(string_utils::findLastNotOf(nullptr, 0, nullptr, npos, 0) == npos);
+  CHECK(string_utils::findLastNotOf(std::span<const char>{}, std::span<const char>{}, npos) == npos);
 
   // A null pattern or set with a zero count, searched for in a non-empty range.
   CHECK(string_utils::find(repeatedRange, std::span<const char>{}, 4) == 4);
-  CHECK(string_utils::findFirstOf(repeated, repeatedLength, nullptr, 0, 0) == npos);
-  CHECK(string_utils::findFirstNotOf(repeated, repeatedLength, nullptr, 2, 0) == 2);
-  CHECK(string_utils::findLastNotOf(repeated, repeatedLength, nullptr, npos, 0) == repeatedLength - 1);
+  CHECK(string_utils::findFirstOf(repeatedRange, std::span<const char>{}, 0) == npos);
+  CHECK(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 2) == 2);
+  CHECK(string_utils::findLastNotOf(repeatedRange, std::span<const char>{}, npos) == repeatedLength - 1);
 
   static_assert(string_utils::find(std::span<const char>{}, std::span<const char>{}, 0) == 0,
                 "an empty pattern matches at the start of an empty range");
   static_assert(string_utils::rfind(std::span<const char>{}, 'a', npos) == npos, "an empty range holds no character");
-  static_assert(string_utils::findFirstNotOf(repeated, repeatedLength, nullptr, 2, 0) == 2,
+  static_assert(string_utils::findFirstNotOf(repeatedRange, std::span<const char>{}, 2) == 2,
                 "a null set with a zero count excludes nothing");
 }
 
