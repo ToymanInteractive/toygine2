@@ -82,13 +82,14 @@ void mGBAWriteToDebugLog(const char * text, std::size_t length) noexcept {
 }
 
 // The seam carries the line's second destination; a wider line is cut, so the summary stays on screen.
-void writeLine(const char * text, std::size_t length, const void * writerData) noexcept {
-  const auto count = std::min(length, c_consoleWidth);
+void writeLine(std::span<const char> text, const void * writerData) noexcept {
+  const auto count = std::min(text.size(), c_consoleWidth);
 
-  printf("%.*s", static_cast<int>(count), text);
+  printf("%.*s", static_cast<int>(count), text.data());
 
   if (const bool mGBADetected = *static_cast<const bool *>(writerData); mGBADetected)
-    mGBAWriteToDebugLog(text, length);
+    // The emulator debug channel is a C API: it keeps the pointer and the length apart.
+    mGBAWriteToDebugLog(text.data(), text.size());
 }
 
 } // namespace

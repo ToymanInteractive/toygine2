@@ -81,7 +81,7 @@ inline void ReportWriter::flush() noexcept {
   _buffer[_length] = '\n';
   ++_length;
 
-  _write(_buffer, _length, _writerData);
+  _write(std::span<const char>{_buffer, _length}, _writerData);
 
   _length = 0;
 }

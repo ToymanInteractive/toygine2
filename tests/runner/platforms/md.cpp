@@ -31,9 +31,9 @@
 namespace {
 
 // Caller data the debug port ignores; bytes go one at a time since the text has no terminator, nothing is cut.
-void writeToDebugPort(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
+void writeToDebugPort(std::span<const char> text, [[maybe_unused]] const void * writerData) noexcept {
   // The port ends a line on a null byte, so a raw newline would print as a character and join every line into one.
-  for (std::size_t index = 0; index < length; ++index)
+  for (std::size_t index = 0; index < text.size(); ++index)
     ClownMDSDK::MainCPU::Debug::Print(text[index] == '\n' ? '\0' : text[index]);
 }
 

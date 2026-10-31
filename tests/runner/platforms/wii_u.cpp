@@ -39,11 +39,11 @@ namespace {
 constexpr std::size_t c_consoleWidth = 80;
 
 // Caller data the log console ignores; one call is one entry, so the newline goes and a wide line is cut.
-void writeToLog(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
-  const auto lineLength = (length != 0 && text[length - 1] == '\n') ? length - 1 : length;
+void writeToLog(std::span<const char> text, [[maybe_unused]] const void * writerData) noexcept {
+  const auto lineLength = (text.size() != 0 && text[text.size() - 1] == '\n') ? text.size() - 1 : text.size();
   const auto count      = std::min(lineLength, c_consoleWidth);
 
-  WHBLogPrintf("%.*s", static_cast<int>(count), text);
+  WHBLogPrintf("%.*s", static_cast<int>(count), text.data());
 }
 
 } // namespace
