@@ -49,10 +49,10 @@ constexpr int compareNames(const char * lhs, const char * rhs) noexcept {
   return left > right ? 1 : 0;
 }
 
-constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_t offset, const char * text) noexcept {
-  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+constexpr std::size_t appendText(std::span<char> buffer, std::size_t offset, const char * text) noexcept {
+  TOY_TEST_ASSERT(offset <= buffer.size(), "offset must not exceed the buffer size");
 
-  while (*text != '\0' && offset < capacity) {
+  while (*text != '\0' && offset < buffer.size()) {
     buffer[offset] = *text;
     ++offset;
     ++text;
@@ -61,14 +61,13 @@ constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_
   return offset;
 }
 
-constexpr std::size_t appendEscaped(char * buffer, std::size_t capacity, std::size_t offset,
-                                    const char * text) noexcept {
-  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+constexpr std::size_t appendEscaped(std::span<char> buffer, std::size_t offset, const char * text) noexcept {
+  TOY_TEST_ASSERT(offset <= buffer.size(), "offset must not exceed the buffer size");
 
-  while (*text != '\0' && offset < capacity) {
+  while (*text != '\0' && offset < buffer.size()) {
     if (*text == '#' || *text == '\\') {
       // The pair goes in whole or not at all: a line ending in a lone backslash would escape its own line break.
-      if (offset + 1 >= capacity)
+      if (offset + 1 >= buffer.size())
         break;
 
       buffer[offset] = '\\';
@@ -83,12 +82,11 @@ constexpr std::size_t appendEscaped(char * buffer, std::size_t capacity, std::si
   return offset;
 }
 
-constexpr std::size_t appendQuoted(char * buffer, std::size_t capacity, std::size_t offset,
-                                   const char * text) noexcept {
-  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+constexpr std::size_t appendQuoted(std::span<char> buffer, std::size_t offset, const char * text) noexcept {
+  TOY_TEST_ASSERT(offset <= buffer.size(), "offset must not exceed the buffer size");
 
   // A scalar is two quotes at the very least; anything shorter would leave the block with an unterminated one.
-  if (capacity - offset < 2)
+  if (buffer.size() - offset < 2)
     return offset;
 
   buffer[offset] = '\'';
@@ -98,7 +96,7 @@ constexpr std::size_t appendQuoted(char * buffer, std::size_t capacity, std::siz
     const std::size_t width = *text == '\'' ? 2 : 1;
 
     // The closing quote owns the last byte, and a doubled apostrophe never splits across it.
-    if (offset + width >= capacity)
+    if (offset + width >= buffer.size())
       break;
 
     if (width == 2) {
@@ -117,8 +115,8 @@ constexpr std::size_t appendQuoted(char * buffer, std::size_t capacity, std::siz
   return offset;
 }
 
-constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset, long long value) noexcept {
-  TOY_TEST_ASSERT(offset <= capacity, "offset must not exceed the buffer capacity");
+constexpr std::size_t appendInteger(std::span<char> buffer, std::size_t offset, long long value) noexcept {
+  TOY_TEST_ASSERT(offset <= buffer.size(), "offset must not exceed the buffer size");
 
   // Taking the magnitude in unsigned arithmetic keeps the most negative value representable.
   unsigned long long magnitude = value < 0 ? 0ULL - static_cast<unsigned long long>(value)
@@ -133,12 +131,12 @@ constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::si
     magnitude /= 10ULL;
   } while (magnitude != 0ULL);
 
-  if (value < 0 && offset < capacity) {
+  if (value < 0 && offset < buffer.size()) {
     buffer[offset] = '-';
     ++offset;
   }
 
-  while (digitCount > 0 && offset < capacity) {
+  while (digitCount > 0 && offset < buffer.size()) {
     --digitCount;
     buffer[offset] = digits[digitCount];
     ++offset;

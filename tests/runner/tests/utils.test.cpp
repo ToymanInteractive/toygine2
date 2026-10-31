@@ -41,7 +41,7 @@ struct AppendResult final {
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendTextInto(const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendText(result.buffer.data(), Capacity, 0, text);
+  result.written = toy::test::detail::appendText(std::span<char>{result.buffer}.first(Capacity), 0, text);
 
   return result;
 }
@@ -49,7 +49,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendIntegerInto(long long value) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendInteger(result.buffer.data(), Capacity, 0, value);
+  result.written = toy::test::detail::appendInteger(std::span<char>{result.buffer}.first(Capacity), 0, value);
 
   return result;
 }
@@ -57,7 +57,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendEscapedInto(const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendEscaped(result.buffer.data(), Capacity, 0, text);
+  result.written = toy::test::detail::appendEscaped(std::span<char>{result.buffer}.first(Capacity), 0, text);
 
   return result;
 }
@@ -65,7 +65,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendQuotedInto(const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendQuoted(result.buffer.data(), Capacity, 0, text);
+  result.written = toy::test::detail::appendQuoted(std::span<char>{result.buffer}.first(Capacity), 0, text);
 
   return result;
 }
@@ -74,7 +74,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendTextAt(std::size_t offset, const char * text) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendText(result.buffer.data(), Capacity, offset, text);
+  result.written = toy::test::detail::appendText(std::span<char>{result.buffer}.first(Capacity), offset, text);
 
   return result;
 }
@@ -82,7 +82,7 @@ template <std::size_t Capacity>
 template <std::size_t Capacity>
 [[nodiscard]] constexpr AppendResult<Capacity> appendIntegerAt(std::size_t offset, long long value) noexcept {
   AppendResult<Capacity> result{};
-  result.written = toy::test::detail::appendInteger(result.buffer.data(), Capacity, offset, value);
+  result.written = toy::test::detail::appendInteger(std::span<char>{result.buffer}.first(Capacity), offset, value);
 
   return result;
 }
@@ -130,7 +130,7 @@ TEST_CASE("test::detail/compare_names/compares_bytes_as_unsigned") {
 // appendText copies until the terminator and returns the new offset.
 TEST_CASE("test::detail/append_text/copies_and_advances_offset") {
   char              buffer[8] = {};
-  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "ok");
+  const std::size_t written   = toy::test::detail::appendText(buffer, 0, "ok");
 
   REQUIRE(written == 2);
   REQUIRE(buffer[0] == 'o');
@@ -145,7 +145,7 @@ TEST_CASE("test::detail/append_text/copies_and_advances_offset") {
 // appendText stops at capacity instead of running past the buffer.
 TEST_CASE("test::detail/append_text/truncates_at_capacity") {
   char              buffer[3] = {};
-  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), 0, "abcdef");
+  const std::size_t written   = toy::test::detail::appendText(buffer, 0, "abcdef");
 
   REQUIRE(written == 3);
   REQUIRE(buffer[2] == 'c');
@@ -158,7 +158,7 @@ TEST_CASE("test::detail/append_text/truncates_at_capacity") {
 // A buffer already at capacity takes nothing, and the offset comes back unchanged.
 TEST_CASE("test::detail/append_text/writes_nothing_at_a_full_buffer") {
   char              buffer[4] = {};
-  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), sizeof(buffer), "abc");
+  const std::size_t written   = toy::test::detail::appendText(buffer, sizeof(buffer), "abc");
 
   REQUIRE(written == sizeof(buffer));
   REQUIRE(buffer[0] == '\0');
@@ -171,7 +171,7 @@ TEST_CASE("test::detail/append_text/writes_nothing_at_a_full_buffer") {
 // appendEscaped passes ordinary bytes through and prefixes the two TAP reads as syntax.
 TEST_CASE("test::detail/append_escaped/escapes_hash_and_backslash") {
   char              buffer[16] = {};
-  const std::size_t written    = toy::test::detail::appendEscaped(buffer, sizeof(buffer), 0, "a#b\\c");
+  const std::size_t written    = toy::test::detail::appendEscaped(buffer, 0, "a#b\\c");
 
   REQUIRE(written == 7);
   REQUIRE(buffer[1] == '\\');
@@ -200,7 +200,7 @@ TEST_CASE("test::detail/append_escaped/never_splits_an_escape_pair") {
 // appendQuoted wraps the text in the quotes YAML needs and doubles the one byte that closes them early.
 TEST_CASE("test::detail/append_quoted/wraps_text_and_doubles_the_apostrophe") {
   char              buffer[16] = {};
-  const std::size_t written    = toy::test::detail::appendQuoted(buffer, sizeof(buffer), 0, "a'b");
+  const std::size_t written    = toy::test::detail::appendQuoted(buffer, 0, "a'b");
 
   REQUIRE(written == 6);
   REQUIRE(buffer[0] == '\'');
@@ -240,7 +240,7 @@ TEST_CASE("test::detail/append_quoted/writes_nothing_without_room_for_both_quote
 // appendInteger writes the decimal digits in order, most significant first.
 TEST_CASE("test::detail/append_integer/writes_decimal_digits") {
   char              buffer[8] = {};
-  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 1024);
+  const std::size_t written   = toy::test::detail::appendInteger(buffer, 0, 1024);
 
   REQUIRE(written == 4);
   REQUIRE(buffer[0] == '1');
@@ -255,7 +255,7 @@ TEST_CASE("test::detail/append_integer/writes_decimal_digits") {
 // Zero is one digit, not an empty string.
 TEST_CASE("test::detail/append_integer/writes_zero_as_single_digit") {
   char              buffer[4] = {};
-  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, 0);
+  const std::size_t written   = toy::test::detail::appendInteger(buffer, 0, 0);
 
   REQUIRE(written == 1);
   REQUIRE(buffer[0] == '0');
@@ -268,7 +268,7 @@ TEST_CASE("test::detail/append_integer/writes_zero_as_single_digit") {
 // The most negative value has no positive counterpart, so the magnitude is taken in unsigned arithmetic.
 TEST_CASE("test::detail/append_integer/writes_most_negative_value") {
   char              buffer[24] = {};
-  const std::size_t written = toy::test::detail::appendInteger(buffer, sizeof(buffer), 0, -9223372036854775807LL - 1LL);
+  const std::size_t written    = toy::test::detail::appendInteger(buffer, 0, -9223372036854775807LL - 1LL);
 
   REQUIRE(written == 20);
   REQUIRE(buffer[0] == '-');
@@ -284,7 +284,7 @@ TEST_CASE("test::detail/append_integer/writes_most_negative_value") {
 // A buffer already at capacity takes no digits, not even a sign.
 TEST_CASE("test::detail/append_integer/writes_nothing_at_a_full_buffer") {
   char              buffer[4] = {};
-  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), sizeof(buffer), -42);
+  const std::size_t written   = toy::test::detail::appendInteger(buffer, sizeof(buffer), -42);
 
   REQUIRE(written == sizeof(buffer));
   REQUIRE(buffer[0] == '\0');
