@@ -29,7 +29,7 @@ namespace toy {
 
 namespace {
 
-// A null pointer that names bytes or units, which a span cannot be built from by literal.
+// A null pointer naming bytes or units, which no literal turns into a span.
 constexpr const char *     nullUtf8  = nullptr;
 constexpr const char16_t * nullUtf16 = nullptr;
 constexpr char *           nullBytes = nullptr;

@@ -116,7 +116,7 @@ TEST_CASE("string_utils/find/first_sequence_at_or_after_offset") {
   CHECK(string_utils::find(repeatedRange, asRange(""), repeatedLength) == repeatedLength);
   CHECK(string_utils::find(repeatedRange, asRange(""), repeatedLength + 1) == npos);
 
-  // The pattern's own length bounds how much of it is read.
+  // The pattern's own length bounds how much of it the search reads.
   CHECK(string_utils::find(repeatedRange, asRange("abrasive").first(4), 0) == 0);
   CHECK(string_utils::find(repeatedRange, asRange("abrasive").first(4), 1) == 7);
 
@@ -196,7 +196,7 @@ TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
   CHECK(string_utils::rfind(repeatedRange, asRange(""), repeatedLength + 1) == repeatedLength);
   CHECK(string_utils::rfind(repeatedRange, asRange(""), npos) == repeatedLength);
 
-  // The pattern's own length bounds how much of it is read.
+  // The pattern's own length bounds how much of it the search reads.
   CHECK(string_utils::rfind(repeatedRange, asRange("abrasive").first(4), npos) == 7);
 
   // A pattern the size of the range leaves one candidate, which any of its three parts can reject.

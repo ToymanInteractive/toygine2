@@ -185,8 +185,8 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
 /*!
   \brief Reports whether \a str holds well-formed UTF-8.
 
-  Runs the checks of toy::validateUtf8(const char *) over a range whose length the span carries instead of a
-  terminator. No byte past the range is read, and a \c '\\0' inside it counts as a one-byte character.
+  Runs the checks of toy::validateUtf8(const char *) over a range bounded by the span's length, not by a terminator.
+  Reads no byte past the range, and a \c '\\0' inside it counts as a one-byte character.
 
   \param str Range of bytes to check.
 
@@ -224,8 +224,8 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
 /*!
   \brief Reports whether \a str holds well-formed UTF-16.
 
-  Runs the checks of toy::validateUtf16(const char16_t *) over a range whose length the span carries instead of a
-  terminator. No unit past the range is read, and a \c u'\\0' inside it counts as a one-unit character.
+  Runs the checks of toy::validateUtf16(const char16_t *) over a range bounded by the span's length, not by a
+  terminator. Reads no unit past the range, and a \c u'\\0' inside it counts as a one-unit character.
 
   \param str Range of code units to check.
 
