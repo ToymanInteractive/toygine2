@@ -228,25 +228,25 @@ constexpr size_t findLastNotOf(std::span<const char> data, std::span<const char>
   return npos;
 }
 
-constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t rhsSize) noexcept {
-  assert_message(lhs != nullptr || lhsSize == 0, "a null pointer names no characters to compare");
-  assert_message(rhs != nullptr || rhsSize == 0, "a null pointer names no characters to compare with");
+constexpr int compare(std::span<const char> lhs, std::span<const char> rhs) noexcept {
+  assert_message(lhs.data() != nullptr || lhs.empty(), "a null pointer names no characters to compare");
+  assert_message(rhs.data() != nullptr || rhs.empty(), "a null pointer names no characters to compare with");
 
   // memcmp behind std::char_traits::compare takes no null pointer, even for an empty range.
-  const size_t common = std::min(lhsSize, rhsSize);
-  if (const int result = common != 0 ? traits_type::compare(lhs, rhs, common) : 0; result != 0)
+  const size_t common = std::min(lhs.size(), rhs.size());
+  if (const int result = common != 0 ? traits_type::compare(lhs.data(), rhs.data(), common) : 0; result != 0)
     return result;
 
-  return lhsSize == rhsSize ? 0 : (lhsSize < rhsSize ? -1 : 1);
+  return lhs.size() == rhs.size() ? 0 : (lhs.size() < rhs.size() ? -1 : 1);
 }
 
-constexpr size_t utf8Size(const char * data, size_t size) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to count");
+constexpr size_t utf8Size(std::span<const char> data) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to count");
   if !consteval {
-    assert_message(validateUtf8(data, size), "the counted bytes must hold well-formed UTF-8");
+    assert_message(validateUtf8(data.data(), data.size()), "the counted bytes must hold well-formed UTF-8");
   }
 
-  return static_cast<size_t>(std::count_if(data, data + size, [](char byte) {
+  return static_cast<size_t>(std::count_if(data.begin(), data.end(), [](char byte) {
     return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
   }));
 }

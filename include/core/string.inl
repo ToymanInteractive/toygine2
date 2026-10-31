@@ -373,7 +373,7 @@ constexpr String<storageType>::size_type String<storageType>::max_size() const n
 
 template <StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::utf8_size() const noexcept {
-  return string_utils::utf8Size(data(), size());
+  return string_utils::utf8Size(std::span<const char>{data(), size()});
 }
 
 template <StringStorage storageType>
@@ -998,7 +998,8 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
 
   const size_type offset = std::min(pos1, size());
 
-  return string_utils::compare(data() + offset, std::min(count1, size() - offset), string, count2);
+  return string_utils::compare(std::span<const char>{data() + offset, std::min(count1, size() - offset)},
+                               std::span<const char>{string, count2});
 }
 
 template <StringStorage storageType>

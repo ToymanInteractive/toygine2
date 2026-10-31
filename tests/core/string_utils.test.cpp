@@ -34,7 +34,6 @@ constexpr const char * repeated               = "abracadabra";
 constexpr size_t       repeatedLength         = std::char_traits<char>::length(repeated);
 // The same literal with more after it, longer than the range the first one spans.
 constexpr const char * repeatedLonger         = "abracadabra and then some";
-constexpr size_t       repeatedLongerLength   = std::char_traits<char>::length(repeatedLonger);
 // The same literal with its last character replaced, which only a comparison reading to the end can reject.
 constexpr const char * repeatedLastDiffers    = "abracadabrx";
 // The same again, differing in its first character and in one byte of its middle.
@@ -482,98 +481,101 @@ TEST_CASE("string_utils/utf8_size/counts_characters_in_range") {
   constexpr const char * cyrillic       = "привет";
   constexpr size_t       cyrillicLength = std::char_traits<char>::length(cyrillic);
 
-  CHECK(string_utils::utf8Size(repeated, repeatedLength) == repeatedLength);
-  CHECK(string_utils::utf8Size(cyrillic, cyrillicLength) == cyrillicLength / 2);
-  CHECK(string_utils::utf8Size(cyrillic, 4) == 2);
-  CHECK(string_utils::utf8Size(nullptr, 0) == 0);
+  CHECK(string_utils::utf8Size(repeatedRange) == repeatedLength);
+  CHECK(string_utils::utf8Size(asRange(cyrillic)) == cyrillicLength / 2);
+  CHECK(string_utils::utf8Size(asRange(cyrillic).first(4)) == 2);
+  CHECK(string_utils::utf8Size(std::span<const char>{}) == 0);
 
   // A null byte inside the range is a character of its own, not an end.
-  CHECK(string_utils::utf8Size(embeddedNull, std::size(embeddedNull)) == std::size(embeddedNull));
+  CHECK(string_utils::utf8Size(embeddedNullRange) == std::size(embeddedNull));
 
-  static_assert(string_utils::utf8Size(repeated, repeatedLength) == repeatedLength,
-                "an ASCII range counts one per byte");
-  static_assert(string_utils::utf8Size(cyrillic, cyrillicLength) == cyrillicLength / 2,
-                "a two-byte character counts once");
-  static_assert(string_utils::utf8Size(cyrillic, 4) == 2, "only the bytes the size names must count");
-  static_assert(string_utils::utf8Size(nullptr, 0) == 0, "an empty range must count nothing");
-  static_assert(string_utils::utf8Size(embeddedNull, std::size(embeddedNull)) == std::size(embeddedNull),
+  static_assert(string_utils::utf8Size(repeatedRange) == repeatedLength, "an ASCII range counts one per byte");
+  static_assert(string_utils::utf8Size(asRange(cyrillic)) == cyrillicLength / 2, "a two-byte character counts once");
+  static_assert(string_utils::utf8Size(asRange(cyrillic).first(4)) == 2, "only the bytes the range names must count");
+  static_assert(string_utils::utf8Size(std::span<const char>{}) == 0, "an empty range must count nothing");
+  static_assert(string_utils::utf8Size(embeddedNullRange) == std::size(embeddedNull),
                 "a null byte inside the range must count as a character");
-  static_assert(string_utils::utf8Size(unterminated, std::size(unterminated)) == std::size(unterminated),
+  static_assert(string_utils::utf8Size(unterminatedRange) == std::size(unterminated),
                 "the count must stop at the end of the range");
 }
 
 // Two ranges holding the same characters compare equal, whichever buffers hold them.
 TEST_CASE("string_utils/compare/equal_ranges") {
-  CHECK(string_utils::compare(repeated, repeatedLength, repeated, repeatedLength) == 0);
-  CHECK(string_utils::compare(repeated, repeatedLength, unterminated, std::size(unterminated)) == 0);
+  CHECK(string_utils::compare(repeatedRange, repeatedRange) == 0);
+  CHECK(string_utils::compare(repeatedRange, unterminatedRange) == 0);
 
   // Two empty ranges compare equal, a null pointer with a zero length among them.
-  CHECK(string_utils::compare(repeated, 0, "", 0) == 0);
-  CHECK(string_utils::compare(nullptr, 0, nullptr, 0) == 0);
+  CHECK(string_utils::compare(repeatedRange.first(0), asRange("")) == 0);
+  CHECK(string_utils::compare(std::span<const char>{}, std::span<const char>{}) == 0);
 
-  static_assert(string_utils::compare(repeated, repeatedLength, unterminated, std::size(unterminated)) == 0,
+  static_assert(string_utils::compare(repeatedRange, unterminatedRange) == 0,
                 "the same characters in another buffer must compare equal");
-  static_assert(string_utils::compare(nullptr, 0, nullptr, 0) == 0, "two empty ranges must compare equal");
+  static_assert(string_utils::compare(std::span<const char>{}, std::span<const char>{}) == 0,
+                "two empty ranges must compare equal");
 }
 
 // The first differing character decides the order, whatever the lengths, and swapping the ranges flips it.
 TEST_CASE("string_utils/compare/first_difference_decides") {
-  CHECK(string_utils::compare(repeated, repeatedLength, repeatedFirstDiffers, repeatedLength) < 0);
-  CHECK(string_utils::compare(repeatedFirstDiffers, repeatedLength, repeated, repeatedLength) > 0);
-  CHECK(string_utils::compare(repeated, repeatedLength, repeatedMiddleDiffers, repeatedLength) > 0);
-  CHECK(string_utils::compare(repeated, repeatedLength, repeatedLastDiffers, repeatedLength) < 0);
+  CHECK(string_utils::compare(repeatedRange, repeatedFirstDiffersRange) < 0);
+  CHECK(string_utils::compare(repeatedFirstDiffersRange, repeatedRange) > 0);
+  CHECK(string_utils::compare(repeatedRange, repeatedMiddleDiffersRange) > 0);
+  CHECK(string_utils::compare(repeatedRange, repeatedLastDiffersRange) < 0);
 
   // A difference in the first character outweighs a shorter length.
-  CHECK(string_utils::compare("b", 1, repeated, repeatedLength) > 0);
+  CHECK(string_utils::compare(asRange("b"), repeatedRange) > 0);
 
   // Bytes order as unsigned char, so a byte above the ASCII range follows an ASCII one.
-  CHECK(string_utils::compare(highByteInside + 1, 1, highByteInside, 1) > 0);
+  CHECK(string_utils::compare(std::span<const char>{highByteInside + 1, 1}, std::span<const char>{highByteInside, 1})
+        > 0);
 
-  static_assert(string_utils::compare(repeated, repeatedLength, repeatedFirstDiffers, repeatedLength) < 0,
+  static_assert(string_utils::compare(repeatedRange, repeatedFirstDiffersRange) < 0,
                 "a smaller first character must order first");
-  static_assert(string_utils::compare(repeatedFirstDiffers, repeatedLength, repeated, repeatedLength) > 0,
+  static_assert(string_utils::compare(repeatedFirstDiffersRange, repeatedRange) > 0,
                 "swapping the ranges must flip the order");
-  static_assert(string_utils::compare(repeated, repeatedLength, repeatedLastDiffers, repeatedLength) < 0,
+  static_assert(string_utils::compare(repeatedRange, repeatedLastDiffersRange) < 0,
                 "a difference in the last character must still decide");
-  static_assert(string_utils::compare("b", 1, repeated, repeatedLength) > 0,
+  static_assert(string_utils::compare(asRange("b"), repeatedRange) > 0,
                 "the first difference must outweigh the lengths");
-  static_assert(string_utils::compare(highByteInside + 1, 1, highByteInside, 1) > 0,
+  static_assert(string_utils::compare(std::span<const char>{highByteInside + 1, 1},
+                                      std::span<const char>{highByteInside, 1})
+                  > 0,
                 "a high byte must order after an ASCII one");
 }
 
 // When one range is a prefix of the other, the shorter one orders first.
 TEST_CASE("string_utils/compare/shorter_prefix_orders_first") {
-  CHECK(string_utils::compare(repeated, repeatedLength, repeatedLonger, repeatedLongerLength) < 0);
-  CHECK(string_utils::compare(repeatedLonger, repeatedLongerLength, repeated, repeatedLength) > 0);
-  CHECK(string_utils::compare(repeated, leadingLength, repeated, repeatedLength) < 0);
+  CHECK(string_utils::compare(repeatedRange, repeatedLongerRange) < 0);
+  CHECK(string_utils::compare(repeatedLongerRange, repeatedRange) > 0);
+  CHECK(string_utils::compare(repeatedRange.first(leadingLength), repeatedRange) < 0);
 
   // An empty range is a prefix of every other one.
-  CHECK(string_utils::compare(nullptr, 0, repeated, repeatedLength) < 0);
-  CHECK(string_utils::compare(repeated, repeatedLength, "", 0) > 0);
+  CHECK(string_utils::compare(std::span<const char>{}, repeatedRange) < 0);
+  CHECK(string_utils::compare(repeatedRange, asRange("")) > 0);
 
-  static_assert(string_utils::compare(repeated, repeatedLength, repeatedLonger, repeatedLongerLength) < 0,
+  static_assert(string_utils::compare(repeatedRange, repeatedLongerRange) < 0,
                 "a prefix must order before the longer range");
-  static_assert(string_utils::compare(repeatedLonger, repeatedLongerLength, repeated, repeatedLength) > 0,
+  static_assert(string_utils::compare(repeatedLongerRange, repeatedRange) > 0,
                 "the longer range must order after its prefix");
-  static_assert(string_utils::compare(nullptr, 0, repeated, repeatedLength) < 0, "an empty range must order first");
+  static_assert(string_utils::compare(std::span<const char>{}, repeatedRange) < 0, "an empty range must order first");
 }
 
 // What a comparison sees of its ranges: the counted characters only, a null byte among them included.
 TEST_CASE("string_utils/compare/reads_only_the_counted_ranges") {
   // The lengths cut both literals before they part, so the parts compare equal.
-  CHECK(string_utils::compare(repeated, leadingLength, repeatedLastDiffers, leadingLength) == 0);
+  CHECK(string_utils::compare(repeatedRange.first(leadingLength), repeatedLastDiffersRange.first(leadingLength)) == 0);
 
   // A null byte compares as a character ordering before any letter, where a terminator scan would stop.
-  CHECK(string_utils::compare(embeddedNull, std::size(embeddedNull), "pl", 2) > 0);
-  CHECK(string_utils::compare(embeddedNull, std::size(embeddedNull), "pla", 3) < 0);
+  CHECK(string_utils::compare(embeddedNullRange, asRange("pl")) > 0);
+  CHECK(string_utils::compare(embeddedNullRange, asRange("pla")) < 0);
 
-  static_assert(string_utils::compare(repeated, leadingLength, repeatedLastDiffers, leadingLength) == 0,
+  static_assert(string_utils::compare(repeatedRange.first(leadingLength), repeatedLastDiffersRange.first(leadingLength))
+                  == 0,
                 "characters past the lengths must not take part");
-  static_assert(string_utils::compare(embeddedNull, std::size(embeddedNull), "pla", 3) < 0,
+  static_assert(string_utils::compare(embeddedNullRange, asRange("pla")) < 0,
                 "a null byte must compare as a character");
 
   // Constant evaluation rejects a read past the array, so the comparison stays inside both ranges.
-  static_assert(string_utils::compare(unterminated, std::size(unterminated), repeatedLonger, repeatedLongerLength) < 0,
+  static_assert(string_utils::compare(unterminatedRange, repeatedLongerRange) < 0,
                 "the comparison must stop at the end of the shorter range");
 }
 

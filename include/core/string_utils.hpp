@@ -224,52 +224,47 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
                                              size_t pos) noexcept;
 
 /*!
-  \brief Compares the \a lhsSize bytes starting at \a lhs with the \a rhsSize bytes starting at \a rhs in lexicographic
-         order.
+  \brief Compares \a lhs with \a rhs in lexicographic order.
 
   Compares bytes as \c unsigned \c char up to the shorter length; when one range is a prefix of the other, the shorter
   one orders first. A \c '\\0' inside either range compares like any other byte.
 
-  \param lhs     First byte of the left range.
-  \param lhsSize Number of bytes in the left range.
-  \param rhs     First byte of the right range.
-  \param rhsSize Number of bytes in the right range.
+  \param lhs Left range.
+  \param rhs Right range.
 
   \return A negative value when the left range orders first, \c 0 when both hold the same characters, a positive value
           when the right range orders first.
 
-  \pre \a lhs is non-null or \a lhsSize is \c 0, checked by assert_message in debug builds.
-  \pre The \a lhsSize bytes starting at \a lhs are readable.
-  \pre \a rhs is non-null or \a rhsSize is \c 0, checked by assert_message in debug builds.
-  \pre The \a rhsSize bytes starting at \a rhs are readable.
+  \pre Every character of \a lhs and of \a rhs is readable.
+  \pre A null \a lhs or \a rhs comes with an empty range, checked by assert_message in debug builds.
 
   \note Only the sign carries meaning; the magnitude is whatever the byte comparison produced.
 
-  \sa toy::string_utils::find(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::find(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr int compare(const char * lhs, size_t lhsSize, const char * rhs, size_t rhsSize) noexcept;
+[[nodiscard]] constexpr int compare(std::span<const char> lhs, std::span<const char> rhs) noexcept;
 
 /*!
-  \brief Counts the characters the \a size bytes starting at \a data encode in UTF-8.
+  \brief Counts the characters \a data encodes in UTF-8.
 
   Counts the bytes outside the 10xxxxxx continuation form, so a character counts once whatever width it is stored in.
-  Reads exactly \a size bytes, so it needs no terminator and counts a \c '\\0' inside the range as a character.
+  Reads the whole of \a data, so it needs no terminator and counts a \c '\\0' inside the range as a character.
 
-  \param data First byte of the range.
-  \param size Number of bytes in the range.
+  \param data Range to count.
 
   \return Count of encoded characters, \c 0 for an empty range.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data hold well-formed UTF-8, checked with toy::validateUtf8(const char *,
-  size_t) by assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
-       that check and count every byte outside the continuation form, a stray lead byte included.
+  \pre Every character of \a data is readable.
+  \pre A null \a data comes with an empty range, checked by assert_message in debug builds.
+  \pre \a data holds well-formed UTF-8, checked with toy::validateUtf8(const char *, size_t) by assert_message in
+       debug builds outside constant evaluation. A shipping build and a constant expression skip that check and count
+       every byte outside the continuation form, a stray lead byte included.
 
-  \note The count matches \a size only where every character is ASCII.
+  \note The count matches the range length only where every character is ASCII.
 
-  \sa toy::string_utils::compare(const char *, size_t, const char *, size_t)
+  \sa toy::string_utils::compare(std::span<const char>, std::span<const char>)
 */
-[[nodiscard]] constexpr size_t utf8Size(const char * data, size_t size) noexcept;
+[[nodiscard]] constexpr size_t utf8Size(std::span<const char> data) noexcept;
 
 } // namespace toy::string_utils
 
