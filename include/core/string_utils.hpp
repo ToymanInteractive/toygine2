@@ -56,29 +56,24 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 [[nodiscard]] constexpr size_t find(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the first position at or after \a pos where the \a count bytes starting at \a pattern start.
+  \brief Finds the first position at or after \a pos where \a pattern starts.
 
-  Matches the bytes of \a pattern in order and next to each other; toy::string_utils::findFirstOf() matches any one of
-  them. Reads exactly \a count bytes of the pattern, so it needs no terminator and may hold \c '\\0'.
+  Matches the characters of \a pattern in order and next to each other; toy::string_utils::findFirstOf() matches any
+  one of them. Reads the whole of \a pattern, so it needs no terminator and may hold \c '\\0'.
 
-  \param data    First byte of the searched range.
-  \param size    Number of bytes in the searched range.
-  \param pattern First byte of the pattern.
+  \param data    Characters to search.
+  \param pattern Characters to look for, in order and next to each other.
   \param pos     Offset the search starts from.
-  \param count   Number of bytes in the pattern.
 
   \return Offset where the first match starts, or \ref toy::string_utils::npos when there is none. An empty pattern
-          matches at \a pos while \a pos is not greater than \a size.
+          matches at \a pos while \a pos is not greater than the range length.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
-  \pre \a pattern is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count bytes starting at \a pattern are readable.
+  \pre Every character of \a data and of \a pattern is readable.
+  \pre A null \a data or \a pattern comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::rfind(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::rfind(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr size_t find(const char * data, size_t size, const char * pattern, size_t pos,
-                                    size_t count) noexcept;
+[[nodiscard]] constexpr size_t find(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept;
 
 /*!
   \brief Finds the last occurrence of \a ch at or before \a pos.
@@ -97,29 +92,24 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 [[nodiscard]] constexpr size_t rfind(std::span<const char> data, char ch, size_t pos) noexcept;
 
 /*!
-  \brief Finds the last position at or before \a pos where the \a count bytes starting at \a pattern start.
+  \brief Finds the last position at or before \a pos where \a pattern starts.
 
-  Matches the bytes of \a pattern in order and next to each other; toy::string_utils::findLastOf() matches any one of
-  them. Reads exactly \a count bytes of the pattern, so it needs no terminator and may hold \c '\\0'.
+  Matches the characters of \a pattern in order and next to each other; toy::string_utils::findLastOf() matches any
+  one of them. Reads the whole of \a pattern, so it needs no terminator and may hold \c '\\0'.
 
-  \param data    First byte of the searched range.
-  \param size    Number of bytes in the searched range.
-  \param pattern First byte of the pattern.
+  \param data    Characters to search.
+  \param pattern Characters to look for, in order and next to each other.
   \param pos     Last offset a match may start at; any offset past the range covers all of it.
-  \param count   Number of bytes in the pattern.
 
   \return Offset where the last match starts, or \ref toy::string_utils::npos when there is none. An empty pattern
-          matches at the smaller of \a pos and \a size.
+          matches at the smaller of \a pos and the range length.
 
-  \pre \a data is non-null or \a size is \c 0, checked by assert_message in debug builds.
-  \pre The \a size bytes starting at \a data are readable.
-  \pre \a pattern is non-null or \a count is \c 0, checked by assert_message in debug builds.
-  \pre The \a count bytes starting at \a pattern are readable.
+  \pre Every character of \a data and of \a pattern is readable.
+  \pre A null \a data or \a pattern comes with an empty range, checked by assert_message in debug builds.
 
-  \sa toy::string_utils::find(const char *, size_t, const char *, size_t, size_t)
+  \sa toy::string_utils::find(std::span<const char>, std::span<const char>, size_t)
 */
-[[nodiscard]] constexpr size_t rfind(const char * data, size_t size, const char * pattern, size_t pos,
-                                     size_t count) noexcept;
+[[nodiscard]] constexpr size_t rfind(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept;
 
 /*!
   \brief Finds the first character at or after \a pos that belongs to the \a count bytes starting at \a set.

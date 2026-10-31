@@ -250,7 +250,7 @@ constexpr StringView::size_type StringView::find(value_type ch, size_type pos) c
 }
 
 constexpr StringView::size_type StringView::find(const value_type * s, size_type pos, size_type count) const noexcept {
-  return string_utils::find(data(), size(), s, pos, count);
+  return string_utils::find(std::span<const char>{data(), size()}, std::span<const char>{s, count}, pos);
 }
 
 constexpr StringView::size_type StringView::find(const value_type * s, size_type pos) const noexcept {
@@ -266,7 +266,7 @@ constexpr StringView::size_type StringView::rfind(value_type ch, size_type pos) 
 }
 
 constexpr StringView::size_type StringView::rfind(const value_type * s, size_type pos, size_type count) const noexcept {
-  return string_utils::rfind(data(), size(), s, pos, count);
+  return string_utils::rfind(std::span<const char>{data(), size()}, std::span<const char>{s, count}, pos);
 }
 
 constexpr StringView::size_type StringView::rfind(const value_type * s, size_type pos) const noexcept {

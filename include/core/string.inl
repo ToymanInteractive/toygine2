@@ -795,7 +795,7 @@ constexpr String<storageType>::size_type String<storageType>::find(const value_t
                                                                    size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::find(data(), size(), string, pos, count);
+  return string_utils::find(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>
@@ -823,7 +823,7 @@ constexpr String<storageType>::size_type String<storageType>::rfind(const value_
                                                                     size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
 
-  return string_utils::rfind(data(), size(), string, pos, count);
+  return string_utils::rfind(std::span<const char>{data(), size()}, std::span<const char>{string, count}, pos);
 }
 
 template <StringStorage storageType>

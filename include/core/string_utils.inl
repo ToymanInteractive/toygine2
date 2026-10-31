@@ -81,9 +81,12 @@ constexpr size_t find(std::span<const char> data, char ch, size_t pos) noexcept 
   return found != nullptr ? static_cast<size_t>(found - data.data()) : npos;
 }
 
-constexpr size_t find(const char * data, size_t size, const char * pattern, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(pattern != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t find(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(pattern.data() != nullptr || pattern.empty(), "a null pointer names no characters to search for");
+
+  const size_t size  = data.size();
+  const size_t count = pattern.size();
 
   if (count == 0)
     return pos <= size ? pos : npos;
@@ -93,14 +96,14 @@ constexpr size_t find(const char * data, size_t size, const char * pattern, size
   const size_t last = size - count;
   for (size_t index = pos; index <= last;) {
     // memchr at runtime: skips to the next position that can start a match instead of comparing at every one.
-    const char * candidate = traits_type::find(data + index, last - index + 1, pattern[0]);
+    const char * candidate = traits_type::find(data.data() + index, last - index + 1, pattern[0]);
     if (candidate == nullptr)
       return npos;
 
-    index = static_cast<size_t>(candidate - data);
+    index = static_cast<size_t>(candidate - data.data());
 
     // The first character matched already, so the comparison starts behind it.
-    if (traits_type::compare(candidate + 1, pattern + 1, count - 1) == 0)
+    if (traits_type::compare(candidate + 1, pattern.data() + 1, count - 1) == 0)
       return index;
 
     ++index;
@@ -119,9 +122,12 @@ constexpr size_t rfind(std::span<const char> data, char ch, size_t pos) noexcept
   return npos;
 }
 
-constexpr size_t rfind(const char * data, size_t size, const char * pattern, size_t pos, size_t count) noexcept {
-  assert_message(data != nullptr || size == 0, "a null pointer names no characters to search");
-  assert_message(pattern != nullptr || count == 0, "a null pointer names no characters to search for");
+constexpr size_t rfind(std::span<const char> data, std::span<const char> pattern, size_t pos) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
+  assert_message(pattern.data() != nullptr || pattern.empty(), "a null pointer names no characters to search for");
+
+  const size_t size  = data.size();
+  const size_t count = pattern.size();
 
   if (count == 0)
     return std::min(pos, size);
@@ -136,7 +142,7 @@ constexpr size_t rfind(const char * data, size_t size, const char * pattern, siz
       continue;
     if (count > 1 && !traits_type::eq(data[index + count - 1], pattern[count - 1]))
       continue;
-    if (count <= 2 || traits_type::compare(data + index + 1, pattern + 1, count - 2) == 0)
+    if (count <= 2 || traits_type::compare(data.data() + index + 1, pattern.data() + 1, count - 2) == 0)
       return index;
   }
 
