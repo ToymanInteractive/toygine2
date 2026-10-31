@@ -45,8 +45,8 @@ constexpr size_t utf16InUtf8MaxSize = 3;
   \brief Converts a range of UTF-8 bytes to a null-terminated UTF-16 string in a caller-supplied buffer.
 
   Decodes a sequence of one to three bytes into one \c char16_t unit and a four-byte sequence into a surrogate pair.
-  Only \a count bounds the input, so a \c '\\0' inside the range comes out as \c u'\\0' in \a dest. Allocates nothing;
-  the result is always null-terminated.
+  Only the length of \a src bounds the input, so a \c '\\0' inside the range comes out as \c u'\\0' in \a dest.
+  Allocates nothing; the result is always null-terminated.
 
   \param dest Buffer that receives the UTF-16 string; its size is the capacity, terminator included.
   \param src  UTF-8 bytes to convert; an empty range gives an empty result.
