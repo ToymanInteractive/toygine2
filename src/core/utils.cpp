@@ -368,16 +368,17 @@ bool validateUtf8(const char * str) noexcept {
   return true;
 }
 
-bool validateUtf8(const char * str, size_t size) noexcept {
-  if (str == nullptr)
-    return size == 0;
+bool validateUtf8(std::span<const char> str) noexcept {
+  if (str.data() == nullptr)
+    return str.empty();
 
-  for (const char * const end = str + size; str != end;) {
-    const auto symbolLength = wellFormedLength(str, static_cast<size_t>(end - str));
+  // The walk owns its cursor, so the range the caller passed stays whole for the next step.
+  for (const char *current = str.data(), * const end = current + str.size(); current != end;) {
+    const auto symbolLength = wellFormedLength(current, static_cast<size_t>(end - current));
     if (symbolLength == 0)
       return false;
 
-    str += symbolLength;
+    current += symbolLength;
   }
 
   return true;
@@ -399,16 +400,17 @@ bool validateUtf16(const char16_t * str) noexcept {
   return true;
 }
 
-bool validateUtf16(const char16_t * str, size_t size) noexcept {
-  if (str == nullptr)
-    return size == 0;
+bool validateUtf16(std::span<const char16_t> str) noexcept {
+  if (str.data() == nullptr)
+    return str.empty();
 
-  for (const char16_t * const end = str + size; str != end;) {
-    const auto symbolLength = wellFormedLength(str, static_cast<size_t>(end - str));
+  // The walk owns its cursor, so the range the caller passed stays whole for the next step.
+  for (const char16_t *current = str.data(), * const end = current + str.size(); current != end;) {
+    const auto symbolLength = wellFormedLength(current, static_cast<size_t>(end - current));
     if (symbolLength == 0)
       return false;
 
-    str += symbolLength;
+    current += symbolLength;
   }
 
   return true;

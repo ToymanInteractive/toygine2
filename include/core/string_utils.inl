@@ -243,7 +243,7 @@ constexpr int compare(std::span<const char> lhs, std::span<const char> rhs) noex
 constexpr size_t utf8Size(std::span<const char> data) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to count");
   if !consteval {
-    assert_message(validateUtf8(data.data(), data.size()), "the counted bytes must hold well-formed UTF-8");
+    assert_message(validateUtf8(data), "the counted bytes must hold well-formed UTF-8");
   }
 
   return static_cast<size_t>(std::count_if(data.begin(), data.end(), [](char byte) {

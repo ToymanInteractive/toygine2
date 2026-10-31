@@ -119,8 +119,8 @@ BENCHMARK_CASE("core/utils/validate_utf8") {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf8(text));
   });
 
-  bench.run("toy::validateUtf8(const char *, size_t)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf8(text, c_utf8Length));
+  bench.run("toy::validateUtf8(std::span<const char>)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::validateUtf8(std::span<const char>{text, c_utf8Length}));
   });
 }
 
@@ -134,7 +134,7 @@ BENCHMARK_CASE("core/utils/validate_utf16") {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf16(text));
   });
 
-  bench.run("toy::validateUtf16(const char16_t *, size_t)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf16(text, c_utf16Length));
+  bench.run("toy::validateUtf16(std::span<const char16_t>)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::validateUtf16(std::span<const char16_t>{text, c_utf16Length}));
   });
 }

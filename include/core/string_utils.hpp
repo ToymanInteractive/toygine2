@@ -256,7 +256,7 @@ inline constexpr size_t npos = static_cast<size_t>(-1);
 
   \pre Every character of \a data is readable.
   \pre A null \a data comes with an empty range, checked by assert_message in debug builds.
-  \pre \a data holds well-formed UTF-8, checked with toy::validateUtf8(const char *, size_t) by assert_message in
+  \pre \a data holds well-formed UTF-8, checked with toy::validateUtf8(std::span<const char>) by assert_message in
        debug builds outside constant evaluation. A shipping build and a constant expression skip that check and count
        every byte outside the continuation form, a stray lead byte included.
 

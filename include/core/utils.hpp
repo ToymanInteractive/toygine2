@@ -188,25 +188,24 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 [[nodiscard]] bool validateUtf8(const char * str) noexcept;
 
 /*!
-  \brief Reports whether the \a size bytes starting at \a str are well-formed UTF-8.
+  \brief Reports whether \a str holds well-formed UTF-8.
 
-  Runs the checks of toy::validateUtf8(const char *) over a range that \a size bounds instead of a terminator. No byte
-  past \a size is read, and a \c '\\0' inside the range counts as a one-byte character.
+  Runs the checks of toy::validateUtf8(const char *) over a range whose length the span carries instead of a
+  terminator. No byte past the range is read, and a \c '\\0' inside it counts as a one-byte character.
 
-  \param str  First byte of the range.
-  \param size Number of bytes in the range.
+  \param str Range of bytes to check.
 
   \return \c true when every sequence is well-formed and ends inside the range, \c false at the first that is not. An
-          empty range is well-formed, a null \a str included; a null \a str with a non-zero \a size gives \c false.
+          empty range is well-formed, a null \a str included; a null \a str with a non-empty range gives \c false.
 
-  \pre The \a size bytes starting at \a str are readable.
+  \pre Every byte of \a str is readable.
 
   \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
-  \note Cost is O(n) in \a size, one pass.
+  \note Cost is O(n) in the range length, one pass.
 
   \sa toy::validateUtf8(const char *)
 */
-[[nodiscard]] bool validateUtf8(const char * str, size_t size) noexcept;
+[[nodiscard]] bool validateUtf8(std::span<const char> str) noexcept;
 
 /*!
   \brief Reports whether a UTF-16 string is well-formed.
@@ -228,25 +227,24 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 [[nodiscard]] bool validateUtf16(const char16_t * str) noexcept;
 
 /*!
-  \brief Reports whether the \a size units starting at \a str are well-formed UTF-16.
+  \brief Reports whether \a str holds well-formed UTF-16.
 
-  Runs the checks of toy::validateUtf16(const char16_t *) over a range that \a size bounds instead of a terminator. No
-  unit past \a size is read, and a \c u'\\0' inside the range counts as a one-unit character.
+  Runs the checks of toy::validateUtf16(const char16_t *) over a range whose length the span carries instead of a
+  terminator. No unit past the range is read, and a \c u'\\0' inside it counts as a one-unit character.
 
-  \param str  First unit of the range.
-  \param size Number of units in the range.
+  \param str Range of code units to check.
 
   \return \c true when every surrogate is half of a pair inside the range, \c false at the first that is not. An empty
-          range is well-formed, a null \a str included; a null \a str with a non-zero \a size gives \c false.
+          range is well-formed, a null \a str included; a null \a str with a non-empty range gives \c false.
 
-  \pre The \a size units starting at \a str are readable.
+  \pre Every code unit of \a str is readable.
 
   \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
-  \note Cost is O(n) in \a size, one pass.
+  \note Cost is O(n) in the range length, one pass.
 
   \sa toy::validateUtf16(const char16_t *)
 */
-[[nodiscard]] bool validateUtf16(const char16_t * str, size_t size) noexcept;
+[[nodiscard]] bool validateUtf16(std::span<const char16_t> str) noexcept;
 
 } // namespace toy
 

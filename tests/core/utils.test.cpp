@@ -30,6 +30,20 @@ namespace toy {
 namespace {
 
 // Literals of one encoding width each, so an expected count derives from the byte length instead of a hand count.
+// A null pointer that names bytes or units, which a span cannot be built from by literal.
+constexpr const char *     nullUtf8  = nullptr;
+constexpr const char16_t * nullUtf16 = nullptr;
+
+// A UTF-8 string as a measured range, its terminator left out.
+constexpr std::span<const char> textRange(const char * text) noexcept {
+  return {text, std::char_traits<char>::length(text)};
+}
+
+// UTF-16 units as a measured range, the terminator code unit left out.
+constexpr std::span<const char16_t> unitsRange(const char16_t * units) noexcept {
+  return {units, std::char_traits<char16_t>::length(units)};
+}
+
 constexpr const char * ascii    = "player";
 constexpr const char * cyrillic = "привет";
 constexpr const char * cjk      = "日本語";
@@ -169,9 +183,9 @@ TEST_CASE("validate_utf8/accepts_well_formed_sequences") {
   CHECK(validateUtf8(""));
 
   // The counted form accepts the same strings, measured by their length.
-  CHECK(validateUtf8(mixed, std::char_traits<char>::length(mixed)));
-  CHECK(validateUtf8(highestCodePoint, std::size(highestCodePoint) - 1));
-  CHECK(validateUtf8(nullptr, 0));
+  CHECK(validateUtf8(textRange(mixed)));
+  CHECK(validateUtf8(std::span<const char>{highestCodePoint}.first(std::size(highestCodePoint) - 1)));
+  CHECK(validateUtf8(std::span<const char>{}));
 }
 
 // Which strings it rejects, among them the sequences a lead byte alone admits.
@@ -191,25 +205,25 @@ TEST_CASE("validate_utf8/rejects_ill_formed_sequences") {
   CHECK_FALSE(validateUtf8(aboveRange));
 
   // The counted form rejects the same sequences, and a null pointer that names bytes.
-  CHECK_FALSE(validateUtf8(continuationByte, 1));
-  CHECK_FALSE(validateUtf8(lonelyLead, std::size(lonelyLead) - 1));
-  CHECK_FALSE(validateUtf8(overlongSymbol, std::size(overlongSymbol) - 1));
-  CHECK_FALSE(validateUtf8(surrogateSymbol, std::size(surrogateSymbol) - 1));
-  CHECK_FALSE(validateUtf8(aboveRange, std::size(aboveRange) - 1));
-  CHECK_FALSE(validateUtf8(nullptr, 1));
+  CHECK_FALSE(validateUtf8(std::span<const char>{continuationByte, 1}));
+  CHECK_FALSE(validateUtf8(std::span<const char>{lonelyLead}.first(std::size(lonelyLead) - 1)));
+  CHECK_FALSE(validateUtf8(std::span<const char>{overlongSymbol}.first(std::size(overlongSymbol) - 1)));
+  CHECK_FALSE(validateUtf8(std::span<const char>{surrogateSymbol}.first(std::size(surrogateSymbol) - 1)));
+  CHECK_FALSE(validateUtf8(std::span<const char>{aboveRange}.first(std::size(aboveRange) - 1)));
+  CHECK_FALSE(validateUtf8(std::span<const char>{nullUtf8, 1}));
 }
 
 // A counted range ends at its length: bytes past it go unread, and a terminator inside it is an ordinary byte.
 TEST_CASE("validate_utf8/reads_only_the_counted_range") {
   // The ill-formed tail sits past the length, so the range holds the leading 'a' alone.
-  CHECK(validateUtf8(truncatedSymbol, 1));
+  CHECK(validateUtf8(std::span<const char>{truncatedSymbol}.first(1)));
 
   // A length ending inside a sequence cuts it short, even where the bytes after it would complete it.
-  CHECK_FALSE(validateUtf8(cyrillic, 1));
-  CHECK(validateUtf8(cyrillic, 2));
+  CHECK_FALSE(validateUtf8(textRange(cyrillic).first(1)));
+  CHECK(validateUtf8(textRange(cyrillic).first(2)));
 
   // A terminator inside the range is U+0000, a well-formed one-byte character.
-  CHECK(validateUtf8(innerTerminator, std::size(innerTerminator)));
+  CHECK(validateUtf8(std::span<const char>{innerTerminator}));
 }
 
 // Which strings the validator accepts: both widths and both ends of the surrogate range.
@@ -219,7 +233,7 @@ TEST_CASE("validate_utf16/accepts_well_formed_strings") {
     const char16_t * const utf16 = utf16Samples[index].utf16;
 
     CHECK(validateUtf16(utf16));
-    CHECK(validateUtf16(utf16, std::char_traits<char16_t>::length(utf16)));
+    CHECK(validateUtf16(unitsRange(utf16)));
   }
 
   CHECK(validateUtf16(utf16BeforeSurrogates));
@@ -229,7 +243,7 @@ TEST_CASE("validate_utf16/accepts_well_formed_strings") {
 
   // A string holding no character holds no ill-formed one either.
   CHECK(validateUtf16(u""));
-  CHECK(validateUtf16(nullptr, 0));
+  CHECK(validateUtf16(std::span<const char16_t>{}));
 }
 
 // Which strings it rejects: a surrogate outside a pair, wherever it sits, and a null pointer.
@@ -242,24 +256,24 @@ TEST_CASE("validate_utf16/rejects_ill_formed_strings") {
     const char16_t * const units = loneSurrogates[index].data();
 
     CHECK_FALSE(validateUtf16(units));
-    CHECK_FALSE(validateUtf16(units, std::char_traits<char16_t>::length(units)));
+    CHECK_FALSE(validateUtf16(unitsRange(units)));
   }
 
   // The counted form rejects a null pointer that names units.
-  CHECK_FALSE(validateUtf16(nullptr, 1));
+  CHECK_FALSE(validateUtf16(std::span<const char16_t>{nullUtf16, 1}));
 }
 
 // A counted range ends at its length: units past it go unread, and a terminator inside it is an ordinary unit.
 TEST_CASE("validate_utf16/reads_only_the_counted_range") {
   // The high surrogate sits past the length, so the range holds the leading 'a' alone.
-  CHECK(validateUtf16(loneSurrogates[1].data(), 1));
+  CHECK(validateUtf16(std::span<const char16_t>{loneSurrogates[1].data(), 1}));
 
   // A length ending between the halves of a pair cuts it short, even where the unit after it would complete it.
-  CHECK_FALSE(validateUtf16(u"a🎮", 2));
-  CHECK(validateUtf16(u"a🎮", 3));
+  CHECK_FALSE(validateUtf16(std::span<const char16_t>{u"a🎮", 2}));
+  CHECK(validateUtf16(std::span<const char16_t>{u"a🎮", 3}));
 
   // A terminator inside the range is U+0000, a well-formed one-unit character.
-  CHECK(validateUtf16(utf16InnerTerminator, std::size(utf16InnerTerminator)));
+  CHECK(validateUtf16(std::span<const char16_t>{utf16InnerTerminator}));
 }
 
 // Every width converts to the bytes of the matching UTF-8 literal, and the call hands back the buffer it wrote.

@@ -1069,7 +1069,7 @@ public:
 
     \return Count of encoded characters, \c 0 for an empty string.
 
-    \pre The bytes of the string hold well-formed UTF-8, checked with toy::validateUtf8(const char *, size_t) by
+    \pre The bytes of the string hold well-formed UTF-8, checked with toy::validateUtf8(std::span<const char>) by
          assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
          that check and count every byte outside the continuation form, a stray lead byte included.
 
