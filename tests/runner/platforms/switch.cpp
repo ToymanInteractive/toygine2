@@ -36,10 +36,10 @@ namespace {
 constexpr std::size_t c_consoleWidth = 80;
 
 // Caller data stdout has no use for; a line wider than one row is cut, so the summary stays on screen.
-void writeLine(const char * text, std::size_t length, [[maybe_unused]] const void * writerData) noexcept {
-  const auto count = std::min(length, c_consoleWidth);
+void writeLine(std::span<const char> text, [[maybe_unused]] const void * writerData) noexcept {
+  const auto count = std::min(text.size(), c_consoleWidth);
 
-  printf("%.*s", static_cast<int>(count), text);
+  printf("%.*s", static_cast<int>(count), text.data());
 }
 
 } // namespace

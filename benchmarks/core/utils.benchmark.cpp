@@ -57,8 +57,11 @@ BENCHMARK_CASE("core/utils/utf16_to_utf8") {
 
   bench.unit("conversion");
 
+  const toy::span out{buffer};
+  const toy::span in{text, c_utf16Length};
+
   bench.run("toy::utf16ToUtf8", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::utf16ToUtf8(buffer.data(), buffer.size(), text, c_utf16Length));
+    toy::benchmark::doNotOptimizeAway(toy::utf16ToUtf8(out, in));
   });
 }
 
@@ -70,8 +73,11 @@ BENCHMARK_CASE("core/utils/utf8_to_utf16") {
 
   bench.unit("conversion");
 
+  const toy::span out{buffer};
+  const toy::span in{text, c_utf8Length};
+
   bench.run("toy::utf8ToUtf16", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::utf8ToUtf16(buffer.data(), buffer.size(), text, c_utf8Length));
+    toy::benchmark::doNotOptimizeAway(toy::utf8ToUtf16(out, in));
   });
 }
 
@@ -119,8 +125,10 @@ BENCHMARK_CASE("core/utils/validate_utf8") {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf8(text));
   });
 
-  bench.run("toy::validateUtf8(const char *, size_t)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf8(text, c_utf8Length));
+  const toy::span range{text, c_utf8Length};
+
+  bench.run("toy::validateUtf8(toy::span<const char>)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::validateUtf8(range));
   });
 }
 
@@ -134,7 +142,9 @@ BENCHMARK_CASE("core/utils/validate_utf16") {
     toy::benchmark::doNotOptimizeAway(toy::validateUtf16(text));
   });
 
-  bench.run("toy::validateUtf16(const char16_t *, size_t)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf16(text, c_utf16Length));
+  const toy::span range{text, c_utf16Length};
+
+  bench.run("toy::validateUtf16(toy::span<const char16_t>)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::validateUtf16(range));
   });
 }

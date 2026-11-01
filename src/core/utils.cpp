@@ -165,30 +165,32 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
 
 } // namespace
 
-char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_t count) noexcept {
-  if (dest == nullptr || destSize == 0)
+char16_t * utf8ToUtf16(span<char16_t> dest, span<const char> src) noexcept {
+  if (dest.empty() || dest.data() == nullptr)
     return nullptr;
 
-  char16_t *             destPointer = dest;
-  const char16_t * const utf16EndPos = dest + (destSize - 1);
+  char16_t *             destPointer = dest.data();
+  const char16_t * const utf16EndPos = destPointer + (dest.size() - 1);
 
-  for (const char * const end = src != nullptr ? src + count : src; src != end;) {
-    if (const auto lead = std::bit_cast<uint8_t>(*src); lead <= 0x7F) {
+  const char * cursor = src.data();
+  for (const char * const end = cursor != nullptr ? cursor + src.size() : cursor; cursor != end;) {
+    if (const auto lead = std::bit_cast<uint8_t>(*cursor); lead <= 0x7F) {
       if (destPointer == utf16EndPos)
         break;
       *destPointer++ = lead;
-      ++src;
+      ++cursor;
       continue;
     }
 
-    const auto symbolLength = wellFormedLength(src, static_cast<size_t>(end - src));
+    const auto symbolLength = wellFormedLength(cursor, static_cast<size_t>(end - cursor));
     if (symbolLength == 0)
       break;
 
     // The mask keeps the zero bit that ends the length prefix, so one shift serves every width.
-    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<std::byte>(*src) & (std::byte{0xFF} >> symbolLength));
+    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<std::byte>(*cursor) & (std::byte{0xFF} >> symbolLength));
     for (uint8_t offset = 1; offset < symbolLength; ++offset)
-      codePoint = (codePoint << 6) | std::to_integer<uint32_t>(std::bit_cast<std::byte>(src[offset]) & std::byte{0x3F});
+      codePoint = (codePoint << 6)
+                  | std::to_integer<uint32_t>(std::bit_cast<std::byte>(cursor[offset]) & std::byte{0x3F});
 
     const auto room = static_cast<size_t>(utf16EndPos - destPointer);
     if (codePoint <= 0xFFFF) {
@@ -203,28 +205,29 @@ char16_t * utf8ToUtf16(char16_t * dest, size_t destSize, const char * src, size_
       *destPointer++ = static_cast<char16_t>(0xDC00 + ((codePoint - 0x10000) & 0x03FF));
     }
 
-    src += symbolLength;
+    cursor += symbolLength;
   }
 
   *destPointer = u'\0';
 
-  return dest;
+  return dest.data();
 }
 
-char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t count) noexcept {
-  if (dest == nullptr || destSize == 0)
+char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept {
+  if (dest.empty() || dest.data() == nullptr)
     return nullptr;
 
-  char *             destPointer = dest;
-  const char * const utf8EndPos  = dest + (destSize - 1);
+  char *             destPointer = dest.data();
+  const char * const utf8EndPos  = destPointer + (dest.size() - 1);
 
-  for (const char16_t * const end = src != nullptr ? src + count : src; src != end;) {
-    const auto symbol = static_cast<uint32_t>(*src);
+  const char16_t *       cursor = src.data();
+  const char16_t * const end    = cursor != nullptr ? cursor + src.size() : cursor;
+
+  while (cursor != end && destPointer != utf8EndPos) {
+    const auto symbol = static_cast<uint32_t>(*cursor);
     const auto room   = static_cast<size_t>(utf8EndPos - destPointer);
 
     if (symbol <= 0x7F) {
-      if (room < 1)
-        break;
       *destPointer++ = static_cast<char>(symbol);
 
     } else if (symbol <= 0x7FF) {
@@ -242,7 +245,7 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
 
     } else {
       // A pair needs its low surrogate inside the range; the zero standing in past the range never matches.
-      const auto low = src + 1 != end ? static_cast<uint32_t>(src[1]) : uint32_t{0};
+      const auto low = cursor + 1 != end ? static_cast<uint32_t>(cursor[1]) : uint32_t{0};
       if (symbol > 0xDBFF || low < 0xDC00 || low > 0xDFFF || room < 4)
         break;
 
@@ -251,21 +254,22 @@ char * utf16ToUtf8(char * dest, size_t destSize, const char16_t * src, size_t co
       *destPointer++       = static_cast<char>(((codePoint & 0x03F000) >> 12) | 0x80);
       *destPointer++       = static_cast<char>(((codePoint & 0x000FC0) >> 6) | 0x80);
       *destPointer++       = static_cast<char>((codePoint & 0x00003F) | 0x80);
-      ++src;
+      ++cursor;
     }
 
-    ++src;
+    ++cursor;
   }
 
   *destPointer = '\0';
 
-  return dest;
+  return dest.data();
 }
 
-size_t utf16InUtf8Size(const char16_t * src, size_t count) noexcept {
+size_t utf16InUtf8Size(span<const char16_t> units) noexcept {
   size_t size     = 0;
   bool   pairOpen = false;
-  for (const char16_t * const end = src != nullptr ? src + count : src; src != end; ++src) {
+
+  for (const char16_t *src = units.data(), * const end = src != nullptr ? src + units.size() : src; src != end; ++src) {
     const auto unit = *src;
     if (pairOpen) {
       pairOpen = false;
@@ -368,16 +372,17 @@ bool validateUtf8(const char * str) noexcept {
   return true;
 }
 
-bool validateUtf8(const char * str, size_t size) noexcept {
-  if (str == nullptr)
-    return size == 0;
+bool validateUtf8(span<const char> str) noexcept {
+  assert_message(str.data() != nullptr || str.empty(), "a span with no data must be empty");
+  if (str.data() == nullptr)
+    return str.empty();
 
-  for (const char * const end = str + size; str != end;) {
-    const auto symbolLength = wellFormedLength(str, static_cast<size_t>(end - str));
+  for (const char *current = str.data(), * const end = current + str.size(); current != end;) {
+    const auto symbolLength = wellFormedLength(current, static_cast<size_t>(end - current));
     if (symbolLength == 0)
       return false;
 
-    str += symbolLength;
+    current += symbolLength;
   }
 
   return true;
@@ -399,16 +404,17 @@ bool validateUtf16(const char16_t * str) noexcept {
   return true;
 }
 
-bool validateUtf16(const char16_t * str, size_t size) noexcept {
-  if (str == nullptr)
-    return size == 0;
+bool validateUtf16(span<const char16_t> str) noexcept {
+  assert_message(str.data() != nullptr || str.empty(), "a span with no data must be empty");
+  if (str.data() == nullptr)
+    return str.empty();
 
-  for (const char16_t * const end = str + size; str != end;) {
-    const auto symbolLength = wellFormedLength(str, static_cast<size_t>(end - str));
+  for (const char16_t *current = str.data(), * const end = current + str.size(); current != end;) {
+    const auto symbolLength = wellFormedLength(current, static_cast<size_t>(end - current));
     if (symbolLength == 0)
       return false;
 
-    str += symbolLength;
+    current += symbolLength;
   }
 
   return true;

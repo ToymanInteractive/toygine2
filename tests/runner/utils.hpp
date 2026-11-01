@@ -36,6 +36,7 @@
 #include <array>
 #include <concepts>
 #include <cstddef>
+#include <span>
 
 #include "assertion.hpp"
 
@@ -67,53 +68,49 @@ template <std::floating_point T>
 [[nodiscard]] constexpr int compareNames(const char * lhs, const char * rhs) noexcept;
 
 /*!
-  \brief Copies text into a buffer, stopping at its capacity.
+  \brief Copies text into a buffer, stopping at its size.
 
-  \param buffer    Destination buffer.
-  \param capacity  Size of \a buffer in bytes.
-  \param offset    Position to write from.
-  \param text      Null-terminated source text.
+  \param buffer  Destination buffer.
+  \param offset  Position to write from.
+  \param text    Null-terminated source text.
 
-  \return Offset past the last byte written; equals \a capacity when the text was truncated.
+  \return Offset past the last byte written; equals the size of \a buffer when the text was truncated.
 
-  \pre \a offset does not exceed \a capacity.
+  \pre \a offset does not exceed the size of \a buffer.
 
   \note No terminating zero is written; the caller tracks the length.
 */
-[[nodiscard]] constexpr std::size_t appendText(char * buffer, std::size_t capacity, std::size_t offset,
-                                               const char * text) noexcept;
+[[nodiscard]] constexpr std::size_t appendText(std::span<char> buffer, std::size_t offset, const char * text) noexcept;
 
 /*!
-  \brief Copies text into a buffer with the backslash and the hash escaped, stopping at its capacity.
+  \brief Copies text into a buffer with the backslash and the hash escaped, stopping at its size.
 
-  \param buffer    Destination buffer.
-  \param capacity  Size of \a buffer in bytes.
-  \param offset    Position to write from.
-  \param text      Null-terminated source text.
+  \param buffer  Destination buffer.
+  \param offset  Position to write from.
+  \param text    Null-terminated source text.
 
-  \return Offset past the last byte written; equals \a capacity when the text was truncated.
+  \return Offset past the last byte written; equals the size of \a buffer when the text was truncated.
 
-  \pre \a offset does not exceed \a capacity.
+  \pre \a offset does not exceed the size of \a buffer.
 
   \note A backslash arrives as \c "\\\\" and a hash as \c "\\#", the two escapes TAP defines.
   \note An escape pair that does not fit is left out whole, so a truncated line never ends in a lone backslash.
 
   \sa appendText()
 */
-[[nodiscard]] constexpr std::size_t appendEscaped(char * buffer, std::size_t capacity, std::size_t offset,
+[[nodiscard]] constexpr std::size_t appendEscaped(std::span<char> buffer, std::size_t offset,
                                                   const char * text) noexcept;
 
 /*!
-  \brief Writes text into a buffer as a single-quoted YAML scalar, stopping at its capacity.
+  \brief Writes text into a buffer as a single-quoted YAML scalar, stopping at its size.
 
-  \param buffer    Destination buffer.
-  \param capacity  Size of \a buffer in bytes.
-  \param offset    Position to write from.
-  \param text      Null-terminated source text.
+  \param buffer  Destination buffer.
+  \param offset  Position to write from.
+  \param text    Null-terminated source text.
 
   \return Offset past the closing quote; equals \a offset when the two quotes alone do not fit.
 
-  \pre \a offset does not exceed \a capacity.
+  \pre \a offset does not exceed the size of \a buffer.
 
   \note An apostrophe arrives doubled, which is how a single-quoted scalar carries one.
   \note A truncated scalar still closes, so the block around it stays parsable.
@@ -121,25 +118,23 @@ template <std::floating_point T>
 
   \sa appendEscaped()
 */
-[[nodiscard]] constexpr std::size_t appendQuoted(char * buffer, std::size_t capacity, std::size_t offset,
+[[nodiscard]] constexpr std::size_t appendQuoted(std::span<char> buffer, std::size_t offset,
                                                  const char * text) noexcept;
 
 /*!
-  \brief Writes a signed decimal representation into a buffer, stopping at its capacity.
+  \brief Writes a signed decimal representation into a buffer, stopping at its size.
 
-  \param buffer    Destination buffer.
-  \param capacity  Size of \a buffer in bytes.
-  \param offset    Position to write from.
-  \param value     Value to format.
+  \param buffer  Destination buffer.
+  \param offset  Position to write from.
+  \param value   Value to format.
 
-  \return Offset past the last byte written; equals \a capacity when the digits were truncated.
+  \return Offset past the last byte written; equals the size of \a buffer when the digits were truncated.
 
-  \pre \a offset does not exceed \a capacity.
+  \pre \a offset does not exceed the size of \a buffer.
 
   \note The magnitude is taken in unsigned arithmetic, so the most negative value formats correctly.
 */
-[[nodiscard]] constexpr std::size_t appendInteger(char * buffer, std::size_t capacity, std::size_t offset,
-                                                  long long value) noexcept;
+[[nodiscard]] constexpr std::size_t appendInteger(std::span<char> buffer, std::size_t offset, long long value) noexcept;
 
 } // namespace toy::test::detail
 

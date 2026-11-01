@@ -42,11 +42,10 @@ namespace toy::benchmark {
 /*!
   \brief Function receiving the report one finished line at a time.
 
-  \param text        Line bytes, ending in a newline and not null-terminated.
-  \param length      Number of bytes.
+  \param text        Line bytes, the whole range, ending in a newline and not null-terminated.
   \param writerData  Pointer stored beside the function in \ref toy::benchmark::Output.
 */
-using write_function_type = void (*)(const char * text, std::size_t length, const void * writerData) noexcept;
+using write_function_type = void (*)(std::span<const char> text, const void * writerData) noexcept;
 
 /// Destination of report lines: the receiving function and the data handed back to it.
 struct Output final {

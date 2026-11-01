@@ -93,12 +93,12 @@ std::uint32_t nowLines(const void * clockData) noexcept {
   }
 }
 
-void writeLine(const char * text, std::size_t length, const void * writerData) noexcept {
+void writeLine(std::span<const char> text, const void * writerData) noexcept {
   // The debug port ends a line on a null byte, so the newline goes out as one.
-  for (std::size_t index = 0; index < length; ++index)
+  for (std::size_t index = 0; index < text.size(); ++index)
     ClownMDSDK::MainCPU::Debug::Print(text[index] == '\n' ? '\0' : text[index]);
 
-  static_cast<const Channels *>(writerData)->sram->write(text, length);
+  static_cast<const Channels *>(writerData)->sram->write(text);
 }
 
 } // namespace
@@ -118,9 +118,9 @@ void _EntryPoint() {
   static_cast<void>(ClownMDSDK::MainCPU::M68k::SetInterruptMask(c_interruptMask));
 
   // 8-bit cartridge RAM on odd addresses from 0x200001, as the patched ROM header declares it.
-  const std::span<volatile std::uint8_t> sram{reinterpret_cast<volatile std::uint8_t *>(0x200001), 0xFFFF};
-  toy::benchmark::detail::SramWriter     sramWriter{sram, 2};
-  const Channels                         channels{.sram = &sramWriter};
+  const std::span                    sram{reinterpret_cast<volatile std::uint8_t *>(0x200001), 0xFFFF};
+  toy::benchmark::detail::SramWriter sramWriter{sram, 2};
+  const Channels                     channels{.sram = &sramWriter};
 
   const std::array<const char *, 4> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
                                             isPal ? "PAL" : "NTSC", TOYGINE_BENCHMARKS_BUILD_ID};

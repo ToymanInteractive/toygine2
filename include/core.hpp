@@ -43,6 +43,7 @@
 #include <iterator>
 #include <limits>
 #include <ranges>
+#include <span>
 #include <string_view>
 #include <type_traits>
 #include <utility>
@@ -91,8 +92,15 @@ using std::uint32_t;
 /// Unsigned integer type with width of exactly 64 bits and no padding bits
 using std::uint64_t;
 
+//--------------------------------------------------------------------------------------------------------------------
+
 /// Reinterprets the object representation of a value as another trivially copyable type of the same size
 using std::bit_cast;
+
+//--------------------------------------------------------------------------------------------------------------------
+
+/// Non-owning view over a contiguous sequence of objects, with static or dynamic extent
+using std::span;
 
 } // namespace toy
 
@@ -113,7 +121,7 @@ using std::bit_cast;
 /*!
   \namespace toy::string_utils
 
-  \brief Search and comparison over a character range that a pointer and a length describe.
+  \brief Search and comparison over a character range given as a toy::span.
 
   A function reads only the characters inside the range: it needs no terminator after them, and a \c '\\0' inside
   counts as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and

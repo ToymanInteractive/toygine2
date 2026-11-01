@@ -123,13 +123,13 @@ std::uint32_t readTimer([[maybe_unused]] const void * clockData) noexcept {
   }
 }
 
-void writeLine(const char * text, std::size_t length, const void * writerData) noexcept {
+void writeLine(std::span<const char> text, const void * writerData) noexcept {
   const auto & channels = *static_cast<const Channels *>(writerData);
 
   if (channels.mGBADetected)
-    mGBAWriteToDebugLog(text, length);
+    mGBAWriteToDebugLog(text.data(), text.size());
 
-  channels.sram->write(text, length);
+  channels.sram->write(text);
 }
 
 } // namespace
@@ -144,9 +144,9 @@ int main() {
   REG_DISPCNT   = MODE_0;
   BG_PALETTE[0] = c_colorRunning;
 
-  const std::span<volatile std::uint8_t> sram{reinterpret_cast<volatile std::uint8_t *>(0x0E000000), 0x8000};
-  toy::benchmark::detail::SramWriter     sramWriter{sram, 1};
-  const Channels                         channels{.mGBADetected = mGBAProbe(), .sram = &sramWriter};
+  const std::span                    sram{reinterpret_cast<volatile std::uint8_t *>(0x0E000000), 0x8000};
+  toy::benchmark::detail::SramWriter sramWriter{sram, 1};
+  const Channels                     channels{.mGBADetected = mGBAProbe(), .sram = &sramWriter};
 
   const std::array<const char *, 3> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
                                             TOYGINE_BENCHMARKS_BUILD_ID};
