@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   utils.benchmark.cpp
+  \file   string_utils.benchmark.cpp
   \brief  UTF-8 and UTF-16 conversion and validation through the core text utilities.
 */
 
@@ -49,23 +49,23 @@ template <typename Char>
 
 } // namespace
 
-BENCHMARK_CASE("core/utils/utf16_to_utf8") {
+BENCHMARK_CASE("core/string_utils/utf16_to_utf8") {
   const char16_t * const text = opaque(c_utf16Text);
 
   // Room for every unit at its widest encoding plus the terminator, so the whole text converts every time.
-  std::array<char, c_utf16Length * toy::utf16InUtf8MaxSize + 1> buffer{};
+  std::array<char, c_utf16Length * toy::string_utils::utf16InUtf8MaxSize + 1> buffer{};
 
   bench.unit("conversion");
 
   const toy::span out{buffer};
   const toy::span in{text, c_utf16Length};
 
-  bench.run("toy::utf16ToUtf8", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::utf16ToUtf8(out, in));
+  bench.run("toy::string_utils::utf16ToUtf8", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utf16ToUtf8(out, in));
   });
 }
 
-BENCHMARK_CASE("core/utils/utf8_to_utf16") {
+BENCHMARK_CASE("core/string_utils/utf8_to_utf16") {
   const char * const text = opaque(c_utf8Text);
 
   // One unit per byte at most, plus the terminator, so the whole text converts every time.
@@ -76,18 +76,18 @@ BENCHMARK_CASE("core/utils/utf8_to_utf16") {
   const toy::span out{buffer};
   const toy::span in{text, c_utf8Length};
 
-  bench.run("toy::utf8ToUtf16", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::utf8ToUtf16(out, in));
+  bench.run("toy::string_utils::utf8ToUtf16", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utf8ToUtf16(out, in));
   });
 }
 
-BENCHMARK_CASE("core/utils/utf8_len") {
+BENCHMARK_CASE("core/string_utils/utf8_len") {
   const char * const text = opaque(c_utf8Text);
 
   bench.unit("count");
 
-  bench.run("toy::utf8Len", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::utf8Len(text));
+  bench.run("toy::string_utils::utf8Len", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utf8Len(text));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -98,13 +98,13 @@ BENCHMARK_CASE("core/utils/utf8_len") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/utils/utf16_len") {
+BENCHMARK_CASE("core/string_utils/utf16_len") {
   const char16_t * const text = opaque(c_utf16Text);
 
   bench.unit("count");
 
-  bench.run("toy::utf16Len", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::utf16Len(text));
+  bench.run("toy::string_utils::utf16Len", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utf16Len(text));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -115,36 +115,36 @@ BENCHMARK_CASE("core/utils/utf16_len") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/utils/validate_utf8") {
+BENCHMARK_CASE("core/string_utils/validate_utf8") {
   // The text is well-formed, so each row walks it to the end through every sequence width.
   const char * const text = opaque(c_utf8Text);
 
   bench.unit("validation");
 
-  bench.run("toy::validateUtf8(const char *)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf8(text));
+  bench.run("toy::string_utils::validateUtf8(const char *)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::validateUtf8(text));
   });
 
   const toy::span range{text, c_utf8Length};
 
-  bench.run("toy::validateUtf8(toy::span<const char>)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf8(range));
+  bench.run("toy::string_utils::validateUtf8(toy::span<const char>)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::validateUtf8(range));
   });
 }
 
-BENCHMARK_CASE("core/utils/validate_utf16") {
+BENCHMARK_CASE("core/string_utils/validate_utf16") {
   // The text is well-formed, so each row walks it to the end, its surrogate pairs included.
   const char16_t * const text = opaque(c_utf16Text);
 
   bench.unit("validation");
 
-  bench.run("toy::validateUtf16(const char16_t *)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf16(text));
+  bench.run("toy::string_utils::validateUtf16(const char16_t *)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::validateUtf16(text));
   });
 
   const toy::span range{text, c_utf16Length};
 
-  bench.run("toy::validateUtf16(toy::span<const char16_t>)", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::validateUtf16(range));
+  bench.run("toy::string_utils::validateUtf16(toy::span<const char16_t>)", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::validateUtf16(range));
   });
 }
