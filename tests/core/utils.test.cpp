@@ -206,13 +206,12 @@ TEST_CASE("validate_utf8/rejects_ill_formed_sequences") {
   CHECK_FALSE(validateUtf8(surrogateSymbol));
   CHECK_FALSE(validateUtf8(aboveRange));
 
-  // The counted form rejects the same sequences, and a null pointer that names bytes.
+  // The counted form rejects the same sequences, each bounded by its length.
   CHECK_FALSE(validateUtf8(span{continuationByte, 1}));
   CHECK_FALSE(validateUtf8(span{lonelyLead}.first(std::size(lonelyLead) - 1)));
   CHECK_FALSE(validateUtf8(span{overlongSymbol}.first(std::size(overlongSymbol) - 1)));
   CHECK_FALSE(validateUtf8(span{surrogateSymbol}.first(std::size(surrogateSymbol) - 1)));
   CHECK_FALSE(validateUtf8(span{aboveRange}.first(std::size(aboveRange) - 1)));
-  CHECK_FALSE(validateUtf8(span{nullUtf8, 1}));
 }
 
 // A counted range ends at its length: bytes past it go unread, and a terminator inside it is an ordinary byte.
@@ -260,9 +259,6 @@ TEST_CASE("validate_utf16/rejects_ill_formed_strings") {
     CHECK_FALSE(validateUtf16(units));
     CHECK_FALSE(validateUtf16(unitsRange(units)));
   }
-
-  // The counted form rejects a null pointer that names units.
-  CHECK_FALSE(validateUtf16(span{nullUtf16, 1}));
 }
 
 // A counted range ends at its length: units past it go unread, and a terminator inside it is an ordinary unit.

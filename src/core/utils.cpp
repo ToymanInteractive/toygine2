@@ -373,6 +373,7 @@ bool validateUtf8(const char * str) noexcept {
 }
 
 bool validateUtf8(span<const char> str) noexcept {
+  assert_message(str.data() != nullptr || str.empty(), "a span with no data must be empty");
   if (str.data() == nullptr)
     return str.empty();
 
@@ -404,6 +405,7 @@ bool validateUtf16(const char16_t * str) noexcept {
 }
 
 bool validateUtf16(span<const char16_t> str) noexcept {
+  assert_message(str.data() != nullptr || str.empty(), "a span with no data must be empty");
   if (str.data() == nullptr)
     return str.empty();
 

@@ -191,12 +191,14 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
   \param str Range of bytes to check.
 
   \return \c true when every sequence is well-formed and ends inside the range, \c false at the first that is not. An
-          empty range is well-formed, a null \a str included; a null \a str with a non-empty range gives \c false.
+          empty range is well-formed, a null \a str included.
 
-  \pre Every byte of \a str is readable.
+  \pre Every byte of \a str is readable, and a null \a str comes with an empty range, checked by assert_message in
+       debug builds.
 
   \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
   \note Cost is O(n) in the range length, one pass.
+  \warning A shipping build skips the null check and answers \c false to a null \a str that carries bytes.
 
   \sa toy::validateUtf8(const char *)
 */
@@ -230,12 +232,14 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
   \param str Range of code units to check.
 
   \return \c true when every surrogate is half of a pair inside the range, \c false at the first that is not. An empty
-          range is well-formed, a null \a str included; a null \a str with a non-empty range gives \c false.
+          range is well-formed, a null \a str included.
 
-  \pre Every code unit of \a str is readable.
+  \pre Every code unit of \a str is readable, and a null \a str comes with an empty range, checked by assert_message in
+       debug builds.
 
   \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
   \note Cost is O(n) in the range length, one pass.
+  \warning A shipping build skips the null check and answers \c false to a null \a str that carries units.
 
   \sa toy::validateUtf16(const char16_t *)
 */
