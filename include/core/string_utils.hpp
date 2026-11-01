@@ -407,7 +407,7 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
   \return \c true when every sequence is well-formed, \c false at the first that is not and \c false for a null \a str.
           An empty string is well-formed.
 
-  \note Asserts nothing, so it reads as the condition of an assert_message check — which is how
+  \note Asserts nothing, so it reads as the condition of an assert_message check, which is how
         toy::string_utils::utf8Len() states its precondition.
   \note The check is a runtime one: the definition lives in a translation unit, out of reach of a constant expression.
   \note Cost is O(n) in the length of the string, one pass, so a caller checking before a walk pays for two.
