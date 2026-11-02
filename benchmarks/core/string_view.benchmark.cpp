@@ -60,8 +60,8 @@ constexpr size_t c_largeSize = 4096;
 // Neither the prefix nor the needle occurs inside the cycle, so every search crosses the whole text.
 // The cycle repeats each letter every 26 bytes, which is how often a substring search meets a candidate first byte.
 [[nodiscard]] const char * largeHaystack() noexcept {
-  static const std::array<char, c_largeSize + 1> text = [] {
-    std::array<char, c_largeSize + 1> buffer{};
+  static const toy::array<char, c_largeSize + 1> text = [] {
+    toy::array<char, c_largeSize + 1> buffer{};
 
     const size_t prefixLength = std::char_traits<char>::length(c_prefix);
     const size_t needleLength = std::char_traits<char>::length(c_needle);
@@ -206,7 +206,7 @@ BENCHMARK_CASE("core/string_view/rfind_large") {
 }
 
 BENCHMARK_CASE("core/string_view/compare") {
-  std::array<char, std::char_traits<char>::length(c_haystack) + 1> haystackCopy;
+  toy::array<char, std::char_traits<char>::length(c_haystack) + 1> haystackCopy;
   std::memcpy(haystackCopy.data(), c_haystack, std::char_traits<char>::length(c_haystack) + 1);
 
   // The right-hand operands read a separate buffer: over one buffer the comparison can answer from pointer identity.

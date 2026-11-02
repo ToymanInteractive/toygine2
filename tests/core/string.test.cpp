@@ -374,10 +374,10 @@ public:
   }
 
 private:
-  std::array<std::array<char, MaxCapacity + 1>, 2> _buffers{};
-  size_t                                           _active{0};
-  size_t                                           _size{0};
-  size_t                                           _capacity{0};
+  array<array<char, MaxCapacity + 1>, 2> _buffers{};
+  size_t                                 _active{0};
+  size_t                                 _size{0};
+  size_t                                 _capacity{0};
 };
 
 static_assert(StringStorage<RelocatingStorage<capacity>>, "the relocating stub must back a string");
@@ -431,9 +431,9 @@ template <typename Edit>
 }
 
 // The sample with removed characters at position replaced by count characters from offset of the sample itself.
-[[nodiscard]] constexpr std::array<char, allocatedSize> selfReplacedSample(size_t position, size_t removed,
-                                                                           size_t offset, size_t count) noexcept {
-  std::array<char, allocatedSize> expected{};
+[[nodiscard]] constexpr array<char, allocatedSize> selfReplacedSample(size_t position, size_t removed, size_t offset,
+                                                                      size_t count) noexcept {
+  array<char, allocatedSize> expected{};
 
   auto output = std::ranges::copy_n(sampleText, static_cast<ptrdiff_t>(position), expected.begin()).out;
   output      = std::ranges::copy_n(sampleText + offset, static_cast<ptrdiff_t>(count), output).out;
@@ -505,7 +505,7 @@ template <typename StringType>
 
 // Where each side of a swap between the sample string and the listed string first differs from what the other held.
 template <typename StringType>
-[[nodiscard]] constexpr std::array<size_t, 2> swappedDifferences() noexcept {
+[[nodiscard]] constexpr array<size_t, 2> swappedDifferences() noexcept {
   StringType sample(sampleText);
   StringType listed(listedText);
   sample.swap(listed);
@@ -515,8 +515,8 @@ template <typename StringType>
 
 // What copy() leaves in a buffer of fill characters, and the count it returns.
 struct CopiedCharacters {
-  size_t                          count;
-  std::array<char, allocatedSize> buffer;
+  size_t                     count;
+  array<char, allocatedSize> buffer;
 };
 
 // Runs copy over a buffer of fill characters and keeps what it wrote.
@@ -2689,9 +2689,9 @@ TEST_CASE("string/swap") {
   CHECK(large[1] == fullMatch(sampleText));
   CHECK(editedDifference(self, sampleText) == fullMatch(sampleText));
 
-  static_assert(swappedDifferences<Fixed>() == std::array{fullMatch(listedText), fullMatch(sampleText)},
+  static_assert(swappedDifferences<Fixed>() == array{fullMatch(listedText), fullMatch(sampleText)},
                 "a storage copied whole must exchange contents");
-  static_assert(swappedDifferences<Large>() == std::array{fullMatch(listedText), fullMatch(sampleText)},
+  static_assert(swappedDifferences<Large>() == array{fullMatch(listedText), fullMatch(sampleText)},
                 "a storage copied by length must exchange contents");
   static_assert(editedDifference(self, sampleText) == fullMatch(sampleText), "a self-swap must change nothing");
 }
@@ -3242,14 +3242,14 @@ TEST_CASE("string/ordering") {
   CHECK((sampleString <=> Wide("playground")) == std::strong_ordering::less);
 
   // Bytes order as unsigned char, so a byte above the ASCII range follows an ASCII one.
-  CHECK(Fixed("\xff") > Fixed("a"));
+  CHECK(Fixed("\x{ff}") > Fixed("a"));
 
   static_assert(sampleString < "plays" && sampleString > "play", "the first difference and length must decide");
   static_assert("play" < sampleString, "a pointer must order on the left");
   static_assert(StringView{"q"} > sampleString, "a view must order on the left");
   static_assert((sampleString <=> Wide("playground")) == std::strong_ordering::less,
                 "strings over different storages must order");
-  static_assert(Fixed("\xff") > Fixed("a"), "a high byte must order after an ASCII one");
+  static_assert(Fixed("\x{ff}") > Fixed("a"), "a high byte must order after an ASCII one");
   static_assert(std::is_same_v<decltype(sampleString <=> sampleText), std::strong_ordering>,
                 "the order must be strong, as for std::basic_string");
 }

@@ -64,7 +64,7 @@ struct ReportedString {
 constexpr ReportedString reportedSource{.characters = terminatedEmbeddedNull, .length = terminatedEmbeddedNullLength};
 
 // A byte above the ASCII range, which orders after an ASCII one only where bytes compare as unsigned char.
-constexpr const char * highByte = "\xff";
+constexpr const char * highByte = "\x{FF}";
 
 // A literal whose groups repeat, so a search has more than one candidate to pick between.
 constexpr const char * repeated = "abracadabra";
@@ -99,8 +99,8 @@ constexpr size_t repeatedLength = std::char_traits<char>::length(repeated);
 constexpr char sentinel = '#';
 
 // Caller storage prefilled with the sentinel.
-[[nodiscard]] constexpr std::array<char, 16> sentinelBuffer() noexcept {
-  std::array<char, 16> buffer{};
+[[nodiscard]] constexpr array<char, 16> sentinelBuffer() noexcept {
+  array<char, 16> buffer{};
   buffer.fill(sentinel);
 
   return buffer;
@@ -108,14 +108,14 @@ constexpr char sentinel = '#';
 
 // Count a copy writes, so a constant expression can drive the one member that touches caller storage.
 [[nodiscard]] constexpr size_t copiedCount(const char * string, size_t count, size_t pos) noexcept {
-  std::array<char, 16> buffer = sentinelBuffer();
+  array<char, 16> buffer = sentinelBuffer();
 
   return StringView(string).copy(buffer.data(), count, pos);
 }
 
 // Character a copy leaves at an offset in caller storage.
 [[nodiscard]] constexpr char copiedAt(const char * string, size_t count, size_t index) noexcept {
-  std::array<char, 16> buffer = sentinelBuffer();
+  array<char, 16> buffer = sentinelBuffer();
   StringView(string).copy(buffer.data(), count);
 
   return buffer[index];
@@ -424,7 +424,7 @@ TEST_CASE("string_view/remove_prefix_past_end") {
 TEST_CASE("string_view/read_past_end") {
   const StringView view(sampleText);
 
-  std::array<char, 16> buffer = sentinelBuffer();
+  array<char, 16> buffer = sentinelBuffer();
   CHECK(view.copy(buffer.data(), 4, sampleLength + 1) == 0);
   CHECK(buffer[0] == sentinel);
   CHECK(view.compare(sampleLength + 1, 1, StringView{}) == 0);
@@ -472,7 +472,7 @@ TEST_CASE("string_view/swap") {
 TEST_CASE("string_view/copy") {
   const StringView view(sampleText);
 
-  std::array<char, 16> buffer = sentinelBuffer();
+  array<char, 16> buffer = sentinelBuffer();
   CHECK(view.copy(buffer.data(), 4) == 4);
   CHECK(std::char_traits<char>::compare(buffer.data(), samplePrefix, 4) == 0);
 
@@ -480,13 +480,13 @@ TEST_CASE("string_view/copy") {
   CHECK(buffer[4] == sentinel);
 
   // A count past the end copies what remains rather than reading past the terminator.
-  std::array<char, 16> tail = sentinelBuffer();
+  array<char, 16> tail = sentinelBuffer();
   CHECK(view.copy(tail.data(), 32, 2) == sampleLength - 2);
   CHECK(std::char_traits<char>::compare(tail.data(), "ayer", 4) == 0);
   CHECK(tail[sampleLength - 2] == sentinel);
 
   // Starting at the end names an empty range rather than a range out of bounds.
-  std::array<char, 16> none = sentinelBuffer();
+  array<char, 16> none = sentinelBuffer();
   CHECK(view.copy(none.data(), 4, sampleLength) == 0);
   CHECK(none[0] == sentinel);
 

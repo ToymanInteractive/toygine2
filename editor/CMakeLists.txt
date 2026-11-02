@@ -54,6 +54,7 @@ if (APPLE)
     toygine::compile::defines
     toygine::compile::warnings
     toygine::compile::abi-optimizations
+    toygine::compile::applications
     volk::volk
     Vulkan::Headers
     "-framework Cocoa"

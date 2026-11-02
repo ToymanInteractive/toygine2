@@ -124,7 +124,7 @@ endif ()
 
 set(SRC_CORE_LIST
     src/core/log_isink.cpp
-    src/core/utils.cpp)
+    src/core/string_utils.cpp)
 set(HDR_CORE_LIST
     include/core.hpp
     include/core/assertion.hpp
@@ -140,8 +140,7 @@ set(HDR_CORE_LIST
     include/core/string_storage.hpp
     include/core/string_utils.hpp
     include/core/string_view.hpp
-    include/core/string.hpp
-    include/core/utils.hpp)
+    include/core/string.hpp)
 set(INL_CORE_LIST
     include/core/bitwise_enum.inl
     include/core/fixed_string_storage.inl

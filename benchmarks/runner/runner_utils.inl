@@ -62,8 +62,8 @@ constexpr std::size_t appendDecimal(std::span<char> buffer, std::size_t offset, 
   assert_message(offset <= buffer.size(), "offset must not exceed the buffer size");
 
   // Digits come out least significant first; twenty of them hold the largest 64-bit value.
-  std::array<char, 20> reversed{};
-  std::size_t          length = 0;
+  array<char, 20> reversed{};
+  std::size_t     length = 0;
 
   do {
     reversed[length] = static_cast<char>('0' + value % 10U);

@@ -171,9 +171,9 @@ public:
   void flush() noexcept;
 
 private:
-  Output                     _output;
-  std::array<char, capacity> _buffer{};
-  std::size_t                _length{0};
+  Output                _output;
+  array<char, capacity> _buffer{};
+  std::size_t           _length{0};
 };
 
 } // namespace detail

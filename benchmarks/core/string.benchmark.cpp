@@ -56,8 +56,8 @@ template <typename T>
 
 // Source characters: an alphabet cycle of c_length bytes followed by a terminator.
 [[nodiscard]] const char * sourceText() noexcept {
-  static const std::array<char, c_length + 1> text = [] {
-    std::array<char, c_length + 1> buffer{};
+  static const toy::array<char, c_length + 1> text = [] {
+    toy::array<char, c_length + 1> buffer{};
     for (size_t index = 0; index < c_length; ++index)
       buffer[index] = static_cast<char>('a' + (index % 26));
 
@@ -115,8 +115,8 @@ constexpr const char * c_textSet = "0123456789abcdefghijklmnopqrstuvwxyz";
 // Text the search and comparison cases read: c_length bytes, the marker first, the needle last, the cycle between.
 // A forward search for the needle and a backward one for the marker each cross the whole text before they answer.
 [[nodiscard]] const char * searchText() noexcept {
-  static const std::array<char, c_length + 1> text = [] {
-    std::array<char, c_length + 1> buffer{};
+  static const toy::array<char, c_length + 1> text = [] {
+    toy::array<char, c_length + 1> buffer{};
 
     const size_t markerLength = std::char_traits<char>::length(c_marker);
     const size_t needleLength = std::char_traits<char>::length(c_needle);

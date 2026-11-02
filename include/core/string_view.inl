@@ -28,7 +28,6 @@
 #define INCLUDE_CORE_STRING_VIEW_INL_
 
 #include "string_utils.hpp"
-#include "utils.hpp"
 
 namespace toy {
 

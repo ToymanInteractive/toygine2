@@ -99,7 +99,10 @@ using std::bit_cast;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// Non-owning view over a contiguous sequence of objects, with static or dynamic extent
+/// Container that encapsulates a fixed-size array: https://cppreference.com/cpp/container/array
+using std::array;
+
+/// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
 using std::span;
 
 } // namespace toy
@@ -121,12 +124,16 @@ using std::span;
 /*!
   \namespace toy::string_utils
 
-  \brief Search and comparison over a character range given as a toy::span.
+  \brief Text utilities shared across the core types: character search and comparison, plus UTF-8 and UTF-16
+         conversion, counting, and validation.
 
-  A function reads only the characters inside the range: it needs no terminator after them, and a \c '\\0' inside
-  counts as an ordinary character. Characters compare as bytes with no locale, so a result is identical across runs and
-  targets. Every function works in a constant expression and allocates nothing. A sequence or set search takes
-  O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest take O(n).
+  A search or comparison function reads only the characters inside the toy::span it is given: it needs no terminator
+  after them, and a \c '\\0' inside counts as an ordinary character. Counting and validation also take a
+  null-terminated string and walk it to its terminator. Characters compare as bytes with no locale, so a result is
+  identical across runs and targets. No function allocates. Search, comparison, and toy::string_utils::utf8Size() work
+  in a constant expression; every other function is a runtime one, defined in a translation unit. A sequence or set
+  search takes O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest
+  take O(n).
 */
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -285,7 +292,6 @@ using std::span;
 #include "core/string_storage.hpp"
 #include "core/string_utils.hpp"
 #include "core/string_view.hpp"
-#include "core/utils.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
 

@@ -44,14 +44,14 @@ TEST_CASE("video/color32/layout") {
 TEST_CASE("video/color32/memory_byte_order") {
   constexpr Color32 color{.r = 0x11, .g = 0x22, .b = 0x33, .a = 0x44};
 
-  const auto bytes = std::bit_cast<std::array<uint8_t, 4>>(color);
+  const auto bytes = std::bit_cast<array<uint8_t, 4>>(color);
 
   CHECK(bytes[0] == 0x11);
   CHECK(bytes[1] == 0x22);
   CHECK(bytes[2] == 0x33);
   CHECK(bytes[3] == 0x44);
 
-  static_assert(std::bit_cast<std::array<uint8_t, 4>>(color) == std::array<uint8_t, 4>{0x11, 0x22, 0x33, 0x44},
+  static_assert(std::bit_cast<array<uint8_t, 4>>(color) == array<uint8_t, 4>{0x11, 0x22, 0x33, 0x44},
                 "Color32 must store R, G, B, A at increasing addresses");
 }
 
