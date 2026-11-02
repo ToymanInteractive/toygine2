@@ -122,8 +122,8 @@ void _EntryPoint() {
   toy::benchmark::detail::SramWriter sramWriter{sram, 2};
   const Channels                     channels{.sram = &sramWriter};
 
-  const array<const char *, 4> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
-                                       isPal ? "PAL" : "NTSC", TOYGINE_BENCHMARKS_BUILD_ID};
+  const std::array<const char *, 4> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
+                                            isPal ? "PAL" : "NTSC", TOYGINE_BENCHMARKS_BUILD_ID};
 
   const int
     code = toy::benchmark::writeReport({.now                = &nowLines,
