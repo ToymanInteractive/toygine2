@@ -3242,7 +3242,7 @@ TEST_CASE("string/ordering") {
   CHECK((sampleString <=> Wide("playground")) == std::strong_ordering::less);
 
   // Bytes order as unsigned char, so a byte above the ASCII range follows an ASCII one.
-  CHECK(Fixed("\xff") > Fixed("a"));
+  CHECK(Fixed("\x{ff}") > Fixed("a"));
 
   static_assert(sampleString < "plays" && sampleString > "play", "the first difference and length must decide");
   static_assert("play" < sampleString, "a pointer must order on the left");
