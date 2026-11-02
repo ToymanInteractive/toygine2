@@ -205,7 +205,7 @@ private:
   [[nodiscard]] std::uint32_t _calibrate(Epoch & timeEpoch) const;
 
   void                    _writeRow(const char * name, std::uint32_t iterations,
-                                    const std::array<std::uint32_t, detail::epochCount> & epochs) noexcept;
+                                    const array<std::uint32_t, detail::epochCount> & epochs) noexcept;
   void                    _writeOverlongRow(const char * name) noexcept;
   TOY_BENCHMARK_COLD void _writeUncalibrated(const char * name) noexcept;
 

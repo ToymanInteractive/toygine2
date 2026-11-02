@@ -73,7 +73,7 @@ Bench & Bench::run(const char * name, Callable && operation) {
     return *this;
   }
 
-  std::array<std::uint32_t, detail::epochCount> epochs{};
+  array<std::uint32_t, detail::epochCount> epochs{};
 
   for (std::uint32_t & epoch : epochs)
     epoch = timeEpoch(iterations);
@@ -101,7 +101,7 @@ std::uint32_t Bench::_calibrate(Epoch & timeEpoch) const {
 }
 
 inline void Bench::_writeRow(const char * name, std::uint32_t iterations,
-                             const std::array<std::uint32_t, detail::epochCount> & epochs) noexcept {
+                             const array<std::uint32_t, detail::epochCount> & epochs) noexcept {
   detail::LineBuffer line{_output};
 
   line.addText("#csv ");

@@ -99,7 +99,10 @@ using std::bit_cast;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// Non-owning view over a contiguous sequence of objects, with static or dynamic extent
+/// Container that encapsulates a fixed-size array: https://cppreference.com/cpp/container/array
+using std::array;
+
+/// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
 using std::span;
 
 } // namespace toy

@@ -49,7 +49,8 @@ Declare console executable targets shared by engine samples and tests.
     ``.cpp``, ``.hpp``, and ``.inl`` files of the executable.
 
   ``LINK_LIBRARIES <lib>...``
-    Libraries linked ``PRIVATE`` to the target in addition to ``toygine``, which is always linked.
+    Libraries linked ``PRIVATE`` to the target in addition to ``toygine`` and ``toygine::compile::applications``, the
+    flags every final application carries; both are always linked.
 
   ``ENGINE_WARNINGS <ON|OFF>``
     Whether to link ``toygine::compile::warnings``, the engine's warning settings (default ``ON``). Pass ``OFF`` when
@@ -97,7 +98,7 @@ function(console_application target)
     target_link_options(${target} PRIVATE /SUBSYSTEM:CONSOLE)
   endif ()
 
-  target_link_libraries(${target} PRIVATE toygine ${ARG_LINK_LIBRARIES})
+  target_link_libraries(${target} PRIVATE toygine toygine::compile::applications ${ARG_LINK_LIBRARIES})
   if (ARG_ENGINE_WARNINGS)
     target_link_libraries(${target} PRIVATE toygine::compile::warnings)
   endif ()

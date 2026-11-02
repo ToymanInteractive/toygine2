@@ -32,7 +32,7 @@ namespace toy::string_utils {
 namespace detail {
 
 /// Table with one entry per byte value, \c true where that byte belongs to a set.
-using membership_table_type = std::array<bool, 256>;
+using membership_table_type = array<bool, 256>;
 
 /*!
   \brief Builds the membership table of \a set.

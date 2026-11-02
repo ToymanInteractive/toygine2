@@ -148,8 +148,8 @@ int main() {
   toy::benchmark::detail::SramWriter sramWriter{sram, 1};
   const Channels                     channels{.mGBADetected = mGBAProbe(), .sram = &sramWriter};
 
-  const std::array<const char *, 3> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
-                                            TOYGINE_BENCHMARKS_BUILD_ID};
+  const array<const char *, 3> heading{TOYGINE_BENCHMARKS_PLATFORM, TOYGINE_BENCHMARKS_BUILD_TYPE,
+                                       TOYGINE_BENCHMARKS_BUILD_ID};
 
   startTimer();
 

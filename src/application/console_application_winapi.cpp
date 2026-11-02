@@ -45,9 +45,9 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
   ::AcquireSRWLockExclusive(&lock);
 
   if (isConsole) {
-    constexpr size_t                 chunkUnits = 512;
-    std::array<char16_t, chunkUnits> buffer;
-    std::array<wchar_t, chunkUnits>  wideBuffer;
+    constexpr size_t            chunkUnits = 512;
+    array<char16_t, chunkUnits> buffer;
+    array<wchar_t, chunkUnits>  wideBuffer;
     while (!text.empty()) {
       auto length = std::min(text.size(), buffer.size() - 1);
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
@@ -57,7 +57,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
       auto units = std::char_traits<char16_t>::length(buffer.data());
       // At a decoded '\0' or an ill-formed byte the chunk ends; that byte goes out as U+0000 or U+FFFD.
       if (const auto consumed = string_utils::utf16InUtf8Size(span{buffer.data(), units}); consumed < length) {
-        buffer[units++] = text[consumed] == '\0' ? u'\0' : u'\uFFFD';
+        buffer[units++] = text[consumed] == '\0' ? u'\0' : u'\u{FFFD}';
         length          = consumed + 1;
       }
       std::ranges::transform(buffer.data(), buffer.data() + units, wideBuffer.data(), [](char16_t unit) noexcept {
