@@ -19,7 +19,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Install bencher CLI
-        uses: bencherdev/bencher@v0.6.15
+        uses: bencherdev/bencher@v0.6.16
 
       - name: Bencher archive PR branch
         env:
