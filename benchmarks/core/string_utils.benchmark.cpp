@@ -71,11 +71,11 @@ constexpr toy::array<int64_t, 19> c_digitLadder = [] {
   return values;
 }();
 
-// Converts one rung of the ladder with toy::string_utils::itoa(), the standard printing as the reference row.
+// Converts one rung of the ladder with toy::string_utils::itoa(); std::to_chars is the reference row.
 void runDigitLadderCase(toy::benchmark::Bench & bench, size_t digitCount) {
   const int64_t value = opaqueValue(c_digitLadder[digitCount - 1]);
 
-  // Sign, nineteen digits, and the terminator, so no rung truncates.
+  // Sign, nineteen digits, and the terminator, so no row truncates.
   toy::array<char, 21> buffer{};
 
   bench.unit("conversion");
@@ -87,7 +87,7 @@ void runDigitLadderCase(toy::benchmark::Bench & bench, size_t digitCount) {
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  // The standard equivalent writes the same digits but no terminator: the floor of the engine row.
+  // The standard equivalent writes the same digits without a terminator, so its time is the floor for the engine row.
   bench.run("std::to_chars", [&] {
     toy::benchmark::doNotOptimizeAway(std::to_chars(buffer.data(), buffer.data() + buffer.size(), value));
   });
@@ -200,7 +200,7 @@ BENCHMARK_CASE("core/string_utils/validate_utf16") {
 BENCHMARK_CASE("core/string_utils/itoa") {
   const int32_t value = opaqueValue(std::numeric_limits<int32_t>::min());
 
-  // Sign, ten digits, and the terminator, so no row ever truncates.
+  // Sign, ten digits, and the terminator, so no row truncates.
   toy::array<char, 12> buffer{};
 
   bench.unit("conversion");
@@ -222,7 +222,7 @@ BENCHMARK_CASE("core/string_utils/itoa") {
 BENCHMARK_CASE("core/string_utils/itoa_int64") {
   const int64_t value = opaqueValue(std::numeric_limits<int64_t>::min());
 
-  // Sign, nineteen digits, and the terminator, so no row ever truncates.
+  // Sign, nineteen digits, and the terminator, so no row truncates.
   toy::array<char, 21> buffer{};
 
   bench.unit("conversion");
@@ -240,8 +240,7 @@ BENCHMARK_CASE("core/string_utils/itoa_int64") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-// The ladder group: the same conversion over 1, 12, 123, up to nineteen digits, the int64_t ceiling of
-// toy::string_utils::itoa(), which no standard signed type crosses.
+// The digit ladder rungs: the same conversion over 1, 12, 123, up to the nineteen digits an int64_t holds whole.
 BENCHMARK_CASE("core/string_utils/itoa_1_digit") {
   runDigitLadderCase(bench, 1);
 }
@@ -322,7 +321,7 @@ BENCHMARK_CASE("core/string_utils/itoa_19_digits") {
 BENCHMARK_CASE("core/string_utils/utoa") {
   const uint32_t value = opaqueValue(std::numeric_limits<uint32_t>::max());
 
-  // Ten digits and the terminator, so no row ever truncates.
+  // Ten digits and the terminator, so no row truncates.
   toy::array<char, 11> buffer{};
 
   bench.unit("conversion");
@@ -341,7 +340,7 @@ BENCHMARK_CASE("core/string_utils/utoa") {
 BENCHMARK_CASE("core/string_utils/utoa_int64") {
   const uint64_t value = opaqueValue(std::numeric_limits<uint64_t>::max());
 
-  // Twenty digits and the terminator, the longest decimal form any standard type has.
+  // Twenty digits and the terminator, the longest decimal form of any standard type.
   toy::array<char, 21> buffer{};
 
   bench.unit("conversion");
@@ -357,12 +356,12 @@ BENCHMARK_CASE("core/string_utils/utoa_int64") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-// Fixed-width hexadecimal: eight and sixteen uppercase digits, zero-padded. std::to_chars prints the same digits
-// unpadded and lowercase: the floor of the engine row.
+// Fixed-width hexadecimal: eight and sixteen uppercase digits, zero-padded and without a prefix.
+// std::to_chars prints the same digits unpadded and lowercase, so its time is the floor for the engine row.
 BENCHMARK_CASE("core/string_utils/utoa_hex") {
   const uint32_t value = opaqueValue(static_cast<uint32_t>(0xDEADBEEF));
 
-  // Eight digits and the terminator, so the rows never truncate.
+  // Eight digits and the terminator, so no row truncates.
   toy::array<char, 9> buffer{};
 
   bench.unit("conversion");
@@ -381,7 +380,7 @@ BENCHMARK_CASE("core/string_utils/utoa_hex") {
 BENCHMARK_CASE("core/string_utils/utoa_hex_int64") {
   const uint64_t value = opaqueValue(UINT64_C(0xDEADBEEFCAFEBABE));
 
-  // Sixteen digits and the terminator, so the rows never truncate.
+  // Sixteen digits and the terminator, so no row truncates.
   toy::array<char, 17> buffer{};
 
   bench.unit("conversion");

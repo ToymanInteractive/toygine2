@@ -482,8 +482,8 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
 /*!
   \brief Formats \a value in decimal inside \a dest, right-aligned against the buffer's last byte.
 
-  The digits are produced from the least significant, so the string and its terminator close the buffer and the bytes
-  before the string stay as the caller left them. A negative value carries one \c '-' right before its digits.
+  The string and its terminator close the buffer, so the bytes before it stay as the caller left them. A negative value
+  writes one \c '-' right before its digits.
 
   \tparam T  Any signed integer type.
   \param dest   Buffer that receives the string; its size is the capacity, terminator included.
@@ -500,10 +500,9 @@ template <std::signed_integral T>
 [[nodiscard]] constexpr char * itoa(span<char> dest, T value) noexcept;
 
 /*!
-  \brief Formats \a value in decimal in the buffer, right-aligned against its last byte.
+  \brief Formats \a value in decimal inside \a dest, right-aligned against the buffer's last byte.
 
-  Prints the shortest form: as many digits as the value needs, without padding. Digits are produced from the least
-  significant, so the string closes the buffer wherever it fits.
+  Prints the shortest form: as many digits as the value needs, without padding.
 
   \tparam T  Any unsigned integer type.
   \param dest   Buffer that receives the string; its size is the capacity, terminator included.
@@ -520,10 +519,9 @@ template <std::unsigned_integral T>
 [[nodiscard]] constexpr char * utoa(span<char> dest, T value) noexcept;
 
 /*!
-  \brief Formats \a value in hexadecimal at the full digit width of \a T, right-aligned against the buffer's end.
+  \brief Formats \a value in hexadecimal at the full digit width of \a T, right-aligned against the buffer's last byte.
 
-  Prints exactly \c 2 * sizeof(T) uppercase digits, zero-padded and without a \c 0x prefix, so one buffer position
-  holds one nibble of any value of the type.
+  Prints exactly \c 2 * sizeof(T) uppercase digits, zero-padded and without a \c 0x prefix.
 
   \tparam T  Any unsigned integer type.
   \param dest   Buffer that receives the string; its size is the capacity, terminator included.

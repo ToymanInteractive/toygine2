@@ -180,7 +180,7 @@ constexpr auto decimalText(T value) noexcept {
   return text;
 }
 
-// The decimal text toy::string_utils::utoa() writes into \a destSize bytes, moved to the front the same way.
+// The decimal text toy::string_utils::utoa() writes into destSize bytes, moved to the front the same way.
 template <std::unsigned_integral T>
 constexpr auto unsignedText(T value, size_t destSize) noexcept {
   array<char, 24>    buffer{};
@@ -193,7 +193,7 @@ constexpr auto unsignedText(T value, size_t destSize) noexcept {
   return text;
 }
 
-// The hexadecimal text toy::string_utils::utoaHex() writes into \a destSize bytes, moved to the front the same way.
+// The hexadecimal text toy::string_utils::utoaHex() writes into destSize bytes, moved to the front the same way.
 template <std::unsigned_integral T>
 constexpr auto hexText(T value, size_t destSize) noexcept {
   array<char, 24>    buffer{};
@@ -1144,7 +1144,7 @@ TEST_CASE("string_utils/utf8_to_utf16/handles_null_and_empty_arguments") {
   CHECK(fromEmpty[0] == u'\0');
 }
 
-// Digits in order for a non-negative itoa value, zero included, the string closing the buffer at its last byte.
+// A non-negative value prints its digits in order, zero included, and the string ends at the buffer's last byte.
 TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
   array<char, 16> buffer{};
 
@@ -1152,7 +1152,7 @@ TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
   CHECK(std::char_traits<char>::compare(start, "0", 2) == 0);
   CHECK(start + 2 == buffer.data() + buffer.size());
 
-  // The digits arrive from the least significant, so the written order is the proof no reversal went missing.
+  // The digits arrive from the least significant, so the printed order shows no reversal step is missing.
   start = string_utils::itoa(span{buffer}, 12345);
   CHECK(std::char_traits<char>::compare(start, "12345", 6) == 0);
 
@@ -1170,7 +1170,7 @@ TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
                 "the largest value of the width must print in full");
 }
 
-// A minus right before the digits of a negative value, the widths' minima whole through the overflow guard.
+// A minus before the digits of a negative value, and each type's minimum printed whole by the overflow guard.
 TEST_CASE("string_utils/itoa/writes_a_minus_before_negative_values") {
   array<char, 16> buffer{};
 
@@ -1217,7 +1217,7 @@ TEST_CASE("string_utils/itoa/keeps_the_bytes_before_the_string") {
   CHECK(buffer[9] == sentinel);
   CHECK(buffer[15] == '\0');
 
-  // Twelve bytes, the minimum the precondition asserts for int32_t, fill from the first byte with this value.
+  // Twelve bytes is the minimum int32_t asserts, so this value fills the window from its first byte.
   array<char, 16> tight{};
   tight.fill(sentinel);
 
@@ -1257,7 +1257,7 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   CHECK(std::char_traits<char>::compare(start, "4294967295", 11) == 0);
   CHECK(start == buffer.data());
 
-  // A window narrower than the digits stops at its first byte, a one-byte window before any digit.
+  // A narrow window keeps its low digits; a one-byte window keeps the terminator.
   start = string_utils::utoa(span{buffer}.first(4), uint32_t{123456});
   CHECK(std::char_traits<char>::compare(start, "456", 4) == 0);
   CHECK(start == buffer.data());
@@ -1274,7 +1274,7 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   static_assert(std::char_traits<char>::compare(unsignedText(uint8_t{200}, 4).data(), "200", 4) == 0,
                 "u8 prints up to three digits");
   static_assert(std::char_traits<char>::compare(unsignedText(uint32_t{42}, 3).data(), "42", 3) == 0,
-                "a two-digit value must take both digits from the pair table");
+                "a two-digit value must print both of its digits");
   static_assert(std::char_traits<char>::compare(unsignedText(UINT64_C(1234567890123456789), 20).data(),
                                                 "1234567890123456789", 20)
                   == 0,

@@ -19,7 +19,7 @@
 //
 /*!
   \file   string_utils.inl
-  \brief  Inline implementations for the \ref toy::string_utils search functions.
+  \brief  Inline implementations for the \ref toy::string_utils search and integer formatting functions.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -301,7 +301,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
 
   char * const base = dest.data();
 
-  // One digit costs one division in the loop below; written whole from the value, it costs none.
+  // The fast path writes the digit from the value; the loop below pays one division per digit.
   if (value < 10) {
     if (dest.size() < 2) {
       *base = '\0';
@@ -315,7 +315,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
     return base + dest.size() - 2;
   }
 
-  // A pair needs three bytes for its two digits and terminator; a narrower window takes the loops below.
+  // A pair needs three bytes for its two digits and the terminator; a narrower window falls through to the loops below.
   if (value < 100 && dest.size() >= 3) {
     const char * const digits = &detail::digitPairs[static_cast<size_t>(value) * 2];
     char * const       start  = base + dest.size() - 3;
@@ -329,7 +329,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
   char * end = base + dest.size();
   *--end     = '\0';
 
-  // A window that holds the widest value of T needs no room test per digit; smaller ones truncate as before.
+  // A window that holds the widest value of T needs no room test per digit; a narrower one truncates.
   const bool fullWindow = dest.size() >= std::numeric_limits<T>::digits10 + 2;
 
   while (value >= 100 && (fullWindow || end - base >= 2)) {
@@ -342,7 +342,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
     end[1]  = detail::digitPairs[remainder * 2 + 1];
   }
 
-  // The one or two leading digits, and the low tail of a value the window cut short, digit by digit.
+  // Single digits finish the value: its leading one or two, or the tail a narrow window left half-written.
   do {
     if (!fullWindow && end == base)
       break;
@@ -364,7 +364,7 @@ constexpr char * utoaHex(span<char> dest, T value) noexcept {
   char * end = dest.data() + dest.size();
   *--end     = '\0';
 
-  // Four bits per digit, so the widest value of T needs two digits per byte, the high nibbles' zeros included.
+  // Four bits per digit, so the widest value of T needs two digits per byte, leading zeros included.
   const size_t digits = sizeof(T) * 2;
   const auto   room   = static_cast<size_t>(end - dest.data());
   const auto   count  = std::min(digits, room);
