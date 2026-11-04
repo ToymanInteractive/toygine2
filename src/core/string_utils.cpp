@@ -118,7 +118,7 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
   \pre \a available is at least \c 1.
 */
 [[nodiscard]] uint8_t wellFormedLength(const char * str, size_t available) noexcept {
-  const auto leadByte     = std::bit_cast<uint8_t>(*str);
+  const auto leadByte     = bit_cast<uint8_t>(*str);
   const auto symbolLength = utf8CharSizeTable[leadByte];
   if (symbolLength == 0 || symbolLength > available)
     return 0;
@@ -126,7 +126,7 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
   // The lead byte constrains the byte after it; the rest carry the plain 10xxxxxx form.
   auto range = secondByteRange(leadByte);
   for (uint8_t offset = 1; offset < symbolLength; ++offset) {
-    if (const auto trailingByte = std::bit_cast<uint8_t>(str[offset]);
+    if (const auto trailingByte = bit_cast<uint8_t>(str[offset]);
         trailingByte < range.lowest || trailingByte > range.highest)
       return 0;
 
@@ -174,7 +174,7 @@ char16_t * utf8ToUtf16(span<char16_t> dest, span<const char> src) noexcept {
 
   const char * cursor = src.data();
   for (const char * const end = cursor != nullptr ? cursor + src.size() : cursor; cursor != end;) {
-    if (const auto lead = std::bit_cast<uint8_t>(*cursor); lead <= 0x7F) {
+    if (const auto lead = bit_cast<uint8_t>(*cursor); lead <= 0x7F) {
       if (destPointer == utf16EndPos)
         break;
       *destPointer++ = lead;
@@ -187,10 +187,9 @@ char16_t * utf8ToUtf16(span<char16_t> dest, span<const char> src) noexcept {
       break;
 
     // The mask keeps the zero bit that ends the length prefix, so one shift serves every width.
-    auto codePoint = std::to_integer<uint32_t>(std::bit_cast<std::byte>(*cursor) & (std::byte{0xFF} >> symbolLength));
+    auto codePoint = std::to_integer<uint32_t>(bit_cast<byte>(*cursor) & (byte{0xFF} >> symbolLength));
     for (uint8_t offset = 1; offset < symbolLength; ++offset)
-      codePoint = (codePoint << 6)
-                  | std::to_integer<uint32_t>(std::bit_cast<std::byte>(cursor[offset]) & std::byte{0x3F});
+      codePoint = (codePoint << 6) | std::to_integer<uint32_t>(bit_cast<byte>(cursor[offset]) & byte{0x3F});
 
     const auto room = static_cast<size_t>(utf16EndPos - destPointer);
     if (codePoint <= 0xFFFF) {
@@ -304,13 +303,13 @@ size_t utf8Len(const char * str) noexcept {
   size_t size = 0;
   while (*str != '\0') {
     // ASCII steps by a constant, so the next read does not wait for a table lookup.
-    if (std::bit_cast<uint8_t>(*str) <= 0x7F) {
+    if (bit_cast<uint8_t>(*str) <= 0x7F) {
       ++str;
       ++size;
       continue;
     }
 
-    const auto symbolLength = utf8CharSizeTable[std::bit_cast<uint8_t>(*str)];
+    const auto symbolLength = utf8CharSizeTable[bit_cast<uint8_t>(*str)];
     assert_message(symbolLength != 0, "Invalid UTF-8 symbol");
     if (symbolLength == 0)
       return 0;

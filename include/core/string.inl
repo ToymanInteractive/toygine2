@@ -1158,8 +1158,8 @@ constexpr String<storageType>::size_type String<storageType>::_offsetOf(const_po
 
     return npos;
   } else {
-    const auto buffer  = std::bit_cast<uintptr_t>(data());
-    const auto address = std::bit_cast<uintptr_t>(pointer);
+    const auto buffer  = bit_cast<uintptr_t>(data());
+    const auto address = bit_cast<uintptr_t>(pointer);
 
     return address >= buffer && address < buffer + size() ? static_cast<size_type>(address - buffer) : npos;
   }

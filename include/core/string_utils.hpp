@@ -479,6 +479,15 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
 */
 [[nodiscard]] bool validateUtf16(span<const char16_t> str) noexcept;
 
+template <std::signed_integral T>
+[[nodiscard]] constexpr char * itoa(span<char> dest, T value) noexcept;
+
+template <std::unsigned_integral T>
+[[nodiscard]] constexpr char * utoa(char * dest, size_t destSize, T value) noexcept;
+
+template <std::unsigned_integral T>
+[[nodiscard]] constexpr char * utoaHex(char * dest, size_t destSize, T value) noexcept;
+
 } // namespace toy::string_utils
 
 #endif // INCLUDE_CORE_STRING_UTILS_HPP_
