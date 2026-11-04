@@ -489,10 +489,14 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
   \param dest   Buffer that receives the string; its size is the capacity, terminator included.
   \param value  Value to format.
 
-  \return Pointer to the first character of the string, a position in \a dest at or after its data.
+  \return Pointer to the first character of the string, a position in \a dest at or after its data, or
+          \a dest.data(), with nothing written, when \a dest holds no bytes.
 
   \pre \a dest is non-null and its size is at least \c std::numeric_limits<T>::digits10 + 3, which holds every value
        of \a T including the most negative, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the size check, and a window narrower than the value drops its leading digits: a
+           negative value in a two-byte window keeps the \c '-' alone, a one-byte window holds only the terminator.
 
   \sa toy::string_utils::utoa(toy::span<char>, T)
 */
@@ -508,10 +512,13 @@ template <std::signed_integral T>
   \param dest   Buffer that receives the string; its size is the capacity, terminator included.
   \param value  Value to format.
 
-  \return Pointer to the first character of the string, a position in \a dest at or after its data. The leading
-          digits are dropped when the capacity cannot hold the value.
+  \return Pointer to the first character of the string, a position in \a dest at or after its data, or
+          \a dest.data(), with nothing written, when \a dest holds no bytes. The leading digits are dropped when the
+          capacity cannot hold the value.
 
   \pre \a dest is non-null and its size is greater than zero, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the size check: a one-byte window holds only the terminator.
 
   \sa toy::string_utils::utoaHex(toy::span<char>, T)
 */
@@ -527,10 +534,13 @@ template <std::unsigned_integral T>
   \param dest   Buffer that receives the string; its size is the capacity, terminator included.
   \param value  Value to format.
 
-  \return Pointer to the first digit, a position in \a dest at or after its data. The leading digits are dropped
-          when the capacity cannot hold the full width.
+  \return Pointer to the first digit, a position in \a dest at or after its data, or \a dest.data(), with nothing
+          written, when \a dest holds no bytes. The leading digits are dropped when the capacity cannot hold the full
+          width.
 
   \pre \a dest is non-null and its size is greater than zero, checked by assert_message in debug builds.
+
+  \warning A shipping build skips the size check: a one-byte window holds only the terminator.
 
   \sa toy::string_utils::utoa(toy::span<char>, T)
 */
