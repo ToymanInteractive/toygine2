@@ -1245,6 +1245,11 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   CHECK(std::char_traits<char>::compare(start, "0", 2) == 0);
   CHECK(start + 2 == buffer.data() + buffer.size());
 
+  // A value below a hundred takes both digits from the pair table in one read.
+  start = string_utils::utoa(span{buffer}, uint32_t{42});
+  CHECK(std::char_traits<char>::compare(start, "42", 3) == 0);
+  CHECK(start + 3 == buffer.data() + buffer.size());
+
   start = string_utils::utoa(span{buffer}, UINT64_C(987654321));
   CHECK(std::char_traits<char>::compare(start, "987654321", 10) == 0);
 
@@ -1252,12 +1257,24 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   CHECK(std::char_traits<char>::compare(start, "4294967295", 11) == 0);
   CHECK(start == buffer.data());
 
+  // A window narrower than the digits stops at its first byte, a one-byte window before any digit.
+  start = string_utils::utoa(span{buffer}.first(4), uint32_t{123456});
+  CHECK(std::char_traits<char>::compare(start, "456", 4) == 0);
+  CHECK(start == buffer.data());
+
+  array<char, 1> oneByte{};
+  oneByte.fill(sentinel);
+  CHECK(string_utils::utoa(span{oneByte}, uint32_t{7}) == oneByte.data());
+  CHECK(oneByte[0] == '\0');
+
   constexpr auto tenDigits = unsignedText(std::numeric_limits<uint32_t>::max(), 11);
 
   static_assert(std::char_traits<char>::compare(tenDigits.data(), "4294967295", 11) == 0,
                 "the widest u32 value must fit its digit count exactly");
   static_assert(std::char_traits<char>::compare(unsignedText(uint8_t{200}, 4).data(), "200", 4) == 0,
                 "u8 prints up to three digits");
+  static_assert(std::char_traits<char>::compare(unsignedText(uint32_t{42}, 3).data(), "42", 3) == 0,
+                "a two-digit value must take both digits from the pair table");
   static_assert(std::char_traits<char>::compare(unsignedText(UINT64_C(1234567890123456789), 20).data(),
                                                 "1234567890123456789", 20)
                   == 0,
