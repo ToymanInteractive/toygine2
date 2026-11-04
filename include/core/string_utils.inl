@@ -31,9 +31,6 @@ namespace toy::string_utils {
 
 namespace detail {
 
-/// Table with one entry per byte value, \c true where that byte belongs to a set.
-using membership_table_type = array<bool, 256>;
-
 /*!
   \brief Builds the membership table of \a set.
 
@@ -43,8 +40,8 @@ using membership_table_type = array<bool, 256>;
 
   \pre The characters of \a set are readable; a null \a set comes with an empty range.
 */
-constexpr membership_table_type membershipTable(span<const char> set) noexcept {
-  membership_table_type table{};
+constexpr array<bool, 256> membershipTable(span<const char> set) noexcept {
+  array<bool, 256> table{};
 
   for (const char ch : set)
     table[static_cast<unsigned char>(ch)] = true;
@@ -62,7 +59,7 @@ constexpr membership_table_type membershipTable(span<const char> set) noexcept {
 
   \return \c true when \a ch belongs to the set.
 */
-constexpr bool isMember(const membership_table_type & table, char ch) noexcept {
+constexpr bool isMember(const array<bool, 256> & table, char ch) noexcept {
   return table[static_cast<unsigned char>(ch)];
 }
 
@@ -77,6 +74,9 @@ inline constexpr array<char, 200> digitPairs = [] {
 
   return pairs;
 }();
+
+/// Sixteen digits of the hexadecimal alphabet, indexed by nibble.
+inline constexpr array hexDigits{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
 
 } // namespace detail
 
@@ -273,7 +273,7 @@ constexpr char * itoa(span<char> dest, T value) noexcept {
                  "the capacity must hold the widest value of the type");
 
   if (value >= 0)
-    return utoa(dest.data(), dest.size(), static_cast<std::make_unsigned_t<T>>(value));
+    return utoa(dest, static_cast<std::make_unsigned_t<T>>(value));
 
   if (dest.data() == nullptr || dest.size() == 0)
     return dest.data();
@@ -284,38 +284,41 @@ constexpr char * itoa(span<char> dest, T value) noexcept {
   }
 
   // The digits stay at or after dest + 1, so the byte before them always belongs to this buffer.
-  char * digits = utoa(dest.data() + 1, dest.size() - 1, static_cast<std::make_unsigned_t<T>>(-(value + 1)) + 1U);
+  char * digits = utoa(span<char>(dest.data() + 1, dest.size() - 1),
+                       static_cast<std::make_unsigned_t<T>>(-(value + 1)) + 1U);
   *--digits     = '-';
 
   return digits;
 }
 
 template <std::unsigned_integral T>
-constexpr char * utoa(char * dest, size_t destSize, T value) noexcept {
-  assert_message(dest != nullptr, "a null pointer names no buffer to write into");
-  assert_message(destSize > 0, "a zero capacity cannot hold even a terminator");
+constexpr char * utoa(span<char> dest, T value) noexcept {
+  assert_message(dest.data() != nullptr, "a null pointer names no buffer to write into");
+  assert_message(dest.size() > 0, "a zero capacity cannot hold even a terminator");
 
-  if (dest == nullptr || destSize == 0)
-    return dest;
+  if (dest.data() == nullptr || dest.size() == 0)
+    return dest.data();
+
+  char * const base = dest.data();
 
   // One digit costs one division in the loop below; written whole from the value, it costs none.
   if (value < 10) {
-    if (destSize < 2) {
-      *dest = '\0';
+    if (dest.size() < 2) {
+      *base = '\0';
 
-      return dest;
+      return base;
     }
 
-    dest[destSize - 2] = static_cast<char>('0' + static_cast<uint8_t>(value));
-    dest[destSize - 1] = '\0';
+    base[dest.size() - 2] = static_cast<char>('0' + static_cast<uint8_t>(value));
+    base[dest.size() - 1] = '\0';
 
-    return dest + destSize - 2;
+    return base + dest.size() - 2;
   }
 
   // A pair needs three bytes for its two digits and terminator; a narrower window takes the loops below.
-  if (value < 100 && destSize >= 3) {
+  if (value < 100 && dest.size() >= 3) {
     const char * const digits = &detail::digitPairs[static_cast<size_t>(value) * 2];
-    char * const       start  = dest + destSize - 3;
+    char * const       start  = base + dest.size() - 3;
     start[0]                  = digits[0];
     start[1]                  = digits[1];
     start[2]                  = '\0';
@@ -323,16 +326,16 @@ constexpr char * utoa(char * dest, size_t destSize, T value) noexcept {
     return start;
   }
 
-  char * end = dest + destSize;
+  char * end = base + dest.size();
   *--end     = '\0';
 
   // A window that holds the widest value of T needs no room test per digit; smaller ones truncate as before.
-  const bool fullWindow = destSize >= std::numeric_limits<T>::digits10 + 2;
+  const bool fullWindow = dest.size() >= std::numeric_limits<T>::digits10 + 2;
 
-  while (value >= 100 && (!fullWindow || end - dest >= 2)) {
-    const T      quotient  = value / static_cast<T>(100);
-    const size_t remainder = static_cast<size_t>(value - quotient * static_cast<T>(100));
-    value                  = quotient;
+  while (value >= 100 && (fullWindow || end - base >= 2)) {
+    const T    quotient  = value / static_cast<T>(100);
+    const auto remainder = static_cast<size_t>(value - quotient * static_cast<T>(100));
+    value                = quotient;
 
     end    -= 2;
     end[0]  = detail::digitPairs[remainder * 2];
@@ -341,7 +344,7 @@ constexpr char * utoa(char * dest, size_t destSize, T value) noexcept {
 
   // The one or two leading digits, and the low tail of a value the window cut short, digit by digit.
   do {
-    if (!fullWindow && end == dest)
+    if (!fullWindow && end == base)
       break;
 
     *--end = static_cast<char>('0' + static_cast<uint8_t>(value % 10));
@@ -351,23 +354,24 @@ constexpr char * utoa(char * dest, size_t destSize, T value) noexcept {
 }
 
 template <std::unsigned_integral T>
-constexpr char * utoaHex(char * dest, size_t destSize, T value) noexcept {
-  assert_message(dest != nullptr, "a null pointer names no buffer to write into");
-  assert_message(destSize > 0, "a zero capacity cannot hold even a terminator");
+constexpr char * utoaHex(span<char> dest, T value) noexcept {
+  assert_message(dest.data() != nullptr, "a null pointer names no buffer to write into");
+  assert_message(dest.size() > 0, "a zero capacity cannot hold even a terminator");
 
-  if (dest == nullptr || destSize == 0)
-    return dest;
+  if (dest.data() == nullptr || dest.size() == 0)
+    return dest.data();
 
-  char * end = dest + destSize;
+  char * end = dest.data() + dest.size();
   *--end     = '\0';
 
   // Four bits per digit, so the widest value of T needs two digits per byte, the high nibbles' zeros included.
   const size_t digits = sizeof(T) * 2;
-  const size_t count  = digits < static_cast<size_t>(end - dest) ? digits : static_cast<size_t>(end - dest);
+  const auto   room   = static_cast<size_t>(end - dest.data());
+  const auto   count  = std::min(digits, room);
 
   for (size_t index = count; index > 0; --index) {
     const auto nibble   = static_cast<unsigned>(value & 0x0FU);
-    *--end              = static_cast<char>(nibble < 10 ? '0' + nibble : 'A' + (nibble - 10));
+    *--end              = detail::hexDigits[nibble];
     value             >>= 4;
   }
 

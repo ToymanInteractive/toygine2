@@ -22,8 +22,8 @@
   \brief  Text utilities the core module shares across its types.
 
   Defines the \ref toy::string_utils functions: character search and comparison over a toy::span, behind the matching
-  members of \ref toy::StringView and \ref toy::String, and UTF-8 and UTF-16 conversion, counting, and validation over
-  a span or a null-terminated string.
+  members of \ref toy::StringView and \ref toy::String, UTF-8 and UTF-16 conversion, counting, and validation over a
+  span or a null-terminated string, and decimal and hexadecimal formatting of integers into caller-supplied buffers.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -479,14 +479,65 @@ char * utf16ToUtf8(span<char> dest, span<const char16_t> src) noexcept;
 */
 [[nodiscard]] bool validateUtf16(span<const char16_t> str) noexcept;
 
+/*!
+  \brief Formats \a value in decimal inside \a dest, right-aligned against the buffer's last byte.
+
+  The digits are produced from the least significant, so the string and its terminator close the buffer and the bytes
+  before the string stay as the caller left them. A negative value carries one \c '-' right before its digits.
+
+  \tparam T  Any signed integer type.
+  \param dest   Buffer that receives the string; its size is the capacity, terminator included.
+  \param value  Value to format.
+
+  \return Pointer to the first character of the string, a position in \a dest at or after its data.
+
+  \pre \a dest is non-null and its size is at least \c std::numeric_limits<T>::digits10 + 3, which holds every value
+       of \a T including the most negative, checked by assert_message in debug builds.
+
+  \sa toy::string_utils::utoa(toy::span<char>, T)
+*/
 template <std::signed_integral T>
 [[nodiscard]] constexpr char * itoa(span<char> dest, T value) noexcept;
 
-template <std::unsigned_integral T>
-[[nodiscard]] constexpr char * utoa(char * dest, size_t destSize, T value) noexcept;
+/*!
+  \brief Formats \a value in decimal in the buffer, right-aligned against its last byte.
 
+  Prints the shortest form: as many digits as the value needs, without padding. Digits are produced from the least
+  significant, so the string closes the buffer wherever it fits.
+
+  \tparam T  Any unsigned integer type.
+  \param dest   Buffer that receives the string; its size is the capacity, terminator included.
+  \param value  Value to format.
+
+  \return Pointer to the first character of the string, a position in \a dest at or after its data. The leading
+          digits are dropped when the capacity cannot hold the value.
+
+  \pre \a dest is non-null and its size is greater than zero, checked by assert_message in debug builds.
+
+  \sa toy::string_utils::utoaHex(toy::span<char>, T)
+*/
 template <std::unsigned_integral T>
-[[nodiscard]] constexpr char * utoaHex(char * dest, size_t destSize, T value) noexcept;
+[[nodiscard]] constexpr char * utoa(span<char> dest, T value) noexcept;
+
+/*!
+  \brief Formats \a value in hexadecimal at the full digit width of \a T, right-aligned against the buffer's end.
+
+  Prints exactly \c 2 * sizeof(T) uppercase digits, zero-padded and without a \c 0x prefix, so one buffer position
+  holds one nibble of any value of the type.
+
+  \tparam T  Any unsigned integer type.
+  \param dest   Buffer that receives the string; its size is the capacity, terminator included.
+  \param value  Value to format.
+
+  \return Pointer to the first digit, a position in \a dest at or after its data. The leading digits are dropped
+          when the capacity cannot hold the full width.
+
+  \pre \a dest is non-null and its size is greater than zero, checked by assert_message in debug builds.
+
+  \sa toy::string_utils::utoa(toy::span<char>, T)
+*/
+template <std::unsigned_integral T>
+[[nodiscard]] constexpr char * utoaHex(span<char> dest, T value) noexcept;
 
 } // namespace toy::string_utils
 
