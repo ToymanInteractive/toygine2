@@ -59,7 +59,7 @@ template <typename Value>
   return value;
 }
 
-// The decimal ladder 1, 12, 123, up to nineteen digits, the count an int64_t still holds whole.
+// The decimal ladder 1, 11, 111, up to nineteen digits, the count an int64_t still holds whole.
 constexpr toy::array<int64_t, 19> c_digitLadder = [] {
   toy::array<int64_t, 19> values{};
   int64_t                 digits = 0;
@@ -335,7 +335,7 @@ BENCHMARK_CASE("core/string_utils/utoa") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/utoa_int64") {
+BENCHMARK_CASE("core/string_utils/utoa_uint64") {
   const uint64_t value = opaqueValue(std::numeric_limits<uint64_t>::max());
 
   // Twenty digits and the terminator, the longest decimal form of any standard type.
@@ -375,7 +375,7 @@ BENCHMARK_CASE("core/string_utils/utoa_hex") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/utoa_hex_int64") {
+BENCHMARK_CASE("core/string_utils/utoa_hex_uint64") {
   const uint64_t value = opaqueValue(UINT64_C(0xDEADBEEFCAFEBABE));
 
   // Sixteen digits and the terminator, so no row truncates.
