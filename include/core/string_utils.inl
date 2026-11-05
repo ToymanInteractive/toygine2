@@ -301,7 +301,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
 
   char * const base = dest.data();
 
-  // The fast path writes the digit from the value; the loop below pays one division per digit.
+  // A single digit comes from the value with no division; the loop below divides once per digit.
   if (value < 10) {
     if (dest.size() < 2) {
       *base = '\0';
@@ -315,7 +315,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
     return base + dest.size() - 2;
   }
 
-  // A pair needs three bytes for its two digits and the terminator; a narrower window falls through to the loops below.
+  // Two digits and the terminator need three bytes.
   if (value < 100 && dest.size() >= 3) {
     const char * const digits = &detail::digitPairs[static_cast<size_t>(value) * 2];
     char * const       start  = base + dest.size() - 3;
@@ -342,7 +342,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
     end[1]  = detail::digitPairs[remainder * 2 + 1];
   }
 
-  // Single digits finish the value: its leading one or two, or the tail a narrow window left half-written.
+  // Single digits finish the value: the leading one or two, or the single digit a narrow window has room for.
   do {
     if (!fullWindow && end == base)
       break;
@@ -364,7 +364,6 @@ constexpr char * utoaHex(span<char> dest, T value) noexcept {
   char * end = dest.data() + dest.size();
   *--end     = '\0';
 
-  // Four bits per digit, so the widest value of T needs two digits per byte, leading zeros included.
   const size_t digits = sizeof(T) * 2;
   const auto   room   = static_cast<size_t>(end - dest.data());
   const auto   count  = std::min(digits, room);

@@ -240,7 +240,6 @@ BENCHMARK_CASE("core/string_utils/itoa_int64") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-// The digit ladder rungs: the same conversion over 1, 12, 123, up to the nineteen digits an int64_t holds whole.
 BENCHMARK_CASE("core/string_utils/itoa_1_digit") {
   runDigitLadderCase(bench, 1);
 }
@@ -317,7 +316,6 @@ BENCHMARK_CASE("core/string_utils/itoa_19_digits") {
   runDigitLadderCase(bench, 19);
 }
 
-// The widest decimal form of each unsigned type: ten digits of u32, twenty of u64, no sign to carry.
 BENCHMARK_CASE("core/string_utils/utoa") {
   const uint32_t value = opaqueValue(std::numeric_limits<uint32_t>::max());
 
@@ -356,7 +354,7 @@ BENCHMARK_CASE("core/string_utils/utoa_int64") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-// Fixed-width hexadecimal: eight and sixteen uppercase digits, zero-padded and without a prefix.
+// Fixed-width hexadecimal: eight uppercase digits, zero-padded and without a prefix.
 // std::to_chars prints the same digits unpadded and lowercase, so its time is the floor for the engine row.
 BENCHMARK_CASE("core/string_utils/utoa_hex") {
   const uint32_t value = opaqueValue(static_cast<uint32_t>(0xDEADBEEF));
