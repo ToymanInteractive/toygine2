@@ -179,43 +179,37 @@ constexpr bool closesWindow(const char * start, const array<char, Extent> & wind
   return start + Size == window.data() + window.size();
 }
 
-// The decimal text toy::string_utils::itoa() writes, moved to the front of a fixed array so it compares as a literal.
+// Copies the text a formatter wrote to the front of a fixed array, so it compares with a literal.
+constexpr auto copiedToFront(const char * start) noexcept {
+  array<char, 24> text{};
+  for (size_t index = 0; start[index] != '\0'; ++index)
+    text[index] = start[index];
+
+  return text;
+}
+
+// What toy::string_utils::itoa() writes for a signed value, in the smallest window its precondition allows.
 template <typename T>
 constexpr auto decimalText(T value) noexcept {
   array<char, std::numeric_limits<T>::digits10 + 3> buffer{};
-  const char * const                                start = string_utils::itoa(span{buffer}, value);
 
-  array<char, 24> text{};
-  for (size_t index = 0; start[index] != '\0'; ++index)
-    text[index] = start[index];
-
-  return text;
+  return copiedToFront(string_utils::itoa(span{buffer}, value));
 }
 
-// The decimal text toy::string_utils::utoa() writes into destSize bytes, moved to the front the same way.
+// What toy::string_utils::utoa() writes into a window of destSize bytes.
 template <std::unsigned_integral T>
 constexpr auto unsignedText(T value, size_t destSize) noexcept {
-  array<char, 24>    buffer{};
-  const char * const start = string_utils::utoa(span{buffer}.first(destSize), value);
+  array<char, 24> buffer{};
 
-  array<char, 24> text{};
-  for (size_t index = 0; start[index] != '\0'; ++index)
-    text[index] = start[index];
-
-  return text;
+  return copiedToFront(string_utils::utoa(span{buffer}.first(destSize), value));
 }
 
-// The hexadecimal text toy::string_utils::utoaHex() writes into destSize bytes, moved to the front the same way.
+// What toy::string_utils::utoaHex() writes into a window of destSize bytes.
 template <std::unsigned_integral T>
 constexpr auto hexText(T value, size_t destSize) noexcept {
-  array<char, 24>    buffer{};
-  const char * const start = string_utils::utoaHex(span{buffer}.first(destSize), value);
+  array<char, 24> buffer{};
 
-  array<char, 24> text{};
-  for (size_t index = 0; start[index] != '\0'; ++index)
-    text[index] = start[index];
-
-  return text;
+  return copiedToFront(string_utils::utoaHex(span{buffer}.first(destSize), value));
 }
 
 } // namespace
@@ -1277,9 +1271,9 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   static_assert(matchesText(unsignedText(UINT64_C(1234567890123456789), 20).data(), "1234567890123456789"),
                 "u64 must fill a window sized to its digits");
   constexpr auto closesTheWindow = [] {
-    array<char, 16> buffer{};
+    array<char, 16> window{};
 
-    return closesWindow(string_utils::utoa(span{buffer}, uint32_t{42}), buffer, "42");
+    return closesWindow(string_utils::utoa(span{window}, uint32_t{42}), window, "42");
   }();
 
   static_assert(closesTheWindow, "a constant expression must close the window the way the runtime call does");
@@ -1303,11 +1297,11 @@ TEST_CASE("string_utils/utoa/truncates_a_window_too_narrow_for_the_value") {
   constexpr auto cut = unsignedText(uint32_t{123456}, 4);
 
   constexpr auto singleByteWindow = [] {
-    array<char, 4> buffer{};
-    buffer.fill(sentinel);
-    (void)string_utils::utoa(span{buffer}.first(1), uint32_t{7});
+    array<char, 4> window{};
+    window.fill(sentinel);
+    (void)string_utils::utoa(span{window}.first(1), uint32_t{7});
 
-    return buffer;
+    return window;
   }();
 
   static_assert(matchesText(cut.data(), "456"), "a truncated value must keep its low digits in order");
@@ -1347,9 +1341,9 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
   static_assert(matchesText(hexText(UINT64_C(1), 17).data(), "0000000000000001"), "u64 pads to sixteen digits");
 
   constexpr auto hexClosesTheWindow = [] {
-    array<char, 9> buffer{};
+    array<char, 9> window{};
 
-    return closesWindow(string_utils::utoaHex(span{buffer}, uint8_t{0x0F}), buffer, "0F");
+    return closesWindow(string_utils::utoaHex(span{window}, uint8_t{0x0F}), window, "0F");
   }();
 
   static_assert(hexClosesTheWindow, "a constant expression must close the window the way the runtime call does");
