@@ -24,18 +24,18 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /EHsc
+# last option:          /fp
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
 # GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -fconcepts-diagnostics-depth
+# GCC 16.2.0 Options Controlling C Dialect - last option: -fdiagnostics-all-candidates
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option:                    -Wabstract-vbase-init
+# last option:                    -Waddress-of-temporary
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -121,6 +121,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
+# Compiler version floor
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14.0)
+  message(FATAL_ERROR "GCC ${CMAKE_CXX_COMPILER_VERSION} is not supported. ToyGine2 requires GCC 14.0 or newer.")
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
 # Build options
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -147,7 +155,7 @@ if (TOYGINE_ENABLE_WARNINGS)
     "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:C,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/W4;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Waddress-of-temporary;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
     "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>"
@@ -161,9 +169,9 @@ endif ()
 # Reaches every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/fp:precise;/fp:except;/JMC>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/fp:precise;/fp:except;/JMC>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
@@ -185,7 +193,7 @@ add_compile_options(
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,GNU>:-fsigned-char>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2>")
+  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2;-fdiagnostics-all-candidates>")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Optimization flags
@@ -194,9 +202,9 @@ add_compile_options(
 # Reaches every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3;/fp:fast>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3;/fp:fast>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
 

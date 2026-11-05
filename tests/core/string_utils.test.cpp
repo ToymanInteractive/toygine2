@@ -167,6 +167,51 @@ constexpr char sentinel = '#';
 // The UTF-16 counterpart of sentinel, for buffers of char16_t.
 constexpr char16_t utf16Sentinel = u'#';
 
+// Compares written text with a literal over its whole extent, terminator included, so no length is counted by hand.
+template <size_t Size>
+constexpr bool matchesText(const char * text, const char (&expected)[Size]) noexcept {
+  return traits_type::compare(text, expected, Size) == 0;
+}
+
+// Checks that the string a formatter wrote closes the window, taking the length from the expected literal.
+template <size_t Size, size_t Extent>
+constexpr bool closesWindow(const char * start, const array<char, Extent> & window, const char (&)[Size]) noexcept {
+  return start + Size == window.data() + window.size();
+}
+
+// Copies the text a formatter wrote to the front of a fixed array, so it compares with a literal.
+constexpr auto copiedToFront(const char * start) noexcept {
+  array<char, 24> text{};
+  for (size_t index = 0; start[index] != '\0'; ++index)
+    text[index] = start[index];
+
+  return text;
+}
+
+// What toy::string_utils::itoa() writes for a signed value, in the smallest window its precondition allows.
+template <typename T>
+constexpr auto decimalText(T value) noexcept {
+  array<char, std::numeric_limits<T>::digits10 + 3> buffer{};
+
+  return copiedToFront(string_utils::itoa(span{buffer}, value));
+}
+
+// What toy::string_utils::utoa() writes into a window of destSize bytes.
+template <std::unsigned_integral T>
+constexpr auto unsignedText(T value, size_t destSize) noexcept {
+  array<char, 24> buffer{};
+
+  return copiedToFront(string_utils::utoa(span{buffer}.first(destSize), value));
+}
+
+// What toy::string_utils::utoaHex() writes into a window of destSize bytes.
+template <std::unsigned_integral T>
+constexpr auto hexText(T value, size_t destSize) noexcept {
+  array<char, 24> buffer{};
+
+  return copiedToFront(string_utils::utoaHex(span{buffer}.first(destSize), value));
+}
+
 } // namespace
 
 // Where a character first occurs, counting from the offset the search starts at.
@@ -1103,6 +1148,238 @@ TEST_CASE("string_utils/utf8_to_utf16/handles_null_and_empty_arguments") {
   array<char16_t, 4> fromEmpty{utf16Sentinel, utf16Sentinel, utf16Sentinel, utf16Sentinel};
   CHECK(string_utils::utf8ToUtf16(span{fromEmpty}, asRange(ascii).first(0)) == fromEmpty.data());
   CHECK(fromEmpty[0] == u'\0');
+}
+
+// A non-negative value prints its digits in order, zero included, and the string ends at the buffer's last byte.
+TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
+  array<char, 16> buffer{};
+
+  const char * start = string_utils::itoa(span{buffer}, 0);
+  CHECK(matchesText(start, "0"));
+  CHECK(closesWindow(start, buffer, "0"));
+
+  // The digits arrive from the least significant, so the printed order shows no reversal step is missing.
+  start = string_utils::itoa(span{buffer}, 12345);
+  CHECK(matchesText(start, "12345"));
+
+  start = string_utils::itoa(span{buffer}, std::numeric_limits<int32_t>::max());
+  CHECK(matchesText(start, "2147483647"));
+  CHECK(closesWindow(start, buffer, "2147483647"));
+
+  static_assert(matchesText(decimalText(0).data(), "0"), "zero must print alone");
+  static_assert(matchesText(decimalText(10).data(), "10"), "a ten must take two digits");
+  static_assert(matchesText(decimalText(12345).data(), "12345"), "the digits must come out in order");
+  static_assert(matchesText(decimalText<int32_t>(std::numeric_limits<int32_t>::max()).data(), "2147483647"),
+                "the largest value of the width must print in full");
+}
+
+// A minus before the digits of a negative value, and each type's minimum printed whole by the overflow guard.
+TEST_CASE("string_utils/itoa/writes_a_minus_before_negative_values") {
+  array<char, 16> buffer{};
+
+  const char * start = string_utils::itoa(span{buffer}, -1);
+  CHECK(matchesText(start, "-1"));
+  CHECK(closesWindow(start, buffer, "-1"));
+
+  start = string_utils::itoa(span{buffer}, -12345);
+  CHECK(matchesText(start, "-12345"));
+
+  array<char, 32> wide{};
+
+  start = string_utils::itoa(span{wide}, std::numeric_limits<int32_t>::min());
+  CHECK(matchesText(start, "-2147483648"));
+
+  start = string_utils::itoa(span{wide}, std::numeric_limits<int64_t>::min());
+  CHECK(matchesText(start, "-9223372036854775808"));
+
+  static_assert(matchesText(decimalText(-1).data(), "-1"), "a negative value must start with a minus");
+  static_assert(matchesText(decimalText(-12345).data(), "-12345"),
+                "the sign must precede digits that come out in order");
+  static_assert(matchesText(decimalText<int8_t>(std::numeric_limits<int8_t>::min()).data(), "-128"),
+                "an 8-bit value must print its minimum in full");
+  static_assert(matchesText(decimalText<int16_t>(std::numeric_limits<int16_t>::min()).data(), "-32768"),
+                "a 16-bit value must print its minimum in full");
+  static_assert(matchesText(decimalText<int32_t>(std::numeric_limits<int32_t>::min()).data(), "-2147483648"),
+                "a 32-bit value must print its minimum in full");
+  static_assert(matchesText(decimalText<int64_t>(std::numeric_limits<int64_t>::min()).data(), "-9223372036854775808"),
+                "a 64-bit value must print its minimum in full");
+}
+
+// itoa right-aligns in the window it is given and leaves the bytes before the string as the caller left them.
+TEST_CASE("string_utils/itoa/keeps_the_bytes_before_the_string") {
+  array<char, 16> buffer{};
+  buffer.fill(sentinel);
+
+  const char * start = string_utils::itoa(span{buffer}, 12345);
+  CHECK(closesWindow(start, buffer, "12345"));
+  CHECK(buffer[9] == sentinel);
+  CHECK(buffer[15] == '\0');
+
+  // Twelve bytes is the minimum int32_t asserts, so this value fills the window from its first byte.
+  array<char, 16> tight{};
+  tight.fill(sentinel);
+
+  start = string_utils::itoa(span{tight}.first(12), std::numeric_limits<int32_t>::min());
+  CHECK(start == tight.data());
+  CHECK(tight[11] == '\0');
+  CHECK(tight[12] == sentinel);
+
+  constexpr auto filled = [] {
+    array<char, 16> text{};
+    text.fill(sentinel);
+    (void)string_utils::itoa(span{text}.first(12), std::numeric_limits<int32_t>::min());
+    return text;
+  }();
+
+  static_assert(filled[0] == '-' && filled[11] == '\0', "the widest value must fit the asserted minimum whole");
+  static_assert(filled[12] == sentinel, "a byte past the window must stay as the caller left it");
+}
+
+// The shortest decimal form of an unsigned value: as many digits as the value needs, without padding.
+TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
+  array<char, 16> buffer{};
+
+  const char * start = string_utils::utoa(span{buffer}, uint32_t{0});
+  CHECK(matchesText(start, "0"));
+  CHECK(closesWindow(start, buffer, "0"));
+
+  // A value below a hundred takes both digits from the pair table in one read.
+  start = string_utils::utoa(span{buffer}, uint32_t{42});
+  CHECK(matchesText(start, "42"));
+  CHECK(closesWindow(start, buffer, "42"));
+
+  start = string_utils::utoa(span{buffer}, UINT64_C(987654321));
+  CHECK(matchesText(start, "987654321"));
+
+  start = string_utils::utoa(span{buffer}.first(11), std::numeric_limits<uint32_t>::max());
+  CHECK(matchesText(start, "4294967295"));
+  CHECK(start == buffer.data());
+
+  // u8 prints three digits and u64 prints nineteen, each in a window that holds the string and the terminator.
+  array<char, 4> byteWindow{};
+  CHECK(string_utils::utoa(span{byteWindow}, uint8_t{200}) == byteWindow.data());
+  CHECK(matchesText(byteWindow.data(), "200"));
+
+  array<char, 20> wideWindow{};
+  CHECK(string_utils::utoa(span{wideWindow}, UINT64_C(1234567890123456789)) == wideWindow.data());
+  CHECK(matchesText(wideWindow.data(), "1234567890123456789"));
+
+  constexpr auto tenDigits = unsignedText(std::numeric_limits<uint32_t>::max(), 11);
+
+  static_assert(matchesText(tenDigits.data(), "4294967295"), "the widest u32 value must fit its digit count exactly");
+  static_assert(matchesText(unsignedText(uint8_t{200}, 4).data(), "200"), "u8 prints up to three digits");
+  static_assert(matchesText(unsignedText(uint32_t{42}, 3).data(), "42"),
+                "a two-digit value must print both of its digits");
+  static_assert(matchesText(unsignedText(UINT64_C(1234567890123456789), 20).data(), "1234567890123456789"),
+                "u64 must fill a window sized to its digits");
+  constexpr auto closesTheWindow = [] {
+    array<char, 16> window{};
+
+    return closesWindow(string_utils::utoa(span{window}, uint32_t{42}), window, "42");
+  }();
+
+  static_assert(closesTheWindow, "a constant expression must close the window the way the runtime call does");
+}
+
+// A window too narrow for the value keeps its low digits, and a one-byte window holds only the terminator.
+TEST_CASE("string_utils/utoa/truncates_a_window_too_narrow_for_the_value") {
+  array<char, 16> buffer{};
+
+  const char * start = string_utils::utoa(span{buffer}.first(4), uint32_t{123456});
+  CHECK(matchesText(start, "456"));
+  CHECK(start == buffer.data());
+
+  array<char, 4> oneByte{};
+  oneByte.fill(sentinel);
+  CHECK(string_utils::utoa(span{oneByte}.first(1), uint32_t{7}) == oneByte.data());
+  CHECK(oneByte[0] == '\0');
+  CHECK(oneByte[1] == sentinel);
+
+  // Four bytes hold terminator plus three digits: the leading half of 123456 goes missing, "456" stays.
+  constexpr auto cut = unsignedText(uint32_t{123456}, 4);
+
+  constexpr auto singleByteWindow = [] {
+    array<char, 4> window{};
+    window.fill(sentinel);
+    (void)string_utils::utoa(span{window}.first(1), uint32_t{7});
+
+    return window;
+  }();
+
+  static_assert(matchesText(cut.data(), "456"), "a truncated value must keep its low digits in order");
+  static_assert(matchesText(unsignedText(uint32_t{7}, 1).data(), ""), "a one-byte window holds only the terminator");
+  static_assert(singleByteWindow[0] == '\0' && singleByteWindow[1] == sentinel,
+                "a one-byte window must hold the terminator and leave the next byte alone");
+}
+
+// Full-width uppercase hexadecimal of each unsigned type, zero-padded, without a prefix.
+TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
+  array<char, 9> byteWindow{};
+
+  const char * start = string_utils::utoaHex(span{byteWindow}, uint8_t{0x0F});
+  CHECK(matchesText(start, "0F"));
+  CHECK(closesWindow(start, byteWindow, "0F"));
+
+  array<char, 17> hexWindow{};
+
+  start = string_utils::utoaHex(span{hexWindow}.first(9), 0x1234ABCDU);
+  CHECK(matchesText(start, "1234ABCD"));
+  CHECK(start == hexWindow.data());
+
+  start = string_utils::utoaHex(span{hexWindow}, UINT64_C(0xDEADBEEFCAFEBABE));
+  CHECK(matchesText(start, "DEADBEEFCAFEBABE"));
+  CHECK(closesWindow(start, hexWindow, "DEADBEEFCAFEBABE"));
+
+  // Zero padding fills the high nibbles, so u16 prints four digits and u64 sixteen digits.
+  array<char, 5> padded16{};
+  CHECK(matchesText(string_utils::utoaHex(span{padded16}, uint16_t{0x0021}), "0021"));
+
+  array<char, 17> padded64{};
+  CHECK(matchesText(string_utils::utoaHex(span{padded64}, UINT64_C(1)), "0000000000000001"));
+
+  static_assert(matchesText(hexText(uint16_t{0x0021}, 5).data(), "0021"), "u16 pads to four digits");
+  static_assert(matchesText(hexText(std::numeric_limits<uint32_t>::max(), 9).data(), "FFFFFFFF"),
+                "u32 pads to eight digits");
+  static_assert(matchesText(hexText(UINT64_C(1), 17).data(), "0000000000000001"), "u64 pads to sixteen digits");
+
+  constexpr auto hexClosesTheWindow = [] {
+    array<char, 9> window{};
+
+    return closesWindow(string_utils::utoaHex(span{window}, uint8_t{0x0F}), window, "0F");
+  }();
+
+  static_assert(hexClosesTheWindow, "a constant expression must close the window the way the runtime call does");
+}
+
+// A window shorter than the width of the type keeps its low digits, and a one-byte window holds only the terminator.
+TEST_CASE("string_utils/utoa_hex/truncates_a_window_shorter_than_the_width") {
+  array<char, 17> window{};
+
+  // Six bytes hold the terminator plus five digits: the two leading nibbles of 0x12345678 go missing.
+  const char * start = string_utils::utoaHex(span{window}.first(6), uint32_t{0x12345678});
+  CHECK(matchesText(start, "45678"));
+  CHECK(start == window.data());
+
+  array<char, 4> oneByte{};
+  oneByte.fill(sentinel);
+  CHECK(string_utils::utoaHex(span{oneByte}.first(1), uint8_t{0xAB}) == oneByte.data());
+  CHECK(oneByte[0] == '\0');
+  CHECK(oneByte[1] == sentinel);
+
+  static_assert(matchesText(hexText(uint32_t{0x12345678}, 6).data(), "45678"),
+                "a truncated window must keep its low digits");
+  static_assert(matchesText(hexText(uint8_t{0xAB}, 1).data(), ""), "a one-byte window holds only the terminator");
+
+  constexpr auto singleByteWindow = [] {
+    array<char, 4> buffer{};
+    buffer.fill(sentinel);
+    (void)string_utils::utoaHex(span{buffer}.first(1), uint8_t{0xAB});
+
+    return buffer;
+  }();
+
+  static_assert(singleByteWindow[0] == '\0' && singleByteWindow[1] == sentinel,
+                "a one-byte window must hold the terminator and leave the next byte alone");
 }
 
 } // namespace toy::string_utils

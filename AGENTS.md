@@ -97,7 +97,7 @@ Principles for engine and gameplay code, from architecture down to everyday idio
 * **Monadic error flow:** Chain fallible steps with `[[nodiscard]]` `std::expected` and `and_then` / `transform` / `or_else` instead of nested `if` checks; `value_or` only where discarding the error is deliberate — see Error handling under **Code Quality**.
 * **Deducing `this`:** An explicit object parameter (`auto && at(this auto && self, size_t index)`) collapses `const` / non-`const` overload pairs and replaces CRTP in mixins.
 * **Enum interop:** `std::to_underlying` instead of casts; bit flags as scoped enums with the engine's bitwise-operator macro, never raw integers.
-* **Bit-level operations:** `std::bit_cast`, `std::byteswap`, `std::rotl` / `std::rotr`, `std::popcount`, `std::countl_zero` — `constexpr` and portable — instead of `memcpy` punning, unions, or intrinsics.
+* **Bit-level operations:** `toy::bit_cast`, `std::byteswap`, `std::rotl` / `std::rotr`, `std::popcount`, `std::countl_zero` — `constexpr` and portable — instead of `memcpy` punning, unions, or intrinsics.
 * **Compile-time branching:** `if consteval` over `std::is_constant_evaluated()`; both branches must produce identical results.
 * **Operator conveniences:** `static operator()` / `static operator[]` for stateless callables; multidimensional `operator[](x, y)` over `operator()(x, y)` for grids, matrices, and tile maps.
 * **Ranges and views:** `std::views` (`zip`, `enumerate`, `chunk`, `stride`, `filter`) over manual index bookkeeping — lazy and allocation-free, but materialize into contiguous storage before repeated hot-path iteration.
