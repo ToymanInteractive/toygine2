@@ -1258,10 +1258,11 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   CHECK(matchesText(start, "456"));
   CHECK(start == buffer.data());
 
-  array<char, 1> oneByte{};
+  array<char, 4> oneByte{};
   oneByte.fill(sentinel);
-  CHECK(string_utils::utoa(span{oneByte}, uint32_t{7}) == oneByte.data());
+  CHECK(string_utils::utoa(span{oneByte}.first(1), uint32_t{7}) == oneByte.data());
   CHECK(oneByte[0] == '\0');
+  CHECK(oneByte[1] == sentinel);
 
   // u8 prints three digits and u64 prints nineteen, each in a window that holds the string and the terminator.
   array<char, 4> byteWindow{};
@@ -1286,6 +1287,26 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
 
   static_assert(matchesText(cut.data(), "456"), "a truncated value must keep its low digits in order");
   static_assert(matchesText(unsignedText(uint32_t{7}, 1).data(), ""), "a one-byte window holds only the terminator");
+
+  constexpr auto singleByteWindow = [] {
+    array<char, 4> buffer{};
+    buffer.fill(sentinel);
+    (void)string_utils::utoa(span{buffer}.first(1), uint32_t{7});
+
+    return buffer;
+  }();
+
+  // The offset plus the literal's extent must reach the window's end, which is what the runtime check measures.
+  constexpr auto twoDigitTail = [] {
+    array<char, 16>    buffer{};
+    const char * const start = string_utils::utoa(span{buffer}, uint32_t{42});
+
+    return static_cast<size_t>(start - buffer.data()) + sizeof("42");
+  }();
+
+  static_assert(singleByteWindow[0] == '\0' && singleByteWindow[1] == sentinel,
+                "a one-byte window must hold the terminator and leave the next byte alone");
+  static_assert(twoDigitTail == 16, "a constant expression must right-align the string as the runtime call does");
 }
 
 // Full-width uppercase hexadecimal of each unsigned type, zero-padded, without a prefix.
@@ -1317,6 +1338,16 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
   static_assert(matchesText(hexText(std::numeric_limits<uint32_t>::max(), 9).data(), "FFFFFFFF"),
                 "u32 pads to eight digits");
   static_assert(matchesText(hexText(UINT64_C(1), 17).data(), "0000000000000001"), "u64 pads to sixteen digits");
+
+  // The offset plus the literal's extent must reach the window's end, which is what the runtime check measures.
+  constexpr auto hexDigitTail = [] {
+    array<char, 9>     buffer{};
+    const char * const start = string_utils::utoaHex(span{buffer}, uint8_t{0x0F});
+
+    return static_cast<size_t>(start - buffer.data()) + sizeof("0F");
+  }();
+
+  static_assert(hexDigitTail == 9, "a constant expression must right-align the digits as the runtime call does");
 }
 
 // A window shorter than the width of the type keeps its low digits, and a one-byte window holds only the terminator.
@@ -1328,14 +1359,26 @@ TEST_CASE("string_utils/utoa_hex/truncates_a_window_shorter_than_the_width") {
   CHECK(matchesText(start, "45678"));
   CHECK(start == window.data());
 
-  array<char, 1> oneByte{};
+  array<char, 4> oneByte{};
   oneByte.fill(sentinel);
-  CHECK(string_utils::utoaHex(span{oneByte}, uint8_t{0xAB}) == oneByte.data());
+  CHECK(string_utils::utoaHex(span{oneByte}.first(1), uint8_t{0xAB}) == oneByte.data());
   CHECK(oneByte[0] == '\0');
+  CHECK(oneByte[1] == sentinel);
 
   static_assert(matchesText(hexText(uint32_t{0x12345678}, 6).data(), "45678"),
                 "a truncated window must keep its low digits");
   static_assert(matchesText(hexText(uint8_t{0xAB}, 1).data(), ""), "a one-byte window holds only the terminator");
+
+  constexpr auto singleByteWindow = [] {
+    array<char, 4> buffer{};
+    buffer.fill(sentinel);
+    (void)string_utils::utoaHex(span{buffer}.first(1), uint8_t{0xAB});
+
+    return buffer;
+  }();
+
+  static_assert(singleByteWindow[0] == '\0' && singleByteWindow[1] == sentinel,
+                "a one-byte window must hold the terminator and leave the next byte alone");
 }
 
 } // namespace toy::string_utils
