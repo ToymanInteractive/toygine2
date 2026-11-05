@@ -173,6 +173,12 @@ constexpr bool matchesText(const char * text, const char (&expected)[Size]) noex
   return traits_type::compare(text, expected, Size) == 0;
 }
 
+// Checks that the string a formatter wrote closes the window, taking the length from the expected literal.
+template <size_t Size, size_t Extent>
+constexpr bool closesWindow(const char * start, const array<char, Extent> & window, const char (&)[Size]) noexcept {
+  return start + Size == window.data() + window.size();
+}
+
 // The decimal text toy::string_utils::itoa() writes, moved to the front of a fixed array so it compares as a literal.
 template <typename T>
 constexpr auto decimalText(T value) noexcept {
@@ -1156,7 +1162,7 @@ TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
 
   const char * start = string_utils::itoa(span{buffer}, 0);
   CHECK(matchesText(start, "0"));
-  CHECK(start + 2 == buffer.data() + buffer.size());
+  CHECK(closesWindow(start, buffer, "0"));
 
   // The digits arrive from the least significant, so the printed order shows no reversal step is missing.
   start = string_utils::itoa(span{buffer}, 12345);
@@ -1164,7 +1170,7 @@ TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
 
   start = string_utils::itoa(span{buffer}, std::numeric_limits<int32_t>::max());
   CHECK(matchesText(start, "2147483647"));
-  CHECK(start + 11 == buffer.data() + buffer.size());
+  CHECK(closesWindow(start, buffer, "2147483647"));
 
   static_assert(matchesText(decimalText(0).data(), "0"), "zero must print alone");
   static_assert(matchesText(decimalText(10).data(), "10"), "a ten must take two digits");
@@ -1179,7 +1185,7 @@ TEST_CASE("string_utils/itoa/writes_a_minus_before_negative_values") {
 
   const char * start = string_utils::itoa(span{buffer}, -1);
   CHECK(matchesText(start, "-1"));
-  CHECK(start + 3 == buffer.data() + buffer.size());
+  CHECK(closesWindow(start, buffer, "-1"));
 
   start = string_utils::itoa(span{buffer}, -12345);
   CHECK(matchesText(start, "-12345"));
@@ -1209,7 +1215,7 @@ TEST_CASE("string_utils/itoa/keeps_the_bytes_before_the_string") {
   buffer.fill(sentinel);
 
   const char * start = string_utils::itoa(span{buffer}, 12345);
-  CHECK(start == buffer.data() + 10);
+  CHECK(closesWindow(start, buffer, "12345"));
   CHECK(buffer[9] == sentinel);
   CHECK(buffer[15] == '\0');
 
@@ -1239,12 +1245,12 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
 
   const char * start = string_utils::utoa(span{buffer}, uint32_t{0});
   CHECK(matchesText(start, "0"));
-  CHECK(start + 2 == buffer.data() + buffer.size());
+  CHECK(closesWindow(start, buffer, "0"));
 
   // A value below a hundred takes both digits from the pair table in one read.
   start = string_utils::utoa(span{buffer}, uint32_t{42});
   CHECK(matchesText(start, "42"));
-  CHECK(start + 3 == buffer.data() + buffer.size());
+  CHECK(closesWindow(start, buffer, "42"));
 
   start = string_utils::utoa(span{buffer}, UINT64_C(987654321));
   CHECK(matchesText(start, "987654321"));
@@ -1264,21 +1270,19 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
 
   constexpr auto tenDigits = unsignedText(std::numeric_limits<uint32_t>::max(), 11);
 
-  // The offset plus the literal's extent must reach the window's end, which is what the runtime check measures.
-  constexpr auto twoDigitTail = [] {
-    array<char, 16>    buffer{};
-    const char * const start = string_utils::utoa(span{buffer}, uint32_t{42});
-
-    return static_cast<size_t>(start - buffer.data()) + sizeof("42");
-  }();
-
   static_assert(matchesText(tenDigits.data(), "4294967295"), "the widest u32 value must fit its digit count exactly");
   static_assert(matchesText(unsignedText(uint8_t{200}, 4).data(), "200"), "u8 prints up to three digits");
   static_assert(matchesText(unsignedText(uint32_t{42}, 3).data(), "42"),
                 "a two-digit value must print both of its digits");
   static_assert(matchesText(unsignedText(UINT64_C(1234567890123456789), 20).data(), "1234567890123456789"),
                 "u64 must fill a window sized to its digits");
-  static_assert(twoDigitTail == 16, "a constant expression must right-align the string as the runtime call does");
+  constexpr auto closesTheWindow = [] {
+    array<char, 16> buffer{};
+
+    return closesWindow(string_utils::utoa(span{buffer}, uint32_t{42}), buffer, "42");
+  }();
+
+  static_assert(closesTheWindow, "a constant expression must close the window the way the runtime call does");
 }
 
 // A window too narrow for the value keeps its low digits, and a one-byte window holds only the terminator.
@@ -1318,7 +1322,7 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
 
   const char * start = string_utils::utoaHex(span{byteWindow}, uint8_t{0x0F});
   CHECK(matchesText(start, "0F"));
-  CHECK(start + 3 == byteWindow.data() + byteWindow.size());
+  CHECK(closesWindow(start, byteWindow, "0F"));
 
   array<char, 17> hexWindow{};
 
@@ -1328,7 +1332,7 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
 
   start = string_utils::utoaHex(span{hexWindow}, UINT64_C(0xDEADBEEFCAFEBABE));
   CHECK(matchesText(start, "DEADBEEFCAFEBABE"));
-  CHECK(start + 17 == hexWindow.data() + hexWindow.size());
+  CHECK(closesWindow(start, hexWindow, "DEADBEEFCAFEBABE"));
 
   // Zero padding fills the high nibbles, so u16 prints four digits and u64 sixteen digits.
   array<char, 5> padded16{};
@@ -1342,15 +1346,13 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
                 "u32 pads to eight digits");
   static_assert(matchesText(hexText(UINT64_C(1), 17).data(), "0000000000000001"), "u64 pads to sixteen digits");
 
-  // The offset plus the literal's extent must reach the window's end, which is what the runtime check measures.
-  constexpr auto hexDigitTail = [] {
-    array<char, 9>     buffer{};
-    const char * const start = string_utils::utoaHex(span{buffer}, uint8_t{0x0F});
+  constexpr auto hexClosesTheWindow = [] {
+    array<char, 9> buffer{};
 
-    return static_cast<size_t>(start - buffer.data()) + sizeof("0F");
+    return closesWindow(string_utils::utoaHex(span{buffer}, uint8_t{0x0F}), buffer, "0F");
   }();
 
-  static_assert(hexDigitTail == 9, "a constant expression must right-align the digits as the runtime call does");
+  static_assert(hexClosesTheWindow, "a constant expression must close the window the way the runtime call does");
 }
 
 // A window shorter than the width of the type keeps its low digits, and a one-byte window holds only the terminator.
