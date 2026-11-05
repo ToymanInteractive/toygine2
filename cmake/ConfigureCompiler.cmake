@@ -121,6 +121,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
+# Compiler version floor
+#-----------------------------------------------------------------------------------------------------------------------
+
+if (CMAKE_CXX_COMPILER_ID STREQUAL "GNU" AND CMAKE_CXX_COMPILER_VERSION VERSION_LESS 14.0)
+  message(FATAL_ERROR "GCC ${CMAKE_CXX_COMPILER_VERSION} is not supported. ToyGine2 requires GCC 14.0 or newer.")
+endif ()
+
+#-----------------------------------------------------------------------------------------------------------------------
 # Build options
 #-----------------------------------------------------------------------------------------------------------------------
 
