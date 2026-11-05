@@ -1196,11 +1196,13 @@ TEST_CASE("string_utils/itoa/writes_a_minus_before_negative_values") {
   static_assert(matchesText(decimalText(-12345).data(), "-12345"),
                 "the sign must precede digits that come out in order");
   static_assert(matchesText(decimalText<int8_t>(std::numeric_limits<int8_t>::min()).data(), "-128"),
-                "the smallest width must print its minimum in full");
+                "an 8-bit value must print its minimum in full");
+  static_assert(matchesText(decimalText<int16_t>(std::numeric_limits<int16_t>::min()).data(), "-32768"),
+                "a 16-bit value must print its minimum in full");
   static_assert(matchesText(decimalText<int32_t>(std::numeric_limits<int32_t>::min()).data(), "-2147483648"),
-                "the middle width must print its minimum in full");
+                "a 32-bit value must print its minimum in full");
   static_assert(matchesText(decimalText<int64_t>(std::numeric_limits<int64_t>::min()).data(), "-9223372036854775808"),
-                "the widest width must print its minimum in full");
+                "a 64-bit value must print its minimum in full");
 }
 
 // itoa right-aligns in the window it is given and leaves the bytes before the string as the caller left them.

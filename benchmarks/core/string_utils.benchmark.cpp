@@ -324,8 +324,10 @@ BENCHMARK_CASE("core/string_utils/utoa") {
 
   bench.unit("conversion");
 
+  const toy::span out{buffer};
+
   bench.run("toy::string_utils::utoa", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoa(toy::span{buffer}, value));
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -343,8 +345,10 @@ BENCHMARK_CASE("core/string_utils/utoa_uint64") {
 
   bench.unit("conversion");
 
+  const toy::span out{buffer};
+
   bench.run("toy::string_utils::utoa", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoa(toy::span{buffer}, value));
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -364,8 +368,10 @@ BENCHMARK_CASE("core/string_utils/utoa_hex") {
 
   bench.unit("conversion");
 
+  const toy::span out{buffer};
+
   bench.run("toy::string_utils::utoaHex", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoaHex(toy::span{buffer}, value));
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoaHex(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -383,8 +389,10 @@ BENCHMARK_CASE("core/string_utils/utoa_hex_uint64") {
 
   bench.unit("conversion");
 
+  const toy::span out{buffer};
+
   bench.run("toy::string_utils::utoaHex", [&] {
-    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoaHex(toy::span{buffer}, value));
+    toy::benchmark::doNotOptimizeAway(toy::string_utils::utoaHex(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)

@@ -283,9 +283,11 @@ constexpr char * itoa(span<char> dest, T value) noexcept {
     return dest.data();
   }
 
-  // The digits stay at or after dest + 1, so the byte before them always belongs to this buffer.
-  char * digits = utoa(span<char>(dest.data() + 1, dest.size() - 1),
-                       static_cast<std::make_unsigned_t<T>>(-(value + 1)) + 1U);
+  // The sum is computed in unsigned int; the outer cast keeps utoa on the width of T, as the non-negative branch does.
+  using Unsigned           = std::make_unsigned_t<T>;
+  const Unsigned magnitude = static_cast<Unsigned>(static_cast<Unsigned>(-(value + 1)) + 1U);
+
+  char * digits = utoa(span<char>(dest.data() + 1, dest.size() - 1), magnitude);
   *--digits     = '-';
 
   return digits;
