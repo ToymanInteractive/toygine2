@@ -1263,6 +1263,15 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   CHECK(string_utils::utoa(span{oneByte}, uint32_t{7}) == oneByte.data());
   CHECK(oneByte[0] == '\0');
 
+  // u8 prints three digits and u64 prints nineteen, each in a window that holds the string and the terminator.
+  array<char, 4> byteWindow{};
+  CHECK(string_utils::utoa(span{byteWindow}, uint8_t{200}) == byteWindow.data());
+  CHECK(matchesText(byteWindow.data(), "200"));
+
+  array<char, 20> wideWindow{};
+  CHECK(string_utils::utoa(span{wideWindow}, UINT64_C(1234567890123456789)) == wideWindow.data());
+  CHECK(matchesText(wideWindow.data(), "1234567890123456789"));
+
   constexpr auto tenDigits = unsignedText(std::numeric_limits<uint32_t>::max(), 11);
 
   static_assert(matchesText(tenDigits.data(), "4294967295"), "the widest u32 value must fit its digit count exactly");
@@ -1270,7 +1279,7 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
   static_assert(matchesText(unsignedText(uint32_t{42}, 3).data(), "42"),
                 "a two-digit value must print both of its digits");
   static_assert(matchesText(unsignedText(UINT64_C(1234567890123456789), 20).data(), "1234567890123456789"),
-                "u64 prints its widest value in full");
+                "u64 must fill a window sized to its digits");
 
   // Four bytes hold terminator plus three digits: the leading half of 123456 goes missing, "456" stays.
   constexpr auto cut = unsignedText(uint32_t{123456}, 4);
@@ -1297,12 +1306,33 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
   CHECK(matchesText(start, "DEADBEEFCAFEBABE"));
   CHECK(start + 17 == hexWindow.data() + hexWindow.size());
 
+  // Zero padding fills the high nibbles, so u16 prints four digits and u64 sixteen digits.
+  array<char, 5> padded16{};
+  CHECK(matchesText(string_utils::utoaHex(span{padded16}, uint16_t{0x0021}), "0021"));
+
+  array<char, 17> padded64{};
+  CHECK(matchesText(string_utils::utoaHex(span{padded64}, UINT64_C(1)), "0000000000000001"));
+
   static_assert(matchesText(hexText(uint16_t{0x0021}, 5).data(), "0021"), "u16 pads to four digits");
   static_assert(matchesText(hexText(std::numeric_limits<uint32_t>::max(), 9).data(), "FFFFFFFF"),
                 "u32 pads to eight digits");
   static_assert(matchesText(hexText(UINT64_C(1), 17).data(), "0000000000000001"), "u64 pads to sixteen digits");
+}
+
+// A window shorter than the width of the type keeps its low digits, and a one-byte window holds only the terminator.
+TEST_CASE("string_utils/utoa_hex/truncates_a_window_shorter_than_the_width") {
+  array<char, 17> window{};
 
   // Six bytes hold the terminator plus five digits: the two leading nibbles of 0x12345678 go missing.
+  const char * start = string_utils::utoaHex(span{window}.first(6), uint32_t{0x12345678});
+  CHECK(matchesText(start, "45678"));
+  CHECK(start == window.data());
+
+  array<char, 1> oneByte{};
+  oneByte.fill(sentinel);
+  CHECK(string_utils::utoaHex(span{oneByte}, uint8_t{0xAB}) == oneByte.data());
+  CHECK(oneByte[0] == '\0');
+
   static_assert(matchesText(hexText(uint32_t{0x12345678}, 6).data(), "45678"),
                 "a truncated window must keep its low digits");
   static_assert(matchesText(hexText(uint8_t{0xAB}, 1).data(), ""), "a one-byte window holds only the terminator");
