@@ -42,7 +42,7 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
   constexpr size_t maxSleepDuration          = std::numeric_limits<s64>::max() / nanosecondsPerMillisecond;
 
   do {
-    const auto interval = std::min(milliseconds, maxSleepDuration);
+    const auto interval = min(milliseconds, maxSleepDuration);
 
     ::svcSleepThread(static_cast<s64>(interval) * nanosecondsPerMillisecond);
 

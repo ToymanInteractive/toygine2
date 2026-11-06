@@ -141,11 +141,11 @@ constexpr size_t rfind(span<const char> data, span<const char> pattern, size_t p
   const size_t count = pattern.size();
 
   if (count == 0)
-    return std::min(pos, size);
+    return min(pos, size);
   else if (count > size)
     return npos;
 
-  for (size_t remaining = std::min(pos, size - count) + 1; remaining > 0; --remaining) {
+  for (size_t remaining = min(pos, size - count) + 1; remaining > 0; --remaining) {
     const size_t index = remaining - 1;
 
     // Ends reject most positions before compare(); the backward walk keeps the early exit a forward scan loses.
@@ -230,7 +230,7 @@ constexpr size_t findLastNotOf(span<const char> data, span<const char> set, size
   assert_message(set.data() != nullptr || set.empty(), "a null pointer names no characters to search for");
 
   if (set.empty())
-    return data.empty() ? npos : std::min(pos, data.size() - 1);
+    return data.empty() ? npos : min(pos, data.size() - 1);
 
   const auto members = detail::membershipTable(set);
   for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
@@ -245,7 +245,7 @@ constexpr int compare(span<const char> lhs, span<const char> rhs) noexcept {
   assert_message(rhs.data() != nullptr || rhs.empty(), "a null pointer names no characters to compare with");
 
   // memcmp behind std::char_traits::compare takes no null pointer, even for an empty range.
-  const size_t common = std::min(lhs.size(), rhs.size());
+  const size_t common = min(lhs.size(), rhs.size());
   if (const int result = common != 0 ? traits_type::compare(lhs.data(), rhs.data(), common) : 0; result != 0)
     return result;
 
@@ -368,7 +368,7 @@ constexpr char * utoaHex(span<char> dest, T value) noexcept {
 
   const size_t digits = sizeof(T) * 2;
   const auto   room   = static_cast<size_t>(end - dest.data());
-  const auto   count  = std::min(digits, room);
+  const auto   count  = min(digits, room);
 
   for (size_t index = count; index > 0; --index) {
     const auto nibble   = static_cast<unsigned>(value & 0x0FU);

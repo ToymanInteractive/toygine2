@@ -86,8 +86,7 @@ constexpr String<storageType>::String(const StringType & string) noexcept
 template <StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::String(const StringType & string, size_type pos, size_type count) noexcept
-  : String(string.c_str() + std::min(pos, string.size()),
-           std::min(count, string.size() - std::min(pos, string.size()))) {
+  : String(string.c_str() + min(pos, string.size()), min(count, string.size() - min(pos, string.size()))) {
   assert_message(pos <= string.size(), "the substring must start inside the source string");
 }
 
@@ -97,8 +96,8 @@ constexpr String<storageType>::String(String && other, size_type pos, size_type 
   const size_type sourceLength = _storage.size();
   assert_message(pos <= sourceLength, "the substring must start inside the source string");
 
-  const size_type offset = std::min(pos, sourceLength);
-  const size_type length = std::min(count, sourceLength - offset);
+  const size_type offset = min(pos, sourceLength);
+  const size_type length = min(count, sourceLength - offset);
   if (offset != 0 && length != 0)
     traits_type::move(_storage.data(), _storage.data() + offset, length);
 
@@ -208,7 +207,7 @@ constexpr String<storageType> & String<storageType>::assign(const StringType & s
   if (pos > string.size())
     return *this;
 
-  return assign(string.c_str() + pos, std::min(count, string.size() - pos));
+  return assign(string.c_str() + pos, min(count, string.size() - pos));
 }
 
 template <StringStorage storageType>
@@ -437,7 +436,7 @@ constexpr String<storageType> & String<storageType>::insert(size_type index, con
   if (pos > string.size())
     return *this;
 
-  return insert(index, string.c_str() + pos, std::min(count, string.size() - pos));
+  return insert(index, string.c_str() + pos, min(count, string.size() - pos));
 }
 
 template <StringStorage storageType>
@@ -454,7 +453,7 @@ constexpr String<storageType>::iterator String<storageType>::insert(PositionIter
   insert(index, count, ch);
 
   // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
-  return begin() + std::min(index, size());
+  return begin() + min(index, size());
 }
 
 template <StringStorage storageType>
@@ -467,7 +466,7 @@ constexpr String<storageType>::iterator String<storageType>::insert(PositionIter
     _replaceRange(index, 0, std::move(first), std::move(last));
 
   // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
-  return begin() + std::min(index, size());
+  return begin() + min(index, size());
 }
 
 template <StringStorage storageType>
@@ -487,14 +486,14 @@ constexpr String<storageType>::iterator String<storageType>::insert_range(Positi
     _replaceRange(index, 0, std::ranges::begin(range), std::ranges::end(range));
 
   // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
-  return begin() + std::min(index, size());
+  return begin() + min(index, size());
 }
 
 template <StringStorage storageType>
 constexpr String<storageType> & String<storageType>::erase(size_type index, size_type count) noexcept {
   assert_message(index <= size(), "the erased range must start inside the string or at its end");
   if (index <= size())
-    _replace(index, std::min(count, size() - index), nullptr, 0);
+    _replace(index, min(count, size() - index), nullptr, 0);
 
   return *this;
 }
@@ -507,7 +506,7 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
   erase(index, 1);
 
   // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
-  return begin() + std::min(index, size());
+  return begin() + min(index, size());
 }
 
 template <StringStorage storageType>
@@ -521,7 +520,7 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
     erase(index, end - index);
 
   // A rejected position may lie past end(); the caller gets end() back rather than an iterator beyond it.
-  return begin() + std::min(index, size());
+  return begin() + min(index, size());
 }
 
 template <StringStorage storageType>
@@ -613,7 +612,7 @@ constexpr String<storageType> & String<storageType>::replace(size_type pos, size
                                                              size_type count2) noexcept {
   assert_message(pos <= size(), "the replaced range must start inside the string or at its end");
   if (pos <= size())
-    _replace(pos, std::min(count, size() - pos), string, count2);
+    _replace(pos, min(count, size() - pos), string, count2);
 
   return *this;
 }
@@ -641,14 +640,14 @@ constexpr String<storageType> & String<storageType>::replace(size_type pos, size
   if (pos2 > string.size())
     return *this;
 
-  return replace(pos, count, string.c_str() + pos2, std::min(count2, string.size() - pos2));
+  return replace(pos, count, string.c_str() + pos2, min(count2, string.size() - pos2));
 }
 
 template <StringStorage storageType>
 constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, size_type count2,
                                                              value_type ch) noexcept {
   assert_message(pos <= size(), "the replaced range must start inside the string or at its end");
-  if (pos <= size() && _openGap(pos, std::min(count, size() - pos), count2))
+  if (pos <= size() && _openGap(pos, min(count, size() - pos), count2))
     traits_type::assign(data() + pos, count2, ch);
 
   return *this;
@@ -738,7 +737,7 @@ constexpr String<storageType>::size_type String<storageType>::copy(value_type * 
   if (pos > size())
     return 0;
 
-  const size_type copied = std::min(count, size() - pos);
+  const size_type copied = min(count, size() - pos);
   assert_message(dest != nullptr || copied == 0, "a null pointer has no room for the copied characters");
 
   // memmove behind std::char_traits::copy takes no null destination, even for an empty range.
@@ -974,9 +973,9 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
                                            size_type count2) const noexcept {
   assert_message(pos2 <= string.size(), "the substring must start inside the compared string");
 
-  const size_type offset = std::min(pos2, string.size());
+  const size_type offset = min(pos2, string.size());
 
-  return compare(pos1, count1, string.c_str() + offset, std::min(count2, string.size() - offset));
+  return compare(pos1, count1, string.c_str() + offset, min(count2, string.size() - offset));
 }
 
 template <StringStorage storageType>
@@ -996,9 +995,9 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
                                            size_type count2) const noexcept {
   assert_message(pos1 <= size(), "the compared range must start inside the string or at its end");
 
-  const size_type offset = std::min(pos1, size());
+  const size_type offset = min(pos1, size());
 
-  return string_utils::compare(span{data() + offset, std::min(count1, size() - offset)}, span{string, count2});
+  return string_utils::compare(span{data() + offset, min(count1, size() - offset)}, span{string, count2});
 }
 
 template <StringStorage storageType>
@@ -1064,7 +1063,7 @@ constexpr StringView String<storageType>::subview(size_type pos) const noexcept 
   assert_message(pos <= size(), "the view must start inside the string or at its end");
 
   // StringView measures to the terminator, so a null byte inside the tail ends the view early.
-  return StringView(c_str() + std::min(pos, size()));
+  return StringView(c_str() + min(pos, size()));
 }
 
 template <StringStorage storageType>

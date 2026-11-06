@@ -79,7 +79,7 @@ inline constexpr bool assertIgnoreAlways = true;
                                                  .patch    = APP_VERSION_PATCH,                                        \
                                                  .revision = APP_VERSION_REVISION});                                   \
                                                                                                                        \
-      retValue = app.run(static_cast<size_t>(std::max(0, argc)), argv);                                                \
+      retValue = app.run(static_cast<size_t>(toy::max(0, argc)), argv);                                                \
     }                                                                                                                  \
                                                                                                                        \
     FREE(argv);                                                                                                        \

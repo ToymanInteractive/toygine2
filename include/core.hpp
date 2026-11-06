@@ -59,13 +59,13 @@
 */
 namespace toy {
 
-// https://cppreference.com/cpp/types/size_t
+/// Unsigned integer type for object and array sizes, and for indexing: https://cppreference.com/cpp/types/size_t
 using std::size_t;
 
-// https://cppreference.com/cpp/types/ptrdiff_t
+/// Signed integer type of the result of subtracting two pointers: https://cppreference.com/cpp/types/ptrdiff_t
 using std::ptrdiff_t;
 
-// https://cppreference.com/cpp/types/nullptr_t
+/// Type of the null pointer literal nullptr, not itself a pointer type: https://cppreference.com/cpp/types/nullptr_t
 using std::nullptr_t;
 
 /// Signed integer type with width of exactly 8 bits and no padding bits
@@ -97,7 +97,7 @@ using std::byte;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// Reinterprets the object representation of a value as another trivially copyable type of the same size
+/// Reinterprets the bits of a value as another type of the same size: https://cppreference.com/cpp/numeric/bit_cast
 using std::bit_cast;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -107,6 +107,12 @@ using std::array;
 
 /// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
 using std::span;
+
+/// Returns the smaller of two values, or the smallest of an initializer list: https://cppreference.com/cpp/algorithm/min
+using std::min;
+
+/// Returns the larger of two values, or the greatest of an initializer list: https://cppreference.com/cpp/algorithm/max
+using std::max;
 
 } // namespace toy
 
