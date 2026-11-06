@@ -34,6 +34,8 @@ constexpr const Version & BaseApplication::version() const noexcept {
 }
 
 inline bool BaseApplication::run(size_t argc, char ** argv) noexcept {
+  chrono::initialize();
+
   _argC = argc;
   _argV = argv;
 

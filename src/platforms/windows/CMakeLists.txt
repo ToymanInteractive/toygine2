@@ -19,6 +19,7 @@
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(PLATFORM_SRC_CORE_LIST
+    src/platforms/windows/core/chrono_windows.cpp
     src/platforms/stub/core/assertion_stub.cpp)
 set(PLATFORM_HDR_CORE_LIST )
 set(PLATFORM_LIB_CORE_LIST )

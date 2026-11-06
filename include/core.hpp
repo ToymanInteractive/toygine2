@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <array>
 #include <bit>
+#include <chrono>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -108,10 +109,10 @@ using std::array;
 /// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
 using std::span;
 
-/// Returns the smaller of two values, or the smallest of an initializer list: https://cppreference.com/cpp/algorithm/min
+/// Returns the smaller of two values or the smallest of an initializer list: https://cppreference.com/cpp/algorithm/min
 using std::min;
 
-/// Returns the larger of two values, or the greatest of an initializer list: https://cppreference.com/cpp/algorithm/max
+/// Returns the larger of two values or the greatest of an initializer list: https://cppreference.com/cpp/algorithm/max
 using std::max;
 
 } // namespace toy
@@ -128,6 +129,13 @@ using std::max;
   \namespace toy::platform
 
   \brief Constants whose values the active target platform supplies.
+*/
+
+/*!
+  \namespace toy::chrono
+
+  \brief Time measurement: duration and time-point aliases, the steady and system clocks, the stopwatch, and the
+         monotonic timestamp.
 */
 
 /*!
@@ -289,6 +297,12 @@ using std::max;
 
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
+#include "core/chrono_calendar_time.hpp"
+#include "core/chrono_duration.hpp"
+#include "core/chrono_steady_clock.hpp"
+#include "core/chrono_stopwatch.hpp"
+#include "core/chrono_system_clock.hpp"
+#include "core/chrono_timestamp.hpp"
 #include "core/fixed_string_storage.hpp"
 #include "core/log_isink.hpp"
 #include "core/log_level.hpp"
@@ -305,6 +319,9 @@ using std::max;
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/bitwise_enum.inl"
+#include "core/chrono_calendar_time.inl"
+#include "core/chrono_stopwatch.inl"
+#include "core/chrono_timestamp.inl"
 #include "core/fixed_string_storage.inl"
 #include "core/string.inl"
 #include "core/string_utils.inl"

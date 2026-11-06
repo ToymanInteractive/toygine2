@@ -41,6 +41,8 @@ inline constexpr size_t inlineCopyMaxBytes = 128;
 // Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
 inline constexpr bool assertIgnoreAlways = true;
 
+inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG
