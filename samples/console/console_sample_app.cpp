@@ -94,7 +94,7 @@ int main() {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (1)
     VBlankIntrWait();
@@ -133,7 +133,7 @@ int main() {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (pmMainLoop())
     swiWaitForVBlank();
@@ -176,7 +176,7 @@ int main() {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   // Main loop
   while (aptMainLoop()) {
@@ -227,7 +227,7 @@ int main() {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (appletMainLoop()) {
     padUpdate(&pad);
@@ -285,7 +285,7 @@ int main() {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -336,7 +336,7 @@ int main() {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -378,7 +378,7 @@ int main(int argc, char ** argv) {
                toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   WHBLogPrintf("Steady clock ticks: %s\n",
                toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  WHBLogPrintf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  WHBLogPrintf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (WHBProcIsRunning()) {
     WHBLogConsoleDraw();
@@ -444,7 +444,7 @@ bool ConsoleSampleApp::runInternal() noexcept {
   printf("Steady clock frequency: %s Hz\n",
          toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsedTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   return true;
 }

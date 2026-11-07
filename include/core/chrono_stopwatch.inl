@@ -30,7 +30,18 @@
 namespace toy::chrono {
 
 inline SteadyClock::duration Stopwatch::elapsed() const noexcept {
-  return duration{elapsedTicks()};
+  const rep ticks     = elapsedTicks();
+  const rep frequency = SteadyClock::frequency();
+
+  if (frequency == steadyClockPeriodDenominator)
+    return duration{ticks};
+
+  assert_message(frequency > 0, "Stopwatch::elapsed: initialize() has not run");
+
+  const rep seconds   = ticks / frequency;
+  const rep remainder = ticks % frequency;
+
+  return duration{seconds * steadyClockPeriodDenominator + remainder * steadyClockPeriodDenominator / frequency};
 }
 
 inline SteadyClock::rep Stopwatch::elapsedTicks() const noexcept {

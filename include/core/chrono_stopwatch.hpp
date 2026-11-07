@@ -61,7 +61,7 @@ namespace toy::chrono {
 
   \section stopwatch_performance Performance Characteristics
 
-  * **Reading**: O(1); one counter read and a subtraction.
+  * **Reading**: O(1); one counter read, a subtraction, and a conversion where the counter does not tick in nanoseconds.
   * **Memory usage**: 8 bytes, the start tick alone.
 
   \section stopwatch_safety Safety Guarantees

@@ -86,6 +86,29 @@ TEST_CASE("chrono/calendar_time/from_uptime_one_second") {
 }
 
 TEST_CASE("chrono/calendar_time/from_uptime_rolls") {
+  const auto midMonth = CalendarTime::fromUptime(Duration<int64_t, std::milli>{15 * msPerDay});
+
+  CHECK(midMonth.year == 0);
+  CHECK(midMonth.month == 0);
+  CHECK(midMonth.day == 15);
+
+  const auto secondMonth = CalendarTime::fromUptime(Duration<int64_t, std::milli>{30 * msPerDay});
+
+  CHECK(secondMonth.year == 0);
+  CHECK(secondMonth.month == 1);
+  CHECK(secondMonth.day == 0);
+
+  const auto monthAndHalf = CalendarTime::fromUptime(Duration<int64_t, std::milli>{45 * msPerDay});
+
+  CHECK(monthAndHalf.month == 1);
+  CHECK(monthAndHalf.day == 15);
+
+  const auto secondYear = CalendarTime::fromUptime(Duration<int64_t, std::milli>{360 * msPerDay});
+
+  CHECK(secondYear.year == 1);
+  CHECK(secondYear.month == 0);
+  CHECK(secondYear.day == 0);
+
   static_assert(
     [] {
       const auto midMonth = CalendarTime::fromUptime(Duration<int64_t, std::milli>{15 * msPerDay});
@@ -121,6 +144,13 @@ TEST_CASE("chrono/calendar_time/from_uptime_rolls") {
 }
 
 TEST_CASE("chrono/calendar_time/from_uptime_decomposition") {
+  const auto t = CalendarTime::fromUptime(Duration<int64_t, std::milli>{3'661'234});
+
+  CHECK(t.hour == 1);
+  CHECK(t.minute == 1);
+  CHECK(t.second == 1);
+  CHECK(t.millisecond == 234);
+
   static_assert(
     [] {
       const auto t = CalendarTime::fromUptime(Duration<int64_t, std::milli>{3'661'234});
@@ -132,6 +162,19 @@ TEST_CASE("chrono/calendar_time/from_uptime_decomposition") {
 }
 
 TEST_CASE("chrono/calendar_time/day_boundaries") {
+  const auto lastMs = CalendarTime::fromUptime(Duration<int64_t, std::milli>{msPerDay - 1});
+
+  CHECK(lastMs.hour == 23);
+  CHECK(lastMs.minute == 59);
+  CHECK(lastMs.second == 59);
+  CHECK(lastMs.millisecond == 999);
+
+  const auto nextDay = CalendarTime::fromUptime(Duration<int64_t, std::milli>{msPerDay});
+
+  CHECK(nextDay.day == 1);
+  CHECK(nextDay.hour == 0);
+  CHECK(nextDay.millisecond == 0);
+
   static_assert(
     [] {
       const auto lastMs = CalendarTime::fromUptime(Duration<int64_t, std::milli>{msPerDay - 1});
@@ -154,6 +197,10 @@ TEST_CASE("chrono/calendar_time/equality") {
   constexpr auto a = CalendarTime::fromUptime(Duration<int64_t, std::milli>{0});
   constexpr auto b = CalendarTime::fromUptime(Duration<int64_t, std::milli>{0});
   constexpr auto c = CalendarTime::fromUptime(Duration<int64_t, std::milli>{1});
+
+  CHECK(a == b);
+  CHECK(!(a == c));
+  CHECK(a != c);
 
   static_assert(a == b, "equal uptimes must compare equal");
   static_assert(!(a == c), "a millisecond difference must break equality");

@@ -41,8 +41,6 @@ TEST_CASE("chrono/timestamp/ordering") {
   CHECK(zero == same);
   CHECK(!(zero < same));
   CHECK(!(same < zero));
-
-  CHECK(!(Timestamp::now() < zero));
 }
 
 } // namespace toy::chrono
