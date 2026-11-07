@@ -78,7 +78,7 @@ TEST_CASE("application/version/defaults") {
 
 // The type-level contract the comparison operators rest on.
 TEST_CASE("application/version/traits") {
-  static_assert(std::is_same_v<decltype(build <=> build), std::strong_ordering>,
+  static_assert(std::is_same_v<decltype(build <=> build), strong_ordering>,
                 "the ordering must yield a strong ordering, not a weak or partial one");
   static_assert(std::is_same_v<decltype(build == build), bool>, "equality must yield a plain bool");
 
@@ -128,23 +128,23 @@ TEST_CASE("application/version/ordering_numbers") {
   constexpr Version releasePatched{1, 0, 1};
 
   // The major number decides before either of the lower ones is read.
-  CHECK((majorRaised <=> lowerFieldsRaised) == std::strong_ordering::greater);
+  CHECK((majorRaised <=> lowerFieldsRaised) == strong_ordering::greater);
   // The minor number decides once the major numbers match.
-  CHECK((minorRaised <=> patchRaised) == std::strong_ordering::greater);
+  CHECK((minorRaised <=> patchRaised) == strong_ordering::greater);
   // The patch number decides last among the numbers.
-  CHECK((release <=> releasePatched) == std::strong_ordering::less);
-  CHECK((build <=> build) == std::strong_ordering::equal);
+  CHECK((release <=> releasePatched) == strong_ordering::less);
+  CHECK((build <=> build) == strong_ordering::equal);
 
   CHECK(release < releasePatched);
   CHECK(releasePatched > release);
   CHECK(release <= release);
   CHECK(release >= release);
 
-  static_assert((majorRaised <=> lowerFieldsRaised) == std::strong_ordering::greater,
+  static_assert((majorRaised <=> lowerFieldsRaised) == strong_ordering::greater,
                 "the major number must outrank both lower numbers");
-  static_assert((minorRaised <=> patchRaised) == std::strong_ordering::greater,
+  static_assert((minorRaised <=> patchRaised) == strong_ordering::greater,
                 "the minor number must outrank the patch number");
-  static_assert((release <=> releasePatched) == std::strong_ordering::less,
+  static_assert((release <=> releasePatched) == strong_ordering::less,
                 "the patch number must settle an order the higher numbers leave open");
   static_assert(release < releasePatched, "the synthesized relations must follow the ordering");
 }
@@ -156,8 +156,8 @@ TEST_CASE("application/version/ordering_revision") {
   constexpr Version majorRaised{2, 0, 0, earlierRevision};
 
   // Three equal numbers hand the decision to the revision, ordered byte by byte.
-  CHECK((build <=> earlier) == std::strong_ordering::greater);
-  CHECK((earlier <=> build) == std::strong_ordering::less);
+  CHECK((build <=> earlier) == strong_ordering::greater);
+  CHECK((earlier <=> build) == strong_ordering::less);
 
   // An empty revision orders before every other, the reverse of semantic-versioning pre-release precedence.
   CHECK(unnamed < build);
@@ -165,8 +165,7 @@ TEST_CASE("application/version/ordering_revision") {
   // A differing number settles the order before the revision is read.
   CHECK(majorRaised > build);
 
-  static_assert((build <=> earlier) == std::strong_ordering::greater,
-                "equal numbers must hand the order to the revision");
+  static_assert((build <=> earlier) == strong_ordering::greater, "equal numbers must hand the order to the revision");
   static_assert(unnamed < build, "an omitted revision must order before a named one");
   static_assert(majorRaised > build, "a differing number must settle the order alone");
 }

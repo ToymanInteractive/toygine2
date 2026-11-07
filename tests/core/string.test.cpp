@@ -3238,8 +3238,8 @@ TEST_CASE("string/ordering") {
   CHECK(sampleString >= Wide("pla"));
   CHECK("play" < sampleString);
   CHECK(StringView{"q"} > sampleString);
-  CHECK((sampleString <=> sampleText) == std::strong_ordering::equal);
-  CHECK((sampleString <=> Wide("playground")) == std::strong_ordering::less);
+  CHECK((sampleString <=> sampleText) == strong_ordering::equal);
+  CHECK((sampleString <=> Wide("playground")) == strong_ordering::less);
 
   // Bytes order as unsigned char, so a byte above the ASCII range follows an ASCII one.
   CHECK(Fixed("\x{ff}") > Fixed("a"));
@@ -3247,10 +3247,10 @@ TEST_CASE("string/ordering") {
   static_assert(sampleString < "plays" && sampleString > "play", "the first difference and length must decide");
   static_assert("play" < sampleString, "a pointer must order on the left");
   static_assert(StringView{"q"} > sampleString, "a view must order on the left");
-  static_assert((sampleString <=> Wide("playground")) == std::strong_ordering::less,
+  static_assert((sampleString <=> Wide("playground")) == strong_ordering::less,
                 "strings over different storages must order");
   static_assert(Fixed("\x{ff}") > Fixed("a"), "a high byte must order after an ASCII one");
-  static_assert(std::is_same_v<decltype(sampleString <=> sampleText), std::strong_ordering>,
+  static_assert(std::is_same_v<decltype(sampleString <=> sampleText), strong_ordering>,
                 "the order must be strong, as for std::basic_string");
 }
 

@@ -115,13 +115,13 @@ public:
     \param lhs Stamp on the left of the operator.
     \param rhs Stamp on the right of the operator.
 
-    \return \c std::strong_ordering::less, \c equal, or \c greater as the count of \a lhs orders before, with, or
+    \return \c strong_ordering::less, \c equal, or \c greater as the count of \a lhs orders before, with, or
             after the count of \a rhs; the compiler derives \c ==, \c !=, and the relational operators from it.
 
     \note Works in a constant expression.
   */
-  [[nodiscard]] friend constexpr std::strong_ordering operator<=>(const Timestamp & lhs,
-                                                                  const Timestamp & rhs) noexcept = default;
+  [[nodiscard]] friend constexpr strong_ordering operator<=>(const Timestamp & lhs,
+                                                             const Timestamp & rhs) noexcept = default;
 
 private:
   /*!

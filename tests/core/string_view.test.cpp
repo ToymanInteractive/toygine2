@@ -634,9 +634,9 @@ TEST_CASE("string_view/equality") {
 TEST_CASE("string_view/ordering") {
   const StringView view(sampleText);
 
-  CHECK((view <=> StringView(sampleText)) == std::strong_ordering::equal);
-  CHECK((view <=> StringView(samplePrefix)) == std::strong_ordering::greater);
-  CHECK((view <=> StringView("playz")) == std::strong_ordering::less);
+  CHECK((view <=> StringView(sampleText)) == strong_ordering::equal);
+  CHECK((view <=> StringView(samplePrefix)) == strong_ordering::greater);
+  CHECK((view <=> StringView("playz")) == strong_ordering::less);
 
   // A string that starts another one orders before it, the tie settled on the lengths.
   CHECK(StringView(samplePrefix) < view);
@@ -652,16 +652,16 @@ TEST_CASE("string_view/ordering") {
   // Bytes order by their unsigned value, so a high byte sits after an ASCII one even where plain char is signed.
   CHECK(StringView(highByte) > StringView("a"));
 
-  CHECK((StringView() <=> StringView("")) == std::strong_ordering::equal);
+  CHECK((StringView() <=> StringView("")) == strong_ordering::equal);
 
-  static_assert((sampleView <=> StringView(sampleText)) == std::strong_ordering::equal,
+  static_assert((sampleView <=> StringView(sampleText)) == strong_ordering::equal,
                 "a string must order equal to itself");
-  static_assert((sampleView <=> StringView(samplePrefix)) == std::strong_ordering::greater,
+  static_assert((sampleView <=> StringView(samplePrefix)) == strong_ordering::greater,
                 "a longer string sharing a prefix must order after the shorter one");
   static_assert(sampleView < StringView(sampleLonger), "the synthesized relations must follow the ordering");
   static_assert(sampleView > samplePrefix, "a null-terminated string converts on either side");
   static_assert(StringView(highByte) > StringView("a"), "bytes must order by their unsigned char value");
-  static_assert((StringView() <=> StringView("")) == std::strong_ordering::equal,
+  static_assert((StringView() <=> StringView("")) == strong_ordering::equal,
                 "a view over no string orders equal to a view over an empty one");
 }
 
