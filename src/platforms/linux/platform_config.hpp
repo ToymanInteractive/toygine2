@@ -43,6 +43,8 @@ inline constexpr size_t inlineCopyMaxBytes = 128;
 // Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
 inline constexpr bool assertIgnoreAlways = true;
 
+inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG
@@ -71,7 +73,7 @@ inline constexpr bool assertIgnoreAlways = true;
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    return app.run(static_cast<size_t>(std::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
+    return app.run(static_cast<size_t>(toy::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
   }
 
 #endif // SRC_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

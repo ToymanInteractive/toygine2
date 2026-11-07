@@ -131,7 +131,7 @@ constexpr bool StringView::empty() const noexcept {
 
 constexpr void StringView::remove_prefix(size_type n) noexcept {
   assert_message(n <= size(), "remove_prefix() can't remove more than size()");
-  const auto dropped = std::min(n, size());
+  const auto dropped = min(n, size());
 
   _data += dropped;
   _size -= dropped;
@@ -152,7 +152,7 @@ constexpr StringView::size_type StringView::copy(value_type * dest, size_type co
   if (pos > size())
     return 0;
 
-  const size_type copied = std::min(count, size() - pos);
+  const size_type copied = min(count, size() - pos);
   assert_message(dest != nullptr || copied == 0, "a null pointer has no room for the copied characters");
 
   // memmove behind std::char_traits::copy takes no null destination, even for an empty range.
@@ -169,9 +169,9 @@ constexpr int StringView::compare(StringView v) const noexcept {
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v) const noexcept {
   assert_message(pos1 <= size(), "Range out of bounds");
 
-  const size_type offset = std::min(pos1, size());
+  const size_type offset = min(pos1, size());
 
-  return string_utils::compare(span{data() + offset, std::min(count1, size() - offset)}, span{v.data(), v.size()});
+  return string_utils::compare(span{data() + offset, min(count1, size() - offset)}, span{v.data(), v.size()});
 }
 
 constexpr int StringView::compare(size_type pos1, size_type count1, StringView v, size_type pos2,
@@ -179,11 +179,11 @@ constexpr int StringView::compare(size_type pos1, size_type count1, StringView v
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(pos2 <= v.size(), "Range out of bounds");
 
-  const size_type offset1 = std::min(pos1, size());
-  const size_type offset2 = std::min(pos2, v.size());
+  const size_type offset1 = min(pos1, size());
+  const size_type offset2 = min(pos2, v.size());
 
-  return string_utils::compare(span{data() + offset1, std::min(count1, size() - offset1)},
-                               span{v.data() + offset2, std::min(count2, v.size() - offset2)});
+  return string_utils::compare(span{data() + offset1, min(count1, size() - offset1)},
+                               span{v.data() + offset2, min(count2, v.size() - offset2)});
 }
 
 constexpr int StringView::compare(const value_type * s) const noexcept {
@@ -199,9 +199,9 @@ constexpr int StringView::compare(size_type pos1, size_type count1, const value_
   assert_message(pos1 <= size(), "Range out of bounds");
   assert_message(s != nullptr || count2 == 0, "a null pointer names no characters to compare with");
 
-  const size_type offset = std::min(pos1, size());
+  const auto offset = min(pos1, size());
 
-  return string_utils::compare(span{data() + offset, std::min(count1, size() - offset)}, span{s, count2});
+  return string_utils::compare(span{data() + offset, min(count1, size() - offset)}, span{s, count2});
 }
 
 constexpr bool StringView::starts_with(StringView sv) const noexcept {

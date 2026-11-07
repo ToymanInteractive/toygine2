@@ -49,7 +49,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
     array<char16_t, chunkUnits> buffer;
     array<wchar_t, chunkUnits>  wideBuffer;
     while (!text.empty()) {
-      auto length = std::min(text.size(), buffer.size() - 1);
+      auto length = min(text.size(), buffer.size() - 1);
       while (length < text.size() && length > 1 && (bit_cast<uint8_t>(text[length]) & 0xC0) == 0x80)
         --length;
 
@@ -73,8 +73,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
   } else {
     DWORD written = 0;
     for (; !text.empty(); text.remove_prefix(written))
-      if (!::WriteFile(handle, text.data(), static_cast<DWORD>(std::min<size_t>(text.size(), MAXDWORD)), &written,
-                       nullptr)
+      if (!::WriteFile(handle, text.data(), static_cast<DWORD>(min<size_t>(text.size(), MAXDWORD)), &written, nullptr)
           || written == 0)
         break;
 
@@ -156,7 +155,7 @@ bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
   for (const wchar_t * wideArg : wideArgs) {
     const auto units = std::char_traits<wchar_t>::length(wideArg);
 
-    longestUnits  = std::max(longestUnits, units);
+    longestUnits  = toy::max(longestUnits, units);
     blockSize    += slotSize(units);
   }
   const auto copySize  = longestUnits * sizeof(char16_t);

@@ -73,7 +73,7 @@ namespace toy::application {
   int main(int argc, char * argv[]) {
     ToolApplication app{toy::application::Version{26, 20, 0, "f7e57d4"}};
 
-    return app.run(static_cast<size_t>(std::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;
+    return app.run(static_cast<size_t>(toy::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;
   }
   \endcode
 
