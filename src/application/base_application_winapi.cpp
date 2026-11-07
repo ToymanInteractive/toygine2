@@ -36,7 +36,7 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
   constexpr size_t maxSleepDuration = INFINITE - 1;
 
   do {
-    const auto interval = std::min(milliseconds, maxSleepDuration);
+    const auto interval = min(milliseconds, maxSleepDuration);
 
     ::Sleep(static_cast<DWORD>(interval));
 

@@ -35,6 +35,10 @@ Files extracted from GCC libstdc++:
 - License: GPL-3.0 with the GCC Runtime Library Exception (`LICENSES/COPYING3`, `LICENSES/COPYING.RUNTIME`)
 - `libstdc++-v3/include/bits/binders.h` as `include/bits/binders.h`, unmodified; the freestanding libstdc++ in
   ClownMDSDK omits it, and `<ranges>` fails to compile without it
+- `libstdc++-v3/include/std/chrono` as `include/chrono` and `libstdc++-v3/include/bits/chrono.h` as
+  `include/bits/chrono.h`; the SDK omits both, and `toy::chrono` is `std::chrono` aliases, so `<chrono>` has to exist
+- Local patch in `include/chrono`: `year_month_day::_S_from_days` casts `__m1` and `__d1` to `unsigned int` — under
+  `-mshort` they deduce to `long unsigned int`, and the narrowing in the upstream brace-init fails `-Werror`
 - Must match the GCC version of the SDK toolchain; update it together with ClownMDSDK
 
 ## cmake-modules

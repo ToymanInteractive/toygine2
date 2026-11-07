@@ -38,6 +38,8 @@ inline constexpr size_t inlineCopyMaxBytes = 28;
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
 
+inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG

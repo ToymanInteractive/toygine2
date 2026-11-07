@@ -33,6 +33,7 @@
 #include <algorithm>
 #include <array>
 #include <bit>
+#include <chrono>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -59,13 +60,13 @@
 */
 namespace toy {
 
-// https://cppreference.com/cpp/types/size_t
+/// Unsigned integer type for object and array sizes, and for indexing: https://cppreference.com/cpp/types/size_t
 using std::size_t;
 
-// https://cppreference.com/cpp/types/ptrdiff_t
+/// Signed integer type of the result of subtracting two pointers: https://cppreference.com/cpp/types/ptrdiff_t
 using std::ptrdiff_t;
 
-// https://cppreference.com/cpp/types/nullptr_t
+/// Type of the null pointer literal nullptr, not itself a pointer type: https://cppreference.com/cpp/types/nullptr_t
 using std::nullptr_t;
 
 /// Signed integer type with width of exactly 8 bits and no padding bits
@@ -97,7 +98,7 @@ using std::byte;
 
 //--------------------------------------------------------------------------------------------------------------------
 
-/// Reinterprets the object representation of a value as another trivially copyable type of the same size
+/// Reinterprets the bits of a value as another type of the same size: https://cppreference.com/cpp/numeric/bit_cast
 using std::bit_cast;
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -107,6 +108,12 @@ using std::array;
 
 /// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
 using std::span;
+
+/// Returns the smaller of two values or the smallest of an initializer list: https://cppreference.com/cpp/algorithm/min
+using std::min;
+
+/// Returns the larger of two values or the greatest of an initializer list: https://cppreference.com/cpp/algorithm/max
+using std::max;
 
 } // namespace toy
 
@@ -122,6 +129,13 @@ using std::span;
   \namespace toy::platform
 
   \brief Constants whose values the active target platform supplies.
+*/
+
+/*!
+  \namespace toy::chrono
+
+  \brief Time measurement: duration and time-point aliases, the steady and system clocks, the stopwatch, and the
+         monotonic timestamp.
 */
 
 /*!
@@ -283,6 +297,12 @@ using std::span;
 
 #include "core/assertion.hpp"
 #include "core/bitwise_enum.hpp"
+#include "core/chrono_calendar_time.hpp"
+#include "core/chrono_duration.hpp"
+#include "core/chrono_steady_clock.hpp"
+#include "core/chrono_stopwatch.hpp"
+#include "core/chrono_system_clock.hpp"
+#include "core/chrono_timestamp.hpp"
 #include "core/fixed_string_storage.hpp"
 #include "core/log_isink.hpp"
 #include "core/log_level.hpp"
@@ -299,6 +319,9 @@ using std::span;
 //--------------------------------------------------------------------------------------------------------------------
 
 #include "core/bitwise_enum.inl"
+#include "core/chrono_calendar_time.inl"
+#include "core/chrono_stopwatch.inl"
+#include "core/chrono_timestamp.inl"
 #include "core/fixed_string_storage.inl"
 #include "core/string.inl"
 #include "core/string_utils.inl"

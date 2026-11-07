@@ -19,7 +19,11 @@
 //
 /*!
   \file   console_sample_app.cpp
-  \brief
+  \brief  Console sample: per-platform hello world and a chrono demo.
+
+  Each target branch prints its greeting and version, reads the wall clock from toy::chrono::SystemClock, the steady
+  counter's frequency and tick count from toy::chrono::SteadyClock, and the output span its toy::chrono::Stopwatch
+  covered. 64-bit readings go through toy::string_utils::itoa: console libcs disagree on printf length modifiers.
 */
 
 #include "toygine.hpp"
@@ -47,8 +51,6 @@ constexpr SampleApp app{
 #include <clownmdsdk.h>
 
 void _EntryPoint() {
-  // Do initialisation here.
-
   ClownMDSDK::MainCPU::Debug::PrintLine("Hello world from Console sample app");
 
   for (;;) {
@@ -72,12 +74,27 @@ int main() {
 
   consoleDemoInit();
 
+  const toy::chrono::Stopwatch watch;
+
   printf("Hello world from Console sample app\n");
-  printf("v%lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  printf("\n");
+  printf("App Version: %lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
+
   if (app.pid() != 0)
-    printf("Process ID: %lu\n", app.pid());
+    printf("System pid: %lu\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (1)
     VBlankIntrWait();
@@ -96,12 +113,27 @@ int main() {
 int main() {
   consoleDemoInit();
 
+  const toy::chrono::Stopwatch watch;
+
   printf("Hello world from Console sample app\n");
-  printf("v%lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  printf("\n");
+  printf("App Version: %lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
+
   if (app.pid() != 0)
-    printf("Process ID: %lu\n", app.pid());
+    printf("System pid: %lu\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (pmMainLoop())
     swiWaitForVBlank();
@@ -124,12 +156,27 @@ int main() {
 
   consoleInit(GFX_BOTTOM, NULL);
 
+  const toy::chrono::Stopwatch watch;
+
   printf("Hello world from Console sample app\n");
-  printf("v%lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  printf("\n");
+  printf("App Version: %lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
+
   if (app.pid() != 0)
-    printf("Process ID: %lu\n", app.pid());
+    printf("System pid: %lu\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   // Main loop
   while (aptMainLoop()) {
@@ -160,12 +207,27 @@ int main() {
   PadState pad;
   padInitializeDefault(&pad);
 
+  const toy::chrono::Stopwatch watch;
+
   printf("Hello world from Console sample app\n");
-  printf("v%u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  printf("\n");
+  printf("App Version: %u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
+
   if (app.pid() != 0)
-    printf("Process ID: %u\n", app.pid());
+    printf("System pid: %u\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (appletMainLoop()) {
     padUpdate(&pad);
@@ -204,12 +266,26 @@ int main() {
   if (rmode->viTVMode & VI_NON_INTERLACE)
     VIDEO_WaitVSync();
 
+  const toy::chrono::Stopwatch watch;
+
   printf("Hello world from Console sample app\n");
-  printf("v%u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  printf("\n");
+  printf("App Version: %u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
   if (app.pid() != 0)
-    printf("Process ID: %u\n", app.pid());
+    printf("System pid: %u\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -241,12 +317,26 @@ int main() {
   if (rmode->viTVMode & VI_NON_INTERLACE)
     VIDEO_WaitVSync();
 
+  const toy::chrono::Stopwatch watch;
+
   printf("Hello world from Console sample app\n");
-  printf("v%u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  printf("\n");
+  printf("App Version: %u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
          app.version().revision.c_str());
   printf("\n");
   if (app.pid() != 0)
-    printf("Process ID: %u\n", app.pid());
+    printf("System pid: %u\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (SYS_MainLoop())
     VIDEO_WaitVSync();
@@ -268,12 +358,27 @@ int main(int argc, char ** argv) {
   WHBProcInit();
   WHBLogConsoleInit();
 
+  const toy::chrono::Stopwatch watch;
+
   WHBLogPrintf("Hello world from Console sample app\n");
-  WHBLogPrintf("v%u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
+  WHBLogPrintf("\n");
+  WHBLogPrintf("App Version: %u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
                app.version().revision.c_str());
   WHBLogPrintf("\n");
   if (app.pid() != 0)
-    WHBLogPrintf("Process ID: %u\n", app.pid());
+    WHBLogPrintf("System pid: %u\n", app.pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  WHBLogPrintf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year,
+               calendar.month, calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond,
+               calendar.dayOfWeek, calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  WHBLogPrintf("Steady clock frequency: %s Hz\n",
+               toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  WHBLogPrintf("Steady clock ticks: %s\n",
+               toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  WHBLogPrintf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   while (WHBProcIsRunning()) {
     WHBLogConsoleDraw();
@@ -304,6 +409,8 @@ private:
 };
 
 bool ConsoleSampleApp::runInternal() noexcept {
+  const toy::chrono::Stopwatch watch;
+
   writeOutputLine(toy::StringView{"Hello world from Console sample app"});
   writeOutputLine(toy::StringView{"Привет, мир из консольного тестового приложения"});
   writeOutputLine(toy::StringView{"コンソールサンプルアプリからこんにちは世界"});
@@ -314,9 +421,8 @@ bool ConsoleSampleApp::runInternal() noexcept {
   writeOutputLine(toy::StringView{"🌍👋 Hello World! 🎮🕹️👾🐛"});
   writeOutputLine(toy::StringView{""});
 
-  printf("ver: %i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
-  if (pid() != 0)
-    printf("pid: %u\n", pid());
+  printf("App Version: %i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
+  writeOutputLine(toy::StringView{""});
 
   if (argsCount() > 1) {
     writeOutputLine(toy::StringView{""});
@@ -325,6 +431,20 @@ bool ConsoleSampleApp::runInternal() noexcept {
       if (const char * value = arg(index); value != nullptr)
         printf("- %s\n", value);
   }
+
+  if (pid() != 0)
+    printf("System pid: %u\n", pid());
+
+  const auto calendar = toy::chrono::SystemClock::now();
+  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
+         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
+         calendar.tzOffsetMinutes);
+
+  toy::array<char, 24> buffer{};
+  printf("Steady clock frequency: %s Hz\n",
+         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   return true;
 }
