@@ -34,6 +34,14 @@ TEST_CASE("chrono/timestamp/value_semantics") {
   static_assert(Timestamp{}.milliseconds() == 0, "a default stamp counts from the startup zero");
 }
 
+TEST_CASE("chrono/timestamp/count") {
+  const Timestamp first = Timestamp::now();
+  CHECK(first.milliseconds() >= 0);
+
+  const Timestamp second = Timestamp::now();
+  CHECK(second.milliseconds() >= first.milliseconds());
+}
+
 TEST_CASE("chrono/timestamp/ordering") {
   constexpr Timestamp zero{};
   constexpr Timestamp same{};
