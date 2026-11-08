@@ -58,6 +58,8 @@ namespace toy::application {
   * **Static output**: no write call needs an instance, so code without access to the application object can write.
   * **Base services**: version(), run(), the argument accessors, pid(), sleep(), and yield() come from
     \ref toy::application::BaseApplication.
+  * **Non-ASCII capability**: supportsUtf8() reports whether the console displays text beyond ASCII, so a program can
+    skip the lines its console would garble.
 
   \section console_application_usage Usage Example
 
@@ -103,10 +105,12 @@ namespace toy::application {
 
   \section console_application_compatibility Compatibility
 
-  * **Console output**: the write calls have an implementation on Windows, Linux, and macOS; on other targets a call
+  * **Console output**: the write calls forward to a per-target console implementation; a call on a target without one
     fails to link.
-  * **Entry point**: IMPLEMENT_CONSOLE_APP defines the entry point on Windows, Linux, and macOS; on other targets
-    expanding it fails the build.
+  * **Entry point**: IMPLEMENT_CONSOLE_APP is defined by the platform layer, and expanding it on a target without the
+    macro fails the build.
+  * **Non-ASCII capability**: supportsUtf8() answers \c true when the target's console displays text beyond ASCII, and
+    \c false when its font stays within ASCII.
 
   \sa \ref toy::application::BaseApplication, \ref toy::StringLike
 */
@@ -147,6 +151,19 @@ public:
     \sa writeError(), writeOutputLine()
   */
   static void writeErrorLine(const StringLike auto & text) noexcept;
+
+  /*!
+    \brief Reports whether the system console displays text beyond ASCII written through the write calls.
+
+    \return \c true when non-ASCII UTF-8 text written through the write calls reaches the console intact,
+            \c false when the console cannot carry it.
+
+    \note The guarantee covers delivery of the text; the console's font and encoding decide which characters render.
+    \note The value is a per-platform constant, known at compile time.
+
+    \sa writeOutput(), writeOutputLine()
+  */
+  [[nodiscard]] static constexpr bool supportsUtf8() noexcept;
 
 protected:
   /*!

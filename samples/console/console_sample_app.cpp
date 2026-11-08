@@ -28,7 +28,7 @@
 
 #include "toygine.hpp"
 
-#if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32)
+#if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32) && !defined(__GBA__)
 class SampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit SampleApp(const toy::application::Version & version) noexcept
@@ -59,50 +59,6 @@ void _EntryPoint() {
 }
 
 #endif // __MEGA_DRIVE__
-
-#ifdef __GBA__
-
-#include <cstdio>
-
-#include <gba_console.h>
-#include <gba_interrupt.h>
-#include <gba_systemcalls.h>
-
-int main() {
-  irqInit();
-  irqEnable(IRQ_VBLANK);
-
-  consoleDemoInit();
-
-  const toy::chrono::Stopwatch watch;
-
-  printf("Hello world from Console sample app\n");
-  printf("\n");
-  printf("App Version: %lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
-         app.version().revision.c_str());
-  printf("\n");
-
-  if (app.pid() != 0)
-    printf("System pid: %lu\n", app.pid());
-
-  const auto calendar = toy::chrono::SystemClock::now();
-  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
-         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
-         calendar.tzOffsetMinutes);
-
-  toy::array<char, 24> buffer{};
-  printf("Steady clock frequency: %s Hz\n",
-         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
-  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
-
-  while (1)
-    VBlankIntrWait();
-
-  return 0;
-}
-
-#endif // __GBA__
 
 #ifdef __NDS__
 
@@ -397,7 +353,7 @@ int main(int argc, char ** argv) {
 
 #endif // __WIIU__
 
-#if defined(__linux__) || defined(__APPLE__) || defined(_WIN32)
+#if defined(__linux__) || defined(__APPLE__) || defined(_WIN32) || defined(__GBA__)
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
@@ -412,16 +368,23 @@ bool ConsoleSampleApp::runInternal() noexcept {
   const toy::chrono::Stopwatch watch;
 
   writeOutputLine(toy::StringView{"Hello world from Console sample app"});
-  writeOutputLine(toy::StringView{"Привет, мир из консольного тестового приложения"});
-  writeOutputLine(toy::StringView{"コンソールサンプルアプリからこんにちは世界"});
-  writeOutputLine(toy::StringView{"来自控制台示例应用的世界你好"});
-  writeOutputLine(toy::StringView{"콘솔 샘플 앱에서 안녕하세요 세계"});
-  writeOutputLine(toy::StringView{"कंसोल नमूना ऐप से हैलो वर्ल्ड"});
-  writeOutputLine(toy::StringView{"Γεια σου κόσμε από την εφαρμογή δείγματος κονσόλας"});
-  writeOutputLine(toy::StringView{"🌍👋 Hello World! 🎮🕹️👾🐛"});
+  if constexpr (supportsUtf8()) {
+    writeOutputLine(toy::StringView{"Привет, мир из консольного тестового приложения"});
+    writeOutputLine(toy::StringView{"コンソールサンプルアプリからこんにちは世界"});
+    writeOutputLine(toy::StringView{"来自控制台示例应用的世界你好"});
+    writeOutputLine(toy::StringView{"콘솔 샘플 앱에서 안녕하세요 세계"});
+    writeOutputLine(toy::StringView{"कंसोल नमूना ऐप से हैलो वर्ल्ड"});
+    writeOutputLine(toy::StringView{"Γεια σου κόσμε από την εφαρμογή δείγματος κονσόλας"});
+    writeOutputLine(toy::StringView{"🌍👋 Hello World! 🎮🕹️👾🐛"});
+  }
   writeOutputLine(toy::StringView{""});
 
-  printf("App Version: %i.%i.%i (%s)\n", version().major, version().minor, version().patch, version().revision.c_str());
+  toy::array<char, 24> bufferMajor{};
+  toy::array<char, 24> bufferMinor{};
+  toy::array<char, 24> bufferPatch{};
+  printf("App Version: %s.%s.%s (%s)\n", toy::string_utils::utoa(toy::span{bufferMajor}, version().major),
+         toy::string_utils::utoa(toy::span{bufferMinor}, version().minor),
+         toy::string_utils::utoa(toy::span{bufferPatch}, version().patch), version().revision.c_str());
   writeOutputLine(toy::StringView{""});
 
   if (argsCount() > 1) {
@@ -432,8 +395,10 @@ bool ConsoleSampleApp::runInternal() noexcept {
         printf("- %s\n", value);
   }
 
-  if (pid() != 0)
-    printf("System pid: %u\n", pid());
+  if (pid() != 0) {
+    toy::array<char, 24> buffer{};
+    printf("System pid: %s\n", toy::string_utils::utoa(toy::span{buffer}, pid()));
+  }
 
   const auto calendar = toy::chrono::SystemClock::now();
   printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,

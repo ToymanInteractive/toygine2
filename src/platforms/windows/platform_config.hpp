@@ -44,7 +44,11 @@ inline constexpr size_t inlineCopyMaxBytes = 128;
 // Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
 inline constexpr bool assertIgnoreAlways = true;
 
+// QueryPerformanceCounter ticks at a rate that differs between machines, so the counter converts to nanoseconds.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
+// WriteConsoleW carries the full Unicode range, and redirected streams receive the UTF-8 bytes as written.
+inline constexpr bool consoleSupportsUtf8 = true;
 
 } // namespace toy::platform::detail
 

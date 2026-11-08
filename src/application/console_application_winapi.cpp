@@ -30,6 +30,27 @@
 // The console API and wmain() hold UTF-16 in wchar_t, so a unit-by-unit copy to char16_t keeps the text intact.
 static_assert(sizeof(wchar_t) == sizeof(char16_t), "wchar_t must hold UTF-16 code units on Windows");
 
+/*!
+  \brief Converts the UTF-16 arguments wmain() receives into a null-terminated array of UTF-8 strings.
+
+  Allocates the array and all strings as one \c MALLOC block, which the caller releases with \c FREE.
+
+  \param argc  Number of arguments in \a argvw.
+  \param argvw UTF-16 arguments as wmain() receives them.
+  \param argv  Pointer that receives the converted array.
+
+  \return \c true when \a argv receives the result, \c false when the allocation fails.
+
+  \pre \a argv is non-null, as is \a argvw when \a argc is positive; assert_message checks both in debug builds.
+  \pre \a argvw holds at least \a argc non-null strings.
+
+  \post \a argv holds \a argc UTF-8 strings followed by a \c nullptr entry, or \c nullptr when \a argc is not positive
+        or the allocation fails.
+
+  \note A surrogate outside a pair arrives as U+FFFD, so an argument keeps every character after it.
+*/
+bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv);
+
 namespace toy::application {
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
@@ -114,25 +135,6 @@ void replaceLoneSurrogates(toy::span<char16_t> units) noexcept {
 
 } // namespace
 
-/*!
-  \brief Converts the UTF-16 arguments wmain() receives into a null-terminated array of UTF-8 strings.
-
-  Allocates the array and all strings as one \c MALLOC block, which the caller releases with \c FREE.
-
-  \param argc  Number of arguments in \a argvw.
-  \param argvw UTF-16 arguments as wmain() receives them.
-  \param argv  Pointer that receives the converted array.
-
-  \return \c true when \a argv receives the result, \c false when the allocation fails.
-
-  \pre \a argv is non-null, as is \a argvw when \a argc is positive; assert_message checks both in debug builds.
-  \pre \a argvw holds at least \a argc non-null strings.
-
-  \post \a argv holds \a argc UTF-8 strings followed by a \c nullptr entry, or \c nullptr when \a argc is not positive
-        or the allocation fails.
-
-  \note A surrogate outside a pair arrives as U+FFFD, so an argument keeps every character after it.
-*/
 bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv) {
   assert_message(argv != nullptr, "argv must point to the variable that receives the converted array");
   *argv = nullptr;

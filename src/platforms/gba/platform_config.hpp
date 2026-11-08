@@ -38,7 +38,11 @@ inline constexpr size_t inlineCopyMaxBytes = 44;
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
 
+// This target has no counter backend: the stub clock reports nominal nanoseconds.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
+// The devkitPro console font covers ASCII only, so non-ASCII text renders as garbage tiles.
+inline constexpr bool consoleSupportsUtf8 = false;
 
 } // namespace toy::platform::detail
 
@@ -48,5 +52,23 @@ inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
 #define TOYGINE_DEBUG_BREAK() __builtin_trap()
 
 #endif // TOYGINE_DEBUG
+
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  void              initializeSystemConsole() noexcept;                                                                \
+  [[noreturn]] void idleSystemConsole() noexcept;                                                                      \
+                                                                                                                       \
+  int main() {                                                                                                         \
+    initializeSystemConsole();                                                                                         \
+                                                                                                                       \
+    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
+                                               .minor    = APP_VERSION_MINOR,                                          \
+                                               .patch    = APP_VERSION_PATCH,                                          \
+                                               .revision = APP_VERSION_REVISION});                                     \
+                                                                                                                       \
+    static_cast<void>(app.run(0, nullptr));                                                                            \
+                                                                                                                       \
+    idleSystemConsole();                                                                                               \
+  }
 
 #endif // SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_

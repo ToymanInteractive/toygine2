@@ -34,6 +34,7 @@
 #include <array>
 #include <bit>
 #include <chrono>
+#include <compare>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>
@@ -106,14 +107,17 @@ using std::bit_cast;
 /// Container that encapsulates a fixed-size array: https://cppreference.com/cpp/container/array
 using std::array;
 
-/// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
-using std::span;
+/// Returns the larger of two values or the greatest of an initializer list: https://cppreference.com/cpp/algorithm/max
+using std::max;
 
 /// Returns the smaller of two values or the smallest of an initializer list: https://cppreference.com/cpp/algorithm/min
 using std::min;
 
-/// Returns the larger of two values or the greatest of an initializer list: https://cppreference.com/cpp/algorithm/max
-using std::max;
+/// Non-owning view over a contiguous sequence, of static or dynamic extent: https://cppreference.com/cpp/container/span
+using std::span;
+
+/// Three-way comparison result, every pair comparable: https://cppreference.com/cpp/utility/compare/strong_ordering
+using std::strong_ordering;
 
 } // namespace toy
 

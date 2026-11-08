@@ -3302,7 +3302,7 @@ template <StringStorage storageType>
   \param lhs String to order.
   \param rhs View or string to order against.
 
-  \return \c std::strong_ordering::less, \c equal, or \c greater as \a lhs orders before, with, or after \a rhs.
+  \return \c strong_ordering::less, \c equal, or \c greater as \a lhs orders before, with, or after \a rhs.
 
   \sa toy::operator==(const String<storageType> &, const StringType &)
 */
@@ -3318,7 +3318,7 @@ template <StringStorage storageType, StringLike StringType>
   \param lhs String to order.
   \param rhs Null-terminated byte string to order against.
 
-  \return \c std::strong_ordering::less, \c equal, or \c greater as \a lhs orders before, with, or after \a rhs.
+  \return \c strong_ordering::less, \c equal, or \c greater as \a lhs orders before, with, or after \a rhs.
 
   \pre \a rhs is non-null, checked by assert_message in debug builds.
 

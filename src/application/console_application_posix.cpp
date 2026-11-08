@@ -19,7 +19,7 @@
 //
 /*!
   \file   console_application_posix.cpp
-  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Linux and macOS over stdio.
+  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Linux and macOS.
 */
 
 #include <stdio.h>

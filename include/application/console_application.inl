@@ -45,6 +45,10 @@ void ConsoleApplication::writeErrorLine(const StringLike auto & text) noexcept {
   writeToSystemConsole(text, true, true);
 }
 
+constexpr bool ConsoleApplication::supportsUtf8() noexcept {
+  return toy::platform::detail::consoleSupportsUtf8;
+}
+
 constexpr ConsoleApplication::ConsoleApplication(const Version & version) noexcept
   : BaseApplication(version) {}
 

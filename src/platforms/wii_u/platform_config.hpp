@@ -38,7 +38,11 @@ inline constexpr size_t inlineCopyMaxBytes = 28;
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
 
+// This target has no counter backend: the stub clock reports nominal nanoseconds.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
+// The WHB log console font covers ASCII only, so non-ASCII text renders as garbage tiles.
+inline constexpr bool consoleSupportsUtf8 = false;
 
 } // namespace toy::platform::detail
 
