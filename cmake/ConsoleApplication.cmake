@@ -38,7 +38,13 @@ Declare console executable targets shared by engine samples and tests.
     console_application(<target>
                         [SOURCES <file>...]
                         [LINK_LIBRARIES <lib>...]
-                        [ENGINE_WARNINGS <ON|OFF>])
+                        [ENGINE_WARNINGS <ON|OFF>]
+                        [GBA_TITLE <title>]
+                        [GBA_GAMECODE <code>]
+                        [GBA_MAKERCODE <code>]
+                        [GBA_VERSION <version>]
+                        [GBA_MULTIBOOT]
+                        [GBA_PAD])
 
   ``<target>``
     Name of the executable target to create. Required, given positionally as the first argument.
@@ -56,6 +62,27 @@ Declare console executable targets shared by engine samples and tests.
     Whether to link ``toygine::compile::warnings``, the engine's warning settings (default ``ON``). Pass ``OFF`` when
     the caller sets the target's warning options itself.
 
+  The ``GBA_*`` options configure the ROM on Nintendo GBA and are silently ignored on other platforms:
+
+  ``GBA_TITLE <title>``
+    Game title stored at header offset ``0x0A0``, up to 12 characters, zero-filled when shorter.
+
+  ``GBA_GAMECODE <code>``
+    Four-character game code stored at header offset ``0x0AC``; conventionally unique per game.
+
+  ``GBA_MAKERCODE <code>``
+    Two-character maker code stored at header offset ``0x0B0``; ``01`` names Nintendo.
+
+  ``GBA_VERSION <version>``
+    Version byte stored at header offset ``0x0BC``; start at ``0`` and increment it on revisions.
+
+  ``GBA_MULTIBOOT``
+    Builds a multiboot ROM: the image runs from work RAM, so another Game Boy Advance can transfer it over the link
+    cable and run it without a cartridge.
+
+  ``GBA_PAD``
+    Pads the ROM to the next power-of-two size, which some cartridges and loaders expect.
+
   The following variables, when set in the calling scope, are baked into the target as compile definitions:
 
   ``APP_VERSION_MAJOR``, ``APP_VERSION_MINOR``, ``APP_VERSION_PATCH``
@@ -67,7 +94,9 @@ Declare console executable targets shared by engine samples and tests.
 #]=======================================================================]
 function(console_application target)
   cmake_parse_arguments(PARSE_ARGV 1 ARG
-    "" "ENGINE_WARNINGS" "SOURCES;LINK_LIBRARIES")
+    "GBA_MULTIBOOT;GBA_PAD"
+    "ENGINE_WARNINGS;GBA_TITLE;GBA_GAMECODE;GBA_MAKERCODE;GBA_VERSION"
+    "SOURCES;LINK_LIBRARIES")
 
   if ("${target}" STREQUAL "")
     message(FATAL_ERROR "console_application: target name is required")
@@ -101,6 +130,26 @@ function(console_application target)
   target_link_libraries(${target} PRIVATE toygine toygine::compile::applications ${ARG_LINK_LIBRARIES})
   if (ARG_ENGINE_WARNINGS)
     target_link_libraries(${target} PRIVATE toygine::compile::warnings)
+  endif ()
+
+  if (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+    set(GBA_ARGS "")
+
+    if (ARG_GBA_MULTIBOOT)
+      list(APPEND GBA_ARGS MULTIBOOT)
+    endif ()
+
+    if (ARG_GBA_PAD)
+      list(APPEND GBA_ARGS PAD)
+    endif ()
+
+    foreach (keyword TITLE GAMECODE MAKERCODE VERSION)
+      if (DEFINED ARG_GBA_${keyword})
+        list(APPEND GBA_ARGS "${keyword}" "${ARG_GBA_${keyword}}")
+      endif ()
+    endforeach ()
+
+    gba_create_rom(${target} ${GBA_ARGS})
   endif ()
 
 endfunction()

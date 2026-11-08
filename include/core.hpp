@@ -34,6 +34,7 @@
 #include <array>
 #include <bit>
 #include <chrono>
+#include <compare>
 #include <concepts>
 #include <cstddef>
 #include <cstdint>

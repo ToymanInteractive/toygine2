@@ -30,8 +30,6 @@
 #ifndef INCLUDE_CORE_CHRONO_TIMESTAMP_HPP_
 #define INCLUDE_CORE_CHRONO_TIMESTAMP_HPP_
 
-#include <compare>
-
 namespace toy::chrono {
 
 /*!

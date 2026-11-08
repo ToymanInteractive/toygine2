@@ -41,7 +41,11 @@ inline constexpr size_t inlineCopyMaxBytes = 128;
 // Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
 inline constexpr bool assertIgnoreAlways = true;
 
+// clock_gettime reports seconds and nanoseconds, so one steady clock tick is one nanosecond.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+
+// The write calls emit UTF-8 bytes, and desktop terminals render them as written.
+inline constexpr bool consoleSupportsUtf8 = true;
 
 } // namespace toy::platform::detail
 
