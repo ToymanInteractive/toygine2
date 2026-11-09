@@ -150,6 +150,8 @@ function(console_application target)
     endforeach ()
 
     gba_create_rom(${target} ${GBA_ARGS})
+  elseif (NOT TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
+    message(FATAL_ERROR "Unsupported TOYGINE_TARGET_PLATFORM: ${TOYGINE_TARGET_PLATFORM}")
   endif ()
 
 endfunction()
