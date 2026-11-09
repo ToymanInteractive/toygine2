@@ -189,11 +189,11 @@ protected:
 
 private:
   /*!
-    \brief Prepares the system console and the base services before the application body starts.
+    \brief Prepares the system console and the engine services before the application body starts.
 
     The console comes up first, so runInternal() may write from its first line.
 
-    \return \c true when the console and the base services are both ready, \c false when either fails.
+    \return \c true when the console and the engine services are both ready, \c false when either fails.
 
     \sa toy::application::BaseApplication::initialize(), initializeSystemConsole()
   */
@@ -204,7 +204,7 @@ private:
 
     A process that already holds a console has nothing to prepare.
 
-    \return \c true when the write calls may run, \c false when no console is available.
+    \return \c true when the console is ready for the write calls, \c false when the platform reports it is not.
 
     \sa initialize(), writeToSystemConsole()
   */

@@ -221,6 +221,8 @@ protected:
 
     \return \c true when the application is ready to run, \c false when setup fails.
 
+    \warning An override that does not chain to this implementation leaves those services uninitialized.
+
     \sa run(), runInternal()
   */
   virtual bool initialize() noexcept;
