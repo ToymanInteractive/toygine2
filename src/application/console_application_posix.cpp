@@ -19,7 +19,7 @@
 //
 /*!
   \file   console_application_posix.cpp
-  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Linux and macOS.
+  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for Linux and macOS.
 */
 
 #include <stdio.h>
@@ -27,6 +27,10 @@
 #include "application.hpp"
 
 namespace toy::application {
+
+bool ConsoleApplication::initializeSystemConsole() noexcept {
+  return true;
+}
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
   if (text.empty() && !newLine)
