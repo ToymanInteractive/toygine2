@@ -224,7 +224,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp
+                                   src/application/console_application_gc.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
