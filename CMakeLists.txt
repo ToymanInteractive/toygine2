@@ -159,7 +159,9 @@ set(INL_CORE_LIST
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-set(SRC_APPLICATION_LIST )
+set(SRC_APPLICATION_LIST
+    src/application/base_application.cpp
+    src/application/console_application.cpp)
 set(HDR_APPLICATION_LIST
     include/application.hpp
     include/application/base_application.hpp

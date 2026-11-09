@@ -19,7 +19,7 @@
 //
 /*!
   \file   console_application_gba.cpp
-  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Game Boy Advance.
+  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for Game Boy Advance.
 */
 
 #include <gba_console.h>
@@ -30,15 +30,6 @@
 #include "application.hpp"
 
 /*!
-  \brief Sets up the interrupt controller and the default text console for a console application.
-
-  IMPLEMENT_CONSOLE_APP calls it before run(), so the write calls print onto the console.
-
-  \post The VBlank interrupt is enabled, and the console receives everything stdout writes.
-*/
-void initializeSystemConsole() noexcept;
-
-/*!
   \brief Idles a console application after run() returns, waiting for vertical blanking forever.
 
   \warning Never returns: the Game Boy Advance has nothing to exit into.
@@ -46,6 +37,16 @@ void initializeSystemConsole() noexcept;
 [[noreturn]] void idleSystemConsole() noexcept;
 
 namespace toy::application {
+
+// The VBlank interrupt stays enabled because idleSystemConsole() waits on it after run() returns.
+bool ConsoleApplication::initializeSystemConsole() noexcept {
+  ::irqInit();
+  ::irqEnable(IRQ_VBLANK);
+
+  ::consoleDemoInit();
+
+  return true;
+}
 
 void ConsoleApplication::writeToSystemConsole(StringView text, [[maybe_unused]] bool isError, bool newLine) noexcept {
   if (text.empty() && !newLine)
@@ -59,13 +60,6 @@ void ConsoleApplication::writeToSystemConsole(StringView text, [[maybe_unused]] 
 }
 
 } // namespace toy::application
-
-void initializeSystemConsole() noexcept {
-  ::irqInit();
-  ::irqEnable(IRQ_VBLANK);
-
-  ::consoleDemoInit();
-}
 
 [[noreturn]] void idleSystemConsole() noexcept {
   for (;;)

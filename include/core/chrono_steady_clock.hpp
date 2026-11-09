@@ -48,9 +48,8 @@ inline constexpr int64_t steadyClockPeriodDenominator = platform::detail::steady
 /*!
   \brief Prepares the clock backend and fixes the origin toy::chrono::Timestamp::now() counts from.
 
-  Caches the counter frequency where the platform reports it at runtime and records the start ticks.
-  toy::application::BaseApplication::run() calls it before handing control to the application; a custom entry point
-  calls it once at startup instead.
+  Caches the counter frequency where the platform reports it at runtime and records the start ticks. The engine calls
+  it once at startup, before the application body runs; a program with its own entry point calls it there instead.
 
   \post toy::chrono::Timestamp::now() counts from this call; on Windows frequency() reports the cached counter
         frequency.

@@ -19,7 +19,7 @@
 //
 /*!
   \file   console_application_winapi.cpp
-  \brief  Implementation of toy::application::ConsoleApplication::writeToSystemConsole() for Windows.
+  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for Windows.
 
   Also defines convertEntryPointArgs(), which IMPLEMENT_CONSOLE_APP calls to convert the wide-character command line
   to UTF-8.
@@ -52,6 +52,10 @@ static_assert(sizeof(wchar_t) == sizeof(char16_t), "wchar_t must hold UTF-16 cod
 bool convertEntryPointArgs(int argc, wchar_t ** argvw, char *** argv);
 
 namespace toy::application {
+
+bool ConsoleApplication::initializeSystemConsole() noexcept {
+  return true;
+}
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
   if (text.empty() && !newLine)

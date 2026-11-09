@@ -110,18 +110,18 @@ public:
   /*!
     \brief Stores the command-line arguments and runs the application body.
 
-    Calls runInternal() once per call, after the arguments become readable through argsCount(), args(), and arg().
+    Stores the arguments, calls initialize(), and hands control to runInternal() only when that succeeds.
 
     \param argc Number of entries in \a argv.
     \param argv Command-line arguments, as main() receives them.
 
-    \return Result of runInternal(): \c true when the application finished successfully, \c false otherwise.
+    \return \c true when the application runs to completion, \c false when initialize() or runInternal() fails.
 
     \pre \a argv holds at least \a argc entries and outlives the application.
 
-    \post argsCount() returns \a argc, and args() returns \a argv.
+    \post argsCount() returns \a argc, and args() returns \a argv, whether or not the application ran.
 
-    \sa runInternal()
+    \sa initialize(), runInternal()
   */
   [[nodiscard]] bool run(size_t argc, char ** argv) noexcept;
 
@@ -212,6 +212,20 @@ protected:
     link without it.
   */
   ~BaseApplication() = default;
+
+  /*!
+    \brief Initializes the engine services the application body relies on.
+
+    run() calls it after storing the arguments and before runInternal(), so argsCount(), args(), and arg() already read
+    them. A derived application overrides it to set up what its body needs and chains to this one.
+
+    \return \c true when the application is ready to run, \c false when setup fails.
+
+    \warning An override that does not chain to this implementation leaves those services uninitialized.
+
+    \sa run(), runInternal()
+  */
+  virtual bool initialize() noexcept;
 
   /*!
     \brief Runs the application body; the derived application implements it.

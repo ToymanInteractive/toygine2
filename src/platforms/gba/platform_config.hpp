@@ -55,12 +55,9 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  void              initializeSystemConsole() noexcept;                                                                \
   [[noreturn]] void idleSystemConsole() noexcept;                                                                      \
                                                                                                                        \
   int main() {                                                                                                         \
-    initializeSystemConsole();                                                                                         \
-                                                                                                                       \
     appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
                                                .minor    = APP_VERSION_MINOR,                                          \
                                                .patch    = APP_VERSION_PATCH,                                          \
