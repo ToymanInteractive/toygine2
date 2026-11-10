@@ -59,6 +59,26 @@ private:
   bool _result;
 };
 
+// Application whose initialize() fails, so run() never reaches runInternal().
+class UninitializedApplication final : public BaseApplication {
+public:
+  explicit constexpr UninitializedApplication(const Version & version) noexcept
+    : BaseApplication(version) {}
+
+  // How many times run() reached runInternal().
+  size_t runCount = 0;
+
+private:
+  bool initialize() noexcept override {
+    return false;
+  }
+
+  bool runInternal() noexcept override {
+    ++runCount;
+    return true;
+  }
+};
+
 // Built at compile time, so the cases can read version() in a constant expression.
 constexpr StubApplication compileTimeApplication{build};
 
@@ -145,6 +165,20 @@ TEST_CASE("application/base_application/arguments") {
   CHECK(application.arg(1) == flag);
 
   static_assert(noexcept(application.arg(0)), "the argument accessor must be declared non-throwing");
+}
+
+// When initialize() fails, run() returns false, keeps the arguments, and never calls runInternal().
+TEST_CASE("application/base_application/initialize_failure") {
+  char   program[] = "toygine";
+  char   flag[]    = "--verbose";
+  char * argv[]    = {program, flag, nullptr};
+
+  UninitializedApplication application{build};
+
+  CHECK_FALSE(application.run(2, argv));
+  CHECK(application.runCount == 0);
+  CHECK(application.argsCount() == 2);
+  CHECK(application.args() == argv);
 }
 
 } // namespace toy::application
