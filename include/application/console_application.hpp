@@ -202,7 +202,8 @@ private:
   /*!
     \brief Makes the system console ready for the write calls.
 
-    A process that already holds a console has nothing to prepare.
+    On a console target the call sets up the screen the text lands on, and a second call clears what was printed
+    there. On desktop the two streams already exist and the call changes nothing.
 
     \return \c true when the console is ready for the write calls, \c false when the platform reports it is not.
 

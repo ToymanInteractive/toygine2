@@ -48,15 +48,17 @@ bool ConsoleApplication::initializeSystemConsole() noexcept {
   return true;
 }
 
-void ConsoleApplication::writeToSystemConsole(StringView text, [[maybe_unused]] bool isError, bool newLine) noexcept {
+void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
   if (text.empty() && !newLine)
     return;
 
+  FILE * const stream = isError ? stderr : stdout;
+
   if (!text.empty())
-    ::fwrite(text.data(), 1, text.size(), stdout);
+    ::fwrite(text.data(), 1, text.size(), stream);
 
   if (newLine)
-    ::fputc('\n', stdout);
+    ::fputc('\n', stream);
 }
 
 } // namespace toy::application
