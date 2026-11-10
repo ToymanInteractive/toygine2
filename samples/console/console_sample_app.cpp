@@ -28,7 +28,8 @@
 
 #include "toygine.hpp"
 
-#if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32) && !defined(__GBA__) && !defined(__gamecube__)
+#if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32) && !defined(__GBA__) && !defined(__gamecube__)      \
+  && !defined(__wii__)
 class SampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit SampleApp(const toy::application::Version & version) noexcept
@@ -200,57 +201,6 @@ int main() {
 
 #endif // __SWITCH__
 
-#ifdef __wii__
-
-#include <cstdio>
-
-#include <gccore.h>
-
-int main() {
-  VIDEO_Init();
-
-  auto * rmode = VIDEO_GetPreferredMode(NULL);
-
-  auto * framebuffer = MEM_K0_TO_K1(SYS_AllocateFramebuffer(rmode));
-  console_init(framebuffer, 20, 20, rmode->fbWidth, rmode->xfbHeight, rmode->fbWidth * VI_DISPLAY_PIX_SZ);
-
-  VIDEO_Configure(rmode);
-  VIDEO_SetNextFramebuffer(framebuffer);
-  VIDEO_SetBlack(false);
-  VIDEO_Flush();
-  VIDEO_WaitVSync();
-  if (rmode->viTVMode & VI_NON_INTERLACE)
-    VIDEO_WaitVSync();
-
-  const toy::chrono::Stopwatch watch;
-
-  printf("Hello world from Console sample app\n");
-  printf("\n");
-  printf("App Version: %u.%u.%u (%s)\n", app.version().major, app.version().minor, app.version().patch,
-         app.version().revision.c_str());
-  printf("\n");
-  if (app.pid() != 0)
-    printf("System pid: %u\n", app.pid());
-
-  const auto calendar = toy::chrono::SystemClock::now();
-  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
-         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
-         calendar.tzOffsetMinutes);
-
-  toy::array<char, 24> buffer{};
-  printf("Steady clock frequency: %s Hz\n",
-         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
-  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
-
-  while (SYS_MainLoop())
-    VIDEO_WaitVSync();
-
-  return 0;
-}
-
-#endif // __wii__
-
 #ifdef __WIIU__
 
 #include <coreinit/thread.h>
@@ -302,7 +252,8 @@ int main(int argc, char ** argv) {
 
 #endif // __WIIU__
 
-#if defined(__linux__) || defined(__APPLE__) || defined(_WIN32) || defined(__GBA__) || defined(__gamecube__)
+#if defined(__linux__) || defined(__APPLE__) || defined(_WIN32) || defined(__GBA__) || defined(__gamecube__)           \
+  || defined(__wii__)
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:

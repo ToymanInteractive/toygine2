@@ -53,4 +53,19 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #endif // TOYGINE_DEBUG
 
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  [[noreturn]] void idleSystemConsole() noexcept;                                                                      \
+                                                                                                                       \
+  int main() {                                                                                                         \
+    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
+                                               .minor    = APP_VERSION_MINOR,                                          \
+                                               .patch    = APP_VERSION_PATCH,                                          \
+                                               .revision = APP_VERSION_REVISION});                                     \
+                                                                                                                       \
+    static_cast<void>(app.run(0, nullptr));                                                                            \
+                                                                                                                       \
+    idleSystemConsole();                                                                                               \
+  }
+
 #endif // SRC_PLATFORMS_WII_PLATFORM_CONFIG_HPP_

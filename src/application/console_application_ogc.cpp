@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   console_application_gc.cpp
-  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for GameCube.
+  \file   console_application_ogc.cpp
+  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for GameCube and Wii.
 */
 
 #include <gccore.h>
