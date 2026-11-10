@@ -165,6 +165,18 @@ public:
   */
   [[nodiscard]] static constexpr bool supportsUtf8() noexcept;
 
+  /*!
+    \brief Idles the console application after run() returns.
+
+    The entry point macro calls it on a console target, whose screen the write calls drew on; desktop targets define
+    no body for it, so a direct call there fails to link.
+
+    \warning Never returns.
+
+    \sa initializeSystemConsole()
+  */
+  [[noreturn]] static void idleSystemConsole() noexcept;
+
 protected:
   /*!
     \brief Creates a console application that reports \a version.
