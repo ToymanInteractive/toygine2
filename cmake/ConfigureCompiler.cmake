@@ -24,7 +24,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /GL
+# last option:          /GR
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
@@ -171,15 +171,17 @@ add_compile_options(
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/fp:precise;/fp:except;/JMC>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/fp:precise;/fp:except;/JMC>"
+  "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/fp:precise;/fp:except;/JMC;/GR>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:Debug>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-g3;-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:C,MSVC>>:>"
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/GR>"
   "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>")
+  "$<$<AND:$<CONFIG:RelWithDebInfo>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-fno-omit-frame-pointer>"
+  "$<$<AND:$<CONFIG:Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/GR->"
+  "$<$<AND:$<CONFIG:Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/GR->")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Compiler-specific flags
