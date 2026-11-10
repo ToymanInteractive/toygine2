@@ -82,6 +82,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(TOYGINE_TARGET_PLATFORM_SLUG macos)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
   set(TOYGINE_TARGET_PLATFORM_SLUG md)
+  include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/md/CMakeLists.txt)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   set(TOYGINE_TARGET_PLATFORM_SLUG gba)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
@@ -100,7 +101,6 @@ else ()
   message(FATAL_ERROR "Unsupported TOYGINE_TARGET_PLATFORM: ${TOYGINE_TARGET_PLATFORM}")
 endif ()
 
-include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/CMakeLists.txt)
 set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER
     ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/platform_config.hpp)
 if (NOT EXISTS ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
@@ -184,58 +184,97 @@ set(INL_VIDEO_LIST )
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_windows.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_winapi.cpp
                                    src/application/console_application_winapi.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
+
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_posix.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_posix.cpp
                                    src/application/console_application_posix.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_posix.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_posix.cpp
                                    src/application/console_application_posix.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
+
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp
                                    src/application/console_application_gba.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
+
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_3ds.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_switch.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
+
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp
                                    src/application/console_application_gc.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
 
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
+
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_wii_u.cpp)
 
 else ()
+
+  list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
+                            src/core/chrono_stub.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 
