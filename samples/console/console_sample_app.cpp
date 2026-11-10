@@ -361,7 +361,7 @@ bool ConsoleSampleApp::runInternal() noexcept {
   printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   writeOutputLine(toy::StringView{""});
-  writeErrorLine(toy::StringView("!!!Simple error message!!!"));
+  writeErrorLine(toy::StringView("!!!Error message demo:: this is not an error!!!"));
   writeOutputLine(toy::StringView{""});
 
   return true;
