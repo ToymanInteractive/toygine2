@@ -42,9 +42,7 @@ namespace toy::application {
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   ::VIDEO_Init();
 
-  ::consoleInit(nullptr);
-
-  return true;
+  return ::consoleInit(nullptr) != nullptr;
 }
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
@@ -53,11 +51,17 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
 
   FILE * const stream = isError ? stderr : stdout;
 
+  if (isError)
+    ::fputs(CONSOLE_RED, stream);
+
   if (!text.empty())
     ::fwrite(text.data(), 1, text.size(), stream);
 
   if (newLine)
     ::fputc('\n', stream);
+
+  if (isError)
+    ::fputs(CONSOLE_RESET, stream);
 }
 
 } // namespace toy::application

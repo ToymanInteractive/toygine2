@@ -360,6 +360,10 @@ bool ConsoleSampleApp::runInternal() noexcept {
   printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
   printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
 
+  writeOutputLine(toy::StringView{""});
+  writeErrorLine(toy::StringView("!!!Simple error message!!!"));
+  writeOutputLine(toy::StringView{""});
+
   return true;
 }
 
