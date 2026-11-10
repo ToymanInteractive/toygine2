@@ -18,18 +18,6 @@
 # DEALINGS IN THE SOFTWARE.
 #-----------------------------------------------------------------------------------------------------------------------
 
-set(PLATFORM_SRC_CORE_LIST
-    src/platforms/stub/core/chrono_stub.cpp
-    src/platforms/stub/core/assertion_stub.cpp)
-set(PLATFORM_HDR_CORE_LIST )
-set(PLATFORM_LIB_CORE_LIST )
-
-source_group("Platform\\Core"        FILES ${PLATFORM_SRC_CORE_LIST}        ${PLATFORM_HDR_CORE_LIST})
-
-list(APPEND SRC_LIST ${PLATFORM_SRC_CORE_LIST})
-list(APPEND HDR_LIST ${PLATFORM_HDR_CORE_LIST})
-list(APPEND LIB_LIST ${PLATFORM_LIB_CORE_LIST})
-
 # Overlay over the installed ClownMDSDK: a file under thirdparty/clownmdsdk wins over the SDK's own copy. The
 # include directory goes ahead of every toolchain include path, so <string.h> and <cstring> resolve here,
 # and each source is compiled into the engine, so its definitions are linked before libc.a is searched.

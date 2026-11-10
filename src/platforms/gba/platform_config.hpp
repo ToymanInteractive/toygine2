@@ -55,8 +55,6 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  [[noreturn]] void idleSystemConsole() noexcept;                                                                      \
-                                                                                                                       \
   int main() {                                                                                                         \
     appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
                                                .minor    = APP_VERSION_MINOR,                                          \
@@ -65,7 +63,7 @@ inline constexpr bool consoleSupportsUtf8 = false;
                                                                                                                        \
     static_cast<void>(app.run(0, nullptr));                                                                            \
                                                                                                                        \
-    idleSystemConsole();                                                                                               \
+    toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
 #endif // SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_

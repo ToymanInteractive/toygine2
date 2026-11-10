@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   console_application_gc.cpp
-  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for GameCube.
+  \file   console_application_ogc.cpp
+  \brief  Implementations of the toy::application::ConsoleApplication system-console calls for GameCube and Wii.
 */
 
 #include <gccore.h>
@@ -27,15 +27,6 @@
 #include <stdlib.h>
 
 #include "application.hpp"
-
-/*!
-  \brief Idles a console application after run() returns, waiting for vertical blanking until the console is reset.
-
-  IMPLEMENT_CONSOLE_APP calls it after run(), so the console stays on screen.
-
-  \warning Never returns: leaving the loop hands the console to libogc, which resets or powers it off.
-*/
-[[noreturn]] void idleSystemConsole() noexcept;
 
 namespace toy::application {
 
@@ -64,12 +55,12 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
     ::fputs(CONSOLE_RESET, stream);
 }
 
-} // namespace toy::application
-
-[[noreturn]] void idleSystemConsole() noexcept {
+// libogc resets or powers off the console in its exit handler, which is why leaving the loop is not a return.
+void ConsoleApplication::idleSystemConsole() noexcept {
   while (::SYS_MainLoop())
     ::VIDEO_WaitVSync();
 
-  // libogc resets or powers off the console in its exit handler, which is why leaving the loop is not a return.
   ::exit(0);
 }
+
+} // namespace toy::application

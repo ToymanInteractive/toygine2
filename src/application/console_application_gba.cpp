@@ -29,13 +29,6 @@
 
 #include "application.hpp"
 
-/*!
-  \brief Idles a console application after run() returns, waiting for vertical blanking forever.
-
-  \warning Never returns: the Game Boy Advance has nothing to exit into.
-*/
-[[noreturn]] void idleSystemConsole() noexcept;
-
 namespace toy::application {
 
 // The VBlank interrupt stays enabled because idleSystemConsole() waits on it after run() returns.
@@ -61,9 +54,9 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
     ::fputc('\n', stream);
 }
 
-} // namespace toy::application
-
-[[noreturn]] void idleSystemConsole() noexcept {
+void ConsoleApplication::idleSystemConsole() noexcept {
   for (;;)
     ::VBlankIntrWait();
 }
+
+} // namespace toy::application
