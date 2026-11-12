@@ -44,7 +44,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, [[maybe_unused]] 
     return;
 
   if (!text.empty())
-    ::WHBLogWritef("%.*s", static_cast<int>(text.size()), text.data());
+    ::WHBLogWrite(text.data());
 
   if (newLine)
     ::WHBLogWrite("\n");
