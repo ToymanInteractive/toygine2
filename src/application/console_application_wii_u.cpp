@@ -34,8 +34,9 @@ namespace toy::application {
 
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   ::WHBProcInit();
+  ::WHBLogConsoleInit();
 
-  return ::WHBLogConsoleInit() != FALSE;
+  return true;
 }
 
 void ConsoleApplication::writeToSystemConsole(StringView text, [[maybe_unused]] bool isError, bool newLine) noexcept {
