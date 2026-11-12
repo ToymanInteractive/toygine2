@@ -55,13 +55,13 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  int main() {                                                                                                         \
+  int main(int argc, char * argv[]) {                                                                                  \
     appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
                                                .minor    = APP_VERSION_MINOR,                                          \
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    static_cast<void>(app.run(0, nullptr));                                                                            \
+    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)));                                                 \
                                                                                                                        \
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
