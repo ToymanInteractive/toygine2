@@ -36,7 +36,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop"
         OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA"
         OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube"
         OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii"
-        OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+        OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS"
+        OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
   console_application(${BINARY_NAME} SOURCES ${SRC_LIST} ${HDR_LIST} ${INL_LIST}
                       GBA_TITLE "console-app"
                       GBA_GAMECODE "ASMP"
@@ -51,12 +52,6 @@ set_target_properties(${BINARY_NAME} PROPERTIES FOLDER "samples")
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
   install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.bin" DESTINATION bin COMPONENT samples)
-
-elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
-
-  ctr_create_3dsx(${BINARY_NAME})
-
-  install(FILES "${CMAKE_CURRENT_BINARY_DIR}/${BINARY_NAME}.3dsx" DESTINATION bin COMPONENT samples)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 

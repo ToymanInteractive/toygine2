@@ -23,7 +23,6 @@
 */
 
 #include <nds.h>
-#include <stdio.h>
 
 #include "application.hpp"
 
