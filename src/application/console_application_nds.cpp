@@ -29,7 +29,8 @@
 namespace toy::application {
 
 bool ConsoleApplication::initializeSystemConsole() noexcept {
-  if (::consoleDemoInit() == nullptr)
+  auto * const console = ::consoleDemoInit();
+  if (console == nullptr || !console->consoleInitialised)
     return false;
 
   ::consoleDebugInit(DebugDevice_CONSOLE);

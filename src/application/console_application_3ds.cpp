@@ -33,7 +33,8 @@ namespace toy::application {
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   ::gfxInitDefault();
 
-  if (::consoleInit(GFX_BOTTOM, nullptr) == nullptr)
+  auto * const console = ::consoleInit(GFX_BOTTOM, nullptr);
+  if (console == nullptr || !console->consoleInitialised)
     return false;
 
   ::consoleDebugInit(debugDevice_CONSOLE);

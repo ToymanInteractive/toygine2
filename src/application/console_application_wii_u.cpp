@@ -34,6 +34,7 @@ namespace toy::application {
 
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   ::WHBProcInit();
+  // WHBLogConsoleInit() returns FALSE even on success, so the return is ignored.
   ::WHBLogConsoleInit();
 
   return true;
