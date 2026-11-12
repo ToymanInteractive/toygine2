@@ -24,7 +24,6 @@
 
 #include <gccore.h>
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "application.hpp"
 
@@ -33,7 +32,9 @@ namespace toy::application {
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   ::VIDEO_Init();
 
-  return ::consoleInit(nullptr) != nullptr;
+  auto * const console = ::consoleInit(nullptr);
+
+  return console != nullptr && console->consoleInitialised;
 }
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {

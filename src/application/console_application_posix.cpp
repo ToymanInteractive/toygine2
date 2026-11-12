@@ -22,8 +22,6 @@
   \brief  Implementations of the toy::application::ConsoleApplication system-console calls for Linux and macOS.
 */
 
-#include <stdio.h>
-
 #include "application.hpp"
 
 namespace toy::application {
