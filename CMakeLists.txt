@@ -226,7 +226,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_stub.cpp)
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp
+                                   src/application/console_application_nds.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 3DS")
 

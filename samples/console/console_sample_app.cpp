@@ -29,7 +29,7 @@
 #include "toygine.hpp"
 
 #if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32) && !defined(__GBA__) && !defined(__gamecube__)      \
-  && !defined(__wii__)
+  && !defined(__wii__) && !defined(__NDS__)
 class SampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit SampleApp(const toy::application::Version & version) noexcept
@@ -60,45 +60,6 @@ void _EntryPoint() {
 }
 
 #endif // __MEGA_DRIVE__
-
-#ifdef __NDS__
-
-#include <cstdio>
-
-#include <nds.h>
-
-int main() {
-  consoleDemoInit();
-
-  const toy::chrono::Stopwatch watch;
-
-  printf("Hello world from Console sample app\n");
-  printf("\n");
-  printf("App Version: %lu.%lu.%lu (%s)\n", app.version().major, app.version().minor, app.version().patch,
-         app.version().revision.c_str());
-  printf("\n");
-
-  if (app.pid() != 0)
-    printf("System pid: %lu\n", app.pid());
-
-  const auto calendar = toy::chrono::SystemClock::now();
-  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
-         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
-         calendar.tzOffsetMinutes);
-
-  toy::array<char, 24> buffer{};
-  printf("Steady clock frequency: %s Hz\n",
-         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
-  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
-
-  while (pmMainLoop())
-    swiWaitForVBlank();
-
-  return 0;
-}
-
-#endif // __NDS__
 
 #ifdef __3DS__
 
@@ -253,7 +214,7 @@ int main(int argc, char ** argv) {
 #endif // __WIIU__
 
 #if defined(__linux__) || defined(__APPLE__) || defined(_WIN32) || defined(__GBA__) || defined(__gamecube__)           \
-  || defined(__wii__)
+  || defined(__wii__) || defined(__NDS__)
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:

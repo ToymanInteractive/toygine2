@@ -150,6 +150,8 @@ function(console_application target)
     endforeach ()
 
     gba_create_rom(${target} ${GBA_ARGS})
+  elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+    nds_create_rom(${target})
   elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube" OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii")
     ogc_create_dol(${target})
   elseif (NOT TOYGINE_TARGET_PLATFORM_IS_DESKTOP)
