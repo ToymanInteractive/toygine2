@@ -29,7 +29,11 @@
 namespace toy::application {
 
 bool ConsoleApplication::initializeSystemConsole() noexcept {
-  return ::consoleDemoInit() != nullptr;
+  if (::consoleDemoInit() == nullptr)
+    return false;
+
+  ::consoleDebugInit(DebugDevice_CONSOLE);
+  return true;
 }
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {

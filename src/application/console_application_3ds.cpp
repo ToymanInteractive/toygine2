@@ -33,7 +33,11 @@ namespace toy::application {
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   ::gfxInitDefault();
 
-  return ::consoleInit(GFX_BOTTOM, nullptr) != nullptr;
+  if (::consoleInit(GFX_BOTTOM, nullptr) == nullptr)
+    return false;
+
+  ::consoleDebugInit(debugDevice_CONSOLE);
+  return true;
 }
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {

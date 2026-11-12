@@ -242,7 +242,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_stub.cpp)
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_switch.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_switch.cpp
+                                   src/application/console_application_switch.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
