@@ -19,33 +19,15 @@
 //
 /*!
   \file   console_sample_app.cpp
-  \brief  Console sample: per-platform hello world and a chrono demo.
+  \brief  Console sample: hello world and a chrono demo.
 
-  Each target branch prints its greeting and version, reads the wall clock from toy::chrono::SystemClock, the steady
-  counter's frequency and tick count from toy::chrono::SteadyClock, and the output span its toy::chrono::Stopwatch
-  covered. 64-bit readings go through toy::string_utils::itoa: console libcs disagree on printf length modifiers.
+  The ConsoleApplication branch prints the greeting and version, reads the wall clock from toy::chrono::SystemClock,
+  the steady counter's frequency and tick count from toy::chrono::SteadyClock, and the output span its
+  toy::chrono::Stopwatch covered. 64-bit readings go through toy::string_utils::itoa: console libcs disagree on printf
+  length modifiers. The Mega Drive target keeps a raw _EntryPoint.
 */
 
 #include "toygine.hpp"
-
-#if !defined(__linux__) && !defined(__APPLE__) && !defined(_WIN32) && !defined(__GBA__) && !defined(__gamecube__)      \
-  && !defined(__wii__) && !defined(__NDS__) && !defined(__3DS__) && !defined(__SWITCH__) && !defined(__WIIU__)
-class SampleApp final : public toy::application::ConsoleApplication {
-public:
-  constexpr explicit SampleApp(const toy::application::Version & version) noexcept
-    : ConsoleApplication(version) {}
-
-private:
-  bool runInternal() noexcept override {
-    return true;
-  }
-};
-
-constexpr SampleApp app{
-  toy::application::Version{26, 20, 0, "f7e57d4"},
-};
-
-#endif
 
 #ifdef __MEGA_DRIVE__
 
@@ -59,10 +41,7 @@ void _EntryPoint() {
   }
 }
 
-#endif // __MEGA_DRIVE__
-
-#if defined(__linux__) || defined(__APPLE__) || defined(_WIN32) || defined(__GBA__) || defined(__gamecube__)           \
-  || defined(__wii__) || defined(__NDS__) || defined(__3DS__) || defined(__SWITCH__) || defined(__WIIU__)
+#else
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
