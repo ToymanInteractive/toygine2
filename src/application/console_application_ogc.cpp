@@ -34,7 +34,7 @@ bool ConsoleApplication::initializeSystemConsole() noexcept {
 
   auto * const console = ::consoleInit(nullptr);
 
-  return console != nullptr && !console->consoleInitialised;
+  return console != nullptr && console->consoleInitialised;
 }
 
 void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
