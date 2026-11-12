@@ -273,7 +273,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Wii U")
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_stub.cpp)
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_wii_u.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_wii_u.cpp
+                                   src/application/console_application_wii_u.cpp)
 
 else ()
 
