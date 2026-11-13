@@ -19,11 +19,10 @@ You are an expert in GameDev and C++ development. Your goal is to build a perfor
 
 ## Project Structure
 
-A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl` inline and template bodies), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`, precompilable; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers — implementation details outside the public API (see **API Design Principles**).
+A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl` inline and template bodies), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`, precompilable; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers — implementation details outside the public API (see **API Design Principles**). Per-target values live in `include/platforms/platform_config_<slug>.hpp`, chosen by the `include/platforms/platform_config.hpp` dispatcher on the toolchain macro.
 
 Non-module directories:
 
-* `src/platforms/` — platform-specific code and per-target `platform_config.hpp`, selected by the build for the active target.
 * `tests/` — unit tests and the runner they build on; test rules live beside them — read [`tests/AGENTS.md`](tests/AGENTS.md) first.
 * `benchmarks/` — benchmarks and the runner they build on; benchmark rules live beside them — read [`benchmarks/AGENTS.md`](benchmarks/AGENTS.md) first.
 * `samples/` — standalone usage examples; `resources/` — assets they consume.
@@ -125,7 +124,7 @@ Runtime architecture of the engine: the frame, the data, and the platform. Langu
 * **Asset pipeline:** Bake offline into a target-ready binary form; the runtime loads and uses, never parses text or converts formats. Each format carries magic and version, and the loader checks version, sizes, offsets, and alignment before use — cheap validation only.
 * **Resource loading:** Loads are asynchronous and return handles immediately. A missing or failed asset yields a visible placeholder plus `LOG_ERROR` — never a crash, never a silent skip.
 * **Binary data portability:** Fix the serialized byte order and convert with `std::byteswap` on load; never `reinterpret_cast` a struct over a file buffer — retro and console targets differ in endianness and enforce alignment (see Bit-level operations).
-* **Platform abstraction:** Platform code lives in `src/platforms/` behind an interface the build selects per target; no `#ifdef` platform branches in engine or gameplay code — the seam is a file, not a macro (see **Project Structure**).
+* **Platform abstraction:** Platform code lives in `src/` and per-target values in `include/platforms/`, behind a build-selected seam; the config dispatcher is the only preprocessor branch, and engine or gameplay code has no `#ifdef` platform branches (see **Project Structure**).
 * **Input:** The platform layer buffers raw events into one immutable snapshot per tick. Gameplay reads the snapshot and never polls a platform API, so replays and headless tests can feed recorded input.
 * **Audio:** The mixer callback is real-time — no locks, allocation, I/O, or logging. Use one lock-free SPSC queue per producer, drained by the mixer, plus preallocated voice pools; streaming decode runs on a worker.
 * **Math conventions:** Fix one convention — handedness, row- vs column-major, radians, up axis, unit scale — document it at the module boundary, and convert only at external API edges.

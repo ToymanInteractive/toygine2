@@ -18,17 +18,17 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
+  \file   platform_config_gamecube.hpp
   \brief  Values of the platform constants for the GameCube target.
 
-  Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
-  platform only.
+  Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
+  file by the target toolchain's macro.
 
-  \note Included by core.hpp only; do not include this file directly.
+  \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_GAMECUBE_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_GAMECUBE_HPP_
 
 namespace toy::platform::detail {
 
@@ -55,15 +55,15 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  int main() {                                                                                                         \
+  int main(int argc, char * argv[]) {                                                                                  \
     appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
                                                .minor    = APP_VERSION_MINOR,                                          \
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    static_cast<void>(app.run(0, nullptr));                                                                            \
+    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)), argv));                                          \
                                                                                                                        \
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_GAMECUBE_HPP_

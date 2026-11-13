@@ -38,8 +38,8 @@ namespace toy::chrono {
   \brief Ticks per second of the \ref toy::chrono::SteadyClock duration, fixed by the active target.
 
   The denominator of the tick period: \c 1'000'000'000 on every target, so a duration tick is one nanosecond. Each
-  target sets the value in the platform_config.hpp of its directory under src/platforms; native console tick periods
-  arrive with the real counter backends.
+  target sets the value in its platform_config header under include/platforms, selected by the dispatcher in
+  platforms/platform_config.hpp; native console tick periods arrive with the real counter backends.
 
   \sa \ref toy::chrono::SteadyClock
 */

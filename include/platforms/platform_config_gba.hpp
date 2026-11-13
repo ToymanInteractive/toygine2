@@ -18,17 +18,17 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
+  \file   platform_config_gba.hpp
   \brief  Values of the platform constants for the Game Boy Advance target.
 
-  Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
-  platform only.
+  Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
+  file by the target toolchain's macro.
 
-  \note Included by core.hpp only; do not include this file directly.
+  \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_
 
 namespace toy::platform::detail {
 
@@ -66,4 +66,4 @@ inline constexpr bool consoleSupportsUtf8 = false;
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_

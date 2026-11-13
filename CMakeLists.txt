@@ -73,7 +73,7 @@ endif ()
 
 include(ConfigureCompiler)
 
-# The target's directory name under src/platforms/; tests/runner/platforms/ names the console runners the same way.
+# The target's directory name under include/platforms/; tests/runner/platforms/ names the console runners the same way.
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   set(TOYGINE_TARGET_PLATFORM_SLUG windows)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
@@ -82,7 +82,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
   set(TOYGINE_TARGET_PLATFORM_SLUG macos)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
   set(TOYGINE_TARGET_PLATFORM_SLUG md)
-  include(${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/md/CMakeLists.txt)
+  include(ConfigureMd)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   set(TOYGINE_TARGET_PLATFORM_SLUG gba)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
@@ -102,11 +102,10 @@ else ()
 endif ()
 
 set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/platform_config.hpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/platforms/platform_config_${TOYGINE_TARGET_PLATFORM_SLUG}.hpp)
 if (NOT EXISTS ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
   message(FATAL_ERROR "Missing platform_config.hpp for ${TOYGINE_TARGET_PLATFORM}: ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER}")
 endif ()
-get_filename_component(TOYGINE_TARGET_PLATFORM_CONFIG_DIR ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER} DIRECTORY)
 
 # Enable and copy compile commands file in fixed space for static analysis tools. The copy runs at build time
 # because CMake writes compile_commands.json during the generate phase, after this script is processed.
@@ -294,15 +293,14 @@ source_group("Video"       FILES ${SRC_VIDEO_LIST}       ${HDR_VIDEO_LIST}      
 #-----------------------------------------------------------------------------------------------------------------------
 
 list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST} ${SRC_VIDEO_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp include/platforms/platform_config.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
 list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST} ${INL_VIDEO_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
 
-# The platform directory serves platform_config.hpp, which core.hpp includes, to the engine and to every consumer.
-target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include
-                                                          ${TOYGINE_TARGET_PLATFORM_CONFIG_DIR})
+# The dispatcher platforms/platform_config.hpp selects the active target's values by its toolchain macro.
+target_include_directories(${TOYGINE_LIBRARY_NAME} PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 if (PREPROCESSOR_DEFINITIONS)
   target_compile_definitions(${TOYGINE_LIBRARY_NAME} PRIVATE ${PREPROCESSOR_DEFINITIONS})
@@ -366,11 +364,6 @@ if (PROJECT_IS_TOP_LEVEL)
     DESTINATION include
     COMPONENT headers
     FILES_MATCHING PATTERN "*.hpp" PATTERN "*.inl")
-
-  # Installed beside core.hpp, which includes it by name; only the active platform's values ship.
-  install(FILES ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER}
-    DESTINATION include
-    COMPONENT headers)
 
   install(FILES ${CMAKE_CURRENT_SOURCE_DIR}/LICENSE
     DESTINATION .

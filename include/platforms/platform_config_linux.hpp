@@ -18,24 +18,26 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
-  \brief  Values of the platform constants for the macOS target.
+  \file   platform_config_linux.hpp
+  \brief  Values of the platform constants for the Linux target.
 
-  Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
-  platform only.
+  Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
+  file by the target toolchain's macro.
 
-  \note Included by core.hpp only; do not include this file directly.
+  \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_LINUX_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_LINUX_HPP_
+
+#include <cstdlib>
 
 #include <errno.h>
 #include <unistd.h>
 
 namespace toy::platform::detail {
 
-// Measured on Apple silicon: whole copies win up to 104 bytes and lose from 168.
+// Assumed equal to macOS: not yet measured with GCC on x86.
 inline constexpr size_t inlineCopyMaxBytes = 128;
 
 // Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
@@ -51,8 +53,10 @@ inline constexpr bool consoleSupportsUtf8 = true;
 
 #ifdef TOYGINE_DEBUG
 
-// Stops under lldb and resumes on continue; without a debugger, SIGTRAP ends the process.
-#define TOYGINE_DEBUG_BREAK() __builtin_debugtrap()
+#include <csignal>
+
+// GCC has no resumable trap builtin; SIGTRAP stops under gdb and ends the process without it.
+#define TOYGINE_DEBUG_BREAK() std::raise(SIGTRAP)
 
 #endif // TOYGINE_DEBUG
 
@@ -76,4 +80,4 @@ inline constexpr bool consoleSupportsUtf8 = true;
     return app.run(static_cast<size_t>(toy::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
   }
 
-#endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_LINUX_HPP_
