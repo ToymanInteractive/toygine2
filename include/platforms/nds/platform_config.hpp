@@ -21,10 +21,10 @@
   \file   platform_config.hpp
   \brief  Values of the platform constants for the Nintendo DS target.
 
-  Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
-  platform only.
+  Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
+  file by the target toolchain's macro.
 
-  \note Included by core.hpp only; do not include this file directly.
+  \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
