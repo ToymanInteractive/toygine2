@@ -37,9 +37,8 @@ namespace toy::chrono {
 /*!
   \brief Ticks per second of the \ref toy::chrono::SteadyClock duration, fixed by the active target.
 
-  The denominator of the tick period: \c 1'000'000'000 on every target, so a duration tick is one nanosecond. Each
-  target sets the value in its platform_config header under include/platforms, selected by the dispatcher in
-  platforms/platform_config.hpp; native console tick periods arrive with the real counter backends.
+  The value lives in each target's platform_config header under include/platforms, selected by the dispatcher in
+  platforms/platform_config.hpp.
 
   \sa \ref toy::chrono::SteadyClock
 */
@@ -48,11 +47,10 @@ inline constexpr int64_t steadyClockPeriodDenominator = platform::detail::steady
 /*!
   \brief Prepares the clock backend and fixes the origin toy::chrono::Timestamp::now() counts from.
 
-  Caches the counter frequency where the platform reports it at runtime and records the start ticks. The engine calls
-  it once at startup, before the application body runs; a program with its own entry point calls it there instead.
+  The engine calls it once at startup, before the application body runs; a program with its own entry point calls it
+  there instead.
 
-  \post toy::chrono::Timestamp::now() counts from this call; on Windows frequency() reports the cached counter
-        frequency.
+  \post toy::chrono::Timestamp::now() counts from this call.
 
   \note Calling it again restarts the timestamp origin and breaks the ordering of stamps taken across the call.
 */
@@ -68,8 +66,7 @@ void initialize() noexcept;
   \section steady_clock_features Key Features
 
   * **Monotonic**: readings never step back within a process, whatever the system does to wall-clock time.
-  * **Nanosecond unit**: \ref toy::chrono::SteadyClock::period is fixed by \ref
-  toy::chrono::steadyClockPeriodDenominator.
+  * **Fixed unit**: \ref toy::chrono::SteadyClock::period is fixed by \ref toy::chrono::steadyClockPeriodDenominator.
   * **Tick access**: nowTicks() and frequency() expose the raw counter for arithmetic without a duration conversion.
   * **No allocation**: a reading is a platform counter read plus integer arithmetic.
   * **Exception safety**: no operation throws; exceptions are off in the build.
@@ -86,7 +83,8 @@ void initialize() noexcept;
 
   \section steady_clock_performance Performance Characteristics
 
-  * **Reading**: O(1); one platform counter read, plus integer arithmetic where the counter ticks at a native rate.
+  * **Reading**: O(1); one platform counter read, plus integer arithmetic where the counter unit differs from the
+    period.
   * **Memory usage**: no state; the class is never instantiated.
 
   \section steady_clock_safety Safety Guarantees
@@ -97,17 +95,12 @@ void initialize() noexcept;
   * **Memory safety**: nothing allocates.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \section steady_clock_compatibility Compatibility
-
-  * Backed by CLOCK_MONOTONIC_RAW on macOS and Linux and by QueryPerformanceCounter on Windows.
-  * The console targets link a stub: ticks stay \c 0 until their real counter backends land.
-
   \sa \ref toy::chrono::Stopwatch
   \sa \ref toy::chrono::SystemClock
 */
 class SteadyClock {
 public:
-  /// Signed 64-bit tick count; at the nanosecond period it spans about 292 years
+  /// Signed 64-bit tick count; the range outlasts any session
   using rep = int64_t;
 
   /// Seconds per tick of \ref toy::chrono::SteadyClock::duration, from \ref toy::chrono::steadyClockPeriodDenominator
@@ -136,8 +129,7 @@ public:
   /*!
     \brief Reads the raw platform counter.
 
-    \return Current tick count in the counter's own unit: nanoseconds on macOS and Linux, QueryPerformanceCounter
-            ticks on Windows, \c 0 on the stub targets.
+    \return Current tick count in the counter's own unit.
 
     \note The unit is the counter's, not period's; frequency() converts between them.
 
@@ -148,8 +140,7 @@ public:
   /*!
     \brief Reports the tick rate of the counter nowTicks() reads.
 
-    \return Ticks per second: \ref toy::chrono::steadyClockPeriodDenominator where the counter ticks in nanoseconds,
-            the frequency cached by initialize() on Windows.
+    \return Ticks per second of the counter nowTicks() reads.
 
     \sa nowTicks(), toy::chrono::initialize()
   */

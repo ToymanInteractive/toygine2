@@ -22,7 +22,7 @@
   \brief  Wall-clock reading of the active platform.
 
   Defines \ref toy::chrono::SystemClock, the stateless entry point that returns the local time as
-  \ref toy::chrono::CalendarTime. Used for time display in games and for log output on the desktop targets.
+  \ref toy::chrono::CalendarTime. Used for time display in games and for log output.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -70,13 +70,6 @@ namespace toy::chrono {
   * **Determinism**: readings differ between runs and targets; never feed them into simulation state.
   * **Memory safety**: nothing allocates.
   * **Exception safety**: no operation throws; exceptions are off in the build.
-
-  \section system_clock_compatibility Compatibility
-
-  * macOS and Linux read clock_gettime(CLOCK_REALTIME) with localtime_r; Windows reads GetLocalTime with
-    GetTimeZoneInformation.
-  * The console targets synthesize from the uptime through toy::chrono::CalendarTime::fromUptime(); on the stub
-    backends the uptime is zero, so the reading is the all-zero base.
 
   \sa \ref toy::chrono::CalendarTime
   \sa \ref toy::chrono::SteadyClock

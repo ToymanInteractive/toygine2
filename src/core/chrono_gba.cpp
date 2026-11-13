@@ -1,0 +1,103 @@
+//
+// Copyright (c) 2026 Toyman Interactive
+//
+// Permission is hereby granted, free of charge, to any person obtaining a copy of this
+// software and associated documentation files (the "Software"), to deal in the Software
+// without restriction, including without limitation the rights to use, copy, modify, merge,
+// publish, distribute, sublicense, and / or sell copies of the Software, and to permit
+// persons to whom the Software is furnished to do so, subject to the following conditions :
+//
+// The above copyright notice and this permission notice shall be included in all copies or
+// substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
+// INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
+// PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE
+// FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR
+// OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+// DEALINGS IN THE SOFTWARE.
+//
+/*!
+  \file   chrono_gba.cpp
+  \brief  Implementations of \ref toy::chrono::SteadyClock, \ref toy::chrono::SystemClock, and
+          \ref toy::chrono::Timestamp over the Timer 2+3 cascade.
+*/
+
+#include <gba_interrupt.h>
+#include <gba_timers.h>
+
+#include "core.hpp"
+
+namespace toy::chrono {
+
+namespace {
+
+/// Wrap count of the Timer 3 cascade, incremented by its overflow interrupt handler
+volatile std::uint32_t overflowCount = 0;
+
+/// Overflow interrupt handler of Timer 3, extends readings past the 32-bit wrap
+void onTimer3Overflow() noexcept {
+  overflowCount = overflowCount + 1;
+}
+
+} // namespace
+
+void initialize() noexcept {
+  irqDisable(IRQ_TIMER3);
+  REG_TM2CNT_H = 0;
+  REG_TM3CNT_H = 0;
+  REG_TM2CNT_L = 0;
+  REG_TM3CNT_L = 0;
+
+  // A wrap left pending by the previous epoch must not extend the fresh one.
+  REG_IF        = IRQ_TIMER3;
+  overflowCount = 0;
+
+  irqSet(IRQ_TIMER3, &onTimer3Overflow);
+  REG_TM3CNT_H = TIMER_COUNT | TIMER_IRQ | TIMER_START;
+  REG_TM2CNT_H = TIMER_START;
+  irqEnable(IRQ_TIMER3);
+}
+
+SteadyClock::time_point SteadyClock::now() noexcept {
+  assert_message(REG_TM2CNT_H & TIMER_START, "SteadyClock::now: initialize() has not run");
+
+  return time_point{duration{nowTicks()}};
+}
+
+SteadyClock::rep SteadyClock::nowTicks() noexcept {
+  for (;;) {
+    const std::uint32_t overflows = overflowCount;
+    const std::uint16_t high      = REG_TM3CNT_L;
+    const std::uint16_t low       = REG_TM2CNT_L;
+
+    // A wrap not yet counted by the handler would read as a step backward.
+    if (REG_IF & IRQ_TIMER3 || REG_TM3CNT_L != high || overflowCount != overflows)
+      continue;
+
+    return static_cast<rep>(overflows) << 32 | static_cast<rep>(high) << 16 | low;
+  }
+}
+
+SteadyClock::rep SteadyClock::frequency() noexcept {
+  return steadyClockPeriodDenominator;
+}
+
+CalendarTime SystemClock::now() noexcept {
+  const auto uptime = duration_cast<Duration<int64_t, std::milli>>(SteadyClock::now().time_since_epoch());
+
+  return CalendarTime::fromUptime(uptime);
+}
+
+Timestamp Timestamp::now() noexcept {
+  assert_message(REG_TM2CNT_H & TIMER_START, "Timestamp::now: initialize() has not run");
+
+  const SteadyClock::rep delta = SteadyClock::nowTicks();
+
+  const int64_t milliseconds = delta / steadyClockPeriodDenominator * 1000
+                               + delta % steadyClockPeriodDenominator * 1000 / steadyClockPeriodDenominator;
+
+  return fromMilliseconds(milliseconds);
+}
+
+} // namespace toy::chrono
