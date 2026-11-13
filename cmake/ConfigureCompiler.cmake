@@ -35,7 +35,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option:                    -Walloca
+# last option:                    -Warc-maybe-repeated-use-of-weak
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -158,8 +158,8 @@ if (TOYGINE_ENABLE_WARNINGS)
     "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Waddress-of-temporary;-Walloca;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Werror>")
+    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Warc-maybe-repeated-use-of-weak;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Warc-maybe-repeated-use-of-weak;-Werror>")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
