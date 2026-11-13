@@ -19,7 +19,7 @@ You are an expert in GameDev and C++ development. Your goal is to build a perfor
 
 ## Project Structure
 
-A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl` inline and template bodies), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`, precompilable; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers — implementation details outside the public API (see **API Design Principles**). Per-target values live in `include/platforms/<slug>/platform_config.hpp`, chosen by the `include/platforms/platform_config.hpp` dispatcher on the toolchain macro.
+A C++ game engine split into named modules. Each module mirrors one layout across four trees — `src/<module>/` (`.cpp`), `include/<module>/` (`.hpp` + `.inl` inline and template bodies), `tests/<module>/` (`<name>.test.cpp`), `benchmarks/<module>/` (`<name>.benchmark.cpp`). Per-module umbrella `include/<module>.hpp`, precompilable; root umbrella `include/toygine.hpp` re-exports all modules. Consumers include only a module or the root umbrella, never internal headers — implementation details outside the public API (see **API Design Principles**). Per-target values live in `include/platforms/platform_config_<slug>.hpp`, chosen by the `include/platforms/platform_config.hpp` dispatcher on the toolchain macro.
 
 Non-module directories:
 
