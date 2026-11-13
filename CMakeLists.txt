@@ -73,7 +73,7 @@ endif ()
 
 include(ConfigureCompiler)
 
-# The target's directory name under src/platforms/; tests/runner/platforms/ names the console runners the same way.
+# The target's directory name under include/platforms/; tests/runner/platforms/ names the console runners the same way.
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
   set(TOYGINE_TARGET_PLATFORM_SLUG windows)
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Linux Desktop")
@@ -102,7 +102,7 @@ else ()
 endif ()
 
 set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER
-    ${CMAKE_CURRENT_SOURCE_DIR}/src/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/platform_config.hpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/platform_config.hpp)
 if (NOT EXISTS ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
   message(FATAL_ERROR "Missing platform_config.hpp for ${TOYGINE_TARGET_PLATFORM}: ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER}")
 endif ()

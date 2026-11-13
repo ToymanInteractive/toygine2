@@ -27,8 +27,8 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
 
 #include <windows.h>
 
@@ -93,4 +93,4 @@ inline constexpr bool consoleSupportsUtf8 = true;
     return retValue ? EXIT_SUCCESS : EXIT_FAILURE;                                                                     \
   }
 
-#endif // SRC_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_

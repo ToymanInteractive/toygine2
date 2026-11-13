@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  Values of the platform constants for the Wii U target.
+  \brief  Values of the platform constants for the Wii target.
 
   Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
   platform only.
@@ -27,8 +27,8 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_WII_U_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_WII_U_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_WII_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_WII_PLATFORM_CONFIG_HPP_
 
 namespace toy::platform::detail {
 
@@ -41,7 +41,7 @@ inline constexpr bool assertIgnoreAlways = false;
 // This target has no counter backend: the stub clock reports nominal nanoseconds.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
 
-// The WHB log console font covers ASCII only, so non-ASCII text renders as garbage tiles.
+// The devkitPro console font covers ASCII only, so non-ASCII text renders as garbage tiles.
 inline constexpr bool consoleSupportsUtf8 = false;
 
 } // namespace toy::platform::detail
@@ -66,4 +66,4 @@ inline constexpr bool consoleSupportsUtf8 = false;
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_WII_U_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_WII_PLATFORM_CONFIG_HPP_

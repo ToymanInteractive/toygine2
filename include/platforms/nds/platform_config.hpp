@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  Values of the platform constants for the Wii target.
+  \brief  Values of the platform constants for the Nintendo DS target.
 
   Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
   platform only.
@@ -27,13 +27,13 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_WII_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_WII_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
 
 namespace toy::platform::detail {
 
-// GCC for the PowerPC 750 copies objects up to 28 bytes inline and calls memcpy() above.
-inline constexpr size_t inlineCopyMaxBytes = 28;
+// GCC for Thumb on the ARM946E-S copies objects up to 44 bytes inline and calls memcpy() above.
+inline constexpr size_t inlineCopyMaxBytes = 44;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
@@ -48,7 +48,7 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #ifdef TOYGINE_DEBUG
 
-// GCC emits the PowerPC trap instruction, and the exception stops execution at the failing check.
+// GCC emits an undefined instruction, and the exception stops execution at the failing check.
 #define TOYGINE_DEBUG_BREAK() __builtin_trap()
 
 #endif // TOYGINE_DEBUG
@@ -66,4 +66,4 @@ inline constexpr bool consoleSupportsUtf8 = false;
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_WII_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_

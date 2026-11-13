@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  Values of the platform constants for the Nintendo Switch target.
+  \brief  Values of the platform constants for the Wii U target.
 
   Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
   platform only.
@@ -27,13 +27,13 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_WII_U_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_WII_U_PLATFORM_CONFIG_HPP_
 
 namespace toy::platform::detail {
 
-// Assumed equal to desktop: GCC for the Cortex-A57 inlines copies up to 200 bytes, cost not measured.
-inline constexpr size_t inlineCopyMaxBytes = 128;
+// GCC for the PowerPC 750 copies objects up to 28 bytes inline and calls memcpy() above.
+inline constexpr size_t inlineCopyMaxBytes = 28;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
@@ -41,14 +41,14 @@ inline constexpr bool assertIgnoreAlways = false;
 // This target has no counter backend: the stub clock reports nominal nanoseconds.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
 
-// The devkitPro console font covers ASCII only, so non-ASCII text renders as garbage tiles.
+// The WHB log console font covers ASCII only, so non-ASCII text renders as garbage tiles.
 inline constexpr bool consoleSupportsUtf8 = false;
 
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG
 
-// GCC emits brk, and the exception stops execution at the failing check.
+// GCC emits the PowerPC trap instruction, and the exception stops execution at the failing check.
 #define TOYGINE_DEBUG_BREAK() __builtin_trap()
 
 #endif // TOYGINE_DEBUG
@@ -66,4 +66,4 @@ inline constexpr bool consoleSupportsUtf8 = false;
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_WII_U_PLATFORM_CONFIG_HPP_

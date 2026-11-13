@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  Values of the platform constants for the Nintendo DS target.
+  \brief  Values of the platform constants for the Nintendo 3DS target.
 
   Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
   platform only.
@@ -27,13 +27,13 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_
 
 namespace toy::platform::detail {
 
-// GCC for Thumb on the ARM946E-S copies objects up to 44 bytes inline and calls memcpy() above.
-inline constexpr size_t inlineCopyMaxBytes = 44;
+// GCC in ARM mode on the MPCore copies objects up to 60 bytes inline and calls memcpy() above.
+inline constexpr size_t inlineCopyMaxBytes = 60;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
@@ -61,9 +61,9 @@ inline constexpr bool consoleSupportsUtf8 = false;
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)), argv));                                          \
+    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)));                                                 \
                                                                                                                        \
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_NDS_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_3DS_PLATFORM_CONFIG_HPP_

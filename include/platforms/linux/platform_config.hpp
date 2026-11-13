@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  Values of the platform constants for the GameCube target.
+  \brief  Values of the platform constants for the Linux target.
 
   Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
   platform only.
@@ -27,32 +27,48 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_
+
+#include <cstdlib>
+
+#include <errno.h>
+#include <unistd.h>
 
 namespace toy::platform::detail {
 
-// GCC for the PowerPC 750 copies objects up to 28 bytes inline and calls memcpy() above.
-inline constexpr size_t inlineCopyMaxBytes = 28;
+// Assumed equal to macOS: not yet measured with GCC on x86.
+inline constexpr size_t inlineCopyMaxBytes = 128;
 
-// Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
-inline constexpr bool assertIgnoreAlways = false;
+// Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
+inline constexpr bool assertIgnoreAlways = true;
 
-// This target has no counter backend: the stub clock reports nominal nanoseconds.
+// clock_gettime reports seconds and nanoseconds, so one steady clock tick is one nanosecond.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
 
-// The devkitPro console font covers ASCII only, so non-ASCII text renders as garbage tiles.
-inline constexpr bool consoleSupportsUtf8 = false;
+// The write calls emit UTF-8 bytes, and desktop terminals render them as written.
+inline constexpr bool consoleSupportsUtf8 = true;
 
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG
 
-// GCC emits the PowerPC trap instruction, and the exception stops execution at the failing check.
-#define TOYGINE_DEBUG_BREAK() __builtin_trap()
+#include <csignal>
+
+// GCC has no resumable trap builtin; SIGTRAP stops under gdb and ends the process without it.
+#define TOYGINE_DEBUG_BREAK() std::raise(SIGTRAP)
 
 #endif // TOYGINE_DEBUG
 
+/*!
+  \brief Defines main() that builds a console application and runs it with the command-line arguments.
+
+  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
+  APP_VERSION_REVISION. The process exits with \c EXIT_SUCCESS when run() returns \c true, \c EXIT_FAILURE otherwise.
+
+  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
+                      \ref toy::application::Version.
+*/
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
   int main(int argc, char * argv[]) {                                                                                  \
@@ -61,9 +77,7 @@ inline constexpr bool consoleSupportsUtf8 = false;
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)));                                                 \
-                                                                                                                       \
-    toy::application::ConsoleApplication::idleSystemConsole();                                                         \
+    return app.run(static_cast<size_t>(toy::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
   }
 
-#endif // SRC_PLATFORMS_GAMECUBE_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_LINUX_PLATFORM_CONFIG_HPP_

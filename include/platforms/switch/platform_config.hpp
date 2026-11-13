@@ -19,7 +19,7 @@
 //
 /*!
   \file   platform_config.hpp
-  \brief  Values of the platform constants for the macOS target.
+  \brief  Values of the platform constants for the Nintendo Switch target.
 
   Supplies what \ref toy::platform reads on this target; the build adds this directory to the include path of the active
   platform only.
@@ -27,44 +27,32 @@
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
-#define SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
-
-#include <errno.h>
-#include <unistd.h>
+#ifndef INCLUDE_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
+#define INCLUDE_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
 
 namespace toy::platform::detail {
 
-// Measured on Apple silicon: whole copies win up to 104 bytes and lose from 168.
+// Assumed equal to desktop: GCC for the Cortex-A57 inlines copies up to 200 bytes, cost not measured.
 inline constexpr size_t inlineCopyMaxBytes = 128;
 
-// Memory is plentiful, so assert_message keeps a flag per call site for Action::IgnoreAlways.
-inline constexpr bool assertIgnoreAlways = true;
+// Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
+inline constexpr bool assertIgnoreAlways = false;
 
-// clock_gettime reports seconds and nanoseconds, so one steady clock tick is one nanosecond.
+// This target has no counter backend: the stub clock reports nominal nanoseconds.
 inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
 
-// The write calls emit UTF-8 bytes, and desktop terminals render them as written.
-inline constexpr bool consoleSupportsUtf8 = true;
+// The devkitPro console font covers ASCII only, so non-ASCII text renders as garbage tiles.
+inline constexpr bool consoleSupportsUtf8 = false;
 
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG
 
-// Stops under lldb and resumes on continue; without a debugger, SIGTRAP ends the process.
-#define TOYGINE_DEBUG_BREAK() __builtin_debugtrap()
+// GCC emits brk, and the exception stops execution at the failing check.
+#define TOYGINE_DEBUG_BREAK() __builtin_trap()
 
 #endif // TOYGINE_DEBUG
 
-/*!
-  \brief Defines main() that builds a console application and runs it with the command-line arguments.
-
-  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
-  APP_VERSION_REVISION. The process exits with \c EXIT_SUCCESS when run() returns \c true, \c EXIT_FAILURE otherwise.
-
-  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
-                      \ref toy::application::Version.
-*/
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
   int main(int argc, char * argv[]) {                                                                                  \
@@ -73,7 +61,9 @@ inline constexpr bool consoleSupportsUtf8 = true;
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    return app.run(static_cast<size_t>(toy::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
+    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)), argv));                                          \
+                                                                                                                       \
+    toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // SRC_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
