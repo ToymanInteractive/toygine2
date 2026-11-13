@@ -21,8 +21,9 @@
   \file   platform.hpp
   \brief  Constants whose values depend on the target platform.
 
-  Defines the \ref toy::platform constants over the values the active platform supplies in its platform_config.hpp, so
-  engine code reads one documented name on every target.
+  Defines the \ref toy::platform constants over the values the active target supplies in its platform_config.hpp under
+  include/platforms, selected by the dispatcher platforms/platform_config.hpp, so engine code reads one documented name
+  on every target.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -39,8 +40,8 @@ namespace toy::platform {
   is the size up to which GCC copies an object with inline loads and stores; on desktop it comes from a benchmark,
   because clang inlines copies well past the size where they still pay off.
 
-  \note Each target sets the value in the platform_config.hpp of its directory under src/platforms, with a comment on
-        where the number comes from.
+  \note Each target sets the value in the platform_config.hpp under include/platforms, selected by the dispatcher in
+        platforms/platform_config.hpp, with a comment on where the number comes from.
   \note Values not measured on the target are estimates, and the comment beside each one says so.
 */
 inline constexpr size_t inlineCopyMaxBytes = detail::inlineCopyMaxBytes;
@@ -51,7 +52,8 @@ inline constexpr size_t inlineCopyMaxBytes = detail::inlineCopyMaxBytes;
   \c true on the desktop targets. The consoles set \c false to save the flag and the code that reads it at every call
   site, so \ref toy::assertion::Action::IgnoreAlways acts as \ref toy::assertion::Action::Ignore there.
 
-  \note Each target sets the value in the platform_config.hpp of its directory under src/platforms.
+  \note Each target sets the value in the platform_config.hpp under include/platforms, selected by the dispatcher in
+        platforms/platform_config.hpp.
 */
 inline constexpr bool assertIgnoreAlways = detail::assertIgnoreAlways;
 

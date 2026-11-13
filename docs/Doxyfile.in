@@ -1135,6 +1135,7 @@ EXCLUDE                = ./benchmarks/ \
                          ./out/ \
                          ./samples/ \
                          ./tests/ \
+                         ./include/platforms/ \
                          ./AGENTS.md \
                          ./CLAUDE.md \
                          ./CODE_OF_CONDUCT.md \

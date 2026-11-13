@@ -21,7 +21,7 @@
   \file   platform_config.hpp
   \brief  Selects the platform values header for the active target.
 
-  Leaves live under platforms/<slug>/platform_config.hpp; the target toolchain's predefined macro selects one.
+  Each leaf under platforms/ holds one target's values; the target toolchain's predefined macro selects the active leaf.
 
   \note Included by core.hpp only; do not include this file directly.
 */
