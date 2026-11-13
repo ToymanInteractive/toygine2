@@ -48,7 +48,7 @@ inline constexpr int64_t steadyClockPeriodDenominator = platform::detail::steady
   \brief Prepares the clock backend and fixes the origin toy::chrono::Timestamp::now() counts from.
 
   The engine calls it once at startup, before the application body runs; a program with its own entry point calls it
-  there instead.
+  there instead, after installing the platform's interrupt dispatcher where the backend needs one.
 
   \post toy::chrono::Timestamp::now() counts from this call.
 
