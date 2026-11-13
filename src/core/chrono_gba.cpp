@@ -33,7 +33,7 @@ namespace toy::chrono {
 namespace {
 
 /// Wrap count of the Timer 3 cascade, incremented by its overflow interrupt handler
-volatile std::uint32_t overflowCount = 0;
+volatile uint32_t overflowCount = 0;
 
 /// Overflow interrupt handler of Timer 3, extends readings past the 32-bit wrap
 void onTimer3Overflow() noexcept {
@@ -43,7 +43,11 @@ void onTimer3Overflow() noexcept {
 } // namespace
 
 void initialize() noexcept {
-  irqDisable(IRQ_TIMER3);
+  assert_message(INT_VECTOR == IntrMain,
+                 "chrono::initialize: the interrupt dispatcher is not installed, call irqInit() first");
+
+  ::irqDisable(IRQ_TIMER3);
+
   REG_TM2CNT_H = 0;
   REG_TM3CNT_H = 0;
   REG_TM2CNT_L = 0;
@@ -53,10 +57,10 @@ void initialize() noexcept {
   REG_IF        = IRQ_TIMER3;
   overflowCount = 0;
 
-  irqSet(IRQ_TIMER3, &onTimer3Overflow);
+  ::irqSet(IRQ_TIMER3, &onTimer3Overflow);
   REG_TM3CNT_H = TIMER_COUNT | TIMER_IRQ | TIMER_START;
   REG_TM2CNT_H = TIMER_START;
-  irqEnable(IRQ_TIMER3);
+  ::irqEnable(IRQ_TIMER3);
 }
 
 SteadyClock::time_point SteadyClock::now() noexcept {
@@ -67,13 +71,20 @@ SteadyClock::time_point SteadyClock::now() noexcept {
 
 SteadyClock::rep SteadyClock::nowTicks() noexcept {
   for (;;) {
-    const std::uint32_t overflows = overflowCount;
-    const std::uint16_t high      = REG_TM3CNT_L;
-    const std::uint16_t low       = REG_TM2CNT_L;
+    const auto overflows = overflowCount;
+    const auto high      = REG_TM3CNT_L;
+    const auto low       = REG_TM2CNT_L;
 
-    // A wrap not yet counted by the handler would read as a step backward.
-    if (REG_IF & IRQ_TIMER3 || REG_TM3CNT_L != high || overflowCount != overflows)
+    if (REG_TM3CNT_L != high || overflowCount != overflows)
       continue;
+
+    if (REG_IF & IRQ_TIMER3) {
+      // The wrap's handler has not run; within one wrap window the pending carry is exactly one.
+      if (REG_TM3CNT_L != high)
+        continue;
+
+      return (static_cast<rep>(overflows) + 1) << 32 | static_cast<rep>(high) << 16 | low;
+    }
 
     return static_cast<rep>(overflows) << 32 | static_cast<rep>(high) << 16 | low;
   }
@@ -92,7 +103,7 @@ CalendarTime SystemClock::now() noexcept {
 Timestamp Timestamp::now() noexcept {
   assert_message(REG_TM2CNT_H & TIMER_START, "Timestamp::now: initialize() has not run");
 
-  const SteadyClock::rep delta = SteadyClock::nowTicks();
+  const auto delta = SteadyClock::nowTicks();
 
   const int64_t milliseconds = delta / steadyClockPeriodDenominator * 1000
                                + delta % steadyClockPeriodDenominator * 1000 / steadyClockPeriodDenominator;
