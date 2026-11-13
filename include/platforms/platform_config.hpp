@@ -30,27 +30,27 @@
 #define INCLUDE_PLATFORMS_PLATFORM_CONFIG_HPP_
 
 #if defined(__GBA__)
-#include "gba/platform_config.hpp"
+#include "platform_config_gba.hpp"
 #elif defined(__NDS__)
-#include "nds/platform_config.hpp"
+#include "platform_config_nds.hpp"
 #elif defined(__3DS__)
-#include "3ds/platform_config.hpp"
+#include "platform_config_3ds.hpp"
 #elif defined(__SWITCH__)
-#include "switch/platform_config.hpp"
+#include "platform_config_switch.hpp"
 #elif defined(__gamecube__)
-#include "gamecube/platform_config.hpp"
+#include "platform_config_gamecube.hpp"
 #elif defined(__wii__)
-#include "wii/platform_config.hpp"
+#include "platform_config_wii.hpp"
 #elif defined(__WIIU__)
-#include "wii_u/platform_config.hpp"
+#include "platform_config_wii_u.hpp"
 #elif defined(__MEGA_DRIVE__)
-#include "md/platform_config.hpp"
+#include "platform_config_md.hpp"
 #elif defined(_WIN32)
-#include "windows/platform_config.hpp"
+#include "platform_config_windows.hpp"
 #elif defined(__APPLE__)
-#include "macos/platform_config.hpp"
+#include "platform_config_macos.hpp"
 #elif defined(__linux__)
-#include "linux/platform_config.hpp"
+#include "platform_config_linux.hpp"
 #else
 #error "no platform_config.hpp for this target platform"
 #endif

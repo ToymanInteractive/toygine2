@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
+  \file   platform_config_macos.hpp
   \brief  Values of the platform constants for the macOS target.
 
   Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
@@ -27,8 +27,8 @@
   \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
-#define INCLUDE_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_MACOS_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_MACOS_HPP_
 
 #include <errno.h>
 #include <unistd.h>
@@ -76,4 +76,4 @@ inline constexpr bool consoleSupportsUtf8 = true;
     return app.run(static_cast<size_t>(toy::max(0, argc)), argv) ? EXIT_SUCCESS : EXIT_FAILURE;                        \
   }
 
-#endif // INCLUDE_PLATFORMS_MACOS_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_MACOS_HPP_

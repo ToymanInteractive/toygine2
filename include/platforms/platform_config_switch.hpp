@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
+  \file   platform_config_switch.hpp
   \brief  Values of the platform constants for the Nintendo Switch target.
 
   Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
@@ -27,8 +27,8 @@
   \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
-#define INCLUDE_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_SWITCH_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_SWITCH_HPP_
 
 namespace toy::platform::detail {
 
@@ -66,4 +66,4 @@ inline constexpr bool consoleSupportsUtf8 = false;
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // INCLUDE_PLATFORMS_SWITCH_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_SWITCH_HPP_

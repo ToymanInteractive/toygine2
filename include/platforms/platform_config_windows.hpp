@@ -18,7 +18,7 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
+  \file   platform_config_windows.hpp
   \brief  Values of the platform constants for the Windows target.
 
   Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
@@ -27,8 +27,8 @@
   \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
-#define INCLUDE_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_WINDOWS_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_WINDOWS_HPP_
 
 #include <windows.h>
 
@@ -93,4 +93,4 @@ inline constexpr bool consoleSupportsUtf8 = true;
     return retValue ? EXIT_SUCCESS : EXIT_FAILURE;                                                                     \
   }
 
-#endif // INCLUDE_PLATFORMS_WINDOWS_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_WINDOWS_HPP_

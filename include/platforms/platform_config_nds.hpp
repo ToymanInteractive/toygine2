@@ -18,8 +18,8 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   platform_config.hpp
-  \brief  Values of the platform constants for the Game Boy Advance target.
+  \file   platform_config_nds.hpp
+  \brief  Values of the platform constants for the Nintendo DS target.
 
   Supplies what \ref toy::platform reads on this target; the dispatcher platforms/platform_config.hpp selects this
   file by the target toolchain's macro.
@@ -27,12 +27,12 @@
   \note Included by platforms/platform_config.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
-#define INCLUDE_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
+#ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_NDS_HPP_
+#define INCLUDE_PLATFORMS_PLATFORM_CONFIG_NDS_HPP_
 
 namespace toy::platform::detail {
 
-// GCC for Thumb on the ARM7TDMI copies objects up to 44 bytes inline and calls memcpy() above.
+// GCC for Thumb on the ARM946E-S copies objects up to 44 bytes inline and calls memcpy() above.
 inline constexpr size_t inlineCopyMaxBytes = 44;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
@@ -48,22 +48,22 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #ifdef TOYGINE_DEBUG
 
-// GCC emits an undefined instruction, and the BIOS exception vector stops execution at the failing check.
+// GCC emits an undefined instruction, and the exception stops execution at the failing check.
 #define TOYGINE_DEBUG_BREAK() __builtin_trap()
 
 #endif // TOYGINE_DEBUG
 
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
-  int main() {                                                                                                         \
+  int main(int argc, char * argv[]) {                                                                                  \
     appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
                                                .minor    = APP_VERSION_MINOR,                                          \
                                                .patch    = APP_VERSION_PATCH,                                          \
                                                .revision = APP_VERSION_REVISION});                                     \
                                                                                                                        \
-    static_cast<void>(app.run(0, nullptr));                                                                            \
+    static_cast<void>(app.run(static_cast<size_t>(toy::max(0, argc)), argv));                                          \
                                                                                                                        \
     toy::application::ConsoleApplication::idleSystemConsole();                                                         \
   }
 
-#endif // INCLUDE_PLATFORMS_GBA_PLATFORM_CONFIG_HPP_
+#endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_NDS_HPP_

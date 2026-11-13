@@ -102,7 +102,7 @@ else ()
 endif ()
 
 set(TOYGINE_TARGET_PLATFORM_CONFIG_HEADER
-    ${CMAKE_CURRENT_SOURCE_DIR}/include/platforms/${TOYGINE_TARGET_PLATFORM_SLUG}/platform_config.hpp)
+    ${CMAKE_CURRENT_SOURCE_DIR}/include/platforms/platform_config_${TOYGINE_TARGET_PLATFORM_SLUG}.hpp)
 if (NOT EXISTS ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
   message(FATAL_ERROR "Missing platform_config.hpp for ${TOYGINE_TARGET_PLATFORM}: ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER}")
 endif ()
