@@ -24,12 +24,12 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /GS
+# last option:          /guard:cf
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
 # GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -fno-immediate-escalation
+# GCC 16.2.0 Options Controlling C Dialect - last option: -frange-for-ext-temps
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
@@ -189,8 +189,8 @@ add_compile_options(
 
 # MSVC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
-  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS>")
+  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:cf>"
+  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:cf>")
 
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(

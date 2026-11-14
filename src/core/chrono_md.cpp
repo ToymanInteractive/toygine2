@@ -126,7 +126,7 @@ Timestamp Timestamp::now() noexcept {
 
 } // namespace toy::chrono
 
-// Declared by clownmdsdk.h with C linkage and the interrupt attribute; the definition only counts frames.
+/// Vertical interrupt entry the crt0 vector table calls; declared by clownmdsdk.h, the definition only counts frames.
 void _VerticalInterruptHandler() {
   toy::chrono::onVerticalInterrupt();
 }
