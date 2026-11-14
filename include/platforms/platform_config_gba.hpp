@@ -30,6 +30,8 @@
 #ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_
 #define INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_
 
+#include <gba_interrupt.h>
+
 namespace toy::platform::detail {
 
 // GCC for Thumb on the ARM7TDMI copies objects up to 44 bytes inline and calls memcpy() above.

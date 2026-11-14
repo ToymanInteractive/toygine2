@@ -23,7 +23,6 @@
           \ref toy::chrono::Timestamp over the Timer 2+3 cascade.
 */
 
-#include <gba_interrupt.h>
 #include <gba_timers.h>
 
 #include "core.hpp"
@@ -34,6 +33,9 @@ namespace {
 
 /// Wrap count of the Timer 3 cascade, incremented by its overflow interrupt handler
 volatile uint32_t overflowCount = 0;
+
+/// Raw cascade reading the Timestamp origin counts from, taken by initialize()
+SteadyClock::rep timestampOrigin = 0;
 
 /// Overflow interrupt handler of Timer 3, extends readings past the 32-bit wrap
 void onTimer3Overflow() noexcept {
@@ -46,6 +48,14 @@ void initialize() noexcept {
   assert_message(INT_VECTOR == IntrMain,
                  "chrono::initialize: the interrupt dispatcher is not installed, call irqInit() first");
 
+  if (REG_TM2CNT_H & TIMER_START) {
+    // The cascade already runs: preserve the steady counter and re-fix the timestamp origin only.
+    timestampOrigin = SteadyClock::nowTicks();
+    ::irqSet(IRQ_TIMER3, &onTimer3Overflow);
+    ::irqEnable(IRQ_TIMER3);
+    return;
+  }
+
   ::irqDisable(IRQ_TIMER3);
 
   REG_TM2CNT_H = 0;
@@ -54,8 +64,9 @@ void initialize() noexcept {
   REG_TM3CNT_L = 0;
 
   // A wrap left pending by the previous epoch must not extend the fresh one.
-  REG_IF        = IRQ_TIMER3;
-  overflowCount = 0;
+  REG_IF          = IRQ_TIMER3;
+  overflowCount   = 0;
+  timestampOrigin = 0;
 
   ::irqSet(IRQ_TIMER3, &onTimer3Overflow);
   REG_TM3CNT_H = TIMER_COUNT | TIMER_IRQ | TIMER_START;
@@ -104,7 +115,7 @@ CalendarTime SystemClock::now() noexcept {
 Timestamp Timestamp::now() noexcept {
   assert_message(REG_TM2CNT_H & TIMER_START, "Timestamp::now: initialize() has not run");
 
-  const auto delta = SteadyClock::nowTicks();
+  const auto delta = SteadyClock::nowTicks() - timestampOrigin;
 
   const int64_t milliseconds = delta / steadyClockPeriodDenominator * 1000
                                + delta % steadyClockPeriodDenominator * 1000 / steadyClockPeriodDenominator;

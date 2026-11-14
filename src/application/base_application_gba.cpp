@@ -22,8 +22,6 @@
   \brief  Implementation of \ref toy::application::BaseApplication for Nintendo GBA.
 */
 
-#include <gba_interrupt.h>
-
 #include "application.hpp"
 
 namespace toy::application {
