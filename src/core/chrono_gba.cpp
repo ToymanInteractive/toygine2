@@ -97,7 +97,7 @@ SteadyClock::rep SteadyClock::nowTicks() noexcept {
       return (static_cast<rep>(overflows) + 1) << 32 | static_cast<rep>(high) << 16 | low;
     }
 
-    // The dispatcher acks a wrap before the handler increments, so a reading straddling that gap is one wrap short.
+    // A completed delivery pairs the acked flag with the incremented word, so a clear IF means the snapshot is whole.
     return static_cast<rep>(overflows) << 32 | static_cast<rep>(high) << 16 | low;
   }
 }
