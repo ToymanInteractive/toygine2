@@ -207,7 +207,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
-                            src/core/chrono_stub.cpp)
+                            src/core/chrono_md.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 

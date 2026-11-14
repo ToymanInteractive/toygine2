@@ -195,7 +195,7 @@ add_compile_options(
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,GNU>:-fsigned-char>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2;-fdiagnostics-all-candidates;-fno-gnu-keywords;-fno-immediate-escalation>")
+  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2;-fdiagnostics-all-candidates;-fno-gnu-keywords>")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Optimization flags

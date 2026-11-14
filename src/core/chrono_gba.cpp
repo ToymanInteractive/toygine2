@@ -51,7 +51,7 @@ void onTimer3Overflow() noexcept {
 } // namespace
 
 void initialize() noexcept {
-  assert_message(INT_VECTOR == IntrMain,
+  assert_message(INT_VECTOR == ::IntrMain,
                  "chrono::initialize: the interrupt dispatcher is not installed, call irqInit() first");
 
   if ((REG_TM2CNT_H & timerControlMask) == TIMER_START
@@ -60,6 +60,7 @@ void initialize() noexcept {
     timestampOrigin = SteadyClock::nowTicks();
     ::irqSet(IRQ_TIMER3, &onTimer3Overflow);
     ::irqEnable(IRQ_TIMER3);
+
     return;
   }
 
@@ -76,8 +77,10 @@ void initialize() noexcept {
   timestampOrigin = 0;
 
   ::irqSet(IRQ_TIMER3, &onTimer3Overflow);
+
   REG_TM3CNT_H = TIMER_COUNT | TIMER_IRQ | TIMER_START;
   REG_TM2CNT_H = TIMER_START;
+
   ::irqEnable(IRQ_TIMER3);
 }
 
