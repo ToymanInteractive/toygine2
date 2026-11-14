@@ -37,6 +37,12 @@ volatile uint32_t overflowCount = 0;
 /// Raw cascade reading the Timestamp origin counts from, taken by initialize()
 SteadyClock::rep timestampOrigin = 0;
 
+/// Prescaler bits of a timer control word; this backend always runs prescaler 1, so they must read zero
+constexpr uint16_t timerPrescalerMask = 0x0003;
+
+/// Control bits this backend configures: prescaler 1, Timer 3 cascade with overflow IRQ, both started
+constexpr uint16_t timerControlMask = timerPrescalerMask | TIMER_COUNT | TIMER_IRQ | TIMER_START;
+
 /// Overflow interrupt handler of Timer 3, extends readings past the 32-bit wrap
 void onTimer3Overflow() noexcept {
   overflowCount = overflowCount + 1;
@@ -48,8 +54,9 @@ void initialize() noexcept {
   assert_message(INT_VECTOR == IntrMain,
                  "chrono::initialize: the interrupt dispatcher is not installed, call irqInit() first");
 
-  if (REG_TM2CNT_H & TIMER_START) {
-    // The cascade already runs: preserve the steady counter and re-fix the timestamp origin only.
+  if ((REG_TM2CNT_H & timerControlMask) == TIMER_START
+      && (REG_TM3CNT_H & timerControlMask) == (TIMER_COUNT | TIMER_IRQ | TIMER_START)) {
+    // The running cascade is this backend's: preserve the steady counter and re-fix the timestamp origin only.
     timestampOrigin = SteadyClock::nowTicks();
     ::irqSet(IRQ_TIMER3, &onTimer3Overflow);
     ::irqEnable(IRQ_TIMER3);
