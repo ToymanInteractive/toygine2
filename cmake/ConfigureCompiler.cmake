@@ -29,13 +29,13 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
 # GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -frange-for-ext-temps
+# GCC 16.2.0 Options Controlling C Dialect - last option: -fno-rtti
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option:                    -Warc-maybe-repeated-use-of-weak
+# last option:                    -Warc-repeated-use-of-weak
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -158,8 +158,8 @@ if (TOYGINE_ENABLE_WARNINGS)
     "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Waddress-of-temporary;-Walloca;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Warc-maybe-repeated-use-of-weak;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Warc-maybe-repeated-use-of-weak;-Werror>")
+    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Warc-repeated-use-of-weak;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Warc-repeated-use-of-weak;-Werror>")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -191,11 +191,14 @@ add_compile_options(
 add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:cf>"
   "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:cf>")
+add_link_options(
+  "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:CF>"
+  "$<$<AND:$<CONFIG:Debug,RelWithDebInfo>,$<LINK_LANG_AND_ID:CXX,MSVC>>:/INCREMENTAL:NO>")
 
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,GNU>:-fsigned-char>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2;-fdiagnostics-all-candidates;-fno-gnu-keywords>")
+  "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2;-fdiagnostics-all-candidates;-fno-gnu-keywords;-fno-rtti>")
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Optimization flags
