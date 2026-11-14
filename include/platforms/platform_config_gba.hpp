@@ -30,6 +30,8 @@
 #ifndef INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_
 #define INCLUDE_PLATFORMS_PLATFORM_CONFIG_GBA_HPP_
 
+#include <gba_interrupt.h>
+
 namespace toy::platform::detail {
 
 // GCC for Thumb on the ARM7TDMI copies objects up to 44 bytes inline and calls memcpy() above.
@@ -38,8 +40,8 @@ inline constexpr size_t inlineCopyMaxBytes = 44;
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
 
-// This target has no counter backend: the stub clock reports nominal nanoseconds.
-inline constexpr int64_t steadyClockPeriodDenominator = 1'000'000'000;
+// The Timer 2+3 cascade ticks at the full 16.777216 MHz, so one steady clock tick is one cascade tick.
+inline constexpr int64_t steadyClockPeriodDenominator = 16'777'216;
 
 // The devkitPro console font covers ASCII only, so non-ASCII text renders as garbage tiles.
 inline constexpr bool consoleSupportsUtf8 = false;

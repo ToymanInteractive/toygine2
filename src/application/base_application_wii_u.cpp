@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_wii_u.cpp
-  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Nintendo Wii U.
+  \brief  Implementation of \ref toy::application::BaseApplication for Nintendo Wii U.
 */
 
 #include <coreinit/thread.h>
@@ -39,6 +39,12 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
 
 void BaseApplication::yield() noexcept {
   ::OSYieldThread();
+}
+
+bool BaseApplication::initialize() noexcept {
+  chrono::initialize();
+
+  return true;
 }
 
 } // namespace toy::application

@@ -61,7 +61,7 @@ namespace toy::chrono {
 
   \section stopwatch_performance Performance Characteristics
 
-  * **Reading**: O(1); one counter read, a subtraction, and a conversion where the counter does not tick in nanoseconds.
+  * **Reading**: O(1); one counter read, a subtraction, and a conversion where the counter unit differs from the period.
   * **Memory usage**: 8 bytes, the start tick alone.
 
   \section stopwatch_safety Safety Guarantees
@@ -72,10 +72,6 @@ namespace toy::chrono {
   * **Determinism**: readings differ between runs and targets; never feed them into simulation state.
   * **Memory safety**: nothing allocates.
   * **Exception safety**: no operation throws; exceptions are off in the build.
-
-  \section stopwatch_compatibility Compatibility
-
-  * On the stub console targets the counter stays at zero, so every reading is zero until real backends land.
 
   \sa \ref toy::chrono::SteadyClock
 */

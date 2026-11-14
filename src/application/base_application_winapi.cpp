@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_winapi.cpp
-  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Windows.
+  \brief  Implementation of \ref toy::application::BaseApplication for Windows.
 */
 
 #include "application.hpp"
@@ -46,6 +46,12 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
 
 void BaseApplication::yield() noexcept {
   ::SwitchToThread();
+}
+
+bool BaseApplication::initialize() noexcept {
+  chrono::initialize();
+
+  return true;
 }
 
 } // namespace toy::application

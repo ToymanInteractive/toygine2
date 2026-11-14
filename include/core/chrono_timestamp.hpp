@@ -73,11 +73,6 @@ namespace toy::chrono {
   * **Memory safety**: nothing allocates.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \section timestamp_compatibility Compatibility
-
-  * On the stub console targets now() returns the zero stamp until real backends land, so stamps there carry no
-    ordering information.
-
   \note A default-constructed stamp reads \c 0, the count at the initialization moment.
 
   \sa \ref toy::chrono::SteadyClock

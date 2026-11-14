@@ -18,15 +18,25 @@
 // DEALINGS IN THE SOFTWARE.
 //
 /*!
-  \file   base_application.cpp
-  \brief  Implementation of toy::application::BaseApplication::initialize().
+  \file   base_application_gba.cpp
+  \brief  Implementation of \ref toy::application::BaseApplication for Nintendo GBA.
 */
 
 #include "application.hpp"
 
 namespace toy::application {
 
+uint32_t BaseApplication::pid() noexcept {
+  return 0;
+}
+
+void BaseApplication::sleep([[maybe_unused]] size_t milliseconds) noexcept {}
+
+void BaseApplication::yield() noexcept {}
+
 bool BaseApplication::initialize() noexcept {
+  ::irqInit();
+
   chrono::initialize();
 
   return true;

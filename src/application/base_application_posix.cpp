@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_posix.cpp
-  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Linux and macOS.
+  \brief  Implementation of \ref toy::application::BaseApplication for Linux and macOS.
 */
 
 #include <sched.h>
@@ -50,6 +50,12 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
 
 void BaseApplication::yield() noexcept {
   ::sched_yield();
+}
+
+bool BaseApplication::initialize() noexcept {
+  chrono::initialize();
+
+  return true;
 }
 
 } // namespace toy::application

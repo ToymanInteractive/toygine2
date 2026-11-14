@@ -30,8 +30,8 @@ namespace toy::chrono {
 TEST_CASE("chrono/steady_clock/types") {
   static_assert(SteadyClock::is_steady, "the steady clock must never step back");
   static_assert(std::is_same_v<SteadyClock::rep, int64_t>, "the tick counter must not overflow in a session");
-  static_assert(std::is_same_v<SteadyClock::period, std::ratio<1, 1'000'000'000>>,
-                "v1 ticks in nanoseconds on every platform");
+  static_assert(SteadyClock::period::den == steadyClockPeriodDenominator,
+                "the tick period follows the platform denominator");
 }
 
 } // namespace toy::chrono

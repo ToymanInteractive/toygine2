@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_switch.cpp
-  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Nintendo Switch.
+  \brief  Implementation of \ref toy::application::BaseApplication for Nintendo Switch.
 */
 
 #include <switch.h>
@@ -52,6 +52,12 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
 
 void BaseApplication::yield() noexcept {
   ::svcSleepThread(0);
+}
+
+bool BaseApplication::initialize() noexcept {
+  chrono::initialize();
+
+  return true;
 }
 
 } // namespace toy::application
