@@ -32,7 +32,6 @@ namespace toy::application {
 
 // The VBlank interrupt stays enabled because idleSystemConsole() waits on it after run() returns.
 bool ConsoleApplication::initializeSystemConsole() noexcept {
-  ::irqInit();
   ::irqEnable(IRQ_VBLANK);
 
   ::consoleDemoInit();

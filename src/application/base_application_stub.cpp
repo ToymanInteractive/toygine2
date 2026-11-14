@@ -19,8 +19,7 @@
 //
 /*!
   \file   base_application_stub.cpp
-  \brief  Stubs of toy::application::BaseApplication::pid(), sleep(), and yield() for targets without a platform
-          implementation.
+  \brief  Stubs of \ref toy::application::BaseApplication for targets without a platform implementation.
 */
 
 #include "application.hpp"
@@ -34,5 +33,11 @@ uint32_t BaseApplication::pid() noexcept {
 void BaseApplication::sleep([[maybe_unused]] size_t milliseconds) noexcept {}
 
 void BaseApplication::yield() noexcept {}
+
+bool BaseApplication::initialize() noexcept {
+  chrono::initialize();
+
+  return true;
+}
 
 } // namespace toy::application

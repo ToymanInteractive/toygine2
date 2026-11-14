@@ -19,7 +19,7 @@
 //
 /*!
   \file   base_application_3ds.cpp
-  \brief  Implementations of toy::application::BaseApplication::pid(), sleep(), and yield() for Nintendo 3DS.
+  \brief  Implementation of \ref toy::application::BaseApplication for Nintendo 3DS.
 */
 
 // clang-format off
@@ -47,6 +47,12 @@ void BaseApplication::sleep(size_t milliseconds) noexcept {
 
 void BaseApplication::yield() noexcept {
   ::svcSleepThread(0);
+}
+
+bool BaseApplication::initialize() noexcept {
+  chrono::initialize();
+
+  return true;
 }
 
 } // namespace toy::application

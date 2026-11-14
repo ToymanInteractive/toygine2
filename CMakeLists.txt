@@ -159,7 +159,6 @@ set(INL_CORE_LIST
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_APPLICATION_LIST
-    src/application/base_application.cpp
     src/application/console_application.cpp)
 set(HDR_APPLICATION_LIST
     include/application.hpp
@@ -217,7 +216,7 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_gba.cpp)
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_gba.cpp
                                    src/application/console_application_gba.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")

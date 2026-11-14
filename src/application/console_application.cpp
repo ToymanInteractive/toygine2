@@ -27,10 +27,13 @@
 namespace toy::application {
 
 bool ConsoleApplication::initialize() noexcept {
+  if (!BaseApplication::initialize())
+    return false;
+
   if (!initializeSystemConsole())
     return false;
 
-  return BaseApplication::initialize();
+  return true;
 }
 
 } // namespace toy::application

@@ -86,6 +86,7 @@ SteadyClock::rep SteadyClock::nowTicks() noexcept {
       return (static_cast<rep>(overflows) + 1) << 32 | static_cast<rep>(high) << 16 | low;
     }
 
+    // The dispatcher acks a wrap before the handler increments, so a reading straddling that gap is one wrap short.
     return static_cast<rep>(overflows) << 32 | static_cast<rep>(high) << 16 | low;
   }
 }
