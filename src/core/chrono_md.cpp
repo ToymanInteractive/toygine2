@@ -24,6 +24,9 @@
 
   \note Before the application enables the VDP vertical interrupt and runs initialize(), the frame counter stays at
         zero; now() and Timestamp::now() assert on that state, while nowTicks() and frequency() stay honest.
+
+  \note The 32-bit frame counter wraps after ~2.27 years of continuous uptime on NTSC, 2.73 on PAL; differences
+        within one wrap window stay exact.
 */
 
 #include "core.hpp"
