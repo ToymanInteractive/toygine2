@@ -31,8 +31,6 @@
 
 #ifdef __MEGA_DRIVE__
 
-#include <clownmdsdk.h>
-
 void _EntryPoint() {
   ClownMDSDK::MainCPU::Debug::PrintLine("Hello world from Console sample app");
 

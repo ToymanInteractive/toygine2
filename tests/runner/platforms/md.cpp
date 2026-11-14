@@ -30,6 +30,11 @@
 
 namespace {
 
+namespace vdp = ClownMDSDK::MainCPU::VDP;
+
+// The vertical interrupt is level 6; mask 5 lets it through.
+constexpr unsigned int c_interruptMask = 5;
+
 // Caller data the debug port ignores; bytes go one at a time since the text has no terminator, nothing is cut.
 void writeToDebugPort(std::span<const char> text, [[maybe_unused]] const void * writerData) noexcept {
   // The port ends a line on a null byte, so a raw newline would print as a character and join every line into one.
@@ -41,6 +46,13 @@ void writeToDebugPort(std::span<const char> text, [[maybe_unused]] const void * 
 
 // The cartridge linker script enters here: there is no C runtime on this target to call main() for us.
 void _EntryPoint() {
+  vdp::Write(vdp::Register01{.enable_display            = true,
+                             .enable_vertical_interrupt = true,
+                             .enable_dma_transfer       = false,
+                             .enable_v30_cell_mode      = false,
+                             .enable_mega_drive_mode    = true});
+  static_cast<void>(ClownMDSDK::MainCPU::M68k::SetInterruptMask(c_interruptMask));
+
   static_cast<void>(::toy::test::writeReport(&writeToDebugPort, nullptr, ::toy::test::detail::caseListHead));
 
   // Nothing to return to and no process to leave. The summary line carries the verdict and has already been printed.

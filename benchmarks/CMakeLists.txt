@@ -170,10 +170,10 @@ else ()
     find_program(TOYGINE_BLASTEM blastem)
 
     if (TOYGINE_BLASTEM)
-      # BlastEm exits after -b frames whatever the ROM prints; 20000 is about four times what the report takes.
+      # BlastEm exits after -b frames whatever the ROM prints; 150000 is about twice what the report takes.
       # -t keeps BlastEm on its own stdout: given a pipe instead of a terminal it forks an xterm and hangs.
       add_custom_target(${TOYGINE_LIBRARY_NAME}-benchmarks-run
-        COMMAND ${TOYGINE_BLASTEM} -t -b 20000 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
+        COMMAND ${TOYGINE_BLASTEM} -t -b 150000 $<TARGET_FILE:${TOYGINE_LIBRARY_NAME}-benchmarks>
         COMMENT "Running benchmarks under blastem"
         VERBATIM
       )

@@ -31,6 +31,7 @@
 
 #include "benchmark_build_id.hpp"
 #include "console_report.hpp"
+#include "core.hpp"
 #include "md_clock.hpp"
 #include "sram_writer.hpp"
 
@@ -38,14 +39,11 @@ namespace {
 
 namespace vdp = ClownMDSDK::MainCPU::VDP;
 
-constexpr std::uint32_t c_minEpochLines = 2048;
+constexpr std::uint32_t c_minEpochLines = 8192;
 constexpr std::uint32_t c_maxIterations = 1UL << 31;
 
 // The vertical interrupt is level 6, so mask 5 lets it through; the horizontal one stays off at the VDP.
 constexpr unsigned int c_interruptMask = 5;
-
-// Frames counted by the vertical interrupt; nowLines() keeps interrupts on and rereads when one lands mid-read.
-constinit volatile std::uint32_t frameCount = 0;
 
 struct Channels final {
   toy::benchmark::detail::SramWriter * sram;
@@ -73,12 +71,12 @@ std::uint32_t nowLines(const void * clockData) noexcept {
   const std::uint32_t linesPerFrame = *static_cast<const std::uint32_t *>(clockData);
 
   for (;;) {
-    const std::uint32_t framesBefore  = frameCount;
+    const std::uint32_t framesBefore  = static_cast<std::uint32_t>(toy::chrono::SteadyClock::nowTicks());
     const bool          verticalBlank = vdp::ReadStatus().vertical_blanking;
     const std::uint8_t  vCounter      = vdp::v_counter;
 
     // An interrupt between the reads would pair a frame count with a counter from another frame.
-    if (frameCount != framesBefore)
+    if (static_cast<std::uint32_t>(toy::chrono::SteadyClock::nowTicks()) != framesBefore)
       continue;
 
     const toy::benchmark::detail::VdpSample sample{.frames        = framesBefore,
@@ -103,11 +101,6 @@ void writeLine(std::span<const char> text, const void * writerData) noexcept {
 
 } // namespace
 
-// Declared by clownmdsdk.h with C linkage and the interrupt attribute; the definition only counts frames.
-void _VerticalInterruptHandler() {
-  frameCount = frameCount + 1;
-}
-
 void _EntryPoint() {
   const bool          isPal         = ClownMDSDK::MainCPU::Unsafe::IsPAL();
   const std::uint32_t linesPerFrame = isPal ? toy::benchmark::detail::palLinesPerFrame
@@ -116,6 +109,7 @@ void _EntryPoint() {
   vdp::CRAM::Set(0, 0, vdp::CRAM::Colour{7, 7, 0});
   setUpVideo();
   static_cast<void>(ClownMDSDK::MainCPU::M68k::SetInterruptMask(c_interruptMask));
+  toy::chrono::initialize();
 
   // 8-bit cartridge RAM on odd addresses from 0x200001, as the patched ROM header declares it.
   const std::span                    sram{reinterpret_cast<volatile std::uint8_t *>(0x200001), 0xFFFF};
