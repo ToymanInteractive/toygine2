@@ -49,6 +49,24 @@ constexpr uint16_t timerPrescalerMask = 0x0003;
 constexpr uint16_t timerControlMask = timerPrescalerMask | TIMER_COUNT | TIMER_IRQ | TIMER_START;
 
 /*!
+  \brief Reports whether every byte of \p word holds two valid BCD digits.
+
+  \param word Four bytes packed with BCD digits, lowest byte first.
+
+  \return \c true when each nibble of \a word holds a digit 0-9.
+*/
+[[nodiscard]] constexpr bool isBcdWord(uint32_t word) noexcept {
+  for (size_t iter = 0; iter < 8; ++iter) {
+    if ((word & 0x0F) > 9)
+      return false;
+
+    word = word >> 4;
+  }
+
+  return true;
+}
+
+/*!
   \brief Decodes one BCD-encoded byte to its binary value.
 
   The RTC chip stores every field as two packed BCD digits.
@@ -193,9 +211,10 @@ CalendarTime SystemClock::now() noexcept {
     const int minute    = bcdToDecimal(static_cast<uint8_t>(datetime[1] >> 8 & 0xFF));
     const int second    = bcdToDecimal(static_cast<uint8_t>(datetime[1] >> 16 & 0xFF));
 
-    // Garbage from a failing chip is data, not a caller invariant: fall back to synthesizing instead of asserting
-    const bool usable = month >= 1 && month <= 12 && day >= 1 && day <= monthLength(month, year % 4 == 0)
-                        && dayOfWeek <= 6 && hour <= 23 && minute <= 59 && second <= 59;
+    // Chip garbage is data, not a caller invariant: digit-check the BCD words and fall back to synthesizing
+    const bool usable = isBcdWord(datetime[0]) && isBcdWord(datetime[1]) && month >= 1 && month <= 12 && day >= 1
+                        && day <= monthLength(month, year % 4 == 0) && dayOfWeek <= 6 && hour <= 23 && minute <= 59
+                        && second <= 59;
 
     if (usable) {
       return CalendarTime{.year            = static_cast<int16_t>(year),

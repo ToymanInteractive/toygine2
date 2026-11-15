@@ -363,6 +363,12 @@ endif ()
 if (PROJECT_IS_TOP_LEVEL)
   install(TARGETS ${TOYGINE_LIBRARY_NAME} ARCHIVE DESTINATION lib COMPONENT library)
 
+  # The GBA engine links the cart-RTC driver privately, which does not merge the archives: a consumer of the
+  # installed libtoygine.a links libagbabi.a alongside it, so both ship in the same component.
+  if (TARGET agbabi)
+    install(TARGETS agbabi ARCHIVE DESTINATION lib COMPONENT library)
+  endif ()
+
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
     DESTINATION include
     COMPONENT headers

@@ -20,6 +20,9 @@ Local patch (marked in the file banner):
   `_gettimeofday_r` reentrancy wrapper) and switches the includes (`<reent.h>`/`<sys/time.h>`) to the relative
   header. The engine is freestanding: it must not override libc stubs or pull `mktime`/`gmtime` into the ROM
 
+The engine links this target privately on GBA, which does not merge static archives: a consumer of an installed
+`libtoygine.a` links `libagbabi.a` alongside it, and both archives ship in the `library` component.
+
 ## ckdl
 
 - Upstream: <https://github.com/tjol/ckdl>
