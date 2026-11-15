@@ -213,6 +213,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
+  include(agbabi)
+
+  list(APPEND PRIVATE_LIB_LIST agbabi::agbabi)
+
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_gba.cpp)
 
@@ -306,7 +310,7 @@ if (PREPROCESSOR_DEFINITIONS)
 endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} PUBLIC ${LIB_LIST} toygine::compile::defines toygine::compile::abi-optimizations
-                                              PRIVATE toygine::compile::warnings)
+                                              PRIVATE ${PRIVATE_LIB_LIST} toygine::compile::warnings)
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks
