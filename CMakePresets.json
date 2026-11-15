@@ -146,6 +146,7 @@
         {
             "name": "platform-n64",
             "hidden": true,
+            "toolchainFile": "$env{N64_INST}/cmake/N64.cmake",
             "cacheVariables": {
                 "TOYGINE_TARGET_PLATFORM": "Nintendo 64"
             }
@@ -617,8 +618,6 @@
                 "type-debug",
                 "platform-n64",
                 "with-benchmarks",
-                "with-samples",
-                "with-tests",
                 "base"
             ]
         },
@@ -630,8 +629,6 @@
                 "type-release",
                 "platform-n64",
                 "with-benchmarks",
-                "with-samples",
-                "with-tests",
                 "base"
             ]
         },
@@ -1287,6 +1284,22 @@
         {
             "name": "switch-shipping",
             "configurePreset": "switch-shipping",
+            "inherits": [
+                "type-shipping",
+                "base"
+            ]
+        },
+        {
+            "name": "n64-release",
+            "configurePreset": "n64-release",
+            "inherits": [
+                "type-release",
+                "base"
+            ]
+        },
+        {
+            "name": "n64-shipping",
+            "configurePreset": "n64-shipping",
             "inherits": [
                 "type-shipping",
                 "base"
