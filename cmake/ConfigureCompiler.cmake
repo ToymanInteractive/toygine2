@@ -29,7 +29,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
 # GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -fstrong-eval-order
+# GCC 16.2.0 Options Controlling C Dialect - last option: -ftemplate-depth
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
@@ -189,11 +189,22 @@ add_compile_options(
 
 # MSVC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
-  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:cf;/guard:ehcont>"
-  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:cf;/guard:ehcont>")
+  "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:cf>"
+  "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:cf>")
 add_link_options(
-  "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:CF;/GUARD:EHCONT>"
+  "$<$<LINK_LANG_AND_ID:C,MSVC>:/GUARD:CF>"
+  "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:CF>"
   "$<$<AND:$<CONFIG:Debug,RelWithDebInfo>,$<LINK_LANG_AND_ID:CXX,MSVC>>:/INCREMENTAL:NO>")
+
+if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
+  add_compile_options(
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/guard:ehcont>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/guard:ehcont>")
+  add_link_options(
+    "$<$<LINK_LANG_AND_ID:C,MSVC>:/GUARD:EHCONT>"
+    "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:EHCONT>"
+    "$<$<AND:$<CONFIG:Debug,RelWithDebInfo>,$<LINK_LANG_AND_ID:CXX,MSVC>>:/INCREMENTAL:NO>")
+endif ()
 
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
 add_compile_options(
@@ -204,6 +215,14 @@ add_compile_options(
 # Optimization flags
 #-----------------------------------------------------------------------------------------------------------------------
 
+# The toolchain's /Ob1 and /Ob2 defaults are D9025-overridden by the /Ob3 below; inline tuning belongs to the engine
+if (MSVC)
+  string(REPLACE "/Ob1" "" CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO}")
+  string(REPLACE "/Ob1" "" CMAKE_CXX_FLAGS_RELWITHDEBINFO "${CMAKE_CXX_FLAGS_RELWITHDEBINFO}")
+  string(REPLACE "/Ob2" "" CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE}")
+  string(REPLACE "/Ob2" "" CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
+endif ()
+
 # Reaches every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
@@ -213,20 +232,14 @@ add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
 
-if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID MATCHES "^(x64|X86)$")
-  add_compile_options(
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/favor:blend>"
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/favor:blend>")
-endif ()
-
 if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "X86")
   add_compile_options(
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:SSE2>"
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:SSE2>")
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:SSE2;/favor:blend>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:SSE2;/favor:blend>")
 elseif (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
   add_compile_options(
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:AVX2>"
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:AVX2>")
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:AVX2;/favor:blend>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:AVX2;/favor:blend>")
 endif ()
 
 # Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF
