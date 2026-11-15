@@ -32,8 +32,8 @@
 
 namespace toy::platform::detail {
 
-// Initial estimate, not measured: GCC for the VR4300 inline-copies small objects with paired 8-byte load/stores.
-inline constexpr size_t inlineCopyMaxBytes = 64;
+// GCC for the VR4300 inlines constant-size copies as 8-byte load/store pairs; no memcpy() call up to 1024 bytes.
+inline constexpr size_t inlineCopyMaxBytes = 128;
 
 // Skips the flag per call site to save ROM and RAM, so Action::IgnoreAlways acts as Action::Ignore.
 inline constexpr bool assertIgnoreAlways = false;
