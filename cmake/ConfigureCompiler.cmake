@@ -24,7 +24,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /guard:ehcont
+# last option:          /Gv
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
@@ -85,8 +85,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
-  # No toolchain file is wired up for this target yet, so configuring would silently fall back to the host compiler.
-  message(FATAL_ERROR "Nintendo 64 toolchain is not integrated yet. The n64-* presets cannot be configured.")
+  if (NOT LIBDRAGON_FOUND)
+    message(FATAL_ERROR "libdragon not found. Install libdragon and ensure N64_INST is set.")
+  endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 
