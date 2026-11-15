@@ -198,12 +198,18 @@ add_link_options(
 
 if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
   add_compile_options(
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/guard:ehcont>"
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/guard:ehcont>")
+    "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:ehcont>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:ehcont>")
   add_link_options(
     "$<$<LINK_LANG_AND_ID:C,MSVC>:/GUARD:EHCONT>"
-    "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:EHCONT>"
-    "$<$<AND:$<CONFIG:Debug,RelWithDebInfo>,$<LINK_LANG_AND_ID:CXX,MSVC>>:/INCREMENTAL:NO>")
+    "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:EHCONT>")
+elseif (CMAKE_CXX_COMPILER_ARCHITECTURE_ID MATCHES "^ARM")
+  add_compile_options(
+    "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:ehcont>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:ehcont>")
+  add_link_options(
+    "$<$<LINK_LANG_AND_ID:C,MSVC>:/GUARD:EHCONT>"
+    "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:EHCONT>")
 endif ()
 
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
