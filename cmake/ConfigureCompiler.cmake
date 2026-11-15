@@ -24,7 +24,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /guard:ehcont
+# last option:          /Gv
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html

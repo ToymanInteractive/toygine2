@@ -37,14 +37,14 @@
 #include "platform_config_3ds.hpp"
 #elif defined(__SWITCH__)
 #include "platform_config_switch.hpp"
+#elif defined(N64)
+#include "platform_config_n64.hpp"
 #elif defined(__gamecube__)
 #include "platform_config_gamecube.hpp"
 #elif defined(__wii__)
 #include "platform_config_wii.hpp"
 #elif defined(__WIIU__)
 #include "platform_config_wii_u.hpp"
-#elif defined(N64)
-#include "platform_config_n64.hpp"
 #elif defined(__MEGA_DRIVE__)
 #include "platform_config_md.hpp"
 #elif defined(_WIN32)
