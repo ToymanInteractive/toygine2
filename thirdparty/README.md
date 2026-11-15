@@ -2,6 +2,24 @@
 
 Please keep categories (`##` level) listed alphabetically and matching their respective folder names.
 
+## agbabi
+
+- Upstream: <https://github.com/felixjones/agbabi>
+- Version: main (2adf1e6c01f9d4acd6f8e728892c5e18aae5332e, 2023)
+- License: zlib, in `LICENSE.md`
+
+Files extracted from upstream source:
+
+- `include/agbabi.h`, unmodified
+- `LICENSE.md`
+- `source/rtc.c` as `src/rtc.c`
+
+Local patch (marked in the file banner):
+
+- `src/rtc.c`: strips the newlib POSIX glue (`_gettimeofday`, `settimeofday`, `bcd_decode`/`bcd_encode`, the
+  `_gettimeofday_r` reentrancy wrapper) and switches the includes (`<reent.h>`/`<sys/time.h>`) to the relative
+  header. The engine is freestanding: it must not override libc stubs or pull `mktime`/`gmtime` into the ROM
+
 ## ckdl
 
 - Upstream: <https://github.com/tjol/ckdl>
