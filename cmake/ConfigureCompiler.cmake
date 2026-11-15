@@ -85,8 +85,9 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo Switch")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo 64")
 
-  # No toolchain file is wired up for this target yet, so configuring would silently fall back to the host compiler.
-  message(FATAL_ERROR "Nintendo 64 toolchain is not integrated yet. The n64-* presets cannot be configured.")
+  if (NOT LIBDRAGON_FOUND)
+    message(FATAL_ERROR "libdragon not found. Install libdragon and ensure N64_INST is set.")
+  endif ()
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GameCube")
 

@@ -42,6 +42,7 @@ set(CMAKE_OBJC_EXTENSIONS OFF)
 
 find_package(ClownMDSDK)
 find_package(DevkitPro COMPONENTS gba nds 3ds switch gamecube wii wii-u)
+find_package(LibDragon)
 
 if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
   if (CMAKE_SYSTEM_NAME MATCHES Windows)
@@ -58,12 +59,10 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
   endif ()
 
-  # Add ClownMDSDK platform if found
   if (CLOWNMDSDK_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Sega MD")
   endif ()
 
-  # Add devkitPro platforms if found
   if (DEVKITPRO_GBA_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo GBA")
   endif ()
@@ -78,6 +77,10 @@ if (NOT DEFINED TOYGINE_TARGET_PLATFORM)
 
   if (DEVKITPRO_SWITCH_FOUND)
     list(APPEND AVAILABLE_PLATFORMS "Nintendo Switch")
+  endif ()
+
+  if (LIBDRAGON_FOUND)
+    list(APPEND AVAILABLE_PLATFORMS "Nintendo 64")
   endif ()
 
   if (DEVKITPRO_GAMECUBE_FOUND)
