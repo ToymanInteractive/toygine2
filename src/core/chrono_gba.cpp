@@ -48,12 +48,29 @@ constexpr uint16_t timerPrescalerMask = 0x0003;
 /// Control bits this backend configures: prescaler 1, Timer 3 cascade with overflow IRQ, both started
 constexpr uint16_t timerControlMask = timerPrescalerMask | TIMER_COUNT | TIMER_IRQ | TIMER_START;
 
-/// BCD-encoded byte to binary; the RTC chip stores every field as two packed BCD digits
+/*!
+  \brief Decodes one BCD-encoded byte to its binary value.
+
+  The RTC chip stores every field as two packed BCD digits.
+
+  \param bcd Two BCD digits packed into one byte.
+
+  \return The binary value of \a bcd.
+*/
 [[nodiscard]] constexpr int bcdToDecimal(uint8_t bcd) noexcept {
   return (bcd & 0x0F) + (bcd >> 4) * 10;
 }
 
-/// Day count of \p month in the 2000-2099 range; every fourth year of the range is leap
+/*!
+  \brief Returns the day count of \p month in the 2000-2099 range.
+
+  Leap years repeat every four years in the range; the 100- and 400-year rules are unreachable there.
+
+  \param month Month 1-12.
+  \param leapYear Whether the year of \p month is a leap year.
+
+  \return The day count of \a month, 28-31.
+*/
 [[nodiscard]] constexpr int monthLength(int month, bool leapYear) noexcept {
   switch (month) {
     case 2:
