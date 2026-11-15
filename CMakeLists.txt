@@ -213,6 +213,10 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 
+  include(agbabi)
+
+  list(APPEND PRIVATE_LIB_LIST agbabi::agbabi)
+
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_gba.cpp)
 
@@ -306,7 +310,7 @@ if (PREPROCESSOR_DEFINITIONS)
 endif ()
 
 target_link_libraries(${TOYGINE_LIBRARY_NAME} PUBLIC ${LIB_LIST} toygine::compile::defines toygine::compile::abi-optimizations
-                                              PRIVATE toygine::compile::warnings)
+                                              PRIVATE ${PRIVATE_LIB_LIST} toygine::compile::warnings)
 
 #-----------------------------------------------------------------------------------------------------------------------
 # Benchmarks
@@ -358,6 +362,12 @@ endif ()
 # Packaging below); a parent project embedding toygine keeps its own install layout untouched.
 if (PROJECT_IS_TOP_LEVEL)
   install(TARGETS ${TOYGINE_LIBRARY_NAME} ARCHIVE DESTINATION lib COMPONENT library)
+
+  # The GBA engine links the cart-RTC driver privately, which does not merge the archives: a consumer of the
+  # installed libtoygine.a links libagbabi.a alongside it, so both ship in the same component.
+  if (TARGET agbabi)
+    install(TARGETS agbabi ARCHIVE DESTINATION lib COMPONENT library)
+  endif ()
 
   install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/include/
     DESTINATION include

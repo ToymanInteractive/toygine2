@@ -81,7 +81,7 @@ endif()
 
 # The sources trip the project's -Werror set (-Wbad-function-cast, -Wassign-enum), and vendored code is not ours to patch.
 if(MSVC)
-  target_compile_options(ckdl PRIVATE /w)
+  target_compile_options(ckdl PRIVATE /W0)
 else()
   target_compile_options(ckdl PRIVATE -w)
 endif()
