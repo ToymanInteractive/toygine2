@@ -29,7 +29,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
 # GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -fno-rtti
+# GCC 16.2.0 Options Controlling C Dialect - last option: -fstrong-eval-order
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
@@ -192,7 +192,7 @@ add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/utf-8;/GS;/guard:cf;/guard:ehcont>"
   "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/utf-8;/GS;/guard:cf;/guard:ehcont>")
 add_link_options(
-  "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:CF>"
+  "$<$<LINK_LANG_AND_ID:CXX,MSVC>:/GUARD:CF;/GUARD:EHCONT>"
   "$<$<AND:$<CONFIG:Debug,RelWithDebInfo>,$<LINK_LANG_AND_ID:CXX,MSVC>>:/INCREMENTAL:NO>")
 
 # GCC-specific flags; reach every target created in the engine source tree, third-party ones included
