@@ -49,6 +49,8 @@ namespace toy::console {
   * \a Backend::columns converts to \c const \c size_t and gives the active column count, fixed before the first
     write().
   * \a Backend::rows converts to \c const \c size_t and gives the active row count, fixed before the first write().
+  * \a Backend::columns and \a Backend::rows are positive and fit \a Backend::capacityColumns and
+    \a Backend::capacityRows; initialize() checks this with assert_message in debug builds.
   * \a Backend::capacityColumns is a constant expression convertible to \c const \c size_t, at least
     \a Backend::columns; it bounds the buffer width.
   * \a Backend::capacityRows is a constant expression convertible to \c const \c size_t, at least \a Backend::rows;
@@ -115,6 +117,7 @@ concept ConsoleBackend = requires {
     static void initialize() noexcept {}
     static Cell blankCell() noexcept { return 0; }
     static Cell encodeCharacter(char character) noexcept { return static_cast<Cell>(character); }
+    static Cell encodeErrorCharacter(char character) noexcept { return static_cast<Cell>(character); }
     static void upload(span<const Cell> cells) noexcept { static_cast<void>(cells); }
   };
 

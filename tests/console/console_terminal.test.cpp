@@ -175,7 +175,7 @@ TEST_CASE("console/terminal/carriage_return_restarts_line") {
   CHECK(FakeBackend::lastUpload[1] == 'D');
 }
 
-// A tab jumps to the next multiple of the tab size (2 by default); at the last column it clamps.
+// A tab jumps to the next multiple of the tab size (2 by default).
 TEST_CASE("console/terminal/tab_advances_to_next_multiple_of_tab_size") {
   FakeBackend::reset();
   TestTerminal terminal;
@@ -184,12 +184,15 @@ TEST_CASE("console/terminal/tab_advances_to_next_multiple_of_tab_size") {
   terminal.write("AB\tC");
 
   CHECK(FakeBackend::lastUpload[4] == 'C');
+}
 
+// At the last column the tab clamps instead of wrapping.
+TEST_CASE("console/terminal/tab_clamps_at_last_column") {
   FakeBackend::reset();
-  TestTerminal clampTerminal;
-  clampTerminal.initialize();
+  TestTerminal terminal;
+  terminal.initialize();
 
-  clampTerminal.write("ABCDEFGHIJKLMNO\tX");
+  terminal.write("ABCDEFGHIJKLMNO\tX");
 
   CHECK(FakeBackend::lastUpload[14] == 'O');
   CHECK(FakeBackend::lastUpload[15] == 'X');
@@ -239,13 +242,13 @@ TEST_CASE("console/terminal/high_bytes_render_as_question_marks") {
   CHECK(FakeBackend::lastUpload[1] == '?');
 }
 
-// Unhandled control bytes drop out; the explicit count keeps the embedded NUL in the text.
+// Unhandled control bytes drop out; the explicit count keeps the embedded NUL and DEL in the text.
 TEST_CASE("console/terminal/unhandled_control_bytes_are_ignored") {
   FakeBackend::reset();
   TestTerminal terminal;
   terminal.initialize();
 
-  terminal.write(toy::FixedString<8>{"A\x{01}\x{00}B", 4});
+  terminal.write(toy::FixedString<8>{"A\x{01}\x{00}\x{7F}B", 5});
 
   CHECK(FakeBackend::lastUpload[0] == 'A');
   CHECK(FakeBackend::lastUpload[1] == 'B');

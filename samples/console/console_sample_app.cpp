@@ -70,9 +70,8 @@ bool ConsoleSampleApp::runInternal() noexcept {
     writeOutputLine(toy::StringView{"arguments:"});
     for (size_t index = 1; index < argsCount(); ++index)
       if (const char * value = arg(index); value != nullptr) {
-        toy::FixedString<64> argLine{"- "};
-        argLine += value;
-        writeOutputLine(argLine);
+        writeOutput(toy::StringView{"- "});
+        writeOutputLine(toy::StringView{value});
       }
   }
 

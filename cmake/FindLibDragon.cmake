@@ -91,8 +91,7 @@ if (LIBDRAGON_ROOT)
   mark_as_advanced(LIBDRAGON_MIPS64_GCC LIBDRAGON_MIPS64_GXX)
 
   # === SDK header ===
-  # libdragon.h ships in the sysroot target include dir (mips64-elf/include); the root include/ and lib/ hold the
-  # host tools' support files.
+  # libdragon.h ships in the sysroot target include dir (mips64-elf/include), not the root include/ that holds n64.mk.
   find_path(LIBDRAGON_INCLUDE_DIR
     libdragon.h
     PATHS ${LIBDRAGON_ROOT}/mips64-elf/include

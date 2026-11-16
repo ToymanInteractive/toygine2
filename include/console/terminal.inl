@@ -39,6 +39,11 @@ void Terminal<Backend>::initialize() noexcept {
   _initialized = true;
 
   Backend::initialize();
+
+  assert_message(Backend::columns > 0 && Backend::rows > 0,
+                 "console::initialize: active columns and rows must be positive");
+  assert_message(Backend::columns <= Backend::capacityColumns && Backend::rows <= Backend::capacityRows,
+                 "console::initialize: active geometry must fit the buffer capacity");
 }
 
 template <ConsoleBackend Backend>
@@ -88,7 +93,7 @@ void Terminal<Backend>::writeText(StringView text, bool isError) noexcept {
       lineAdvance();
     else if (character >= 0x80)
       writeCharacter(isError ? Backend::encodeErrorCharacter('?') : Backend::encodeCharacter('?'));
-    else if (character >= 0x20)
+    else if (character >= 0x20 && character <= 0x7E)
       writeCharacter(isError ? Backend::encodeErrorCharacter(static_cast<char>(character))
                              : Backend::encodeCharacter(static_cast<char>(character)));
     // Control bytes the terminal does not handle are dropped.
