@@ -29,7 +29,7 @@
 
 namespace toy {
 
-namespace {
+namespace detail {
 
 /// Tracks which placeholder style the pattern has used so far.
 enum class PlaceholderMode {
@@ -206,15 +206,15 @@ enum class PlaceholderMode {
   return reconcilePlaceholderMode(mode, autoCount, argCount);
 }
 
-} // namespace
+} // namespace detail
 
 constexpr FormatPatternValidationError validateFormatPattern(const char * string, size_t argCount) noexcept {
-  return validateFormatImpl(StringView{string}, argCount);
+  return detail::validateFormatImpl(StringView{string}, argCount);
 }
 
 template <StringLike StringType>
 constexpr FormatPatternValidationError validateFormatPattern(const StringType & string, size_t argCount) noexcept {
-  return validateFormatImpl(StringView{string}, argCount);
+  return detail::validateFormatImpl(StringView{string}, argCount);
 }
 
 } // namespace toy
