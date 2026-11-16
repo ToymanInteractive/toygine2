@@ -180,6 +180,14 @@ set(HDR_VIDEO_LIST
     include/video/color_32.hpp)
 set(INL_VIDEO_LIST )
 
+set(SRC_CONSOLE_LIST )
+set(HDR_CONSOLE_LIST
+    include/console.hpp
+    include/console/console.hpp
+    include/console/terminal.hpp)
+set(INL_CONSOLE_LIST
+    include/console/terminal.inl)
+
 #-----------------------------------------------------------------------------------------------------------------------
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Windows Desktop")
@@ -292,14 +300,15 @@ endif ()
 #-----------------------------------------------------------------------------------------------------------------------
 
 source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
+source_group("Console"     FILES ${SRC_CONSOLE_LIST}     ${HDR_CONSOLE_LIST}     ${INL_CONSOLE_LIST})
 source_group("Core"        FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
 source_group("Video"       FILES ${SRC_VIDEO_LIST}       ${HDR_VIDEO_LIST}       ${INL_VIDEO_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST} ${SRC_VIDEO_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp include/platforms/platform_config.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
-list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST} ${INL_VIDEO_LIST})
+list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST} ${SRC_CONSOLE_LIST} ${SRC_VIDEO_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_CONSOLE_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp include/platforms/platform_config.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
+list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST} ${INL_CONSOLE_LIST} ${INL_VIDEO_LIST})
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})
