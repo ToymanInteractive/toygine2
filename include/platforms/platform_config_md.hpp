@@ -60,4 +60,27 @@ inline constexpr size_t consolePalRows  = 28;
 
 #endif // TOYGINE_DEBUG
 
+/*!
+  \brief Defines _EntryPoint() that builds a console application and runs it without command-line arguments.
+
+  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
+  APP_VERSION_REVISION. After run() returns, the macro calls idleSystemConsole(), which never returns.
+  The cartridge linker script sets the entry to _EntryPoint; no C runtime on this target calls main().
+
+  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
+                      \ref toy::application::Version.
+*/
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  void _EntryPoint() {                                                                                                 \
+    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
+                                               .minor    = APP_VERSION_MINOR,                                          \
+                                               .patch    = APP_VERSION_PATCH,                                          \
+                                               .revision = APP_VERSION_REVISION});                                     \
+                                                                                                                       \
+    static_cast<void>(app.run(0, nullptr));                                                                            \
+                                                                                                                       \
+    toy::application::ConsoleApplication::idleSystemConsole();                                                         \
+  }
+
 #endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_MD_HPP_

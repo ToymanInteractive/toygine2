@@ -225,7 +225,8 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
   list(APPEND SRC_CONSOLE_LIST src/console/console_md.cpp)
 
-  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
+  list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp
+                                   src/application/console_application_md.cpp)
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA")
 

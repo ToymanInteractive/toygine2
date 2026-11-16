@@ -23,7 +23,6 @@
 */
 
 #include <gba_console.h>
-#include <gba_interrupt.h>
 #include <gba_systemcalls.h>
 
 #include "application.hpp"
