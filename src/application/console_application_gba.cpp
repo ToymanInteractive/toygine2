@@ -23,6 +23,7 @@
 */
 
 #include <gba_console.h>
+#include <gba_interrupt.h>
 #include <gba_systemcalls.h>
 
 #include "application.hpp"
@@ -31,6 +32,8 @@ namespace toy::application {
 
 // The VBlank interrupt stays enabled because idleSystemConsole() waits on it after run() returns.
 bool ConsoleApplication::initializeSystemConsole() noexcept {
+  ::irqInit();
+
   ::irqEnable(IRQ_VBLANK);
 
   ::consoleDemoInit();

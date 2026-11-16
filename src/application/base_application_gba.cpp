@@ -35,8 +35,6 @@ void BaseApplication::sleep([[maybe_unused]] size_t milliseconds) noexcept {}
 void BaseApplication::yield() noexcept {}
 
 bool BaseApplication::initialize() noexcept {
-  ::irqInit();
-
   chrono::initialize();
 
   return true;
