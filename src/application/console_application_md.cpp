@@ -27,13 +27,6 @@
 
 namespace toy::application {
 
-namespace {
-
-/// The vertical interrupt is level 6; mask 5 lets it through.
-constexpr unsigned int c_interruptMask = 5;
-
-} // namespace
-
 bool ConsoleApplication::initializeSystemConsole() noexcept {
   toy::console::initialize();
 
@@ -58,7 +51,7 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
 void ConsoleApplication::idleSystemConsole() noexcept {
   // WaitForInterrupt's "i" constraint fails at -O0 (parameter, not immediate); issue the same stop instruction here.
   for (;;)
-    asm volatile("stop %0" : : "i"(0x2000 | (c_interruptMask << 8)) : "cc");
+    asm volatile("stop %0" : : "i"(0x2000 | (platform::detail::consoleInterruptMask << 8)) : "cc");
 }
 
 } // namespace toy::application

@@ -28,6 +28,28 @@
 
 #include "toygine.hpp"
 
+namespace {
+
+// Left-pads a number with zeros to width; the clock fields are non-negative.
+template <std::integral T>
+toy::FixedString<24> zeroPadded(T value, std::size_t width) {
+  toy::array<char, 24> buffer{};
+  const char *         text;
+  if constexpr (std::is_signed_v<T>)
+    text = toy::string_utils::itoa(toy::span{buffer}, value);
+  else
+    text = toy::string_utils::utoa(toy::span{buffer}, value);
+
+  toy::FixedString<24> result{};
+  const auto           length = std::char_traits<char>::length(text);
+  for (std::size_t index = length; index < width; ++index)
+    result += '0';
+  result += text;
+  return result;
+}
+
+} // namespace
+
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
   constexpr explicit ConsoleSampleApp(const toy::application::Version & version) noexcept
@@ -83,22 +105,24 @@ bool ConsoleSampleApp::runInternal() noexcept {
 
   const auto            calendar = toy::chrono::SystemClock::now();
   toy::FixedString<160> clockLine{"System clock: "};
-  clockLine += toy::string_utils::itoa(toy::span{buffer}, calendar.year);
+  clockLine += zeroPadded(calendar.year, 4);
   clockLine += '-';
-  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.month);
+  clockLine += zeroPadded(calendar.month, 2);
   clockLine += '-';
-  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.day);
+  clockLine += zeroPadded(calendar.day, 2);
   clockLine += ' ';
-  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.hour);
+  clockLine += zeroPadded(calendar.hour, 2);
   clockLine += ':';
-  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.minute);
+  clockLine += zeroPadded(calendar.minute, 2);
   clockLine += ':';
-  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.second);
+  clockLine += zeroPadded(calendar.second, 2);
   clockLine += '.';
-  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.millisecond);
+  clockLine += zeroPadded(calendar.millisecond, 3);
   clockLine += " dow: ";
   clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.dayOfWeek);
   clockLine += " tz: utc";
+  if (calendar.tzOffsetMinutes >= 0)
+    clockLine += '+';
   clockLine += toy::string_utils::itoa(toy::span{buffer}, calendar.tzOffsetMinutes);
   clockLine += " min";
   writeOutputLine(clockLine);

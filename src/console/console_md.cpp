@@ -33,9 +33,6 @@ namespace {
 
 namespace vdp = ClownMDSDK::MainCPU::VDP;
 
-/// The vertical interrupt is level 6; mask 5 lets it through.
-constexpr unsigned int c_interruptMask = 5;
-
 /// Plane B name table at VRAM 0xE000; the 64x32 plane spans 0xE000..0xEFFF.
 constexpr unsigned int c_planeBAddress = 0xE000;
 
@@ -137,29 +134,27 @@ size_t MdBackend::columns = platform::detail::consoleColumns;
 // NTSC until initialize() reads the console region.
 size_t MdBackend::rows = platform::detail::consoleNtscRows;
 
-/// Static staging for the converted tiles: 3040 bytes exceed the stack budget this target keeps.
-alignas(4) array<byte, c_glyphCount * vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL> c_fontTiles;
-
 /*!
-  \brief Converts the 1bpp font to 4bpp tiles and uploads them to VRAM.
+  \brief Converts the 1bpp font to 4bpp tiles and uploads them to VRAM, one glyph at a time.
 */
 void uploadFontTiles() noexcept {
   // Pixel n of a row reads (byte >> n) & 1, n = 0 leftmost; a tile byte keeps the left pixel in the high nibble.
   for (size_t glyph = 0; glyph < c_glyphCount; ++glyph) {
+    array<byte, vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL> tile{};
+
     for (size_t row = 0; row < 8; ++row) {
       const auto pixels = static_cast<uint8_t>(font8x8_basic[glyph][row]);
 
       for (size_t pair = 0; pair < 4; ++pair) {
-        const auto left                                                            = (pixels >> (pair * 2)) & 1;
-        const auto right                                                           = (pixels >> (pair * 2 + 1)) & 1;
-        c_fontTiles[glyph * vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL + row * 4 + pair] = static_cast<byte>(left << 4
-                                                                                                       | right);
+        const auto left      = (pixels >> (pair * 2)) & 1;
+        const auto right     = (pixels >> (pair * 2 + 1)) & 1;
+        tile[row * 4 + pair] = static_cast<byte>(left << 4 | right);
       }
     }
-  }
 
-  vdp::CopyWordsWithoutDMA(vdp::RAM::VRAM, c_fontAddress, c_fontTiles.data(),
-                           static_cast<unsigned int>(c_glyphCount * vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL / 2));
+    vdp::CopyWordsWithoutDMA(vdp::RAM::VRAM, c_fontAddress + glyph * vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL, tile.data(),
+                             vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL / 2);
+  }
 }
 
 void MdBackend::initialize() noexcept {
@@ -179,6 +174,7 @@ void MdBackend::initialize() noexcept {
   vdp::VRAM::SetPlaneALocation(0x0000);
   vdp::VRAM::SetPlaneBLocation(c_planeBAddress);
   vdp::VRAM::SetSpriteTableLocation(0x0000);
+  vdp::VRAM::SetHorizontalScrollLocation(0x0000);
   vdp::Write(vdp::Register07{.id = 0x87, .bit7 = false, .bit6 = false, .palette_line = 0, .palette_index = 0});
   vdp::Write(vdp::Register0B{.id                                = 0x8B,
                              .bit7                              = false,
@@ -230,7 +226,7 @@ void MdBackend::initialize() noexcept {
                              .enable_mega_drive_mode    = true,
                              .bit1                      = false,
                              .bit0                      = false});
-  static_cast<void>(ClownMDSDK::MainCPU::M68k::SetInterruptMask(c_interruptMask));
+  static_cast<void>(ClownMDSDK::MainCPU::M68k::SetInterruptMask(platform::detail::consoleInterruptMask));
 }
 
 void MdBackend::upload(span<const Cell> cells) noexcept {

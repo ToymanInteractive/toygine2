@@ -45,7 +45,7 @@ namespace toy::console {
   \section console_backend_requirements Requirements
 
   \a Backend satisfies ConsoleBackend if and only if:
-  * \a Backend::Cell names the screen cell type.
+  * \a Backend::Cell names the screen cell type and is trivially copyable; the scroll moves rows bytewise.
   * \a Backend::columns converts to \c const \c size_t and gives the active column count, fixed before the first
     write().
   * \a Backend::rows converts to \c const \c size_t and gives the active row count, fixed before the first write().
@@ -69,6 +69,7 @@ namespace toy::console {
 template <typename Backend>
 concept ConsoleBackend = requires {
   typename Backend::Cell;
+  requires std::is_trivially_copyable_v<typename Backend::Cell>;
   { Backend::columns } -> std::convertible_to<const size_t>;
   { Backend::rows } -> std::convertible_to<const size_t>;
   { Backend::capacityColumns } -> std::convertible_to<const size_t>;
@@ -189,6 +190,8 @@ public:
 
     \param text Bytes to print; need not be null-terminated.
 
+    \pre initialize() has run; checked by assert_message in debug builds. A shipping build skips the check and
+         writes into the uninitialized buffer.
     \post The buffer reflects \a text and the backend has drawn it.
 
     \sa toy::console::write()
@@ -200,6 +203,8 @@ public:
 
     \param text Bytes to print; need not be null-terminated.
 
+    \pre initialize() has run; checked by assert_message in debug builds. A shipping build skips the check and
+         writes into the uninitialized buffer.
     \post The buffer reflects \a text in the backend's error encoding and the backend has drawn it.
 
     \sa toy::console::writeError()
@@ -230,8 +235,8 @@ private:
   */
   void lineAdvance() noexcept;
 
-  /// Row-major cells at the active stride, capacityRows * capacityColumns total, 4-byte aligned for longword uploads.
-  alignas(4) Cell _buffer[capacityRows * capacityColumns];
+  /// Row-major cells at the active stride, aligned to max(4, alignof(Cell)) for longword uploads.
+  alignas(Cell) alignas(4) Cell _buffer[capacityRows * capacityColumns];
   /// Cursor column; equals the active columns when the wrap is pending.
   size_t _cursorX     = 0;
   /// Cursor row.

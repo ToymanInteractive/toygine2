@@ -51,6 +51,9 @@ inline constexpr size_t consoleColumns  = 40;
 inline constexpr size_t consoleNtscRows = 28;
 inline constexpr size_t consolePalRows  = 30;
 
+// The vertical interrupt is level 6; mask 5 lets it through.
+inline constexpr unsigned int consoleInterruptMask = 5;
+
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG

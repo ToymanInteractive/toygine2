@@ -37,9 +37,14 @@ struct FakeBackend final {
   static constexpr size_t capacityRows    = 6;
   static inline size_t    columns         = 16;
   static inline size_t    rows            = 4;
+  static inline size_t    pendingColumns  = 16;
+  static inline size_t    pendingRows     = 4;
 
+  // The backend fixes the active geometry during initialize(), as MdBackend does from the console region.
   static void initialize() noexcept {
     ++initializeCount;
+    columns = pendingColumns;
+    rows    = pendingRows;
   }
 
   static Cell blankCell() noexcept {
@@ -73,6 +78,8 @@ struct FakeBackend final {
     lastUploadSize  = 0;
     columns         = 16;
     rows            = 4;
+    pendingColumns  = 16;
+    pendingRows     = 4;
     lastUpload.fill(0);
   }
 };
@@ -80,6 +87,79 @@ struct FakeBackend final {
 using TestTerminal = toy::console::Terminal<FakeBackend>;
 
 static_assert(toy::console::ConsoleBackend<FakeBackend>, "FakeBackend must satisfy the backend contract");
+
+struct alignas(8) OverAlignedCell {
+  uint16_t value;
+};
+
+struct AlignedBackend final {
+  using Cell = OverAlignedCell;
+
+  [[maybe_unused]] static constexpr size_t capacityColumns = 4;
+  [[maybe_unused]] static constexpr size_t capacityRows    = 2;
+  static constexpr size_t                  columns         = 4;
+  static constexpr size_t                  rows            = 2;
+
+  static void initialize() noexcept {}
+
+  static Cell blankCell() noexcept {
+    return Cell{0};
+  }
+
+  static Cell encodeCharacter(char character) noexcept {
+    return Cell{static_cast<uint16_t>(character)};
+  }
+
+  static Cell encodeErrorCharacter(char character) noexcept {
+    return Cell{static_cast<uint16_t>(character)};
+  }
+
+  static void upload(span<const Cell> cells) noexcept {
+    static_cast<void>(cells);
+  }
+};
+
+static_assert(alignof(toy::console::Terminal<AlignedBackend>) >= alignof(OverAlignedCell),
+              "the buffer must keep the alignment the cell requires");
+
+struct NonTrivialCell {
+  uint16_t value;
+
+  NonTrivialCell & operator=(const NonTrivialCell & other) noexcept {
+    value = other.value;
+    return *this;
+  }
+};
+
+struct NonTrivialBackend final {
+  using Cell = NonTrivialCell;
+
+  [[maybe_unused]] static constexpr size_t capacityColumns = 4;
+  [[maybe_unused]] static constexpr size_t capacityRows    = 2;
+  [[maybe_unused]] static constexpr size_t columns         = 4;
+  [[maybe_unused]] static constexpr size_t rows            = 2;
+
+  static void initialize() noexcept {}
+
+  static Cell blankCell() noexcept {
+    return Cell{0};
+  }
+
+  static Cell encodeCharacter(char character) noexcept {
+    return Cell{static_cast<uint16_t>(character)};
+  }
+
+  static Cell encodeErrorCharacter(char character) noexcept {
+    return Cell{static_cast<uint16_t>(character)};
+  }
+
+  static void upload(span<const Cell> cells) noexcept {
+    static_cast<void>(cells);
+  }
+};
+
+static_assert(!toy::console::ConsoleBackend<NonTrivialBackend>,
+              "the scroll moves cells bytewise, so non-trivially-copyable cells must not satisfy the contract");
 
 } // namespace
 
@@ -288,7 +368,7 @@ TEST_CASE("console/terminal/upload_follows_every_write") {
 // Scroll and upload follow the active rows; the capacity tail stays blank and undrawn.
 TEST_CASE("console/terminal/scrolls_at_active_rows_not_capacity") {
   FakeBackend::reset();
-  FakeBackend::rows = 3;
+  FakeBackend::pendingRows = 3;
   TestTerminal terminal;
   terminal.initialize();
 
@@ -306,7 +386,7 @@ TEST_CASE("console/terminal/scrolls_at_active_rows_not_capacity") {
 // Wrap and upload follow the active columns; the capacity tail stays blank and undrawn.
 TEST_CASE("console/terminal/wraps_at_active_columns_not_capacity") {
   FakeBackend::reset();
-  FakeBackend::columns = 8;
+  FakeBackend::pendingColumns = 8;
   TestTerminal terminal;
   terminal.initialize();
 
@@ -318,6 +398,22 @@ TEST_CASE("console/terminal/wraps_at_active_columns_not_capacity") {
   CHECK(FakeBackend::lastUpload[7] == 'H');
   CHECK(FakeBackend::lastUpload[8] == 'I');
   CHECK(FakeBackend::lastUpload[32] == 0);
+}
+
+// The terminal reads the geometry the backend sets during initialize(), not the values before it.
+TEST_CASE("console/terminal/geometry_comes_from_backend_initialize") {
+  FakeBackend::reset();
+  FakeBackend::pendingRows    = 5;
+  FakeBackend::pendingColumns = 10;
+  TestTerminal terminal;
+  terminal.initialize();
+
+  CHECK(terminal.rows() == 5);
+  CHECK(terminal.columns() == 10);
+
+  terminal.write("A");
+
+  CHECK(FakeBackend::lastUploadSize == 50);
 }
 
 // Error text uses the backend's error encoding; normal text keeps the regular one.
