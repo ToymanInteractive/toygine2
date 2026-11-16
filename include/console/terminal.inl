@@ -42,6 +42,23 @@ void Terminal<Backend>::initialize() noexcept {
 }
 
 template <ConsoleBackend Backend>
+size_t Terminal<Backend>::columns() noexcept {
+  return Backend::columns;
+}
+
+template <ConsoleBackend Backend>
+size_t Terminal<Backend>::rows() noexcept {
+  return Backend::rows;
+}
+
+template <ConsoleBackend Backend>
+void Terminal<Backend>::setTabSize(size_t tabSize) noexcept {
+  assert_message(tabSize > 0, "console::setTabSize: tab size must be positive");
+
+  _tabSize = tabSize;
+}
+
+template <ConsoleBackend Backend>
 void Terminal<Backend>::write(StringView text) noexcept {
   assert_message(_initialized, "console::write: initialize() has not run");
 
@@ -56,7 +73,7 @@ void Terminal<Backend>::write(StringView text) noexcept {
     } else if (character == '\r')
       _cursorX = 0;
     else if (character == '\t')
-      _cursorX = min((_cursorX + 8) / 8 * 8, columns - 1);
+      _cursorX = min((_cursorX + _tabSize) / _tabSize * _tabSize, Backend::columns - 1);
     else if (character == '\v')
       lineAdvance();
     else if (character >= 0x80)
@@ -66,17 +83,17 @@ void Terminal<Backend>::write(StringView text) noexcept {
     // Control bytes the terminal does not handle are dropped.
   }
 
-  Backend::upload(span<const Cell>(_buffer));
+  Backend::upload(span<const Cell>(_buffer, Backend::rows * Backend::columns));
 }
 
 template <ConsoleBackend Backend>
 void Terminal<Backend>::writeCharacter(Cell cell) noexcept {
-  if (_cursorX == columns) {
+  if (_cursorX == Backend::columns) {
     _cursorX = 0;
     lineAdvance();
   }
 
-  _buffer[_cursorY * columns + _cursorX] = cell;
+  _buffer[_cursorY * Backend::columns + _cursorX] = cell;
   ++_cursorX;
 }
 
@@ -84,10 +101,11 @@ template <ConsoleBackend Backend>
 void Terminal<Backend>::lineAdvance() noexcept {
   ++_cursorY;
 
-  if (_cursorY == rows) {
-    std::memmove(_buffer, _buffer + columns, (rows - 1) * columns * sizeof(Cell));
-    std::ranges::fill(_buffer + (rows - 1) * columns, _buffer + rows * columns, Backend::blankCell());
-    _cursorY = rows - 1;
+  if (_cursorY == Backend::rows) {
+    std::memmove(_buffer, _buffer + Backend::columns, (Backend::rows - 1) * Backend::columns * sizeof(Cell));
+    std::ranges::fill(_buffer + (Backend::rows - 1) * Backend::columns, _buffer + Backend::rows * Backend::columns,
+                      Backend::blankCell());
+    _cursorY = Backend::rows - 1;
   }
 }
 

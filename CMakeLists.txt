@@ -216,8 +216,14 @@ elseif (TOYGINE_TARGET_PLATFORM STREQUAL "macOS Desktop")
 
 elseif (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
+  include(font8x8)
+
+  list(APPEND PRIVATE_LIB_LIST font8x8::font8x8)
+
   list(APPEND SRC_CORE_LIST src/core/assertion_stub.cpp
                             src/core/chrono_md.cpp)
+
+  list(APPEND SRC_CONSOLE_LIST src/console/console_md.cpp)
 
   list(APPEND SRC_APPLICATION_LIST src/application/base_application_stub.cpp)
 

@@ -46,6 +46,11 @@ inline constexpr int64_t steadyClockPeriodDenominator = 300;
 // The clownmdsdk debug console font covers ASCII only, so non-ASCII text renders as garbage tiles.
 inline constexpr bool consoleSupportsUtf8 = false;
 
+// H40 draws 40 columns; NTSC shows 28 rows (V28), PAL 30 (V30), so the buffer keeps the maximum.
+inline constexpr size_t consoleColumns  = 40;
+inline constexpr size_t consoleNtscRows = 28;
+inline constexpr size_t consolePalRows  = 28;
+
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG

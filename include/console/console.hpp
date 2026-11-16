@@ -21,8 +21,9 @@
   \file   console.hpp
   \brief  Public entry points of the engine console module.
 
-  Declares toy::console::initialize() and toy::console::write(), the screen TTY API. The definitions come from the
-  target platform's backend; a platform without a backend leaves the symbols undefined at link time.
+  Declares the screen TTY API: toy::console::initialize(), toy::console::write(), and toy::console::setTabSize().
+  The definitions come from the target platform's backend; a platform without a backend leaves the symbols
+  undefined at link time.
 */
 
 #ifndef INCLUDE_CONSOLE_CONSOLE_HPP_
@@ -33,29 +34,40 @@
 namespace toy::console {
 
 /*!
-  \brief  Brings the screen to the console state and clears it.
+  \brief Brings the screen to the console state and clears it.
 
-  \post   The screen is empty and the cursor is at the origin; a repeated call is equivalent to clearing the screen.
+  \post The screen is empty and the cursor is at the origin; a repeated call is equivalent to clearing the screen.
 
-  \sa     toy::console::write()
+  \sa toy::console::write()
 */
 void initialize() noexcept;
 
 /*!
-  \brief  Prints \a text to the screen, interpreting the terminal control bytes.
+  \brief Prints \a text to the screen, interpreting the terminal control bytes.
 
   Handles \c '\\b', \c '\\n', \c '\\r', \c '\\t', and \c '\\v', wraps at the last column, and scrolls when the last
   row fills. Bytes \c 0x20..\c 0x7E render as glyphs, bytes at or above \c 0x80 render as \c '?', and other control
   bytes are dropped. The screen reflects the text when the call returns.
 
-  \param  text  Bytes to print; need not be null-terminated.
+  \param text Bytes to print; need not be null-terminated.
 
-  \pre    initialize() has run; checked by assert_message in debug builds.
-  \post   The screen reflects \a text.
+  \pre initialize() has run; checked by assert_message in debug builds.
+  \post The screen reflects \a text.
 
-  \sa     toy::console::initialize()
+  \sa toy::console::initialize()
 */
 void write(StringView text) noexcept;
+
+/*!
+  \brief Sets the tab stop interval for subsequent write() calls.
+
+  \param tabSize Columns between tab stops; \c 2 by default.
+
+  \post Tab stops sit at multiples of \a tabSize, clamped to the last column.
+
+  \sa toy::console::write()
+*/
+void setTabSize(size_t tabSize) noexcept;
 
 } // namespace toy::console
 

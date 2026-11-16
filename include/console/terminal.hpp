@@ -37,7 +37,7 @@ namespace toy::console {
 
 /*!
   \concept ConsoleBackend
-  \brief   Concept satisfied when \a Backend describes a screen the terminal can draw on.
+  \brief Concept satisfied when \a Backend describes a screen the terminal can draw on.
 
   Constrains the \ref toy::console::Terminal template parameter. The backend owns the geometry, the cell encoding,
   and the upload, so the terminal core stays platform-independent.
@@ -46,12 +46,17 @@ namespace toy::console {
 
   \a Backend satisfies ConsoleBackend if and only if:
   * \a Backend::Cell names the screen cell type.
-  * \a Backend::columns and \a Backend::rows convert to \c const \c size_t.
+  * \a Backend::columns converts to \c const \c size_t and gives the active column count, fixed before the first
+    write().
+  * \a Backend::rows converts to \c const \c size_t and gives the active row count, fixed before the first write().
+  * \a Backend::capacityColumns is a constant expression convertible to \c const \c size_t, at least
+    \a Backend::columns; it bounds the buffer width.
+  * \a Backend::capacityRows is a constant expression convertible to \c const \c size_t, at least \a Backend::rows;
+    it bounds the buffer height.
   * \a Backend::initialize() returns \c void and prepares the screen.
   * \a Backend::blankCell() returns the empty \a Backend::Cell.
   * \a Backend::encodeCharacter(char) returns the \a Backend::Cell for a byte in \c 0x20..\c 0x7E.
-  * \a Backend::upload(span<const Backend::Cell>) returns \c void and draws a row-major buffer of
-    rows * columns cells.
+  * \a Backend::upload(span<const Backend::Cell>) returns \c void and draws a row-major buffer of rows * columns cells.
 
   All four calls are static.
 
@@ -62,6 +67,8 @@ concept ConsoleBackend = requires {
   typename Backend::Cell;
   { Backend::columns } -> std::convertible_to<const size_t>;
   { Backend::rows } -> std::convertible_to<const size_t>;
+  { Backend::capacityColumns } -> std::convertible_to<const size_t>;
+  { Backend::capacityRows } -> std::convertible_to<const size_t>;
 } && requires(span<const typename Backend::Cell> cells, char character) {
   { Backend::initialize() } -> std::same_as<void>;
   { Backend::blankCell() } -> std::same_as<typename Backend::Cell>;
@@ -70,21 +77,23 @@ concept ConsoleBackend = requires {
 };
 
 /*!
-  \class  Terminal
-  \brief  Platform-independent TTY terminal over a screen backend.
+  \class Terminal
+  \brief Platform-independent TTY terminal over a screen backend.
 
   Keeps a fixed-capacity cell buffer, a cursor, and the wrap, scroll, and control-byte logic, so every platform
   shares one implementation. The backend supplies the geometry, the cell encoding, and the upload; the core knows
   nothing about the hardware. Two terminals can coexist in one process.
 
-  \tparam Backend  Screen backend; satisfies \ref toy::console::ConsoleBackend.
+  \tparam Backend Screen backend; satisfies \ref toy::console::ConsoleBackend.
 
   \section terminal_features Key Features
 
-  * **Fixed capacity**: rows * columns cells live inside the object; no operation allocates.
+  * **Fixed capacity**: capacityRows * capacityColumns cells live inside the object; no operation allocates.
+  * **Active geometry**: wrap, scroll, and upload follow the backend's active rows and columns, which may be below the
+    capacity.
   * **Deferred wrap**: the cursor wraps on the next character, so a trailing newline does not blank a row.
   * **Scroll**: a full last row shifts the buffer up one row and blanks the bottom row.
-  * **Control bytes**: \c '\\b', \c '\\n', \c '\\r', \c '\\t' with stops every 8 columns, and \c '\\v'.
+  * **Control bytes**: \c '\\b', \c '\\n', \c '\\r', \c '\\t' with configurable stops (default 2 columns), and \c '\\v'.
   * **Immediate upload**: every write() draws the whole buffer through the backend.
 
   \section terminal_usage Usage Example
@@ -95,8 +104,10 @@ concept ConsoleBackend = requires {
   struct ScreenBackend final {
     using Cell = uint16_t;
 
-    static constexpr size_t columns = 40;
-    static constexpr size_t rows    = 28;
+    static constexpr size_t capacityColumns = 40;
+    static constexpr size_t capacityRows    = 30;
+    static constexpr size_t columns         = 40;
+    static constexpr size_t rows            = 28;
 
     static void initialize() noexcept {}
     static Cell blankCell() noexcept { return 0; }
@@ -111,21 +122,19 @@ concept ConsoleBackend = requires {
 
   \section terminal_performance Performance Characteristics
 
-  * **initialize()**: O(rows * columns) to blank the buffer.
-  * **write()**: O(n + rows * columns) in the bytes of \a text and the buffer size.
-  * **Memory usage**: rows * columns cells, two cursor indices, and a flag.
+  * **initialize()**: O(capacityRows * capacityColumns) to blank the buffer.
+  * **write()**: O(n + rows * columns) in the bytes of \a text and the active buffer size.
+  * **Memory usage**: capacityRows * capacityColumns cells, two cursor indices, and a flag.
 
   \section terminal_safety Safety Guarantees
 
-  * **Contracts**: write() before initialize() is checked by assert_message in debug builds; a shipping build
-    skips the check.
   * **Type safety**: uses C++23 concepts; a backend that misses the contract fails to compile.
   * **Exception safety**: No operation throws; exceptions are off in the build.
 
   \section terminal_compatibility Compatibility
 
-  * Allocates nothing and calls no platform API, so the core suits embedded and retro targets; the backend sets
-    the platform reach.
+  * Allocates nothing and calls no platform API, so the core suits embedded and retro targets; the backend sets the
+    platform reach.
 
   \sa \ref toy::console::ConsoleBackend
 */
@@ -133,56 +142,80 @@ template <ConsoleBackend Backend>
 class Terminal final {
 public:
   /// Screen cell type the backend draws.
-  using Cell                      = typename Backend::Cell;
-  /// Number of columns the backend screen provides.
-  static constexpr size_t columns = Backend::columns;
-  /// Number of rows the backend screen provides.
-  static constexpr size_t rows    = Backend::rows;
+  using Cell                              = typename Backend::Cell;
+  /// Buffer column capacity; at least the active column count.
+  static constexpr size_t capacityColumns = Backend::capacityColumns;
+  /// Buffer row capacity; at least the active row count.
+  static constexpr size_t capacityRows    = Backend::capacityRows;
 
   /*!
-    \brief  Clears the buffer, resets the cursor, and prepares the backend screen.
+    \brief Returns the active column count the terminal draws.
 
-    \post   The buffer holds blank cells, the cursor is at the origin, and the backend is initialized.
+    \return Active columns, never above capacityColumns.
+  */
+  static size_t columns() noexcept;
+
+  /*!
+    \brief Returns the active row count the terminal draws.
+
+    \return Active rows, never above capacityRows.
+  */
+  static size_t rows() noexcept;
+
+  /*!
+    \brief Sets the tab stop interval.
+
+    \param tabSize Columns between tab stops.
+
+    \post Tab stops sit at multiples of \a tabSize, clamped to the last column.
+  */
+  void setTabSize(size_t tabSize) noexcept;
+
+  /*!
+    \brief Clears the buffer, resets the cursor, and prepares the backend screen.
+
+    \post The buffer holds blank cells, the cursor is at the origin, and the backend is initialized.
   */
   void initialize() noexcept;
 
   /*!
-    \brief  Prints \a text into the buffer and uploads the buffer through the backend.
+    \brief Prints \a text into the buffer and uploads the buffer through the backend.
 
-    \param  text  Bytes to print; need not be null-terminated.
+    \param text Bytes to print; need not be null-terminated.
 
-    \pre    initialize() has run; checked by assert_message in debug builds.
-    \post   The buffer reflects \a text and the backend has drawn it.
+    \post The buffer reflects \a text and the backend has drawn it.
 
-    \sa     toy::console::write()
+    \sa toy::console::write()
   */
   void write(StringView text) noexcept;
 
 private:
   /*!
-    \brief  Writes one cell at the cursor, wrapping first when the cursor sits past the last column.
+    \brief Writes one cell at the cursor, wrapping first when the cursor sits past the last column.
 
-    \param  cell  Encoded cell to store.
+    \param cell Encoded cell to store.
 
-    \post   The buffer holds \a cell at the cursor position and the cursor has advanced one column.
+    \post The buffer holds \a cell at the cursor position and the cursor has advanced one column.
   */
   void writeCharacter(Cell cell) noexcept;
 
   /*!
-    \brief  Advances the cursor one row, scrolling the buffer when the last row fills.
+    \brief Advances the cursor one row, scrolling the buffer when the last row fills.
 
-    \post   The cursor sits on the next row; a scroll shifts the buffer up one row and blanks the bottom row.
+    \post The cursor sits on the next row; a scroll shifts the buffer up one row and blanks the bottom row.
   */
   void lineAdvance() noexcept;
 
-  /// Row-major cells, 4-byte aligned for backends that upload rows as longwords.
-  alignas(4) Cell _buffer[rows * columns];
-  /// Cursor column; equals columns when the wrap is pending.
+  /// Row-major cells at the active stride, capacityRows * capacityColumns total, 4-byte aligned for longword uploads.
+  alignas(4) Cell _buffer[capacityRows * capacityColumns];
+  /// Cursor column; equals the active columns when the wrap is pending.
   size_t _cursorX     = 0;
   /// Cursor row.
   size_t _cursorY     = 0;
   /// Whether initialize() has run.
   bool   _initialized = false;
+  /// Columns between tab stops; 2 by default.
+  size_t _tabSize     = 2;
 };
 
 } // namespace toy::console
