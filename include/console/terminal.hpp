@@ -56,6 +56,8 @@ namespace toy::console {
   * \a Backend::initialize() returns \c void and prepares the screen.
   * \a Backend::blankCell() returns the empty \a Backend::Cell.
   * \a Backend::encodeCharacter(char) returns the \a Backend::Cell for a byte in \c 0x20..\c 0x7E.
+  * \a Backend::encodeErrorCharacter(char) returns the error \a Backend::Cell for a byte in \c 0x20..\c 0x7E;
+    the backend decides how errors look.
   * \a Backend::upload(span<const Backend::Cell>) returns \c void and draws a row-major buffer of rows * columns cells.
 
   All four calls are static.
@@ -73,6 +75,7 @@ concept ConsoleBackend = requires {
   { Backend::initialize() } -> std::same_as<void>;
   { Backend::blankCell() } -> std::same_as<typename Backend::Cell>;
   { Backend::encodeCharacter(character) } -> std::same_as<typename Backend::Cell>;
+  { Backend::encodeErrorCharacter(character) } -> std::same_as<typename Backend::Cell>;
   { Backend::upload(cells) } -> std::same_as<void>;
 };
 
@@ -189,7 +192,25 @@ public:
   */
   void write(StringView text) noexcept;
 
+  /*!
+    \brief Prints \a text into the buffer as errors and uploads the buffer through the backend.
+
+    \param text Bytes to print; need not be null-terminated.
+
+    \post The buffer reflects \a text in the backend's error encoding and the backend has drawn it.
+
+    \sa toy::console::writeError()
+  */
+  void writeError(StringView text) noexcept;
+
 private:
+  /*!
+    \brief Shared byte loop of write() and writeError(); \a isError picks the backend encoder.
+
+    \param text    Bytes to print.
+    \param isError \c true for the error encoding.
+  */
+  void writeText(StringView text, bool isError) noexcept;
   /*!
     \brief Writes one cell at the cursor, wrapping first when the cursor sits past the last column.
 

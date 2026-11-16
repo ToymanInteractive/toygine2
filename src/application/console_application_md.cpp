@@ -40,17 +40,19 @@ bool ConsoleApplication::initializeSystemConsole() noexcept {
   return true;
 }
 
-void ConsoleApplication::writeToSystemConsole(StringView text, [[maybe_unused]] bool isError, bool newLine) noexcept {
+void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, bool newLine) noexcept {
   if (text.empty() && !newLine)
     return;
 
-  if (!text.empty())
-    toy::console::write(text);
+  if (!text.empty()) {
+    if (isError)
+      toy::console::writeError(text);
+    else
+      toy::console::write(text);
+  }
 
   if (newLine)
     toy::console::write(toy::StringView{"\n"});
-
-  return;
 }
 
 void ConsoleApplication::idleSystemConsole() noexcept {

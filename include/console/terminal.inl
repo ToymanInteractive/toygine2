@@ -60,6 +60,16 @@ void Terminal<Backend>::setTabSize(size_t tabSize) noexcept {
 
 template <ConsoleBackend Backend>
 void Terminal<Backend>::write(StringView text) noexcept {
+  writeText(text, false);
+}
+
+template <ConsoleBackend Backend>
+void Terminal<Backend>::writeError(StringView text) noexcept {
+  writeText(text, true);
+}
+
+template <ConsoleBackend Backend>
+void Terminal<Backend>::writeText(StringView text, bool isError) noexcept {
   assert_message(_initialized, "console::write: initialize() has not run");
 
   for (size_t index = 0; index < text.size(); ++index) {
@@ -77,9 +87,10 @@ void Terminal<Backend>::write(StringView text) noexcept {
     else if (character == '\v')
       lineAdvance();
     else if (character >= 0x80)
-      writeCharacter(Backend::encodeCharacter('?'));
+      writeCharacter(isError ? Backend::encodeErrorCharacter('?') : Backend::encodeCharacter('?'));
     else if (character >= 0x20)
-      writeCharacter(Backend::encodeCharacter(static_cast<char>(character)));
+      writeCharacter(isError ? Backend::encodeErrorCharacter(static_cast<char>(character))
+                             : Backend::encodeCharacter(static_cast<char>(character)));
     // Control bytes the terminal does not handle are dropped.
   }
 

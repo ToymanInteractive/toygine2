@@ -59,6 +59,21 @@ void initialize() noexcept;
 void write(StringView text) noexcept;
 
 /*!
+  \brief Prints \a text to the screen as errors, interpreting the terminal control bytes.
+
+  The backend's error encoding decides the appearance, color where the screen supports it. Control-byte handling
+  matches write().
+
+  \param text Bytes to print; need not be null-terminated.
+
+  \pre initialize() has run; checked by assert_message in debug builds.
+  \post The screen reflects \a text in the error encoding.
+
+  \sa toy::console::write()
+*/
+void writeError(StringView text) noexcept;
+
+/*!
   \brief Sets the tab stop interval for subsequent write() calls.
 
   \param tabSize Columns between tab stops; \c 2 by default.

@@ -51,6 +51,11 @@ struct FakeBackend final {
     return static_cast<Cell>(static_cast<unsigned char>(character));
   }
 
+  // Error cells carry bit 15 so the cases can tell the two encodings apart.
+  static Cell encodeErrorCharacter(char character) noexcept {
+    return static_cast<Cell>(static_cast<unsigned char>(character) | 0x8000);
+  }
+
   static void upload(span<const Cell> cells) noexcept {
     ++uploadCount;
     lastUploadSize = cells.size();
@@ -310,6 +315,21 @@ TEST_CASE("console/terminal/wraps_at_active_columns_not_capacity") {
   CHECK(FakeBackend::lastUpload[7] == 'H');
   CHECK(FakeBackend::lastUpload[8] == 'I');
   CHECK(FakeBackend::lastUpload[32] == 0);
+}
+
+// Error text uses the backend's error encoding; normal text keeps the regular one.
+TEST_CASE("console/terminal/write_error_uses_error_encoding") {
+  FakeBackend::reset();
+  TestTerminal terminal;
+  terminal.initialize();
+
+  terminal.write("A");
+  terminal.writeError("B\x{C3}");
+
+  CHECK(FakeBackend::lastUpload[0] == 'A');
+  CHECK(FakeBackend::lastUpload[1] == ('B' | 0x8000));
+  CHECK(FakeBackend::lastUpload[2] == ('?' | 0x8000));
+  CHECK(FakeBackend::uploadCount == 2);
 }
 
 } // namespace toy::console

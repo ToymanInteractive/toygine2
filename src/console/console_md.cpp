@@ -76,22 +76,25 @@ struct MdBackend final {
   }
 
   /*!
-    \brief Encodes a printable byte as a name-table word.
+    \brief Encodes a printable byte as a name-table word in palette 0.
 
     \param character Byte in \c 0x20..\c 0x7E.
 
     \return Name-table word pointing at the glyph's tile.
   */
   static Cell encodeCharacter(char character) noexcept {
-    const vdp::VRAM::TileMetadata
-      metadata{.priority     = false,
-               .palette_line = 0,
-               .y_flip       = false,
-               .x_flip       = false,
-               .tile_index   = c_fontTileBase
-                               + (static_cast<unsigned int>(static_cast<unsigned char>(character)) - 0x20)};
+    return encode(character, 0);
+  }
 
-    return bit_cast<Cell>(metadata);
+  /*!
+    \brief Encodes a printable byte as a name-table word in palette 1, the red error palette.
+
+    \param character Byte in \c 0x20..\c 0x7E.
+
+    \return Name-table word pointing at the glyph's tile.
+  */
+  static Cell encodeErrorCharacter(char character) noexcept {
+    return encode(character, 1);
   }
 
   /*!
@@ -105,6 +108,27 @@ struct MdBackend final {
     \param cells Row-major buffer of rows * columns cells.
   */
   static void upload(span<const Cell> cells) noexcept;
+
+private:
+  /*!
+    \brief Encodes a printable byte with the given palette line.
+
+    \param character   Byte in \c 0x20..\c 0x7E.
+    \param paletteLine CRAM palette the glyph reads its colors from.
+
+    \return Name-table word pointing at the glyph's tile.
+  */
+  static Cell encode(char character, unsigned int paletteLine) noexcept {
+    const vdp::VRAM::TileMetadata
+      metadata{.priority     = false,
+               .palette_line = paletteLine,
+               .y_flip       = false,
+               .x_flip       = false,
+               .tile_index   = c_fontTileBase
+                               + (static_cast<unsigned int>(static_cast<unsigned char>(character)) - 0x20)};
+
+    return bit_cast<Cell>(metadata);
+  }
 };
 
 // H40 on both regions.
@@ -179,20 +203,21 @@ void MdBackend::initialize() noexcept {
                              .vertical_size   = 0,
                              .bit3            = false,
                              .bit2            = false,
-                             .horizontal_size = 0});
+                             .horizontal_size = 1});
   vdp::Write(vdp::Register11{.id = 0x91, .window_align_right = false, .bit6 = false, .bit5 = false, .window_width = 0});
   vdp::Write(
     vdp::Register12{.id = 0x92, .window_align_bottom = false, .bit6 = false, .bit5 = false, .window_height = 0}
   );
 
-  // Zeros at VRAM 0x0000 keep the scroll and sprite tables the VDP reads from carrying garbage.
-  vdp::VRAM::FillWordsWithoutDMA(0x0000, 0x100, 0);
+  // Zeros at VRAM 0x0000 cover plane A's name table and the scroll and sprite tables sharing the region.
+  vdp::VRAM::FillWordsWithoutDMA(0x0000, 0x800, 0);
   vdp::VSRAM::FillWordsWithoutDMA(0, vdp::VSRAM::total_words, 0);
 
   uploadFontTiles();
 
   vdp::CRAM::Set(0, 0, vdp::CRAM::Colour(0, 0, 0));
   vdp::CRAM::Set(0, 1, vdp::CRAM::Colour(7, 7, 7));
+  vdp::CRAM::Set(1, 1, vdp::CRAM::Colour(7, 0, 0));
 
   vdp::VRAM::FillWordsWithoutDMA(c_planeBAddress, 0x800, blankCell());
 
@@ -225,6 +250,10 @@ void initialize() noexcept {
 
 void write(StringView text) noexcept {
   terminal.write(text);
+}
+
+void writeError(StringView text) noexcept {
+  terminal.writeError(text);
 }
 
 void setTabSize(size_t tabSize) noexcept {
