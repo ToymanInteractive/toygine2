@@ -24,7 +24,7 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /Gv
+# last option:          /Gw
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
@@ -233,9 +233,9 @@ endif ()
 # Reaches every target created in the engine source tree, third-party ones included
 add_compile_options(
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3;/fp:fast;/GL>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/O2;/Ot;/Ob3;/fp:fast;/GL;/Gw>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang,GNU>>:-O3>"
-  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3;/fp:fast;/GL>"
+  "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/O2;/Ot;/Ob3;/fp:fast;/GL;/Gw>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang,GNU>>:-O3>"
   "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang,GNU>>:-O3>")
 
