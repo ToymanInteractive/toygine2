@@ -22,8 +22,8 @@
   \brief  Format pattern validation diagnostics and the check itself.
 
   Defines \ref toy::FormatPatternValidationError, the values a pattern check reports, and declares
-  toy::validateFormatPattern(), which walks a pattern and matches its placeholders against an argument count. Used by the
-  consteval constructor of \ref toy::FormatString and by any caller that wants the same verdict at runtime.
+  toy::validateFormatPattern(), which walks a pattern and matches its placeholders against an argument count. Used by
+  the consteval constructor of \ref toy::FormatString and by any caller that wants the same verdict at runtime.
 
   \note Included by core.hpp only; do not include this file directly.
 */
