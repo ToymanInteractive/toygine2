@@ -30,7 +30,7 @@ namespace toy {
 namespace {
 
 // A pattern the constructor rejects fails the helper's constant evaluation; as a template argument that failure is a
-// deduction failure, so the enclosing concept turns false instead of erroring the build.
+// deduction failure, so the enclosing concept turns false instead of failing the build.
 template <bool Accepted>
 struct CompileTag {};
 
@@ -42,21 +42,22 @@ consteval bool patternAccepted(const StringView & pattern) {
 }
 
 // A failed immediate invocation is a deduction failure where a concept is satisfied, but a hard error in an inline
-// requires expression, so each rejection rides a named concept carrying one representative pattern.
+// requires expression, so every compile-time verdict rides a named concept. Each concept states one pattern against
+// one argument list, and its truth is the verdict: the pattern compiles for those arguments.
 template <class... Args>
-concept RejectsAutoWithoutArgument = requires { CompileTag<patternAccepted<Args...>("{}")>{}; };
+concept AcceptsAutoPlaceholder = requires { CompileTag<patternAccepted<Args...>("{}")>{}; };
 
 template <class... Args>
-concept RejectsMixedPlaceholders = requires { CompileTag<patternAccepted<Args...>("{0} {}")>{}; };
+concept AcceptsMixedPlaceholders = requires { CompileTag<patternAccepted<Args...>("{0} {}")>{}; };
 
 template <class... Args>
-concept RejectsOutOfRangeIndex = requires { CompileTag<patternAccepted<Args...>("{1}")>{}; };
+concept AcceptsPositionalIndex = requires { CompileTag<patternAccepted<Args...>("{1}")>{}; };
 
 template <class... Args>
-concept RejectsUnmatchedBrace = requires { CompileTag<patternAccepted<Args...>("{")>{}; };
+concept AcceptsUnmatchedBrace = requires { CompileTag<patternAccepted<Args...>("{")>{}; };
 
 template <class... Args>
-concept RejectsInvalidContent = requires { CompileTag<patternAccepted<Args...>("{0x}")>{}; };
+concept AcceptsInvalidContent = requires { CompileTag<patternAccepted<Args...>("{0x}")>{}; };
 
 } // namespace
 
@@ -99,6 +100,11 @@ TEST_CASE("format_string/accepts_valid_patterns") {
                 "three auto placeholders bind three arguments");
   static_assert(FormatString<int>{"{0} {0}"}.get() == "{0} {0}", "a repeated index reuses one argument");
   static_assert(FormatString<int, int>{"{0}"}.get() == "{0}", "a positional pattern need not use every argument");
+
+  // Through the same probe the rejections ride: the machinery must see acceptance, or a broken probe would make
+  // every rejection pass vacuously.
+  static_assert(AcceptsAutoPlaceholder<int>, "the probe compiles a pattern that fits its arguments");
+  static_assert(AcceptsPositionalIndex<int, int>, "the probe compiles a positional pattern that fits its arguments");
 }
 
 // A fixed string builds the type like any other source, the view pointing into its constant buffer.
@@ -113,11 +119,11 @@ TEST_CASE("format_string/accepts_string_like_sources") {
 
 // Every validation error the pattern validator reports rejects the constructor, one representative shape per error.
 TEST_CASE("format_string/rejects_invalid_patterns") {
-  static_assert(!RejectsAutoWithoutArgument<>, "an auto placeholder with no argument fails to compile");
-  static_assert(!RejectsMixedPlaceholders<int, int>, "mixing auto and positional placeholders fails to compile");
-  static_assert(!RejectsOutOfRangeIndex<int>, "an index naming no argument fails to compile");
-  static_assert(!RejectsUnmatchedBrace<>, "an unmatched opening brace fails to compile");
-  static_assert(!RejectsInvalidContent<int>, "content following an index fails to compile");
+  static_assert(!AcceptsAutoPlaceholder<>, "an auto placeholder with no argument fails to compile");
+  static_assert(!AcceptsMixedPlaceholders<int, int>, "mixing auto and positional placeholders fails to compile");
+  static_assert(!AcceptsPositionalIndex<int>, "an index naming no argument fails to compile");
+  static_assert(!AcceptsUnmatchedBrace<>, "an unmatched opening brace fails to compile");
+  static_assert(!AcceptsInvalidContent<int>, "content following an index fails to compile");
 }
 
 } // namespace toy
