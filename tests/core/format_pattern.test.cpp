@@ -49,6 +49,8 @@ TEST_CASE("format_pattern/validate/valid_without_placeholders") {
                 "an escaped closing brace produces no placeholder");
   static_assert(validateFormatPattern("{{}}", 0) == FormatPatternValidationError::none,
                 "a pair of escaped braces produces no placeholder");
+  static_assert(validateFormatPattern("a{{b}}c", 0) == FormatPatternValidationError::none,
+                "escaped braces inside text produce no placeholder");
   static_assert(validateFormatPattern("{{0}}", 0) == FormatPatternValidationError::none,
                 "an index written inside doubled braces produces no placeholder");
 }
@@ -64,6 +66,8 @@ TEST_CASE("format_pattern/validate/valid_auto_placeholders") {
                 "one auto placeholder requires one argument");
   static_assert(validateFormatPattern("{} {}", 2) == FormatPatternValidationError::none,
                 "two auto placeholders require two arguments");
+  static_assert(validateFormatPattern("{} {} {}", 3) == FormatPatternValidationError::none,
+                "three auto placeholders require three arguments");
   static_assert(validateFormatPattern("pre{}post{}", 2) == FormatPatternValidationError::none,
                 "auto placeholders work inside surrounding text");
 }
@@ -84,6 +88,8 @@ TEST_CASE("format_pattern/validate/valid_positional_placeholders") {
 
   static_assert(validateFormatPattern("{0}", 1) == FormatPatternValidationError::none,
                 "index zero names the first argument");
+  static_assert(validateFormatPattern("{1}", 2) == FormatPatternValidationError::none,
+                "an index names the argument at its position");
   static_assert(validateFormatPattern("{1} {0}", 2) == FormatPatternValidationError::none,
                 "positional placeholders may appear in any order");
   static_assert(validateFormatPattern("{0} {0}", 1) == FormatPatternValidationError::none,
@@ -113,8 +119,12 @@ TEST_CASE("format_pattern/validate/unmatched_brace") {
 
   static_assert(validateFormatPattern("{", 0) == FormatPatternValidationError::unmatchedBrace,
                 "a trailing opening brace matches nothing");
+  static_assert(validateFormatPattern("a{", 0) == FormatPatternValidationError::unmatchedBrace,
+                "a trailing opening brace after text matches nothing");
   static_assert(validateFormatPattern("}", 0) == FormatPatternValidationError::unmatchedBrace,
                 "a lone closing brace matches nothing");
+  static_assert(validateFormatPattern("a}b", 0) == FormatPatternValidationError::unmatchedBrace,
+                "a stray closing brace inside text matches nothing");
   static_assert(validateFormatPattern("{x}", 0) == FormatPatternValidationError::unmatchedBrace,
                 "non-index content inside braces opens no placeholder");
   static_assert(validateFormatPattern("{ }", 0) == FormatPatternValidationError::unmatchedBrace,
@@ -142,6 +152,10 @@ TEST_CASE("format_pattern/validate/invalid_content") {
                 "only the closing brace may follow an index");
   static_assert(validateFormatPattern("{0 }", 1) == FormatPatternValidationError::invalidContent,
                 "whitespace may not follow an index inside the braces");
+  static_assert(validateFormatPattern("{01", 2) == FormatPatternValidationError::invalidContent,
+                "a multi-digit index misses its closing brace at the end of the pattern");
+  static_assert(validateFormatPattern("{0{", 1) == FormatPatternValidationError::invalidContent,
+                "an opening brace may not follow an index inside the braces");
   static_assert(validateFormatPattern("{9", 0) == FormatPatternValidationError::invalidContent,
                 "the content check precedes the range check");
 }
@@ -157,6 +171,8 @@ TEST_CASE("format_pattern/validate/mixed_placeholders") {
                 "a positional placeholder after an auto one mixes the modes");
   static_assert(validateFormatPattern("{0} {}", 2) == FormatPatternValidationError::mixedPlaceholders,
                 "an auto placeholder after a positional one mixes the modes");
+  static_assert(validateFormatPattern("{} {1}", 2) == FormatPatternValidationError::mixedPlaceholders,
+                "a positional index after an auto one mixes the modes");
   static_assert(validateFormatPattern("{0} {1} {}", 3) == FormatPatternValidationError::mixedPlaceholders,
                 "one auto placeholder is enough to mix the modes");
 }
@@ -176,12 +192,16 @@ TEST_CASE("format_pattern/validate/arg_count_mismatch") {
 
   static_assert(validateFormatPattern("", 1) == FormatPatternValidationError::argCountMismatch,
                 "arguments without placeholders have nothing to bind them");
+  static_assert(validateFormatPattern("plain text", 1) == FormatPatternValidationError::argCountMismatch,
+                "text without placeholders has nothing to bind an argument");
   static_assert(validateFormatPattern("{}", 0) == FormatPatternValidationError::argCountMismatch,
                 "an auto placeholder with no argument has nothing to bind");
   static_assert(validateFormatPattern("{}", 2) == FormatPatternValidationError::argCountMismatch,
                 "two arguments cannot bind one auto placeholder");
   static_assert(validateFormatPattern("{} {}", 1) == FormatPatternValidationError::argCountMismatch,
                 "one argument cannot bind two auto placeholders");
+  static_assert(validateFormatPattern("{} {}", 3) == FormatPatternValidationError::argCountMismatch,
+                "three arguments cannot bind two auto placeholders");
   static_assert(validateFormatPattern("{{}}", 1) == FormatPatternValidationError::argCountMismatch,
                 "escaped braces produce no placeholders to bind an argument");
 }
@@ -193,17 +213,19 @@ TEST_CASE("format_pattern/validate/index_out_of_range") {
   CHECK(validateFormatPattern("{2}", 2) == FormatPatternValidationError::indexOutOfRange);
   CHECK(validateFormatPattern("{01}", 1) == FormatPatternValidationError::indexOutOfRange);
 
-  // An index too large for size_t cannot name an argument either.
-  CHECK(validateFormatPattern("{99999999999999999999}", 0) == FormatPatternValidationError::indexOutOfRange);
+  // An index that wraps size_t reads as zero, which the range check would accept; the guard has to reject it first.
+  CHECK(validateFormatPattern("{18446744073709551616}", 1) == FormatPatternValidationError::indexOutOfRange);
 
   static_assert(validateFormatPattern("{0}", 0) == FormatPatternValidationError::indexOutOfRange,
                 "the smallest index is out of range without arguments");
   static_assert(validateFormatPattern("{1}", 1) == FormatPatternValidationError::indexOutOfRange,
                 "an index must stay below the argument count");
+  static_assert(validateFormatPattern("{2}", 2) == FormatPatternValidationError::indexOutOfRange,
+                "an index equal to the argument count is out of range");
   static_assert(validateFormatPattern("{01}", 1) == FormatPatternValidationError::indexOutOfRange,
                 "a leading zero keeps the index it names out of range");
-  static_assert(validateFormatPattern("{99999999999999999999}", 0) == FormatPatternValidationError::indexOutOfRange,
-                "an index overflowing size_t cannot name an argument");
+  static_assert(validateFormatPattern("{18446744073709551616}", 1) == FormatPatternValidationError::indexOutOfRange,
+                "an index that wraps size_t to zero must be rejected before the range check sees it");
 }
 
 // A fixed string validates under the same rules as any other source, by its own size and pointer.
