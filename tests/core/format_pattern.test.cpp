@@ -135,7 +135,7 @@ TEST_CASE("format_pattern/validate/unmatched_brace") {
                 "a stray closing brace fails the pattern after a well-formed placeholder");
 }
 
-// Digits inside braces must be followed by the closing brace, before any range check runs.
+// Digits inside braces must reach the closing brace before any range check runs.
 TEST_CASE("format_pattern/validate/invalid_content") {
   CHECK(validateFormatPattern("{0", 1) == FormatPatternValidationError::invalidContent);
   CHECK(validateFormatPattern("{0x}", 1) == FormatPatternValidationError::invalidContent);

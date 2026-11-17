@@ -42,8 +42,7 @@ consteval bool patternAccepted(const StringView & pattern) {
 }
 
 // A failed immediate invocation is a deduction failure where a concept is satisfied, but a hard error in an inline
-// requires expression, so every compile-time verdict rides a named concept. Each concept states one pattern against
-// one argument list, and its truth is the verdict: the pattern compiles for those arguments.
+// requires expression, so every compile-time verdict rides a named concept: one pattern against one argument list.
 template <class... Args>
 concept AcceptsAutoPlaceholder = requires { CompileTag<patternAccepted<Args...>("{}")>{}; };
 
@@ -67,7 +66,7 @@ TEST_CASE("format_string/special_members") {
   static_assert(std::is_nothrow_copy_constructible_v<FormatString<>>, "copying one StringView cannot fail");
   static_assert(!std::is_copy_assignable_v<FormatString<>>, "copy assignment is deleted");
 
-  // The constructor is declared explicit(false), so a StringView builds the type without naming it.
+  // The constructor is declared explicit(false), so a StringView converts without naming the type.
   static_assert(std::is_convertible_v<StringView, FormatString<>>, "a StringView builds the type implicitly");
   static_assert(std::is_nothrow_constructible_v<FormatString<>, const char (&)[3]>,
                 "construction from a literal cannot fail");
@@ -81,7 +80,7 @@ TEST_CASE("format_string/get_returns_source") {
   const FormatString<int, int> positional{"{1} {0}"};
   CHECK(positional.get() == "{1} {0}");
 
-  // Escaped braces stay written as they were; get() never rewrites the source.
+  // Escaped braces stay as written; get() never rewrites the source.
   const FormatString<> escaped{"{{}}"};
   CHECK(escaped.get() == "{{}}");
 
@@ -101,8 +100,8 @@ TEST_CASE("format_string/accepts_valid_patterns") {
   static_assert(FormatString<int>{"{0} {0}"}.get() == "{0} {0}", "a repeated index reuses one argument");
   static_assert(FormatString<int, int>{"{0}"}.get() == "{0}", "a positional pattern need not use every argument");
 
-  // Through the same probe the rejections ride: the machinery must see acceptance, or a broken probe would make
-  // every rejection pass vacuously.
+  // The rejections run through the same probe, so the machinery must see acceptance here; a broken probe would make
+  // every rejection below pass vacuously.
   static_assert(AcceptsAutoPlaceholder<int>, "the probe compiles a pattern that fits its arguments");
   static_assert(AcceptsPositionalIndex<int, int>, "the probe compiles a positional pattern that fits its arguments");
 }
