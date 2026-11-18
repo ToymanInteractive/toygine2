@@ -69,10 +69,11 @@ namespace toy {
 
   // Returns false when the sink did not take the whole greeting.
   bool writeGreeting(Sink & sink) {
+    const size_t start = sink.length;
     toy::FormatContext output{&sink, &append};
     output.write("hi", 2);
     output.put('!');
-    return sink.length == 3;
+    return sink.length - start == 3;
   }
   \endcode
 
@@ -94,6 +95,9 @@ namespace toy {
   \note The context is borrowed: the object and every copy store the address, and the pointee must stay valid for
         every dispatching call; a stale context reaches the callback as a dangling pointer.
   \note The class never dereferences the context; \c nullptr stays valid for a callback that accepts it.
+  \note write() and put() allocate nothing and lock nothing; real-time legality is the callback's property.
+  \note Concurrent dispatch, including through copies, is safe exactly when the callback is; the class adds no
+        synchronization.
 
   \sa \ref toy::FormatString
 */
@@ -121,7 +125,8 @@ public:
 
     \post The object holds both values; a copy writes through the same pair.
 
-    \note In a constant expression a failed check makes the construction non-constant, so the build fails.
+    \note Where assertions are enabled, a failed check in a constant expression makes the construction non-constant,
+          so the build fails.
   */
   constexpr FormatContext(void * context, WriteFunction writeFn) noexcept;
 

@@ -100,15 +100,17 @@ TEST_CASE("format_context/write_forwards_to_the_callback") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
-  const char input[] = "hi";
-  sink.copyLimit     = 2;
-  context.write(input, 2);
+  // An embedded zero separates the range from a C string: a count replaced with the string length would drop the tail.
+  const char input[] = {'h', '\0', 'i'};
+  sink.copyLimit     = 3;
+  context.write(input, 3);
   CHECK(sink.calls == 1);
   CHECK(sink.contextSeen == &sink);
   CHECK(sink.dataSeen == input);
-  CHECK(sink.count == 2);
+  CHECK(sink.count == 3);
   CHECK(sink.data[0] == 'h');
-  CHECK(sink.data[1] == 'i');
+  CHECK(sink.data[1] == '\0');
+  CHECK(sink.data[2] == 'i');
 
   const char single[] = "!";
   sink.copyLimit      = 1;
