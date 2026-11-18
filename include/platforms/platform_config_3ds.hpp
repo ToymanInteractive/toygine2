@@ -53,6 +53,15 @@ inline constexpr bool consoleSupportsUtf8 = false;
 
 #endif // TOYGINE_DEBUG
 
+/*!
+  \brief Defines main() that builds a console application and runs it with the command-line arguments.
+
+  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
+  APP_VERSION_REVISION. After run() returns, the macro calls idleSystemConsole(), which never returns.
+
+  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
+                      \ref toy::application::Version.
+*/
 #define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
                                                                                                                        \
   int main(int argc, char * argv[]) {                                                                                  \
