@@ -19,7 +19,7 @@
 //
 /*!
   \file   format_pattern.inl
-  \brief  Inline implementations for toy::validateFormatPattern(), the C-string and string-like overloads.
+  \brief  Inline implementations for toy::validateFormatPattern().
 
   \note Included by core.hpp only; do not include this file directly.
 */
