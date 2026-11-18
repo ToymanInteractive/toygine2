@@ -91,7 +91,7 @@ void append(void * context, const char * data, size_t count) noexcept {
 
 // Returns false when the sink did not take the whole greeting.
 bool writeGreeting(Sink & sink) {
-  const size_t start = sink.length;
+  const size_t       start = sink.length;
   toy::FormatContext output{&sink, &append};
   output.write("hi", 2);
   output.put('!');
