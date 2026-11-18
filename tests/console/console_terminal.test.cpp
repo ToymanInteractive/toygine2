@@ -64,7 +64,7 @@ struct FakeBackend final {
   static void upload(span<const Cell> cells) noexcept {
     ++uploadCount;
     lastUploadSize = cells.size();
-    std::ranges::copy(cells, lastUpload.begin());
+    std::ranges::copy(cells.first(std::min(cells.size(), lastUpload.size())), lastUpload.begin());
   }
 
   static inline size_t                                      initializeCount = 0;
@@ -184,13 +184,17 @@ struct IntGeometryBackend final {
   }
 
   static void upload(span<const Cell> cells) noexcept {
-    static_cast<void>(cells);
+    lastUploadSize = cells.size();
+    std::ranges::copy(cells.first(std::min(cells.size(), lastUpload.size())), lastUpload.begin());
   }
+
+  static inline size_t                                      lastUploadSize = 0;
+  static inline array<Cell, capacityRows * capacityColumns> lastUpload{};
 };
 
 } // namespace
 
-// Printable bytes reach the buffer through encodeCharacter, and one write uploads once.
+// Printable bytes reach the buffer through encodeCharacter.
 TEST_CASE("console/terminal/writes_printable_characters") {
   FakeBackend::reset();
   TestTerminal terminal;
@@ -201,7 +205,6 @@ TEST_CASE("console/terminal/writes_printable_characters") {
   CHECK(FakeBackend::lastUpload[0] == 'A');
   CHECK(FakeBackend::lastUpload[1] == 'B');
   CHECK(FakeBackend::lastUpload[2] == 0);
-  CHECK(FakeBackend::uploadCount == 1);
 }
 
 // The wrap waits for the next character: a full row leaves the cursor past the last column.
@@ -348,6 +351,8 @@ TEST_CASE("console/terminal/int_geometry_backend_writes") {
 
   CHECK(terminal.columns() == 8);
   CHECK(terminal.rows() == 2);
+  CHECK(IntGeometryBackend::lastUpload[0] == 'A');
+  CHECK(IntGeometryBackend::lastUpload[2] == 'B');
 }
 
 // Vertical tab advances the row and keeps the column.
@@ -408,15 +413,16 @@ TEST_CASE("console/terminal/upload_follows_every_write") {
   terminal.initialize();
 
   terminal.write("A");
+  CHECK(FakeBackend::uploadCount == 1);
   terminal.write("");
+  CHECK(FakeBackend::uploadCount == 2);
   terminal.write("B");
-
   CHECK(FakeBackend::uploadCount == 3);
   CHECK(FakeBackend::lastUpload[0] == 'A');
   CHECK(FakeBackend::lastUpload[1] == 'B');
 }
 
-// Scroll and upload follow the active rows; the capacity tail stays blank and undrawn.
+// Scroll and upload follow the active rows, not the capacity.
 TEST_CASE("console/terminal/scrolls_at_active_rows_not_capacity") {
   FakeBackend::reset();
   FakeBackend::pendingRows = 3;
@@ -430,11 +436,9 @@ TEST_CASE("console/terminal/scrolls_at_active_rows_not_capacity") {
   CHECK(FakeBackend::lastUpload[0] == 'B');
   CHECK(FakeBackend::lastUpload[16] == 'C');
   CHECK(FakeBackend::lastUpload[32] == 'D');
-  CHECK(FakeBackend::lastUpload[48] == 0);
-  CHECK(FakeBackend::lastUpload[95] == 0);
 }
 
-// Wrap and upload follow the active columns; the capacity tail stays blank and undrawn.
+// Wrap and upload follow the active columns, not the capacity.
 TEST_CASE("console/terminal/wraps_at_active_columns_not_capacity") {
   FakeBackend::reset();
   FakeBackend::pendingColumns = 8;
@@ -448,7 +452,6 @@ TEST_CASE("console/terminal/wraps_at_active_columns_not_capacity") {
   CHECK(FakeBackend::lastUpload[0] == 'A');
   CHECK(FakeBackend::lastUpload[7] == 'H');
   CHECK(FakeBackend::lastUpload[8] == 'I');
-  CHECK(FakeBackend::lastUpload[32] == 0);
 }
 
 // The terminal reads the geometry the backend sets during initialize(), not the values before it.
@@ -479,6 +482,23 @@ TEST_CASE("console/terminal/write_error_uses_error_encoding") {
   CHECK(FakeBackend::lastUpload[0] == 'A');
   CHECK(FakeBackend::lastUpload[1] == ('B' | 0x8000));
   CHECK(FakeBackend::lastUpload[2] == ('?' | 0x8000));
+}
+
+// writeLine processes text and its newline in a single upload.
+TEST_CASE("console/terminal/write_line_uploads_once") {
+  FakeBackend::reset();
+  TestTerminal terminal;
+  terminal.initialize();
+
+  terminal.writeLine("AB", false);
+
+  CHECK(FakeBackend::uploadCount == 1);
+  CHECK(FakeBackend::lastUpload[0] == 'A');
+  CHECK(FakeBackend::lastUpload[1] == 'B');
+
+  terminal.write("C");
+
+  CHECK(FakeBackend::lastUpload[16] == 'C');
   CHECK(FakeBackend::uploadCount == 2);
 }
 

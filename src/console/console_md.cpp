@@ -140,16 +140,20 @@ size_t MdBackend::rows = platform::detail::consoleNtscRows;
 void uploadFontTiles() noexcept {
   // Pixel n of a row reads (byte >> n) & 1, n = 0 leftmost; a tile byte keeps the left pixel in the high nibble.
   for (size_t glyph = 0; glyph < c_glyphCount; ++glyph) {
-    array<byte, vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL> tile{};
+    // The SDK reads the source as longwords; pack each row's four bytes big-endian into one unsigned long.
+    array<unsigned long, vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL / 4> tile{};
 
     for (size_t row = 0; row < 8; ++row) {
-      const auto pixels = static_cast<uint8_t>(font8x8_basic[glyph][row]);
+      const auto    pixels = static_cast<uint8_t>(font8x8_basic[glyph][row]);
+      unsigned long word   = 0;
 
       for (size_t pair = 0; pair < 4; ++pair) {
-        const auto left      = (pixels >> (pair * 2)) & 1;
-        const auto right     = (pixels >> (pair * 2 + 1)) & 1;
-        tile[row * 4 + pair] = static_cast<byte>(left << 4 | right);
+        const auto left   = (pixels >> (pair * 2)) & 1;
+        const auto right  = (pixels >> (pair * 2 + 1)) & 1;
+        word             |= static_cast<unsigned long>(left << 4 | right) << (24 - pair * 8);
       }
+
+      tile[row] = word;
     }
 
     vdp::CopyWordsWithoutDMA(vdp::RAM::VRAM, c_fontAddress + glyph * vdp::VRAM::TILE_SIZE_IN_BYTES_NORMAL, tile.data(),
@@ -160,6 +164,17 @@ void uploadFontTiles() noexcept {
 void MdBackend::initialize() noexcept {
   const bool isPAL = ClownMDSDK::MainCPU::Unsafe::IsPAL();
   rows             = isPAL ? platform::detail::consolePalRows : platform::detail::consoleNtscRows;
+
+  // Mode 5 first: the VDP ignores extended-register writes while it is in Mode 4.
+  vdp::Write(vdp::Register01{.id                        = 0x81,
+                             .bit7                      = false,
+                             .enable_display            = false,
+                             .enable_vertical_interrupt = false,
+                             .enable_dma_transfer       = false,
+                             .enable_v30_cell_mode      = false,
+                             .enable_mega_drive_mode    = true,
+                             .bit1                      = false,
+                             .bit0                      = false});
 
   // Every register write lists all bitfields: the boot state of the registers is indeterminate.
   vdp::Write(vdp::Register00{.id                          = 0x80,
@@ -230,9 +245,18 @@ void MdBackend::initialize() noexcept {
 }
 
 void MdBackend::upload(span<const Cell> cells) noexcept {
-  for (size_t row = 0; row < rows; ++row)
-    vdp::CopyWordsWithoutDMA(vdp::RAM::VRAM, c_planeBAddress + row * c_planeStrideBytes, cells.data() + row * columns,
+  // The SDK reads the source as longwords; pack each cell pair big-endian into one unsigned long.
+  array<unsigned long, capacityColumns / 2> rowWords{};
+
+  for (size_t row = 0; row < rows; ++row) {
+    for (size_t pair = 0; pair < columns / 2; ++pair) {
+      const size_t index = row * columns + pair * 2;
+      rowWords[pair]     = static_cast<unsigned long>(cells[index]) << 16 | cells[index + 1];
+    }
+
+    vdp::CopyWordsWithoutDMA(vdp::RAM::VRAM, c_planeBAddress + row * c_planeStrideBytes, rowWords.data(),
                              static_cast<unsigned int>(columns));
+  }
 }
 
 /// The terminal instance the public API forwards to.
@@ -250,6 +274,10 @@ void write(StringView text) noexcept {
 
 void writeError(StringView text) noexcept {
   terminal.writeError(text);
+}
+
+void writeLine(StringView text, bool isError) noexcept {
+  terminal.writeLine(text, isError);
 }
 
 void setTabSize(size_t tabSize) noexcept {

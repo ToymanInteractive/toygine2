@@ -31,7 +31,10 @@ namespace toy::application {
 
 // The VBlank interrupt stays enabled because idleSystemConsole() waits on it after run() returns.
 bool ConsoleApplication::initializeSystemConsole() noexcept {
-  ::irqInit();
+  // Install the dispatcher only if it is not already in the IRQ vector, preserving handlers set before run().
+  using irq_handler = void (*)();
+  if (*reinterpret_cast<volatile irq_handler *>(0x03007FFC) != static_cast<irq_handler>(::IntrMain))
+    ::irqInit();
 
   ::irqEnable(IRQ_VBLANK);
 

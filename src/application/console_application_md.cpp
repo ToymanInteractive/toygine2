@@ -37,15 +37,12 @@ void ConsoleApplication::writeToSystemConsole(StringView text, bool isError, boo
   if (text.empty() && !newLine)
     return;
 
-  if (!text.empty()) {
-    if (isError)
-      toy::console::writeError(text);
-    else
-      toy::console::write(text);
-  }
-
   if (newLine)
-    toy::console::write(toy::StringView{"\n"});
+    toy::console::writeLine(text, isError);
+  else if (isError)
+    toy::console::writeError(text);
+  else
+    toy::console::write(text);
 }
 
 void ConsoleApplication::idleSystemConsole() noexcept {

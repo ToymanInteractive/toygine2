@@ -34,16 +34,17 @@ void Terminal<Backend>::initialize() noexcept {
   _cursorX = 0;
   _cursorY = 0;
 
-  std::ranges::fill(_buffer, Backend::blankCell());
-
-  _initialized = true;
-
   Backend::initialize();
 
   assert_message(Backend::columns > 0 && Backend::rows > 0,
                  "console::initialize: active columns and rows must be positive");
   assert_message(Backend::columns <= Backend::capacityColumns && Backend::rows <= Backend::capacityRows,
                  "console::initialize: active geometry must fit the buffer capacity");
+
+  // The blank cell may depend on the backend setup, so fill after initialize().
+  std::ranges::fill(_buffer, Backend::blankCell());
+
+  _initialized = true;
 }
 
 template <ConsoleBackend Backend>
@@ -60,17 +61,29 @@ template <ConsoleBackend Backend>
 void Terminal<Backend>::setTabSize(size_t tabSize) noexcept {
   assert_message(tabSize > 0, "console::setTabSize: tab size must be positive");
 
+  if (tabSize == 0)
+    return;
+
   _tabSize = tabSize;
 }
 
 template <ConsoleBackend Backend>
 void Terminal<Backend>::write(StringView text) noexcept {
   writeText(text, false);
+  upload();
 }
 
 template <ConsoleBackend Backend>
 void Terminal<Backend>::writeError(StringView text) noexcept {
   writeText(text, true);
+  upload();
+}
+
+template <ConsoleBackend Backend>
+void Terminal<Backend>::writeLine(StringView text, bool isError) noexcept {
+  writeText(text, isError);
+  writeText(StringView{"\n"}, isError);
+  upload();
 }
 
 template <ConsoleBackend Backend>
@@ -88,6 +101,7 @@ void Terminal<Backend>::writeText(StringView text, bool isError) noexcept {
     } else if (character == '\r')
       _cursorX = 0;
     else if (character == '\t') {
+      // Remainder arithmetic and a compare-before-add keep the cursor safe for any positive tab size.
       const size_t last = Backend::columns - 1;
       if (_cursorX >= last)
         _cursorX = last;
@@ -104,7 +118,10 @@ void Terminal<Backend>::writeText(StringView text, bool isError) noexcept {
                              : Backend::encodeCharacter(static_cast<char>(character)));
     // Control bytes the terminal does not handle are dropped.
   }
+}
 
+template <ConsoleBackend Backend>
+void Terminal<Backend>::upload() noexcept {
   Backend::upload(span<const Cell>(_buffer, Backend::rows * Backend::columns));
 }
 

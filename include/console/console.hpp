@@ -21,9 +21,10 @@
   \file   console.hpp
   \brief  Public entry points of the engine console module.
 
-  Declares the screen TTY API: toy::console::initialize(), toy::console::write(), and toy::console::setTabSize().
-  The definitions come from the target platform's backend; a platform without a backend leaves the symbols
-  undefined at link time.
+  Declares the screen TTY API: toy::console::initialize(), toy::console::write(), toy::console::writeError(),
+  toy::console::writeLine(), and toy::console::setTabSize(). Sega Mega Drive provides the definitions; on other
+  targets the free functions are undefined at link time, and toy::console::Terminal over a backend is the portable
+  core.
 */
 
 #ifndef INCLUDE_CONSOLE_CONSOLE_HPP_
@@ -51,7 +52,8 @@ void initialize() noexcept;
 
   \param text Bytes to print; need not be null-terminated.
 
-  \pre initialize() has run; checked by assert_message in debug builds.
+  \pre initialize() has run; checked by assert_message in debug builds. A shipping build skips the check and draws
+       into an unconfigured screen.
   \post The screen reflects \a text.
 
   \sa toy::console::initialize()
@@ -66,7 +68,8 @@ void write(StringView text) noexcept;
 
   \param text Bytes to print; need not be null-terminated.
 
-  \pre initialize() has run; checked by assert_message in debug builds.
+  \pre initialize() has run; checked by assert_message in debug builds. A shipping build skips the check and draws
+       into an unconfigured screen.
   \post The screen reflects \a text in the error encoding.
 
   \sa toy::console::write()
@@ -74,10 +77,26 @@ void write(StringView text) noexcept;
 void writeError(StringView text) noexcept;
 
 /*!
+  \brief Prints \a text and a trailing newline to the screen in one upload.
+
+  \param text    Bytes to print; need not be null-terminated.
+  \param isError \c true for the error encoding.
+
+  \pre initialize() has run; checked by assert_message in debug builds. A shipping build skips the check and draws
+       into an unconfigured screen.
+  \post The screen reflects \a text followed by a line advance.
+
+  \sa toy::console::write()
+*/
+void writeLine(StringView text, bool isError) noexcept;
+
+/*!
   \brief Sets the tab stop interval for subsequent write() calls.
 
-  \param tabSize Columns between tab stops; \c 2 by default.
+  \param tabSize Columns between tab stops; \c 2 by default. A zero value is rejected.
 
+  \pre \a tabSize is above \c 0; checked by assert_message in debug builds. A shipping build keeps the previous
+       interval when \a tabSize is \c 0.
   \post Tab stops sit at multiples of \a tabSize, clamped to the last column.
 
   \sa toy::console::write()

@@ -75,16 +75,16 @@ bool ConsoleSampleApp::runInternal() noexcept {
   }
   writeOutputLine(toy::StringView{""});
 
-  toy::FixedString<128> versionLine{"App Version: "};
+  toy::FixedString<64> versionLine{"App Version: "};
   versionLine += toy::string_utils::utoa(toy::span{buffer}, version().major);
   versionLine += '.';
   versionLine += toy::string_utils::utoa(toy::span{buffer}, version().minor);
   versionLine += '.';
   versionLine += toy::string_utils::utoa(toy::span{buffer}, version().patch);
   versionLine += " (";
-  versionLine += version().revision.c_str();
-  versionLine += ')';
-  writeOutputLine(versionLine);
+  writeOutput(versionLine);
+  writeOutput(toy::StringView{version().revision.c_str()});
+  writeOutputLine(toy::StringView{")"});
   writeOutputLine(toy::StringView{""});
 
   if (argsCount() > 1) {
@@ -137,8 +137,9 @@ bool ConsoleSampleApp::runInternal() noexcept {
   writeOutputLine(ticksLine);
 
   toy::FixedString<96> elapsedLine{"Steady clock elapsed: "};
-  elapsedLine += toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count());
-  elapsedLine += " ns";
+  const auto           elapsedNs  = toy::chrono::duration_cast<toy::chrono::nanoseconds>(watch.elapsed()).count();
+  elapsedLine                    += toy::string_utils::itoa(toy::span{buffer}, elapsedNs);
+  elapsedLine                    += " ns";
   writeOutputLine(elapsedLine);
 
   writeOutputLine(toy::StringView{""});
