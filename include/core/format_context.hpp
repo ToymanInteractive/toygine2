@@ -58,16 +58,21 @@ namespace toy {
     size_t length = 0;
   };
 
+  // Writes the range only when it fits whole.
   void append(void * context, const char * data, size_t count) noexcept {
     auto & sink = *static_cast<Sink *>(context);
-    for (size_t i = 0; i < count && sink.length < 16; ++i)
+    if (sink.length + count > 16)
+      return;
+    for (size_t i = 0; i < count; ++i)
       sink.buffer[sink.length++] = data[i];
   }
 
-  void writeGreeting(Sink & sink) {
+  // Returns false when the sink did not take the whole greeting.
+  bool writeGreeting(Sink & sink) {
     toy::FormatContext output{&sink, &append};
     output.write("hi", 2);
     output.put('!');
+    return sink.length == 3;
   }
   \endcode
 
@@ -79,10 +84,10 @@ namespace toy {
 
   \section format_context_safety Safety Guarantees
 
-  * **Contracts**: with assertions enabled, assert_message reports a null callback at construction and a null \a data
-    with a positive count in write(); the registered handler decides whether the call continues. A shipping build
-    skips both checks: a stored null callback makes the next dispatching write() or put() undefined behavior, and a
-    null \a data reaches the callback unchecked.
+  * **Contracts**: with assertions enabled, assert_message checks a null callback at construction and a null \a data
+    with a positive count in write(); a registered handler decides whether a failed check continues, and with none
+    registered the check stops the run. A shipping build skips both checks: a stored null callback makes the next
+    dispatching write() or put() undefined behavior, and a null \a data reaches the callback unchecked.
   * **Bounds safety**: write() passes \a count through; bounding the copy is the callback's task.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -115,6 +120,8 @@ public:
     \pre \a writeFn is non-null, checked by assert_message in debug builds.
 
     \post The object holds both values; a copy writes through the same pair.
+
+    \note In a constant expression a failed check makes the construction non-constant, so the build fails.
   */
   constexpr FormatContext(void * context, WriteFunction writeFn) noexcept;
 

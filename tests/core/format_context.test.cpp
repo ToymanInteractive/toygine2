@@ -62,8 +62,12 @@ struct NullContextRecord {
   int          calls       = 0;
 };
 
-void recordNullContext(void * context, const char * data, size_t) noexcept {
+void recordNullContext(void * context, const char * data, size_t count) noexcept {
   NullContextRecord * recorder = nullptr;
+  // A mismatched payload reads nothing; calls stays at zero, and the case fails instead of over-reading.
+  if (data == nullptr || count != sizeof(recorder))
+    return;
+
   std::memcpy(&recorder, data, sizeof(recorder));
   recorder->contextSeen = context;
   ++recorder->calls;
