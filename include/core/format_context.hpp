@@ -79,13 +79,16 @@ namespace toy {
 
   \section format_context_safety Safety Guarantees
 
-  * **Contracts**: a null callback fails at construction and a null \a data with a positive count fails in write(),
-    both under assert_message in debug builds. A shipping build skips both checks: a stored null callback makes the
-    next write() or put() undefined behavior, and a null \a data reaches the callback unchecked.
+  * **Contracts**: with assertions enabled, assert_message reports a null callback at construction and a null \a data
+    with a positive count in write(); the registered handler decides whether the call continues. A shipping build
+    skips both checks: a stored null callback makes the next dispatching write() or put() undefined behavior, and a
+    null \a data reaches the callback unchecked.
   * **Bounds safety**: write() passes \a count through; bounding the copy is the callback's task.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
-  \note The context pointer is never dereferenced by this class; its type and lifetime belong to the callback.
+  \note The context is borrowed: the object and every copy store the address, and the pointee must stay valid for
+        every dispatching call; a stale context reaches the callback as a dangling pointer.
+  \note The class never dereferences the context; \c nullptr stays valid for a callback that accepts it.
 
   \sa \ref toy::FormatString
 */
@@ -123,7 +126,8 @@ public:
     \param data  Bytes to emit.
     \param count Number of bytes at \a data.
 
-    \pre \a data is non-null when \a count is positive, checked by assert_message in debug builds.
+    \pre For a positive \a count, \a data names \a count readable bytes for the duration of the callback; only the
+         null check is enforced, by assert_message in debug builds.
 
     \post For a positive count the callback has run once with the constructor's context, \a data, and \a count.
 

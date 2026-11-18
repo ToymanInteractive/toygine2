@@ -22,6 +22,8 @@
   \brief  Unit tests for \ref toy::FormatContext.
 */
 
+#include <cstring>
+
 #include "core.hpp"
 #include "toy_test.hpp"
 
@@ -29,8 +31,8 @@ namespace toy {
 
 namespace {
 
-// Records what every invocation saw; the sink's own address is the context, so the checks read the callback's point of
-// view.
+// Records what every invocation saw; the sink's own address is the context, so the checks verify the callback's side
+// of each call.
 struct RecordingSink {
   const void * contextSeen = nullptr;
   const char * dataSeen    = nullptr;
@@ -53,18 +55,18 @@ void recordWrite(void * context, const char * data, size_t count) noexcept {
   ++sink.calls;
 }
 
-// Records the context without dereferencing it; a null context leaves the callback nothing to write through, so the
-// record lives at file scope.
-struct ContextRecord {
+// Records into a recorder whose address travels in the payload bytes; a null context leaves the callback nothing to
+// write through.
+struct NullContextRecord {
   const void * contextSeen = nullptr;
   int          calls       = 0;
 };
 
-ContextRecord nullContextRecord;
-
-void recordNullContext(void * context, const char *, size_t) noexcept {
-  nullContextRecord.contextSeen = context;
-  ++nullContextRecord.calls;
+void recordNullContext(void * context, const char * data, size_t) noexcept {
+  NullContextRecord * recorder = nullptr;
+  std::memcpy(&recorder, data, sizeof(recorder));
+  recorder->contextSeen = context;
+  ++recorder->calls;
 }
 
 // A callback constant evaluation accepts, for the compile-time probe below.
@@ -78,17 +80,16 @@ constexpr bool constructsInConstantExpression() noexcept {
 
 } // namespace
 
-// The type stays two plain pointers: free to copy, nothing to destroy, and buildable in a constant expression.
-TEST_CASE("format_context/type_contract") {
-  static_assert(std::is_trivially_copyable_v<FormatContext>, "the object copies as plain data");
-  static_assert(std::is_trivially_destructible_v<FormatContext>, "two pointers own nothing to destroy");
-  static_assert(std::is_nothrow_copy_constructible_v<FormatContext>, "copying two pointers cannot fail");
-  static_assert(std::is_nothrow_move_constructible_v<FormatContext>, "moving the type is copying it");
-  static_assert(noexcept(FormatContext{nullptr, noopWrite}), "construction cannot fail");
-  static_assert(constructsInConstantExpression(), "the constructor runs in a constant expression");
-  static_assert(std::is_same_v<FormatContext::WriteFunction, void (*)(void *, const char *, size_t) noexcept>,
-                "the callback signature carries noexcept");
-}
+// The type stays two plain pointers: free to copy, nothing to destroy, and buildable in a constant expression. They
+// are compile-time checks, so they sit outside any case; a violation fails the build.
+static_assert(std::is_trivially_copyable_v<FormatContext>, "the object copies as plain data");
+static_assert(std::is_trivially_destructible_v<FormatContext>, "two pointers own nothing to destroy");
+static_assert(std::is_nothrow_copy_constructible_v<FormatContext>, "copying two pointers cannot fail");
+static_assert(std::is_nothrow_move_constructible_v<FormatContext>, "moving the type is copying it");
+static_assert(noexcept(FormatContext{nullptr, noopWrite}), "construction cannot fail");
+static_assert(constructsInConstantExpression(), "the constructor runs in a constant expression");
+static_assert(std::is_same_v<FormatContext::WriteFunction, void (*)(void *, const char *, size_t) noexcept>,
+              "the callback signature carries noexcept");
 
 // write() hands the callback exactly what it got: the constructor's context, the caller's pointer, and the count.
 TEST_CASE("format_context/write_forwards_to_the_callback") {
@@ -159,12 +160,13 @@ TEST_CASE("format_context/copy_writes_through_the_same_pair") {
 
 // A null context is legal: construction accepts it and the callback receives it as passed.
 TEST_CASE("format_context/null_context_reaches_the_callback") {
-  nullContextRecord = {};
-  FormatContext context{nullptr, &recordNullContext};
+  NullContextRecord record;
+  FormatContext     context{nullptr, &recordNullContext};
 
-  context.write("x", 1);
-  CHECK(nullContextRecord.calls == 1);
-  CHECK(nullContextRecord.contextSeen == nullptr);
+  NullContextRecord * recorder = &record;
+  context.write(static_cast<const char *>(static_cast<const void *>(&recorder)), sizeof(recorder));
+  CHECK(record.calls == 1);
+  CHECK(record.contextSeen == nullptr);
 }
 
 } // namespace toy
