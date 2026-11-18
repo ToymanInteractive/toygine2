@@ -214,6 +214,8 @@ TEST_CASE("format_context/usage_example_greeting") {
   nearlyFull.length = 14;
   CHECK(!writeGreeting(nearlyFull));
   CHECK(nearlyFull.length == 16);
+  CHECK(nearlyFull.buffer[14] == 'h');
+  CHECK(nearlyFull.buffer[15] == 'i');
 }
 
 } // namespace toy
