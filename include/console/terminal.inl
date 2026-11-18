@@ -87,9 +87,15 @@ void Terminal<Backend>::writeText(StringView text, bool isError) noexcept {
       lineAdvance();
     } else if (character == '\r')
       _cursorX = 0;
-    else if (character == '\t')
-      _cursorX = min((_cursorX + _tabSize) / _tabSize * _tabSize, Backend::columns - 1);
-    else if (character == '\v')
+    else if (character == '\t') {
+      const size_t last = Backend::columns - 1;
+      if (_cursorX >= last)
+        _cursorX = last;
+      else {
+        const size_t distance = _tabSize - _cursorX % _tabSize;
+        _cursorX              = distance > last - _cursorX ? last : _cursorX + distance;
+      }
+    } else if (character == '\v')
       lineAdvance();
     else if (character >= 0x80)
       writeCharacter(isError ? Backend::encodeErrorCharacter('?') : Backend::encodeCharacter('?'));

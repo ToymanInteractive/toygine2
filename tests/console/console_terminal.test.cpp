@@ -161,6 +161,33 @@ struct NonTrivialBackend final {
 static_assert(!toy::console::ConsoleBackend<NonTrivialBackend>,
               "the scroll moves cells bytewise, so non-trivially-copyable cells must not satisfy the contract");
 
+struct IntGeometryBackend final {
+  using Cell = uint16_t;
+
+  [[maybe_unused]] static constexpr int capacityColumns = 8;
+  [[maybe_unused]] static constexpr int capacityRows    = 2;
+  static constexpr int                  columns         = 8;
+  static constexpr int                  rows            = 2;
+
+  static void initialize() noexcept {}
+
+  static Cell blankCell() noexcept {
+    return 0;
+  }
+
+  static Cell encodeCharacter(char character) noexcept {
+    return static_cast<Cell>(character);
+  }
+
+  static Cell encodeErrorCharacter(char character) noexcept {
+    return static_cast<Cell>(character);
+  }
+
+  static void upload(span<const Cell> cells) noexcept {
+    static_cast<void>(cells);
+  }
+};
+
 } // namespace
 
 // Printable bytes reach the buffer through encodeCharacter, and one write uploads once.
@@ -297,6 +324,30 @@ TEST_CASE("console/terminal/tab_size_is_configurable") {
   threeTerminal.write("A\tB");
 
   CHECK(FakeBackend::lastUpload[3] == 'B');
+}
+
+// A huge tab size clamps to the last column instead of overflowing the cursor arithmetic.
+TEST_CASE("console/terminal/tab_size_overflow_clamps_to_last_column") {
+  FakeBackend::reset();
+  TestTerminal terminal;
+  terminal.initialize();
+  terminal.setTabSize(SIZE_MAX);
+
+  terminal.write("A\tB");
+
+  CHECK(FakeBackend::lastUpload[0] == 'A');
+  CHECK(FakeBackend::lastUpload[15] == 'B');
+}
+
+// A backend may declare its geometry as int; the terminal handles the mixed types.
+TEST_CASE("console/terminal/int_geometry_backend_writes") {
+  toy::console::Terminal<IntGeometryBackend> terminal;
+  terminal.initialize();
+
+  terminal.write("A\tB");
+
+  CHECK(terminal.columns() == 8);
+  CHECK(terminal.rows() == 2);
 }
 
 // Vertical tab advances the row and keeps the column.
