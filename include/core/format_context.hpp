@@ -64,22 +64,24 @@ namespace toy {
       sink.buffer[sink.length++] = data[i];
   }
 
-  Sink sink;
-  toy::FormatContext output{&sink, &append};
-  output.write("hi", 2);
-  output.put('!');
+  void writeGreeting(Sink & sink) {
+    toy::FormatContext output{&sink, &append};
+    output.write("hi", 2);
+    output.put('!');
+  }
   \endcode
 
   \section format_context_performance Performance Characteristics
 
   * **Construction**: constant time.
-  * **write()**: one indirect call carrying \a data and \a count untouched.
+  * **write()**: one indirect call for a positive count, none for \c 0; \a data and \a count pass through untouched.
   * **put()**: one indirect call with the address of its character and a count of \c 1.
 
   \section format_context_safety Safety Guarantees
 
   * **Contracts**: a null callback fails at construction and a null \a data with a positive count fails in write(),
-    both under assert_message in debug builds.
+    both under assert_message in debug builds. A shipping build skips both checks: a stored null callback makes the
+    next write() or put() undefined behavior, and a null \a data reaches the callback unchecked.
   * **Bounds safety**: write() passes \a count through; bounding the copy is the callback's task.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 

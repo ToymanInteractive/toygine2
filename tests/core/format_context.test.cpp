@@ -33,19 +33,38 @@ namespace {
 // view.
 struct RecordingSink {
   const void * contextSeen = nullptr;
+  const char * dataSeen    = nullptr;
   char         data[4]     = {};
+  // Exact size of the case's input; the recorder reads no further, so an inflated count fails the count check without
+  // an over-read.
+  size_t       copyLimit   = 0;
   size_t       count       = 0;
   int          calls       = 0;
 };
 
-// Stores nothing, only records: the test asserts what FormatContext forwards, not what a destination keeps.
+// Copies a bounded sample of what the forwarded pointer named during the call, and records the arguments as given.
 void recordWrite(void * context, const char * data, size_t count) noexcept {
   auto & sink      = *static_cast<RecordingSink *>(context);
   sink.contextSeen = context;
+  sink.dataSeen    = data;
   sink.count       = count;
-  for (size_t i = 0; i < count && i < 4; ++i)
+  for (size_t i = 0; i < count && i < sink.copyLimit && i < 4; ++i)
     sink.data[i] = data[i];
   ++sink.calls;
+}
+
+// Records the context without dereferencing it; a null context leaves the callback nothing to write through, so the
+// record lives at file scope.
+struct ContextRecord {
+  const void * contextSeen = nullptr;
+  int          calls       = 0;
+};
+
+ContextRecord nullContextRecord;
+
+void recordNullContext(void * context, const char *, size_t) noexcept {
+  nullContextRecord.contextSeen = context;
+  ++nullContextRecord.calls;
 }
 
 // A callback constant evaluation accepts, for the compile-time probe below.
@@ -71,29 +90,28 @@ TEST_CASE("format_context/type_contract") {
                 "the callback signature carries noexcept");
 }
 
-// write() hands the callback exactly what it got: the constructor's context, the bytes, and the count.
+// write() hands the callback exactly what it got: the constructor's context, the caller's pointer, and the count.
 TEST_CASE("format_context/write_forwards_to_the_callback") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
-  context.write("hi", 2);
+  const char input[] = "hi";
+  sink.copyLimit     = 2;
+  context.write(input, 2);
   CHECK(sink.calls == 1);
   CHECK(sink.contextSeen == &sink);
+  CHECK(sink.dataSeen == input);
   CHECK(sink.count == 2);
   CHECK(sink.data[0] == 'h');
   CHECK(sink.data[1] == 'i');
 
-  context.write("!", 1);
+  const char single[] = "!";
+  sink.copyLimit      = 1;
+  context.write(single, 1);
   CHECK(sink.calls == 2);
+  CHECK(sink.dataSeen == single);
   CHECK(sink.count == 1);
   CHECK(sink.data[0] == '!');
-
-  // A copy carries the same pair, so it writes into the same sink.
-  FormatContext copy{context};
-  copy.write("z", 1);
-  CHECK(sink.calls == 3);
-  CHECK(sink.contextSeen == &sink);
-  CHECK(sink.data[0] == 'z');
 }
 
 // A zero count returns before the callback, so even a null pointer is a legal call.
@@ -106,11 +124,12 @@ TEST_CASE("format_context/write_with_zero_count_skips_the_callback") {
   CHECK(sink.calls == 0);
 }
 
-// put() forwards one character: the callback sees its address and a count of one.
+// put() forwards one character: the callback sees a count of one and reads the character through the forwarded pointer.
 TEST_CASE("format_context/put_writes_one_character") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
+  sink.copyLimit = 1;
   context.put('x');
   CHECK(sink.calls == 1);
   CHECK(sink.count == 1);
@@ -120,6 +139,32 @@ TEST_CASE("format_context/put_writes_one_character") {
   CHECK(sink.calls == 2);
   CHECK(sink.count == 1);
   CHECK(sink.data[0] == 'y');
+}
+
+// A copy carries the same pair, so it writes into the same sink through the same callback.
+TEST_CASE("format_context/copy_writes_through_the_same_pair") {
+  RecordingSink sink;
+  FormatContext original{&sink, &recordWrite};
+
+  FormatContext copied{original};
+  const char    input[] = "z";
+  sink.copyLimit        = 1;
+  copied.write(input, 1);
+  CHECK(sink.calls == 1);
+  CHECK(sink.contextSeen == &sink);
+  CHECK(sink.dataSeen == input);
+  CHECK(sink.count == 1);
+  CHECK(sink.data[0] == 'z');
+}
+
+// A null context is legal: construction accepts it and the callback receives it as passed.
+TEST_CASE("format_context/null_context_reaches_the_callback") {
+  nullContextRecord = {};
+  FormatContext context{nullptr, &recordNullContext};
+
+  context.write("x", 1);
+  CHECK(nullContextRecord.calls == 1);
+  CHECK(nullContextRecord.contextSeen == nullptr);
 }
 
 } // namespace toy
