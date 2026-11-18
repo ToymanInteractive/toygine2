@@ -73,6 +73,31 @@ void recordNullContext(void * context, const char * data, size_t count) noexcept
   ++recorder->calls;
 }
 
+// The usage example from the FormatContext class block, lifted into a case so the build catches an example the API
+// left behind; keep both in sync.
+struct Sink {
+  char   buffer[16];
+  size_t length = 0;
+};
+
+// Writes the range only when it fits whole.
+void append(void * context, const char * data, size_t count) noexcept {
+  auto & sink = *static_cast<Sink *>(context);
+  if (sink.length + count > 16)
+    return;
+  for (size_t i = 0; i < count; ++i)
+    sink.buffer[sink.length++] = data[i];
+}
+
+// Returns false when the sink did not take the whole greeting.
+bool writeGreeting(Sink & sink) {
+  const size_t       start = sink.length;
+  toy::FormatContext output{&sink, &append};
+  output.write("hi", 2);
+  output.put('!');
+  return sink.length - start == 3;
+}
+
 // A callback constant evaluation accepts, for the compile-time probe below.
 constexpr void noopWrite(void *, const char *, size_t) noexcept {}
 
@@ -173,6 +198,24 @@ TEST_CASE("format_context/null_context_reaches_the_callback") {
   context.write(static_cast<const char *>(static_cast<const void *>(&recorder)), sizeof(recorder));
   CHECK(record.calls == 1);
   CHECK(record.contextSeen == nullptr);
+}
+
+// Both outcomes of the documented example: the greeting lands in an empty sink, and a one-byte-short sink takes only
+// part of it.
+TEST_CASE("format_context/usage_example_greeting") {
+  Sink empty;
+  CHECK(writeGreeting(empty));
+  REQUIRE(empty.length == 3);
+  CHECK(empty.buffer[0] == 'h');
+  CHECK(empty.buffer[1] == 'i');
+  CHECK(empty.buffer[2] == '!');
+
+  Sink nearlyFull;
+  nearlyFull.length = 14;
+  CHECK(!writeGreeting(nearlyFull));
+  REQUIRE(nearlyFull.length == 16);
+  CHECK(nearlyFull.buffer[14] == 'h');
+  CHECK(nearlyFull.buffer[15] == 'i');
 }
 
 } // namespace toy
