@@ -123,6 +123,28 @@ endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
 
+set(SRC_APPLICATION_LIST
+    src/application/console_application.cpp)
+set(HDR_APPLICATION_LIST
+    include/application.hpp
+    include/application/base_application.hpp
+    include/application/console_application.hpp
+    include/application/version.hpp)
+set(INL_APPLICATION_LIST
+    include/application/base_application.inl
+    include/application/console_application.inl
+    include/application/version.inl)
+
+#-----------------------------------------------------------------------------------------------------------------------
+
+set(SRC_AUDIO_LIST )
+set(HDR_AUDIO_LIST
+    include/audio.hpp
+    include/audio/volume_type.hpp)
+set(INL_AUDIO_LIST )
+
+#-----------------------------------------------------------------------------------------------------------------------
+
 set(SRC_CORE_LIST
     src/core/log_isink.cpp
     src/core/string_utils.cpp)
@@ -137,6 +159,9 @@ set(HDR_CORE_LIST
     include/core/chrono_system_clock.hpp
     include/core/chrono_timestamp.hpp
     include/core/fixed_string_storage.hpp
+    include/core/format_context.hpp
+    include/core/format_pattern.hpp
+    include/core/format_string.hpp
     include/core/log_isink.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
@@ -154,23 +179,12 @@ set(INL_CORE_LIST
     include/core/chrono_stopwatch.inl
     include/core/chrono_timestamp.inl
     include/core/fixed_string_storage.inl
+    include/core/format_context.inl
+    include/core/format_pattern.inl
+    include/core/format_string.inl
     include/core/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)
-
-#-----------------------------------------------------------------------------------------------------------------------
-
-set(SRC_APPLICATION_LIST
-    src/application/console_application.cpp)
-set(HDR_APPLICATION_LIST
-    include/application.hpp
-    include/application/base_application.hpp
-    include/application/console_application.hpp
-    include/application/version.hpp)
-set(INL_APPLICATION_LIST
-    include/application/base_application.inl
-    include/application/console_application.inl
-    include/application/version.inl)
 
 #-----------------------------------------------------------------------------------------------------------------------
 
@@ -307,15 +321,17 @@ endif ()
 #-----------------------------------------------------------------------------------------------------------------------
 
 source_group("Application" FILES ${SRC_APPLICATION_LIST} ${HDR_APPLICATION_LIST} ${INL_APPLICATION_LIST})
+source_group("Audio"       FILES ${SRC_AUDIO_LIST}       ${HDR_AUDIO_LIST}       ${INL_AUDIO_LIST})
 source_group("Console"     FILES ${SRC_CONSOLE_LIST}     ${HDR_CONSOLE_LIST}     ${INL_CONSOLE_LIST})
 source_group("Core"        FILES ${SRC_CORE_LIST}        ${HDR_CORE_LIST}        ${INL_CORE_LIST})
 source_group("Video"       FILES ${SRC_VIDEO_LIST}       ${HDR_VIDEO_LIST}       ${INL_VIDEO_LIST})
 
 #-----------------------------------------------------------------------------------------------------------------------
 
-list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST} ${SRC_CONSOLE_LIST} ${SRC_VIDEO_LIST})
-list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_CONSOLE_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp include/platforms/platform_config.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
-list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST} ${INL_CONSOLE_LIST} ${INL_VIDEO_LIST})
+list(APPEND SRC_LIST ${SRC_CORE_LIST} ${SRC_APPLICATION_LIST} ${SRC_AUDIO_LIST} ${SRC_CONSOLE_LIST} ${SRC_VIDEO_LIST})
+list(APPEND HDR_LIST ${HDR_CORE_LIST} ${HDR_APPLICATION_LIST} ${HDR_AUDIO_LIST} ${HDR_CONSOLE_LIST} ${HDR_VIDEO_LIST} include/toygine.hpp include/platforms/platform_config.hpp ${TOYGINE_TARGET_PLATFORM_CONFIG_HEADER})
+list(APPEND INL_LIST ${INL_CORE_LIST} ${INL_APPLICATION_LIST} ${INL_AUDIO_LIST} ${INL_CONSOLE_LIST} ${INL_VIDEO_LIST})
+
 set(LIB_LIST ${LIB_LIST})
 
 add_library(${TOYGINE_LIBRARY_NAME} STATIC ${SRC_LIST} ${HDR_LIST} ${INL_LIST})

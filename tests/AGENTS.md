@@ -38,6 +38,7 @@ What a case may depend on and which seam it drives; placement, gating, and CI me
 * **Assert the observable contract:** Bind a case to what the public API returns, never to internal state or a layout the type may change; a refactor that preserves behavior leaves the test untouched (see Test seams, not test hooks).
 * **Diagnose on failure:** Assert values, not a folded boolean, so the report prints what was produced; carry index or parameter context in a DocTest `INFO` so a parameterized failure names its case.
 * **Expected values derive from the source:** Check a `size()` against `std::char_traits<char>::length("...")` on the same literal (needs `<string>`), never a hand-counted constant — the literal stays the single source of truth, multi-byte UTF-8 included.
+* **A red test is a diagnosis:** Never edit an expectation just to turn it green; state the cause — a wrong expectation, a changed contract, or a moved API — to the owner or in the commit message, never silently (see Golden data).
 * **A flaky test is a defect:** Fix or delete it — never retry, skip, or quarantine. Intermittence means the test reads unspecified state or the system is non-deterministic, both worse bugs than the test. Seed anything random explicitly; an unseeded failure is unreproducible (see Determinism).
 * **Editor tests:** The editor does not follow the module layout — see [`editor/AGENTS.md`](../editor/AGENTS.md).
 

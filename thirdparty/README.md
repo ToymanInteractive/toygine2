@@ -5,7 +5,7 @@ Please keep categories (`##` level) listed alphabetically and matching their res
 ## agbabi
 
 - Upstream: <https://github.com/felixjones/agbabi>
-- Version: main (2adf1e6c01f9d4acd6f8e728892c5e18aae5332e, 2023)
+- Version: main (19d148710a85b9e87f961071fd2fc5ee2b5136a4, 2024)
 - License: zlib, in `LICENSE.md`
 
 Files extracted from upstream source:

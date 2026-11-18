@@ -297,7 +297,7 @@ jobs:
 
       - name: Install bencher CLI
         if: matrix.run_benchmarks == 'true'
-        uses: bencherdev/bencher@v0.6.16
+        uses: bencherdev/bencher@v0.6.17
 
       - name: Upload benchmarks to bencher.dev
         if: matrix.run_benchmarks == 'true' && github.event_name != 'pull_request' && github.ref_name == 'main'
@@ -431,7 +431,7 @@ jobs:
         run: |
           cmake --preset linux-debug
 
-      - uses: SonarSource/sonarqube-scan-action@v8.4.1
+      - uses: SonarSource/sonarqube-scan-action@v8.5.0
         with:
           args: >-
             -Dsonar.cfamily.compile-commands=out/build/linux-debug/compile_commands.json
