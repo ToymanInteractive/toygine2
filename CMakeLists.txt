@@ -139,6 +139,7 @@ set(INL_APPLICATION_LIST
 
 set(SRC_AUDIO_LIST )
 set(HDR_AUDIO_LIST
+    include/audio.hpp
     include/audio/volume_type.hpp)
 set(INL_AUDIO_LIST )
 
