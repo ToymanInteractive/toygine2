@@ -137,6 +137,7 @@ set(HDR_CORE_LIST
     include/core/chrono_system_clock.hpp
     include/core/chrono_timestamp.hpp
     include/core/fixed_string_storage.hpp
+    include/core/format_context.hpp
     include/core/format_pattern.hpp
     include/core/format_string.hpp
     include/core/log_isink.hpp
@@ -156,6 +157,7 @@ set(INL_CORE_LIST
     include/core/chrono_stopwatch.inl
     include/core/chrono_timestamp.inl
     include/core/fixed_string_storage.inl
+    include/core/format_context.inl
     include/core/format_pattern.inl
     include/core/format_string.inl
     include/core/string_utils.inl
