@@ -205,7 +205,7 @@ TEST_CASE("format_context/null_context_reaches_the_callback") {
 TEST_CASE("format_context/usage_example_greeting") {
   Sink empty;
   CHECK(writeGreeting(empty));
-  CHECK(empty.length == 3);
+  REQUIRE(empty.length == 3);
   CHECK(empty.buffer[0] == 'h');
   CHECK(empty.buffer[1] == 'i');
   CHECK(empty.buffer[2] == '!');
@@ -213,7 +213,7 @@ TEST_CASE("format_context/usage_example_greeting") {
   Sink nearlyFull;
   nearlyFull.length = 14;
   CHECK(!writeGreeting(nearlyFull));
-  CHECK(nearlyFull.length == 16);
+  REQUIRE(nearlyFull.length == 16);
   CHECK(nearlyFull.buffer[14] == 'h');
   CHECK(nearlyFull.buffer[15] == 'i');
 }
