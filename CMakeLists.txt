@@ -146,6 +146,7 @@ set(INL_AUDIO_LIST )
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST
+    src/core/hashes.cpp
     src/core/log_isink.cpp
     src/core/string_utils.cpp)
 set(HDR_CORE_LIST
