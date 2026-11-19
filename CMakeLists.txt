@@ -192,7 +192,8 @@ set(INL_CORE_LIST
 set(SRC_NETWORK_LIST )
 set(HDR_NETWORK_LIST
     include/network.hpp
-    include/network/socket_flags.hpp)
+    include/network/socket_flags.hpp
+    include/network/socket_type.hpp)
 set(INL_NETWORK_LIST )
 
 #-----------------------------------------------------------------------------------------------------------------------
