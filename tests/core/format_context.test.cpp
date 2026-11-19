@@ -109,16 +109,17 @@ constexpr bool constructsInConstantExpression() noexcept {
 
 } // namespace
 
-// The type stays two plain pointers: free to copy, nothing to destroy, and buildable in a constant expression. They
-// are compile-time checks, so they sit outside any case; a violation fails the build.
-static_assert(std::is_trivially_copyable_v<FormatContext>, "the object copies as plain data");
-static_assert(std::is_trivially_destructible_v<FormatContext>, "two pointers own nothing to destroy");
-static_assert(std::is_nothrow_copy_constructible_v<FormatContext>, "copying two pointers cannot fail");
-static_assert(std::is_nothrow_move_constructible_v<FormatContext>, "moving the type is copying it");
-static_assert(noexcept(FormatContext{nullptr, noopWrite}), "construction cannot fail");
-static_assert(constructsInConstantExpression(), "the constructor runs in a constant expression");
-static_assert(std::is_same_v<FormatContext::WriteFunction, void (*)(void *, span<const char>) noexcept>,
-              "the callback signature carries noexcept");
+// The type stays two plain pointers: free to copy, nothing to destroy, and buildable in a constant expression.
+TEST_CASE("format_context/traits") {
+  static_assert(std::is_trivially_copyable_v<FormatContext>, "the object copies as plain data");
+  static_assert(std::is_trivially_destructible_v<FormatContext>, "two pointers own nothing to destroy");
+  static_assert(std::is_nothrow_copy_constructible_v<FormatContext>, "copying two pointers cannot fail");
+  static_assert(std::is_nothrow_move_constructible_v<FormatContext>, "moving the type is copying it");
+  static_assert(noexcept(FormatContext{nullptr, noopWrite}), "construction cannot fail");
+  static_assert(constructsInConstantExpression(), "the constructor runs in a constant expression");
+  static_assert(std::is_same_v<FormatContext::WriteFunction, void (*)(void *, span<const char>) noexcept>,
+                "the callback signature carries noexcept");
+}
 
 // write() hands the callback exactly what it got: the constructor's context and the caller's view.
 TEST_CASE("format_context/write_forwards_to_the_callback") {
