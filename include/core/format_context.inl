@@ -35,16 +35,17 @@ constexpr FormatContext::FormatContext(void * context, WriteFunction writeFn) no
   assert_message(writeFn != nullptr, "FormatContext requires a non-null write callback");
 }
 
-inline void FormatContext::write(const char * data, size_t count) noexcept {
-  if (count == 0)
+inline void FormatContext::write(span<const char> data) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to write");
+
+  if (data.empty())
     return;
 
-  assert_message(data != nullptr, "FormatContext::write requires non-null data when count > 0");
-  _writeFn(_context, data, count);
+  _writeFn(_context, data);
 }
 
 inline void FormatContext::put(char character) noexcept {
-  _writeFn(_context, &character, 1);
+  _writeFn(_context, span{&character, 1});
 }
 
 } // namespace toy
