@@ -58,20 +58,20 @@ namespace toy {
     size_t length = 0;
   };
 
-  // Writes the range only when it fits whole.
-  void append(void * context, const char * data, size_t count) noexcept {
+  // Writes the view only when it fits whole.
+  void append(void * context, toy::span<const char> data) noexcept {
     auto & sink = *static_cast<Sink *>(context);
-    if (sink.length + count > 16)
+    if (sink.length + data.size() > 16)
       return;
-    for (size_t i = 0; i < count; ++i)
-      sink.buffer[sink.length++] = data[i];
+    for (const char character : data)
+      sink.buffer[sink.length++] = character;
   }
 
   // Returns false when the sink did not take the whole greeting.
   bool writeGreeting(Sink & sink) {
-    const size_t start = sink.length;
+    const size_t       start = sink.length;
     toy::FormatContext output{&sink, &append};
-    output.write("hi", 2);
+    output.write(toy::span<const char>{"hi", 2});
     output.put('!');
     return sink.length - start == 3;
   }
@@ -80,16 +80,16 @@ namespace toy {
   \section format_context_performance Performance Characteristics
 
   * **Construction**: constant time.
-  * **write()**: one indirect call for a positive count, none for \c 0; \a data and \a count pass through untouched.
-  * **put()**: one indirect call with the address of its character and a count of \c 1.
+  * **write()**: one indirect call for a non-empty view, none when it is empty; \a data passes through untouched.
+  * **put()**: one indirect call with a one-character view of its character.
 
   \section format_context_safety Safety Guarantees
 
-  * **Contracts**: with assertions enabled, assert_message checks a null callback at construction and a null \a data
-    with a positive count in write(); a registered handler decides whether a failed check continues, and with none
-    registered the check stops the run. A shipping build skips both checks: a stored null callback makes the next
-    dispatching write() or put() undefined behavior, and a null \a data reaches the callback unchecked.
-  * **Bounds safety**: write() passes \a count through; bounding the copy is the callback's task.
+  * **Contracts**: with assertions enabled, assert_message checks a null callback at construction and a null pointer in
+    a non-empty write() view; a registered handler decides whether a failed check continues, and with none registered
+    the check stops the run. A shipping build skips both checks: a stored null callback makes the next dispatching
+    write() or put() undefined behavior, and a null pointer in a non-empty view reaches the callback unchecked.
+  * **Bounds safety**: write() passes the view through; bounding the copy is the callback's task.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
   \note The context is borrowed: the object and every copy store the address, and the pointee must stay valid for
@@ -106,14 +106,13 @@ public:
   /*!
     \brief Callback write() and put() forward their characters to.
 
-    Receives the context exactly as passed at construction, and a readable range of \a count bytes at \a data for the
-    duration of the call. The pointer type carries \c noexcept, so a function that can throw does not fit.
+    Receives the context exactly as passed at construction, and the readable characters of \a data for the duration of
+    the call. The pointer type carries \c noexcept, so a function that can throw does not fit.
 
     \param context  Caller-owned value from the constructor; only the callback interprets it.
-    \param data     Bytes to emit.
-    \param count    Number of bytes at \a data.
+    \param data     Characters to emit.
   */
-  using WriteFunction = void (*)(void * context, const char * data, size_t count) noexcept;
+  using WriteFunction = void (*)(void * context, span<const char> data) noexcept;
 
   /*!
     \brief Couples \a context with the callback that receives it on every write.
@@ -133,26 +132,25 @@ public:
   /*!
     \brief Forwards a character range to the callback.
 
-    A zero count returns without calling the callback; \a data may be null in that case.
+    An empty view returns without calling the callback; its pointer may be null in that case.
 
-    \param data  Bytes to emit.
-    \param count Number of bytes at \a data.
+    \param data  Characters to emit.
 
-    \pre For a positive \a count, \a data names \a count readable bytes for the duration of the callback; only the
-         null check is enforced, by assert_message in debug builds.
+    \pre \a data names readable characters for the duration of the callback.
+    \pre \a data is empty or names a non-null pointer, checked by assert_message in debug builds.
 
-    \post For a positive count the callback has run once with the constructor's context, \a data, and \a count.
+    \post For a non-empty view the callback has run once with the constructor's context and \a data.
 
     \sa put()
   */
-  void write(const char * data, size_t count) noexcept;
+  void write(span<const char> data) noexcept;
 
   /*!
     \brief Writes one character through the callback.
 
     \param character Byte to emit.
 
-    \post The callback has run once with the address of \a character and a count of \c 1.
+    \post The callback has run once with a one-character view of \a character.
   */
   void put(char character) noexcept;
 

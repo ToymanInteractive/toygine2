@@ -106,43 +106,32 @@ static constexpr array<uint32_t, 256> _crc32Table{
    }
 };
 
-uint8_t crc8(const void * src, size_t size, uint8_t crc) noexcept {
-  assert_message(src != nullptr, "Data pointer must not be null");
+uint8_t crc8(span<const byte> data, uint8_t crc) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no bytes to checksum");
 
-  const auto * data = static_cast<const uint8_t *>(src);
-
-  while (size > 0) {
-    --size;
-    crc = _crc8Table[static_cast<size_t>(crc ^ *data++)];
-  }
+  for (const byte unit : data)
+    crc = _crc8Table[static_cast<size_t>(crc ^ std::to_integer<uint8_t>(unit))];
 
   return crc;
 }
 
-uint16_t crc16(const void * src, size_t size, uint16_t crc) noexcept {
-  assert_message(src != nullptr, "Data pointer must not be null");
+uint16_t crc16(span<const byte> data, uint16_t crc) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no bytes to checksum");
 
-  const auto * data = static_cast<const uint8_t *>(src);
-
-  while (size > 0) {
-    --size;
-    crc = static_cast<uint16_t>((crc >> 8) ^ _crc16Table[static_cast<size_t>((crc ^ *data++) & 0xFF)]);
-  }
+  for (const byte unit : data)
+    crc = static_cast<uint16_t>((crc >> 8)
+                                ^ _crc16Table[static_cast<size_t>((crc ^ std::to_integer<uint8_t>(unit)) & 0xFF)]);
 
   return crc;
 }
 
-uint32_t crc32(const void * src, size_t size, uint32_t crc) noexcept {
-  assert_message(src != nullptr, "Data pointer must not be null");
-
-  const auto * data = static_cast<const uint8_t *>(src);
+uint32_t crc32(span<const byte> data, uint32_t crc) noexcept {
+  assert_message(data.data() != nullptr || data.empty(), "a null pointer names no bytes to checksum");
 
   crc = ~crc;
 
-  while (size > 0) {
-    --size;
-    crc = _crc32Table[(crc ^ (*data++)) & 0xFF] ^ (crc >> 8);
-  }
+  for (const byte unit : data)
+    crc = _crc32Table[static_cast<size_t>((crc ^ std::to_integer<uint8_t>(unit)) & 0xFF)] ^ (crc >> 8);
 
   return ~crc;
 }

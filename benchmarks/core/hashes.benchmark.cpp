@@ -43,18 +43,21 @@ constexpr array<uint8_t, largeSize> buffer = [] {
   return bytes;
 }();
 
-// Hands a pointer through an opaque barrier, so a measured call reads the buffer instead of a folded constant.
-[[nodiscard]] const uint8_t * opaque(const uint8_t * data) noexcept {
-  benchmark::doNotOptimizeAway(data);
+// Hands a view through an opaque barrier, so a measured call reads the buffer instead of a folded constant.
+[[nodiscard]] toy::span<const std::byte> opaque(toy::span<const std::byte> data) noexcept {
+  toy::benchmark::doNotOptimizeAway(data.data());
 
   return data;
 }
 
-// The bitwise loop hash::crc8() tabulates: the reflected polynomial 0x8C applied eight times per byte.
-[[nodiscard]] uint8_t bitwiseCrc8(const uint8_t * data, size_t size, uint8_t crc = 0x00) noexcept {
+// The bitwise loop toy::hash::crc8() tabulates: the reflected polynomial 0x8C applied eight times per byte.
+[[nodiscard]] uint8_t bitwiseCrc8(toy::span<const std::byte> data, uint8_t crc = 0x00) noexcept {
+  const std::byte * unit = data.data();
+  size_t            size = data.size();
+
   while (size > 0) {
     --size;
-    crc ^= *data++;
+    crc ^= std::to_integer<uint8_t>(*unit++);
 
     for (unsigned bit = 0; bit < 8; ++bit)
       crc = static_cast<uint8_t>((crc >> 1) ^ ((crc & 1U) != 0U ? 0x8CU : 0U));
@@ -63,11 +66,14 @@ constexpr array<uint8_t, largeSize> buffer = [] {
   return crc;
 }
 
-// The bitwise loop hash::crc16() tabulates: the reflected polynomial 0xA001 applied eight times per byte.
-[[nodiscard]] uint16_t bitwiseCrc16(const uint8_t * data, size_t size, uint16_t crc = 0x0000) noexcept {
+// The bitwise loop toy::hash::crc16() tabulates: the reflected polynomial 0xA001 applied eight times per byte.
+[[nodiscard]] uint16_t bitwiseCrc16(toy::span<const std::byte> data, uint16_t crc = 0x0000) noexcept {
+  const std::byte * unit = data.data();
+  size_t            size = data.size();
+
   while (size > 0) {
     --size;
-    crc = static_cast<uint16_t>(crc ^ *data++);
+    crc = static_cast<uint16_t>(crc ^ std::to_integer<uint8_t>(*unit++));
 
     for (unsigned bit = 0; bit < 8; ++bit)
       crc = static_cast<uint16_t>((crc >> 1) ^ ((crc & 1U) != 0U ? 0xA001U : 0U));
@@ -76,13 +82,16 @@ constexpr array<uint8_t, largeSize> buffer = [] {
   return crc;
 }
 
-// The bitwise loop hash::crc32() tabulates: the reflected polynomial 0xEDB88320 behind a complemented state.
-[[nodiscard]] uint32_t bitwiseCrc32(const uint8_t * data, size_t size, uint32_t crc = 0x00000000) noexcept {
+// The bitwise loop toy::hash::crc32() tabulates: the reflected polynomial 0xEDB88320 behind a complemented state.
+[[nodiscard]] uint32_t bitwiseCrc32(toy::span<const std::byte> data, uint32_t crc = 0x00000000) noexcept {
+  const std::byte * unit = data.data();
+  size_t            size = data.size();
+
   crc = ~crc;
 
   while (size > 0) {
     --size;
-    crc ^= *data++;
+    crc ^= std::to_integer<uint8_t>(*unit++);
 
     for (unsigned bit = 0; bit < 8; ++bit)
       crc = (crc >> 1) ^ ((crc & 1U) != 0U ? 0xEDB88320U : 0U);
@@ -94,86 +103,86 @@ constexpr array<uint8_t, largeSize> buffer = [] {
 } // namespace
 
 BENCHMARK_CASE("core/hash/crc8/compute") {
-  const uint8_t * data = opaque(buffer.data());
+  const toy::span<const std::byte> data = opaque(std::as_bytes(toy::span{buffer})).first(smallSize);
 
   bench.unit("checksum");
 
-  bench.run("hash::crc8", [&] {
-    benchmark::doNotOptimizeAway(hash::crc8(data, smallSize));
+  bench.run("toy::hash::crc8", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::hash::crc8(data));
   });
 
   bench.run("bitwiseCrc8", [&] {
-    benchmark::doNotOptimizeAway(bitwiseCrc8(data, smallSize));
+    toy::benchmark::doNotOptimizeAway(bitwiseCrc8(data));
   });
 }
 
 BENCHMARK_CASE("core/hash/crc8/compute_large") {
-  const uint8_t * data = opaque(buffer.data());
+  const toy::span<const std::byte> data = opaque(std::as_bytes(toy::span{buffer}));
 
   bench.unit("checksum");
 
-  bench.run("hash::crc8", [&] {
-    benchmark::doNotOptimizeAway(hash::crc8(data, largeSize));
+  bench.run("toy::hash::crc8", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::hash::crc8(data));
   });
 
   bench.run("bitwiseCrc8", [&] {
-    benchmark::doNotOptimizeAway(bitwiseCrc8(data, largeSize));
+    toy::benchmark::doNotOptimizeAway(bitwiseCrc8(data));
   });
 }
 
 BENCHMARK_CASE("core/hash/crc16/compute") {
-  const uint8_t * data = opaque(buffer.data());
+  const toy::span<const std::byte> data = opaque(std::as_bytes(toy::span{buffer})).first(smallSize);
 
   bench.unit("checksum");
 
-  bench.run("hash::crc16", [&] {
-    benchmark::doNotOptimizeAway(hash::crc16(data, smallSize));
+  bench.run("toy::hash::crc16", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::hash::crc16(data));
   });
 
   bench.run("bitwiseCrc16", [&] {
-    benchmark::doNotOptimizeAway(bitwiseCrc16(data, smallSize));
+    toy::benchmark::doNotOptimizeAway(bitwiseCrc16(data));
   });
 }
 
 BENCHMARK_CASE("core/hash/crc16/compute_large") {
-  const uint8_t * data = opaque(buffer.data());
+  const toy::span<const std::byte> data = opaque(std::as_bytes(toy::span{buffer}));
 
   bench.unit("checksum");
 
-  bench.run("hash::crc16", [&] {
-    benchmark::doNotOptimizeAway(hash::crc16(data, largeSize));
+  bench.run("toy::hash::crc16", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::hash::crc16(data));
   });
 
   bench.run("bitwiseCrc16", [&] {
-    benchmark::doNotOptimizeAway(bitwiseCrc16(data, largeSize));
+    toy::benchmark::doNotOptimizeAway(bitwiseCrc16(data));
   });
 }
 
 BENCHMARK_CASE("core/hash/crc32/compute") {
-  const uint8_t * data = opaque(buffer.data());
+  const toy::span<const std::byte> data = opaque(std::as_bytes(toy::span{buffer})).first(smallSize);
 
   bench.unit("checksum");
 
-  bench.run("hash::crc32", [&] {
-    benchmark::doNotOptimizeAway(hash::crc32(data, smallSize));
+  bench.run("toy::hash::crc32", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::hash::crc32(data));
   });
 
   bench.run("bitwiseCrc32", [&] {
-    benchmark::doNotOptimizeAway(bitwiseCrc32(data, smallSize));
+    toy::benchmark::doNotOptimizeAway(bitwiseCrc32(data));
   });
 }
 
 BENCHMARK_CASE("core/hash/crc32/compute_large") {
-  const uint8_t * data = opaque(buffer.data());
+  const toy::span<const std::byte> data = opaque(std::as_bytes(toy::span{buffer}));
 
   bench.unit("checksum");
 
-  bench.run("hash::crc32", [&] {
-    benchmark::doNotOptimizeAway(hash::crc32(data, largeSize));
+  bench.run("toy::hash::crc32", [&] {
+    toy::benchmark::doNotOptimizeAway(toy::hash::crc32(data));
   });
 
   bench.run("bitwiseCrc32", [&] {
-    benchmark::doNotOptimizeAway(bitwiseCrc32(data, largeSize));
+    toy::benchmark::doNotOptimizeAway(bitwiseCrc32(data));
   });
 }
 
