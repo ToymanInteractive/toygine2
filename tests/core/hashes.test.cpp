@@ -54,9 +54,11 @@ const span<const byte> chunkRange = std::as_bytes(span{chunkData});
 } // namespace
 
 // The sums live in another translation unit, so the compile-time contract is only their exception specification.
-static_assert(noexcept(crc8(asBytes(checkData), 0)), "crc8 must stay noexcept");
-static_assert(noexcept(crc16(asBytes(checkData), 0)), "crc16 must stay noexcept");
-static_assert(noexcept(crc32(asBytes(checkData), 0)), "crc32 must stay noexcept");
+TEST_CASE("hash/crc/stays_noexcept") {
+  static_assert(noexcept(crc8(asBytes(checkData), 0)), "crc8 must stay noexcept");
+  static_assert(noexcept(crc16(asBytes(checkData), 0)), "crc16 must stay noexcept");
+  static_assert(noexcept(crc32(asBytes(checkData), 0)), "crc32 must stay noexcept");
+}
 
 // CRC-8 over the reflected polynomial 0x31, the Dallas one-wire sum; the CRC catalog fixes its check value at 0xA1.
 TEST_CASE("hash/crc8/computes_the_catalog_check_value") {

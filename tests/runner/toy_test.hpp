@@ -210,11 +210,12 @@ private:
 #define TOY_TEST_UNIQUE(prefix)         TOY_TEST_CONCAT(prefix, __LINE__)
 
 // The registrar is not const: a later registration writes the link of an earlier node, see toy::test::CaseRegistrar.
+// Static-only bodies never use the context; [[maybe_unused]] keeps -Wextra from failing the build on them.
 #define TOY_TEST_CASE_IMPL(caseName, bodyName, registrarName)                                                          \
-  static void                       bodyName(::toy::test::Context & toyTestContext);                                   \
+  static void                       bodyName([[maybe_unused]] ::toy::test::Context & toyTestContext);                  \
   static ::toy::test::CaseRegistrar registrarName{::toy::test::detail::caseListHead, caseName, __FILE__, __LINE__,     \
                                                   &bodyName};                                                          \
-  static void                       bodyName(::toy::test::Context & toyTestContext)
+  static void                       bodyName([[maybe_unused]] ::toy::test::Context & toyTestContext)
 
 #define TOY_TEST_SUBCASE_IMPL(subcaseName, guardName)                                                                  \
   if (const ::toy::test::detail::SubcaseGuard guardName{toyTestContext, subcaseName}; guardName.entered())
