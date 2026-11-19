@@ -22,8 +22,6 @@
   \brief  Unit tests for the toy::hash::crc8(), toy::hash::crc16() and toy::hash::crc32() checksums.
 */
 
-#include <string>
-
 #include "core.hpp"
 #include "toy_test.hpp"
 
