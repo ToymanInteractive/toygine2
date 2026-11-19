@@ -19,7 +19,7 @@
 //
 /*!
   \file   string_view.benchmark.cpp
-  \brief  Search and comparison of \ref toy::StringView; desktop adds std::string_view.
+  \brief  Benchmarks for search and comparison of \ref toy::StringView; desktop adds std::string_view.
 */
 
 #include <algorithm>
@@ -28,48 +28,50 @@
 #include "core.hpp"
 #include "toy_benchmark.hpp"
 
+namespace toy {
+
 namespace {
 
 // Text every measurement reads. Long enough that a scan costs something, short enough to stay in the first cache level.
 constexpr const char *
-  c_haystack = "the quick brown fox jumps over the lazy dog while the quick brown cat sleeps under the warm summer sun";
+  haystack = "the quick brown fox jumps over the lazy dog while the quick brown cat sleeps under the warm summer sun";
 
 // Word sitting near the end of the text, so a search pays close to its worst case before it answers.
-constexpr const char * c_needle = "summer";
+constexpr const char * needleText = "summer";
 
 // Character the text does not hold, so a search for it scans every byte before it answers.
-constexpr char c_missing = '!';
+constexpr char missing = '!';
 
 // Characters the text does not hold, so a set search scans every byte and tests the whole set against each one.
-constexpr const char * c_absentSet = "!?#%&";
+constexpr const char * absentSet = "!?#%&";
 
 // The same, four times as many characters, so a second measurement shows how the cost follows the size of the set.
-constexpr const char * c_absentWideSet = "!?#%&@$^*()[]{}<>|~+";
+constexpr const char * absentWideSet = "!?#%&@$^*()[]{}<>|~+";
 
 // Prefix the text carries, long enough that an answer takes more than the first character.
-constexpr const char * c_prefix = "the quick brown fox";
+constexpr const char * prefixText = "the quick brown fox";
 
 // Text in three lead widths: ASCII, two-byte Cyrillic, three-byte Japanese, so a character count meets each of them.
-constexpr const char * c_utf8Text
+constexpr const char * utf8Text
   = "the quick brown fox, съешь же ещё этих мягких французских булок, すばやい茶色の狐 jumps over the lazy dog";
 
 // Long text length: forty times the short one, inside the first cache level, so a case measures search not memory.
-constexpr size_t c_largeSize = 4096;
+constexpr size_t largeSize = 4096;
 
 // Long text every large case reads: the prefix at the front, the needle at the back, an alphabet cycle between them.
 // Neither the prefix nor the needle occurs inside the cycle, so every search crosses the whole text.
 // The cycle repeats each letter every 26 bytes, which is how often a substring search meets a candidate first byte.
 [[nodiscard]] const char * largeHaystack() noexcept {
-  static const toy::array<char, c_largeSize + 1> text = [] {
-    toy::array<char, c_largeSize + 1> buffer{};
+  static const array<char, largeSize + 1> text = [] {
+    array<char, largeSize + 1> buffer{};
 
-    const size_t prefixLength = std::char_traits<char>::length(c_prefix);
-    const size_t needleLength = std::char_traits<char>::length(c_needle);
+    const size_t prefixLength = std::char_traits<char>::length(prefixText);
+    const size_t needleLength = std::char_traits<char>::length(needleText);
 
-    std::char_traits<char>::copy(buffer.data(), c_prefix, prefixLength);
-    for (size_t index = prefixLength; index < c_largeSize - needleLength; ++index)
+    std::char_traits<char>::copy(buffer.data(), prefixText, prefixLength);
+    for (size_t index = prefixLength; index < largeSize - needleLength; ++index)
       buffer[index] = static_cast<char>('a' + (index % 26));
-    std::char_traits<char>::copy(buffer.data() + c_largeSize - needleLength, c_needle, needleLength);
+    std::char_traits<char>::copy(buffer.data() + largeSize - needleLength, needleText, needleLength);
 
     return buffer;
   }();
@@ -79,7 +81,7 @@ constexpr size_t c_largeSize = 4096;
 
 // Hands a pointer through an opaque barrier, so a measured call reads the text instead of a folded constant.
 [[nodiscard]] const char * opaque(const char * string) noexcept {
-  toy::benchmark::doNotOptimizeAway(string);
+  benchmark::doNotOptimizeAway(string);
 
   return string;
 }
@@ -87,282 +89,284 @@ constexpr size_t c_largeSize = 4096;
 } // namespace
 
 BENCHMARK_CASE("core/string_view/find") {
-  const toy::StringView view(opaque(c_haystack));
-  const toy::StringView needle(opaque(c_needle));
+  const StringView view(opaque(haystack));
+  const StringView needle(opaque(needleText));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find(needle));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find(needle));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
-  const std::string_view needleReference(opaque(c_needle));
+  const std::string_view reference(opaque(haystack));
+  const std::string_view needleReference(opaque(needleText));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find(needleReference));
+    benchmark::doNotOptimizeAway(reference.find(needleReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/find_large") {
-  const toy::StringView view(opaque(largeHaystack()));
-  const toy::StringView needle(opaque(c_needle));
+  const StringView view(opaque(largeHaystack()));
+  const StringView needle(opaque(needleText));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find(needle));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find(needle));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   const std::string_view reference(opaque(largeHaystack()));
-  const std::string_view needleReference(opaque(c_needle));
+  const std::string_view needleReference(opaque(needleText));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find(needleReference));
+    benchmark::doNotOptimizeAway(reference.find(needleReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/find_char_large") {
-  const toy::StringView view(opaque(largeHaystack()));
+  const StringView view(opaque(largeHaystack()));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find(c_missing));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find(missing));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   const std::string_view reference(opaque(largeHaystack()));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find(c_missing));
+    benchmark::doNotOptimizeAway(reference.find(missing));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/find_first_of_large") {
-  const toy::StringView view(opaque(largeHaystack()));
-  const toy::StringView set(opaque(c_absentSet));
+  const StringView view(opaque(largeHaystack()));
+  const StringView set(opaque(absentSet));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   const std::string_view reference(opaque(largeHaystack()));
-  const std::string_view setReference(opaque(c_absentSet));
+  const std::string_view setReference(opaque(absentSet));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
+    benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/rfind_late_large") {
-  const toy::StringView view(opaque(largeHaystack()));
-  const toy::StringView needle(opaque(c_needle));
+  const StringView view(opaque(largeHaystack()));
+  const StringView needle(opaque(needleText));
 
   bench.unit("search");
 
   // The needle sits at the very end, the shape a backward scan answers at once and a forward scan pays in full.
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.rfind(needle));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.rfind(needle));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   const std::string_view reference(opaque(largeHaystack()));
-  const std::string_view needleReference(opaque(c_needle));
+  const std::string_view needleReference(opaque(needleText));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.rfind(needleReference));
+    benchmark::doNotOptimizeAway(reference.rfind(needleReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/rfind_large") {
-  const toy::StringView view(opaque(largeHaystack()));
-  const toy::StringView prefix(opaque(c_prefix));
+  const StringView view(opaque(largeHaystack()));
+  const StringView prefix(opaque(prefixText));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.rfind(prefix));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.rfind(prefix));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   const std::string_view reference(opaque(largeHaystack()));
-  const std::string_view prefixReference(opaque(c_prefix));
+  const std::string_view prefixReference(opaque(prefixText));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.rfind(prefixReference));
+    benchmark::doNotOptimizeAway(reference.rfind(prefixReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/compare") {
-  toy::array<char, std::char_traits<char>::length(c_haystack) + 1> haystackCopy;
-  std::memcpy(haystackCopy.data(), c_haystack, std::char_traits<char>::length(c_haystack) + 1);
+  array<char, std::char_traits<char>::length(haystack) + 1> haystackCopy;
+  std::memcpy(haystackCopy.data(), haystack, std::char_traits<char>::length(haystack) + 1);
 
   // The right-hand operands read a separate buffer: over one buffer the comparison can answer from pointer identity.
-  toy::StringView       view(opaque(c_haystack));
-  const toy::StringView same(opaque(haystackCopy.data()));
+  StringView       view(opaque(haystack));
+  const StringView same(opaque(haystackCopy.data()));
 
   bench.unit("comparison");
 
   // Both operands hold the same text, so the comparison runs to the end instead of stopping at the first difference.
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.compare(same));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.compare(same));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
+  const std::string_view reference(opaque(haystack));
   const std::string_view sameReference(opaque(haystackCopy.data()));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.compare(sameReference));
+    benchmark::doNotOptimizeAway(reference.compare(sameReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/find_char") {
-  const toy::StringView view(opaque(c_haystack));
+  const StringView view(opaque(haystack));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find(c_missing));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find(missing));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
+  const std::string_view reference(opaque(haystack));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find(c_missing));
+    benchmark::doNotOptimizeAway(reference.find(missing));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/find_first_of") {
-  const toy::StringView view(opaque(c_haystack));
-  const toy::StringView set(opaque(c_absentSet));
+  const StringView view(opaque(haystack));
+  const StringView set(opaque(absentSet));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
-  const std::string_view setReference(opaque(c_absentSet));
+  const std::string_view reference(opaque(haystack));
+  const std::string_view setReference(opaque(absentSet));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
+    benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/find_first_of_wide_set") {
-  const toy::StringView view(opaque(c_haystack));
-  const toy::StringView set(opaque(c_absentWideSet));
+  const StringView view(opaque(haystack));
+  const StringView set(opaque(absentWideSet));
 
   bench.unit("search");
 
   // Against the case above: the set table is built once per call, so a wider set costs more setup, the same per byte.
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.find_first_of(set));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.find_first_of(set));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
-  const std::string_view setReference(opaque(c_absentWideSet));
+  const std::string_view reference(opaque(haystack));
+  const std::string_view setReference(opaque(absentWideSet));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
+    benchmark::doNotOptimizeAway(reference.find_first_of(setReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/rfind") {
-  const toy::StringView view(opaque(c_haystack));
-  const toy::StringView prefix(opaque(c_prefix));
+  const StringView view(opaque(haystack));
+  const StringView prefix(opaque(prefixText));
 
   bench.unit("search");
 
   // The only match sits at the front, so a backward search walks the whole text before it answers.
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.rfind(prefix));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.rfind(prefix));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
-  const std::string_view prefixReference(opaque(c_prefix));
+  const std::string_view reference(opaque(haystack));
+  const std::string_view prefixReference(opaque(prefixText));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.rfind(prefixReference));
+    benchmark::doNotOptimizeAway(reference.rfind(prefixReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/rfind_char") {
-  const toy::StringView view(opaque(c_haystack));
+  const StringView view(opaque(haystack));
 
   bench.unit("search");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.rfind(c_missing));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.rfind(missing));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
+  const std::string_view reference(opaque(haystack));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.rfind(c_missing));
+    benchmark::doNotOptimizeAway(reference.rfind(missing));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/starts_with") {
-  const toy::StringView view(opaque(c_haystack));
-  const toy::StringView prefix(opaque(c_prefix));
+  const StringView view(opaque(haystack));
+  const StringView prefix(opaque(prefixText));
 
   bench.unit("test");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.starts_with(prefix));
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.starts_with(prefix));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
-  const std::string_view reference(opaque(c_haystack));
-  const std::string_view prefixReference(opaque(c_prefix));
+  const std::string_view reference(opaque(haystack));
+  const std::string_view prefixReference(opaque(prefixText));
 
   bench.run("std::string_view", [&] {
-    toy::benchmark::doNotOptimizeAway(reference.starts_with(prefixReference));
+    benchmark::doNotOptimizeAway(reference.starts_with(prefixReference));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
 BENCHMARK_CASE("core/string_view/utf8_size") {
-  const toy::StringView view(opaque(c_utf8Text));
+  const StringView view(opaque(utf8Text));
 
   bench.unit("count");
 
-  bench.run("toy::StringView", [&] {
-    toy::benchmark::doNotOptimizeAway(view.utf8_size());
+  bench.run("StringView", [&] {
+    benchmark::doNotOptimizeAway(view.utf8_size());
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
   // The standard algorithm alone: every byte outside the 10xxxxxx continuation form starts a character.
   bench.run("std::count_if", [&] {
-    toy::benchmark::doNotOptimizeAway(std::count_if(view.begin(), view.end(), [](char byte) {
+    benchmark::doNotOptimizeAway(std::count_if(view.begin(), view.end(), [](char byte) {
       return (static_cast<unsigned char>(byte) & 0xC0) != 0x80;
     }));
   });
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
+
+} // namespace toy

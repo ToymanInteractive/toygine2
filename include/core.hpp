@@ -157,6 +157,16 @@ using std::strong_ordering;
   take O(n).
 */
 
+/*!
+  \namespace toy::hash
+
+  \brief Checksums over a byte range: the CRC-8, CRC-16 and CRC-32 cyclic redundancy checks.
+
+  A checksum carries a running value, so one sum spans data arriving in pieces: one call's result continues as the next
+  call's input, and the chained result equals the sum over the whole range. Every result is identical across runs and
+  targets, and no function allocates.
+*/
+
 //--------------------------------------------------------------------------------------------------------------------
 
 #if defined(assert)
@@ -311,6 +321,7 @@ using std::strong_ordering;
 #include "core/format_context.hpp"
 #include "core/format_pattern.hpp"
 #include "core/format_string.hpp"
+#include "core/hashes.hpp"
 #include "core/log_isink.hpp"
 #include "core/log_level.hpp"
 #include "core/log_metadata.hpp"

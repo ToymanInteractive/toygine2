@@ -44,13 +44,13 @@ struct RecordingSink {
   int          calls       = 0;
 };
 
-// Copies a bounded sample of what the forwarded pointer named during the call, and records the arguments as given.
-void recordWrite(void * context, const char * data, size_t count) noexcept {
+// Copies a bounded sample of what the forwarded view named during the call, and records the arguments as given.
+void recordWrite(void * context, span<const char> data) noexcept {
   auto & sink      = *static_cast<RecordingSink *>(context);
   sink.contextSeen = context;
-  sink.dataSeen    = data;
-  sink.count       = count;
-  for (size_t i = 0; i < count && i < sink.copyLimit && i < 4; ++i)
+  sink.dataSeen    = data.data();
+  sink.count       = data.size();
+  for (size_t i = 0; i < data.size() && i < sink.copyLimit && i < 4; ++i)
     sink.data[i] = data[i];
   ++sink.calls;
 }
@@ -62,13 +62,13 @@ struct NullContextRecord {
   int          calls       = 0;
 };
 
-void recordNullContext(void * context, const char * data, size_t count) noexcept {
+void recordNullContext(void * context, span<const char> data) noexcept {
   NullContextRecord * recorder = nullptr;
   // A mismatched payload reads nothing; calls stays at zero, and the case fails instead of over-reading.
-  if (data == nullptr || count != sizeof(recorder))
+  if (data.size() != sizeof(recorder))
     return;
 
-  std::memcpy(&recorder, data, sizeof(recorder));
+  std::memcpy(&recorder, data.data(), sizeof(recorder));
   recorder->contextSeen = context;
   ++recorder->calls;
 }
@@ -80,26 +80,26 @@ struct Sink {
   size_t length = 0;
 };
 
-// Writes the range only when it fits whole.
-void append(void * context, const char * data, size_t count) noexcept {
+// Writes the view only when it fits whole.
+void append(void * context, span<const char> data) noexcept {
   auto & sink = *static_cast<Sink *>(context);
-  if (sink.length + count > 16)
+  if (sink.length + data.size() > 16)
     return;
-  for (size_t i = 0; i < count; ++i)
-    sink.buffer[sink.length++] = data[i];
+  for (const char character : data)
+    sink.buffer[sink.length++] = character;
 }
 
 // Returns false when the sink did not take the whole greeting.
 bool writeGreeting(Sink & sink) {
   const size_t       start = sink.length;
   toy::FormatContext output{&sink, &append};
-  output.write("hi", 2);
+  output.write(span<const char>{"hi", 2});
   output.put('!');
   return sink.length - start == 3;
 }
 
 // A callback constant evaluation accepts, for the compile-time probe below.
-constexpr void noopWrite(void *, const char *, size_t) noexcept {}
+constexpr void noopWrite(void *, span<const char>) noexcept {}
 
 // Builds the object in a constant expression; [[maybe_unused]] because the build itself is the assertion.
 constexpr bool constructsInConstantExpression() noexcept {
@@ -117,18 +117,18 @@ static_assert(std::is_nothrow_copy_constructible_v<FormatContext>, "copying two 
 static_assert(std::is_nothrow_move_constructible_v<FormatContext>, "moving the type is copying it");
 static_assert(noexcept(FormatContext{nullptr, noopWrite}), "construction cannot fail");
 static_assert(constructsInConstantExpression(), "the constructor runs in a constant expression");
-static_assert(std::is_same_v<FormatContext::WriteFunction, void (*)(void *, const char *, size_t) noexcept>,
+static_assert(std::is_same_v<FormatContext::WriteFunction, void (*)(void *, span<const char>) noexcept>,
               "the callback signature carries noexcept");
 
-// write() hands the callback exactly what it got: the constructor's context, the caller's pointer, and the count.
+// write() hands the callback exactly what it got: the constructor's context and the caller's view.
 TEST_CASE("format_context/write_forwards_to_the_callback") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
-  // An embedded zero separates the range from a C string: a count replaced with the string length would drop the tail.
+  // An embedded zero separates the view from a C string: a length taken from the string would drop the tail.
   const char input[] = {'h', '\0', 'i'};
   sink.copyLimit     = 3;
-  context.write(input, 3);
+  context.write(span{input});
   CHECK(sink.calls == 1);
   CHECK(sink.contextSeen == &sink);
   CHECK(sink.dataSeen == input);
@@ -139,24 +139,24 @@ TEST_CASE("format_context/write_forwards_to_the_callback") {
 
   const char single[] = "!";
   sink.copyLimit      = 1;
-  context.write(single, 1);
+  context.write(span<const char>{single, 1});
   CHECK(sink.calls == 2);
   CHECK(sink.dataSeen == single);
   CHECK(sink.count == 1);
   CHECK(sink.data[0] == '!');
 }
 
-// A zero count returns before the callback, so even a null pointer is a legal call.
+// An empty view returns before the callback, so even a null pointer is a legal call.
 TEST_CASE("format_context/write_with_zero_count_skips_the_callback") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
-  context.write(nullptr, 0);
-  context.write("x", 0);
+  context.write(span<const char>{});
+  context.write(span<const char>{"x", 0});
   CHECK(sink.calls == 0);
 }
 
-// put() forwards one character: the callback sees a count of one and reads the character through the forwarded pointer.
+// put() forwards one character: the callback sees a one-character view and reads the character through it.
 TEST_CASE("format_context/put_writes_one_character") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
@@ -181,7 +181,7 @@ TEST_CASE("format_context/copy_writes_through_the_same_pair") {
   FormatContext copied{original};
   const char    input[] = "z";
   sink.copyLimit        = 1;
-  copied.write(input, 1);
+  copied.write(span<const char>{input, 1});
   CHECK(sink.calls == 1);
   CHECK(sink.contextSeen == &sink);
   CHECK(sink.dataSeen == input);
@@ -195,7 +195,7 @@ TEST_CASE("format_context/null_context_reaches_the_callback") {
   FormatContext     context{nullptr, &recordNullContext};
 
   NullContextRecord * recorder = &record;
-  context.write(static_cast<const char *>(static_cast<const void *>(&recorder)), sizeof(recorder));
+  context.write(span<const char>{static_cast<const char *>(static_cast<const void *>(&recorder)), sizeof(recorder)});
   CHECK(record.calls == 1);
   CHECK(record.contextSeen == nullptr);
 }
