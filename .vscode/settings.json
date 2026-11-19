@@ -25,6 +25,7 @@
         "MSVC",
         "nanobench",
         "nodiscard",
+        "NTSC",
         "RELWITHDEBINFO",
         "thirdparty",
         "toygine",

@@ -16,12 +16,9 @@ Files extracted from upstream source:
 
 Local patch (marked in the file banner):
 
-- `src/rtc.c`: strips the newlib POSIX glue (`_gettimeofday`, `settimeofday`, `bcd_decode`/`bcd_encode`, the
-  `_gettimeofday_r` reentrancy wrapper) and switches the includes (`<reent.h>`/`<sys/time.h>`) to the relative
-  header. The engine is freestanding: it must not override libc stubs or pull `mktime`/`gmtime` into the ROM
+- `src/rtc.c`: strips the newlib POSIX glue (`_gettimeofday`, `settimeofday`, `bcd_decode`/`bcd_encode`, the `_gettimeofday_r` reentrancy wrapper) and switches the includes (`<reent.h>`/`<sys/time.h>`) to the relative header. The engine is freestanding: it must not override libc stubs or pull `mktime`/`gmtime` into the ROM
 
-The engine links this target privately on GBA, which does not merge static archives: a consumer of an installed
-`libtoygine.a` links `libagbabi.a` alongside it, and both archives ship in the `library` component.
+The engine links this target privately on GBA, which does not merge static archives: a consumer of an installed `libtoygine.a` links `libagbabi.a` alongside it, and both archives ship in the `library` component.
 
 ## ckdl
 
@@ -37,29 +34,22 @@ Files extracted from upstream source:
 
 ## clownmdsdk
 
-Overlay over the installed ClownMDSDK toolchain: a file here wins over the SDK's own copy (see
-`src/platforms/md/CMakeLists.txt`).
+Overlay over the installed ClownMDSDK toolchain: a file here wins over the SDK's own copy (see `src/platforms/md/CMakeLists.txt`).
 
 Local files, MIT like the engine:
 
 - `include/cstring`, `include/string.h`, `src/string.c`
-- `src/string.c` also replaces the SDK's `memcpy`, `memmove` and `memset`: the SDK's `memmove` always copies front to
-  back and corrupts an overlapping move to a higher address, and all three share one object in its `libc.a`, so
-  defining `memmove` alone collides with the SDK's copy at link time
-- `memcpy`, `memset` and `memcmp` in `src/string.c` are 68000 assembly that saves no registers; sizes of 64 KiB and
-  more fall back to the C functions `_MemcpyLarge`, `_MemsetLarge` and `_MemcmpLarge`
+- `src/string.c` also replaces the SDK's `memcpy`, `memmove` and `memset`: the SDK's `memmove` always copies front to back and corrupts an overlapping move to a higher address, and all three share one object in its `libc.a`, so defining `memmove` alone collides with the SDK's copy at link time
+- `memcpy`, `memset` and `memcmp` in `src/string.c` are 68000 assembly that saves no registers; sizes of 64 KiB and more fall back to the C functions `_MemcpyLarge`, `_MemsetLarge` and `_MemcmpLarge`
 
 Files extracted from GCC libstdc++:
 
 - Upstream: <https://gcc.gnu.org/git/gcc.git>
 - Version: releases/gcc-16.2.0 (78d4ac73dd391005b895a6148cd9831e28e1208b, 2026)
 - License: GPL-3.0 with the GCC Runtime Library Exception (`LICENSES/COPYING3`, `LICENSES/COPYING.RUNTIME`)
-- `libstdc++-v3/include/bits/binders.h` as `include/bits/binders.h`, unmodified; the freestanding libstdc++ in
-  ClownMDSDK omits it, and `<ranges>` fails to compile without it
-- `libstdc++-v3/include/std/chrono` as `include/chrono` and `libstdc++-v3/include/bits/chrono.h` as
-  `include/bits/chrono.h`; the SDK omits both, and `toy::chrono` is `std::chrono` aliases, so `<chrono>` has to exist
-- Local patch in `include/chrono`: `year_month_day::_S_from_days` casts `__m1` and `__d1` to `unsigned int` — under
-  `-mshort` they deduce to `long unsigned int`, and the narrowing in the upstream brace-init fails `-Werror`
+- `libstdc++-v3/include/bits/binders.h` as `include/bits/binders.h`, unmodified; the freestanding libstdc++ in ClownMDSDK omits it, and `<ranges>` fails to compile without it
+- `libstdc++-v3/include/std/chrono` as `include/chrono` and `libstdc++-v3/include/bits/chrono.h` as `include/bits/chrono.h`; the SDK omits both, and `toy::chrono` is `std::chrono` aliases, so `<chrono>` has to exist
+- Local patch in `include/chrono`: `year_month_day::_S_from_days` casts `__m1` and `__d1` to `unsigned int` — under `-mshort` they deduce to `long unsigned int`, and the narrowing in the upstream brace-init fails `-Werror`
 - Must match the GCC version of the SDK toolchain; update it together with ClownMDSDK
 
 ## cmake-modules
@@ -74,10 +64,8 @@ Files extracted from upstream source:
 
 Local patches:
 
-- 0001-lcov-version-suffix: the lcov version regex accepts a multi-digit package suffix and output without a trailing
-  newline
-- 0002-split-report-comments: the SonarQube report message gets its own `add_custom_command`; upstream passes two
-  `COMMENT` arguments to one call
+- 0001-lcov-version-suffix: the lcov version regex accepts a multi-digit package suffix and output without a trailing newline
+- 0002-split-report-comments: the SonarQube report message gets its own `add_custom_command`; upstream passes two `COMMENT` arguments to one call
 
 ## doctest
 
