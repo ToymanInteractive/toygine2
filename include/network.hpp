@@ -32,10 +32,11 @@
 /*!
   \namespace toy::network
 
-  \brief Network module: the flags a socket is created with.
+  \brief Network module: the type and flags a socket is created with.
 */
 
 #include "network/socket_flags.hpp"
+#include "network/socket_type.hpp"
 
 //----------------------------------------------------------------------------------------------------------------------
 
