@@ -45,7 +45,7 @@ constexpr array<uint8_t, largeSize> buffer = [] {
 
 // Hands a view through an opaque barrier, so a measured call reads the buffer instead of a folded constant.
 [[nodiscard]] toy::span<const std::byte> opaque(toy::span<const std::byte> data) noexcept {
-  toy::benchmark::doNotOptimizeAway(data.data());
+  toy::benchmark::doNotOptimizeAway(data);
 
   return data;
 }
