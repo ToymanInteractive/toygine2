@@ -21,9 +21,9 @@
   \file   toygine.hpp
   \brief  Main umbrella header for the engine.
 
-  Root entry point that re-exports every engine module. It currently pulls in application, audio, console, core, and
-  video; the remaining modules (filesystem, game, geometry, math, network, platform/ui, render) are re-exported here as
-  they land.
+  Root entry point that re-exports every engine module. It currently pulls in application, audio, console, core,
+  network, and video; the remaining modules (filesystem, game, geometry, math, network, platform/ui, render) are
+  re-exported here as they land.
 
   \note Prefer a specific module header when only one module is needed.
 */
@@ -35,6 +35,7 @@
 #include "audio.hpp"
 #include "console.hpp"
 #include "core.hpp"
+#include "network.hpp"
 #include "video.hpp"
 
 #endif // INCLUDE_TOYGINE_HPP_

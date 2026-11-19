@@ -30,10 +30,13 @@
 #include "context.hpp"
 #include "utils.hpp"
 
-static_assert(!std::is_copy_constructible_v<toy::test::Context>, "Context must not be copy constructible");
-static_assert(!std::is_copy_assignable_v<toy::test::Context>, "Context must not be copy assignable");
-static_assert(!std::is_move_constructible_v<toy::test::Context>, "Context must not be move constructible");
-static_assert(!std::is_move_assignable_v<toy::test::Context>, "Context must not be move assignable");
+// Per-run state belongs to one runner: the type forbids both copy and move.
+TEST_CASE("test/context/is_neither_copyable_nor_movable") {
+  static_assert(!std::is_copy_constructible_v<toy::test::Context>, "Context must not be copy constructible");
+  static_assert(!std::is_copy_assignable_v<toy::test::Context>, "Context must not be copy assignable");
+  static_assert(!std::is_move_constructible_v<toy::test::Context>, "Context must not be move constructible");
+  static_assert(!std::is_move_assignable_v<toy::test::Context>, "Context must not be move assignable");
+}
 
 namespace {
 
