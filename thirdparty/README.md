@@ -91,6 +91,23 @@ Files extracted from upstream source:
 - `doxygen-awesome*.css` and `doxygen-awesome*.js`
 - `LICENSE`
 
+## font8x8
+
+- Upstream: <https://github.com/dhepper/font8x8>
+- Version: master (8e279d2d864e79128e96188a6b9526cfa3fbfef9, 2026)
+- License: Public Domain
+
+Files extracted from upstream source:
+
+- `font8x8_basic.h`
+- `README`
+
+`font8x8_basic.h` defines the glyph array in the header; include it from a single translation unit. Bits read least-significant first: pixel n of a row is `(byte >> n) & 1`, n = 0 is the leftmost pixel.
+
+Local patch (marked in the file):
+
+- `font8x8_basic.h`: the array is trimmed to U+0020..U+007E (index 0 = space), the range the console backend prints, and its type is `unsigned char`, not `char` — under the MD toolchain's `-fsigned-char` the `0xFF` glyph bytes narrow in the braced initializer and fail `-Werror`
+
 ## libpng
 
 - Upstream: <https://github.com/pnggroup/libpng>
