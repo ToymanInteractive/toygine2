@@ -21,25 +21,34 @@
   \file   console_sample_app.cpp
   \brief  Console sample: hello world and a chrono demo.
 
-  The ConsoleApplication branch prints the greeting and version, reads the wall clock from toy::chrono::SystemClock,
-  the steady counter's frequency and tick count from toy::chrono::SteadyClock, and the output span its
-  toy::chrono::Stopwatch covered. 64-bit readings go through toy::string_utils::itoa: console libcs disagree on printf
-  length modifiers. The Mega Drive target keeps a raw _EntryPoint.
+  The app prints the greeting and version, reads the wall clock from toy::chrono::SystemClock and the steady counter's
+  frequency and tick count from toy::chrono::SteadyClock, and reports the output time its toy::chrono::Stopwatch
+  measured.
 */
 
 #include "toygine.hpp"
 
-#ifdef __MEGA_DRIVE__
+namespace {
 
-void _EntryPoint() {
-  ClownMDSDK::MainCPU::Debug::PrintLine("Hello world from Console sample app");
+// Left-pads a number with zeros to width; the clock fields are non-negative.
+template <std::integral T>
+toy::FixedString<24> zeroPadded(T value, std::size_t width) {
+  toy::array<char, 24> buffer{};
+  const char *         text;
+  if constexpr (std::is_signed_v<T>)
+    text = toy::string_utils::itoa(toy::span{buffer}, value);
+  else
+    text = toy::string_utils::utoa(toy::span{buffer}, value);
 
-  for (;;) {
-    // Run main-loop logic here.
-  }
+  toy::FixedString<24> result{};
+  const auto           length = std::char_traits<char>::length(text);
+  for (std::size_t index = length; index < width; ++index)
+    result += '0';
+  result += text;
+  return result;
 }
 
-#else
+} // namespace
 
 class ConsoleSampleApp final : public toy::application::ConsoleApplication {
 public:
@@ -52,6 +61,7 @@ private:
 
 bool ConsoleSampleApp::runInternal() noexcept {
   const toy::chrono::Stopwatch watch;
+  toy::array<char, 24>         buffer{};
 
   writeOutputLine(toy::StringView{"Hello world from Console sample app"});
   if constexpr (supportsUtf8()) {
@@ -65,37 +75,72 @@ bool ConsoleSampleApp::runInternal() noexcept {
   }
   writeOutputLine(toy::StringView{""});
 
-  toy::array<char, 24> bufferMajor{};
-  toy::array<char, 24> bufferMinor{};
-  toy::array<char, 24> bufferPatch{};
-  printf("App Version: %s.%s.%s (%s)\n", toy::string_utils::utoa(toy::span{bufferMajor}, version().major),
-         toy::string_utils::utoa(toy::span{bufferMinor}, version().minor),
-         toy::string_utils::utoa(toy::span{bufferPatch}, version().patch), version().revision.c_str());
+  toy::FixedString<64> versionLine{"App Version: "};
+  versionLine += toy::string_utils::utoa(toy::span{buffer}, version().major);
+  versionLine += '.';
+  versionLine += toy::string_utils::utoa(toy::span{buffer}, version().minor);
+  versionLine += '.';
+  versionLine += toy::string_utils::utoa(toy::span{buffer}, version().patch);
+  versionLine += " (";
+  writeOutput(versionLine);
+  writeOutput(toy::StringView{version().revision.c_str()});
+  writeOutputLine(toy::StringView{")"});
   writeOutputLine(toy::StringView{""});
 
   if (argsCount() > 1) {
     writeOutputLine(toy::StringView{""});
     writeOutputLine(toy::StringView{"arguments:"});
     for (size_t index = 1; index < argsCount(); ++index)
-      if (const char * value = arg(index); value != nullptr)
-        printf("- %s\n", value);
+      if (const char * value = arg(index); value != nullptr) {
+        writeOutput(toy::StringView{"- "});
+        writeOutputLine(toy::StringView{value});
+      }
   }
 
   if (pid() != 0) {
-    toy::array<char, 24> buffer{};
-    printf("System pid: %s\n", toy::string_utils::utoa(toy::span{buffer}, pid()));
+    toy::FixedString<64> pidLine{"System pid: "};
+    pidLine += toy::string_utils::utoa(toy::span{buffer}, pid());
+    writeOutputLine(pidLine);
   }
 
-  const auto calendar = toy::chrono::SystemClock::now();
-  printf("System clock: %04d-%02d-%02d %02d:%02d:%02d.%03d dow: %d tz: utc%+d min\n", calendar.year, calendar.month,
-         calendar.day, calendar.hour, calendar.minute, calendar.second, calendar.millisecond, calendar.dayOfWeek,
-         calendar.tzOffsetMinutes);
+  const auto            calendar = toy::chrono::SystemClock::now();
+  toy::FixedString<160> clockLine{"System clock: "};
+  clockLine += zeroPadded(calendar.year, 4);
+  clockLine += '-';
+  clockLine += zeroPadded(calendar.month, 2);
+  clockLine += '-';
+  clockLine += zeroPadded(calendar.day, 2);
+  clockLine += ' ';
+  clockLine += zeroPadded(calendar.hour, 2);
+  clockLine += ':';
+  clockLine += zeroPadded(calendar.minute, 2);
+  clockLine += ':';
+  clockLine += zeroPadded(calendar.second, 2);
+  clockLine += '.';
+  clockLine += zeroPadded(calendar.millisecond, 3);
+  clockLine += " dow: ";
+  clockLine += toy::string_utils::utoa(toy::span{buffer}, calendar.dayOfWeek);
+  clockLine += " tz: utc";
+  if (calendar.tzOffsetMinutes >= 0)
+    clockLine += '+';
+  clockLine += toy::string_utils::itoa(toy::span{buffer}, calendar.tzOffsetMinutes);
+  clockLine += " min";
+  writeOutputLine(clockLine);
 
-  toy::array<char, 24> buffer{};
-  printf("Steady clock frequency: %s Hz\n",
-         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
-  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
+  toy::FixedString<96> frequencyLine{"Steady clock frequency: "};
+  frequencyLine += toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency());
+  frequencyLine += " Hz";
+  writeOutputLine(frequencyLine);
+
+  toy::FixedString<96> ticksLine{"Steady clock ticks: "};
+  ticksLine += toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks());
+  writeOutputLine(ticksLine);
+
+  toy::FixedString<96> elapsedLine{"Steady clock elapsed: "};
+  const auto           elapsedNs  = toy::chrono::duration_cast<toy::chrono::nanoseconds>(watch.elapsed()).count();
+  elapsedLine                    += toy::string_utils::itoa(toy::span{buffer}, elapsedNs);
+  elapsedLine                    += " ns";
+  writeOutputLine(elapsedLine);
 
   writeOutputLine(toy::StringView{""});
   writeErrorLine(toy::StringView("!!!Error message demo:: this is not an error!!!"));
@@ -105,5 +150,3 @@ bool ConsoleSampleApp::runInternal() noexcept {
 }
 
 IMPLEMENT_CONSOLE_APP(ConsoleSampleApp)
-
-#endif

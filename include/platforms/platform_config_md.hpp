@@ -46,6 +46,14 @@ inline constexpr int64_t steadyClockPeriodDenominator = 300;
 // The clownmdsdk debug console font covers ASCII only, so non-ASCII text renders as garbage tiles.
 inline constexpr bool consoleSupportsUtf8 = false;
 
+// H40 draws 40 columns; NTSC shows 28 rows (V28), PAL 30 (V30), so the buffer keeps the maximum.
+inline constexpr size_t consoleColumns  = 40;
+inline constexpr size_t consoleNtscRows = 28;
+inline constexpr size_t consolePalRows  = 30;
+
+// The vertical interrupt is level 6; mask 5 lets it through.
+inline constexpr unsigned int consoleInterruptMask = 5;
+
 } // namespace toy::platform::detail
 
 #ifdef TOYGINE_DEBUG
@@ -54,5 +62,28 @@ inline constexpr bool consoleSupportsUtf8 = false;
 #define TOYGINE_DEBUG_BREAK() __builtin_trap()
 
 #endif // TOYGINE_DEBUG
+
+/*!
+  \brief Defines _EntryPoint() that builds a console application and runs it without command-line arguments.
+
+  The application takes its version from APP_VERSION_MAJOR, APP_VERSION_MINOR, APP_VERSION_PATCH, and
+  APP_VERSION_REVISION. After run() returns, the macro calls idleSystemConsole(), which never returns.
+  The cartridge linker script sets the entry to _EntryPoint; no C runtime on this target calls main().
+
+  \param appClassName Application class derived from \ref toy::application::ConsoleApplication and constructible from a
+                      \ref toy::application::Version.
+*/
+#define IMPLEMENT_CONSOLE_APP(appClassName)                                                                            \
+                                                                                                                       \
+  void _EntryPoint() {                                                                                                 \
+    appClassName app(toy::application::Version{.major    = APP_VERSION_MAJOR,                                          \
+                                               .minor    = APP_VERSION_MINOR,                                          \
+                                               .patch    = APP_VERSION_PATCH,                                          \
+                                               .revision = APP_VERSION_REVISION});                                     \
+                                                                                                                       \
+    static_cast<void>(app.run(0, nullptr));                                                                            \
+                                                                                                                       \
+    toy::application::ConsoleApplication::idleSystemConsole();                                                         \
+  }
 
 #endif // INCLUDE_PLATFORMS_PLATFORM_CONFIG_MD_HPP_
