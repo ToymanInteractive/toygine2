@@ -45,7 +45,7 @@ namespace toy {
   * **Type-erased output**: one callback signature serves every destination; the context pointer rides along
     uninterpreted.
   * **Zero-overhead dispatch**: a plain function pointer, no std::function and no virtual call.
-  * **Constexpr construction**: the object builds in a constant expression.
+  * **Constexpr support**: construction and every write evaluate in a constant expression.
   * **Trivially copyable**: two scalars, so copies and moves are free.
 
   \section format_context_usage Usage Example
@@ -143,7 +143,7 @@ public:
 
     \sa put()
   */
-  void write(span<const char> data) noexcept;
+  constexpr void write(span<const char> data) noexcept;
 
   /*!
     \brief Writes one character through the callback.
@@ -151,8 +151,10 @@ public:
     \param character Byte to emit.
 
     \post The callback has run once with a one-character view of \a character.
+
+    \sa write(span<const char>)
   */
-  void put(char character) noexcept;
+  constexpr void put(char character) noexcept;
 
 private:
   /// Value handed to every callback invocation; only the callback reads it.

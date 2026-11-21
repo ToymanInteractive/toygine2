@@ -35,7 +35,7 @@ constexpr FormatContext::FormatContext(void * context, WriteFunction writeFn) no
   assert_message(writeFn != nullptr, "FormatContext requires a non-null write callback");
 }
 
-inline void FormatContext::write(span<const char> data) noexcept {
+constexpr void FormatContext::write(span<const char> data) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to write");
 
   if (data.empty())
@@ -44,7 +44,7 @@ inline void FormatContext::write(span<const char> data) noexcept {
   _writeFn(_context, data);
 }
 
-inline void FormatContext::put(char character) noexcept {
+constexpr void FormatContext::put(char character) noexcept {
   _writeFn(_context, span{&character, 1});
 }
 
