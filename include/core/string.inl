@@ -29,7 +29,7 @@
 
 namespace toy {
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::String(size_type count, value_type ch) noexcept {
   const bool reserved = _storage.reserve(count);
   assert_message(reserved, "the string must fit the storage it is built in");
@@ -40,7 +40,7 @@ constexpr String<storageType>::String(size_type count, value_type ch) noexcept {
   _storage.setSize(count);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::input_iterator InputIterator>
   requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
 constexpr String<storageType>::String(InputIterator first, InputIterator last) noexcept {
@@ -48,7 +48,7 @@ constexpr String<storageType>::String(InputIterator first, InputIterator last) n
 }
 
 #if defined(__cpp_lib_ranges_to_container)
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::ranges::input_range Range>
   requires std::same_as<std::ranges::range_value_t<Range>, char>
 constexpr String<storageType>::String(std::from_range_t, Range && range) noexcept {
@@ -56,7 +56,7 @@ constexpr String<storageType>::String(std::from_range_t, Range && range) noexcep
 }
 #endif // __cpp_lib_ranges_to_container
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::String(const value_type * string, size_type count) noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to copy");
 
@@ -72,25 +72,25 @@ constexpr String<storageType>::String(const value_type * string, size_type count
   _storage.setSize(count);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::String(const value_type * string) noexcept
   : String(string, string != nullptr ? traits_type::length(string) : 0) {
   assert_message(string != nullptr, "C string must not be null");
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::String(const StringType & string) noexcept
   : String(string.c_str(), string.size()) {}
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::String(const StringType & string, size_type pos, size_type count) noexcept
   : String(string.c_str() + min(pos, string.size()), min(count, string.size() - min(pos, string.size()))) {
   assert_message(pos <= string.size(), "the substring must start inside the source string");
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::String(String && other, size_type pos, size_type count) noexcept
   : _storage(std::move(other._storage)) {
   const size_type sourceLength = _storage.size();
@@ -104,32 +104,32 @@ constexpr String<storageType>::String(String && other, size_type pos, size_type 
   _storage.setSize(length);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::String(std::initializer_list<value_type> list) noexcept
   : String(list.begin(), list.size()) {}
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::operator=(const value_type * string) noexcept {
   return assign(string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::operator=(value_type ch) noexcept {
   return assign(size_type{1}, ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::operator=(std::initializer_list<value_type> list) noexcept {
   return assign(list);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::operator=(const StringType & string) noexcept {
   return assign(string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(size_type count, value_type ch) noexcept {
   const bool reserved = _storage.reserve(count);
   assert_message(reserved, "the assigned string must fit the storage");
@@ -141,17 +141,17 @@ constexpr String<storageType> & String<storageType>::assign(size_type count, val
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(const String & other) noexcept {
   return *this = other;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(String && other) noexcept {
   return *this = std::move(other);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(const value_type * string, size_type count) noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to copy");
 
@@ -172,14 +172,14 @@ constexpr String<storageType> & String<storageType>::assign(const value_type * s
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(const value_type * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   return assign(string, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::input_iterator InputIterator>
   requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
 constexpr String<storageType> & String<storageType>::assign(InputIterator first, InputIterator last) noexcept {
@@ -188,18 +188,18 @@ constexpr String<storageType> & String<storageType>::assign(InputIterator first,
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::assign(std::initializer_list<value_type> list) noexcept {
   return assign(list.begin(), list.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::assign(const StringType & string) noexcept {
   return assign(string.c_str(), string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::assign(const StringType & string, size_type pos,
                                                             size_type count) noexcept {
@@ -210,7 +210,7 @@ constexpr String<storageType> & String<storageType>::assign(const StringType & s
   return assign(string.c_str() + pos, min(count, string.size() - pos));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::ranges::input_range Range>
   requires std::same_as<std::ranges::range_value_t<Range>, char>
 constexpr String<storageType> & String<storageType>::assign_range(Range && range) noexcept {
@@ -219,184 +219,184 @@ constexpr String<storageType> & String<storageType>::assign_range(Range && range
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::reference String<storageType>::at(size_type pos) noexcept {
   assert_message(pos < size(), "the position must lie inside the string");
 
   return data()[pos];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reference String<storageType>::at(size_type pos) const noexcept {
   assert_message(pos < size(), "the position must lie inside the string");
 
   return data()[pos];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::reference String<storageType>::operator[](size_type pos) noexcept {
   assert_message(pos <= size(), "the position must lie inside the string or on its terminator");
 
   return data()[pos];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reference String<storageType>::operator[](size_type pos) const noexcept {
   assert_message(pos <= size(), "the position must lie inside the string or on its terminator");
 
   return data()[pos];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::reference String<storageType>::front() noexcept {
   assert_message(size() != 0, "the string must not be empty");
 
   return data()[0];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reference String<storageType>::front() const noexcept {
   assert_message(size() != 0, "the string must not be empty");
 
   return data()[0];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::reference String<storageType>::back() noexcept {
   assert_message(size() != 0, "the string must not be empty");
 
   return data()[size() - 1];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reference String<storageType>::back() const noexcept {
   assert_message(size() != 0, "the string must not be empty");
 
   return data()[size() - 1];
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::pointer String<storageType>::data() noexcept {
   return _storage.data();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_pointer String<storageType>::data() const noexcept {
   return _storage.data();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_pointer String<storageType>::c_str() const noexcept {
   return data();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::iterator String<storageType>::begin() noexcept {
   return data();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_iterator String<storageType>::begin() const noexcept {
   return data();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_iterator String<storageType>::cbegin() const noexcept {
   return begin();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::iterator String<storageType>::end() noexcept {
   return data() + size();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_iterator String<storageType>::end() const noexcept {
   return data() + size();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_iterator String<storageType>::cend() const noexcept {
   return end();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::reverse_iterator String<storageType>::rbegin() noexcept {
   return reverse_iterator(end());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reverse_iterator String<storageType>::rbegin() const noexcept {
   return const_reverse_iterator(end());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reverse_iterator String<storageType>::crbegin() const noexcept {
   return rbegin();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::reverse_iterator String<storageType>::rend() noexcept {
   return reverse_iterator(begin());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reverse_iterator String<storageType>::rend() const noexcept {
   return const_reverse_iterator(begin());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::const_reverse_iterator String<storageType>::crend() const noexcept {
   return rend();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::empty() const noexcept {
   return size() == 0;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::size() const noexcept {
   return _storage.size();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::length() const noexcept {
   return size();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::max_size() const noexcept {
   return _storage.max_size();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::utf8_size() const noexcept {
   return detail::utf8Size(span{data(), size()});
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::reserve(size_type newCapacity) noexcept {
   const bool reserved = _storage.reserve(newCapacity);
   assert_message(reserved, "the requested capacity must fit the storage");
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::capacity() const noexcept {
   return _storage.capacity();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::shrink_to_fit() noexcept {
   _storage.shrink_to_fit();
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::clear() noexcept {
   _storage.setSize(0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::insert(size_type index, size_type count, value_type ch) noexcept {
   assert_message(index <= size(), "the insertion point must lie inside the string or at its end");
   if (index <= size() && _openGap(index, 0, count))
@@ -405,14 +405,14 @@ constexpr String<storageType> & String<storageType>::insert(size_type index, siz
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::insert(size_type index, const value_type * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   return insert(index, string, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::insert(size_type index, const value_type * string,
                                                             size_type count) noexcept {
   assert_message(index <= size(), "the insertion point must lie inside the string or at its end");
@@ -422,13 +422,13 @@ constexpr String<storageType> & String<storageType>::insert(size_type index, con
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::insert(size_type index, const StringType & string) noexcept {
   return insert(index, string.c_str(), string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::insert(size_type index, const StringType & string, size_type pos,
                                                             size_type count) noexcept {
@@ -439,13 +439,13 @@ constexpr String<storageType> & String<storageType>::insert(size_type index, con
   return insert(index, string.c_str() + pos, min(count, string.size() - pos));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator pos, value_type ch) noexcept {
   return insert(pos, size_type{1}, ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator pos, size_type count,
                                                                     value_type ch) noexcept {
@@ -456,7 +456,7 @@ constexpr String<storageType>::iterator String<storageType>::insert(PositionIter
   return begin() + min(index, size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator, std::input_iterator InputIterator>
   requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
 constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator pos, InputIterator first,
@@ -469,14 +469,14 @@ constexpr String<storageType>::iterator String<storageType>::insert(PositionIter
   return begin() + min(index, size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType>::iterator String<storageType>::insert(PositionIterator                  pos,
                                                                     std::initializer_list<value_type> list) noexcept {
   return insert(pos, list.begin(), list.end());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator, std::ranges::input_range Range>
   requires std::same_as<std::ranges::range_value_t<Range>, char>
 constexpr String<storageType>::iterator String<storageType>::insert_range(PositionIterator pos,
@@ -489,7 +489,7 @@ constexpr String<storageType>::iterator String<storageType>::insert_range(Positi
   return begin() + min(index, size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::erase(size_type index, size_type count) noexcept {
   assert_message(index <= size(), "the erased range must start inside the string or at its end");
   if (index <= size())
@@ -498,7 +498,7 @@ constexpr String<storageType> & String<storageType>::erase(size_type index, size
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType>::iterator String<storageType>::erase(PositionIterator pos) noexcept {
   const size_type index = _indexOf(pos);
@@ -509,7 +509,7 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
   return begin() + min(index, size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType>::iterator String<storageType>::erase(PositionIterator first,
                                                                    const_iterator   last) noexcept {
@@ -523,47 +523,47 @@ constexpr String<storageType>::iterator String<storageType>::erase(PositionItera
   return begin() + min(index, size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::push_back(value_type ch) noexcept {
   append(size_type{1}, ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::pop_back() noexcept {
   assert_message(!empty(), "the string must not be empty");
   if (!empty())
     _storage.setSize(size() - 1);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::append(size_type count, value_type ch) noexcept {
   return insert(size(), count, ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::append(const value_type * string, size_type count) noexcept {
   return insert(size(), string, count);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::append(const value_type * string) noexcept {
   return insert(size(), string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::append(const StringType & string) noexcept {
   return insert(size(), string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::append(const StringType & string, size_type pos,
                                                             size_type count) noexcept {
   return insert(size(), string, pos, count);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::input_iterator InputIterator>
   requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
 constexpr String<storageType> & String<storageType>::append(InputIterator first, InputIterator last) noexcept {
@@ -572,12 +572,12 @@ constexpr String<storageType> & String<storageType>::append(InputIterator first,
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::append(std::initializer_list<value_type> list) noexcept {
   return append(list.begin(), list.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::ranges::input_range Range>
   requires std::same_as<std::ranges::range_value_t<Range>, char>
 constexpr String<storageType> & String<storageType>::append_range(Range && range) noexcept {
@@ -586,28 +586,28 @@ constexpr String<storageType> & String<storageType>::append_range(Range && range
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::operator+=(value_type ch) noexcept {
   return append(size_type{1}, ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::operator+=(const value_type * string) noexcept {
   return append(string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::operator+=(std::initializer_list<value_type> list) noexcept {
   return append(list);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::operator+=(const StringType & string) noexcept {
   return append(string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, const value_type * string,
                                                              size_type count2) noexcept {
   assert_message(pos <= size(), "the replaced range must start inside the string or at its end");
@@ -617,7 +617,7 @@ constexpr String<storageType> & String<storageType>::replace(size_type pos, size
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count,
                                                              const value_type * string) noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -625,14 +625,14 @@ constexpr String<storageType> & String<storageType>::replace(size_type pos, size
   return replace(pos, count, string, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count,
                                                              const StringType & string) noexcept {
   return replace(pos, count, string.c_str(), string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, const StringType & string,
                                                              size_type pos2, size_type count2) noexcept {
@@ -643,7 +643,7 @@ constexpr String<storageType> & String<storageType>::replace(size_type pos, size
   return replace(pos, count, string.c_str() + pos2, min(count2, string.size() - pos2));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> & String<storageType>::replace(size_type pos, size_type count, size_type count2,
                                                              value_type ch) noexcept {
   assert_message(pos <= size(), "the replaced range must start inside the string or at its end");
@@ -653,7 +653,7 @@ constexpr String<storageType> & String<storageType>::replace(size_type pos, size
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
                                                              const value_type * string, size_type count2) noexcept {
@@ -666,7 +666,7 @@ constexpr String<storageType> & String<storageType>::replace(PositionIterator fi
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
                                                              const value_type * string) noexcept {
@@ -675,14 +675,14 @@ constexpr String<storageType> & String<storageType>::replace(PositionIterator fi
   return replace(first, last, string, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator, StringLike StringType>
 constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
                                                              const StringType & string) noexcept {
   return replace(first, last, string.c_str(), string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
                                                              size_type count2, value_type ch) noexcept {
@@ -695,7 +695,7 @@ constexpr String<storageType> & String<storageType>::replace(PositionIterator fi
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator, std::input_iterator InputIterator>
   requires std::sentinel_for<InputIterator, InputIterator> && std::same_as<std::iter_value_t<InputIterator>, char>
 constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
@@ -709,14 +709,14 @@ constexpr String<storageType> & String<storageType>::replace(PositionIterator fi
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator>
 constexpr String<storageType> & String<storageType>::replace(PositionIterator first, const_iterator last,
                                                              std::initializer_list<value_type> list) noexcept {
   return replace(first, last, list.begin(), list.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::convertible_to<const char *> PositionIterator, std::ranges::input_range Range>
   requires std::same_as<std::ranges::range_value_t<Range>, char>
 constexpr String<storageType> & String<storageType>::replace_with_range(PositionIterator first, const_iterator last,
@@ -730,7 +730,7 @@ constexpr String<storageType> & String<storageType>::replace_with_range(Position
   return *this;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::copy(value_type * dest, size_type count,
                                                                    size_type pos) const noexcept {
   assert_message(pos <= size(), "the copied range must start inside the string or at its end");
@@ -747,12 +747,12 @@ constexpr String<storageType>::size_type String<storageType>::copy(value_type * 
   return copied;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::resize(size_type count) noexcept {
   resize(count, value_type{});
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::resize(size_type count, value_type ch) noexcept {
   if (count <= size())
     erase(count);
@@ -760,7 +760,7 @@ constexpr void String<storageType>::resize(size_type count, value_type ch) noexc
     append(count - size(), ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <typename Operation>
   requires std::integral<std::invoke_result_t<Operation, char *, size_t>>
 constexpr void String<storageType>::resize_and_overwrite(size_type count, Operation operation) noexcept {
@@ -777,19 +777,19 @@ constexpr void String<storageType>::resize_and_overwrite(size_type count, Operat
   _storage.setSize(fits ? static_cast<size_type>(newSize) : size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::swap(String & other) noexcept {
   std::ranges::swap(_storage, other._storage);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::size_type String<storageType>::find(const StringType & string,
                                                                    size_type          pos) const noexcept {
   return find(string.c_str(), pos, string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find(const value_type * string, size_type pos,
                                                                    size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
@@ -797,7 +797,7 @@ constexpr String<storageType>::size_type String<storageType>::find(const value_t
   return detail::find(span{data(), size()}, span{string, count}, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find(const value_type * string,
                                                                    size_type          pos) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -805,19 +805,19 @@ constexpr String<storageType>::size_type String<storageType>::find(const value_t
   return find(string, pos, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find(value_type ch, size_type pos) const noexcept {
   return detail::find(span{data(), size()}, ch, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::size_type String<storageType>::rfind(const StringType & string,
                                                                     size_type          pos) const noexcept {
   return rfind(string.c_str(), pos, string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::rfind(const value_type * string, size_type pos,
                                                                     size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
@@ -825,7 +825,7 @@ constexpr String<storageType>::size_type String<storageType>::rfind(const value_
   return detail::rfind(span{data(), size()}, span{string, count}, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::rfind(const value_type * string,
                                                                     size_type          pos) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -833,19 +833,19 @@ constexpr String<storageType>::size_type String<storageType>::rfind(const value_
   return rfind(string, pos, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::rfind(value_type ch, size_type pos) const noexcept {
   return detail::rfind(span{data(), size()}, ch, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::size_type String<storageType>::find_first_of(const StringType & string,
                                                                             size_type          pos) const noexcept {
   return find_first_of(string.c_str(), pos, string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_of(const value_type * string, size_type pos,
                                                                             size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
@@ -853,7 +853,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_of(cons
   return detail::findFirstOf(span{data(), size()}, span{string, count}, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_of(const value_type * string,
                                                                             size_type          pos) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -861,20 +861,20 @@ constexpr String<storageType>::size_type String<storageType>::find_first_of(cons
   return find_first_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_of(value_type ch,
                                                                             size_type  pos) const noexcept {
   return find(ch, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::size_type String<storageType>::find_first_not_of(const StringType & string,
                                                                                 size_type          pos) const noexcept {
   return find_first_not_of(string.c_str(), pos, string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_not_of(const value_type * string,
                                                                                 size_type          pos,
                                                                                 size_type count) const noexcept {
@@ -883,7 +883,7 @@ constexpr String<storageType>::size_type String<storageType>::find_first_not_of(
   return detail::findFirstNotOf(span{data(), size()}, span{string, count}, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_not_of(const value_type * string,
                                                                                 size_type          pos) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -891,20 +891,20 @@ constexpr String<storageType>::size_type String<storageType>::find_first_not_of(
   return find_first_not_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_first_not_of(value_type ch,
                                                                                 size_type  pos) const noexcept {
   return detail::findFirstNotOf(span{data(), size()}, ch, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::size_type String<storageType>::find_last_of(const StringType & string,
                                                                            size_type          pos) const noexcept {
   return find_last_of(string.c_str(), pos, string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_of(const value_type * string, size_type pos,
                                                                            size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
@@ -912,7 +912,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_of(const
   return detail::findLastOf(span{data(), size()}, span{string, count}, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_of(const value_type * string,
                                                                            size_type          pos) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -920,20 +920,20 @@ constexpr String<storageType>::size_type String<storageType>::find_last_of(const
   return find_last_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_of(value_type ch,
                                                                            size_type  pos) const noexcept {
   return rfind(ch, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr String<storageType>::size_type String<storageType>::find_last_not_of(const StringType & string,
                                                                                size_type          pos) const noexcept {
   return find_last_not_of(string.c_str(), pos, string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_not_of(const value_type * string, size_type pos,
                                                                                size_type count) const noexcept {
   assert_message(string != nullptr || count == 0, "a null pointer names no characters to search for");
@@ -941,7 +941,7 @@ constexpr String<storageType>::size_type String<storageType>::find_last_not_of(c
   return detail::findLastNotOf(span{data(), size()}, span{string, count}, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_not_of(const value_type * string,
                                                                                size_type          pos) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
@@ -949,25 +949,25 @@ constexpr String<storageType>::size_type String<storageType>::find_last_not_of(c
   return find_last_not_of(string, pos, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::find_last_not_of(value_type ch,
                                                                                size_type  pos) const noexcept {
   return detail::findLastNotOf(span{data(), size()}, ch, pos);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr int String<storageType>::compare(const StringType & string) const noexcept {
   return compare(0, npos, string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr int String<storageType>::compare(size_type pos1, size_type count1, const StringType & string) const noexcept {
   return compare(pos1, count1, string.c_str(), string.size());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr int String<storageType>::compare(size_type pos1, size_type count1, const StringType & string, size_type pos2,
                                            size_type count2) const noexcept {
@@ -978,19 +978,19 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
   return compare(pos1, count1, string.c_str() + offset, min(count2, string.size() - offset));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr int String<storageType>::compare(const value_type * string) const noexcept {
   return compare(0, npos, string);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr int String<storageType>::compare(size_type pos1, size_type count1, const value_type * string) const noexcept {
   assert_message(string != nullptr, "C string must not be null");
 
   return compare(pos1, count1, string, string != nullptr ? traits_type::length(string) : 0);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr int String<storageType>::compare(size_type pos1, size_type count1, const value_type * string,
                                            size_type count2) const noexcept {
   assert_message(pos1 <= size(), "the compared range must start inside the string or at its end");
@@ -1000,65 +1000,65 @@ constexpr int String<storageType>::compare(size_type pos1, size_type count1, con
   return detail::compare(span{data() + offset, min(count1, size() - offset)}, span{string, count2});
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr bool String<storageType>::starts_with(const StringType & string) const noexcept {
   return compare(0, string.size(), string) == 0;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::starts_with(value_type ch) const noexcept {
   return !empty() && traits_type::eq(front(), ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::starts_with(const value_type * string) const noexcept {
   return starts_with(StringView(string));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr bool String<storageType>::ends_with(const StringType & string) const noexcept {
   return size() >= string.size() && compare(size() - string.size(), string.size(), string) == 0;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::ends_with(value_type ch) const noexcept {
   return !empty() && traits_type::eq(back(), ch);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::ends_with(const value_type * string) const noexcept {
   return ends_with(StringView(string));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <StringLike StringType>
 constexpr bool String<storageType>::contains(const StringType & string) const noexcept {
   return find(string) != npos;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::contains(value_type ch) const noexcept {
   return find(ch) != npos;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::contains(const value_type * string) const noexcept {
   return find(string) != npos;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> String<storageType>::substr(size_type pos, size_type count) const & noexcept {
   return String(*this, pos, count);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> String<storageType>::substr(size_type pos, size_type count) && noexcept {
   return String(std::move(*this), pos, count);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr StringView String<storageType>::subview(size_type pos) const noexcept {
   assert_message(pos <= size(), "the view must start inside the string or at its end");
 
@@ -1066,7 +1066,7 @@ constexpr StringView String<storageType>::subview(size_type pos) const noexcept 
   return StringView(c_str() + min(pos, size()));
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::_mayOverlap(const_pointer pointer) const noexcept {
   if consteval {
     return true;
@@ -1080,7 +1080,7 @@ constexpr bool String<storageType>::_mayOverlap(const_pointer pointer) const noe
   }
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
 constexpr void String<storageType>::_copyRange(InputIterator first, Sentinel last) noexcept {
   if constexpr (std::contiguous_iterator<InputIterator>) {
@@ -1094,7 +1094,7 @@ constexpr void String<storageType>::_copyRange(InputIterator first, Sentinel las
   }
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
 constexpr void String<storageType>::_copyExternalRange(InputIterator first, Sentinel last) noexcept {
   if constexpr (std::forward_iterator<InputIterator>) {
@@ -1140,14 +1140,14 @@ constexpr void String<storageType>::_copyExternalRange(InputIterator first, Sent
   }
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::_indexOf(const_iterator pos) const noexcept {
   assert_message(pos >= cbegin() && pos <= cend(), "the iterator must point into the string or at its end");
 
   return static_cast<size_type>(pos - cbegin());
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type String<storageType>::_offsetOf(const_pointer pointer) const noexcept {
   if consteval {
     // Equality, unlike ordering, stays a constant expression for pointers into unrelated objects.
@@ -1164,7 +1164,7 @@ constexpr String<storageType>::size_type String<storageType>::_offsetOf(const_po
   }
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool String<storageType>::_openGap(size_type pos, size_type removed, size_type count) noexcept {
   const size_type kept     = size() - removed;
   const bool      reserved = count <= max_size() - kept && _storage.reserve(kept + count);
@@ -1180,7 +1180,7 @@ constexpr bool String<storageType>::_openGap(size_type pos, size_type removed, s
   return true;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void String<storageType>::_replace(size_type pos, size_type removed, const_pointer source,
                                              size_type count) noexcept {
   assert_message(source != nullptr || count == 0, "a null pointer names no characters to copy");
@@ -1219,7 +1219,7 @@ constexpr void String<storageType>::_replace(size_type pos, size_type removed, c
   }
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 template <std::input_iterator InputIterator, std::sentinel_for<InputIterator> Sentinel>
 constexpr void String<storageType>::_replaceRange(size_type pos, size_type removed, InputIterator first,
                                                   Sentinel last) noexcept {
@@ -1276,28 +1276,28 @@ constexpr void String<storageType>::_replaceRange(size_type pos, size_type remov
   }
 }
 
-template <StringStorage storageType, StringLike StringType>
+template <detail::StringStorage storageType, StringLike StringType>
 constexpr String<storageType> operator+(String<storageType> lhs, const StringType & rhs) noexcept {
   lhs.append(rhs);
 
   return lhs;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> operator+(String<storageType> lhs, const char * rhs) noexcept {
   lhs.append(rhs);
 
   return lhs;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> operator+(String<storageType> lhs, char rhs) noexcept {
   lhs.push_back(rhs);
 
   return lhs;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> operator+(const char * lhs, const String<storageType> & rhs) noexcept {
   String<storageType> result(rhs.c_str(), rhs.size());
   result.insert(0, lhs);
@@ -1305,7 +1305,7 @@ constexpr String<storageType> operator+(const char * lhs, const String<storageTy
   return result;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> operator+(char lhs, const String<storageType> & rhs) noexcept {
   String<storageType> result(rhs.c_str(), rhs.size());
   result.insert(0, 1, lhs);
@@ -1313,7 +1313,7 @@ constexpr String<storageType> operator+(char lhs, const String<storageType> & rh
   return result;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType> operator+(StringView lhs, const String<storageType> & rhs) noexcept {
   String<storageType> result(rhs.c_str(), rhs.size());
   result.insert(0, lhs);
@@ -1321,12 +1321,12 @@ constexpr String<storageType> operator+(StringView lhs, const String<storageType
   return result;
 }
 
-template <StringStorage storageType, StringLike StringType>
+template <detail::StringStorage storageType, StringLike StringType>
 constexpr bool operator==(const String<storageType> & lhs, const StringType & rhs) noexcept {
   return lhs.size() == rhs.size() && lhs.compare(rhs) == 0;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr bool operator==(const String<storageType> & lhs, const char * rhs) noexcept {
   assert_message(rhs != nullptr, "C string must not be null");
 
@@ -1335,24 +1335,24 @@ constexpr bool operator==(const String<storageType> & lhs, const char * rhs) noe
   return lhs.size() == length && lhs.compare(0, length, rhs, length) == 0;
 }
 
-template <StringStorage storageType, StringLike StringType>
+template <detail::StringStorage storageType, StringLike StringType>
 constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
                                                                   const StringType &          rhs) noexcept {
   return lhs.compare(rhs) <=> 0;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
                                                                   const char *                rhs) noexcept {
   return lhs.compare(rhs) <=> 0;
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void swap(String<storageType> & lhs, String<storageType> & rhs) noexcept {
   lhs.swap(rhs);
 }
 
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type erase(String<storageType> & string, char value) noexcept {
   const auto oldSize = string.size();
   string.erase(std::remove(string.begin(), string.end(), value), string.end());
@@ -1360,7 +1360,7 @@ constexpr String<storageType>::size_type erase(String<storageType> & string, cha
   return oldSize - string.size();
 }
 
-template <StringStorage storageType, typename Predicate>
+template <detail::StringStorage storageType, typename Predicate>
   requires std::predicate<Predicate &, char &>
 constexpr String<storageType>::size_type erase_if(String<storageType> & string, Predicate predicate) noexcept {
   const auto oldSize = string.size();

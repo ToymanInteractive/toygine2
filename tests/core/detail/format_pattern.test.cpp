@@ -19,13 +19,13 @@
 //
 /*!
   \file   format_pattern.test.cpp
-  \brief  Unit tests for \ref toy::FormatPatternValidationError and toy::validateFormatPattern().
+  \brief  Unit tests for \ref toy::detail::FormatPatternValidationError and toy::detail::validateFormatPattern().
 */
 
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 // Text without braces validates against an argument count of zero, escaped braces included.
 TEST_CASE("format_pattern/validate/valid_without_placeholders") {
@@ -240,4 +240,4 @@ TEST_CASE("format_pattern/validate/string_like_sources") {
                 "a fixed string source counts its placeholders against the arguments");
 }
 
-} // namespace toy
+} // namespace toy::detail

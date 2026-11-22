@@ -21,28 +21,28 @@
   \file   format_string.hpp
   \brief  Format patterns validated at compile time against their argument counts.
 
-  Defines \ref toy::FormatString, a view over a pattern whose placeholders are checked when the pattern is built, so a
-  broken one fails the build instead of the first formatted call. Used wherever a formatter receives a pattern from a
-  call site.
+  Defines \ref toy::detail::FormatString, a view over a pattern whose placeholders are checked when the pattern is
+  built, so a broken one fails the build instead of the first formatted call. Used wherever a formatter receives a
+  pattern from a call site.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_STRING_HPP_
-#define INCLUDE_CORE_FORMAT_STRING_HPP_
+#ifndef INCLUDE_CORE_DETAIL_FORMAT_STRING_HPP_
+#define INCLUDE_CORE_DETAIL_FORMAT_STRING_HPP_
 
-#include "string_like.hpp"
-#include "string_view.hpp"
+#include "core/string_like.hpp"
+#include "core/string_view.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 /*!
   \class FormatString
   \brief A format pattern validated at compile time against its argument type list.
 
-  Construction is consteval: a pattern that breaks any rule of toy::validateFormatPattern() fails the build, and a valid
-  one survives as a \ref toy::StringView over the source. The object holds only the pointer and the length, so the
-  source has to outlive it.
+  Construction is consteval: a pattern that breaks any rule of toy::detail::validateFormatPattern() fails the build, and
+  a valid one survives as a \ref toy::StringView over the source. The object holds only the pointer and the length, so
+  the source has to outlive it.
 
   \tparam Args Types the pattern's placeholders bind. Only the count takes part in the check; no requirement is placed
                on the types themselves.
@@ -60,8 +60,8 @@ namespace toy {
   \code
   #include "core.hpp"
 
-  constexpr toy::FormatString<> plain{"no placeholders"};
-  toy::FormatString<int, int> positional{"{0} then {1}"};
+  constexpr toy::detail::FormatString<> plain{"no placeholders"};
+  toy::detail::FormatString<int, int> positional{"{0} then {1}"};
   const toy::StringView view = positional.get();
   \endcode
 
@@ -73,8 +73,8 @@ namespace toy {
 
   \section format_string_safety Safety Guarantees
 
-  * **Contracts**: a pattern toy::validateFormatPattern() rejects fails the build; a source that violates a constructor
-    precondition fails under assert_message in debug builds.
+  * **Contracts**: a pattern toy::detail::validateFormatPattern() rejects fails the build; a source that violates a
+    constructor precondition fails under assert_message in debug builds.
   * **Type safety**: sources are constrained by \ref toy::StringLike or taken as a null-terminated pointer; the
     placeholder types are counted, not constrained.
   * **Exception safety**: no operation throws; exceptions are off in the build.
@@ -82,9 +82,9 @@ namespace toy {
   \note The source must be readable in a constant expression because the constructor is consteval; a string built at
         runtime cannot feed it.
 
-  \sa \ref toy::FormatPatternValidationError
+  \sa \ref toy::detail::FormatPatternValidationError
   \sa \ref toy::StringLike
-  \sa toy::validateFormatPattern()
+  \sa toy::detail::validateFormatPattern()
 */
 template <class... Args>
 class FormatString {
@@ -158,6 +158,6 @@ private:
   static void _compileTimeError(const char * message) noexcept;
 };
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FORMAT_STRING_HPP_
+#endif // INCLUDE_CORE_DETAIL_FORMAT_STRING_HPP_

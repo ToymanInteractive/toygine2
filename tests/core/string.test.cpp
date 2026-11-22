@@ -380,13 +380,13 @@ private:
   size_t                                 _capacity{0};
 };
 
-static_assert(StringStorage<RelocatingStorage<capacity>>, "the relocating stub must back a string");
+static_assert(detail::StringStorage<RelocatingStorage<capacity>>, "the relocating stub must back a string");
 
 // String whose every growth moves the buffer, so an edit must find a source inside it again after the move.
 using Relocating = String<RelocatingStorage<capacity>>;
 
 // Fixed buffer that refuses to be copied, so a string over it moves but never copies.
-class MoveOnlyStorage : public FixedStringStorage<allocatedSize> {
+class MoveOnlyStorage : public detail::FixedStringStorage<allocatedSize> {
 public:
   constexpr MoveOnlyStorage() noexcept                                     = default;
   constexpr MoveOnlyStorage(const MoveOnlyStorage & other)                 = delete;
@@ -396,7 +396,7 @@ public:
   constexpr ~MoveOnlyStorage() noexcept                                    = default;
 };
 
-static_assert(StringStorage<MoveOnlyStorage> && !std::copy_constructible<String<MoveOnlyStorage>>,
+static_assert(detail::StringStorage<MoveOnlyStorage> && !std::copy_constructible<String<MoveOnlyStorage>>,
               "the move-only stub must back a string that cannot be copied");
 
 // String over a storage that cannot be copied.

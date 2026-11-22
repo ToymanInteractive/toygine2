@@ -19,13 +19,13 @@
 //
 /*!
   \file   string_storage.test.cpp
-  \brief  Unit tests for \ref toy::StringStorage.
+  \brief  Unit tests for \ref toy::detail::StringStorage.
 */
 
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 namespace {
 
@@ -86,4 +86,4 @@ TEST_CASE("string_storage/object_requirements") {
                 "a string over a move-only storage must still be movable");
 }
 
-} // namespace toy
+} // namespace toy::detail

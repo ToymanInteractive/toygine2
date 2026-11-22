@@ -19,13 +19,13 @@
 //
 /*!
   \file   format_string.test.cpp
-  \brief  Unit tests for \ref toy::FormatString.
+  \brief  Unit tests for \ref toy::detail::FormatString.
 */
 
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 namespace {
 
@@ -126,4 +126,4 @@ TEST_CASE("format_string/rejects_invalid_patterns") {
   static_assert(!AcceptsInvalidContent<int>, "content following an index fails to compile");
 }
 
-} // namespace toy
+} // namespace toy::detail

@@ -19,13 +19,13 @@
 //
 /*!
   \file   fixed_string_storage.test.cpp
-  \brief  Unit tests for \ref toy::FixedStringStorage.
+  \brief  Unit tests for \ref toy::detail::FixedStringStorage.
 */
 
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 namespace {
 
@@ -492,4 +492,4 @@ TEST_CASE("fixed_string_storage/concept") {
   static_assert(StringStorage<FixedStringStorage<1>>, "the smallest buffer must satisfy the concept as well");
 }
 
-} // namespace toy
+} // namespace toy::detail

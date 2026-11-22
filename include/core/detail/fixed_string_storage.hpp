@@ -21,19 +21,19 @@
   \file   fixed_string_storage.hpp
   \brief  Inline character buffer of a compile-time size that tracks the length of the string held in it.
 
-  Defines \ref toy::FixedStringStorage, which holds a byte array sized at compile time, the length of the string written
-  into it, and a terminator the class keeps behind that length. Used where a string needs bytes to write into and no
-  heap to take them from.
+  Defines \ref toy::detail::FixedStringStorage, which holds a byte array sized at compile time, the length of the string
+  written into it, and a terminator the class keeps behind that length. Used where a string needs bytes to write into
+  and no heap to take them from.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
-#define INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
+#ifndef INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_HPP_
+#define INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_HPP_
 
-#include "platform.hpp"
+#include "core/platform.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 /*!
   \class FixedStringStorage
@@ -55,7 +55,7 @@ namespace toy {
   * **Null-terminated**: setSize() writes the terminator, so data() stays valid input for a C interface.
   * **Constexpr support**: every operation evaluates in a constant expression.
   * **Exception safety**: no operation throws; exceptions are off in the build.
-  * **Storage concept**: models \ref toy::StringStorage, so a string constrained on it accepts this buffer.
+  * **Storage concept**: models \ref toy::detail::StringStorage, so a string constrained on it accepts this buffer.
   * **Checkable capacity**: reserve() answers whether a length fits before setSize() commits to it.
 
   \section fixed_string_storage_usage Usage Example
@@ -63,7 +63,7 @@ namespace toy {
   \code
   #include "core.hpp"
 
-  toy::FixedStringStorage<32> storage;
+  toy::detail::FixedStringStorage<32> storage;
 
   storage.data()[0] = 'h';
   storage.data()[1] = 'i';
@@ -94,7 +94,7 @@ namespace toy {
   \note The bytes between size() and capacity() keep whatever was written there; a shorter length moves the terminator
         and clears nothing.
 
-  \sa \ref toy::StringStorage
+  \sa \ref toy::detail::StringStorage
 */
 template <size_t AllocatedSize>
 class FixedStringStorage {
@@ -307,7 +307,8 @@ public:
   /*!
     \brief Does nothing, since the size of the buffer is fixed at compile time.
 
-    Satisfies \ref toy::StringStorage, where a storage that owns heap memory may release its unused bytes instead.
+    Satisfies \ref toy::detail::StringStorage, where a storage that owns heap memory may release its unused bytes
+    instead.
 
     \post capacity() and size() are unchanged, no byte of the buffer changes, and data() returns the same pointer.
 
@@ -354,6 +355,6 @@ private:
   size_t _size{0};
 };
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FIXED_STRING_STORAGE_HPP_
+#endif // INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_HPP_

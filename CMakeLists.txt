@@ -160,10 +160,10 @@ set(HDR_CORE_LIST
     include/core/chrono_system_clock.hpp
     include/core/chrono_timestamp.hpp
     include/core/detail/string_utils.hpp
-    include/core/fixed_string_storage.hpp
-    include/core/format_context.hpp
-    include/core/format_pattern.hpp
-    include/core/format_string.hpp
+    include/core/detail/fixed_string_storage.hpp
+    include/core/detail/format_context.hpp
+    include/core/detail/format_pattern.hpp
+    include/core/detail/format_string.hpp
     include/core/log_isink.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
@@ -171,7 +171,7 @@ set(HDR_CORE_LIST
     include/core/memory.hpp
     include/core/platform.hpp
     include/core/string_like.hpp
-    include/core/string_storage.hpp
+    include/core/detail/string_storage.hpp
     include/core/string_view.hpp
     include/core/string.hpp)
 set(INL_CORE_LIST
@@ -180,10 +180,10 @@ set(INL_CORE_LIST
     include/core/chrono_stopwatch.inl
     include/core/chrono_timestamp.inl
     include/core/detail/string_utils.inl
-    include/core/fixed_string_storage.inl
-    include/core/format_context.inl
-    include/core/format_pattern.inl
-    include/core/format_string.inl
+    include/core/detail/fixed_string_storage.inl
+    include/core/detail/format_context.inl
+    include/core/detail/format_pattern.inl
+    include/core/detail/format_string.inl
     include/core/string_view.inl
     include/core/string.inl)
 

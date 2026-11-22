@@ -19,7 +19,7 @@
 //
 /*!
   \file   format_context.test.cpp
-  \brief  Unit tests for \ref toy::FormatContext.
+  \brief  Unit tests for \ref toy::detail::FormatContext.
 */
 
 #include <cstring>
@@ -27,7 +27,7 @@
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 namespace {
 
@@ -91,8 +91,8 @@ void append(void * context, span<const char> data) noexcept {
 
 // Returns false when the sink did not take the whole greeting.
 bool writeGreeting(Sink & sink) {
-  const size_t       start = sink.length;
-  toy::FormatContext output{&sink, &append};
+  const size_t               start = sink.length;
+  toy::detail::FormatContext output{&sink, &append};
   output.write(span<const char>{"hi", 2});
   output.put('!');
   return sink.length - start == 3;
@@ -219,4 +219,4 @@ TEST_CASE("format_context/usage_example_greeting") {
   CHECK(nearlyFull.buffer[15] == 'i');
 }
 
-} // namespace toy
+} // namespace toy::detail

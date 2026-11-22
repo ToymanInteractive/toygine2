@@ -19,15 +19,15 @@
 //
 /*!
   \file   fixed_string_storage.inl
-  \brief  Inline implementations for buffer access, capacity, and the length setter of \ref toy::FixedStringStorage.
+  \brief  Inline implementations for \ref toy::detail::FixedStringStorage buffer access, capacity, and length setter.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FIXED_STRING_STORAGE_INL_
-#define INCLUDE_CORE_FIXED_STRING_STORAGE_INL_
+#ifndef INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_INL_
+#define INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_INL_
 
-namespace toy {
+namespace toy::detail {
 
 template <size_t AllocatedSize>
 constexpr FixedStringStorage<AllocatedSize>::FixedStringStorage() noexcept {
@@ -121,6 +121,6 @@ constexpr void FixedStringStorage<AllocatedSize>::setSize(size_t newSize) noexce
   _buffer[newSize] = '\0';
 }
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FIXED_STRING_STORAGE_INL_
+#endif // INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_INL_

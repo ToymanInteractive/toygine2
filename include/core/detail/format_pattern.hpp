@@ -21,19 +21,20 @@
   \file   format_pattern.hpp
   \brief  Format pattern validation diagnostics and the check itself.
 
-  Defines \ref toy::FormatPatternValidationError, the values a pattern check reports, and declares
-  toy::validateFormatPattern(), which walks a pattern and matches its placeholders against an argument count. Used by
-  the consteval constructor of \ref toy::FormatString and by any caller that wants the same verdict at runtime.
+  Defines \ref toy::detail::FormatPatternValidationError, the values a pattern check reports, and declares
+  toy::detail::validateFormatPattern(), which walks a pattern and matches its placeholders against an argument count.
+  Used by the consteval constructor of \ref toy::detail::FormatString and by any caller that wants the same verdict at
+  runtime.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_PATTERN_HPP_
-#define INCLUDE_CORE_FORMAT_PATTERN_HPP_
+#ifndef INCLUDE_CORE_DETAIL_FORMAT_PATTERN_HPP_
+#define INCLUDE_CORE_DETAIL_FORMAT_PATTERN_HPP_
 
-#include "string_like.hpp"
+#include "core/string_like.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 /*!
   \enum  FormatPatternValidationError
@@ -59,11 +60,11 @@ enum class FormatPatternValidationError {
   \param string   Null-terminated pattern to check; the length is the offset of its terminator.
   \param argCount Arguments the pattern has to fit.
 
-  \return \ref toy::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value naming the
-          first violated rule.
+  \return \ref toy::detail::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value
+          naming the first violated rule.
   \pre \a string is non-null, checked by assert_message in debug builds.
 
-  \sa toy::validateFormatPattern(const StringType &)
+  \sa toy::detail::validateFormatPattern(const StringType &)
 */
 [[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const char * string,
                                                                            size_t       argCount) noexcept;
@@ -79,17 +80,17 @@ enum class FormatPatternValidationError {
   \param string   Pattern to check.
   \param argCount Arguments the pattern has to fit.
 
-  \return \ref toy::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value naming the
-          first violated rule.
+  \return \ref toy::detail::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value
+          naming the first violated rule.
 
   \pre \a string returns a non-null c_str() with \c '\\0' at offset size(), checked by assert_message in debug builds.
 
-  \sa toy::validateFormatPattern(const char *)
+  \sa toy::detail::validateFormatPattern(const char *)
 */
 template <StringLike StringType>
 [[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const StringType & string,
                                                                            size_t             argCount) noexcept;
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FORMAT_PATTERN_HPP_
+#endif // INCLUDE_CORE_DETAIL_FORMAT_PATTERN_HPP_

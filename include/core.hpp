@@ -145,7 +145,8 @@ using std::strong_ordering;
 /*!
   \namespace toy::detail
 
-  \brief Implementation helpers the core module shares across its types: character search and comparison, plus UTF-8
+  \brief Implementation helpers the core module shares across its types: the format context, format pattern parsing and
+         validation, the string storage concept, the fixed-string storage, character search and comparison, plus UTF-8
          and UTF-16 conversion, counting, and validation.
 
   A search or comparison function reads only the characters inside the toy::span it is given: it needs no terminator
@@ -316,11 +317,12 @@ using std::strong_ordering;
 #include "core/chrono_stopwatch.hpp"
 #include "core/chrono_system_clock.hpp"
 #include "core/chrono_timestamp.hpp"
+#include "core/detail/fixed_string_storage.hpp"
+#include "core/detail/format_context.hpp"
+#include "core/detail/format_pattern.hpp"
+#include "core/detail/format_string.hpp"
+#include "core/detail/string_storage.hpp"
 #include "core/detail/string_utils.hpp"
-#include "core/fixed_string_storage.hpp"
-#include "core/format_context.hpp"
-#include "core/format_pattern.hpp"
-#include "core/format_string.hpp"
 #include "core/hashes.hpp"
 #include "core/log_isink.hpp"
 #include "core/log_level.hpp"
@@ -330,7 +332,6 @@ using std::strong_ordering;
 #include "core/platform.hpp"
 #include "core/string.hpp"
 #include "core/string_like.hpp"
-#include "core/string_storage.hpp"
 #include "core/string_view.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -339,11 +340,11 @@ using std::strong_ordering;
 #include "core/chrono_calendar_time.inl"
 #include "core/chrono_stopwatch.inl"
 #include "core/chrono_timestamp.inl"
+#include "core/detail/fixed_string_storage.inl"
+#include "core/detail/format_context.inl"
+#include "core/detail/format_pattern.inl"
+#include "core/detail/format_string.inl"
 #include "core/detail/string_utils.inl"
-#include "core/fixed_string_storage.inl"
-#include "core/format_context.inl"
-#include "core/format_pattern.inl"
-#include "core/format_string.inl"
 #include "core/string.inl"
 #include "core/string_view.inl"
 

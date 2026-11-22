@@ -21,16 +21,16 @@
   \file   format_context.hpp
   \brief  Character sink that formatting code writes its output through.
 
-  Defines \ref toy::FormatContext, a caller-owned context pointer paired with a write callback, so output lands in
-  caller storage without std::function, virtual dispatch, or allocation.
+  Defines \ref toy::detail::FormatContext, a caller-owned context pointer paired with a write callback, so output lands
+  in caller storage without std::function, virtual dispatch, or allocation.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_CONTEXT_HPP_
-#define INCLUDE_CORE_FORMAT_CONTEXT_HPP_
+#ifndef INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_HPP_
+#define INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_HPP_
 
-namespace toy {
+namespace toy::detail {
 
 /*!
   \class FormatContext
@@ -69,8 +69,8 @@ namespace toy {
 
   // Returns false when the sink did not take the whole greeting.
   bool writeGreeting(Sink & sink) {
-    const size_t       start = sink.length;
-    toy::FormatContext output{&sink, &append};
+    const size_t               start = sink.length;
+    toy::detail::FormatContext output{&sink, &append};
     output.write(toy::span<const char>{"hi", 2});
     output.put('!');
     return sink.length - start == 3;
@@ -99,7 +99,7 @@ namespace toy {
   \note Concurrent dispatch, including through copies, is safe exactly when the callback is; the class adds no
         synchronization.
 
-  \sa \ref toy::FormatString
+  \sa \ref toy::detail::FormatString
 */
 class FormatContext {
 public:
@@ -162,6 +162,6 @@ private:
   WriteFunction _writeFn;
 };
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FORMAT_CONTEXT_HPP_
+#endif // INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_HPP_
