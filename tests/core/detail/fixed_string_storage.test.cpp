@@ -271,7 +271,7 @@ constexpr Storage compileTimeStorage = sampleStorage();
 
 // What a copy and a scope exit cost the caller, the initializer form the call site may write, and what a
 // declaration without one leaves behind.
-TEST_CASE("fixed_string_storage/value_semantics") {
+TEST_CASE("detail/fixed_string_storage/value_semantics") {
   static_assert(std::is_trivially_copyable_v<Storage>, "the buffer must copy as bytes");
   static_assert(std::is_trivially_destructible_v<Storage>, "leaving scope must run no destructor");
   static_assert(std::is_standard_layout_v<Storage>, "the layout must stay readable from a C interface");
@@ -293,7 +293,7 @@ TEST_CASE("fixed_string_storage/value_semantics") {
 }
 
 // What a storage reports before anything is written into it.
-TEST_CASE("fixed_string_storage/default_state") {
+TEST_CASE("detail/fixed_string_storage/default_state") {
   const Storage storage;
 
   CHECK(storage.size() == 0);
@@ -306,7 +306,7 @@ TEST_CASE("fixed_string_storage/default_state") {
 }
 
 // The bound a length may not cross, and the byte the terminator claims out of the buffer.
-TEST_CASE("fixed_string_storage/capacity") {
+TEST_CASE("detail/fixed_string_storage/capacity") {
   const Storage storage;
 
   CHECK(storage.capacity() == allocatedSize - 1);
@@ -317,7 +317,7 @@ TEST_CASE("fixed_string_storage/capacity") {
 }
 
 // The longest string the buffer holds is its capacity, since the buffer never grows.
-TEST_CASE("fixed_string_storage/max_size") {
+TEST_CASE("detail/fixed_string_storage/max_size") {
   const Storage storage = sampleStorage();
 
   CHECK(storage.max_size() == allocatedSize - 1);
@@ -328,7 +328,7 @@ TEST_CASE("fixed_string_storage/max_size") {
 }
 
 // Which bytes the two pointer overloads reach, and what a caller reads back after writing through the mutable one.
-TEST_CASE("fixed_string_storage/data_access") {
+TEST_CASE("detail/fixed_string_storage/data_access") {
   Storage         storage;
   const Storage & constStorage = storage;
 
@@ -347,7 +347,7 @@ TEST_CASE("fixed_string_storage/data_access") {
 }
 
 // Which lengths the buffer admits, and what asking leaves behind.
-TEST_CASE("fixed_string_storage/reserve") {
+TEST_CASE("detail/fixed_string_storage/reserve") {
   Storage       storage = sampleStorage();
   const Storage before  = storage;
 
@@ -372,7 +372,7 @@ TEST_CASE("fixed_string_storage/reserve") {
 }
 
 // A shrink request leaves the buffer as it was: its size is fixed, so there is nothing to release.
-TEST_CASE("fixed_string_storage/shrink_to_fit") {
+TEST_CASE("detail/fixed_string_storage/shrink_to_fit") {
   Storage       storage = sampleStorage();
   const Storage before  = storage;
   const char *  buffer  = storage.data();
@@ -388,7 +388,7 @@ TEST_CASE("fixed_string_storage/shrink_to_fit") {
 }
 
 // What setSize() records, and where it puts the terminator.
-TEST_CASE("fixed_string_storage/set_size") {
+TEST_CASE("detail/fixed_string_storage/set_size") {
   Storage storage = sampleStorage();
 
   CHECK(storage.size() == sampleLength);
@@ -405,7 +405,7 @@ TEST_CASE("fixed_string_storage/set_size") {
 }
 
 // Which characters a shorter length leaves behind it.
-TEST_CASE("fixed_string_storage/set_size_shrink") {
+TEST_CASE("detail/fixed_string_storage/set_size_shrink") {
   Storage storage = sampleStorage();
 
   storage.setSize(shortLength);
@@ -424,7 +424,7 @@ TEST_CASE("fixed_string_storage/set_size_shrink") {
 // With assertions compiled out, the cases below reach the documented fallbacks.
 #if !defined(TOYGINE_ASSERTIONS_ENABLED)
 // A length past capacity() leaves the length and every byte of the buffer as they were.
-TEST_CASE("fixed_string_storage/set_size_past_capacity") {
+TEST_CASE("detail/fixed_string_storage/set_size_past_capacity") {
   constexpr auto pastCapacity = [] {
     Storage storage = sampleStorage();
     storage.setSize(storage.capacity() + 1);
@@ -442,7 +442,7 @@ TEST_CASE("fixed_string_storage/set_size_past_capacity") {
 #endif // !TOYGINE_ASSERTIONS_ENABLED
 
 // Assignments reproduce the source over both copy paths; the length-based one keeps the bytes past the terminator.
-TEST_CASE("fixed_string_storage/assignment") {
+TEST_CASE("detail/fixed_string_storage/assignment") {
   CHECK(sampleDifference(copyAssigned<Storage>()) == sampleLength + 1);
   CHECK(sampleDifference(copyAssigned<LargeStorage>()) == sampleLength + 1);
   CHECK(sampleDifference(moveAssigned<Storage>()) == sampleLength + 1);
@@ -468,7 +468,7 @@ TEST_CASE("fixed_string_storage/assignment") {
 }
 
 // Copy and move construction reproduce the source's characters, over a buffer copied whole and one copied by length.
-TEST_CASE("fixed_string_storage/copy_construction") {
+TEST_CASE("detail/fixed_string_storage/copy_construction") {
   CHECK(copyConstructedDifference<Storage>() == sampleLength + 1);
   CHECK(copyConstructedDifference<LargeStorage>() == sampleLength + 1);
   CHECK(moveConstructedDifference<Storage>() == sampleLength + 1);
@@ -486,7 +486,7 @@ TEST_CASE("fixed_string_storage/copy_construction") {
 }
 
 // The storage contract a string constrains on, and which buffers meet it.
-TEST_CASE("fixed_string_storage/concept") {
+TEST_CASE("detail/fixed_string_storage/concept") {
   static_assert(StringStorage<Storage>, "the buffer must satisfy the storage concept a string constrains on");
   static_assert(StringStorage<Storage &>, "a reference is stripped from T, so a reference must satisfy it too");
   static_assert(StringStorage<FixedStringStorage<1>>, "the smallest buffer must satisfy the concept as well");

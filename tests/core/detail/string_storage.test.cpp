@@ -71,7 +71,7 @@ struct MoveOnlyStorage : FakeStorage {
 } // namespace
 
 // Concept StringStorage: the construction and move support it asks for beyond the eight members.
-TEST_CASE("string_storage/object_requirements") {
+TEST_CASE("detail/string_storage/object_requirements") {
   static_assert(StringStorage<FakeStorage>,
                 "the eight members on a default-constructible, movable type must satisfy it");
   static_assert(StringStorage<FakeStorage &>, "a reference is stripped from T, so a reference must satisfy it too");

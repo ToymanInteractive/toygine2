@@ -215,7 +215,7 @@ constexpr auto hexText(T value, size_t destSize) noexcept {
 } // namespace
 
 // Where a character first occurs, counting from the offset the search starts at.
-TEST_CASE("string_utils/find/first_character_at_or_after_offset") {
+TEST_CASE("detail/string_utils/find/first_character_at_or_after_offset") {
   CHECK(detail::find(repeatedRange, 'a', 0) == 0);
   CHECK(detail::find(repeatedRange, 'a', 1) == 3);
   CHECK(detail::find(repeatedRange, 'd', 0) == 6);
@@ -235,7 +235,7 @@ TEST_CASE("string_utils/find/first_character_at_or_after_offset") {
 }
 
 // Where the first match of a character sequence starts, counting from the offset the search starts at.
-TEST_CASE("string_utils/find/first_sequence_at_or_after_offset") {
+TEST_CASE("detail/string_utils/find/first_sequence_at_or_after_offset") {
   CHECK(detail::find(repeatedRange, asRange("abra"), 0) == 0);
   CHECK(detail::find(repeatedRange, asRange("abra"), 1) == 7);
   CHECK(detail::find(repeatedRange, asRange("abra"), 8) == npos);
@@ -290,7 +290,7 @@ TEST_CASE("string_utils/find/first_sequence_at_or_after_offset") {
 }
 
 // Where a character last occurs, at or before the offset the search starts at.
-TEST_CASE("string_utils/rfind/last_character_at_or_before_offset") {
+TEST_CASE("detail/string_utils/rfind/last_character_at_or_before_offset") {
   CHECK(detail::rfind(repeatedRange, 'a', npos) == repeatedLength - 1);
   CHECK(detail::rfind(repeatedRange, 'a', 9) == 7);
   CHECK(detail::rfind(repeatedRange, 'd', npos) == 6);
@@ -314,7 +314,7 @@ TEST_CASE("string_utils/rfind/last_character_at_or_before_offset") {
 }
 
 // Where the last match of a character sequence starts, at or before the offset the search starts at.
-TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
+TEST_CASE("detail/string_utils/rfind/last_sequence_at_or_before_offset") {
   CHECK(detail::rfind(repeatedRange, asRange("abra"), npos) == 7);
   CHECK(detail::rfind(repeatedRange, asRange("abra"), 7) == 7);
   CHECK(detail::rfind(repeatedRange, asRange("abra"), 6) == 0);
@@ -370,7 +370,7 @@ TEST_CASE("string_utils/rfind/last_sequence_at_or_before_offset") {
 }
 
 // Which character first belongs to a set, counting from the offset the search starts at.
-TEST_CASE("string_utils/find_first_of/first_member_of_set") {
+TEST_CASE("detail/string_utils/find_first_of/first_member_of_set") {
   CHECK(detail::findFirstOf(repeatedRange, asRange("rc"), 0) == 2);
   CHECK(detail::findFirstOf(repeatedRange, asRange("rc"), 3) == 4);
   CHECK(detail::findFirstOf(repeatedRange, asRange("rc"), 10) == npos);
@@ -396,7 +396,7 @@ TEST_CASE("string_utils/find_first_of/first_member_of_set") {
 }
 
 // Which character last belongs to a set, at or before the offset the search starts at.
-TEST_CASE("string_utils/find_last_of/last_member_of_set") {
+TEST_CASE("detail/string_utils/find_last_of/last_member_of_set") {
   CHECK(detail::findLastOf(repeatedRange, asRange("rc"), npos) == 9);
   CHECK(detail::findLastOf(repeatedRange, asRange("rc"), 8) == 4);
   CHECK(detail::findLastOf(repeatedRange, asRange("rc"), 1) == npos);
@@ -418,7 +418,7 @@ TEST_CASE("string_utils/find_last_of/last_member_of_set") {
 }
 
 // Which character first falls outside a single character or a set, counting from the start offset.
-TEST_CASE("string_utils/find_first_not_of/first_character_outside") {
+TEST_CASE("detail/string_utils/find_first_not_of/first_character_outside") {
   CHECK(detail::findFirstNotOf(repeatedRange, 'a', 0) == 1);
   CHECK(detail::findFirstNotOf(repeatedRange, 'a', 3) == 4);
   CHECK(detail::findFirstNotOf(runOfARange, 'a', 0) == npos);
@@ -457,7 +457,7 @@ TEST_CASE("string_utils/find_first_not_of/first_character_outside") {
 }
 
 // Which character last falls outside a single character or a set, at or before the start offset.
-TEST_CASE("string_utils/find_last_not_of/last_character_outside") {
+TEST_CASE("detail/string_utils/find_last_not_of/last_character_outside") {
   CHECK(detail::findLastNotOf(repeatedRange, 'a', npos) == 9);
   CHECK(detail::findLastNotOf(repeatedRange, 'a', 8) == 8);
   CHECK(detail::findLastNotOf(runOfARange, 'a', npos) == npos);
@@ -493,7 +493,7 @@ TEST_CASE("string_utils/find_last_not_of/last_character_outside") {
 }
 
 // A byte above the ASCII range reaches a character-set search, where a signed index would read outside the table.
-TEST_CASE("string_utils/search/matches_high_byte_in_set") {
+TEST_CASE("detail/string_utils/search/matches_high_byte_in_set") {
   CHECK(detail::findFirstOf(highByteInsideRange, asRange("\x{FF}"), 0) == 1);
   CHECK(detail::findLastOf(highByteInsideRange, asRange("\x{FF}"), npos) == 1);
   CHECK(detail::findFirstNotOf(highByteInsideRange, asRange("a\x{FF}"), 0) == 2);
@@ -509,7 +509,7 @@ TEST_CASE("string_utils/search/matches_high_byte_in_set") {
 }
 
 // What a search sees of a buffer the length cuts short: nothing past it, and no terminator required.
-TEST_CASE("string_utils/search/reads_only_the_counted_range") {
+TEST_CASE("detail/string_utils/search/reads_only_the_counted_range") {
   // Every match below exists in the whole literal, but only past the leading part the length names.
   CHECK(detail::find(repeatedRange.first(leadingLength), 'b', 2) == npos);
   CHECK(detail::find(repeatedRange.first(leadingLength), asRange("abra"), 1) == npos);
@@ -533,7 +533,7 @@ TEST_CASE("string_utils/search/reads_only_the_counted_range") {
 }
 
 // What a search reads of its pattern or set: exactly the count, so either may end without a terminator.
-TEST_CASE("string_utils/search/reads_only_the_counted_pattern") {
+TEST_CASE("detail/string_utils/search/reads_only_the_counted_pattern") {
   // The pattern and the one-byte sets end where the array does, so a read past the count runs off it.
   constexpr const char * lastByte = unterminated + std::size(unterminated) - 1;
 
@@ -559,7 +559,7 @@ TEST_CASE("string_utils/search/reads_only_the_counted_pattern") {
 }
 
 // How a terminator inside the range compares: like any other character, in a pattern, in a set, and as a skip.
-TEST_CASE("string_utils/search/matches_embedded_null") {
+TEST_CASE("detail/string_utils/search/matches_embedded_null") {
   CHECK(detail::find(embeddedNullRange, '\0', 0) == 2);
   CHECK(detail::find(embeddedNullRange, 'a', 0) == 3);
   CHECK(detail::rfind(embeddedNullRange, span{"\0a", 2}, npos) == 2);
@@ -576,7 +576,7 @@ TEST_CASE("string_utils/search/matches_embedded_null") {
 }
 
 // What a null pointer with a zero length yields: the empty-range or empty-set answer, with nothing read.
-TEST_CASE("string_utils/search/accepts_null_with_zero_length") {
+TEST_CASE("detail/string_utils/search/accepts_null_with_zero_length") {
   CHECK(detail::find(span<const char>{}, asRange("a"), 0) == npos);
   CHECK(detail::find(span<const char>{}, span<const char>{}, 0) == 0);
   CHECK(detail::rfind(span<const char>{}, span<const char>{}, npos) == 0);
@@ -595,7 +595,7 @@ TEST_CASE("string_utils/search/accepts_null_with_zero_length") {
 }
 
 // How many characters a range encodes: one per byte outside the continuation form, read over exactly the range.
-TEST_CASE("string_utils/utf8_size/counts_characters_in_range") {
+TEST_CASE("detail/string_utils/utf8_size/counts_characters_in_range") {
   constexpr size_t cyrillicLength = std::char_traits<char>::length(cyrillic);
 
   CHECK(detail::utf8Size(repeatedRange) == repeatedLength);
@@ -617,7 +617,7 @@ TEST_CASE("string_utils/utf8_size/counts_characters_in_range") {
 }
 
 // Two ranges holding the same characters compare equal, whichever buffers hold them.
-TEST_CASE("string_utils/compare/equal_ranges") {
+TEST_CASE("detail/string_utils/compare/equal_ranges") {
   CHECK(detail::compare(repeatedRange, repeatedRange) == 0);
   CHECK(detail::compare(repeatedRange, unterminatedRange) == 0);
 
@@ -631,7 +631,7 @@ TEST_CASE("string_utils/compare/equal_ranges") {
 }
 
 // The first differing character decides the order, whatever the lengths, and swapping the ranges flips it.
-TEST_CASE("string_utils/compare/first_difference_decides") {
+TEST_CASE("detail/string_utils/compare/first_difference_decides") {
   CHECK(detail::compare(repeatedRange, repeatedFirstDiffersRange) < 0);
   CHECK(detail::compare(repeatedFirstDiffersRange, repeatedRange) > 0);
   CHECK(detail::compare(repeatedRange, repeatedMiddleDiffersRange) > 0);
@@ -655,7 +655,7 @@ TEST_CASE("string_utils/compare/first_difference_decides") {
 }
 
 // When one range is a prefix of the other, the shorter one orders first.
-TEST_CASE("string_utils/compare/shorter_prefix_orders_first") {
+TEST_CASE("detail/string_utils/compare/shorter_prefix_orders_first") {
   CHECK(detail::compare(repeatedRange, repeatedLongerRange) < 0);
   CHECK(detail::compare(repeatedLongerRange, repeatedRange) > 0);
   CHECK(detail::compare(repeatedRange.first(leadingLength), repeatedRange) < 0);
@@ -671,7 +671,7 @@ TEST_CASE("string_utils/compare/shorter_prefix_orders_first") {
 }
 
 // What a comparison sees of its ranges: the counted characters only, a null byte among them included.
-TEST_CASE("string_utils/compare/reads_only_the_counted_ranges") {
+TEST_CASE("detail/string_utils/compare/reads_only_the_counted_ranges") {
   // The lengths cut both literals before they part, so the parts compare equal.
   CHECK(detail::compare(repeatedRange.first(leadingLength), repeatedLastDiffersRange.first(leadingLength)) == 0);
 
@@ -689,7 +689,7 @@ TEST_CASE("string_utils/compare/reads_only_the_counted_ranges") {
 }
 
 // How many characters a UTF-8 string holds, against the bytes it occupies.
-TEST_CASE("string_utils/utf8_len/counts_characters_not_bytes") {
+TEST_CASE("detail/string_utils/utf8_len/counts_characters_not_bytes") {
   CHECK(detail::utf8Len(ascii) == std::char_traits<char>::length(ascii));
   CHECK(detail::utf8Len(cyrillic) == std::char_traits<char>::length(cyrillic) / 2);
   CHECK(detail::utf8Len(cjk) == std::char_traits<char>::length(cjk) / 3);
@@ -703,7 +703,7 @@ TEST_CASE("string_utils/utf8_len/counts_characters_not_bytes") {
 }
 
 // Which sequences the narrowed second-byte ranges still accept, at both ends of every narrowed range.
-TEST_CASE("string_utils/utf8_len/counts_sequences_at_the_range_edges") {
+TEST_CASE("detail/string_utils/utf8_len/counts_sequences_at_the_range_edges") {
   CHECK(detail::utf8Len(lowestThreeByte) == 1);
   CHECK(detail::utf8Len(beforeSurrogates) == 1);
   CHECK(detail::utf8Len(lowestFourByte) == 1);
@@ -711,7 +711,7 @@ TEST_CASE("string_utils/utf8_len/counts_sequences_at_the_range_edges") {
 }
 
 // A surrogate pair counts as one character, so every sample holds as many characters as its UTF-8 form.
-TEST_CASE("string_utils/utf16_len/counts_characters_not_units") {
+TEST_CASE("detail/string_utils/utf16_len/counts_characters_not_units") {
   for (size_t index = 0; index < utf16Samples.size(); ++index) {
     INFO("index ", index);
     const auto & [utf16, utf8] = utf16Samples[index];
@@ -724,7 +724,7 @@ TEST_CASE("string_utils/utf16_len/counts_characters_not_units") {
 }
 
 // A character at either edge of the surrogate range counts once, whether it takes one unit or a pair.
-TEST_CASE("string_utils/utf16_len/counts_units_at_the_surrogate_edges") {
+TEST_CASE("detail/string_utils/utf16_len/counts_units_at_the_surrogate_edges") {
   CHECK(detail::utf16Len(utf16BeforeSurrogates) == 1);
   CHECK(detail::utf16Len(utf16AfterSurrogates) == 1);
   CHECK(detail::utf16Len(utf16LowestPair) == 1);
@@ -732,7 +732,7 @@ TEST_CASE("string_utils/utf16_len/counts_units_at_the_surrogate_edges") {
 }
 
 // Which strings the validator accepts: every encoding width and both ends of every narrowed range.
-TEST_CASE("string_utils/validate_utf8/accepts_well_formed_sequences") {
+TEST_CASE("detail/string_utils/validate_utf8/accepts_well_formed_sequences") {
   CHECK(detail::validateUtf8(ascii));
   CHECK(detail::validateUtf8(cyrillic));
   CHECK(detail::validateUtf8(cjk));
@@ -754,7 +754,7 @@ TEST_CASE("string_utils/validate_utf8/accepts_well_formed_sequences") {
 }
 
 // Which strings it rejects, among them the sequences a lead byte alone admits.
-TEST_CASE("string_utils/validate_utf8/rejects_ill_formed_sequences") {
+TEST_CASE("detail/string_utils/validate_utf8/rejects_ill_formed_sequences") {
   // A null pointer names no string to check, which the validator answers rather than asserts.
   CHECK_FALSE(detail::validateUtf8(nullptr));
 
@@ -778,7 +778,7 @@ TEST_CASE("string_utils/validate_utf8/rejects_ill_formed_sequences") {
 }
 
 // A counted range ends at its length: bytes past it go unread, and a terminator inside it is an ordinary byte.
-TEST_CASE("string_utils/validate_utf8/reads_only_the_counted_range") {
+TEST_CASE("detail/string_utils/validate_utf8/reads_only_the_counted_range") {
   // The ill-formed tail sits past the length, so the range holds the leading 'a' alone.
   CHECK(detail::validateUtf8(span{truncatedSymbol}.first(1)));
 
@@ -791,7 +791,7 @@ TEST_CASE("string_utils/validate_utf8/reads_only_the_counted_range") {
 }
 
 // Which strings the validator accepts: both widths and both ends of the surrogate range.
-TEST_CASE("string_utils/validate_utf16/accepts_well_formed_strings") {
+TEST_CASE("detail/string_utils/validate_utf16/accepts_well_formed_strings") {
   for (size_t index = 0; index < utf16Samples.size(); ++index) {
     INFO("index ", index);
     const char16_t * const utf16 = utf16Samples[index].utf16;
@@ -811,7 +811,7 @@ TEST_CASE("string_utils/validate_utf16/accepts_well_formed_strings") {
 }
 
 // Which strings it rejects: a surrogate outside a pair, wherever it sits, and a null pointer.
-TEST_CASE("string_utils/validate_utf16/rejects_ill_formed_strings") {
+TEST_CASE("detail/string_utils/validate_utf16/rejects_ill_formed_strings") {
   // A null pointer names no string to check, which the validator answers rather than asserts.
   CHECK_FALSE(detail::validateUtf16(nullptr));
 
@@ -825,7 +825,7 @@ TEST_CASE("string_utils/validate_utf16/rejects_ill_formed_strings") {
 }
 
 // A counted range ends at its length: units past it go unread, and a terminator inside it is an ordinary unit.
-TEST_CASE("string_utils/validate_utf16/reads_only_the_counted_range") {
+TEST_CASE("detail/string_utils/validate_utf16/reads_only_the_counted_range") {
   // The high surrogate sits past the length, so the range holds the leading 'a' alone.
   CHECK(detail::validateUtf16(span{loneSurrogates[1].data(), 1}));
 
@@ -838,7 +838,7 @@ TEST_CASE("string_utils/validate_utf16/reads_only_the_counted_range") {
 }
 
 // Every width converts to the bytes of the matching UTF-8 literal, and the call hands back the buffer it wrote.
-TEST_CASE("string_utils/utf16_to_utf8/encodes_every_width") {
+TEST_CASE("detail/string_utils/utf16_to_utf8/encodes_every_width") {
   for (size_t index = 0; index < utf16Samples.size(); ++index) {
     INFO("index ", index);
     const auto & [utf16, utf8] = utf16Samples[index];
@@ -852,7 +852,7 @@ TEST_CASE("string_utils/utf16_to_utf8/encodes_every_width") {
 }
 
 // The unit count bounds the input: a terminator inside it is encoded, and a pair it cuts short ends the call.
-TEST_CASE("string_utils/utf16_to_utf8/reads_only_the_counted_units") {
+TEST_CASE("detail/string_utils/utf16_to_utf8/reads_only_the_counted_units") {
   array<char, 8> inner{sentinel, sentinel, sentinel, sentinel, sentinel};
   detail::utf16ToUtf8(span{inner}, span{utf16InnerTerminator});
   CHECK(inner[0] == 'a');
@@ -876,7 +876,7 @@ TEST_CASE("string_utils/utf16_to_utf8/reads_only_the_counted_units") {
 }
 
 // A character that does not fit whole stays out, and the terminator always fits.
-TEST_CASE("string_utils/utf16_to_utf8/stops_before_a_character_that_does_not_fit") {
+TEST_CASE("detail/string_utils/utf16_to_utf8/stops_before_a_character_that_does_not_fit") {
   const auto length = std::char_traits<char>::length(cyrillic);
   const auto units  = std::char_traits<char16_t>::length(u"привет");
 
@@ -915,7 +915,7 @@ TEST_CASE("string_utils/utf16_to_utf8/stops_before_a_character_that_does_not_fit
 }
 
 // A surrogate pair goes in as one four-byte sequence or not at all.
-TEST_CASE("string_utils/utf16_to_utf8/writes_a_surrogate_pair_whole_or_not_at_all") {
+TEST_CASE("detail/string_utils/utf16_to_utf8/writes_a_surrogate_pair_whole_or_not_at_all") {
   const auto pairBytes = std::char_traits<char>::length("🎮");
   const auto pairUnits = std::char_traits<char16_t>::length(u"🎮");
 
@@ -929,7 +929,7 @@ TEST_CASE("string_utils/utf16_to_utf8/writes_a_surrogate_pair_whole_or_not_at_al
 }
 
 // A surrogate outside a pair encodes no code point, so the call keeps what precedes it and stops there.
-TEST_CASE("string_utils/utf16_to_utf8/stops_before_a_lone_surrogate") {
+TEST_CASE("detail/string_utils/utf16_to_utf8/stops_before_a_lone_surrogate") {
   for (size_t index = 0; index < loneSurrogates.size(); ++index) {
     INFO("index ", index);
 
@@ -943,7 +943,7 @@ TEST_CASE("string_utils/utf16_to_utf8/stops_before_a_lone_surrogate") {
 }
 
 // A null or empty source converts as an empty string; a buffer that cannot hold the terminator gets no write at all.
-TEST_CASE("string_utils/utf16_to_utf8/handles_null_and_empty_arguments") {
+TEST_CASE("detail/string_utils/utf16_to_utf8/handles_null_and_empty_arguments") {
   array<char, 4> untouched{sentinel, sentinel, sentinel, sentinel};
   CHECK(detail::utf16ToUtf8(span{nullBytes, untouched.size()}, unitsRange(u"player").first(1)) == nullptr);
   CHECK(detail::utf16ToUtf8(span{untouched}.first(0), unitsRange(u"player").first(1)) == nullptr);
@@ -959,7 +959,7 @@ TEST_CASE("string_utils/utf16_to_utf8/handles_null_and_empty_arguments") {
 }
 
 // Every width measures the byte length of the matching UTF-8 literal.
-TEST_CASE("string_utils/utf16_in_utf8_size/matches_every_width") {
+TEST_CASE("detail/string_utils/utf16_in_utf8_size/matches_every_width") {
   for (size_t index = 0; index < utf16Samples.size(); ++index) {
     INFO("index ", index);
     const auto & [utf16, utf8] = utf16Samples[index];
@@ -969,7 +969,7 @@ TEST_CASE("string_utils/utf16_in_utf8_size/matches_every_width") {
 }
 
 // Each width boundary counts on its side: U+007F one byte, U+0080 and U+07FF two, U+0800 three, a pair four.
-TEST_CASE("string_utils/utf16_in_utf8_size/counts_the_width_edges") {
+TEST_CASE("detail/string_utils/utf16_in_utf8_size/counts_the_width_edges") {
   constexpr char16_t widthEdges[] = {0x7F, 0x80, 0x7FF, 0x800};
 
   CHECK(detail::utf16InUtf8Size(span{&widthEdges[0], 1}) == 1);
@@ -983,14 +983,14 @@ TEST_CASE("string_utils/utf16_in_utf8_size/counts_the_width_edges") {
 }
 
 // The unit count bounds the input: a terminator inside it counts one byte, and a pair it cuts short ends the count.
-TEST_CASE("string_utils/utf16_in_utf8_size/reads_only_the_counted_units") {
+TEST_CASE("detail/string_utils/utf16_in_utf8_size/reads_only_the_counted_units") {
   CHECK(detail::utf16InUtf8Size(span{utf16InnerTerminator}) == 3);
   CHECK(detail::utf16InUtf8Size(span{u"привет", 3}) == std::char_traits<char>::length("при"));
   CHECK(detail::utf16InUtf8Size(span{u"a🎮", 2}) == 1);
 }
 
 // A surrogate outside a pair ends the count where toy::detail::utf16ToUtf8() stops encoding.
-TEST_CASE("string_utils/utf16_in_utf8_size/stops_before_a_lone_surrogate") {
+TEST_CASE("detail/string_utils/utf16_in_utf8_size/stops_before_a_lone_surrogate") {
   for (size_t index = 0; index < loneSurrogates.size(); ++index) {
     INFO("index ", index);
 
@@ -1005,7 +1005,7 @@ TEST_CASE("string_utils/utf16_in_utf8_size/stops_before_a_lone_surrogate") {
 }
 
 // Over the units a decode wrote, the count gives the bytes the decode consumed before an ill-formed sequence.
-TEST_CASE("string_utils/utf16_in_utf8_size/measures_the_bytes_a_decode_consumed") {
+TEST_CASE("detail/string_utils/utf16_in_utf8_size/measures_the_bytes_a_decode_consumed") {
   for (size_t index = 0; index < rejectedSequences.size(); ++index) {
     INFO("index ", index);
     const char * const rejected = rejectedSequences[index];
@@ -1022,14 +1022,14 @@ TEST_CASE("string_utils/utf16_in_utf8_size/measures_the_bytes_a_decode_consumed"
 }
 
 // A null or empty source measures nothing, whatever the count.
-TEST_CASE("string_utils/utf16_in_utf8_size/handles_null_and_empty_arguments") {
+TEST_CASE("detail/string_utils/utf16_in_utf8_size/handles_null_and_empty_arguments") {
   CHECK(detail::utf16InUtf8Size(span<const char16_t>{}) == 0);
   CHECK(detail::utf16InUtf8Size(span{nullUtf16, 4}) == 0);
   CHECK(detail::utf16InUtf8Size(span{u"player", 0}) == 0);
 }
 
 // Every width decodes to the matching UTF-16 literal, a pair for four bytes, and the call hands back its buffer.
-TEST_CASE("string_utils/utf8_to_utf16/decodes_every_width") {
+TEST_CASE("detail/string_utils/utf8_to_utf16/decodes_every_width") {
   for (size_t index = 0; index < utf16Samples.size(); ++index) {
     INFO("index ", index);
     const auto & [utf16, utf8] = utf16Samples[index];
@@ -1043,7 +1043,7 @@ TEST_CASE("string_utils/utf8_to_utf16/decodes_every_width") {
 }
 
 // The byte count bounds the input: a terminator inside it is decoded, and a sequence it cuts short ends the call.
-TEST_CASE("string_utils/utf8_to_utf16/reads_only_the_counted_bytes") {
+TEST_CASE("detail/string_utils/utf8_to_utf16/reads_only_the_counted_bytes") {
   array<char16_t, 8> inner{};
   detail::utf8ToUtf16(span{inner}, span{innerTerminator});
   CHECK(inner[0] == u'a');
@@ -1059,7 +1059,7 @@ TEST_CASE("string_utils/utf8_to_utf16/reads_only_the_counted_bytes") {
 }
 
 // A sequence the validator rejects ends the call, and the characters before it stay.
-TEST_CASE("string_utils/utf8_to_utf16/stops_at_a_sequence_it_cannot_decode") {
+TEST_CASE("detail/string_utils/utf8_to_utf16/stops_at_a_sequence_it_cannot_decode") {
   for (size_t index = 0; index < rejectedSequences.size(); ++index) {
     INFO("index ", index);
     const char * const sequence = rejectedSequences[index];
@@ -1076,7 +1076,7 @@ TEST_CASE("string_utils/utf8_to_utf16/stops_at_a_sequence_it_cannot_decode") {
 }
 
 // A character that does not fit stays out, and the terminator always fits.
-TEST_CASE("string_utils/utf8_to_utf16/stops_when_the_buffer_is_full") {
+TEST_CASE("detail/string_utils/utf8_to_utf16/stops_when_the_buffer_is_full") {
   const auto bytes  = std::char_traits<char>::length(cyrillic);
   const auto length = detail::utf8Len(cyrillic);
 
@@ -1108,7 +1108,7 @@ TEST_CASE("string_utils/utf8_to_utf16/stops_when_the_buffer_is_full") {
 }
 
 // A four-byte character goes in as a whole surrogate pair or not at all.
-TEST_CASE("string_utils/utf8_to_utf16/writes_a_surrogate_pair_whole_or_not_at_all") {
+TEST_CASE("detail/string_utils/utf8_to_utf16/writes_a_surrogate_pair_whole_or_not_at_all") {
   const auto pairBytes = std::char_traits<char>::length("🎮");
   const auto pairUnits = std::char_traits<char16_t>::length(u"🎮");
 
@@ -1122,7 +1122,7 @@ TEST_CASE("string_utils/utf8_to_utf16/writes_a_surrogate_pair_whole_or_not_at_al
 }
 
 // A null or empty source decodes as an empty string; a buffer that cannot hold the terminator gets no write at all.
-TEST_CASE("string_utils/utf8_to_utf16/handles_null_and_empty_arguments") {
+TEST_CASE("detail/string_utils/utf8_to_utf16/handles_null_and_empty_arguments") {
   array<char16_t, 4> untouched{utf16Sentinel, utf16Sentinel, utf16Sentinel, utf16Sentinel};
   CHECK(detail::utf8ToUtf16(span{nullUnits, untouched.size()}, asRange(ascii).first(1)) == nullptr);
   CHECK(detail::utf8ToUtf16(span{untouched}.first(0), asRange(ascii).first(1)) == nullptr);
@@ -1138,7 +1138,7 @@ TEST_CASE("string_utils/utf8_to_utf16/handles_null_and_empty_arguments") {
 }
 
 // A non-negative value prints its digits in order, zero included, and the string ends at the buffer's last byte.
-TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
+TEST_CASE("detail/string_utils/itoa/writes_non_negative_values_in_order") {
   array<char, 16> buffer{};
 
   const char * start = detail::itoa(span{buffer}, 0);
@@ -1161,7 +1161,7 @@ TEST_CASE("string_utils/itoa/writes_non_negative_values_in_order") {
 }
 
 // A minus before the digits of a negative value, and each type's minimum printed whole by the overflow guard.
-TEST_CASE("string_utils/itoa/writes_a_minus_before_negative_values") {
+TEST_CASE("detail/string_utils/itoa/writes_a_minus_before_negative_values") {
   array<char, 16> buffer{};
 
   const char * start = detail::itoa(span{buffer}, -1);
@@ -1193,7 +1193,7 @@ TEST_CASE("string_utils/itoa/writes_a_minus_before_negative_values") {
 }
 
 // itoa right-aligns in the window it is given and leaves the bytes before the string as the caller left them.
-TEST_CASE("string_utils/itoa/keeps_the_bytes_before_the_string") {
+TEST_CASE("detail/string_utils/itoa/keeps_the_bytes_before_the_string") {
   array<char, 16> buffer{};
   buffer.fill(sentinel);
 
@@ -1223,7 +1223,7 @@ TEST_CASE("string_utils/itoa/keeps_the_bytes_before_the_string") {
 }
 
 // The shortest decimal form of an unsigned value: as many digits as the value needs, without padding.
-TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
+TEST_CASE("detail/string_utils/utoa/writes_the_shortest_decimal_form") {
   array<char, 16> buffer{};
 
   const char * start = detail::utoa(span{buffer}, uint32_t{0});
@@ -1269,7 +1269,7 @@ TEST_CASE("string_utils/utoa/writes_the_shortest_decimal_form") {
 }
 
 // A window too narrow for the value keeps its low digits, and a one-byte window holds only the terminator.
-TEST_CASE("string_utils/utoa/truncates_a_window_too_narrow_for_the_value") {
+TEST_CASE("detail/string_utils/utoa/truncates_a_window_too_narrow_for_the_value") {
   array<char, 16> buffer{};
 
   const char * start = detail::utoa(span{buffer}.first(4), uint32_t{123456});
@@ -1300,7 +1300,7 @@ TEST_CASE("string_utils/utoa/truncates_a_window_too_narrow_for_the_value") {
 }
 
 // Full-width uppercase hexadecimal of each unsigned type, zero-padded, without a prefix.
-TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
+TEST_CASE("detail/string_utils/utoa_hex/formats_the_full_width_of_the_type") {
   array<char, 9> byteWindow{};
 
   const char * start = detail::utoaHex(span{byteWindow}, uint8_t{0x0F});
@@ -1339,7 +1339,7 @@ TEST_CASE("string_utils/utoa_hex/formats_the_full_width_of_the_type") {
 }
 
 // A window shorter than the width of the type keeps its low digits, and a one-byte window holds only the terminator.
-TEST_CASE("string_utils/utoa_hex/truncates_a_window_shorter_than_the_width") {
+TEST_CASE("detail/string_utils/utoa_hex/truncates_a_window_shorter_than_the_width") {
   array<char, 17> window{};
 
   // Six bytes hold the terminator plus five digits: the two leading nibbles of 0x12345678 go missing.

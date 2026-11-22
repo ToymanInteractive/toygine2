@@ -62,7 +62,7 @@ concept AcceptsInvalidContent = requires { CompileTag<patternAccepted<Args...>("
 } // namespace
 
 // The copy constructor is defaulted and the deleted assignment keeps the pattern immutable after construction.
-TEST_CASE("format_string/special_members") {
+TEST_CASE("detail/format_string/special_members") {
   static_assert(std::is_copy_constructible_v<FormatString<>>, "the copy constructor is defaulted");
   static_assert(std::is_nothrow_copy_constructible_v<FormatString<>>, "copying one StringView cannot fail");
   static_assert(!std::is_copy_assignable_v<FormatString<>>, "copy assignment is deleted");
@@ -74,7 +74,7 @@ TEST_CASE("format_string/special_members") {
 }
 
 // get() hands back the pattern exactly as written, both in a constant expression and at runtime.
-TEST_CASE("format_string/get_returns_source") {
+TEST_CASE("detail/format_string/get_returns_source") {
   const FormatString<int> autoPlaceholder{"{}"};
   CHECK(autoPlaceholder.get() == "{}");
 
@@ -93,7 +93,7 @@ TEST_CASE("format_string/get_returns_source") {
 }
 
 // A well-formed pattern compiles against exactly the argument count its placeholders bind.
-TEST_CASE("format_string/accepts_valid_patterns") {
+TEST_CASE("detail/format_string/accepts_valid_patterns") {
   static_assert(FormatString<>{""}.get() == "", "an empty pattern compiles without arguments");
   static_assert(FormatString<int, int>{"{} {}"}.get() == "{} {}", "two auto placeholders bind two arguments");
   static_assert(FormatString<int, int, int>{"{} {} {}"}.get() == "{} {} {}",
@@ -108,7 +108,7 @@ TEST_CASE("format_string/accepts_valid_patterns") {
 }
 
 // A fixed string builds the type like any other source, the view pointing into its constant buffer.
-TEST_CASE("format_string/accepts_string_like_sources") {
+TEST_CASE("detail/format_string/accepts_string_like_sources") {
   // The consteval constructor reads the source in a constant expression, so the source itself must be one.
   static constexpr FixedString<3> autoPlaceholder{"{}"};
   const FormatString<int>         fromFixed{autoPlaceholder};
@@ -118,7 +118,7 @@ TEST_CASE("format_string/accepts_string_like_sources") {
 }
 
 // Every validation error the pattern validator reports rejects the constructor, one representative shape per error.
-TEST_CASE("format_string/rejects_invalid_patterns") {
+TEST_CASE("detail/format_string/rejects_invalid_patterns") {
   static_assert(!AcceptsAutoPlaceholder<>, "an auto placeholder with no argument fails to compile");
   static_assert(!AcceptsMixedPlaceholders<int, int>, "mixing auto and positional placeholders fails to compile");
   static_assert(!AcceptsPositionalIndex<int>, "an index naming no argument fails to compile");
