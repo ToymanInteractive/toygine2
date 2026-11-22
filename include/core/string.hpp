@@ -21,9 +21,9 @@
   \file   string.hpp
   \brief  Owning string over a character buffer chosen by a template argument.
 
-  Defines \ref toy::String, which follows the \c std::basic_string interface over any \ref toy::StringStorage, and
-  \ref toy::FixedString, its form over a buffer inside the object. Used where text has to outlive the characters it was
-  built from, such as the message of a \ref toy::log::Record.
+  Defines \ref toy::String, which follows the \c std::basic_string interface over any \ref toy::detail::StringStorage,
+  and \ref toy::FixedString, its form over a buffer inside the object. Used where text has to outlive the characters it
+  was built from, such as the message of a \ref toy::log::Record.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -31,10 +31,10 @@
 #ifndef INCLUDE_CORE_STRING_HPP_
 #define INCLUDE_CORE_STRING_HPP_
 
-#include "fixed_string_storage.hpp"
+#include "detail/fixed_string_storage.hpp"
+#include "detail/string_storage.hpp"
+#include "detail/string_utils.hpp"
 #include "string_like.hpp"
-#include "string_storage.hpp"
-#include "string_utils.hpp"
 #include "string_view.hpp"
 
 namespace toy {
@@ -48,19 +48,19 @@ namespace toy {
   \ref toy::FixedString keeps them inside the object and allocates nothing.
 
   \tparam storageType Buffer that holds the characters, the terminator, and the length; satisfies
-                      \ref toy::StringStorage.
+                      \ref toy::detail::StringStorage.
 
   \section string_features Key Features
 
-  * **Storage by template argument**: the same interface over a fixed buffer or any other \ref toy::StringStorage, so
-    the choice between a heap and none stays out of the calling code.
+  * **Storage by template argument**: the same interface over a fixed buffer or any other
+    \ref toy::detail::StringStorage, so the choice between a heap and none stays out of the calling code.
   * **Standard interface**: construction, assignment, element access, modifiers, search, comparison, and the free
     functions follow \c std::basic_string, with \ref toy::StringLike types taking the place of string views.
   * **Counted length**: size() decides what every operation reads, so a \c '\\0' inside the string is an ordinary
     character, as in \c std::basic_string.
   * **Null-terminated**: c_str() always reaches a terminator, so the buffer goes to a C interface unchanged.
   * **Constexpr support**: every operation evaluates in a constant expression.
-  * **Shared algorithms**: search and comparison run the \ref toy::string_utils functions that
+  * **Shared algorithms**: search and comparison run the \ref toy::detail functions that
     \ref toy::StringView uses.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -84,11 +84,11 @@ namespace toy {
   \section string_performance Performance Characteristics
 
   * **Element access, size(), and c_str()**: O(1).
-  * **Copy and move**: whatever the storage costs; \ref toy::FixedStringStorage copies the whole object up to
+  * **Copy and move**: whatever the storage costs; \ref toy::detail::FixedStringStorage copies the whole object up to
     \ref toy::platform::inlineCopyMaxBytes and the characters in use above it, and has no buffer to hand over on a
     move or a swap.
   * **Append and push_back**: O(m) in the characters added, plus whatever growing the storage costs; nothing for
-    \ref toy::FixedStringStorage.
+    \ref toy::detail::FixedStringStorage.
   * **Insert, erase, and replace**: O(n) in the characters that move behind the edited range.
   * **Substring search**: O(n * m) in the length of the string and of the pattern; nothing is indexed between calls.
   * **Character-set search**: O(n + m) in the length of the string and the size of the set; each call builds one
@@ -103,7 +103,7 @@ namespace toy {
     rejects leaves the string unchanged, and an offset past the end selects an empty range; each member states which.
   * **Allocation**: the string allocates only where its storage does; \ref toy::FixedString never does.
   * **Iterator validity**: a call that grows the string may move the buffer of a storage that reallocates;
-    \ref toy::FixedStringStorage never moves it.
+    \ref toy::detail::FixedStringStorage never moves it.
   * **Type safety**: construction and assignment from \c nullptr are deleted, so the null case fails to compile.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -120,9 +120,9 @@ namespace toy {
            that checks capacity() first.
 
   \sa \ref toy::StringView
-  \sa \ref toy::FixedStringStorage
+  \sa \ref toy::detail::FixedStringStorage
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 class String {
 public:
   /// Character operations the string uses to measure its characters
@@ -153,8 +153,8 @@ public:
   /*!
     \brief Builds an empty string.
 
-    Allocates only if the default constructor of the storage does; \ref toy::FixedStringStorage does not, and writes
-    only the terminator.
+    Allocates only if the default constructor of the storage does; \ref toy::detail::FixedStringStorage does not, and
+    writes only the terminator.
 
     \post size() returns \c 0, and c_str() points at \c '\\0'.
 
@@ -339,7 +339,7 @@ public:
     \brief Builds a string from a copy of \a other.
 
     Copies the storage through its copy constructor, so the two strings share no buffer and the copy allocates only if
-    that storage does. \ref toy::FixedStringStorage copies the whole object up to
+    that storage does. \ref toy::detail::FixedStringStorage copies the whole object up to
     \ref toy::platform::inlineCopyMaxBytes and only the characters in use above it.
 
     \param other String to copy.
@@ -354,13 +354,13 @@ public:
     \brief Builds a string that takes over the storage of \a other.
 
     Moves the storage through its move constructor, so a storage that owns heap memory hands over its buffer instead of
-    allocating. \ref toy::FixedStringStorage has no buffer to hand over and copies as the copy constructor does.
+    allocating. \ref toy::detail::FixedStringStorage has no buffer to hand over and copies as the copy constructor does.
 
     \param other String to take the storage from.
 
     \post size() and c_str() read what \a other held before the call.
-    \post \a other holds whatever the move constructor of the storage leaves; over \ref toy::FixedStringStorage, its
-          original characters.
+    \post \a other holds whatever the move constructor of the storage leaves;
+          over \ref toy::detail::FixedStringStorage, its original characters.
 
     \sa String(const String &)
   */
@@ -381,8 +381,8 @@ public:
 
     \post size() returns the smaller of \a count and the length of \a other minus \a pos, and c_str() reads those bytes
           followed by \c '\\0'.
-    \post \a other holds whatever the move constructor of the storage leaves; over \ref toy::FixedStringStorage, its
-          original characters.
+    \post \a other holds whatever the move constructor of the storage leaves;
+          over \ref toy::detail::FixedStringStorage, its original characters.
 
     \warning A shipping build skips the position check and leaves the string empty when \a pos is past the end of
              \a other.
@@ -410,7 +410,7 @@ public:
   /*!
     \brief Destroys the string and its storage.
 
-    Releases what the destructor of the storage releases; \ref toy::FixedStringStorage releases nothing.
+    Releases what the destructor of the storage releases; \ref toy::detail::FixedStringStorage releases nothing.
 
     \post Pointers returned by c_str() dangle.
   */
@@ -420,8 +420,8 @@ public:
     \brief Replaces the contents with a copy of \a other.
 
     Assigns the storage through its copy assignment, so the storage decides what the copy costs:
-    \ref toy::FixedStringStorage copies the whole object up to \ref toy::platform::inlineCopyMaxBytes and only the
-    characters in use above it.
+    \ref toy::detail::FixedStringStorage copies the whole object up to \ref toy::platform::inlineCopyMaxBytes and only
+    the characters in use above it.
 
     \param other String to copy; may be this string.
 
@@ -437,15 +437,15 @@ public:
     \brief Replaces the contents with those of \a other, taking over its storage where the storage allows.
 
     Assigns the storage through its move assignment. A storage that owns heap memory hands over its buffer;
-    \ref toy::FixedStringStorage has nothing to hand over and copies as the copy assignment does.
+    \ref toy::detail::FixedStringStorage has nothing to hand over and copies as the copy assignment does.
 
     \param other String to take the contents from; may be this string.
 
     \return Reference to this string.
 
     \post size() and c_str() read what \a other held before the call.
-    \post \a other holds whatever the move assignment of the storage leaves; over \ref toy::FixedStringStorage, its
-          original characters.
+    \post \a other holds whatever the move assignment of the storage leaves;
+          over \ref toy::detail::FixedStringStorage, its original characters.
 
     \sa assign(String &&)
   */
@@ -860,7 +860,7 @@ public:
 
     A write through the pointer changes characters, never size().
 
-    \return Pointer to the first character, never \c nullptr for a storage meeting the \ref toy::StringStorage
+    \return Pointer to the first character, never \c nullptr for a storage meeting the \ref toy::detail::StringStorage
             guarantees.
 
     \pre A write stays below offset size(), or writes \c '\\0' to the terminator at size().
@@ -884,7 +884,7 @@ public:
     \brief Returns the pointer to the null-terminated characters.
 
     \return Pointer to the first character of the storage, never \c nullptr for a storage meeting the
-            \ref toy::StringStorage guarantees.
+            \ref toy::detail::StringStorage guarantees.
 
     \note The pointer stays valid while the string lives and its storage keeps the same buffer.
 
@@ -1052,8 +1052,8 @@ public:
   /*!
     \brief Returns the longest length the storage can hold.
 
-    Never changes and is never less than capacity(); over \ref toy::FixedStringStorage the two are equal, since the
-    buffer never grows.
+    Never changes and is never less than capacity(); over \ref toy::detail::FixedStringStorage the two are equal, since
+    the buffer never grows.
 
     \return Largest value size() may take, as the storage reports it.
 
@@ -1069,10 +1069,9 @@ public:
 
     \return Count of encoded characters, \c 0 for an empty string.
 
-    \pre The bytes of the string hold well-formed UTF-8, checked with
-         toy::string_utils::validateUtf8(toy::span<const char>) by assert_message in debug builds outside constant
-         evaluation. A shipping build and a constant expression skip that check and count every byte outside the
-         continuation form, a stray lead byte included.
+    \pre The bytes of the string hold well-formed UTF-8, checked with toy::detail::validateUtf8(toy::span<const char>)
+         by assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
+         that check and count every byte outside the continuation form, a stray lead byte included.
 
     \note The count matches size() only where every character is ASCII.
     \note A view from subview() stops at the first \c '\\0', so its utf8_size() can count fewer.
@@ -1085,9 +1084,9 @@ public:
   /*!
     \brief Prepares the storage to hold \a newCapacity characters without growing again.
 
-    Passes the request to the storage: \ref toy::FixedStringStorage checks it against its buffer and allocates nothing,
-    while a storage that owns heap memory may allocate here. A request no greater than capacity() keeps the buffer
-    where it is, and no request shrinks it, as in \c std::basic_string since C++20.
+    Passes the request to the storage: \ref toy::detail::FixedStringStorage checks it against its buffer and allocates
+    nothing, while a storage that owns heap memory may allocate here. A request no greater than capacity() keeps the
+    buffer where it is, and no request shrinks it, as in \c std::basic_string since C++20.
 
     \param newCapacity Count of characters the string must hold, the terminator excluded.
 
@@ -1118,7 +1117,8 @@ public:
   /*!
     \brief Asks the storage to release the capacity the characters do not use.
 
-    The request is non-binding, as in \c std::basic_string: \ref toy::FixedStringStorage keeps its buffer as it is.
+    The request is non-binding, as in \c std::basic_string: \ref toy::detail::FixedStringStorage keeps its buffer as it
+    is.
 
     \post size() and the characters are unchanged, and capacity() is no less than size().
 
@@ -2202,15 +2202,15 @@ public:
     \brief Exchanges the contents of this string and \a other.
 
     Swaps the two storages through \c std::ranges::swap: a free \c swap found for the storage type by argument-dependent
-    lookup, or else a move construction and two move assignments. \ref toy::FixedStringStorage has no such \c swap, so
-    its characters are copied both ways.
+    lookup, or else a move construction and two move assignments. \ref toy::detail::FixedStringStorage has no such
+    \c swap, so its characters are copied both ways.
 
     \param other String to exchange contents with; may be this string.
 
     \post This string holds what \a other held before the call, and \a other holds what this string held.
 
-    \note With \ref toy::FixedStringStorage, pointers and iterators keep their addresses and read the other string's
-          characters after the call.
+    \note With \ref toy::detail::FixedStringStorage, pointers and iterators keep their addresses and read the other
+          string's characters after the call.
 
     \sa assign(String &&)
   */
@@ -2900,8 +2900,8 @@ public:
 
     \pre \a pos is not greater than size(), checked by assert_message in debug builds.
 
-    \post This string holds whatever the move constructor of the storage leaves; over \ref toy::FixedStringStorage, its
-          original characters.
+    \post This string holds whatever the move constructor of the storage leaves;
+          over \ref toy::detail::FixedStringStorage, its original characters.
 
     \warning A shipping build skips the check and returns an empty string when \a pos is past the end.
 
@@ -2937,7 +2937,7 @@ public:
     Every search returns it when nothing matches. As a count it reaches the end of the string or of the source, and as
     the start of a backward search it covers the whole string.
   */
-  static constexpr const size_type npos = string_utils::npos;
+  static constexpr const size_type npos = detail::npos;
 
 private:
   /// Buffer holding the characters, the terminator, and the length
@@ -3115,12 +3115,13 @@ private:
   Allocates nothing, so the type works on targets without a heap.
 
   \tparam Capacity Size of the buffer in bytes, the terminator included; the string holds at most \a Capacity \c - \c 1
-                   characters. Must be greater than \c 0, checked by a static assertion in \ref toy::FixedStringStorage.
+                   characters. Must be greater than \c 0, checked by a static assertion in
+                   \ref toy::detail::FixedStringStorage.
 
   \sa \ref toy::String
 */
 template <size_t Capacity>
-using FixedString = String<FixedStringStorage<Capacity>>;
+using FixedString = String<detail::FixedStringStorage<Capacity>>;
 
 /*!
   \brief Returns \a lhs followed by the characters of \a rhs.
@@ -3128,7 +3129,7 @@ using FixedString = String<FixedStringStorage<Capacity>>;
   Takes \a lhs by value: an lvalue is copied and an rvalue moved, so a chain such as \c a \c + \c b \c + \c c appends
   into one string, as the rvalue overloads of \c std::basic_string do.
 
-  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::detail::StringStorage.
   \tparam StringType  Type of the right side; satisfies \ref toy::StringLike.
 
   \param lhs String to append to.
@@ -3144,13 +3145,13 @@ using FixedString = String<FixedStringStorage<Capacity>>;
 
   \sa toy::String::append()
 */
-template <StringStorage storageType, StringLike StringType>
+template <detail::StringStorage storageType, StringLike StringType>
 [[nodiscard]] constexpr String<storageType> operator+(String<storageType> lhs, const StringType & rhs) noexcept;
 
 /*!
   \brief Returns \a lhs followed by the null-terminated byte string \a rhs.
 
-  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::detail::StringStorage.
 
   \param lhs String to append to.
   \param rhs Null-terminated byte string to append.
@@ -3166,13 +3167,13 @@ template <StringStorage storageType, StringLike StringType>
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr String<storageType> operator+(String<storageType> lhs, const char * rhs) noexcept;
 
 /*!
   \brief Returns \a lhs followed by the character \a rhs.
 
-  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of the string operand and of the result; satisfies \ref toy::detail::StringStorage.
 
   \param lhs String to append to.
   \param rhs Character to append.
@@ -3187,13 +3188,13 @@ template <StringStorage storageType>
 
   \sa toy::String::push_back()
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr String<storageType> operator+(String<storageType> lhs, char rhs) noexcept;
 
 /*!
   \brief Returns a new string holding the null-terminated byte string \a lhs followed by \a rhs.
 
-  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::detail::StringStorage.
 
   \param lhs Null-terminated byte string that comes first.
   \param rhs String whose characters follow.
@@ -3208,13 +3209,13 @@ template <StringStorage storageType>
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr String<storageType> operator+(const char * lhs, const String<storageType> & rhs) noexcept;
 
 /*!
   \brief Returns a new string holding the character \a lhs followed by \a rhs.
 
-  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::detail::StringStorage.
 
   \param lhs Character that comes first.
   \param rhs String whose characters follow.
@@ -3228,7 +3229,7 @@ template <StringStorage storageType>
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr String<storageType> operator+(char lhs, const String<storageType> & rhs) noexcept;
 
 /*!
@@ -3237,7 +3238,7 @@ template <StringStorage storageType>
   Takes a view rather than any string-like type on the left, as \c std::basic_string takes a \c std::basic_string_view,
   so a string on both sides reaches the overload that copies the left one.
 
-  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a rhs and of the result; satisfies \ref toy::detail::StringStorage.
 
   \param lhs View whose characters come first.
   \param rhs String whose characters follow.
@@ -3251,7 +3252,7 @@ template <StringStorage storageType>
 
   \sa toy::operator+(String<storageType>, const StringType &)
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr String<storageType> operator+(StringView lhs, const String<storageType> & rhs) noexcept;
 
 /*!
@@ -3260,7 +3261,7 @@ template <StringStorage storageType>
   Compares the lengths first, then the bytes, so a \c '\\0' inside either side takes part. The compiler derives \c !=
   and the reversed operand order from this operator.
 
-  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::detail::StringStorage.
   \tparam StringType  Type of the right side; satisfies \ref toy::StringLike.
 
   \param lhs String to compare.
@@ -3270,13 +3271,13 @@ template <StringStorage storageType>
 
   \sa toy::operator<=>(const String<storageType> &, const StringType &)
 */
-template <StringStorage storageType, StringLike StringType>
+template <detail::StringStorage storageType, StringLike StringType>
 [[nodiscard]] constexpr bool operator==(const String<storageType> & lhs, const StringType & rhs) noexcept;
 
 /*!
   \brief Reports whether \a lhs holds the characters of the null-terminated byte string \a rhs.
 
-  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::detail::StringStorage.
 
   \param lhs String to compare.
   \param rhs Null-terminated byte string to compare with.
@@ -3287,7 +3288,7 @@ template <StringStorage storageType, StringLike StringType>
 
   \sa toy::operator==(const String<storageType> &, const StringType &)
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr bool operator==(const String<storageType> & lhs, const char * rhs) noexcept;
 
 /*!
@@ -3296,7 +3297,7 @@ template <StringStorage storageType>
   Orders as toy::String::compare() does: bytes as \c unsigned \c char, then length. The compiler derives \c <, \c <=,
   \c >, \c >=, and the reversed operand order from this operator.
 
-  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::detail::StringStorage.
   \tparam StringType  Type of the right side; satisfies \ref toy::StringLike.
 
   \param lhs String to order.
@@ -3306,14 +3307,14 @@ template <StringStorage storageType>
 
   \sa toy::operator==(const String<storageType> &, const StringType &)
 */
-template <StringStorage storageType, StringLike StringType>
+template <detail::StringStorage storageType, StringLike StringType>
 [[nodiscard]] constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
                                                                                 const StringType & rhs) noexcept;
 
 /*!
   \brief Orders \a lhs against the null-terminated byte string \a rhs lexicographically.
 
-  \tparam storageType Storage of \a lhs; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a lhs; satisfies \ref toy::detail::StringStorage.
 
   \param lhs String to order.
   \param rhs Null-terminated byte string to order against.
@@ -3324,7 +3325,7 @@ template <StringStorage storageType, StringLike StringType>
 
   \sa toy::operator<=>(const String<storageType> &, const StringType &)
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 [[nodiscard]] constexpr std::char_traits<char>::comparison_category operator<=>(const String<storageType> & lhs,
                                                                                 const char * rhs) noexcept;
 
@@ -3334,7 +3335,7 @@ template <StringStorage storageType>
   Calls lhs.swap(rhs), and argument-dependent lookup finds it beside \c using \c std::swap, the form generic code
   writes.
 
-  \tparam storageType Storage of both strings; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of both strings; satisfies \ref toy::detail::StringStorage.
 
   \param lhs First string.
   \param rhs Second string.
@@ -3343,7 +3344,7 @@ template <StringStorage storageType>
 
   \sa toy::String::swap()
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr void swap(String<storageType> & lhs, String<storageType> & rhs) noexcept;
 
 /*!
@@ -3351,7 +3352,7 @@ constexpr void swap(String<storageType> & lhs, String<storageType> & rhs) noexce
 
   Keeps the order of the remaining characters and moves them toward the front in one pass.
 
-  \tparam storageType Storage of \a string; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a string; satisfies \ref toy::detail::StringStorage.
 
   \param string String to edit.
   \param value  Character to remove.
@@ -3364,7 +3365,7 @@ constexpr void swap(String<storageType> & lhs, String<storageType> & rhs) noexce
 
   \sa toy::erase_if()
 */
-template <StringStorage storageType>
+template <detail::StringStorage storageType>
 constexpr String<storageType>::size_type erase(String<storageType> & string, char value) noexcept;
 
 /*!
@@ -3373,7 +3374,7 @@ constexpr String<storageType>::size_type erase(String<storageType> & string, cha
   Keeps the order of the remaining characters and moves them toward the front in one pass. The predicate runs once per
   character, through \c std::ref, so the copies the algorithm makes share one object.
 
-  \tparam storageType Storage of \a string; satisfies \ref toy::StringStorage.
+  \tparam storageType Storage of \a string; satisfies \ref toy::detail::StringStorage.
   \tparam Predicate   Callable on a \c char \c & that returns a value convertible to \c bool; satisfies
                       \c std::predicate.
 
@@ -3388,7 +3389,7 @@ constexpr String<storageType>::size_type erase(String<storageType> & string, cha
 
   \sa toy::erase()
 */
-template <StringStorage storageType, typename Predicate>
+template <detail::StringStorage storageType, typename Predicate>
   requires std::predicate<Predicate &, char &>
 constexpr String<storageType>::size_type erase_if(String<storageType> & string, Predicate predicate) noexcept;
 
@@ -3407,7 +3408,7 @@ constexpr String<storageType>::size_type erase_if(String<storageType> & string, 
            capacity, such as \c toy::FixedString<32>.
 */
 template <size_t Size>
-String(const char (&array)[Size]) -> String<FixedStringStorage<Size>>;
+String(const char (&array)[Size]) -> String<detail::FixedStringStorage<Size>>;
 
 } // namespace toy
 

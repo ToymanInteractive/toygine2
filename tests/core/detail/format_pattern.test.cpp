@@ -19,16 +19,16 @@
 //
 /*!
   \file   format_pattern.test.cpp
-  \brief  Unit tests for \ref toy::FormatPatternValidationError and toy::validateFormatPattern().
+  \brief  Unit tests for \ref toy::detail::FormatPatternValidationError and toy::detail::validateFormatPattern().
 */
 
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 // Text without braces validates against an argument count of zero, escaped braces included.
-TEST_CASE("format_pattern/validate/valid_without_placeholders") {
+TEST_CASE("detail/format_pattern/validate/valid_without_placeholders") {
   CHECK(validateFormatPattern("", 0) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern("plain text", 0) == FormatPatternValidationError::none);
 
@@ -56,7 +56,7 @@ TEST_CASE("format_pattern/validate/valid_without_placeholders") {
 }
 
 // Auto placeholders match the argument count exactly, wherever the surrounding text puts them.
-TEST_CASE("format_pattern/validate/valid_auto_placeholders") {
+TEST_CASE("detail/format_pattern/validate/valid_auto_placeholders") {
   CHECK(validateFormatPattern("{}", 1) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern("{} {}", 2) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern("{} {} {}", 3) == FormatPatternValidationError::none);
@@ -73,7 +73,7 @@ TEST_CASE("format_pattern/validate/valid_auto_placeholders") {
 }
 
 // Positional placeholders only require each index to name an argument; repeats and unused arguments are fine.
-TEST_CASE("format_pattern/validate/valid_positional_placeholders") {
+TEST_CASE("detail/format_pattern/validate/valid_positional_placeholders") {
   CHECK(validateFormatPattern("{0}", 1) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern("{1}", 2) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern("{1} {0}", 2) == FormatPatternValidationError::none);
@@ -103,7 +103,7 @@ TEST_CASE("format_pattern/validate/valid_positional_placeholders") {
 }
 
 // A brace that opens nothing and a brace that closes nothing both report the unmatched brace error.
-TEST_CASE("format_pattern/validate/unmatched_brace") {
+TEST_CASE("detail/format_pattern/validate/unmatched_brace") {
   CHECK(validateFormatPattern("{", 0) == FormatPatternValidationError::unmatchedBrace);
   CHECK(validateFormatPattern("a{", 0) == FormatPatternValidationError::unmatchedBrace);
   CHECK(validateFormatPattern("}", 0) == FormatPatternValidationError::unmatchedBrace);
@@ -136,7 +136,7 @@ TEST_CASE("format_pattern/validate/unmatched_brace") {
 }
 
 // Digits inside braces must reach the closing brace before any range check runs.
-TEST_CASE("format_pattern/validate/invalid_content") {
+TEST_CASE("detail/format_pattern/validate/invalid_content") {
   CHECK(validateFormatPattern("{0", 1) == FormatPatternValidationError::invalidContent);
   CHECK(validateFormatPattern("{0x}", 1) == FormatPatternValidationError::invalidContent);
   CHECK(validateFormatPattern("{0 }", 1) == FormatPatternValidationError::invalidContent);
@@ -161,7 +161,7 @@ TEST_CASE("format_pattern/validate/invalid_content") {
 }
 
 // Auto and positional placeholders may not share one pattern, whichever comes first.
-TEST_CASE("format_pattern/validate/mixed_placeholders") {
+TEST_CASE("detail/format_pattern/validate/mixed_placeholders") {
   CHECK(validateFormatPattern("{} {0}", 2) == FormatPatternValidationError::mixedPlaceholders);
   CHECK(validateFormatPattern("{0} {}", 2) == FormatPatternValidationError::mixedPlaceholders);
   CHECK(validateFormatPattern("{} {1}", 2) == FormatPatternValidationError::mixedPlaceholders);
@@ -178,7 +178,7 @@ TEST_CASE("format_pattern/validate/mixed_placeholders") {
 }
 
 // Auto placeholder counts and argument counts must agree; plain text must carry no arguments.
-TEST_CASE("format_pattern/validate/arg_count_mismatch") {
+TEST_CASE("detail/format_pattern/validate/arg_count_mismatch") {
   CHECK(validateFormatPattern("", 1) == FormatPatternValidationError::argCountMismatch);
   CHECK(validateFormatPattern("plain text", 1) == FormatPatternValidationError::argCountMismatch);
 
@@ -207,7 +207,7 @@ TEST_CASE("format_pattern/validate/arg_count_mismatch") {
 }
 
 // Every positional index must name an argument, and an index that overflows size_t reports the same error.
-TEST_CASE("format_pattern/validate/index_out_of_range") {
+TEST_CASE("detail/format_pattern/validate/index_out_of_range") {
   CHECK(validateFormatPattern("{0}", 0) == FormatPatternValidationError::indexOutOfRange);
   CHECK(validateFormatPattern("{1}", 1) == FormatPatternValidationError::indexOutOfRange);
   CHECK(validateFormatPattern("{2}", 2) == FormatPatternValidationError::indexOutOfRange);
@@ -229,7 +229,7 @@ TEST_CASE("format_pattern/validate/index_out_of_range") {
 }
 
 // A fixed string validates under the same rules as any other source, by its own size and pointer.
-TEST_CASE("format_pattern/validate/string_like_sources") {
+TEST_CASE("detail/format_pattern/validate/string_like_sources") {
   const FixedString<3> autoPlaceholder{"{}"};
   CHECK(validateFormatPattern(autoPlaceholder, 1) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern(autoPlaceholder, 0) == FormatPatternValidationError::argCountMismatch);
@@ -240,4 +240,4 @@ TEST_CASE("format_pattern/validate/string_like_sources") {
                 "a fixed string source counts its placeholders against the arguments");
 }
 
-} // namespace toy
+} // namespace toy::detail

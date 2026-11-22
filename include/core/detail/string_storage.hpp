@@ -21,16 +21,16 @@
   \file   string_storage.hpp
   \brief  Concept for the character buffer a string writes into and records a length in.
 
-  Defines \ref toy::StringStorage, the requirement a buffer meets to back a string. Constrains a string over its
+  Defines \ref toy::detail::StringStorage, the requirement a buffer meets to back a string. Constrains a string over its
   storage, so one string works over a fixed-size buffer and over one that owns heap memory.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_STRING_STORAGE_HPP_
-#define INCLUDE_CORE_STRING_STORAGE_HPP_
+#ifndef INCLUDE_CORE_DETAIL_STRING_STORAGE_HPP_
+#define INCLUDE_CORE_DETAIL_STRING_STORAGE_HPP_
 
-namespace toy {
+namespace toy::detail {
 
 /*!
   \concept StringStorage
@@ -81,9 +81,9 @@ namespace toy {
   \code
   #include "core.hpp"
 
-  static_assert(toy::StringStorage<toy::FixedStringStorage<8>>);
+  static_assert(toy::detail::StringStorage<toy::detail::FixedStringStorage<8>>);
 
-  template <toy::StringStorage T>
+  template <toy::detail::StringStorage T>
   [[nodiscard]] bool assign(T & storage, toy::span<const char> text) noexcept {
     if (!storage.reserve(text.size())) {
       return false;
@@ -96,7 +96,7 @@ namespace toy {
     return true;
   }
 
-  toy::FixedStringStorage<32> storage;
+  toy::detail::FixedStringStorage<32> storage;
   const bool assigned = assign(storage, toy::span{"hi", 2});
 
   const size_t length = assigned ? storage.size() : 0;
@@ -111,7 +111,7 @@ namespace toy {
   \warning Only reserve() and shrink_to_fit() may allocate, so a caller that must not allocate checks capacity() instead
            of calling reserve().
 
-  \sa \ref toy::FixedStringStorage
+  \sa \ref toy::detail::FixedStringStorage
   \sa \ref toy::StringLike
 */
 template <typename T>
@@ -130,6 +130,6 @@ concept StringStorage = std::default_initializable<std::remove_reference_t<T>>
                              { storage.setSize(newSize) } -> std::same_as<void>;
                            };
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_STRING_STORAGE_HPP_
+#endif // INCLUDE_CORE_DETAIL_STRING_STORAGE_HPP_

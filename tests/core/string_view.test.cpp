@@ -78,12 +78,12 @@ constexpr size_t npos           = StringView::npos;
 constexpr size_t repeatedLength = std::char_traits<char>::length(repeated);
 
 // Distance a forward walk covers, as a length rather than a pointer difference.
-[[nodiscard]] constexpr size_t forwardLength(const StringView & view) noexcept {
+[[nodiscard]] constexpr size_t forwardLength(StringView view) noexcept {
   return static_cast<size_t>(view.end() - view.begin());
 }
 
 // Distance a back-to-front walk covers.
-[[nodiscard]] constexpr size_t reverseLength(const StringView & view) noexcept {
+[[nodiscard]] constexpr size_t reverseLength(StringView view) noexcept {
   return static_cast<size_t>(view.rend() - view.rbegin());
 }
 
@@ -341,7 +341,7 @@ TEST_CASE("string_view/capacity") {
   static_assert(!sampleView.empty(), "a view over a non-empty literal holds characters");
   static_assert(npos == static_cast<StringView::size_type>(-1),
                 "npos must be the largest value the length type carries");
-  static_assert(npos == string_utils::npos, "npos must match the value the shared search functions return");
+  static_assert(npos == detail::npos, "npos must match the value the shared search functions return");
 }
 
 // How many characters the viewed string holds, against the bytes it measures.
@@ -709,7 +709,7 @@ TEST_CASE("string_view/ends_with") {
   static_assert(sampleView.ends_with("yer"), "the pointer overload measures its argument");
 }
 
-// Which offset each overload reports; the search itself is covered by the toy::string_utils tests.
+// Which offset each overload reports; the search itself is covered by the toy::detail tests.
 TEST_CASE("string_view/find") {
   const StringView view(repeated);
 

@@ -19,15 +19,15 @@
 //
 /*!
   \file   format_context.inl
-  \brief  Inline implementations for \ref toy::FormatContext, constructor and output operations.
+  \brief  Inline implementations for \ref toy::detail::FormatContext, constructor and output operations.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_CONTEXT_INL_
-#define INCLUDE_CORE_FORMAT_CONTEXT_INL_
+#ifndef INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_INL_
+#define INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_INL_
 
-namespace toy {
+namespace toy::detail {
 
 constexpr FormatContext::FormatContext(void * context, WriteFunction writeFn) noexcept
   : _context(context)
@@ -48,6 +48,6 @@ inline void FormatContext::put(char character) noexcept {
   _writeFn(_context, span{&character, 1});
 }
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FORMAT_CONTEXT_INL_
+#endif // INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_INL_

@@ -19,7 +19,7 @@
 //
 /*!
   \file   format_context.test.cpp
-  \brief  Unit tests for \ref toy::FormatContext.
+  \brief  Unit tests for \ref toy::detail::FormatContext.
 */
 
 #include <cstring>
@@ -27,7 +27,7 @@
 #include "core.hpp"
 #include "toy_test.hpp"
 
-namespace toy {
+namespace toy::detail {
 
 namespace {
 
@@ -91,8 +91,8 @@ void append(void * context, span<const char> data) noexcept {
 
 // Returns false when the sink did not take the whole greeting.
 bool writeGreeting(Sink & sink) {
-  const size_t       start = sink.length;
-  toy::FormatContext output{&sink, &append};
+  const size_t               start = sink.length;
+  toy::detail::FormatContext output{&sink, &append};
   output.write(span<const char>{"hi", 2});
   output.put('!');
   return sink.length - start == 3;
@@ -110,7 +110,7 @@ constexpr bool constructsInConstantExpression() noexcept {
 } // namespace
 
 // The type stays two plain pointers: free to copy, nothing to destroy, and buildable in a constant expression.
-TEST_CASE("format_context/traits") {
+TEST_CASE("detail/format_context/traits") {
   static_assert(std::is_trivially_copyable_v<FormatContext>, "the object copies as plain data");
   static_assert(std::is_trivially_destructible_v<FormatContext>, "two pointers own nothing to destroy");
   static_assert(std::is_nothrow_copy_constructible_v<FormatContext>, "copying two pointers cannot fail");
@@ -122,7 +122,7 @@ TEST_CASE("format_context/traits") {
 }
 
 // write() hands the callback exactly what it got: the constructor's context and the caller's view.
-TEST_CASE("format_context/write_forwards_to_the_callback") {
+TEST_CASE("detail/format_context/write_forwards_to_the_callback") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
@@ -148,7 +148,7 @@ TEST_CASE("format_context/write_forwards_to_the_callback") {
 }
 
 // An empty view returns before the callback, so even a null pointer is a legal call.
-TEST_CASE("format_context/write_with_zero_count_skips_the_callback") {
+TEST_CASE("detail/format_context/write_with_zero_count_skips_the_callback") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
@@ -158,7 +158,7 @@ TEST_CASE("format_context/write_with_zero_count_skips_the_callback") {
 }
 
 // put() forwards one character: the callback sees a one-character view and reads the character through it.
-TEST_CASE("format_context/put_writes_one_character") {
+TEST_CASE("detail/format_context/put_writes_one_character") {
   RecordingSink sink;
   FormatContext context{&sink, &recordWrite};
 
@@ -175,7 +175,7 @@ TEST_CASE("format_context/put_writes_one_character") {
 }
 
 // A copy carries the same pair, so it writes into the same sink through the same callback.
-TEST_CASE("format_context/copy_writes_through_the_same_pair") {
+TEST_CASE("detail/format_context/copy_writes_through_the_same_pair") {
   RecordingSink sink;
   FormatContext original{&sink, &recordWrite};
 
@@ -191,7 +191,7 @@ TEST_CASE("format_context/copy_writes_through_the_same_pair") {
 }
 
 // A null context is legal: construction accepts it and the callback receives it as passed.
-TEST_CASE("format_context/null_context_reaches_the_callback") {
+TEST_CASE("detail/format_context/null_context_reaches_the_callback") {
   NullContextRecord record;
   FormatContext     context{nullptr, &recordNullContext};
 
@@ -203,7 +203,7 @@ TEST_CASE("format_context/null_context_reaches_the_callback") {
 
 // Both outcomes of the documented example: the greeting lands in an empty sink, and a one-byte-short sink takes only
 // part of it.
-TEST_CASE("format_context/usage_example_greeting") {
+TEST_CASE("detail/format_context/usage_example_greeting") {
   Sink empty;
   CHECK(writeGreeting(empty));
   REQUIRE(empty.length == 3);
@@ -219,4 +219,4 @@ TEST_CASE("format_context/usage_example_greeting") {
   CHECK(nearlyFull.buffer[15] == 'i');
 }
 
-} // namespace toy
+} // namespace toy::detail

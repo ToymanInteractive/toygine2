@@ -23,8 +23,8 @@
 
   The ConsoleApplication branch prints the greeting and version, reads the wall clock from toy::chrono::SystemClock,
   the steady counter's frequency and tick count from toy::chrono::SteadyClock, and the output span its
-  toy::chrono::Stopwatch covered. 64-bit readings go through toy::string_utils::itoa: console libcs disagree on printf
-  length modifiers. The Mega Drive target keeps a raw _EntryPoint.
+  toy::chrono::Stopwatch covered. 64-bit readings go through toy::detail::itoa: console libcs disagree on printf length
+  modifiers. The Mega Drive target keeps a raw _EntryPoint.
 */
 
 #include "toygine.hpp"
@@ -68,9 +68,9 @@ bool ConsoleSampleApp::runInternal() noexcept {
   toy::array<char, 24> bufferMajor{};
   toy::array<char, 24> bufferMinor{};
   toy::array<char, 24> bufferPatch{};
-  printf("App Version: %s.%s.%s (%s)\n", toy::string_utils::utoa(toy::span{bufferMajor}, version().major),
-         toy::string_utils::utoa(toy::span{bufferMinor}, version().minor),
-         toy::string_utils::utoa(toy::span{bufferPatch}, version().patch), version().revision.c_str());
+  printf("App Version: %s.%s.%s (%s)\n", toy::detail::utoa(toy::span{bufferMajor}, version().major),
+         toy::detail::utoa(toy::span{bufferMinor}, version().minor),
+         toy::detail::utoa(toy::span{bufferPatch}, version().patch), version().revision.c_str());
   writeOutputLine(toy::StringView{""});
 
   if (argsCount() > 1) {
@@ -83,7 +83,7 @@ bool ConsoleSampleApp::runInternal() noexcept {
 
   if (pid() != 0) {
     toy::array<char, 24> buffer{};
-    printf("System pid: %s\n", toy::string_utils::utoa(toy::span{buffer}, pid()));
+    printf("System pid: %s\n", toy::detail::utoa(toy::span{buffer}, pid()));
   }
 
   const auto calendar = toy::chrono::SystemClock::now();
@@ -93,9 +93,9 @@ bool ConsoleSampleApp::runInternal() noexcept {
 
   toy::array<char, 24> buffer{};
   printf("Steady clock frequency: %s Hz\n",
-         toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
-  printf("Steady clock ticks: %s\n", toy::string_utils::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
-  printf("Steady clock elapsed: %s ns\n", toy::string_utils::itoa(toy::span{buffer}, watch.elapsed().count()));
+         toy::detail::itoa(toy::span{buffer}, toy::chrono::SteadyClock::frequency()));
+  printf("Steady clock ticks: %s\n", toy::detail::itoa(toy::span{buffer}, toy::chrono::SteadyClock::nowTicks()));
+  printf("Steady clock elapsed: %s ns\n", toy::detail::itoa(toy::span{buffer}, watch.elapsed().count()));
 
   writeOutputLine(toy::StringView{""});
   writeErrorLine(toy::StringView("!!!Error message demo:: this is not an error!!!"));

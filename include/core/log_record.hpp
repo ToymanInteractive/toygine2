@@ -43,7 +43,7 @@
   defaults to \c 256.
 
   \note Every record carries the whole buffer, so the value adds to the size of each record whatever its text.
-  \note Must be greater than \c 0, checked by a static assertion in \ref toy::FixedStringStorage.
+  \note Must be greater than \c 0, checked by a static assertion in \ref toy::detail::FixedStringStorage.
 */
 #define LOG_MESSAGE_CAPACITY 256
 #endif // LOG_MESSAGE_CAPACITY
@@ -84,7 +84,7 @@ inline constexpr size_t messageCapacity = LOG_MESSAGE_CAPACITY;
 
   * **Construction**: O(n) in the length of the message, which is copied into the buffer; the metadata is stored as a
     pointer.
-  * **Copy**: the message copies as \ref toy::FixedStringStorage does, and the other fields as bytes.
+  * **Copy**: the message copies as \ref toy::detail::FixedStringStorage does, and the other fields as bytes.
   * **Memory usage**: one pointer, a 32-bit time stamp, and the message buffer with its length; at the default
     capacity, 280 bytes where a pointer is 8 bytes and 268 where it is 4.
 

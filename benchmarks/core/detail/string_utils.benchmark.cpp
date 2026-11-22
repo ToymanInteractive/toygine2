@@ -73,7 +73,7 @@ constexpr array<int64_t, 19> digitLadder = [] {
   return values;
 }();
 
-// Converts one rung of the ladder with string_utils::itoa(); std::to_chars is the reference row.
+// Converts one rung of the ladder with detail::itoa(); std::to_chars is the reference row.
 void runDigitLadderCase(benchmark::Bench & bench, size_t digitCount) {
   const int64_t value = opaqueValue(digitLadder[digitCount - 1]);
 
@@ -84,8 +84,8 @@ void runDigitLadderCase(benchmark::Bench & bench, size_t digitCount) {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::itoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::itoa(out, value));
+  bench.run("toy::detail::itoa", [&] {
+    benchmark::doNotOptimizeAway(detail::itoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -98,23 +98,23 @@ void runDigitLadderCase(benchmark::Bench & bench, size_t digitCount) {
 
 } // namespace
 
-BENCHMARK_CASE("core/string_utils/utf16_to_utf8") {
+BENCHMARK_CASE("core/detail/string_utils/utf16_to_utf8") {
   const char16_t * const text = opaque(utf16Text);
 
   // Room for every unit at its widest encoding plus the terminator, so the whole text converts every time.
-  array<char, utf16Length * string_utils::utf16InUtf8MaxSize + 1> buffer{};
+  array<char, utf16Length * detail::utf16InUtf8MaxSize + 1> buffer{};
 
   bench.unit("conversion");
 
   const span out{buffer};
   const span in{text, utf16Length};
 
-  bench.run("toy::string_utils::utf16ToUtf8", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf16ToUtf8(out, in));
+  bench.run("toy::detail::utf16ToUtf8", [&] {
+    benchmark::doNotOptimizeAway(detail::utf16ToUtf8(out, in));
   });
 }
 
-BENCHMARK_CASE("core/string_utils/utf8_to_utf16") {
+BENCHMARK_CASE("core/detail/string_utils/utf8_to_utf16") {
   const char * const text = opaque(utf8Text);
 
   // One unit per byte at most, plus the terminator, so the whole text converts every time.
@@ -125,18 +125,18 @@ BENCHMARK_CASE("core/string_utils/utf8_to_utf16") {
   const span out{buffer};
   const span in{text, utf8Length};
 
-  bench.run("toy::string_utils::utf8ToUtf16", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf8ToUtf16(out, in));
+  bench.run("toy::detail::utf8ToUtf16", [&] {
+    benchmark::doNotOptimizeAway(detail::utf8ToUtf16(out, in));
   });
 }
 
-BENCHMARK_CASE("core/string_utils/utf8_len") {
+BENCHMARK_CASE("core/detail/string_utils/utf8_len") {
   const char * const text = opaque(utf8Text);
 
   bench.unit("count");
 
-  bench.run("toy::string_utils::utf8Len", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf8Len(text));
+  bench.run("toy::detail::utf8Len", [&] {
+    benchmark::doNotOptimizeAway(detail::utf8Len(text));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -147,13 +147,13 @@ BENCHMARK_CASE("core/string_utils/utf8_len") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/utf16_len") {
+BENCHMARK_CASE("core/detail/string_utils/utf16_len") {
   const char16_t * const text = opaque(utf16Text);
 
   bench.unit("count");
 
-  bench.run("toy::string_utils::utf16Len", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf16Len(text));
+  bench.run("toy::detail::utf16Len", [&] {
+    benchmark::doNotOptimizeAway(detail::utf16Len(text));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -164,42 +164,42 @@ BENCHMARK_CASE("core/string_utils/utf16_len") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/validate_utf8") {
+BENCHMARK_CASE("core/detail/string_utils/validate_utf8") {
   // The text is well-formed, so each row walks it to the end through every sequence width.
   const char * const text = opaque(utf8Text);
 
   bench.unit("validation");
 
-  bench.run("toy::string_utils::validateUtf8(const char *)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf8(text));
+  bench.run("toy::detail::validateUtf8(const char *)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf8(text));
   });
 
   const span range{text, utf8Length};
 
-  bench.run("toy::string_utils::validateUtf8(toy::span<const char>)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf8(range));
+  bench.run("toy::detail::validateUtf8(toy::span<const char>)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf8(range));
   });
 }
 
-BENCHMARK_CASE("core/string_utils/validate_utf16") {
+BENCHMARK_CASE("core/detail/string_utils/validate_utf16") {
   // The text is well-formed, so each row walks it to the end, its surrogate pairs included.
   const char16_t * const text = opaque(utf16Text);
 
   bench.unit("validation");
 
-  bench.run("toy::string_utils::validateUtf16(const char16_t *)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf16(text));
+  bench.run("toy::detail::validateUtf16(const char16_t *)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf16(text));
   });
 
   const span range{text, utf16Length};
 
-  bench.run("toy::string_utils::validateUtf16(toy::span<const char16_t>)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf16(range));
+  bench.run("toy::detail::validateUtf16(toy::span<const char16_t>)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf16(range));
   });
 }
 
 // The type's most negative value: a sign, the widest digit count, and the division by ten behind every digit.
-BENCHMARK_CASE("core/string_utils/itoa") {
+BENCHMARK_CASE("core/detail/string_utils/itoa") {
   const int32_t value = opaqueValue(std::numeric_limits<int32_t>::min());
 
   // Sign, ten digits, and the terminator, so no row truncates.
@@ -209,8 +209,8 @@ BENCHMARK_CASE("core/string_utils/itoa") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::itoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::itoa(out, value));
+  bench.run("toy::detail::itoa", [&] {
+    benchmark::doNotOptimizeAway(detail::itoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -221,7 +221,7 @@ BENCHMARK_CASE("core/string_utils/itoa") {
 }
 
 // The same conversion one width up, where digit extraction runs through 64-bit division.
-BENCHMARK_CASE("core/string_utils/itoa_int64") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_int64") {
   const int64_t value = opaqueValue(std::numeric_limits<int64_t>::min());
 
   // Sign, nineteen digits, and the terminator, so no row truncates.
@@ -231,8 +231,8 @@ BENCHMARK_CASE("core/string_utils/itoa_int64") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::itoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::itoa(out, value));
+  bench.run("toy::detail::itoa", [&] {
+    benchmark::doNotOptimizeAway(detail::itoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -242,83 +242,83 @@ BENCHMARK_CASE("core/string_utils/itoa_int64") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_1_digit") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_1_digit") {
   runDigitLadderCase(bench, 1);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_2_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_2_digits") {
   runDigitLadderCase(bench, 2);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_3_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_3_digits") {
   runDigitLadderCase(bench, 3);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_4_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_4_digits") {
   runDigitLadderCase(bench, 4);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_5_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_5_digits") {
   runDigitLadderCase(bench, 5);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_6_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_6_digits") {
   runDigitLadderCase(bench, 6);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_7_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_7_digits") {
   runDigitLadderCase(bench, 7);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_8_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_8_digits") {
   runDigitLadderCase(bench, 8);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_9_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_9_digits") {
   runDigitLadderCase(bench, 9);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_10_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_10_digits") {
   runDigitLadderCase(bench, 10);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_11_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_11_digits") {
   runDigitLadderCase(bench, 11);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_12_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_12_digits") {
   runDigitLadderCase(bench, 12);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_13_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_13_digits") {
   runDigitLadderCase(bench, 13);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_14_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_14_digits") {
   runDigitLadderCase(bench, 14);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_15_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_15_digits") {
   runDigitLadderCase(bench, 15);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_16_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_16_digits") {
   runDigitLadderCase(bench, 16);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_17_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_17_digits") {
   runDigitLadderCase(bench, 17);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_18_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_18_digits") {
   runDigitLadderCase(bench, 18);
 }
 
-BENCHMARK_CASE("core/string_utils/itoa_19_digits") {
+BENCHMARK_CASE("core/detail/string_utils/itoa_19_digits") {
   runDigitLadderCase(bench, 19);
 }
 
-BENCHMARK_CASE("core/string_utils/utoa") {
+BENCHMARK_CASE("core/detail/string_utils/utoa") {
   const uint32_t value = opaqueValue(std::numeric_limits<uint32_t>::max());
 
   // Ten digits and the terminator, so no row truncates.
@@ -328,8 +328,8 @@ BENCHMARK_CASE("core/string_utils/utoa") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoa(out, value));
+  bench.run("toy::detail::utoa", [&] {
+    benchmark::doNotOptimizeAway(detail::utoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -339,7 +339,7 @@ BENCHMARK_CASE("core/string_utils/utoa") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/utoa_uint64") {
+BENCHMARK_CASE("core/detail/string_utils/utoa_uint64") {
   const uint64_t value = opaqueValue(std::numeric_limits<uint64_t>::max());
 
   // Twenty digits and the terminator, the longest decimal form of any standard type.
@@ -349,8 +349,8 @@ BENCHMARK_CASE("core/string_utils/utoa_uint64") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoa(out, value));
+  bench.run("toy::detail::utoa", [&] {
+    benchmark::doNotOptimizeAway(detail::utoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -362,7 +362,7 @@ BENCHMARK_CASE("core/string_utils/utoa_uint64") {
 
 // Fixed-width hexadecimal: eight uppercase digits, zero-padded and without a prefix.
 // std::to_chars prints the same digits unpadded and lowercase, so its time is the floor for the engine row.
-BENCHMARK_CASE("core/string_utils/utoa_hex") {
+BENCHMARK_CASE("core/detail/string_utils/utoa_hex") {
   const uint32_t value = opaqueValue(uint32_t(0xDEADBEEF));
 
   // Eight digits and the terminator, so no row truncates.
@@ -372,8 +372,8 @@ BENCHMARK_CASE("core/string_utils/utoa_hex") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoaHex", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoaHex(out, value));
+  bench.run("toy::detail::utoaHex", [&] {
+    benchmark::doNotOptimizeAway(detail::utoaHex(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -383,7 +383,7 @@ BENCHMARK_CASE("core/string_utils/utoa_hex") {
 #endif // TOYGINE_BENCHMARKS_STD_REFERENCE
 }
 
-BENCHMARK_CASE("core/string_utils/utoa_hex_uint64") {
+BENCHMARK_CASE("core/detail/string_utils/utoa_hex_uint64") {
   const uint64_t value = opaqueValue(UINT64_C(0xDEADBEEFCAFEBABE));
 
   // Sixteen digits and the terminator, so no row truncates.
@@ -393,8 +393,8 @@ BENCHMARK_CASE("core/string_utils/utoa_hex_uint64") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoaHex", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoaHex(out, value));
+  bench.run("toy::detail::utoaHex", [&] {
+    benchmark::doNotOptimizeAway(detail::utoaHex(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)

@@ -19,15 +19,15 @@
 //
 /*!
   \file   format_string.inl
-  \brief  Inline implementations for \ref toy::FormatString constructors and get().
+  \brief  Inline implementations for \ref toy::detail::FormatString constructors and get().
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_FORMAT_STRING_INL_
-#define INCLUDE_CORE_FORMAT_STRING_INL_
+#ifndef INCLUDE_CORE_DETAIL_FORMAT_STRING_INL_
+#define INCLUDE_CORE_DETAIL_FORMAT_STRING_INL_
 
-namespace toy {
+namespace toy::detail {
 
 template <class... Args>
 consteval FormatString<Args...>::FormatString(const char * string) noexcept
@@ -72,6 +72,6 @@ inline void FormatString<Args...>::_compileTimeError([[maybe_unused]] const char
   // Intentionally cause a compile-time error
 }
 
-} // namespace toy
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_FORMAT_STRING_INL_
+#endif // INCLUDE_CORE_DETAIL_FORMAT_STRING_INL_

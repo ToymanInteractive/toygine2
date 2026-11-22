@@ -26,7 +26,7 @@
 
 #include "core.hpp"
 
-namespace toy::string_utils {
+namespace toy::detail {
 
 namespace {
 
@@ -41,7 +41,7 @@ namespace {
         that can never start a valid sequence — continuation bytes (0x80-0xBF), overlong 2-byte leads (0xC0-0xC1), and
         out-of-range leads (0xF5-0xFF).
   \note Range and overlong checks that depend on continuation bytes (e.g. for 0xE0, 0xED, 0xF0, 0xF4) are left to
-        toy::string_utils::validateUtf8(); this table validates only what the lead byte alone determines.
+        toy::detail::validateUtf8(); this table validates only what the lead byte alone determines.
 */
 constexpr array<uint8_t, 256> utf8CharSizeTable{
   {
@@ -82,8 +82,8 @@ constexpr ByteRange continuationRange{0x80, 0xBF};
   \brief Returns the range the byte after \a leadByte may take.
 
   Four lead bytes narrow that range, which is what rejects the ill-formed sequences the lead byte alone admits
-  (Unicode table 3-7). Read through wellFormedLength() by toy::string_utils::validateUtf8() and
-  toy::string_utils::utf8ToUtf16(); the counting walk does no range check.
+  (Unicode table 3-7). Read through wellFormedLength() by toy::detail::validateUtf8() and toy::detail::utf8ToUtf16();
+  the counting walk does no range check.
 
   \param leadByte First byte of the sequence.
 
@@ -419,4 +419,4 @@ bool validateUtf16(span<const char16_t> str) noexcept {
   return true;
 }
 
-} // namespace toy::string_utils
+} // namespace toy::detail

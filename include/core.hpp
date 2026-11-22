@@ -143,18 +143,18 @@ using std::strong_ordering;
 */
 
 /*!
-  \namespace toy::string_utils
+  \namespace toy::detail
 
-  \brief Text utilities shared across the core types: character search and comparison, plus UTF-8 and UTF-16
-         conversion, counting, and validation.
+  \brief Implementation helpers the core module shares across its types: the format context, format pattern parsing and
+         validation, the string storage concept, the fixed-string storage, character search and comparison, plus UTF-8
+         and UTF-16 conversion, counting, and validation.
 
   A search or comparison function reads only the characters inside the toy::span it is given: it needs no terminator
-  after them, and a \c '\\0' inside counts as an ordinary character. Counting and validation also take a
-  null-terminated string and walk it to its terminator. Characters compare as bytes with no locale, so a result is
-  identical across runs and targets. No function allocates. Search, comparison, and toy::string_utils::utf8Size() work
-  in a constant expression; every other function is a runtime one, defined in a translation unit. A sequence or set
-  search takes O(n * m) comparisons in the worst case, in the length of the range and of the pattern or set; the rest
-  take O(n).
+  after them, and a \c '\\0' inside counts as an ordinary character. Counting and validation also take a null-terminated
+  string and walk it to its terminator. Characters compare as bytes with no locale, so a result is identical across runs
+  and targets. No function allocates. Search, comparison, and toy::detail::utf8Size() work in a constant expression;
+  every other function is a runtime one, defined in a translation unit. A sequence or set search takes O(n * m)
+  comparisons in the worst case, in the length of the range and of the pattern or set; the rest take O(n).
 */
 
 /*!
@@ -317,10 +317,12 @@ using std::strong_ordering;
 #include "core/chrono_stopwatch.hpp"
 #include "core/chrono_system_clock.hpp"
 #include "core/chrono_timestamp.hpp"
-#include "core/fixed_string_storage.hpp"
-#include "core/format_context.hpp"
-#include "core/format_pattern.hpp"
-#include "core/format_string.hpp"
+#include "core/detail/fixed_string_storage.hpp"
+#include "core/detail/format_context.hpp"
+#include "core/detail/format_pattern.hpp"
+#include "core/detail/format_string.hpp"
+#include "core/detail/string_storage.hpp"
+#include "core/detail/string_utils.hpp"
 #include "core/hashes.hpp"
 #include "core/log_isink.hpp"
 #include "core/log_level.hpp"
@@ -330,8 +332,6 @@ using std::strong_ordering;
 #include "core/platform.hpp"
 #include "core/string.hpp"
 #include "core/string_like.hpp"
-#include "core/string_storage.hpp"
-#include "core/string_utils.hpp"
 #include "core/string_view.hpp"
 
 //--------------------------------------------------------------------------------------------------------------------
@@ -340,12 +340,12 @@ using std::strong_ordering;
 #include "core/chrono_calendar_time.inl"
 #include "core/chrono_stopwatch.inl"
 #include "core/chrono_timestamp.inl"
-#include "core/fixed_string_storage.inl"
-#include "core/format_context.inl"
-#include "core/format_pattern.inl"
-#include "core/format_string.inl"
+#include "core/detail/fixed_string_storage.inl"
+#include "core/detail/format_context.inl"
+#include "core/detail/format_pattern.inl"
+#include "core/detail/format_string.inl"
+#include "core/detail/string_utils.inl"
 #include "core/string.inl"
-#include "core/string_utils.inl"
 #include "core/string_view.inl"
 
 #endif // INCLUDE_CORE_HPP_
