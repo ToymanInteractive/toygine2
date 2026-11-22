@@ -31,10 +31,10 @@
 #ifndef INCLUDE_CORE_STRING_HPP_
 #define INCLUDE_CORE_STRING_HPP_
 
+#include "detail/string_utils.hpp"
 #include "fixed_string_storage.hpp"
 #include "string_like.hpp"
 #include "string_storage.hpp"
-#include "string_utils.hpp"
 #include "string_view.hpp"
 
 namespace toy {
@@ -60,7 +60,7 @@ namespace toy {
     character, as in \c std::basic_string.
   * **Null-terminated**: c_str() always reaches a terminator, so the buffer goes to a C interface unchanged.
   * **Constexpr support**: every operation evaluates in a constant expression.
-  * **Shared algorithms**: search and comparison run the \ref toy::string_utils functions that
+  * **Shared algorithms**: search and comparison run the \ref toy::detail functions that
     \ref toy::StringView uses.
   * **Exception safety**: no operation throws; exceptions are off in the build.
 
@@ -1069,10 +1069,9 @@ public:
 
     \return Count of encoded characters, \c 0 for an empty string.
 
-    \pre The bytes of the string hold well-formed UTF-8, checked with
-         toy::string_utils::validateUtf8(toy::span<const char>) by assert_message in debug builds outside constant
-         evaluation. A shipping build and a constant expression skip that check and count every byte outside the
-         continuation form, a stray lead byte included.
+    \pre The bytes of the string hold well-formed UTF-8, checked with toy::detail::validateUtf8(toy::span<const char>)
+         by assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
+         that check and count every byte outside the continuation form, a stray lead byte included.
 
     \note The count matches size() only where every character is ASCII.
     \note A view from subview() stops at the first \c '\\0', so its utf8_size() can count fewer.
@@ -2937,7 +2936,7 @@ public:
     Every search returns it when nothing matches. As a count it reaches the end of the string or of the source, and as
     the start of a backward search it covers the whole string.
   */
-  static constexpr const size_type npos = string_utils::npos;
+  static constexpr const size_type npos = detail::npos;
 
 private:
   /// Buffer holding the characters, the terminator, and the length

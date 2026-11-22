@@ -31,8 +31,8 @@
 #ifndef INCLUDE_CORE_STRING_VIEW_HPP_
 #define INCLUDE_CORE_STRING_VIEW_HPP_
 
+#include "detail/string_utils.hpp"
 #include "string_like.hpp"
-#include "string_utils.hpp"
 
 namespace toy {
 
@@ -449,9 +449,9 @@ public:
 
     \return Count of encoded characters, \c 0 over an empty string and \c 0 while the view holds no string.
 
-    \pre The viewed bytes hold well-formed UTF-8, checked with toy::string_utils::validateUtf8(toy::span<const char>)
-         by assert_message in debug builds outside constant evaluation. A shipping build and a constant expression
-         skip that check and count every byte outside the continuation form, a stray lead byte included.
+    \pre The viewed bytes hold well-formed UTF-8, checked with toy::detail::validateUtf8(toy::span<const char>) by
+         assert_message in debug builds outside constant evaluation. A shipping build and a constant expression skip
+         that check and count every byte outside the continuation form, a stray lead byte included.
 
     \note The count matches size() only where every character is ASCII.
 
@@ -1135,7 +1135,7 @@ public:
     Every search returns it when nothing matches. As a count it reaches the end of the view or of the other string, and
     as the start of a backward search it covers the whole view.
   */
-  static constexpr const size_type npos = string_utils::npos;
+  static constexpr const size_type npos = detail::npos;
 
   /*!
     \brief Reports whether two views read the same characters.

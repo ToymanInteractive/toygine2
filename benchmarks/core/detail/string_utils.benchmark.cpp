@@ -73,7 +73,7 @@ constexpr array<int64_t, 19> digitLadder = [] {
   return values;
 }();
 
-// Converts one rung of the ladder with string_utils::itoa(); std::to_chars is the reference row.
+// Converts one rung of the ladder with detail::itoa(); std::to_chars is the reference row.
 void runDigitLadderCase(benchmark::Bench & bench, size_t digitCount) {
   const int64_t value = opaqueValue(digitLadder[digitCount - 1]);
 
@@ -84,8 +84,8 @@ void runDigitLadderCase(benchmark::Bench & bench, size_t digitCount) {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::itoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::itoa(out, value));
+  bench.run("toy::detail::itoa", [&] {
+    benchmark::doNotOptimizeAway(detail::itoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -102,15 +102,15 @@ BENCHMARK_CASE("core/string_utils/utf16_to_utf8") {
   const char16_t * const text = opaque(utf16Text);
 
   // Room for every unit at its widest encoding plus the terminator, so the whole text converts every time.
-  array<char, utf16Length * string_utils::utf16InUtf8MaxSize + 1> buffer{};
+  array<char, utf16Length * detail::utf16InUtf8MaxSize + 1> buffer{};
 
   bench.unit("conversion");
 
   const span out{buffer};
   const span in{text, utf16Length};
 
-  bench.run("toy::string_utils::utf16ToUtf8", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf16ToUtf8(out, in));
+  bench.run("toy::detail::utf16ToUtf8", [&] {
+    benchmark::doNotOptimizeAway(detail::utf16ToUtf8(out, in));
   });
 }
 
@@ -125,8 +125,8 @@ BENCHMARK_CASE("core/string_utils/utf8_to_utf16") {
   const span out{buffer};
   const span in{text, utf8Length};
 
-  bench.run("toy::string_utils::utf8ToUtf16", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf8ToUtf16(out, in));
+  bench.run("toy::detail::utf8ToUtf16", [&] {
+    benchmark::doNotOptimizeAway(detail::utf8ToUtf16(out, in));
   });
 }
 
@@ -135,8 +135,8 @@ BENCHMARK_CASE("core/string_utils/utf8_len") {
 
   bench.unit("count");
 
-  bench.run("toy::string_utils::utf8Len", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf8Len(text));
+  bench.run("toy::detail::utf8Len", [&] {
+    benchmark::doNotOptimizeAway(detail::utf8Len(text));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -152,8 +152,8 @@ BENCHMARK_CASE("core/string_utils/utf16_len") {
 
   bench.unit("count");
 
-  bench.run("toy::string_utils::utf16Len", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utf16Len(text));
+  bench.run("toy::detail::utf16Len", [&] {
+    benchmark::doNotOptimizeAway(detail::utf16Len(text));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -170,14 +170,14 @@ BENCHMARK_CASE("core/string_utils/validate_utf8") {
 
   bench.unit("validation");
 
-  bench.run("toy::string_utils::validateUtf8(const char *)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf8(text));
+  bench.run("toy::detail::validateUtf8(const char *)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf8(text));
   });
 
   const span range{text, utf8Length};
 
-  bench.run("toy::string_utils::validateUtf8(toy::span<const char>)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf8(range));
+  bench.run("toy::detail::validateUtf8(toy::span<const char>)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf8(range));
   });
 }
 
@@ -187,14 +187,14 @@ BENCHMARK_CASE("core/string_utils/validate_utf16") {
 
   bench.unit("validation");
 
-  bench.run("toy::string_utils::validateUtf16(const char16_t *)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf16(text));
+  bench.run("toy::detail::validateUtf16(const char16_t *)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf16(text));
   });
 
   const span range{text, utf16Length};
 
-  bench.run("toy::string_utils::validateUtf16(toy::span<const char16_t>)", [&] {
-    benchmark::doNotOptimizeAway(string_utils::validateUtf16(range));
+  bench.run("toy::detail::validateUtf16(toy::span<const char16_t>)", [&] {
+    benchmark::doNotOptimizeAway(detail::validateUtf16(range));
   });
 }
 
@@ -209,8 +209,8 @@ BENCHMARK_CASE("core/string_utils/itoa") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::itoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::itoa(out, value));
+  bench.run("toy::detail::itoa", [&] {
+    benchmark::doNotOptimizeAway(detail::itoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -231,8 +231,8 @@ BENCHMARK_CASE("core/string_utils/itoa_int64") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::itoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::itoa(out, value));
+  bench.run("toy::detail::itoa", [&] {
+    benchmark::doNotOptimizeAway(detail::itoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -328,8 +328,8 @@ BENCHMARK_CASE("core/string_utils/utoa") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoa(out, value));
+  bench.run("toy::detail::utoa", [&] {
+    benchmark::doNotOptimizeAway(detail::utoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -349,8 +349,8 @@ BENCHMARK_CASE("core/string_utils/utoa_uint64") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoa", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoa(out, value));
+  bench.run("toy::detail::utoa", [&] {
+    benchmark::doNotOptimizeAway(detail::utoa(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -372,8 +372,8 @@ BENCHMARK_CASE("core/string_utils/utoa_hex") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoaHex", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoaHex(out, value));
+  bench.run("toy::detail::utoaHex", [&] {
+    benchmark::doNotOptimizeAway(detail::utoaHex(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)
@@ -393,8 +393,8 @@ BENCHMARK_CASE("core/string_utils/utoa_hex_uint64") {
 
   const span out{buffer};
 
-  bench.run("toy::string_utils::utoaHex", [&] {
-    benchmark::doNotOptimizeAway(string_utils::utoaHex(out, value));
+  bench.run("toy::detail::utoaHex", [&] {
+    benchmark::doNotOptimizeAway(detail::utoaHex(out, value));
   });
 
 #if defined(TOYGINE_BENCHMARKS_STD_REFERENCE)

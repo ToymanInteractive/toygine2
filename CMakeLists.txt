@@ -146,9 +146,9 @@ set(INL_AUDIO_LIST )
 #-----------------------------------------------------------------------------------------------------------------------
 
 set(SRC_CORE_LIST
+    src/core/detail/string_utils.cpp
     src/core/hashes.cpp
-    src/core/log_isink.cpp
-    src/core/string_utils.cpp)
+    src/core/log_isink.cpp)
 set(HDR_CORE_LIST
     include/core.hpp
     include/core/assertion.hpp
@@ -159,6 +159,7 @@ set(HDR_CORE_LIST
     include/core/chrono_stopwatch.hpp
     include/core/chrono_system_clock.hpp
     include/core/chrono_timestamp.hpp
+    include/core/detail/string_utils.hpp
     include/core/fixed_string_storage.hpp
     include/core/format_context.hpp
     include/core/format_pattern.hpp
@@ -171,7 +172,6 @@ set(HDR_CORE_LIST
     include/core/platform.hpp
     include/core/string_like.hpp
     include/core/string_storage.hpp
-    include/core/string_utils.hpp
     include/core/string_view.hpp
     include/core/string.hpp)
 set(INL_CORE_LIST
@@ -179,11 +179,11 @@ set(INL_CORE_LIST
     include/core/chrono_calendar_time.inl
     include/core/chrono_stopwatch.inl
     include/core/chrono_timestamp.inl
+    include/core/detail/string_utils.inl
     include/core/fixed_string_storage.inl
     include/core/format_context.inl
     include/core/format_pattern.inl
     include/core/format_string.inl
-    include/core/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)
 

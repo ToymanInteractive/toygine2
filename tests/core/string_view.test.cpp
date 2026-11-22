@@ -341,7 +341,7 @@ TEST_CASE("string_view/capacity") {
   static_assert(!sampleView.empty(), "a view over a non-empty literal holds characters");
   static_assert(npos == static_cast<StringView::size_type>(-1),
                 "npos must be the largest value the length type carries");
-  static_assert(npos == string_utils::npos, "npos must match the value the shared search functions return");
+  static_assert(npos == detail::npos, "npos must match the value the shared search functions return");
 }
 
 // How many characters the viewed string holds, against the bytes it measures.
@@ -709,7 +709,7 @@ TEST_CASE("string_view/ends_with") {
   static_assert(sampleView.ends_with("yer"), "the pointer overload measures its argument");
 }
 
-// Which offset each overload reports; the search itself is covered by the toy::string_utils tests.
+// Which offset each overload reports; the search itself is covered by the toy::detail tests.
 TEST_CASE("string_view/find") {
   const StringView view(repeated);
 

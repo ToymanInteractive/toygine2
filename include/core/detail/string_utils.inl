@@ -19,17 +19,15 @@
 //
 /*!
   \file   string_utils.inl
-  \brief  Inline implementations for the \ref toy::string_utils search and integer formatting functions.
+  \brief  Inline implementations for the \ref toy::detail search and integer formatting functions.
 
   \note Included by core.hpp only; do not include this file directly.
 */
 
-#ifndef INCLUDE_CORE_STRING_UTILS_INL_
-#define INCLUDE_CORE_STRING_UTILS_INL_
+#ifndef INCLUDE_CORE_DETAIL_STRING_UTILS_INL_
+#define INCLUDE_CORE_DETAIL_STRING_UTILS_INL_
 
-namespace toy::string_utils {
-
-namespace detail {
+namespace toy::detail {
 
 /*!
   \brief Builds the membership table of \a set.
@@ -77,8 +75,6 @@ inline constexpr array<char, 200> digitPairs = [] {
 
 /// Sixteen digits of the hexadecimal alphabet, indexed by nibble.
 inline constexpr array hexDigits{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
-} // namespace detail
 
 constexpr size_t find(span<const char> data, char ch, size_t pos) noexcept {
   assert_message(data.data() != nullptr || data.empty(), "a null pointer names no characters to search");
@@ -167,9 +163,9 @@ constexpr size_t findFirstOf(span<const char> data, span<const char> set, size_t
   if (set.empty())
     return npos;
 
-  const auto members = detail::membershipTable(set);
+  const auto members = membershipTable(set);
   for (size_t index = pos; index < data.size(); ++index)
-    if (detail::isMember(members, data[index]))
+    if (isMember(members, data[index]))
       return index;
 
   return npos;
@@ -182,9 +178,9 @@ constexpr size_t findLastOf(span<const char> data, span<const char> set, size_t 
   if (set.empty())
     return npos;
 
-  const auto members = detail::membershipTable(set);
+  const auto members = membershipTable(set);
   for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
-    if (detail::isMember(members, data[remaining - 1]))
+    if (isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return npos;
@@ -207,9 +203,9 @@ constexpr size_t findFirstNotOf(span<const char> data, span<const char> set, siz
   if (set.empty())
     return pos < data.size() ? pos : npos;
 
-  const auto members = detail::membershipTable(set);
+  const auto members = membershipTable(set);
   for (size_t index = pos; index < data.size(); ++index)
-    if (!detail::isMember(members, data[index]))
+    if (!isMember(members, data[index]))
       return index;
 
   return npos;
@@ -232,9 +228,9 @@ constexpr size_t findLastNotOf(span<const char> data, span<const char> set, size
   if (set.empty())
     return data.empty() ? npos : min(pos, data.size() - 1);
 
-  const auto members = detail::membershipTable(set);
+  const auto members = membershipTable(set);
   for (size_t remaining = pos < data.size() ? pos + 1 : data.size(); remaining > 0; --remaining)
-    if (!detail::isMember(members, data[remaining - 1]))
+    if (!isMember(members, data[remaining - 1]))
       return remaining - 1;
 
   return npos;
@@ -319,7 +315,7 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
 
   // Two digits and the terminator need three bytes.
   if (value < 100 && dest.size() >= 3) {
-    const char * const digits = &detail::digitPairs[static_cast<size_t>(value) * 2];
+    const char * const digits = &digitPairs[static_cast<size_t>(value) * 2];
     char * const       start  = base + dest.size() - 3;
     start[0]                  = digits[0];
     start[1]                  = digits[1];
@@ -340,8 +336,8 @@ constexpr char * utoa(span<char> dest, T value) noexcept {
     value                = quotient;
 
     end    -= 2;
-    end[0]  = detail::digitPairs[remainder * 2];
-    end[1]  = detail::digitPairs[remainder * 2 + 1];
+    end[0]  = digitPairs[remainder * 2];
+    end[1]  = digitPairs[remainder * 2 + 1];
   }
 
   // Single digits finish the value: the leading one or two, or the single digit a narrow window has room for.
@@ -372,13 +368,13 @@ constexpr char * utoaHex(span<char> dest, T value) noexcept {
 
   for (size_t index = count; index > 0; --index) {
     const auto nibble   = static_cast<unsigned>(value & 0x0FU);
-    *--end              = detail::hexDigits[nibble];
+    *--end              = hexDigits[nibble];
     value             >>= 4;
   }
 
   return end;
 }
 
-} // namespace toy::string_utils
+} // namespace toy::detail
 
-#endif // INCLUDE_CORE_STRING_UTILS_INL_
+#endif // INCLUDE_CORE_DETAIL_STRING_UTILS_INL_

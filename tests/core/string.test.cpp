@@ -2889,8 +2889,8 @@ TEST_CASE("string/search_signatures") {
                 "every search must return an offset of size_type");
 
   // The value every search reports for no match is the one the view and the shared search functions use.
-  static_assert(Fixed::npos == StringView::npos && Fixed::npos == string_utils::npos,
-                "npos must match StringView::npos and string_utils::npos");
+  static_assert(Fixed::npos == StringView::npos && Fixed::npos == detail::npos,
+                "npos must match StringView::npos and detail::npos");
 }
 
 // What compare() reports against a view, another storage, or a pointer, whole or by a substring of either side.
