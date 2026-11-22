@@ -48,7 +48,7 @@ enum class PlaceholderMode {
 
   \return \c true when the position holds two \a brace characters in a row.
 */
-[[nodiscard]] constexpr bool consumeEscapedBrace(const StringView & string, size_t length, size_t & position,
+[[nodiscard]] constexpr bool consumeEscapedBrace(StringView string, size_t length, size_t & position,
                                                  char brace) noexcept {
   const bool pair = position + 1 < length && string.at(position) == brace && string.at(position + 1) == brace;
   if (pair)
@@ -69,7 +69,7 @@ enum class PlaceholderMode {
           \ref toy::FormatPatternValidationError::invalidContent when the closing brace is missing, and
           \ref toy::FormatPatternValidationError::indexOutOfRange when the index names no argument or overflows size_t.
 */
-[[nodiscard]] constexpr FormatPatternValidationError parsePositionalIndex(const StringView & string, size_t length,
+[[nodiscard]] constexpr FormatPatternValidationError parsePositionalIndex(StringView string, size_t length,
                                                                           size_t & position, size_t argCount) noexcept {
   size_t index    = 0;
   bool   anyDigit = false;
@@ -112,7 +112,7 @@ enum class PlaceholderMode {
   \return \ref toy::FormatPatternValidationError::none when the brace opens a well-formed placeholder, otherwise the
           value naming the first violated rule.
 */
-[[nodiscard]] constexpr FormatPatternValidationError parseOpeningBrace(const StringView & string, size_t length,
+[[nodiscard]] constexpr FormatPatternValidationError parseOpeningBrace(StringView string, size_t length,
                                                                        size_t & position, size_t & autoCount,
                                                                        PlaceholderMode & mode,
                                                                        size_t            argCount) noexcept {
@@ -173,8 +173,7 @@ enum class PlaceholderMode {
   \return \ref toy::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value naming the
           first violated rule.
 */
-[[nodiscard]] constexpr FormatPatternValidationError validateFormatImpl(const StringView & string,
-                                                                        size_t             argCount) noexcept {
+[[nodiscard]] constexpr FormatPatternValidationError validateFormatImpl(StringView string, size_t argCount) noexcept {
   auto       mode      = PlaceholderMode::none;
   size_t     autoCount = 0;
   size_t     position  = 0;

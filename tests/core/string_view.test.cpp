@@ -78,12 +78,12 @@ constexpr size_t npos           = StringView::npos;
 constexpr size_t repeatedLength = std::char_traits<char>::length(repeated);
 
 // Distance a forward walk covers, as a length rather than a pointer difference.
-[[nodiscard]] constexpr size_t forwardLength(const StringView & view) noexcept {
+[[nodiscard]] constexpr size_t forwardLength(StringView view) noexcept {
   return static_cast<size_t>(view.end() - view.begin());
 }
 
 // Distance a back-to-front walk covers.
-[[nodiscard]] constexpr size_t reverseLength(const StringView & view) noexcept {
+[[nodiscard]] constexpr size_t reverseLength(StringView view) noexcept {
   return static_cast<size_t>(view.rend() - view.rbegin());
 }
 

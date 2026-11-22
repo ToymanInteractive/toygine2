@@ -36,8 +36,9 @@ struct CompileTag {};
 
 // Compiles a pattern against the given argument types the way FormatString's consteval constructor does.
 template <class... Args>
-consteval bool patternAccepted(const StringView & pattern) {
+consteval bool patternAccepted(StringView pattern) {
   [[maybe_unused]] FormatString<Args...> validated{pattern};
+
   return true;
 }
 
