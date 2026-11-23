@@ -164,6 +164,7 @@ set(HDR_CORE_LIST
     include/core/detail/format_arg_type.hpp
     include/core/detail/format_context.hpp
     include/core/detail/format_pattern.hpp
+    include/core/detail/format_pattern_validation_error.hpp
     include/core/detail/format_placeholder_mode.hpp
     include/core/detail/format_string.hpp
     include/core/detail/string_utils.hpp

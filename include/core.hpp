@@ -323,6 +323,7 @@ using std::strong_ordering;
 #include "core/detail/format_arg.hpp"
 #include "core/detail/format_arg_type.hpp"
 #include "core/detail/format_context.hpp"
+#include "core/detail/format_pattern_validation_error.hpp"
 #include "core/detail/format_placeholder_mode.hpp"
 #include "core/detail/string_storage.hpp"
 #include "core/detail/string_utils.hpp"
