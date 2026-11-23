@@ -50,7 +50,8 @@ TEST_CASE("format_arg/size/trivially_copyable") {
 TEST_CASE("format_arg/packing/scalar_slots") {
   static_assert(detail::packArg('x').type == detail::FormatArgType::charValue && detail::packArg('x').character == 'x',
                 "char keeps its own slot");
-  static_assert(detail::packArg(true).type == detail::FormatArgType::boolValue && detail::packArg(true).boolean, "bool keeps its own slot");
+  static_assert(detail::packArg(true).type == detail::FormatArgType::boolValue && detail::packArg(true).boolean,
+                "bool keeps its own slot");
   static_assert(detail::packArg(false).type == detail::FormatArgType::boolValue && !detail::packArg(false).boolean,
                 "a false value packs unchanged");
 }
