@@ -159,11 +159,12 @@ set(HDR_CORE_LIST
     include/core/chrono_stopwatch.hpp
     include/core/chrono_system_clock.hpp
     include/core/chrono_timestamp.hpp
-    include/core/detail/string_utils.hpp
     include/core/detail/fixed_string_storage.hpp
+    include/core/detail/format_arg_type.hpp
     include/core/detail/format_context.hpp
     include/core/detail/format_pattern.hpp
     include/core/detail/format_string.hpp
+    include/core/detail/string_utils.hpp
     include/core/log_isink.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
@@ -179,11 +180,11 @@ set(INL_CORE_LIST
     include/core/chrono_calendar_time.inl
     include/core/chrono_stopwatch.inl
     include/core/chrono_timestamp.inl
-    include/core/detail/string_utils.inl
     include/core/detail/fixed_string_storage.inl
     include/core/detail/format_context.inl
     include/core/detail/format_pattern.inl
     include/core/detail/format_string.inl
+    include/core/detail/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)
 
