@@ -161,6 +161,7 @@ set(HDR_CORE_LIST
     include/core/chrono_timestamp.hpp
     include/core/detail/fixed_string_storage.hpp
     include/core/detail/format_arg_type.hpp
+    include/core/detail/format_arg.hpp
     include/core/detail/format_context.hpp
     include/core/detail/format_pattern.hpp
     include/core/detail/format_placeholder_mode.hpp
@@ -185,6 +186,7 @@ set(INL_CORE_LIST
     include/core/detail/format_context.inl
     include/core/detail/format_pattern.inl
     include/core/detail/format_string.inl
+    include/core/detail/format_arg.inl
     include/core/detail/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)
