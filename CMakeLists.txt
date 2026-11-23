@@ -184,10 +184,10 @@ set(INL_CORE_LIST
     include/core/chrono_stopwatch.inl
     include/core/chrono_timestamp.inl
     include/core/detail/fixed_string_storage.inl
-    include/core/detail/format_pattern.inl
     include/core/detail/format_string.inl
     include/core/detail/format_arg.inl
     include/core/detail/format_context.inl
+    include/core/detail/format_pattern.inl
     include/core/detail/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)

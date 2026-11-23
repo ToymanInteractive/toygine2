@@ -19,12 +19,11 @@
 //
 /*!
   \file   format_pattern.hpp
-  \brief  Format pattern validation diagnostics and the check itself.
+  \brief  The format pattern check and the grammar helpers it shares with the walk.
 
-  Defines \ref toy::detail::FormatPatternValidationError, the values a pattern check reports, and declares
-  toy::detail::validateFormatPattern(), which walks a pattern and matches its placeholders against an argument count.
-  Used by the consteval constructor of \ref toy::detail::FormatString and by any caller that wants the same verdict at
-  runtime.
+  Defines the grammar helpers that read escapes and placeholders, and toy::detail::validateFormatPattern(), which
+  matches a pattern against an argument count. Used by the consteval constructor of \ref toy::detail::FormatString and
+  by the walk.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -33,23 +32,87 @@
 #define INCLUDE_CORE_DETAIL_FORMAT_PATTERN_HPP_
 
 #include "core/string_like.hpp"
+#include "core/string_view.hpp"
+#include "format_pattern_validation_error.hpp"
+#include "format_placeholder_mode.hpp"
 
 namespace toy::detail {
 
 /*!
-  \enum  FormatPatternValidationError
-  \brief The values a format pattern check can report.
+  \brief Consumes a doubled brace at the position and reports whether one was there.
 
-  The check stops at the first violation and reports it, so a pattern with several faults yields one value per call.
+  \param string   Pattern being walked.
+  \param length   Length of \a string in bytes.
+  \param position Walk position; advanced past the pair when one is consumed.
+  \param brace    Brace the pair must repeat.
+
+  \return \c true when the position holds two \a brace characters in a row.
 */
-enum class FormatPatternValidationError {
-  none,              ///< The pattern fits the argument count.
-  unmatchedBrace,    ///< A brace opens no placeholder or closes nothing.
-  invalidContent,    ///< An index inside braces lacks its closing brace.
-  mixedPlaceholders, ///< Auto and positional placeholders share one pattern.
-  argCountMismatch,  ///< Arguments are given without placeholders, or the auto placeholder count differs.
-  indexOutOfRange,   ///< A positional index names no argument or overflows size_t.
-};
+[[nodiscard]] constexpr bool consumeEscapedBrace(StringView string, size_t length, size_t & position,
+                                                 char brace) noexcept;
+
+/*!
+  \brief Reads a positional index at the position and checks it against the argument count.
+
+  \param string   Pattern being walked.
+  \param length   Length of \a string in bytes.
+  \param position Walk position at the first index digit; left past the closing brace on success.
+  \param argCount Arguments the index has to fit.
+  \param index    Out-pointer that receives the parsed index on success; untouched otherwise
+                  (default: \c nullptr, no output).
+
+  \return \ref toy::detail::FormatPatternValidationError::none when the index fits \a argCount,
+          \ref toy::detail::FormatPatternValidationError::invalidContent when the closing brace is missing, and
+          \ref toy::detail::FormatPatternValidationError::indexOutOfRange when the index names no argument or
+          overflows size_t.
+*/
+[[nodiscard]] constexpr FormatPatternValidationError parsePositionalIndex(StringView string, size_t length,
+                                                                          size_t & position, size_t argCount,
+                                                                          size_t * index = nullptr) noexcept;
+
+/*!
+  \brief Parses the contents after an opening brace, which an escape has already ruled out.
+
+  \param string    Pattern being walked.
+  \param length    Length of \a string in bytes.
+  \param position  Walk position at the opening brace; left past the placeholder on success.
+  \param autoCount Count of auto placeholders seen so far; incremented for an auto one.
+  \param mode      Placeholder style seen so far; set to the style this brace contributes.
+  \param argCount  Arguments an index has to fit.
+  \param index     Out-pointer that receives the parsed index of a positional placeholder on success; untouched
+                   otherwise (default: \c nullptr, no output).
+
+  \return \ref toy::detail::FormatPatternValidationError::none when the brace opens a well-formed placeholder,
+          otherwise the value naming the first violated rule.
+*/
+[[nodiscard]] constexpr FormatPatternValidationError parseOpeningBrace(StringView string, size_t length,
+                                                                       size_t & position, size_t & autoCount,
+                                                                       PlaceholderMode & mode, size_t argCount,
+                                                                       size_t * index = nullptr) noexcept;
+
+/*!
+  \brief Checks the placeholder style the walk ended with against the argument count.
+
+  \param mode      Placeholder style the walk reached.
+  \param autoCount Auto placeholders the pattern carries.
+  \param argCount  Arguments the pattern has to fit.
+
+  \return \ref toy::detail::FormatPatternValidationError::none when the style fits \a argCount, otherwise
+          \ref toy::detail::FormatPatternValidationError::argCountMismatch.
+*/
+[[nodiscard]] constexpr FormatPatternValidationError reconcilePlaceholderMode(PlaceholderMode mode, size_t autoCount,
+                                                                              size_t argCount) noexcept;
+
+/*!
+  \brief Walks the pattern once and reports the first violated rule.
+
+  \param string   Pattern to check.
+  \param argCount Arguments the pattern has to fit.
+
+  \return \ref toy::detail::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value
+          naming the first violated rule.
+*/
+[[nodiscard]] constexpr FormatPatternValidationError validateFormatImpl(StringView string, size_t argCount) noexcept;
 
 /*!
   \brief Checks a null-terminated format pattern against an argument count.
@@ -62,6 +125,7 @@ enum class FormatPatternValidationError {
 
   \return \ref toy::detail::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value
           naming the first violated rule.
+
   \pre \a string is non-null, checked by assert_message in debug builds.
 
   \sa toy::detail::validateFormatPattern(const StringType &)
@@ -88,8 +152,7 @@ enum class FormatPatternValidationError {
   \sa toy::detail::validateFormatPattern(const char *)
 */
 template <StringLike StringType>
-[[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const StringType & string,
-                                                                           size_t             argCount) noexcept;
+[[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(StringType string, size_t argCount) noexcept;
 
 } // namespace toy::detail
 
