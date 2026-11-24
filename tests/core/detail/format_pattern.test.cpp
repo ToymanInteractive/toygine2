@@ -27,6 +27,33 @@
 
 namespace toy::detail {
 
+namespace {
+
+// A string-like source over a literal that cannot be copied or moved.
+template <size_t Capacity>
+struct Sealed {
+  constexpr explicit Sealed(const char (&text)[Capacity]) noexcept
+    : text(text) {}
+
+  ~Sealed() = default;
+
+  constexpr size_t size() const noexcept {
+    return Capacity - 1;
+  }
+
+  constexpr const char * c_str() const noexcept {
+    return text;
+  }
+
+  const char (&text)[Capacity];
+
+  TOYGINE_NO_COPY_MOVE(Sealed);
+};
+
+constexpr Sealed sealedSource{"plain"};
+
+} // namespace
+
 // Text without braces validates against an argument count of zero, escaped braces included.
 TEST_CASE("detail/format_pattern/validate/valid_without_placeholders") {
   CHECK(validateFormatPattern("", 0) == FormatPatternValidationError::none);
@@ -228,16 +255,19 @@ TEST_CASE("detail/format_pattern/validate/index_out_of_range") {
                 "an index that wraps size_t to zero must be rejected before the range check sees it");
 }
 
-// A fixed string validates under the same rules as any other source, by its own size and pointer.
+// A string-like source validates by its own size and pointer, and it need not be copyable.
 TEST_CASE("detail/format_pattern/validate/string_like_sources") {
   const FixedString<3> autoPlaceholder{"{}"};
   CHECK(validateFormatPattern(autoPlaceholder, 1) == FormatPatternValidationError::none);
   CHECK(validateFormatPattern(autoPlaceholder, 0) == FormatPatternValidationError::argCountMismatch);
+  CHECK(validateFormatPattern(sealedSource, 0) == FormatPatternValidationError::none);
 
   static_assert(validateFormatPattern(FixedString<3>{"{}"}, 1) == FormatPatternValidationError::none,
                 "a fixed string source validates under the same rules");
   static_assert(validateFormatPattern(FixedString<3>{"{}"}, 0) == FormatPatternValidationError::argCountMismatch,
                 "a fixed string source counts its placeholders against the arguments");
+  static_assert(validateFormatPattern(sealedSource, 0) == FormatPatternValidationError::none,
+                "a source that cannot be copied validates by reference");
 }
 
 } // namespace toy::detail

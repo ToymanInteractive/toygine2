@@ -19,7 +19,7 @@
 //
 /*!
   \file   format_pattern.inl
-  \brief  Inline implementations for toy::detail::validateFormatPattern().
+  \brief  Inline implementations for the toy::detail pattern grammar helpers and validateFormatPattern() overloads.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -29,25 +29,7 @@
 
 namespace toy::detail {
 
-/// Tracks which placeholder style the pattern has used so far.
-enum class PlaceholderMode {
-  none,       ///< The pattern carries no placeholder yet.
-  autoIndex,  ///< An auto placeholder has been seen.
-  positional, ///< A positional placeholder has been seen.
-};
-
-/*!
-  \brief Consumes a doubled brace at the position and reports whether one was there.
-
-  \param string   Pattern being walked.
-  \param length   Length of \a string in bytes.
-  \param position Walk position; advanced past the pair when one is consumed.
-  \param brace    Brace the pair must repeat.
-
-  \return \c true when the position holds two \a brace characters in a row.
-*/
-[[nodiscard]] constexpr bool consumeEscapedBrace(StringView string, size_t length, size_t & position,
-                                                 char brace) noexcept {
+constexpr bool consumeEscapedBrace(StringView string, size_t length, size_t & position, char brace) noexcept {
   const bool pair = position + 1 < length && string.at(position) == brace && string.at(position + 1) == brace;
   if (pair)
     position += 2;
@@ -55,22 +37,9 @@ enum class PlaceholderMode {
   return pair;
 }
 
-/*!
-  \brief Reads a positional index at the position and checks it against the argument count.
-
-  \param string   Pattern being walked.
-  \param length   Length of \a string in bytes.
-  \param position Walk position at the first index digit; left past the closing brace on success.
-  \param argCount Arguments the index has to fit.
-
-  \return \ref toy::detail::FormatPatternValidationError::none when the index fits \a argCount,
-          \ref toy::detail::FormatPatternValidationError::invalidContent when the closing brace is missing, and
-          \ref toy::detail::FormatPatternValidationError::indexOutOfRange when the index names no argument or
-          overflows size_t.
-*/
-[[nodiscard]] constexpr FormatPatternValidationError parsePositionalIndex(StringView string, size_t length,
-                                                                          size_t & position, size_t argCount) noexcept {
-  size_t index    = 0;
+constexpr FormatPatternValidationError parsePositionalIndex(StringView string, size_t length, size_t & position,
+                                                            size_t argCount, size_t * index) noexcept {
+  size_t parsed   = 0;
   bool   anyDigit = false;
   while (position < length) {
     const char d = string.at(position);
@@ -79,10 +48,10 @@ enum class PlaceholderMode {
 
     anyDigit         = true;
     const auto digit = static_cast<unsigned>(d - '0');
-    if (index > (SIZE_MAX - digit) / 10U)
+    if (parsed > (SIZE_MAX - digit) / 10U)
       return FormatPatternValidationError::indexOutOfRange;
 
-    index = index * 10U + digit;
+    parsed = parsed * 10U + digit;
     ++position;
   }
 
@@ -90,31 +59,20 @@ enum class PlaceholderMode {
     return FormatPatternValidationError::invalidContent;
   else if (position >= length || string.at(position) != '}')
     return FormatPatternValidationError::invalidContent;
-  else if (index >= argCount)
+  else if (parsed >= argCount)
     return FormatPatternValidationError::indexOutOfRange;
 
   ++position;
 
+  if (index != nullptr)
+    *index = parsed;
+
   return FormatPatternValidationError::none;
 }
 
-/*!
-  \brief Parses the contents after an opening brace, which an escape has already ruled out.
-
-  \param string    Pattern being walked.
-  \param length    Length of \a string in bytes.
-  \param position  Walk position at the opening brace; left past the placeholder on success.
-  \param autoCount Count of auto placeholders seen so far; incremented for an auto one.
-  \param mode      Placeholder style seen so far; set to the style this brace contributes.
-  \param argCount  Arguments an index has to fit.
-
-  \return \ref toy::detail::FormatPatternValidationError::none when the brace opens a well-formed placeholder,
-          otherwise the value naming the first violated rule.
-*/
-[[nodiscard]] constexpr FormatPatternValidationError parseOpeningBrace(StringView string, size_t length,
-                                                                       size_t & position, size_t & autoCount,
-                                                                       PlaceholderMode & mode,
-                                                                       size_t            argCount) noexcept {
+constexpr FormatPatternValidationError parseOpeningBrace(StringView string, size_t length, size_t & position,
+                                                         size_t & autoCount, PlaceholderMode & mode, size_t argCount,
+                                                         size_t * index) noexcept {
   if (position + 1 >= length)
     return FormatPatternValidationError::unmatchedBrace;
 
@@ -137,24 +95,14 @@ enum class PlaceholderMode {
     mode = PlaceholderMode::positional;
     ++position;
 
-    return parsePositionalIndex(string, length, position, argCount);
+    return parsePositionalIndex(string, length, position, argCount, index);
   }
 
   return FormatPatternValidationError::unmatchedBrace;
 }
 
-/*!
-  \brief Checks the placeholder style the walk ended with against the argument count.
-
-  \param mode      Placeholder style the walk reached.
-  \param autoCount Auto placeholders the pattern carries.
-  \param argCount  Arguments the pattern has to fit.
-
-  \return \ref toy::detail::FormatPatternValidationError::none when the style fits \a argCount, otherwise
-          \ref toy::detail::FormatPatternValidationError::argCountMismatch.
-*/
-[[nodiscard]] constexpr FormatPatternValidationError reconcilePlaceholderMode(PlaceholderMode mode, size_t autoCount,
-                                                                              size_t argCount) noexcept {
+constexpr FormatPatternValidationError reconcilePlaceholderMode(PlaceholderMode mode, size_t autoCount,
+                                                                size_t argCount) noexcept {
   if (mode == PlaceholderMode::none)
     return argCount != 0 ? FormatPatternValidationError::argCountMismatch : FormatPatternValidationError::none;
   else if (mode == PlaceholderMode::autoIndex)
@@ -163,16 +111,7 @@ enum class PlaceholderMode {
   return FormatPatternValidationError::none;
 }
 
-/*!
-  \brief Walks the pattern once and reports the first violated rule.
-
-  \param string   Pattern to check.
-  \param argCount Arguments the pattern has to fit.
-
-  \return \ref toy::detail::FormatPatternValidationError::none when the pattern fits \a argCount, otherwise the value
-          naming the first violated rule.
-*/
-[[nodiscard]] constexpr FormatPatternValidationError validateFormatImpl(StringView string, size_t argCount) noexcept {
+constexpr FormatPatternValidationError validateFormatImpl(StringView string, size_t argCount) noexcept {
   auto       mode      = PlaceholderMode::none;
   size_t     autoCount = 0;
   size_t     position  = 0;

@@ -145,9 +145,9 @@ using std::strong_ordering;
 /*!
   \namespace toy::detail
 
-  \brief Implementation helpers the core module shares across its types: the format context, format pattern parsing and
-         validation, the string storage concept, the fixed-string storage, character search and comparison, plus UTF-8
-         and UTF-16 conversion, counting, and validation.
+  \brief Implementation helpers the core module shares across its types: the format context, format argument packing,
+         format pattern parsing and validation, the string storage concept, the fixed-string storage, character search
+         and comparison, plus UTF-8 and UTF-16 conversion, counting, and validation.
 
   A search or comparison function reads only the characters inside the toy::span it is given: it needs no terminator
   after them, and a \c '\\0' inside counts as an ordinary character. Counting and validation also take a null-terminated
@@ -318,8 +318,12 @@ using std::strong_ordering;
 #include "core/chrono_system_clock.hpp"
 #include "core/chrono_timestamp.hpp"
 #include "core/detail/fixed_string_storage.hpp"
+#include "core/detail/format_arg.hpp"
+#include "core/detail/format_arg_type.hpp"
 #include "core/detail/format_context.hpp"
 #include "core/detail/format_pattern.hpp"
+#include "core/detail/format_pattern_validation_error.hpp"
+#include "core/detail/format_placeholder_mode.hpp"
 #include "core/detail/format_string.hpp"
 #include "core/detail/string_storage.hpp"
 #include "core/detail/string_utils.hpp"
@@ -341,6 +345,7 @@ using std::strong_ordering;
 #include "core/chrono_stopwatch.inl"
 #include "core/chrono_timestamp.inl"
 #include "core/detail/fixed_string_storage.inl"
+#include "core/detail/format_arg.inl"
 #include "core/detail/format_context.inl"
 #include "core/detail/format_pattern.inl"
 #include "core/detail/format_string.inl"
