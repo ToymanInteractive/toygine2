@@ -78,7 +78,7 @@ namespace toy::detail {
 */
 struct FormatArg {
   /// Which union member holds the packed value.
-  FormatArgType type;
+  FormatArgType type = FormatArgType::none;
 
   /// The value the tag names; every other member is inactive.
   union {

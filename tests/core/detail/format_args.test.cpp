@@ -41,13 +41,20 @@ template <typename T>
 concept CanPackArg = requires(T value) { detail::packArg(value); };
 
 // One packed argument stays small and trivially copyable, so a pack of arguments stays cheap to build and pass.
-TEST_CASE("format_arg/size/trivially_copyable") {
+TEST_CASE("detail/format_arg/size/trivially_copyable") {
   static_assert(sizeof(detail::FormatArg) <= 8 && std::is_trivially_copyable_v<detail::FormatArg>,
                 "detail::FormatArg must stay a trivial value of at most eight bytes");
 }
 
-// The two supported argument kinds pack to their tagged slots.
-TEST_CASE("format_arg/packing/scalar_slots") {
+// Runtime and constant-evaluated packing produce the same tagged slots, payloads included.
+TEST_CASE("detail/format_arg/packing/scalar_slots") {
+  CHECK(detail::packArg('x').type == detail::FormatArgType::charValue);
+  CHECK(detail::packArg('x').character == 'x');
+  CHECK(detail::packArg(true).type == detail::FormatArgType::boolValue);
+  CHECK(detail::packArg(true).boolean == true);
+  CHECK(detail::packArg(false).type == detail::FormatArgType::boolValue);
+  CHECK(detail::packArg(false).boolean == false);
+
   static_assert(detail::packArg('x').type == detail::FormatArgType::charValue && detail::packArg('x').character == 'x',
                 "char keeps its own slot");
   static_assert(detail::packArg(true).type == detail::FormatArgType::boolValue && detail::packArg(true).boolean,
@@ -56,16 +63,8 @@ TEST_CASE("format_arg/packing/scalar_slots") {
                 "a false value packs unchanged");
 }
 
-// Runtime packing produces the same slots the constant expressions above assert.
-TEST_CASE("format_arg/packing/runtime_parity") {
-  CHECK(detail::packArg('x').type == detail::FormatArgType::charValue);
-  CHECK(detail::packArg('x').character == 'x');
-  CHECK(detail::packArg(true).type == detail::FormatArgType::boolValue);
-  CHECK(detail::packArg(false).type == detail::FormatArgType::boolValue);
-}
-
 // Every type outside char and bool fails the pack at the concept.
-TEST_CASE("format_arg/packing/negative_probes") {
+TEST_CASE("detail/format_arg/packing/negative_probes") {
   static_assert(!CanPackArg<Unpackable>, "a type without a detail::packArg() overload must fail the concept");
   static_assert(!CanPackArg<int>, "integers pack nowhere");
   static_assert(!CanPackArg<double>, "floating-point values pack nowhere");
