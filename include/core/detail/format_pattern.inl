@@ -148,7 +148,7 @@ constexpr FormatPatternValidationError validateFormatPattern(const char * string
 }
 
 template <StringLike StringType>
-constexpr FormatPatternValidationError validateFormatPattern(StringType string, size_t argCount) noexcept {
+constexpr FormatPatternValidationError validateFormatPattern(const StringType & string, size_t argCount) noexcept {
   return validateFormatImpl(StringView{string}, argCount);
 }
 

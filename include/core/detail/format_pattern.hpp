@@ -128,7 +128,7 @@ namespace toy::detail {
 
   \pre \a string is non-null, checked by assert_message in debug builds.
 
-  \sa toy::detail::validateFormatPattern(StringType)
+  \sa toy::detail::validateFormatPattern(const StringType &)
 */
 [[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const char * string,
                                                                            size_t       argCount) noexcept;
@@ -152,7 +152,8 @@ namespace toy::detail {
   \sa toy::detail::validateFormatPattern(const char *)
 */
 template <StringLike StringType>
-[[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(StringType string, size_t argCount) noexcept;
+[[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const StringType & string,
+                                                                           size_t             argCount) noexcept;
 
 } // namespace toy::detail
 

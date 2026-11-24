@@ -29,9 +29,16 @@ namespace toy {
 
 namespace {
 
-// A type without a detail::packArg() overload; the negative probes must reject it at the concept.
+// A type no packer serves; the negative probes must reject it at the concept.
 struct Unpackable {
   int payload;
+};
+
+// A type that converts to bool without being one.
+struct Truthy {
+  constexpr operator bool() const noexcept {
+    return true;
+  }
 };
 
 } // namespace
@@ -70,6 +77,9 @@ TEST_CASE("detail/format_arg/packing/negative_probes") {
   static_assert(!CanPackArg<double>, "floating-point values pack nowhere");
   static_assert(!CanPackArg<const char *>, "a pointer must not pack as its implicit bool");
   static_assert(!CanPackArg<std::nullptr_t>, "a null pointer constant must not pack as false");
+  static_assert(!CanPackArg<int Unpackable::*>, "a pointer to member data must not pack as its implicit bool");
+  static_assert(!CanPackArg<void (Unpackable::*)()>, "a pointer to member function must not pack as its implicit bool");
+  static_assert(!CanPackArg<Truthy>, "a class converting to bool must not pack");
   static_assert(!CanPackArg<StringView>, "views pack nowhere");
 }
 

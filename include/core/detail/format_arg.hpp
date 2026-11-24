@@ -109,25 +109,19 @@ constexpr FormatArg packArg(char value) noexcept;
 constexpr FormatArg packArg(bool value) noexcept;
 
 /*!
-  \brief Deleted: a pointer converts to \c bool implicitly, so it would pack as a truth value.
+  \brief Deleted: any other argument type, so an implicit conversion to \c bool cannot select the boolean packer.
 
-  \tparam T Pointee type of the rejected pointer argument.
+  A pointer, a pointer to member, a null pointer constant, or a class with such a conversion would otherwise pack as a
+  truth value.
 
-  \param value Pointer the pack rejects.
+  \tparam T Type of the rejected argument.
 
-  \warning Calling this overload is a compile error; a pointer argument has no pack.
+  \param value Argument the pack rejects.
+
+  \warning Calling this overload is a compile error; only \c char and \c bool have a pack.
 */
 template <typename T>
-constexpr FormatArg packArg(const T * value) noexcept = delete;
-
-/*!
-  \brief Deleted: a null pointer constant converts to \c bool implicitly, so it would pack as \c false.
-
-  \param value Null pointer constant the pack rejects.
-
-  \warning Calling this overload is a compile error; a pointer argument has no pack.
-*/
-constexpr FormatArg packArg(std::nullptr_t value) noexcept = delete;
+constexpr FormatArg packArg(T value) noexcept = delete;
 
 } // namespace toy::detail
 
