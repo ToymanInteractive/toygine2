@@ -72,7 +72,7 @@ TEST_CASE("detail/format_arg/packing/scalar_slots") {
 
 // Every type outside char and bool fails the pack at the concept.
 TEST_CASE("detail/format_arg/packing/negative_probes") {
-  static_assert(!CanPackArg<Unpackable>, "a type without a detail::packArg() overload must fail the concept");
+  static_assert(!CanPackArg<Unpackable>, "a type no packer serves must fail the concept");
   static_assert(!CanPackArg<int>, "integers pack nowhere");
   static_assert(!CanPackArg<double>, "floating-point values pack nowhere");
   static_assert(!CanPackArg<const char *>, "a pointer must not pack as its implicit bool");
