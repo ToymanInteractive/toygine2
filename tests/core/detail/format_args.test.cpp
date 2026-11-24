@@ -36,14 +36,14 @@ struct Unpackable {
 
 } // namespace
 
-// The probe must fail for every type the two packers do not serve, without instantiating any dump.
+// The probe must fail for every type the two packers do not serve.
 template <typename T>
 concept CanPackArg = requires(T value) { detail::packArg(value); };
 
-// The packed argument stays a small trivial value, so the pack rides the stack of the calling wrapper.
+// One packed argument stays small and trivially copyable, so a pack of arguments stays cheap to build and pass.
 TEST_CASE("format_arg/size/trivially_copyable") {
   static_assert(sizeof(detail::FormatArg) <= 8 && std::is_trivially_copyable_v<detail::FormatArg>,
-                "detail::FormatArg must stay a trivial value under eight bytes");
+                "detail::FormatArg must stay a trivial value of at most eight bytes");
 }
 
 // The two supported argument kinds pack to their tagged slots.
@@ -67,11 +67,11 @@ TEST_CASE("format_arg/packing/runtime_parity") {
 // Every type outside char and bool fails the pack at the concept.
 TEST_CASE("format_arg/packing/negative_probes") {
   static_assert(!CanPackArg<Unpackable>, "a type without a detail::packArg() overload must fail the concept");
-  static_assert(!CanPackArg<int>, "integers pack nowhere in this build");
-  static_assert(!CanPackArg<double>, "floating-point values pack nowhere in this build");
+  static_assert(!CanPackArg<int>, "integers pack nowhere");
+  static_assert(!CanPackArg<double>, "floating-point values pack nowhere");
   static_assert(!CanPackArg<const char *>, "a pointer must not pack as its implicit bool");
   static_assert(!CanPackArg<std::nullptr_t>, "a null pointer constant must not pack as false");
-  static_assert(!CanPackArg<StringView>, "views pack nowhere in this build");
+  static_assert(!CanPackArg<StringView>, "views pack nowhere");
 }
 
 } // namespace toy

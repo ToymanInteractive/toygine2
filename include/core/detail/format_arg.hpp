@@ -22,8 +22,8 @@
   \brief  Type-erased format arguments and the packers that build them.
 
   Defines \ref toy::detail::FormatArg, one tagged value per packable argument, and the toy::detail::packArg() overloads
-  that pack a character or a truth value into it. Used by the format entry points and by any caller that assembles an
-  argument pack for a later format walk by hand.
+  that pack a character or a truth value into it. Used by any caller that assembles an argument pack for a later format
+  walk by hand.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -39,8 +39,8 @@ namespace toy::detail {
   \struct FormatArg
   \brief One format argument as a tag plus the scalar value the packer reduced it to.
 
-  The toy::packArg() overloads build the value at the call site; the tag names the union member that holds it. The
-  packers reduce argument types to tags as follows:
+  The toy::detail::packArg() overloads build the value at the call site; the tag names the union member that holds it.
+  The packers reduce argument types to tags as follows:
 
   | Argument type | Tag                                        | Rule           |
   |---------------|--------------------------------------------|----------------|
@@ -59,7 +59,7 @@ namespace toy::detail {
   \code
   #include "core.hpp"
 
-  constexpr toy::FormatArg packed = toy::packArg(true);
+  constexpr toy::detail::FormatArg packed = toy::detail::packArg(true);
   static_assert(packed.type == toy::detail::FormatArgType::boolValue && packed.boolean,
                 "a truth value packs to its slot");
   \endcode
@@ -115,7 +115,7 @@ constexpr FormatArg packArg(bool value) noexcept;
 
   \param value Pointer the pack rejects.
 
-  \warning Calling this overload is a compile error; a pointer argument has no pack in this build.
+  \warning Calling this overload is a compile error; a pointer argument has no pack.
 */
 template <typename T>
 constexpr FormatArg packArg(const T * value) noexcept = delete;
@@ -125,7 +125,7 @@ constexpr FormatArg packArg(const T * value) noexcept = delete;
 
   \param value Null pointer constant the pack rejects.
 
-  \warning Calling this overload is a compile error; a pointer argument has no pack in this build.
+  \warning Calling this overload is a compile error; a pointer argument has no pack.
 */
 constexpr FormatArg packArg(std::nullptr_t value) noexcept = delete;
 

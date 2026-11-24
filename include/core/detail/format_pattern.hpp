@@ -19,11 +19,11 @@
 //
 /*!
   \file   format_pattern.hpp
-  \brief  The format pattern check and the grammar helpers it shares with the walk.
+  \brief  The format pattern check and its grammar helpers.
 
   Defines the grammar helpers that read escapes and placeholders, and toy::detail::validateFormatPattern(), which
   matches a pattern against an argument count. Used by the consteval constructor of \ref toy::detail::FormatString and
-  by the walk.
+  by any caller that wants the same verdict at runtime.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -128,7 +128,7 @@ namespace toy::detail {
 
   \pre \a string is non-null, checked by assert_message in debug builds.
 
-  \sa toy::detail::validateFormatPattern(const StringType &)
+  \sa toy::detail::validateFormatPattern(StringType)
 */
 [[nodiscard]] constexpr FormatPatternValidationError validateFormatPattern(const char * string,
                                                                            size_t       argCount) noexcept;
