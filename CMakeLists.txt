@@ -171,6 +171,7 @@ set(HDR_CORE_LIST
     include/core/detail/format_to.hpp
     include/core/detail/string_storage.hpp
     include/core/detail/string_utils.hpp
+    include/core/format.hpp
     include/core/log_isink.hpp
     include/core/log_level.hpp
     include/core/log_metadata.hpp
@@ -193,6 +194,7 @@ set(INL_CORE_LIST
     include/core/detail/format_string.inl
     include/core/detail/format_to.inl
     include/core/detail/string_utils.inl
+    include/core/format.inl
     include/core/string_view.inl
     include/core/string.inl)
 
