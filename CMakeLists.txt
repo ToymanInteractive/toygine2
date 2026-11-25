@@ -168,6 +168,7 @@ set(HDR_CORE_LIST
     include/core/detail/format_pattern_validation_error.hpp
     include/core/detail/format_placeholder_mode.hpp
     include/core/detail/format_string.hpp
+    include/core/detail/format_to.hpp
     include/core/detail/string_storage.hpp
     include/core/detail/string_utils.hpp
     include/core/log_isink.hpp
@@ -190,6 +191,7 @@ set(INL_CORE_LIST
     include/core/detail/format_fixed_sink.inl
     include/core/detail/format_pattern.inl
     include/core/detail/format_string.inl
+    include/core/detail/format_to.inl
     include/core/detail/string_utils.inl
     include/core/string_view.inl
     include/core/string.inl)
