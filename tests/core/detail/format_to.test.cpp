@@ -29,11 +29,11 @@ namespace toy {
 
 namespace {
 
-// A constant expression cannot cast the context back to the sink, so the constexpr probes run with a null-context
-// callback and verify the walk through the byte count detail::formatTo returns.
+// Constexpr probes cannot recover the sink from the context, so they use a null-context callback and check the returned
+// byte count.
 constexpr void sinkWrite(void *, span<const char>) noexcept {}
 
-// Records what the walk writes, so a runtime case can read the output back as a string.
+// Records walk output for runtime string comparisons.
 struct RecordSink {
   char   data[64];
   size_t length = 0;
@@ -45,7 +45,7 @@ constexpr void recordWrite(void * context, span<const char> data) noexcept {
     sink.data[sink.length++] = byte;
 }
 
-// Reports counted by the cases that own the assertion seam; the callback itself ignores the failure.
+// The callback counts assertion reports and ignores each failure.
 int assertionReports = 0;
 
 toy::assertion::Action countReports(const char *) noexcept {
@@ -55,7 +55,7 @@ toy::assertion::Action countReports(const char *) noexcept {
 
 #ifdef TOYGINE_TESTS_USE_DOCTEST
 
-// The doctest main registers a failure reporter the seam cases replace; this restores the same behavior after them.
+// Restores the doctest failure reporter after the assertion seam cases replace it.
 toy::assertion::Action reportFailure(const char * message) noexcept {
   ADD_FAIL_CHECK_AT(__FILE__, __LINE__, message);
   return toy::assertion::Action::Ignore;
@@ -63,7 +63,7 @@ toy::assertion::Action reportFailure(const char * message) noexcept {
 
 #endif // TOYGINE_TESTS_USE_DOCTEST
 
-// Walks the pattern through a null-context sink and returns the byte count detail::formatTo reports.
+// Returns the byte count reported by detail::formatTo() with a null-context sink.
 constexpr size_t written(StringView pattern, span<const detail::FormatArg> args = {}) {
   detail::FormatContext output{nullptr, &sinkWrite};
   return detail::formatTo(output, pattern, args);
@@ -80,7 +80,7 @@ constexpr size_t written(StringView pattern, const Args &... args) {
   }
 }
 
-// Walks the pattern over a fresh recording sink and returns the output as a fixed string; runtime only.
+// Returns runtime walk output from a fresh recording sink as a fixed string.
 FixedString<64> recorded(StringView pattern, span<const detail::FormatArg> args = {}) {
   RecordSink            sink;
   detail::FormatContext output{&sink, &recordWrite};
@@ -109,7 +109,8 @@ TEST_CASE("format_to/walk/literals_and_escapes") {
   CHECK(recorded("a{{b}}c") == "a{b}c");
 }
 
-// Auto placeholders consume in order, positional ones index the pack, a repeat and an extra argument ride along.
+// Auto placeholders consume in order; positional placeholders index the pack and may repeat; unused arguments have no
+// effect.
 TEST_CASE("format_to/walk/auto_and_positional") {
   static_assert(written("{}-{}", detail::packArg('a'), detail::packArg(true)) == 6,
                 "auto placeholders consume in order");
@@ -117,13 +118,13 @@ TEST_CASE("format_to/walk/auto_and_positional") {
                 "positional placeholders index the pack");
   static_assert(written("{0}{0}", detail::packArg('x')) == 2, "a positional placeholder may repeat");
   static_assert(written("{0}", detail::packArg('a'), detail::packArg(true)) == 1,
-                "an argument without a placeholder rides along unused");
+                "an argument without a placeholder is ignored");
   CHECK(recorded("{}-{}", detail::packArg('a'), detail::packArg(true)) == "a-true");
   CHECK(recorded("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == "true-a");
   CHECK(recorded("{0}{0}", detail::packArg('x')) == "xx");
 }
 
-// Every tag dispatches to its formatter and renders the dictionary the engine fixes.
+// Each argument tag selects the formatter for its fixed representation.
 TEST_CASE("format_to/dispatch/char_and_bool") {
   static_assert(written("{}", detail::packArg(true)) == 4, "true renders as a word");
   static_assert(written("{}", detail::packArg(false)) == 5, "false renders as a word");
@@ -133,7 +134,7 @@ TEST_CASE("format_to/dispatch/char_and_bool") {
   CHECK(recorded("{}", detail::packArg('x')) == "x");
 }
 
-// Debug reports a pattern invalid for the pack and continues; release handles the same garbage deterministically.
+// Assertions report invalid patterns; without them, invalid placeholders write nothing and stray braces stay literal.
 TEST_CASE("format_to/walk/release_semantics") {
   assertionReports = 0;
   toy::assertion::initialize();
@@ -169,7 +170,7 @@ TEST_CASE("format_to/walk/constexpr_parity") {
   CHECK(recorded("{}", detail::packArg(false)) == "false");
   CHECK(recorded("{}", detail::packArg('x')) == "x");
 
-  // A real recording sink receives exactly the byte count the return reports.
+  // The recording sink receives the byte count returned by detail::formatTo().
   RecordSink              recording;
   detail::FormatContext   recordingOutput{&recording, &recordWrite};
   const detail::FormatArg pack[] = {detail::packArg('a'), detail::packArg(true)};
@@ -177,7 +178,7 @@ TEST_CASE("format_to/walk/constexpr_parity") {
   CHECK(recording.length == 6);
 }
 
-// The grammar helpers moved to the shared detail header keep every validator verdict unchanged.
+// Pattern validation accepts escapes and fitting indices and reports unmatched braces and out-of-range indices.
 TEST_CASE("format_to/pattern_detail/validator_unchanged") {
   static_assert(detail::validateFormatPattern("a{{b}}c", 0) == detail::FormatPatternValidationError::none,
                 "escapes stay valid");

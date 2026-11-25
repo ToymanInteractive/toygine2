@@ -21,10 +21,9 @@
   \file   format.hpp
   \brief  Format entry points that render into a fixed-size string.
 
-  Declares toy::format() and toy::vformat(), the callers' front of the formatting engine: the arguments pack to a stack
-  array of \ref toy::detail::FormatArg, the walk writes through a fixed-capacity sink, and the filled
-  \ref toy::FixedString comes back by value. Used wherever a caller-owned string replaces runtime formatting into shared
-  buffers.
+  Declares toy::format() and toy::vformat(). Both pack arguments into a stack array of \ref toy::detail::FormatArg and
+  render through a fixed-capacity sink into a \ref toy::FixedString returned by value. Use them when formatting needs a
+  fixed-size result owned by the caller.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -50,7 +49,7 @@ namespace toy {
   \param fmt   Pattern to walk; a literal or another source FormatString accepts.
   \param args  Arguments the placeholders name.
 
-  \return The filled string; size() is the byte count that fit the capacity.
+  \return The filled string, with size() set to the number of bytes written.
 
   \pre The pattern is valid for sizeof...(Args), checked when the detail::FormatString builds; an invalid one is a
        compile error.
@@ -75,7 +74,7 @@ template <size_t BufferSize, typename... Args>
   \param pattern Pattern to walk.
   \param args    Arguments the placeholders name.
 
-  \return The filled string; size() is the byte count that fit the capacity.
+  \return The filled string, with size() set to the number of bytes written.
 
   \pre \a pattern is valid for sizeof...(Args); an out-of-range or unparsable placeholder writes nothing and a stray
        brace writes as a literal.

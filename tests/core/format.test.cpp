@@ -29,7 +29,7 @@ namespace toy {
 
 namespace {
 
-// Reports counted by the cases that own the assertion seam; the callback itself ignores the failure.
+// The callback counts assertion reports and ignores each failure.
 int assertionReports = 0;
 
 toy::assertion::Action countReports(const char *) noexcept {
@@ -39,7 +39,7 @@ toy::assertion::Action countReports(const char *) noexcept {
 
 #ifdef TOYGINE_TESTS_USE_DOCTEST
 
-// The doctest main registers a failure reporter the seam cases replace; this restores the same behavior after them.
+// Restores the doctest failure reporter after the assertion seam cases replace it.
 toy::assertion::Action reportFailure(const char * message) noexcept {
   ADD_FAIL_CHECK_AT(__FILE__, __LINE__, message);
   return toy::assertion::Action::Ignore;
@@ -49,7 +49,7 @@ toy::assertion::Action reportFailure(const char * message) noexcept {
 
 } // namespace
 
-// The two supported argument kinds render through the fixed string at compile time.
+// Characters and booleans render through the fixed string at compile time.
 TEST_CASE("format/constexpr_cases") {
   static_assert(format<16>("x={}", 'a') == "x=a", "constexpr format fills the fixed string");
   static_assert(format<16>("{}-{}", true, false) == "true-false", "auto placeholders bind in order");
@@ -61,7 +61,7 @@ TEST_CASE("format/constexpr_cases") {
   static_assert(format<8>("a{{b}}c") == "a{b}c", "doubled braces collapse to single braces");
 }
 
-// A runtime pattern walks the same engine and produces the strings the constant expressions above assert.
+// Runtime patterns use the same engine and match the constant-expression results.
 TEST_CASE("format/runtime_vformat") {
   CHECK(vformat<16>(StringView{"x={}"}, 'a') == "x=a");
   CHECK(vformat<16>(StringView{"{}-{}"}, true, false) == "true-false");
@@ -70,8 +70,7 @@ TEST_CASE("format/runtime_vformat") {
   CHECK(vformat<8>(StringView{"{}"}, 'x') == "x");
 }
 
-// Output past the capacity clamps byte by byte; a UTF-8 sequence may cut mid-character, which is the documented
-// byte-cut contract.
+// Output truncates byte by byte at capacity, so a cut may split a UTF-8 sequence.
 TEST_CASE("format/truncation") {
   assertionReports = 0;
   toy::assertion::initialize();
@@ -93,7 +92,7 @@ TEST_CASE("format/truncation") {
 #endif
 }
 
-// BufferSize 1 gives capacity 0: every write clamps to nothing and the result stays empty.
+// BufferSize 1 leaves no output capacity, so writes truncate and the result stays empty.
 TEST_CASE("format/degenerate_capacity") {
   assertionReports = 0;
   toy::assertion::initialize();

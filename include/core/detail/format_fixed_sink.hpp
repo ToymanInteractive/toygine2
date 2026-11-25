@@ -19,10 +19,10 @@
 //
 /*!
   \file   format_fixed_sink.hpp
-  \brief  Byte sink that clamps every write at a fixed capacity and reports the clamp.
+  \brief  Byte sink that limits writes to a fixed capacity and records overflow.
 
-  Defines \ref toy::detail::FormatFixedSink, the sink the format entry points build over a fixed-size buffer and hand to
-  the walk. Internal to the format implementation.
+  Defines \ref toy::detail::FormatFixedSink, which the format entry points construct over a fixed-size buffer and pass
+  to the walk. Internal to the format implementation.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -34,10 +34,10 @@ namespace toy::detail {
 
 /*!
   \class FormatFixedSink
-  \brief Byte sink over caller-owned storage that clamps every write at the capacity and reports the clamp.
+  \brief Byte sink over caller-owned storage that limits writes to its capacity and records overflow.
 
-  The format entry points build one over a fixed-size buffer and pass it to the walk; bytes past the capacity never
-  reach the storage and the overflow flag rises once, so the entry point can report the clamp as a whole.
+  The format entry points construct one over a fixed-size buffer and pass it to the walk. Writes copy only the bytes
+  that fit and leave the overflow flag set, so the entry point can detect truncation.
 */
 class FormatFixedSink {
 public:
@@ -58,13 +58,13 @@ public:
   /// Destination bytes of the fixed-capacity result.
   char * out;
 
-  /// Bytes the destination holds; output past it clamps.
+  /// Destination capacity in bytes.
   size_t capacity;
 
   /// Bytes written so far.
   size_t size;
 
-  /// A write did not fit whole.
+  /// Set when a write exceeds the remaining capacity.
   bool overflow;
 };
 

@@ -21,10 +21,9 @@
   \file   format_to.hpp
   \brief  The pattern walk and the per-type formatters it dispatches to.
 
-  Defines toy::detail::formatTo(), the non-template core that walks a pattern and writes its arguments through a
-  \ref toy::detail::FormatContext, and the toy::detail::formatChar() and toy::detail::formatBool() formatters the walk
-  dispatches to and a caller may reuse directly. Used by the format entry points and by any caller that walks a packed
-  argument set over caller storage.
+  Defines toy::detail::formatTo(), which walks a pattern and writes its arguments through a
+  \ref toy::detail::FormatContext. Also defines toy::detail::formatChar(), toy::detail::formatBool(), and sink-based
+  variants for reuse by callers and the format entry points.
 
   \note Included by core.hpp only; do not include this file directly.
 */
@@ -88,8 +87,7 @@ template <typename SinkT>
 
   \return Count of bytes handed to \a sink.
 
-  \note The walk body serves every sink flavor, so the formatTo() grammar and the entry-point grammar cannot drift
-        apart.
+  \note Both formatTo() and the fixed-string entry points use the same walk, so they share one grammar.
 */
 template <typename SinkT>
 constexpr size_t walk(SinkT & sink, StringView pattern, span<const FormatArg> args) noexcept;

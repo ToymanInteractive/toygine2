@@ -19,7 +19,7 @@
 //
 /*!
   \file   format_fixed_sink.inl
-  \brief  Inline implementations for \ref toy::detail::FormatFixedSink write() and put().
+  \brief  Inline implementations for the write() and put() methods of \ref toy::detail::FormatFixedSink.
 
   \note Included by core.hpp only; do not include this file directly.
 */

@@ -101,7 +101,6 @@ constexpr size_t walk(SinkT & sink, StringView pattern, span<const FormatArg> ar
       continue;
     }
 
-    // A release walk skips an invalid placeholder without writing; debug has already reported it above.
     PlaceholderMode mode      = PlaceholderMode::none;
     size_t          autoCount = 0;
     size_t          index     = 0;
