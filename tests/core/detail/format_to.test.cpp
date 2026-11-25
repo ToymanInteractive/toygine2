@@ -82,7 +82,7 @@ constexpr size_t written(StringView pattern, const Args &... args) {
 
 // Walks the pattern over a fresh recording sink and returns the output as a fixed string; runtime only.
 FixedString<64> recorded(StringView pattern, span<const detail::FormatArg> args = {}) {
-  RecordSink    sink;
+  RecordSink            sink;
   detail::FormatContext output{&sink, &recordWrite};
   detail::formatTo(output, pattern, args);
   return FixedString<64>(sink.data, sink.length);
@@ -111,8 +111,10 @@ TEST_CASE("format_to/walk/literals_and_escapes") {
 
 // Auto placeholders consume in order, positional ones index the pack, a repeat and an extra argument ride along.
 TEST_CASE("format_to/walk/auto_and_positional") {
-  static_assert(written("{}-{}", detail::packArg('a'), detail::packArg(true)) == 6, "auto placeholders consume in order");
-  static_assert(written("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == 6, "positional placeholders index the pack");
+  static_assert(written("{}-{}", detail::packArg('a'), detail::packArg(true)) == 6,
+                "auto placeholders consume in order");
+  static_assert(written("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == 6,
+                "positional placeholders index the pack");
   static_assert(written("{0}{0}", detail::packArg('x')) == 2, "a positional placeholder may repeat");
   static_assert(written("{0}", detail::packArg('a'), detail::packArg(true)) == 1,
                 "an argument without a placeholder rides along unused");
@@ -168,7 +170,7 @@ TEST_CASE("format_to/walk/constexpr_parity") {
   CHECK(recorded("{}", detail::packArg('x')) == "x");
 
   // A real recording sink receives exactly the byte count the return reports.
-  RecordSink      recording;
+  RecordSink              recording;
   detail::FormatContext   recordingOutput{&recording, &recordWrite};
   const detail::FormatArg pack[] = {detail::packArg('a'), detail::packArg(true)};
   CHECK(detail::formatTo(recordingOutput, "{}-{}", span<const detail::FormatArg>{pack}) == recording.length);
@@ -177,7 +179,8 @@ TEST_CASE("format_to/walk/constexpr_parity") {
 
 // The grammar helpers moved to the shared detail header keep every validator verdict unchanged.
 TEST_CASE("format_to/pattern_detail/validator_unchanged") {
-  static_assert(detail::validateFormatPattern("a{{b}}c", 0) == detail::FormatPatternValidationError::none, "escapes stay valid");
+  static_assert(detail::validateFormatPattern("a{{b}}c", 0) == detail::FormatPatternValidationError::none,
+                "escapes stay valid");
   static_assert(detail::validateFormatPattern("{}", 1) == detail::FormatPatternValidationError::none,
                 "an auto placeholder fits one argument");
   static_assert(detail::validateFormatPattern("{9}", 1) == detail::FormatPatternValidationError::indexOutOfRange,
