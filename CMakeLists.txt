@@ -168,6 +168,7 @@ set(HDR_CORE_LIST
     include/core/detail/format_pattern_validation_error.hpp
     include/core/detail/format_placeholder_mode.hpp
     include/core/detail/format_string.hpp
+    include/core/detail/string_storage.hpp
     include/core/detail/string_utils.hpp
     include/core/log_isink.hpp
     include/core/log_level.hpp
@@ -176,7 +177,6 @@ set(HDR_CORE_LIST
     include/core/memory.hpp
     include/core/platform.hpp
     include/core/string_like.hpp
-    include/core/detail/string_storage.hpp
     include/core/string_view.hpp
     include/core/string.hpp)
 set(INL_CORE_LIST
