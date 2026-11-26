@@ -74,13 +74,13 @@ void setCallbacks([[maybe_unused]] AssertionCallback assertionCallback,
 
 Action assertion(const char * code, const char * message, const char * fileName, const char * functionName,
                  size_t lineNumber) noexcept {
-#ifndef __MEGA_DRIVE__
   static bool reEnter = false;
   if (reEnter)
     return Action::Ignore;
 
   reEnter = true;
 
+#ifndef __MEGA_DRIVE__
   char assertionString[stringBufferSize];
   int  written;
 
@@ -96,6 +96,9 @@ Action assertion(const char * code, const char * message, const char * fileName,
     constexpr auto         truncationLength  = std::char_traits<char>::length(truncationMessage) + 1;
     std::memcpy(&assertionString[stringBufferSize - truncationLength], truncationMessage, truncationLength);
   }
+#else
+  const char * assertionString = "";
+#endif // __MEGA_DRIVE__
 
   // An unregistered handler leaves the failure unreported, so the caller still has to stop at it.
   const Action action = _assertionCallback != nullptr ? _assertionCallback(assertionString) : Action::Break;
@@ -106,9 +109,6 @@ Action assertion(const char * code, const char * message, const char * fileName,
     std::abort();
 
   return action;
-#else
-  return Action::Break;
-#endif // __MEGA_DRIVE__
 }
 
 #endif // TOYGINE_ASSERTIONS_ENABLED
