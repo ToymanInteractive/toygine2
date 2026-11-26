@@ -108,6 +108,12 @@ constexpr size_t walk(SinkT & sink, StringView pattern, span<const FormatArg> ar
     if (parseOpeningBrace(pattern, length, position, autoCount, mode, args.size(), &index)
         != FormatPatternValidationError::none) {
       position = brace + 1;
+      if (position == length) {
+        sink.put('{');
+        ++writtenBytes;
+        continue;
+      }
+
       while (position < length && pattern.at(position) != '}')
         ++position;
       if (position < length)

@@ -49,25 +49,60 @@ toy::assertion::Action reportFailure(const char * message) noexcept {
 
 } // namespace
 
-// Characters and booleans render through the fixed string at compile time.
-TEST_CASE("format/constexpr_cases") {
-  static_assert(format<16>("x={}", 'a') == "x=a", "constexpr format fills the fixed string");
+// A pattern without placeholders returns its literal text.
+TEST_CASE("format/literals") {
+  CHECK(format<8>("hi") == "hi");
+  CHECK(vformat<8>(StringView{"hi"}) == "hi");
+
+  static_assert(format<8>("hi") == "hi", "a pattern without placeholders returns its literals");
+}
+
+// Auto placeholders bind arguments in order and render characters and booleans.
+TEST_CASE("format/auto_placeholders") {
+  CHECK(format<16>("x={}", 'a') == "x=a");
+  CHECK(vformat<16>(StringView{"x={}"}, 'a') == "x=a");
+  CHECK(format<16>("{}-{}", true, false) == "true-false");
+  CHECK(vformat<16>(StringView{"{}-{}"}, true, false) == "true-false");
+
+  static_assert(format<16>("x={}", 'a') == "x=a", "constexpr format renders the character argument");
   static_assert(format<16>("{}-{}", true, false) == "true-false", "auto placeholders bind in order");
-  static_assert(format<8>("hi") == "hi", "a pattern without placeholders binds none");
+}
+
+// Positional placeholders select arguments by index.
+TEST_CASE("format/positional_placeholders") {
+  CHECK(format<16>("{1} then {0}", 'x', true) == "true then x");
+  CHECK(vformat<16>(StringView{"{1} then {0}"}, 'x', true) == "true then x");
+
   static_assert(format<16>("{1} then {0}", 'x', true) == "true then x", "positional placeholders index the pack");
-  static_assert(format<8>("{}", true) == "true", "true renders as a word");
-  static_assert(format<8>("{}", false) == "false", "false renders as a word");
-  static_assert(format<8>("{}", 'x') == "x", "a character renders itself");
+}
+
+// Doubled braces collapse to single braces in the result.
+TEST_CASE("format/escaped_braces") {
+  CHECK(format<8>("a{{b}}c") == "a{b}c");
+  CHECK(vformat<8>(StringView{"a{{b}}c"}) == "a{b}c");
+
   static_assert(format<8>("a{{b}}c") == "a{b}c", "doubled braces collapse to single braces");
 }
 
-// Runtime patterns use the same engine and match the constant-expression results.
-TEST_CASE("format/runtime_vformat") {
-  CHECK(vformat<16>(StringView{"x={}"}, 'a') == "x=a");
-  CHECK(vformat<16>(StringView{"{}-{}"}, true, false) == "true-false");
-  CHECK(vformat<8>(StringView{"hi"}) == "hi");
-  CHECK(vformat<8>(StringView{"{}"}, true) == "true");
-  CHECK(vformat<8>(StringView{"{}"}, 'x') == "x");
+// A runtime pattern may end with an opening brace, which stays literal.
+TEST_CASE("format/invalid_pattern") {
+  assertionReports = 0;
+  toy::assertion::initialize();
+  toy::assertion::setCallbacks(countReports, nullptr);
+
+  CHECK(vformat<8>(StringView{"a{"}) == "a{");
+#ifdef TOYGINE_ASSERTIONS_ENABLED
+  CHECK(assertionReports == 1);
+#else
+  CHECK(assertionReports == 0);
+#endif
+
+  toy::assertion::setCallbacks(nullptr, nullptr);
+  toy::assertion::deInitialize();
+#ifdef TOYGINE_TESTS_USE_DOCTEST
+  toy::assertion::initialize();
+  toy::assertion::setCallbacks(reportFailure, nullptr);
+#endif
 }
 
 // Output truncates byte by byte at capacity, so a cut may split a UTF-8 sequence.

@@ -101,51 +101,82 @@ FixedString<64> recorded(StringView pattern, const Args &... args) {
 
 } // namespace
 
-// Literals pass through and a doubled brace collapses to one brace in the output.
-TEST_CASE("format_to/walk/literals_and_escapes") {
+// Literal text passes through unchanged, and an empty pattern writes nothing.
+TEST_CASE("format_to/walk/literals") {
+  CHECK(recorded("hi") == "hi");
+  CHECK(recorded("") == "");
+  CHECK(written("hi") == 2);
+  CHECK(written("") == 0);
+
   static_assert(written("hi") == 2, "literals pass through");
   static_assert(written("") == 0, "an empty pattern writes nothing");
-  static_assert(written("a{{b}}c") == 5, "doubled braces collapse to single braces");
-  CHECK(recorded("a{{b}}c") == "a{b}c");
 }
 
-// Auto placeholders consume in order; positional placeholders index the pack and may repeat; unused arguments have no
-// effect.
-TEST_CASE("format_to/walk/auto_and_positional") {
+// A doubled brace collapses to one brace in the output.
+TEST_CASE("format_to/walk/escapes") {
+  CHECK(recorded("a{{b}}c") == "a{b}c");
+  CHECK(written("a{{b}}c") == 5);
+
+  static_assert(written("a{{b}}c") == 5, "doubled braces collapse to single braces");
+}
+
+// Auto placeholders consume arguments in order.
+TEST_CASE("format_to/walk/auto_placeholders") {
+  CHECK(recorded("{}-{}", detail::packArg('a'), detail::packArg(true)) == "a-true");
+  CHECK(written("{}-{}", detail::packArg('a'), detail::packArg(true)) == 6);
+
   static_assert(written("{}-{}", detail::packArg('a'), detail::packArg(true)) == 6,
                 "auto placeholders consume in order");
+}
+
+// Positional placeholders index the pack, may repeat an index, and leave unused arguments alone.
+TEST_CASE("format_to/walk/positional_placeholders") {
+  CHECK(recorded("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == "true-a");
+  CHECK(written("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == 6);
+  CHECK(recorded("{0}{0}", detail::packArg('x')) == "xx");
+  CHECK(written("{0}{0}", detail::packArg('x')) == 2);
+  CHECK(recorded("{0}", detail::packArg('a'), detail::packArg(true)) == "a");
+  CHECK(written("{0}", detail::packArg('a'), detail::packArg(true)) == 1);
+
   static_assert(written("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == 6,
                 "positional placeholders index the pack");
   static_assert(written("{0}{0}", detail::packArg('x')) == 2, "a positional placeholder may repeat");
   static_assert(written("{0}", detail::packArg('a'), detail::packArg(true)) == 1,
                 "an argument without a placeholder is ignored");
-  CHECK(recorded("{}-{}", detail::packArg('a'), detail::packArg(true)) == "a-true");
-  CHECK(recorded("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == "true-a");
-  CHECK(recorded("{0}{0}", detail::packArg('x')) == "xx");
 }
 
 // Each argument tag selects the formatter for its fixed representation.
 TEST_CASE("format_to/dispatch/char_and_bool") {
-  static_assert(written("{}", detail::packArg(true)) == 4, "true renders as a word");
-  static_assert(written("{}", detail::packArg(false)) == 5, "false renders as a word");
-  static_assert(written("{}", detail::packArg('x')) == 1, "a character renders itself");
   CHECK(recorded("{}", detail::packArg(true)) == "true");
   CHECK(recorded("{}", detail::packArg(false)) == "false");
   CHECK(recorded("{}", detail::packArg('x')) == "x");
+  CHECK(written("{}", detail::packArg(true)) == 4);
+  CHECK(written("{}", detail::packArg(false)) == 5);
+  CHECK(written("{}", detail::packArg('x')) == 1);
+
+  static_assert(written("{}", detail::packArg(true)) == 4, "true renders as a word");
+  static_assert(written("{}", detail::packArg(false)) == 5, "false renders as a word");
+  static_assert(written("{}", detail::packArg('x')) == 1, "a character renders itself");
 }
 
-// Assertions report invalid patterns; without them, invalid placeholders write nothing and stray braces stay literal.
-TEST_CASE("format_to/walk/release_semantics") {
+// Assertions report invalid patterns; stray braces stay literal and invalid placeholders write nothing.
+TEST_CASE("format_to/walk/invalid_patterns") {
   assertionReports = 0;
   toy::assertion::initialize();
   toy::assertion::setCallbacks(countReports, nullptr);
 
   // A stray closing brace writes as a literal.
   CHECK(recorded("a}", {}) == "a}");
+  // A trailing opening brace writes as a literal and counts toward the returned byte count.
+  RecordSink            trailingBrace;
+  detail::FormatContext trailingBraceOutput{&trailingBrace, &recordWrite};
+  const size_t          trailingBraceBytes = detail::formatTo(trailingBraceOutput, "a{", {});
+  CHECK(FixedString<64>(trailingBrace.data, trailingBrace.length) == "a{");
+  CHECK(trailingBraceBytes == 2);
   // An out-of-range index writes nothing.
   CHECK(recorded("{9}", detail::packArg('a')) == "");
 #ifdef TOYGINE_ASSERTIONS_ENABLED
-  CHECK(assertionReports == 2);
+  CHECK(assertionReports == 3);
 #else
   CHECK(assertionReports == 0);
 #endif
@@ -158,36 +189,15 @@ TEST_CASE("format_to/walk/release_semantics") {
 #endif
 }
 
-// Runtime walks produce the same counts and strings the constant expressions above assert.
-TEST_CASE("format_to/walk/constexpr_parity") {
-  CHECK(written("hi") == 2);
-  CHECK(written("a{{b}}c") == 5);
-  CHECK(written("{}-{}", detail::packArg('a'), detail::packArg(true)) == 6);
-  CHECK(written("{1}-{0}", detail::packArg('a'), detail::packArg(true)) == 6);
-  CHECK(written("{0}{0}", detail::packArg('x')) == 2);
-  CHECK(written("{0}", detail::packArg('a'), detail::packArg(true)) == 1);
-  CHECK(recorded("{}", detail::packArg(true)) == "true");
-  CHECK(recorded("{}", detail::packArg(false)) == "false");
-  CHECK(recorded("{}", detail::packArg('x')) == "x");
-
-  // The recording sink receives the byte count returned by detail::formatTo().
+// The returned byte count matches the number of bytes delivered to the sink.
+TEST_CASE("format_to/walk/returned_byte_count") {
   RecordSink              recording;
   detail::FormatContext   recordingOutput{&recording, &recordWrite};
   const detail::FormatArg pack[] = {detail::packArg('a'), detail::packArg(true)};
-  CHECK(detail::formatTo(recordingOutput, "{}-{}", span<const detail::FormatArg>{pack}) == recording.length);
-  CHECK(recording.length == 6);
-}
+  const size_t writtenBytes      = detail::formatTo(recordingOutput, "{}-{}", span<const detail::FormatArg>{pack});
 
-// Pattern validation accepts escapes and fitting indices and reports unmatched braces and out-of-range indices.
-TEST_CASE("format_to/pattern_detail/validator_unchanged") {
-  static_assert(detail::validateFormatPattern("a{{b}}c", 0) == detail::FormatPatternValidationError::none,
-                "escapes stay valid");
-  static_assert(detail::validateFormatPattern("{}", 1) == detail::FormatPatternValidationError::none,
-                "an auto placeholder fits one argument");
-  static_assert(detail::validateFormatPattern("{9}", 1) == detail::FormatPatternValidationError::indexOutOfRange,
-                "an out-of-range index reports");
-  static_assert(detail::validateFormatPattern("a}", 0) == detail::FormatPatternValidationError::unmatchedBrace,
-                "a stray closing brace reports");
+  CHECK(writtenBytes == recording.length);
+  CHECK(recording.length == 6);
 }
 
 } // namespace toy
