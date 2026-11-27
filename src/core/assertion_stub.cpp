@@ -97,7 +97,7 @@ Action assertion(const char * code, const char * message, const char * fileName,
     std::memcpy(&assertionString[stringBufferSize - truncationLength], truncationMessage, truncationLength);
   }
 #else
-  const char * assertionString = message;
+  const char * assertionString = message != nullptr ? message : code;
 #endif // __MEGA_DRIVE__
 
   // An unregistered handler leaves the failure unreported, so the caller still has to stop at it.
