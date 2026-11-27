@@ -20,8 +20,6 @@
 /*!
   \file   format_arg.inl
   \brief  Inline implementations for the toy::detail::packArg() overloads.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_ARG_INL_

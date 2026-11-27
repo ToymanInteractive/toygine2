@@ -23,8 +23,6 @@
 
   Defines \ref toy::detail::FormatArgType, the tag toy::detail::packArg() writes to name the \ref toy::detail::FormatArg
   union member that holds the value. Used wherever an argument pack is built or read.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_ARG_TYPE_HPP_

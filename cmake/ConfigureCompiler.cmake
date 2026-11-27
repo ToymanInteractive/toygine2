@@ -24,18 +24,18 @@ cmake_minimum_required(VERSION 3.27.0 FATAL_ERROR)
 
 # MSVC Compiler Options https://learn.microsoft.com/en-nz/cpp/build/reference/compiler-options-listed-by-category
 # MSVC Linker Options   https://learn.microsoft.com/en-nz/cpp/build/reference/linker-options
-# last option:          /GZ
+# last option:          /jumptablerdata
 
 # DevKitPro based on GCC version: 16.2
 # GCC 16.2.0 documentation.                               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/index.html
 # GCC 16.2.0 Options Controlling C Dialect.               https://gcc.gnu.org/onlinedocs/gcc-16.2.0/gcc/C_002b_002b-Dialect-Options.html
-# GCC 16.2.0 Options Controlling C Dialect - last option: -ftemplate-depth
+# GCC 16.2.0 Options Controlling C Dialect - last option: -fno-threadsafe-statics
 
 # XCode 26.6 contains AppleClang version: 21.0.0.21000101
 # Based on https://en.wikipedia.org/wiki/Xcode#Toolchain_versions
 # Clang 21.1.0 documentation.     https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/UsersManual.html#options
 # Clang 21.1.0 diagnostic flags.  https://llvm.github.io/www-releases/21.1.0/tools/clang/docs/DiagnosticsReference.html
-# last option:                    -Warc-repeated-use-of-weak
+# last option:                    -Warray-bounds-pointer-arithmetic
 
 if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD")
 
@@ -153,14 +153,14 @@ add_library(toygine-compile-warnings INTERFACE)
 add_library(toygine::compile::warnings ALIAS toygine-compile-warnings)
 if (TOYGINE_ENABLE_WARNINGS)
   target_compile_options(toygine-compile-warnings INTERFACE
-    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Walloca;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:C,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Walloca;-Warray-bounds-pointer-arithmetic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:C,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:C,MSVC>:/W4;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Waddress-of-temporary;-Walloca;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:CXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Waddress-of-temporary;-Walloca;-Warray-bounds-pointer-arithmetic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-Wall;-Wpedantic;-Werror>"
     "$<$<COMPILE_LANG_AND_ID:CXX,MSVC>:/W4;/permissive-;/WX>"
-    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Warc-repeated-use-of-weak;-Werror>"
-    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Warc-repeated-use-of-weak;-Werror>")
+    "$<$<COMPILE_LANG_AND_ID:OBJC,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Walloca;-Warc-repeated-use-of-weak;-Warray-bounds-pointer-arithmetic;-Werror>"
+    "$<$<COMPILE_LANG_AND_ID:OBJCXX,Clang,AppleClang>:-Wall;-Wextra;-Wpedantic;-Wabstract-vbase-init;-Waddress-of-temporary;-Walloca;-Warc-repeated-use-of-weak;-Warray-bounds-pointer-arithmetic;-Werror>")
 endif ()
 
 #-----------------------------------------------------------------------------------------------------------------------
@@ -218,6 +218,11 @@ add_compile_options(
   "$<$<COMPILE_LANG_AND_ID:C,GNU>:-fsigned-char>"
   "$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fsigned-char;-fchar8_t;-fconcepts-diagnostics-depth=2;-fdiagnostics-all-candidates;-fno-gnu-keywords;-fno-rtti>")
 
+if (TOYGINE_TARGET_PLATFORM STREQUAL "Sega MD" OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo GBA"
+    OR TOYGINE_TARGET_PLATFORM STREQUAL "Nintendo DS")
+  add_compile_options("$<$<COMPILE_LANG_AND_ID:CXX,GNU>:-fno-threadsafe-statics>")
+endif ()
+
 #-----------------------------------------------------------------------------------------------------------------------
 # Optimization flags
 #-----------------------------------------------------------------------------------------------------------------------
@@ -245,8 +250,8 @@ if (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "X86")
     "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:SSE2;/favor:blend>")
 elseif (CMAKE_CXX_COMPILER_ARCHITECTURE_ID STREQUAL "x64")
   add_compile_options(
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:AVX2;/favor:blend>"
-    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:AVX2;/favor:blend>")
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:C,MSVC>>:/arch:AVX2;/favor:blend;/jumptablerdata>"
+    "$<$<AND:$<CONFIG:RelWithDebInfo,Release>,$<COMPILE_LANG_AND_ID:CXX,MSVC>>:/arch:AVX2;/favor:blend;/jumptablerdata>")
 endif ()
 
 # Reaches every target linking toygine and opted-in targets; empty when TOYGINE_ENABLE_ABI_OPTIMIZATIONS is OFF

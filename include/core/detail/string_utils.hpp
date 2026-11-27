@@ -24,12 +24,13 @@
   Defines the \ref toy::detail functions: character search and comparison over a toy::span, behind the matching members
   of \ref toy::StringView and \ref toy::String, UTF-8 and UTF-16 conversion, counting, and validation over a span or a
   null-terminated string, and decimal and hexadecimal formatting of integers into caller-supplied buffers.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_STRING_UTILS_HPP_
 #define INCLUDE_CORE_DETAIL_STRING_UTILS_HPP_
+
+// The inline bodies below expand assert_message, which reads toy::platform::assertIgnoreAlways.
+#include "core/platform.hpp"
 
 namespace toy::detail {
 
@@ -546,5 +547,7 @@ template <std::unsigned_integral T>
 [[nodiscard]] constexpr char * utoaHex(span<char> dest, T value) noexcept;
 
 } // namespace toy::detail
+
+#include "string_utils.inl"
 
 #endif // INCLUDE_CORE_DETAIL_STRING_UTILS_HPP_

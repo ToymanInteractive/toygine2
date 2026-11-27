@@ -23,8 +23,6 @@
 
   Defines \ref toy::detail::FormatContext, a caller-owned context pointer paired with a write callback, so output lands
   in caller storage without std::function, virtual dispatch, or allocation.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_HPP_
@@ -165,5 +163,7 @@ private:
 };
 
 } // namespace toy::detail
+
+#include "format_context.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_HPP_

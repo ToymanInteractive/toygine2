@@ -55,6 +55,7 @@ TEST_CASE("format/literals") {
   CHECK(vformat<8>(StringView{"hi"}) == "hi");
 
   static_assert(format<8>("hi") == "hi", "a pattern without placeholders returns its literals");
+  static_assert(vformat<8>(StringView{"hi"}) == "hi", "constexpr vformat returns literal text");
 }
 
 // Auto placeholders bind arguments in order and render characters and booleans.
@@ -66,6 +67,9 @@ TEST_CASE("format/auto_placeholders") {
 
   static_assert(format<16>("x={}", 'a') == "x=a", "constexpr format renders the character argument");
   static_assert(format<16>("{}-{}", true, false) == "true-false", "auto placeholders bind in order");
+  static_assert(vformat<16>(StringView{"x={}"}, 'a') == "x=a", "constexpr vformat renders the character argument");
+  static_assert(vformat<16>(StringView{"{}-{}"}, true, false) == "true-false",
+                "constexpr vformat binds auto placeholders in order");
 }
 
 // Positional placeholders select arguments by index.
@@ -74,6 +78,8 @@ TEST_CASE("format/positional_placeholders") {
   CHECK(vformat<16>(StringView{"{1} then {0}"}, 'x', true) == "true then x");
 
   static_assert(format<16>("{1} then {0}", 'x', true) == "true then x", "positional placeholders index the pack");
+  static_assert(vformat<16>(StringView{"{1} then {0}"}, 'x', true) == "true then x",
+                "constexpr vformat indexes positional placeholders");
 }
 
 // Doubled braces collapse to single braces in the result.
@@ -82,6 +88,7 @@ TEST_CASE("format/escaped_braces") {
   CHECK(vformat<8>(StringView{"a{{b}}c"}) == "a{b}c");
 
   static_assert(format<8>("a{{b}}c") == "a{b}c", "doubled braces collapse to single braces");
+  static_assert(vformat<8>(StringView{"a{{b}}c"}) == "a{b}c", "constexpr vformat collapses doubled braces");
 }
 
 // A runtime pattern may end with an opening brace, which stays literal.

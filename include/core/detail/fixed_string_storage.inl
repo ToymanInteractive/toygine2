@@ -20,8 +20,6 @@
 /*!
   \file   fixed_string_storage.inl
   \brief  Inline implementations for \ref toy::detail::FixedStringStorage buffer access, capacity, and length setter.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_INL_

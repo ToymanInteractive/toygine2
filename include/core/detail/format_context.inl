@@ -20,8 +20,6 @@
 /*!
   \file   format_context.inl
   \brief  Inline implementations for \ref toy::detail::FormatContext constructor, write(), and put().
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_CONTEXT_INL_

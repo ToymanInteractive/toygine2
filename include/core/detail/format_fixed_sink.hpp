@@ -23,8 +23,6 @@
 
   Defines \ref toy::detail::FormatFixedSink, which the format entry points construct over a fixed-size buffer and pass
   to the walk. Internal to the format implementation.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_FIXED_SINK_HPP_
@@ -69,5 +67,7 @@ public:
 };
 
 } // namespace toy::detail
+
+#include "format_fixed_sink.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_FIXED_SINK_HPP_

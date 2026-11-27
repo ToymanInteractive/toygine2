@@ -24,8 +24,6 @@
   Defines \ref toy::detail::FixedStringStorage, which holds a byte array sized at compile time, the length of the string
   written into it, and a terminator the class keeps behind that length. Used where a string needs bytes to write into
   and no heap to take them from.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_HPP_
@@ -356,5 +354,7 @@ private:
 };
 
 } // namespace toy::detail
+
+#include "fixed_string_storage.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FIXED_STRING_STORAGE_HPP_
