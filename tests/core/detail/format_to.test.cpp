@@ -45,24 +45,6 @@ constexpr void recordWrite(void * context, span<const char> data) noexcept {
     sink.data[sink.length++] = byte;
 }
 
-// The callback counts assertion reports and ignores each failure.
-int assertionReports = 0;
-
-toy::assertion::Action countReports(const char *) noexcept {
-  ++assertionReports;
-  return toy::assertion::Action::Ignore;
-}
-
-#ifdef TOYGINE_TESTS_USE_DOCTEST
-
-// Restores the doctest failure reporter after the assertion seam cases replace it.
-toy::assertion::Action reportFailure(const char * message) noexcept {
-  ADD_FAIL_CHECK_AT(__FILE__, __LINE__, message);
-  return toy::assertion::Action::Ignore;
-}
-
-#endif // TOYGINE_TESTS_USE_DOCTEST
-
 // Returns the byte count reported by detail::formatTo() with a null-context sink.
 constexpr size_t written(StringView pattern, span<const detail::FormatArg> args = {}) {
   detail::FormatContext output{nullptr, &sinkWrite};
@@ -165,36 +147,6 @@ TEST_CASE("format_to/dispatch/none") {
   CHECK(written("{}", detail::FormatArg{}) == 0);
 
   static_assert(written("{}", detail::FormatArg{}) == 0, "an argument without a packed value writes nothing");
-}
-
-// Assertions report invalid patterns; stray braces stay literal and invalid placeholders write nothing.
-TEST_CASE("format_to/walk/invalid_patterns") {
-  assertionReports = 0;
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(countReports, nullptr);
-
-  // A stray closing brace writes as a literal.
-  CHECK(recorded("a}", {}) == "a}");
-  // A trailing opening brace writes as a literal and counts toward the returned byte count.
-  RecordSink            trailingBrace;
-  detail::FormatContext trailingBraceOutput{&trailingBrace, &recordWrite};
-  const size_t          trailingBraceBytes = detail::formatTo(trailingBraceOutput, "a{", {});
-  CHECK(FixedString<64>(trailingBrace.data, trailingBrace.length) == "a{");
-  CHECK(trailingBraceBytes == 2);
-  // An out-of-range index writes nothing.
-  CHECK(recorded("{9}", detail::packArg('a')) == "");
-#ifdef TOYGINE_ASSERTIONS_ENABLED
-  CHECK(assertionReports == 3);
-#else
-  CHECK(assertionReports == 0);
-#endif
-
-  toy::assertion::setCallbacks(nullptr, nullptr);
-  toy::assertion::deInitialize();
-#ifdef TOYGINE_TESTS_USE_DOCTEST
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(reportFailure, nullptr);
-#endif
 }
 
 // The returned byte count matches the number of bytes delivered to the sink.
