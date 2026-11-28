@@ -41,16 +41,21 @@ struct Truthy {
   }
 };
 
+// An enumeration whose underlying type packs, so packing it directly would be a silent conversion.
+enum class Level : int {
+  low,
+};
+
 } // namespace
 
-// The probe must fail for every type the two packers do not serve.
+// The probe must fail for every type the packers do not serve.
 template <typename T>
 concept CanPackArg = requires(T value) { detail::packArg(value); };
 
 // One packed argument stays small and trivially copyable, so a pack of arguments stays cheap to build and pass.
 TEST_CASE("detail/format_arg/size/trivially_copyable") {
-  static_assert(sizeof(detail::FormatArg) <= 8 && std::is_trivially_copyable_v<detail::FormatArg>,
-                "detail::FormatArg must stay a trivial value of at most eight bytes");
+  static_assert(sizeof(detail::FormatArg) <= 16 && std::is_trivially_copyable_v<detail::FormatArg>,
+                "detail::FormatArg must stay a trivial value of at most sixteen bytes");
 }
 
 // Runtime and constant-evaluated packing produce the same tagged slots, payloads included.
@@ -70,11 +75,58 @@ TEST_CASE("detail/format_arg/packing/scalar_slots") {
                 "a false value packs unchanged");
 }
 
-// Every type outside char and bool fails the pack at the concept.
+// Integers pack to the slot of their own width, tag and payload included; constexpr and runtime agree.
+TEST_CASE("detail/format_arg/packing/integer_slots") {
+  CHECK(detail::packArg(int8_t{-1}).type == detail::FormatArgType::int8Value);
+  CHECK(detail::packArg(int8_t{-1}).int8 == int8_t{-1});
+  CHECK(detail::packArg(int16_t{300}).type == detail::FormatArgType::int16Value);
+  CHECK(detail::packArg(int16_t{300}).int16 == int16_t{300});
+  CHECK(detail::packArg(int32_t{70'000}).type == detail::FormatArgType::int32Value);
+  CHECK(detail::packArg(int32_t{70'000}).int32 == int32_t{70'000});
+  CHECK(detail::packArg(int64_t{1}).type == detail::FormatArgType::int64Value);
+  CHECK(detail::packArg(int64_t{1}).int64 == int64_t{1});
+  CHECK(detail::packArg(uint8_t{200}).type == detail::FormatArgType::uint8Value);
+  CHECK(detail::packArg(uint8_t{200}).uint8 == uint8_t{200});
+  CHECK(detail::packArg(uint16_t{40'000}).type == detail::FormatArgType::uint16Value);
+  CHECK(detail::packArg(uint16_t{40'000}).uint16 == uint16_t{40'000});
+  CHECK(detail::packArg(uint32_t{3'000'000'000U}).type == detail::FormatArgType::uint32Value);
+  CHECK(detail::packArg(uint32_t{3'000'000'000U}).uint32 == uint32_t{3'000'000'000U});
+  CHECK(detail::packArg(uint64_t{1}).type == detail::FormatArgType::uint64Value);
+  CHECK(detail::packArg(uint64_t{1}).uint64 == uint64_t{1});
+
+  static_assert(detail::packArg(int8_t{-1}).type == detail::FormatArgType::int8Value
+                  && detail::packArg(int8_t{-1}).int8 == int8_t{-1},
+                "int8_t keeps its own slot");
+  static_assert(detail::packArg(int16_t{300}).type == detail::FormatArgType::int16Value
+                  && detail::packArg(int16_t{300}).int16 == int16_t{300},
+                "int16_t keeps its own slot");
+  static_assert(detail::packArg(int32_t{70'000}).type == detail::FormatArgType::int32Value
+                  && detail::packArg(int32_t{70'000}).int32 == int32_t{70'000},
+                "int32_t keeps its own slot");
+  static_assert(detail::packArg(int64_t{1}).type == detail::FormatArgType::int64Value
+                  && detail::packArg(int64_t{1}).int64 == int64_t{1},
+                "int64_t keeps its own slot");
+  static_assert(detail::packArg(uint8_t{200}).type == detail::FormatArgType::uint8Value
+                  && detail::packArg(uint8_t{200}).uint8 == uint8_t{200},
+                "uint8_t keeps its own slot");
+  static_assert(detail::packArg(uint16_t{40'000}).type == detail::FormatArgType::uint16Value
+                  && detail::packArg(uint16_t{40'000}).uint16 == uint16_t{40'000},
+                "uint16_t keeps its own slot");
+  static_assert(detail::packArg(uint32_t{3'000'000'000U}).type == detail::FormatArgType::uint32Value
+                  && detail::packArg(uint32_t{3'000'000'000U}).uint32 == uint32_t{3'000'000'000U},
+                "uint32_t keeps its own slot");
+  static_assert(detail::packArg(uint64_t{1}).type == detail::FormatArgType::uint64Value
+                  && detail::packArg(uint64_t{1}).uint64 == uint64_t{1},
+                "uint64_t keeps its own slot");
+  static_assert(CanPackArg<int>, "an int packs to the slot of its own width");
+}
+
+// Every type outside the pack surface fails to pack.
 TEST_CASE("detail/format_arg/packing/negative_probes") {
   static_assert(!CanPackArg<Unpackable>, "a type no packer serves must fail the concept");
-  static_assert(!CanPackArg<int>, "integers pack nowhere");
+  static_assert(!CanPackArg<float>, "floating-point values pack nowhere");
   static_assert(!CanPackArg<double>, "floating-point values pack nowhere");
+  static_assert(!CanPackArg<Level>, "an enumeration packs through std::to_underlying at the call site");
   static_assert(!CanPackArg<const char *>, "a pointer must not pack as its implicit bool");
   static_assert(!CanPackArg<std::nullptr_t>, "a null pointer constant must not pack as false");
   static_assert(!CanPackArg<int Unpackable::*>, "a pointer to member data must not pack as its implicit bool");

@@ -29,9 +29,12 @@
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_TO_HPP_
 #define INCLUDE_CORE_DETAIL_FORMAT_TO_HPP_
 
+#include <limits>
+
 #include "core/detail/format_arg.hpp"
 #include "core/detail/format_context.hpp"
 #include "core/detail/format_pattern.hpp"
+#include "core/detail/string_utils.hpp"
 
 namespace toy::detail {
 
@@ -60,6 +63,34 @@ template <typename SinkT>
 */
 template <typename SinkT>
 [[nodiscard]] constexpr size_t formatCharTo(SinkT & sink, char character) noexcept;
+
+/*!
+  \brief Writes a signed integer as decimal digits through \a sink, negatives with a minus sign.
+
+  \tparam SinkT Sink type the helper writes through.
+  \tparam T     Signed integer type the value renders on.
+
+  \param sink  Sink the digits go to.
+  \param value Integer to write.
+
+  \return Count of bytes handed to \a sink.
+*/
+template <typename SinkT, std::signed_integral T>
+[[nodiscard]] constexpr size_t formatIntTo(SinkT & sink, T value) noexcept;
+
+/*!
+  \brief Writes an unsigned integer as decimal digits through \a sink.
+
+  \tparam SinkT Sink type the helper writes through.
+  \tparam T     Unsigned integer type the value renders on.
+
+  \param sink  Sink the digits go to.
+  \param value Integer to write.
+
+  \return Count of bytes handed to \a sink.
+*/
+template <typename SinkT, std::unsigned_integral T>
+[[nodiscard]] constexpr size_t formatUIntTo(SinkT & sink, T value) noexcept;
 
 /*!
   \brief Writes one packed argument through the formatter its tag selects.

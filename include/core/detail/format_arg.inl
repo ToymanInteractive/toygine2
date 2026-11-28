@@ -35,6 +35,38 @@ constexpr FormatArg packArg(bool value) noexcept {
   return FormatArg{.type = FormatArgType::boolValue, .boolean = value};
 }
 
+constexpr FormatArg packArg(int8_t value) noexcept {
+  return FormatArg{.type = FormatArgType::int8Value, .int8 = value};
+}
+
+constexpr FormatArg packArg(int16_t value) noexcept {
+  return FormatArg{.type = FormatArgType::int16Value, .int16 = value};
+}
+
+constexpr FormatArg packArg(int32_t value) noexcept {
+  return FormatArg{.type = FormatArgType::int32Value, .int32 = value};
+}
+
+constexpr FormatArg packArg(int64_t value) noexcept {
+  return FormatArg{.type = FormatArgType::int64Value, .int64 = value};
+}
+
+constexpr FormatArg packArg(uint8_t value) noexcept {
+  return FormatArg{.type = FormatArgType::uint8Value, .uint8 = value};
+}
+
+constexpr FormatArg packArg(uint16_t value) noexcept {
+  return FormatArg{.type = FormatArgType::uint16Value, .uint16 = value};
+}
+
+constexpr FormatArg packArg(uint32_t value) noexcept {
+  return FormatArg{.type = FormatArgType::uint32Value, .uint32 = value};
+}
+
+constexpr FormatArg packArg(uint64_t value) noexcept {
+  return FormatArg{.type = FormatArgType::uint64Value, .uint64 = value};
+}
+
 } // namespace toy::detail
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_ARG_INL_

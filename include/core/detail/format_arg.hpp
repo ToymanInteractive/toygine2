@@ -22,8 +22,8 @@
   \brief  Type-erased format arguments and the packers that build them.
 
   Defines \ref toy::detail::FormatArg, one tagged value per packable argument, and the toy::detail::packArg() overloads
-  that pack a character or a truth value into it. Used by any caller that assembles an argument pack for a later format
-  walk by hand.
+  that pack a character, a truth value, or an integer into it. Used by any caller that assembles an argument pack for a
+  later format walk by hand.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_ARG_HPP_
@@ -40,16 +40,18 @@ namespace toy::detail {
   The toy::detail::packArg() overloads build the value at the call site; the tag names the union member that holds it.
   The packers reduce argument types to tags as follows:
 
-  | Argument type | Tag                                        | Rule           |
-  |---------------|--------------------------------------------|----------------|
-  | \c char       | \ref toy::detail::FormatArgType::charValue | exact overload |
-  | \c bool       | \ref toy::detail::FormatArgType::boolValue | exact overload |
+  | Argument type               | Tag                                         | Rule                                  |
+  |-----------------------------|---------------------------------------------|---------------------------------------|
+  | \c char                     | \ref toy::detail::FormatArgType::charValue  | exact overload                        |
+  | \c bool                     | \ref toy::detail::FormatArgType::boolValue  | exact overload                        |
+  | \c int8_t through int64_t   |  \ref toy::detail::FormatArgType::int8Value | exact overload, value keeps its width |
+  | \c uint8_t through uint64_t | \ref toy::detail::FormatArgType::uint8Value | exact overload, value keeps its width |
 
   \section format_arg_features Key Features
 
   * **Tagged value**: one \ref toy::detail::FormatArgType selects the union member that holds the value.
   * **Trivially copyable**: a tag and a plain scalar, so a pack copies by \c memcpy and rides the stack.
-  * **Fixed footprint**: two bytes, the tag and the widest union member.
+  * **Fixed footprint**: the tag plus the widest union member; sixteen bytes on a 64-bit target.
   * **Constexpr support**: packing a value evaluates in a constant expression.
 
   \section format_arg_usage Usage Example
@@ -65,7 +67,7 @@ namespace toy::detail {
   \section format_arg_performance Performance Characteristics
 
   * **Construction**: one tag store plus one scalar store, constant time.
-  * **Memory usage**: two bytes for the whole value.
+  * **Memory usage**: sixteen bytes on a 64-bit target, twelve on a 32-bit one.
 
   \section format_arg_safety Safety Guarantees
 
@@ -80,11 +82,35 @@ struct FormatArg {
 
   /// The value the tag names; every other member is inactive.
   union {
-    /// A single byte, packed from \c char.
+    /// A single byte.
     char character;
 
-    /// A truth value, packed from \c bool.
+    /// A truth value.
     bool boolean;
+
+    /// An 8-bit signed integer.
+    int8_t int8;
+
+    /// A 16-bit signed integer.
+    int16_t int16;
+
+    /// A 32-bit signed integer.
+    int32_t int32;
+
+    /// A 64-bit signed integer.
+    int64_t int64;
+
+    /// An 8-bit unsigned integer.
+    uint8_t uint8;
+
+    /// A 16-bit unsigned integer.
+    uint16_t uint16;
+
+    /// A 32-bit unsigned integer.
+    uint32_t uint32;
+
+    /// A 64-bit unsigned integer.
+    uint64_t uint64;
   };
 };
 
@@ -107,16 +133,88 @@ constexpr FormatArg packArg(char value) noexcept;
 constexpr FormatArg packArg(bool value) noexcept;
 
 /*!
-  \brief Deleted: any other argument type, so an implicit conversion to \c bool cannot select the boolean packer.
+  \brief Packs an 8-bit signed integer to its own slot.
 
-  A pointer, a pointer to member, a null pointer constant, or a class with such a conversion would otherwise pack as a
-  truth value.
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::int8Value.
+*/
+constexpr FormatArg packArg(int8_t value) noexcept;
+
+/*!
+  \brief Packs a 16-bit signed integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::int16Value.
+*/
+constexpr FormatArg packArg(int16_t value) noexcept;
+
+/*!
+  \brief Packs a 32-bit signed integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::int32Value.
+*/
+constexpr FormatArg packArg(int32_t value) noexcept;
+
+/*!
+  \brief Packs a 64-bit signed integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::int64Value.
+*/
+constexpr FormatArg packArg(int64_t value) noexcept;
+
+/*!
+  \brief Packs an 8-bit unsigned integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::uint8Value.
+*/
+constexpr FormatArg packArg(uint8_t value) noexcept;
+
+/*!
+  \brief Packs a 16-bit unsigned integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::uint16Value.
+*/
+constexpr FormatArg packArg(uint16_t value) noexcept;
+
+/*!
+  \brief Packs a 32-bit unsigned integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::uint32Value.
+*/
+constexpr FormatArg packArg(uint32_t value) noexcept;
+
+/*!
+  \brief Packs a 64-bit unsigned integer to its own slot.
+
+  \param value Integer to pack.
+
+  \return The argument tagged \ref toy::detail::FormatArgType::uint64Value.
+*/
+constexpr FormatArg packArg(uint64_t value) noexcept;
+
+/*!
+  \brief Deleted: any argument type the packers do not serve.
+
+  A pointer, a pointer to member, a null pointer constant, a floating-point type, or a class converting to \c bool
+  stops at the call site; the packed types are unaffected.
 
   \tparam T Type of the rejected argument.
 
   \param value Argument the pack rejects.
 
-  \warning Calling this overload is a compile error; only \c char and \c bool have a pack.
+  \warning Calling this overload is a compile error; only the packed types pack.
 */
 template <typename T>
 constexpr FormatArg packArg(T value) noexcept = delete;

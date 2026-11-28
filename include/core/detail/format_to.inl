@@ -43,6 +43,28 @@ template <typename SinkT>
   return 1;
 }
 
+template <typename SinkT, std::signed_integral T>
+[[nodiscard]] constexpr size_t formatIntTo(SinkT & sink, T value) noexcept {
+  char         buffer[std::numeric_limits<T>::digits10 + 3]; // The sign, the widest magnitude, and the terminator.
+  char * const first = itoa(span<char>{buffer}, value);
+  const auto   count = static_cast<size_t>(buffer + sizeof(buffer) - 1 - first);
+
+  sink.write(span<const char>{first, count});
+
+  return count;
+}
+
+template <typename SinkT, std::unsigned_integral T>
+[[nodiscard]] constexpr size_t formatUIntTo(SinkT & sink, T value) noexcept {
+  char         buffer[std::numeric_limits<T>::digits10 + 2]; // The widest magnitude and the terminator.
+  char * const first = utoa(span<char>{buffer}, value);
+  const auto   count = static_cast<size_t>(buffer + sizeof(buffer) - 1 - first);
+
+  sink.write(span<const char>{first, count});
+
+  return count;
+}
+
 template <typename SinkT>
 [[nodiscard]] constexpr size_t dispatchArgument(SinkT & sink, const FormatArg & arg) noexcept {
   switch (arg.type) {
@@ -50,6 +72,22 @@ template <typename SinkT>
       return formatCharTo(sink, arg.character);
     case FormatArgType::boolValue:
       return formatBoolTo(sink, arg.boolean);
+    case FormatArgType::int8Value:
+      return formatIntTo(sink, arg.int8);
+    case FormatArgType::int16Value:
+      return formatIntTo(sink, arg.int16);
+    case FormatArgType::int32Value:
+      return formatIntTo(sink, arg.int32);
+    case FormatArgType::int64Value:
+      return formatIntTo(sink, arg.int64);
+    case FormatArgType::uint8Value:
+      return formatUIntTo(sink, arg.uint8);
+    case FormatArgType::uint16Value:
+      return formatUIntTo(sink, arg.uint16);
+    case FormatArgType::uint32Value:
+      return formatUIntTo(sink, arg.uint32);
+    case FormatArgType::uint64Value:
+      return formatUIntTo(sink, arg.uint64);
     case FormatArgType::none:
       break;
   }

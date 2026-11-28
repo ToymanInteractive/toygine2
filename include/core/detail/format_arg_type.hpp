@@ -34,14 +34,23 @@ namespace toy::detail {
   \enum  FormatArgType
   \brief The union member of \ref toy::detail::FormatArg that holds the packed value.
 
-  The packer selects the tag from the argument type alone; every other member stays inactive.
+  The packer selects the tag from the argument type alone; every other member stays inactive. An integer argument
+  packs to the slot of its own width, so the exact type the caller passed stays visible in the pack.
 
   \sa \ref toy::detail::FormatArg
 */
 enum class FormatArgType : uint8_t {
-  none,      ///< The value carries nothing; the default state of an unpacked argument.
-  charValue, ///< The \c character member holds a single byte.
-  boolValue, ///< The \c boolean member holds a truth value.
+  none,        ///< The value carries nothing; the default state of an unpacked argument.
+  charValue,   ///< The \c character member holds a single byte.
+  boolValue,   ///< The \c boolean member holds a truth value.
+  int8Value,   ///< The \c int8 member holds an 8-bit signed integer.
+  int16Value,  ///< The \c int16 member holds a 16-bit signed integer.
+  int32Value,  ///< The \c int32 member holds a 32-bit signed integer.
+  int64Value,  ///< The \c int64 member holds a 64-bit signed integer.
+  uint8Value,  ///< The \c uint8 member holds an 8-bit unsigned integer.
+  uint16Value, ///< The \c uint16 member holds a 16-bit unsigned integer.
+  uint32Value, ///< The \c uint32 member holds a 32-bit unsigned integer.
+  uint64Value, ///< The \c uint64 member holds a 64-bit unsigned integer.
 };
 
 } // namespace toy::detail
