@@ -22,6 +22,8 @@
   \brief  Unit tests for toy::format() and toy::vformat().
 */
 
+#include <cstdint>
+
 #include "core.hpp"
 #include "toy_test.hpp"
 
@@ -67,6 +69,28 @@ TEST_CASE("format/escaped_braces") {
 
   static_assert(format<8>("a{{b}}c") == "a{b}c", "doubled braces collapse to single braces");
   static_assert(vformat<8>(StringView{"a{{b}}c"}) == "a{b}c", "constexpr vformat collapses doubled braces");
+}
+
+// Integers render in decimal, negatives with a sign; constexpr and runtime agree.
+TEST_CASE("format/integer_arguments") {
+  CHECK(format<16>("x={}", 42) == "x=42");
+  CHECK(vformat<16>(StringView{"x={}"}, 42) == "x=42");
+  CHECK(format<24>("{}-{}", int8_t{-5}, uint16_t{200}) == "-5-200");
+
+  static_assert(format<16>("x={}", 42) == "x=42", "constexpr format renders the integer argument");
+  static_assert(format<24>("{}-{}", int8_t{-5}, uint16_t{200}) == "-5-200", "negative integers render with a sign");
+}
+
+// Every width renders its boundaries exactly, INT64_MIN included.
+TEST_CASE("format/integer_boundaries") {
+  CHECK(format<24>("{}", int8_t{-128}) == "-128");
+  CHECK(format<24>("{}", int32_t{-2147483647 - 1}) == "-2147483648");
+  CHECK(format<24>("{}", int64_t{-9223372036854775807LL - 1}) == "-9223372036854775808");
+  CHECK(format<24>("{}", uint64_t{18446744073709551615ULL}) == "18446744073709551615");
+  CHECK(format<8>("{}", 0) == "0");
+
+  static_assert(format<24>("{}", int64_t{-9223372036854775807LL - 1}) == "-9223372036854775808",
+                "INT64_MIN renders exactly");
 }
 
 } // namespace toy
