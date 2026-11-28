@@ -24,8 +24,6 @@
   Defines \ref toy::detail::FormatString, a view over a pattern whose placeholders are checked when the pattern is
   built, so a broken one fails the build instead of the first formatted call. Used wherever a formatter receives a
   pattern from a call site.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_STRING_HPP_
@@ -33,6 +31,7 @@
 
 #include "core/string_like.hpp"
 #include "core/string_view.hpp"
+#include "format_pattern.hpp"
 
 namespace toy::detail {
 
@@ -159,5 +158,7 @@ private:
 };
 
 } // namespace toy::detail
+
+#include "format_string.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_STRING_HPP_

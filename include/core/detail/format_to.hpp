@@ -24,8 +24,6 @@
   Defines toy::detail::formatTo(), which walks a pattern and writes its arguments through a
   \ref toy::detail::FormatContext. Also defines toy::detail::formatChar(), toy::detail::formatBool(), and sink-based
   variants for reuse by callers and the format entry points.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_TO_HPP_
@@ -136,5 +134,7 @@ constexpr void formatBool(FormatContext sink, bool value) noexcept;
 constexpr size_t formatTo(FormatContext sink, StringView pattern, span<const FormatArg> args) noexcept;
 
 } // namespace toy::detail
+
+#include "format_to.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_TO_HPP_

@@ -20,8 +20,6 @@
 /*!
   \file   format_string.inl
   \brief  Inline implementations for \ref toy::detail::FormatString constructors and get().
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_STRING_INL_

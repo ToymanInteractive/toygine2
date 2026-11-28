@@ -20,8 +20,6 @@
 /*!
   \file   format_pattern.inl
   \brief  Inline implementations for the toy::detail pattern grammar helpers and validateFormatPattern() overloads.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_PATTERN_INL_

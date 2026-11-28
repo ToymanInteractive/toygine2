@@ -24,8 +24,6 @@
   Defines \ref toy::detail::FormatArg, one tagged value per packable argument, and the toy::detail::packArg() overloads
   that pack a character or a truth value into it. Used by any caller that assembles an argument pack for a later format
   walk by hand.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_ARG_HPP_
@@ -124,5 +122,7 @@ template <typename T>
 constexpr FormatArg packArg(T value) noexcept = delete;
 
 } // namespace toy::detail
+
+#include "format_arg.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_ARG_HPP_

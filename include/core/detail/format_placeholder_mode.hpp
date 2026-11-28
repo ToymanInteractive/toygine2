@@ -23,8 +23,6 @@
 
   Defines \ref toy::detail::PlaceholderMode, the tag the pattern grammar helpers set as they read a pattern. Internal to
   the format implementation.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_PLACEHOLDER_MODE_HPP_

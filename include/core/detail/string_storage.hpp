@@ -23,8 +23,6 @@
 
   Defines \ref toy::detail::StringStorage, the requirement a buffer meets to back a string. Constrains a string over its
   storage, so one string works over a fixed-size buffer and over one that owns heap memory.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_STRING_STORAGE_HPP_

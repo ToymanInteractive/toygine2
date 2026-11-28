@@ -24,8 +24,6 @@
   Defines the grammar helpers that read escapes and placeholders, and toy::detail::validateFormatPattern(), which
   matches a pattern against an argument count. Used by the consteval constructor of \ref toy::detail::FormatString and
   by any caller that wants the same verdict at runtime.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_PATTERN_HPP_
@@ -156,5 +154,7 @@ template <StringLike StringType>
                                                                            size_t             argCount) noexcept;
 
 } // namespace toy::detail
+
+#include "format_pattern.inl"
 
 #endif // INCLUDE_CORE_DETAIL_FORMAT_PATTERN_HPP_

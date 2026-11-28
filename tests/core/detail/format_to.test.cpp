@@ -159,6 +159,14 @@ TEST_CASE("format_to/dispatch/char_and_bool") {
   static_assert(written("{}", detail::packArg('x')) == 1, "a character renders itself");
 }
 
+// An argument with no packed value writes nothing and returns a zero byte count.
+TEST_CASE("format_to/dispatch/none") {
+  CHECK(recorded("{}", detail::FormatArg{}) == "");
+  CHECK(written("{}", detail::FormatArg{}) == 0);
+
+  static_assert(written("{}", detail::FormatArg{}) == 0, "an argument without a packed value writes nothing");
+}
+
 // Assertions report invalid patterns; stray braces stay literal and invalid placeholders write nothing.
 TEST_CASE("format_to/walk/invalid_patterns") {
   assertionReports = 0;

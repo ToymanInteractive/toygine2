@@ -20,8 +20,6 @@
 /*!
   \file   string_utils.inl
   \brief  Inline implementations for the \ref toy::detail search and integer formatting functions.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_STRING_UTILS_INL_

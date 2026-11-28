@@ -20,8 +20,6 @@
 /*!
   \file   format_to.inl
   \brief  Inline implementations for toy::detail::formatTo() and its formatters.
-
-  \note Included by core.hpp only; do not include this file directly.
 */
 
 #ifndef INCLUDE_CORE_DETAIL_FORMAT_TO_INL_
