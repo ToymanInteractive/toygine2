@@ -431,7 +431,7 @@ jobs:
         run: |
           cmake --preset linux-debug
 
-      - uses: SonarSource/sonarqube-scan-action@v8.5.0
+      - uses: SonarSource/sonarqube-scan-action@v8.5.1
         with:
           args: >-
             -Dsonar.cfamily.compile-commands=out/build/linux-debug/compile_commands.json
