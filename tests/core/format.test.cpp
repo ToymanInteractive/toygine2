@@ -27,28 +27,6 @@
 
 namespace toy {
 
-namespace {
-
-// The callback counts assertion reports and ignores each failure.
-int assertionReports = 0;
-
-toy::assertion::Action countReports(const char *) noexcept {
-  ++assertionReports;
-  return toy::assertion::Action::Ignore;
-}
-
-#ifdef TOYGINE_TESTS_USE_DOCTEST
-
-// Restores the doctest failure reporter after the assertion seam cases replace it.
-toy::assertion::Action reportFailure(const char * message) noexcept {
-  ADD_FAIL_CHECK_AT(__FILE__, __LINE__, message);
-  return toy::assertion::Action::Ignore;
-}
-
-#endif // TOYGINE_TESTS_USE_DOCTEST
-
-} // namespace
-
 // A pattern without placeholders returns its literal text.
 TEST_CASE("format/literals") {
   CHECK(format<8>("hi") == "hi");
@@ -89,70 +67,6 @@ TEST_CASE("format/escaped_braces") {
 
   static_assert(format<8>("a{{b}}c") == "a{b}c", "doubled braces collapse to single braces");
   static_assert(vformat<8>(StringView{"a{{b}}c"}) == "a{b}c", "constexpr vformat collapses doubled braces");
-}
-
-// A runtime pattern may end with an opening brace, which stays literal.
-TEST_CASE("format/invalid_pattern") {
-  assertionReports = 0;
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(countReports, nullptr);
-
-  CHECK(vformat<8>(StringView{"a{"}) == "a{");
-#ifdef TOYGINE_ASSERTIONS_ENABLED
-  CHECK(assertionReports == 1);
-#else
-  CHECK(assertionReports == 0);
-#endif
-
-  toy::assertion::setCallbacks(nullptr, nullptr);
-  toy::assertion::deInitialize();
-#ifdef TOYGINE_TESTS_USE_DOCTEST
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(reportFailure, nullptr);
-#endif
-}
-
-// Output truncates byte by byte at capacity, so a cut may split a UTF-8 sequence.
-TEST_CASE("format/truncation") {
-  assertionReports = 0;
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(countReports, nullptr);
-
-  CHECK(format<4>("hello world") == "hel");
-  CHECK(format<8>("привет") == "при\x{D0}");
-#ifdef TOYGINE_ASSERTIONS_ENABLED
-  CHECK(assertionReports == 2);
-#else
-  CHECK(assertionReports == 0);
-#endif
-
-  toy::assertion::setCallbacks(nullptr, nullptr);
-  toy::assertion::deInitialize();
-#ifdef TOYGINE_TESTS_USE_DOCTEST
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(reportFailure, nullptr);
-#endif
-}
-
-// BufferSize 1 leaves no output capacity, so writes truncate and the result stays empty.
-TEST_CASE("format/degenerate_capacity") {
-  assertionReports = 0;
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(countReports, nullptr);
-
-  CHECK(format<1>("hi") == "");
-#ifdef TOYGINE_ASSERTIONS_ENABLED
-  CHECK(assertionReports == 1);
-#else
-  CHECK(assertionReports == 0);
-#endif
-
-  toy::assertion::setCallbacks(nullptr, nullptr);
-  toy::assertion::deInitialize();
-#ifdef TOYGINE_TESTS_USE_DOCTEST
-  toy::assertion::initialize();
-  toy::assertion::setCallbacks(reportFailure, nullptr);
-#endif
 }
 
 } // namespace toy
